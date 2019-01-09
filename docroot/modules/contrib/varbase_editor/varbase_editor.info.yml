@@ -1,0 +1,21 @@
+name: 'Varbase Editor'
+description: 'Editor profile and settings to be used in most websites.'
+type: module
+package: Varbase
+version: 8.x-5.x-dev
+core: 8.x
+project: varbase_editor
+dependencies:
+  - varbase_core:varbase_core
+  - drupal:editor
+  - drupal:ckeditor
+  - drupal:filter
+  - ace_editor:ace_editor
+  - anchor_link:anchor_link
+  - ckeditor_bidi:ckeditor_bidi
+  - ckeditor_media_embed:ckeditor_media_embed
+  - entity_embed:entity_embed
+  - image_resize_filter:image_resize_filter
+  - linkit:linkit
+  - pathologic:pathologic
+  - video_embed_field:video_embed_wysiwyg

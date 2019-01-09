@@ -1,0 +1,16 @@
+#block-printfriendly {
+  display: none;
+}
+.view-content {
+  display: block;
+}
+.fibonacci-aside .field-label-above {
+  display: none;
+}
+#views-exposed-form-programs-block-2,
+.tabs {
+  display: none;
+}
+#pf-body #pf-header-img {
+  max-height: 125px;
+}
