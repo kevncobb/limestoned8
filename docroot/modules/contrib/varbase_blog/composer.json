@@ -27,13 +27,14 @@
     }
   },
   "require": {
-    "composer/installers": "^1.5.0",
-    "oomphinc/composer-installers-extender": "^1.1.2",
-    "cweagans/composer-patches": "^1.6.4",
+    "composer/installers": "~1.0",
+    "oomphinc/composer-installers-extender": "~1.0",
+    "cweagans/composer-patches": "~1.0",
     "drupal/drupal-library-installer-plugin": "^0.3",
-    "drupal/varbase_media": "6.*",
-    "drupal/varbase_seo": "6.*",
-    "drupal/taxonomy_menu": "3.x-dev#1103ad0855de4d242364a5b7e74a5c5fc1ce9e02"
+    "drupal/varbase_core": "~6.0",
+    "drupal/varbase_media": "~6.0",
+    "drupal/varbase_seo": "~6.0",
+    "drupal/taxonomy_menu": "3.4"
   },
   "extra": {
     "branch-alias": {
@@ -48,7 +49,7 @@
     "patches": {
       "drupal/taxonomy_menu": {
         "Issue #2939143: Fixed Undefined method TaxonomyMenu::generateTaxonomyLinks()":
-        "https://www.drupal.org/files/issues/2939143-2.patch"
+        "https://www.drupal.org/files/issues/2018-12-23/2939143-10.patch"
       }
     }
   }
