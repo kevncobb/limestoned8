@@ -7,10 +7,12 @@ use Drupal\Core\Ajax\AjaxResponse;
 use Drupal\Core\Ajax\HtmlCommand;
 use Drupal\Core\Ajax\ReplaceCommand;
 use Drupal\Core\Config\Entity\ConfigEntityStorageInterface;
+use Drupal\Core\Datetime\DateFormatterInterface;
 use Drupal\Core\Entity\EntityForm;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Form\FormState;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Render\RendererInterface;
 use Drupal\feeds\Ajax\SetHashCommand;
 use Drupal\feeds\Plugin\PluginFormFactory;
 use Drupal\feeds\Plugin\Type\FeedsPluginInterface;
@@ -37,16 +39,36 @@ class FeedTypeForm extends EntityForm {
   protected $formFactory;
 
   /**
+   * Provides a service to handle various date related functionality.
+   *
+   * @var \Drupal\Core\Datetime\DateFormatterInterface
+   */
+  protected $dateFormatter;
+
+  /**
+   * Turns a render array into a HTML string.
+   *
+   * @var \Drupal\Core\Render\RendererInterface
+   */
+  protected $renderer;
+
+  /**
    * Constructs a new FeedTypeForm object.
    *
    * @param \Drupal\Core\Config\Entity\ConfigEntityStorageInterface $feed_type_storage
    *   The feed type storage controller.
    * @param \Drupal\feeds\Plugin\PluginFormFactory $factory
    *   The form factory.
+   * @param \Drupal\Core\Datetime\DateFormatterInterface $date_formatter
+   *   The services of date.
+   * @param \Drupal\Core\Render\RendererInterface $renderer
+   *   The render object.
    */
-  public function __construct(ConfigEntityStorageInterface $feed_type_storage, PluginFormFactory $factory) {
+  public function __construct(ConfigEntityStorageInterface $feed_type_storage, PluginFormFactory $factory, DateFormatterInterface $date_formatter, RendererInterface $renderer) {
     $this->feedTypeStorage = $feed_type_storage;
     $this->formFactory = $factory;
+    $this->dateFormatter = $date_formatter;
+    $this->renderer = $renderer;
   }
 
   /**
@@ -55,7 +77,9 @@ class FeedTypeForm extends EntityForm {
   public static function create(ContainerInterface $container) {
     return new static(
       $container->get('entity_type.manager')->getStorage('feeds_feed_type'),
-      $container->get('feeds_plugin_form_factory')
+      $container->get('feeds_plugin_form_factory'),
+      $container->get('date.formatter'),
+      $container->get('renderer')
     );
   }
 
@@ -133,7 +157,7 @@ class FeedTypeForm extends EntityForm {
     ];
 
     $period = array_map(function ($time) {
-      return \Drupal::service('date.formatter')->formatInterval($time);
+      return $this->dateFormatter->formatInterval($time);
     }, array_combine($times, $times));
 
     foreach ($period as &$p) {
@@ -327,7 +351,6 @@ class FeedTypeForm extends EntityForm {
    * Sends an ajax response.
    */
   public function ajaxCallback(array $form, FormStateInterface $form_state) {
-    $renderer = \Drupal::service('renderer');
     $type = $form_state->getTriggeringElement()['#plugin_type'];
 
     $response = new AjaxResponse();
@@ -339,8 +362,8 @@ class FeedTypeForm extends EntityForm {
     }
 
     // Update the forms.
-    $plugin_settings = $renderer->renderRoot($form['plugin_settings']);
-    $advanced_settings = $renderer->renderRoot($form[$type . '_wrapper']['advanced']);
+    $plugin_settings = $this->renderer->renderRoot($form['plugin_settings']);
+    $advanced_settings = $this->renderer->renderRoot($form[$type . '_wrapper']['advanced']);
     $response->addCommand(new ReplaceCommand('#feeds-ajax-form-wrapper', $plugin_settings));
     $response->addCommand(new ReplaceCommand('#feeds-plugin-' . $type . '-advanced', $advanced_settings));
 
@@ -350,7 +373,7 @@ class FeedTypeForm extends EntityForm {
 
     // Display status messages.
     $status_messages = ['#type' => 'status_messages'];
-    $output = $renderer->renderRoot($status_messages);
+    $output = $this->renderer->renderRoot($status_messages);
     if (!empty($output)) {
       $response->addCommand(new HtmlCommand('.region-messages', $output));
     }

@@ -8,7 +8,7 @@ use Drupal\feeds\Feeds\Target\Timestamp;
  * @coversDefaultClass \Drupal\feeds\Feeds\Target\Timestamp
  * @group feeds
  */
-class TimestampTest extends FieldTargetTestBase {
+class TimestampTest extends FieldTargetWithContainerTestBase {
 
   /**
    * {@inheritdoc}
@@ -21,7 +21,7 @@ class TimestampTest extends FieldTargetTestBase {
    * @covers ::prepareValue
    */
   public function testPrepareValue() {
-    $method = $this->getMethod('Drupal\feeds\Feeds\Target\Timestamp', 'prepareTarget')->getClosure();
+    $method = $this->getMethod(Timestamp::class, 'prepareTarget')->getClosure();
     $target_definition = $method($this->getMockFieldDefinition());
 
     $configuration = [
@@ -39,7 +39,7 @@ class TimestampTest extends FieldTargetTestBase {
     // Test year value.
     $values = ['value' => 2000];
     $method(0, $values);
-    $this->assertSame($values['value'], strtotime('January 2000'));
+    $this->assertSame($values['value'], strtotime('2000-01-01T00:00:00Z'));
 
     // Test invalid value.
     $values = ['value' => 'abc'];

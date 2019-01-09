@@ -6,8 +6,8 @@ use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Queue\QueueFactory;
 use Drupal\Core\Queue\QueueWorkerBase;
+use Drupal\Core\Session\AccountProxy;
 use Drupal\Core\Session\AccountSwitcherInterface;
-use Drupal\Core\Session\UserSession;
 use Drupal\feeds\Event\EventDispatcherTrait;
 use Drupal\feeds\Exception\EmptyFeedException;
 use Drupal\feeds\FeedInterface;
@@ -106,7 +106,9 @@ abstract class FeedQueueWorkerBase extends QueueWorkerBase implements ContainerF
    * @see \Drupal\Core\Session\AccountSwitcherInterface::switchTo()
    */
   protected function switchAccount(FeedInterface $feed) {
-    return $this->accountSwitcher->switchTo(new UserSession(['uid' => $feed->getOwnerId()]));
+    $account = new AccountProxy();
+    $account->setInitialAccountId($feed->getOwnerId());
+    return $this->accountSwitcher->switchTo($account);
   }
 
 }

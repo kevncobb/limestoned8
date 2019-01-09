@@ -2,14 +2,13 @@
 
 namespace Drupal\Tests\feeds\Unit\Feeds\Target;
 
-use Drupal\Core\DependencyInjection\ContainerBuilder;
 use Drupal\feeds\Feeds\Target\DateRange;
 
 /**
  * @coversDefaultClass \Drupal\feeds\Feeds\Target\DateRange
  * @group feeds
  */
-class DateRangeTest extends FieldTargetTestBase {
+class DateRangeTest extends FieldTargetWithContainerTestBase {
 
   /**
    * The mocked feed type entity.
@@ -30,19 +29,6 @@ class DateRangeTest extends FieldTargetTestBase {
    */
   public function setUp() {
     parent::setUp();
-
-    $container = new ContainerBuilder();
-    $language_manager = $this->getMock('Drupal\Core\Language\LanguageManagerInterface');
-    $language = $this->getMock('Drupal\Core\Language\LanguageInterface');
-    $language->expects($this->any())
-      ->method('getId')
-      ->will($this->returnValue('en'));
-    $language_manager->expects($this->any())
-      ->method('getCurrentLanguage')
-      ->will($this->returnValue($language));
-    $container->set('language_manager', $language_manager);
-
-    \Drupal::setContainer($container);
 
     $this->feedType = $this->getMock('Drupal\feeds\FeedTypeInterface');
     $method = $this->getMethod('Drupal\feeds\Feeds\Target\DateRange', 'prepareTarget')->getClosure();

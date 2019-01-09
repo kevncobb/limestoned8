@@ -18,7 +18,7 @@ use Drupal\file\FileUsage\FileUsageInterface;
  *
  * @FeedsFetcher(
  *   id = "upload",
- *   title = @Translation("Upload"),
+ *   title = @Translation("Upload file"),
  *   description = @Translation("Upload content from a local file."),
  *   arguments = {
  *     "@file.usage",

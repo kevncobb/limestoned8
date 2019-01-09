@@ -2,8 +2,9 @@
 
 namespace Drupal\feeds\EventSubscriber;
 
-use Drupal\Core\Url as CoreUrl;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\Core\StringTranslation\StringTranslationTrait;
+use Drupal\Core\Url as CoreUrl;
 use Drupal\feeds\Component\HttpHelpers;
 use Drupal\feeds\Event\DeleteFeedsEvent;
 use Drupal\feeds\Event\FeedsEvents;
@@ -20,6 +21,8 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
  * Event listener for PubSubHubbub subscriptions.
  */
 class PubSubHubbub implements EventSubscriberInterface {
+
+  use StringTranslationTrait;
 
   /**
    * The subscription storage controller.
@@ -124,13 +127,13 @@ class PubSubHubbub implements EventSubscriberInterface {
     $subscription->subscribe();
 
     $batch = [
-      'title' => t('Subscribing to: %title', ['%title' => $feed->label()]),
-      'init_message' => t('Subscribing to: %title', ['%title' => $feed->label()]),
+      'title' => $this->t('Subscribing to: %title', ['%title' => $feed->label()]),
+      'init_message' => $this->t('Subscribing to: %title', ['%title' => $feed->label()]),
       'operations' => [
         ['Drupal\feeds\EventSubscriber\PubSubHubbub::runSubscribeBatch', [$subscription]],
       ],
-      'progress_message' => t('Subscribing: %title', ['%title' => $feed->label()]),
-      'error_message' => t('An error occored while subscribing to %title.', ['%title' => $feed->label()]),
+      'progress_message' => $this->t('Subscribing: %title', ['%title' => $feed->label()]),
+      'error_message' => $this->t('An error occored while subscribing to %title.', ['%title' => $feed->label()]),
     ];
 
     batch_set($batch);
@@ -152,13 +155,13 @@ class PubSubHubbub implements EventSubscriberInterface {
     $subscription->unsubscribe();
 
     $batch = [
-      'title' => t('Unsubscribing from: %title', ['%title' => $feed->label()]),
-      'init_message' => t('Unsubscribing from: %title', ['%title' => $feed->label()]),
+      'title' => $this->t('Unsubscribing from: %title', ['%title' => $feed->label()]),
+      'init_message' => $this->t('Unsubscribing from: %title', ['%title' => $feed->label()]),
       'operations' => [
         ['Drupal\feeds\EventSubscriber\PubSubHubbub::runSubscribeBatch', [$subscription]],
       ],
-      'progress_message' => t('Unsubscribing: %title', ['%title' => $feed->label()]),
-      'error_message' => t('An error occored while unsubscribing from %title.', ['%title' => $feed->label()]),
+      'progress_message' => $this->t('Unsubscribing: %title', ['%title' => $feed->label()]),
+      'error_message' => $this->t('An error occored while unsubscribing from %title.', ['%title' => $feed->label()]),
     ];
 
     batch_set($batch);

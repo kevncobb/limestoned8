@@ -135,7 +135,7 @@ class FeedForm extends ContentEntityForm {
       $element['submit']['#dropbutton'] = 'save';
       $element['import'] = $element['submit'];
       $element['import']['#dropbutton'] = 'save';
-      $element['import']['#value'] = t('Save and import');
+      $element['import']['#value'] = $this->t('Save and import');
       $element['import']['#weight'] = 0;
       $element['import']['#submit'][] = '::import';
     }

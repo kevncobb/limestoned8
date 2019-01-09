@@ -22,7 +22,7 @@ use Symfony\Component\HttpFoundation\Response;
  *
  * @FeedsFetcher(
  *   id = "http",
- *   title = @Translation("Download"),
+ *   title = @Translation("Download from url"),
  *   description = @Translation("Downloads data from a URL using Drupal's HTTP request handler."),
  *   form = {
  *     "configuration" = "Drupal\feeds\Feeds\Fetcher\Form\HttpFetcherForm",

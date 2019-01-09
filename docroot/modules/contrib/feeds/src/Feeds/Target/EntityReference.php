@@ -410,7 +410,7 @@ class EntityReference extends FieldTargetBase implements ConfigurableTargetInter
       '#type' => 'select',
       '#title' => $this->t('Feed item'),
       '#options' => $feed_item_options,
-      '#default_value' => $this->configuration['feeds_item_option'],
+      '#default_value' => $this->getConfiguration('feeds_item'),
       '#states' => [
         'visible' => [
           ':input[name="mappings[' . $delta . '][settings][reference_by]"]' => [
