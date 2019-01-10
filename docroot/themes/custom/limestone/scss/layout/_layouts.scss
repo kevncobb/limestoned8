@@ -12,7 +12,9 @@ article.node--type-news {
 .panel-oedu-container {
   @extend .grid-container;
 }
-
+.row {
+  @extend .grid-container;
+}
 .col-sm-1 {
   @include xy-cell(1 of 12);
 }
