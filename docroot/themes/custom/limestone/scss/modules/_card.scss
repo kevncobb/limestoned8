@@ -1,0 +1,140 @@
+.box-outer {
+  margin: -10px -20px 0 -20px;
+  .box {
+    overflow: hidden;
+    display: table;
+    table-layout: fixed;
+    width: 100%;
+    border-spacing: 20px;
+    margin: 0 0 40px;
+    .tile {
+      display: table-cell;
+      padding: 0 50px 20px;
+      -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.2);
+      box-shadow: 0 1px 2px rgba(0,0,0,.2);
+      vertical-align: top;
+    }
+  }
+  .box-inner {
+    overflow: hidden;
+    display: table;
+    table-layout: fixed;
+    width: 100%;
+    border-spacing: 20px;
+
+    > div > div {
+      display: block;
+      padding: 0 2.5em 20px;
+      -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+      background-color: rgba($dark-gray, 0.02);
+      vertical-align: top;
+      margin-bottom: 1em;
+
+      @include breakpoint(medium) {
+        display: table-cell;
+        width: 50%;
+        margin-bottom: 0;
+      }
+
+
+      img {
+        width: 100%;
+        height: auto;
+        margin: 0 0 30px;
+        display: block;
+      }
+
+      .card-image {
+        margin: 0 -2.5em;
+      }
+    }
+
+    h2 > a {
+      text-decoration: none;
+
+      &:hover,
+      &:focus {
+        text-decoration: underline;
+      }
+    }
+  }
+}
+
+.thirds-aside {
+  .box-outer {
+    margin: (-12px) -30px 0 -30px;
+
+    .box {
+      > div > div {
+        @include breakpoint(medium) {
+          width: 100%;
+        }
+      }
+    }
+  }
+}
+
+
+
+.card-row {
+  margin-bottom: 1em;
+}
+.card {
+  background-color: #fff;
+  padding: 0 40px 20px;
+  display: table-cell;
+  -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  vertical-align: top;
+  max-width: 600px;
+
+  .lc-btn {
+    margin: 10px 0;
+  }
+
+  .image {
+    height: auto;
+    margin: 0 -40px 30px;
+    display: block;
+  }
+
+  p {
+    font-size: $small-font-size;
+  }
+}
+
+//Profile Card Styles
+.card {
+  // Float location left so Room No will be to the right
+  .block-entity-fieldnodefield-location {
+    .field-item {
+      font-size: 80%;
+      &::before {
+        content: "Building: ";
+        font-style: italic;
+      }
+    }
+  }
+
+  .field-name-field-profile-name, .block-entity-fieldnodefield-profile-name {
+    font-family: $header-font-family;
+    color: $limestone-blue;
+    font-size: $lead-font-size;
+    font-weight: 600;
+  }
+
+  .field-name-field-profile-office {
+    .field-item {
+      font-size: 80%;
+      &::before {
+        content: "Room No: ";
+        font-style: italic;
+      }
+    }
+  }
+  .field-node--field-profile-job-title {
+    @extend .category;
+    font-size: 0.8rem;
+  }
+}

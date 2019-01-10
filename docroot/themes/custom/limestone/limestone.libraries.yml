@@ -1,0 +1,22 @@
+global:
+  version: VERSION
+  css:
+    base:
+      css/limestone.css: {}
+      fonts/icomoon.css: {}
+  js:
+    js/limestone.js: {}
+    js/trunk8.min.js: {}
+
+admin:
+  version: 1
+  css:
+    admin:
+      css/admin.css: {}
+
+lc-slider:
+  version: 1.x
+  js:
+    js/lc-slider.js: {}
+  dependencies:
+    - core/jquery

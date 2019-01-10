@@ -1,0 +1,16 @@
+.top-bar, top-bar ul {
+  background-color: $almost-black;
+  font-family: $site-header-font-family;
+  font-weight: normal;
+  a {
+    color: $white;
+    &:focus, &:hover {
+      color: $limestone-yellow;
+    }
+  }
+}
+.top-bar ul.dropdown.menu {
+  li.is-active > a {
+    color: $limestone-yellow;
+  }
+}

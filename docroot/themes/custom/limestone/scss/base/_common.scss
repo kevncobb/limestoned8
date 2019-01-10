@@ -1,0 +1,248 @@
+// Common abstract classes to extend or parametrics are stored here.
+
+// Example parametrics.
+// ------------------------------------------------------
+// %font-FONTNAME   {}
+// %font-sans-serif { font-family: sans-serif; }
+// %font-serif      { font-family: serif; }
+@font-face {
+  font-family: 'interstate-boldregular';
+  src: url('/themes/custom/limestone/fonts/font_bureau_-_interstate-bold-webfont.woff2') format('woff2'),url('/themes/custom/limestone/fonts/font_bureau_-_interstate-bold-webfont.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+//styles to use when web fonts are loading
+.wf-loading {
+  visibility: hidden;
+}
+// styles to use when web fonts are active
+.wf-active {
+  visibility: visible;
+}
+// styles to use when web fonts are inactive
+.wf-inactive {
+
+}
+
+.max-500 {
+  max-width: 500px;
+}
+.max-800 {
+  max-width: 800px;
+}
+
+p {
+  //letter-spacing: -0.2px;
+}
+.center {
+  text-align: center;
+}
+.centered {
+  display: block;
+  margin: 0 auto;
+}
+.big-title {
+  font-family: $site-header-font-family;
+  font-weight: $site-header-font-weight;
+
+  @media screen and (min-width: 40em) {
+    font-size: 4rem;
+  }
+}
+.embedded-entity.align-center {
+  img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+.fill {
+  width: 100%;
+}
+.cover-image {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  article {
+    width: 100%;
+    height: 100%;
+  }
+  img {
+    object-fit: cover;
+    margin-bottom: 0;
+    width: 100%;
+    height: 100%;
+  }
+  .content {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding: 2rem;
+    &.bottom {
+      bottom: 0;
+    }
+    &.top {
+      bottom: auto;
+      top: 0;
+    }
+    &.bg-yellow {
+      background-color: rgba($limestone-yellow, 0.79);
+    }
+    &.bg-orange {
+      background-color: rgba($orange, 0.79);
+    }
+  }
+}
+.v-centered-container {
+  position: relative;
+  background-size: cover;
+  //height: 80vh;
+  min-height: 300px;
+  &.percent-80 {
+    height: 80vh;
+    max-height: 500px;
+    @media screen and (min-width: 40em) {
+      max-height: none;
+    }
+  }
+}
+.v-centered {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  /* bring your own prefixes */
+  transform: translate(-50%, -50%);
+
+}
+.box-600 {
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 1.5rem 1.5rem 0.5rem 1.5rem;
+}
+.font-reg {
+  font-weight: normal;
+}
+.background-blue, .bg-blue {
+  background-color: $limestone-blue;
+  color: white;
+  h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6 {
+    color: white;
+  }
+  .separator-center::after {
+    border-bottom-color: white;
+  }
+}
+.bg-l-gray {
+  background-color: $light-gray;
+  p.callout, blockquote.callout {
+    background-color: transparent;
+  }
+  h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6 {
+    color: $limestone-blue-body;
+    > h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6 {
+      color: $limestone-blue-body;
+    }
+  }
+}
+.bg-orange {
+  background-color: $orange;
+  color: white;
+  h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6 {
+    color: white;
+    > h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6 {
+      color: white;
+    }
+  }
+}
+.bg-yellow {
+  background-color: $limestone-yellow;
+  color: $limestone-blue-body;
+  h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6 {
+    color: $limestone-blue-body;
+    > h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6 {
+      color: $limestone-blue-body;
+    }
+  }
+}
+.bg-white {
+  background-color: white;
+  color: $body-font-color;
+  > h1, > h2, > h3, > h4, > h5, > h6 {
+    color: $header-color;
+  }
+}
+.color-yellow {
+  color: $limestone-yellow;
+}
+
+.color-category {
+  color: $category;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.spacing-sm {
+  padding-top: 4rem;
+  padding-bottom: 4rem;
+}
+
+.spacing-med {
+  padding-top: 6rem;
+  padding-bottom: 6rem;
+}
+
+.spacing-lg {
+  padding-top: 8rem;
+  padding-bottom: 8rem;
+}
+
+.padding-sides-sm {
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+
+.padding-sides-md {
+  padding-left: 2rem;
+  padding-right: 2rem;
+  @include breakpoint(medium) {
+    padding-left: 4rem;
+    padding-right: 4rem;
+  }
+}
+
+ul.line-items {
+  padding: 0;
+  margin: 0;
+  li {
+    list-style-type: none;
+    width: 100%;
+    float: left;
+    //border-bottom: thin dotted black;
+    .right {
+      display: inline-block;
+      float: right;
+    }
+    &::after {
+      content: "";
+      width: 80%;
+      height: 1px;
+      margin: 0 auto;
+      background: url("/themes/custom/limestone/images/stripes-dark-tile.svg") repeat-x;
+    }
+  }
+}
+
+.height-90 {
+  height: 90vh;
+}
+
+.separator-center::after {
+  margin: 0.5rem auto 0.5rem;
+}
+
+section.block-ctools-block {
+  padding-bottom: 4rem;
+}

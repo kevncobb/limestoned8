@@ -1,0 +1,38 @@
+// @file
+// Place your mixins here. Feel free to roll your own mixins.
+@mixin pseudo($display: block, $pos: absolute, $content: ''){
+  content: $content;
+  display: $display;
+  position: $pos;
+}
+/*
+div::after {
+    @include pseudo;
+    top: -1rem; left: -1rem;
+    width: 1rem; height: 1rem;
+}
+ */
+
+
+
+@mixin responsive-ratio($x,$y, $pseudo: false) {
+  $padding: unquote( ( $y / $x ) * 100 + '%' );
+  @if $pseudo {
+    &:before {
+      @include pseudo($pos: relative);
+      width: 100%;
+      padding-top: $padding;
+    }
+  } @else {
+    padding-top: $padding;
+  }
+}
+/*
+div {
+    @include responsive-ratio(16,9);
+}
+ */
+
+
+
+

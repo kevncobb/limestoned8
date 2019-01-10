@@ -1,0 +1,89 @@
+// Non-modular or client styles for the .l-content region.
+.thirds {
+
+}
+
+article.node--type-news {
+  @extend .grid-container;
+}
+.fibonacci-aside.small-5 {
+  @include xy-cell(5 of 13);
+}
+.panel-oedu-container {
+  @extend .grid-container;
+}
+
+.col-sm-1 {
+  @include xy-cell(1 of 12);
+}
+.col-sm-2 {
+  @include xy-cell(2 of 12);
+}
+.col-sm-3 {
+  @include xy-cell(3 of 12);
+}
+.col-sm-4 {
+  @include xy-cell(4 of 12);
+}
+.col-sm-5 {
+  @include xy-cell(5 of 12);
+}
+.col-sm-6 {
+  @include xy-cell(6 of 12);
+}
+.col-sm-7 {
+  @include xy-cell(7 of 12);
+}
+.col-sm-8 {
+  @include xy-cell(8 of 12);
+}
+.col-sm-9 {
+  @include xy-cell(9 of 12);
+}
+.col-sm-10 {
+  @include xy-cell(10 of 12);
+}
+.col-sm-11 {
+  @include xy-cell(11 of 12);
+}
+.col-sm-12 {
+  @include xy-cell(12 of 12);
+}
+
+
+.col-md-1 {
+  @include xy-cell(1 of 12);
+}
+.col-md-2 {
+  @include xy-cell(2 of 12);
+}
+.col-md-3 {
+  @include xy-cell(3 of 12);
+}
+.col-md-4 {
+  @include xy-cell(4 of 12);
+}
+.col-md-5 {
+  @include xy-cell(5 of 12);
+}
+.col-md-6 {
+  @include xy-cell(6 of 12);
+}
+.col-md-7 {
+  @include xy-cell(7 of 12);
+}
+.col-md-8 {
+  @include xy-cell(8 of 12);
+}
+.col-md-9 {
+  @include xy-cell(9 of 12);
+}
+.col-md-10 {
+  @include xy-cell(10 of 12);
+}
+.col-md-11 {
+  @include xy-cell(11 of 12);
+}
+.col-md-12 {
+  @include xy-cell(12 of 12);
+}

@@ -1,0 +1,64 @@
+// Non-modular or client styles for .l-footer region.
+footer.site-footer {
+  background-color: $limestone-blue;
+  background-image: url("/themes/custom/limestone/images/footer-background.png");
+  background-size: cover;
+  color: $light-gray;
+  h3, h4, h5, h6 {
+    color: $limestone-yellow;
+  }
+  a {
+    color: white;
+    &:hover, &:focus {
+      color: $limestone-yellow;
+      text-decoration: underline;
+    }
+  }
+  ul {
+    margin-left: 0.25rem;
+  }
+  li {
+    list-style-type: none;
+    &:before {
+      content: "\f078";
+      font-family: 'icomoon' !important;
+      speak: none;
+      font-style: normal;
+      font-weight: normal;
+      font-variant: normal;
+      text-transform: none;
+      line-height: 1;
+      font-size: 8px;
+      opacity: 0.5;
+      /* Better Font Rendering =========== */
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      display: inline-block;
+      -webkit-transform: rotate(-90deg);
+      -moz-transform: rotate(-90deg);
+      -o-transform: rotate(-90deg);
+      -ms-transform: rotate(-90deg);
+      transform: rotate(-90deg);
+      position: relative;
+      bottom: 0px;
+      left: -1px;
+    }
+  }
+}
+
+.bottom-bar {
+  background-color: $black;
+  font-family: $site-header-font-family;
+  color: $white;
+  a {
+    color: $white;
+    padding: 1rem 0.4rem;
+    &:focus, &:hover {
+      color: $limestone-yellow;
+      text-decoration: underline;
+    }
+    [class^="icon-"], [class*=" icon-"] {
+      font-size: 12px;
+    }
+  }
+}

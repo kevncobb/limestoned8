@@ -1,0 +1,21 @@
+// Place any Drupal-related quirks here.
+/*
+ * zurb_foundation.scss - Contains all Drupal-specific SASS for this theme.
+ *
+*/
+
+#toolbar-bar {
+  z-index: 1001 !important;
+}
+
+.ipe-block-plugin {
+  h5 {
+    font-weight: normal;
+  }
+}
+
+body.adminimal-admin-toolbar.toolbar-tray-open.toolbar-horizontal {
+  .right-off-canvas-menu {
+    position: absolute;
+  }
+}

@@ -1,0 +1,333 @@
+// Non-modular or client styles for .l-header region.
+header.site-header {
+  background-color: $limestone-blue;
+  font-family: $header-font-family;
+  font-weight: bold;
+  $header-font-size: 1.2rem;
+  font-size: $header-font-size;
+  .dropdown.menu {
+    a {
+      padding: 0.7rem 0.5rem;
+    }
+    > li.is-dropdown-submenu-parent > a::after {
+      margin-top: 14px;
+      right: 44%;
+    }
+    .is-dropdown-submenu.first-sub {
+      margin-top: 0;
+      z-index: 4;
+      right: auto;
+      left: 0;
+      font-size: 1rem;
+      a {
+        width: 100%;
+        padding: 0.5rem;
+      }
+    }
+  }
+  a, button {
+    color: white !important;
+    span {
+      font-size: 0.8rem;
+    }
+    &:focus, &:hover {
+      color: $limestone-yellow !important;
+    }
+    &.quicklink-button {
+      background: url(/themes/custom/limestone/images/lc-sprite.svg) no-repeat -370px -184px;
+      background-size: 562px;
+      width: 134px;
+      height: 44px;
+      color: $limestone-blue !important;
+      font-size: 19px;
+      text-align: left;
+      font-weight: bold;
+      position: relative;
+      top: 50%;
+      left: auto;
+      -ms-transform: translatey(-50%);
+      transform: translatey(-50%);
+      &:focus, &:hover {
+        color: $limestone-blue !important;
+        span {
+          right: -4px;
+          position: relative;
+          transition: 300ms;
+        }
+      }
+      span {
+        transform: rotate(-90deg);
+        display: inline-block;
+        float: right;
+        margin-top: 1px;
+        padding: 0;
+        bottom: 0;
+        font-size: 0.8rem;
+      }
+    }
+  }
+  ul.menu {
+    margin-top: 1rem;
+  }
+  button {
+    font-size: 1rem;
+    margin: 0;
+    padding: 0.55rem 0.7rem;
+    position: relative;
+  }
+  .site-header-meta-links {
+    margin-top: 5px;
+    position: relative;
+  }
+}
+.block-system-branding-block img {
+  width: 344px;
+  margin: 5px 0;
+}
+.sub-page-header {
+  clear: both;
+  position: relative;
+  background-image: url("/themes/custom/limestone/images/pano-front-quad.jpg");
+  background-size: cover;
+  background-position: 0px 49%;
+  &:before {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 80px;
+    width: 100%;
+    content: "";
+    opacity: 0.4;
+    background: -webkit-gradient(linear, 0 0, 0 100%, from(rgba(0, 0, 0, 0)), to(rgba(0, 0, 0, 0.8))) 0 0 no-repeat;
+  }
+  &:after {
+    position: absolute;
+    z-index: 1;
+    bottom: 0;
+    height: 80px;
+    width: 100%;
+    content: "";
+    background: url("/themes/custom/limestone/images/stripes-dark-tile.svg");
+    opacity: 0.08;
+  }
+}
+.sub-header-title {
+  font-size: 1.2em;
+  line-height: 2em;
+  font-family: $site-header-font-family;
+  text-transform: uppercase;
+  font-weight: 700;
+  margin: 0 auto 0 auto;
+  letter-spacing: -0.02em;
+  color: white;
+  display: block;
+  width: 100%;
+  position: relative;
+  z-index: 2;
+  cursor: pointer;
+  -webkit-font-smoothing: antialiased;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+  padding: 0.3em 0 0.3em 0;
+
+  @media screen and (min-width: 40em) {
+    font-size: 1.8em;
+    padding: 0.3em 0 0.7em 0;
+    line-height: 3.7rem;
+  }
+
+  @media screen and (min-width: 40em) {
+    font-size: 2.5em;
+    padding-top: 2rem;
+    padding-bottom: 3.5rem;
+    padding-right: .85227rem;
+    padding-left: .85227rem;
+
+    &::after {
+      content: "";
+      position: absolute;
+      background: url("/themes/custom/limestone/images/lc-sprite.svg") no-repeat -467px -396px;
+      background-size: 708px !important;
+      width: 155px;
+      height: 14px;
+      top: auto;
+      bottom: 2.25rem;
+      left: 1rem;
+    }
+  }
+
+  @media screen and (min-width: 64em) {
+    font-size: 3em;
+  }
+}
+.splash-header {
+  height: 100%;
+  position: relative;
+  opacity: 0.65;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 80vh;
+  min-height: 300px;
+  &.traditions-header {
+    background-color: #FFFFFF;
+    background-image: url(/themes/custom/limestone/images/football-give-me-an-l.jpg);
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+    background-position: left top;
+    z-index: auto;
+    background-size: cover;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+  }
+}
+.splash-header-title {
+  color: white;
+  width: 100%;
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: bold;
+  line-height: 1;
+  text-shadow: rgba(0, 0, 0, 0.5) 0 0 15px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+font-size: 190%;
+  @include breakpoint(medium) {
+    font-size: 300%;
+  }
+  @include breakpoint(large) {
+    font-size: 415%;
+  }
+}
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  box-shadow: inset 0px 0px 0px 111.11111rem rgba(0, 0, 0, 0.4);
+}
+
+.mega-title {
+  font-family: $header-font-family;
+  font-weight: bold;
+  text-transform: uppercase;
+  @include breakpoint(small) {
+    font-size: 4rem;
+    line-height: 4rem;
+  }
+  @include breakpoint(medium) {
+    font-size: 5.5rem;
+    line-height: 5.5rem;
+  }
+  @include breakpoint(large) {
+    font-size: 7rem;
+    line-height: 7rem;
+  }
+}
+
+
+.lc-header,
+.block-title:not(#-menu),
+form#views-exposed-form-news-latest-news-block .form-item-search label {
+  clear: left;
+  font-weight: 900;
+  text-transform: uppercase;
+  position: relative;
+  padding-bottom: 10px;
+  margin-bottom: 15px;
+  font-family: $header-font-family;
+  line-height: 2rem;
+  color: $limestone-blue;
+  @include breakpoint(medium) {
+    font-size: 1.55rem;
+  }
+  @include breakpoint(large) {
+    font-size: 1.7rem;
+  }
+
+  a {
+    text-decoration: none;
+    &:focus, &:hover {
+      text-decoration: underline;
+    }
+  }
+  img {
+    max-width: 30px;
+    position: relative;
+    top: -6px;
+  }
+  &:before, &:after {
+    position: absolute;
+    left: 0;
+    bottom: 0px;
+    content: "";
+    height: 7px;
+  }
+
+  &:before {
+    width: 7rem;
+    background-color: $limestone-yellow;
+  }
+
+  &:after {
+    width: 1rem;
+    -webkit-transform: skewX(-35deg) skewY(0);
+    -o-transform: skewX(-35deg) skewY(0);
+    transform: skewX(-35deg) skewY(0);
+    -webkit-transform: skew(-35deg, 0);
+    -ms-transform: skewX(-35deg) skewY(0);
+    transform: skew(-35deg, 0);
+    left: 127px;
+    background-color: #fff;
+    bottom: 0px;
+    height: 8px;
+  }
+}
+
+
+
+
+
+
+
+.lc-news-header {
+  height: 110px;
+  background-color: #f4efcf;
+  position: relative;
+  &::before {
+    position: absolute;
+    bottom: 0;
+    height: 80px;
+    width: 100%;
+    content: "";
+    background: url("/themes/custom/limestone/images/stripes-dark-tile.svg");
+    opacity: 0.2;
+  }
+  #lc-news-header {
+    position: relative;
+    border-bottom: 1px solid $light-gray;
+    height: 95px;
+    margin-bottom: 1em;
+
+    h1, span.lc-news-title {
+      display: block;
+      height: 69px;
+      width: 330px;
+      text-indent: -99999px;
+      text-transform: uppercase;
+      margin-bottom: 0;
+      margin-top: 25px;
+      overflow: hidden;
+      background: url(/themes/custom/limestone/images/lc-news.png) 0 0 no-repeat;
+      background-size: 327px;
+      float: left;
+    }
+  }
+}
+
+

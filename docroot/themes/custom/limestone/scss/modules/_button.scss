@@ -1,0 +1,200 @@
+.button.search-button span {
+  border-radius: 50%;
+  border: 2px solid white;
+  padding: 0.5em;
+}
+.button {
+  line-height: 1.1rem;
+  font-family: $header-font-family;
+  font-weight: $header-font-weight;
+  text-decoration: none;
+  font-size: 1.3em;
+  [class^="icon-"], [class*=" icon-"] {
+    position: relative;
+    padding-right: 0.5rem;
+    bottom: -0.2rem;
+    font-size: 1.5rem;
+    line-height: 1rem;
+  }
+  &.large [class^="icon-"], &.large [class*=" icon-"] {
+    padding-right: 1rem;
+    bottom: -0.2rem;
+    font-size: 1.6rem;
+  }
+  &.red {
+    background-color: $red;
+  }
+  &.green {
+    background-color: $success-color;
+  }
+  &.twitter-blue {
+    background-color: $twitter-blue;
+  }
+  &.orange {
+    background-color: $orange;
+  }
+  &.category {
+    background-color: $category;
+  }
+}
+.fibonacci-aside .button {
+  max-width: 300px;
+}
+.lc-btn {
+  padding: 8px 17px;
+  text-transform: uppercase;
+  background-color: white;
+  font-family: $header-font-family;
+  font-weight: 800;
+  color: $limestone-blue;
+  display: inline-block;
+  position: relative;
+  background-image: none;
+  border-bottom: none;
+  margin-bottom: 20px;
+  margin-right: 50px;
+  z-index: 1;
+  line-height: 24px;
+  font-size: 14px;
+  text-decoration: none;
+  &:hover, &:focus {
+    color: black;
+    &::after {
+      right: -31px;
+      transition: right 100ms ease-in-out;
+    }
+  }
+
+  &::before {
+    content: "";
+    width: 44px;
+    right: -44px;
+    top: 0;
+    bottom: 0;
+    position: absolute;
+    background-color: $limestone-blue;
+    border-left: 5px solid rgba(0, 0, 0, 0.3);
+  }
+
+  &::after {
+    content: "";
+    background: url(/themes/custom/limestone/images/lc-sprite.svg) no-repeat;
+    background-position: 68.5% 9%;
+    background-size: 444px;
+    position: absolute;
+    right: -31px;
+    top: 8px;
+    height: 25px;
+    width: 17px;
+    transition: right 100ms ease-in-out;
+    @media screen and (-webkit-min-device-pixel-ratio:0) {
+      background-position: 68.5% 10%;
+    }
+  }
+  &.larger {
+    padding: 14px 20px;
+    font-size: 20px;
+    &::after {
+      background-size: 487px;
+      background-position: -321px -40px;
+      top: 10px;
+    }
+    &.back {
+      &::after {
+        background-position: -342px -40px;
+        left: -31px;
+        background-size: 487px;
+        top: 10px;
+      }
+    }
+  }
+  &.blue {
+    background-color: rgba($limestone-blue, 0.9);
+    color: white;
+
+    &::before {
+      //background-color: $limestone-yellow
+
+    }
+  }
+  &.back {
+    &::before {
+      content: "";
+      width: 44px;
+      right: auto;
+      left: -44px;
+      background: none;
+      top: 0;
+      bottom: 0;
+      position: absolute;
+      background-color: $limestone-blue;
+      border-right: 5px solid rgba(0, 0, 0, 0.3);
+      border-left: none;
+      height: auto;
+    }
+
+    &::after {
+      content: "";
+      background: url(/themes/custom/limestone/images/lc-sprite.svg) no-repeat;
+      background-position: -310px -38px;
+      right: auto;
+      left: -31px;
+      background-size: 444px;
+      position: absolute;
+      top: 8px;
+      height: 25px;
+      width: 17px;
+      transition: right 100ms ease-in-out;
+      bottom: auto;
+    }
+  }
+}
+
+
+.button-icon {
+  -webkit-box-shadow: 3px 3px 0px -1px rgba(0,0,0,0.15);
+  -moz-box-shadow: 3px 3px 0px -1px rgba(0,0,0,0.15);
+  box-shadow: 3px 3px 0px -1px rgba(0,0,0,0.15);
+  border-radius: 5px;
+  padding-right: 25px;
+  padding-left: 0;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  margin-bottom: 1rem;
+  border: thin solid rgba(112,112,112,0.3);
+  color: $limestone-blue-body;
+  background-color: #f9f9f9;
+  line-height: 25px;
+  font-size: 25px;
+  display: inline-block;
+  font-family: $header-font-family;
+  font-weight: bold;
+  transition: 200ms;
+  text-decoration: none;
+  &:hover, &:focus {
+    background-color: $success-color;
+    color: $white;
+    -webkit-box-shadow: 0px 0px 0px 0px rgba(0,0,0,0.15);
+    -moz-box-shadow: 0px 0px 0px 0px rgba(0,0,0,0.15);
+    box-shadow: 0px 0px 0px 0px rgba(0,0,0,0.15);
+    transition: 200ms;
+    [class^="icon-"], [class*=" icon-"] {
+      color: $white;
+      //background-color: $limestone-blue-body;
+      transition: 200ms;
+    }
+  }
+  [class^="icon-"], [class*=" icon-"], [class^="menu-icon-"], [class*=" menu-icon-"] {
+    color: $limestone-blue-body;
+    padding: 19px;
+    bottom: -4px;
+    left: 0px;
+    font-size: 28px;
+    border-radius: 6px;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    //background-color: $light-gray;
+    line-height: 1rem;
+    position: relative;
+  }
+}

@@ -1,0 +1,130 @@
+// Side Menu
+.fibonacci-aside {
+  width: xy-cell-size(4 of 12);
+  @include xy-gutters($gutter-position: left);
+  padding-left: 1rem;
+  nav {
+    font-family: $header-font-family;
+    h2 {
+      background-color: $limestone-blue;
+      font-family: $header-font-family;
+      font-weight: bold;
+      font-size: $lead-font-size;
+      text-transform: uppercase;
+      color: white;
+      line-height: inherit;
+      padding: 5px 0 5px 30px;
+      margin: 0;
+      position: relative;
+      border-right: 60px solid $limestone-yellow;
+      &::before {
+        display: none;
+      }
+      &::after {
+        content: "";
+        background: url(/themes/custom/limestone/images/lc-sprite.svg) no-repeat;
+        background-position: (-311px) -533px;
+        background-size: 770px;
+        height: 32px;
+        position: absolute;
+        right: -48px;
+        width: 35px;
+        top: 8px;
+      }
+    }
+
+    ul.root-level {
+      a {
+        color: $dark-gray;
+        padding: 9px 0 9px 40px;
+        float: left;
+        width: 100%;
+        font-size: 1.1rem;
+        background-color: lighten($light-gray, 6%);
+        &:focus, &:hover {
+          background-color: white;
+        }
+      }
+
+      li.menu-item {
+        float: left;
+        width: 100%;
+        background-color: lighten($light-gray, 6%);
+        position: relative;
+
+        &:focus, &:hover {
+          background-color: lighten($light-gray, 9%);
+          transition: 100ms;
+        }
+
+        &.menu-item--active-trail {
+          a {
+            font-weight: 700;
+
+            //margin-left: -6px
+            &.is-active {
+              //background-color: rgba(251, 234, 101, 0.29)
+              border-left: 6px solid $limestone-yellow;
+            }
+          }
+
+          ul.dropdown li.menu-item {
+            &.menu-item--active-trail {
+              a {
+                //border-left: 6px solid lighten($light-gray, 12%)
+
+              }
+            }
+
+            a {
+              font-weight: 300;
+
+              //border-left: 6px solid lighten($light-gray, 12%)
+
+            }
+          }
+        }
+
+        ul.dropdown {
+          li.menu-item {
+            float: left;
+            width: 100%;
+            background-color: lighten($light-gray, 12%);
+
+            &:focus, &:hover {
+              background-color: lighten($light-gray, 15%);
+              transition: 100ms;
+            }
+
+            a {
+              &:before {
+                content: "- ";
+              }
+            }
+
+            ul.dropdown {
+              li.menu-item {
+                float: left;
+                width: 100%;
+                background-color: lighten($light-gray, 20%);
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  .menu.nested {
+    float: left;
+    margin-left: 0;
+    width: 100%;
+    li > a {
+      padding-left: 50px;
+
+       &::before {
+         content: "- ";
+         font-family: $header-font-family;
+      }
+    }
+  }
+}
