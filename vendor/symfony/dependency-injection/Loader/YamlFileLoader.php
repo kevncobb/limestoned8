@@ -595,7 +595,7 @@ class YamlFileLoader extends FileLoader
      * @param string       $id        A service identifier
      * @param string       $file      A parsed file
      *
-     * @throws InvalidArgumentException When errors occur
+     * @throws InvalidArgumentException When errors are occuried
      *
      * @return string|array A parsed callable
      */

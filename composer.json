@@ -1,6 +1,6 @@
 {
   "name": "vardot/varbase-project",
-  "description": "Project template for Varbase 8.4.x projects with composer",
+  "description": "Project template for Varbase distribution.",
   "type": "project",
   "license": "GPL-2.0-or-later",
   "authors": [
@@ -49,11 +49,6 @@
     "drupal/google_analytics_reports": "3.x-dev#2b6bb8efbc7f61ce3c1225638075aa6037b8db44",
     "drupal/login_destination": "1.x-dev#54be8b89fdc073ca40af6b9b2eeb050e0aeb7908"
   },
-  "autoload": {
-      "classmap": [
-          "scripts/composer/ScriptHandler.php"
-      ]
-  },
   "config": {
     "bin-dir": "bin/",
     "secure-http": false,
@@ -65,11 +60,13 @@
   "scripts": {
     "drupal-scaffold": "DrupalComposer\\DrupalScaffold\\Plugin::scaffold",
     "post-install-cmd": [
-      "DrupalProject\\composer\\ScriptHandler::createRequiredFiles",
+      "Varbase\\composer\\ScriptHandler::createRequiredFiles",
+      "Varbase\\composer\\ScriptHandler::removeGitDirectories",
       "@composer drupal-scaffold"
     ],
     "post-update-cmd": [
-      "DrupalProject\\composer\\ScriptHandler::createRequiredFiles"
+      "Varbase\\composer\\ScriptHandler::createRequiredFiles",
+      "Varbase\\composer\\ScriptHandler::removeGitDirectories"
     ],
     "post-drupal-scaffold-cmd": ["Varbase\\composer\\ScriptHandler::postDrupalScaffoldProcedure"]
   },
@@ -97,23 +94,23 @@
       "npm-asset"
     ],
     "installer-paths": {
-      "web/core": ["type:drupal-core"],
-      "web/profiles/{$name}": ["type:drupal-profile"],
-      "web/modules/contrib/{$name}": ["type:drupal-module"],
-      "web/themes/contrib/{$name}": ["type:drupal-theme"],
-      "web/libraries/slick": ["npm-asset/slick-carousel"],
-      "web/libraries/ace": ["npm-asset/ace-builds"],
-      "web/libraries/{$name}": [
+      "docroot/core": ["type:drupal-core"],
+      "docroot/profiles/{$name}": ["type:drupal-profile"],
+      "docroot/modules/contrib/{$name}": ["type:drupal-module"],
+      "docroot/themes/contrib/{$name}": ["type:drupal-theme"],
+      "docroot/libraries/slick": ["npm-asset/slick-carousel"],
+      "docroot/libraries/ace": ["npm-asset/ace-builds"],
+      "docroot/libraries/{$name}": [
         "type:drupal-library",
         "type:bower-asset",
         "type:npm-asset"
       ],
-      "web/modules/custom/{$name}": ["type:drupal-custom-module"],
-      "web/themes/custom/{$name}": ["type:drupal-custom-theme"],
+      "docroot/modules/custom/{$name}": ["type:drupal-custom-module"],
+      "docroot/themes/custom/{$name}": ["type:drupal-custom-theme"],
       "drush/contrib/{$name}": ["type:drupal-drush"]
     },
     "drupal-libraries": {
-      "library-directory": "web/libraries",
+      "library-directory": "docroot/libraries",
       "libraries": [
           {"name": "dropzone","package": "npm-asset/dropzone"},
           {"name": "blazy", "package": "npm-asset/blazy"},

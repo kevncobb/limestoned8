@@ -125,8 +125,11 @@ EOTXT;
         $collector->dump($data);
         $line = __LINE__ - 1;
         $output = preg_replace("/\033\[[^m]*m/", '', ob_get_clean());
-
-        $this->assertSame("DumpDataCollectorTest.php on line {$line}:\n456\n", $output);
+        if (\PHP_VERSION_ID >= 50400) {
+            $this->assertSame("DumpDataCollectorTest.php on line {$line}:\n456\n", $output);
+        } else {
+            $this->assertSame("\"DumpDataCollectorTest.php on line {$line}:\"\n456\n", $output);
+        }
 
         ob_start();
         $collector->__destruct();

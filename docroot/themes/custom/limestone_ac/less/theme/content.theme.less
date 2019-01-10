@@ -1,0 +1,136 @@
+// VARTHEME_SUBTHEME content styling.
+// -----------------------------------------------------------------------------
+@import "../../bootstrap/less/variables.less";  // Bootstrap variables.
+@import "../../bootstrap/less/mixins.less";     // Bootstrap mixins.
+@import "../variables.less";                    // VARTHEME_SUBTHEME variables.
+@import "../mixins.less";                       // VARTHEME_SUBTHEME mixins.
+// -----------------------------------------------------------------------------
+
+// Insert your VARTHEME_SUBTHEME content custom less styling.
+
+.col-2 {
+  @media (min-width: @screen-xs) {
+    column-count: 2;
+  }
+}
+.col-2-groupings {
+  .view-content > div {
+    @media (min-width: @screen-sm) {
+      float: left;
+      width: 50%;
+      &:nth-child(2), &:nth-child(3), &:nth-child(4), &:nth-child(5) {
+        padding-left: 5%;
+      }
+    }
+  }
+}
+
+.left {
+  @media (min-width: @screen-xs) {
+    float: left;
+  }
+}
+.right {
+  @media (min-width: @screen-xs) {
+    float: right;
+  }
+}
+.spacing-sm {
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+}
+.spacing-md {
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+}
+.col-3 {
+  @media (min-width: @screen-xs) {
+    column-count: 2;
+  }
+  @media (min-width: @screen-sm) {
+    column-count: 3;
+  }
+}
+.col-4 {
+  @media (min-width: @screen-xs) {
+    column-count: 2;
+  }
+  @media (min-width: @screen-sm) {
+    column-count: 4;
+  }
+}
+.margin-bottom-0 {
+  margin-bottom: 0;
+}
+.split-col {
+  @media (min-width: @screen-xs) {
+    > li, > div {
+      width: 50%;
+      float: left;
+    }
+  }
+}
+
+.catalog-version {
+  position: relative;
+  top: 0;
+  right: 0;
+  @media (min-width: @screen-md-min) {
+    width: 32%;
+    float: right;
+    margin-top: 25px;
+  }
+}
+
+.node--type-landing-page .bs-region--main {
+  width: auto;
+}
+
+
+
+
+.degree-plan-wrapper {
+  margin: 5px 0 0 0;
+  .degree-plan-header {
+    font-weight: bold;
+    color: @brand-primary;
+    padding-left: 5px;
+  }
+
+}
+.field--name-field-degree-plan-legend {
+  font-size: 1.4rem;
+  background-color: #d9edf7;
+  color: #31708f;
+  padding: 15px;
+  margin: 25px 0 12px;
+  border: 1px solid #bce8f1;
+  border-radius: 4px;
+}
+.field--name-field-notes {
+  font-size: 1.4rem;
+  background-color: #dff0d8;
+  color: #3c763d;
+  padding: 15px;
+  margin-bottom: 25px;
+  border: 1px solid #d6e9c6;
+  border-radius: 4px;
+}
+.paragraph--type-a-year-of-a-4-year-degree-plan {
+  .field--name-field-year {
+    margin: 5px 0 0 0;
+  }
+  .field--name-field-semester {
+    margin: 0 0 8px;
+    font-size: 14px;
+    padding: 10px 15px;
+  }
+  .field--name-field-total-credit-hours {
+    font-size: 1.3rem;
+    margin-left: 12px;
+    margin-bottom: 5px;
+    border-top: thin solid #a6a6a69c;
+    padding-top: 5px;
+  }
+
+}

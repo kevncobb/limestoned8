@@ -2,7 +2,7 @@
 
 HTML5 is a standards-compliant HTML5 parser and writer written entirely in PHP.
 It is stable and used in many production websites, and has
-well over [five million downloads](https://packagist.org/packages/masterminds/html5).
+well over [one million downloads](https://packagist.org/packages/masterminds/html5).
 
 HTML5 provides the following features.
 
@@ -24,21 +24,21 @@ HTML5 provides the following features.
 
 Install HTML5-PHP using [composer](http://getcomposer.org/).
 
-By adding the `masterminds/html5` dependency to your `composer.json` file:
+To install, add `masterminds/html5` to your `composer.json` file:
 
 ```json
 {
   "require" : {
-    "masterminds/html5": "^2.0"
+    "masterminds/html5": "2.*"
   },
 }
 ```
 
-By invoking require command via composer executable:
+(You may substitute `2.*` for a more specific release tag, of
+course.)
 
-```bash
-composer require masterminds/html5
-```
+From there, use the `composer install` or `composer update` commands to
+install.
 
 ## Basic Usage
 

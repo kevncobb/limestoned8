@@ -1,43 +1,49 @@
-# Varbase project template for Platform.sh
+[![](https://www.drupal.org/files/styles/grid-3/public/project-images/Medium-Logo%20Color%20with%20padding.png)](http://www.drupal.org/project/varbase)
 
-This project provides a starter kit for Varbase 8.6.x projects hosted on [Platform.sh](http://platform.sh). It
-is very closely based on the [Varbase Composer project](https://github.com/Vardot/varbase-project).
+[![Build Status](https://travis-ci.org/Vardot/varbase.svg?branch=8.x-5.0-alpha5)](https://travis-ci.org/Vardot/varbase/builds/411199730) Varbase 8.5.0-alpha5
 
-## Starting a new project
+# Varbase Project
 
-To start a new Varbase 8.6.x project on Platform.sh, you have 2 options:
+Project template for [Varbase distribution](http://www.drupal.org/project/varbase).
 
-1. Create a new project through the Platform.sh user interface and select "start
-   new project from a template".  Then select Varbase 8.6.x as the template. That will
-   create a new project using this repository as a starting point.
 
-2. Take an existing project, add the necessary Platform.sh files, and push it
-   to a Platform.sh Git repository. This template includes examples of how to
-   set up a Varbase 8.6.x site.  (See the "differences" section below.)
+## Create a Varbase project with [Composer](https://getcomposer.org/download/):
 
-## Using as a reference
+To install the most recent stable release of Varbase 8.5.x run this command:
+```
+composer create-project Vardot/varbase-project:^8.5.0-alpha5 PROJECT_DIR_NAME --no-dev --no-interaction
+```
 
-You can also use this repository as a reference for your own Drupal projects, and borrow whatever code is needed.  The most important parts are the [`.platform.app.yaml`](/.platform.app.yaml) file and the [`.platform`](/.platform) directory.
+To install the dev version of Varbase 8.5.x run this command:
+```
+composer create-project vardot/varbase-project:8.5.x-dev PROJECT_DIR_NAME --stability dev --no-interaction
+```
 
-Also see:
 
-* [`settings.php`](/web/sites/default/settings.php) - The customized `settings.php` file works for both Platform.sh and local development, setting only those values that are needed in both.  You can add additional values as documented in `default.settings.php` as desired.
-* [`settings.platformsh.php`](/web/sites/default/settings.platformsh.php) - This file contains Platform.sh-specific code to map environment variables into Drupal configuration.  You can add to it as needed.  See [the documentation](https://docs.platform.sh/frameworks/drupal8.html) for more examples of common snippets to include here.
-* [`scripts/platformsh`](/scripts/platformsh) - This directory contains our update script to keep this repository in sync with the Drupal Composer project.  It may be safely ignored or removed.
+## [Create a new Vartheme sub theme for a project](https://github.com/Vardot/varbase/tree/8.x-5.x/scripts/README.md)
 
-## Managing a Drupal site built with Composer
+## [Automated Functional Testing](https://github.com/Vardot/varbase/blob/8.x-5.x/tests/README.md)
 
-Once the site is installed, there is no difference between a site hosted on Platform.sh
-and a site hosted anywhere else.  It's just Composer.  See the [Drupal documentation](https://www.drupal.org/node/2404989) for tips on how best to leverage Composer with Drupal 8.
+## [Varbase Gherkin features](https://github.com/Vardot/varbase/blob/8.x-5.x/tests/features/varbase/README.md)
 
-## How does this starter kit differ from vanilla Drupal from Drupal.org?
+## [Varbase 8.5.x Developer Guide](https://docs.varbase.vardot.com)
 
-1. The `vendor` directory (where non-Drupal code lives) and the `config` directory
-   (used for syncing configuration from development to production) are outside
-   the web root. This is a bit more secure as those files are now not web-accessible.
+## [CHANGELOG for Varbase](https://github.com/Vardot/varbase/blob/8.x-5.x/CHANGELOG.md)
 
-2. The `settings.php` and `settings.platformsh.php` files are provided by
-   default. The `settings.platformsh.php` file automatically sets up the database connection on Platform.sh, and allows controlling Drupal configuration from environment variables.
+## [General instructions on how to update Varbase](https://github.com/Vardot/varbase/blob/8.x-5.x/UPDATE.md)
 
-3. We include recommended `.platform.app.yaml` and `.platform` files that should suffice
-   for most use cases. You are free to tweak them as needed for your particular site.
+
+
+
+# Notices
+
+### Requiring Drupal Modules with Dev Version in varbase-project/composer.json
+You will notice that we're requiring some Drupal modules in dev state with its commit hash. This is because of a bug in Composer. And it was discussed in https://github.com/composer/composer/issues/6366 and is highlighted in Composer documentation as follows:
+
+> Note: This feature has severe technical limitations, as the composer.json metadata will still be read from the branch name you specify before the hash. You should therefore only use this as a temporary solution during development to remediate transient issues, until you can switch to tagged releases. The Composer team does not actively support this feature and will not accept bug reports related to it.
+
+Therefore, our workaround, is to explicitly tag the commit hash we want in `varbase-project/composer.json`. This means that ALL Drupal modules dependencies which are in dev stage, are duplicated as a requirement for composer in both `varbase-project/composer.json` and `varbase/composer.json`.
+
+This workaround will remain, until either a module has a tag (that we can tag without the commit hash) or a fix is provided from composer - hopefully in the near future!
+
+Read more at: https://www.drupal.org/node/2903606#comment-12230769

@@ -1,5 +1,4 @@
 <?php
-
 namespace Masterminds\HTML5\Parser;
 
 /**
@@ -19,9 +18,9 @@ class FileInputStream extends StringInputStream implements InputStream
     /**
      * Load a file input stream.
      *
-     * @param string $data     The file or url path to load.
+     * @param string $data The file or url path to load.
      * @param string $encoding The encoding to use for the data.
-     * @param string $debug    A fprintf format to use to echo the data on stdout.
+     * @param string $debug A fprintf format to use to echo the data on stdout.
      */
     public function __construct($data, $encoding = 'UTF-8', $debug = '')
     {

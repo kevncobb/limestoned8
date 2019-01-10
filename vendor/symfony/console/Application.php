@@ -74,7 +74,7 @@ class Application
     private $dispatcher;
     private $terminal;
     private $defaultCommand;
-    private $singleCommand = false;
+    private $singleCommand;
     private $initialized;
 
     /**
@@ -1160,14 +1160,6 @@ class Application
         }
 
         return $this;
-    }
-
-    /**
-     * @internal
-     */
-    public function isSingleCommand()
-    {
-        return $this->singleCommand;
     }
 
     private function splitStringByWidth($string, $width)

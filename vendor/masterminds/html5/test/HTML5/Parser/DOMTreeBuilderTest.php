@@ -3,7 +3,6 @@
  * @file
  * Test the Tree Builder.
  */
-
 namespace Masterminds\HTML5\Tests\Parser;
 
 use Masterminds\HTML5\Parser\Scanner;
@@ -49,7 +48,7 @@ class DOMTreeBuilderTest extends \Masterminds\HTML5\Tests\TestCase
 
     public function testDocument()
     {
-        $html = '<!DOCTYPE html><html></html>';
+        $html = "<!DOCTYPE html><html></html>";
         $doc = $this->parse($html);
 
         $this->assertInstanceOf('\DOMDocument', $doc);
@@ -102,10 +101,9 @@ class DOMTreeBuilderTest extends \Masterminds\HTML5\Tests\TestCase
             </body>
         </html>', $doc->saveXML());
     }
-
     public function testBareAmpersandNotAllowedInBody()
     {
-        $html = '<!doctype html>
+        $html = "<!doctype html>
         <html>
             <body> 
                 a&b
@@ -115,7 +113,7 @@ class DOMTreeBuilderTest extends \Masterminds\HTML5\Tests\TestCase
                 a&+
                 a& -- valid
             </body>
-        </html>';
+        </html>";
         $doc = $this->parse($html);
 
         $this->assertCount(5, $this->errors);
@@ -134,28 +132,28 @@ class DOMTreeBuilderTest extends \Masterminds\HTML5\Tests\TestCase
 
     public function testStrangeCapitalization()
     {
-        $html = '<!doctype html>
+        $html = "<!doctype html>
         <html>
             <head>
                 <Title>Hello, world!</TitlE>
             </head>
             <body>TheBody<script>foo</script></body>
-        </html>';
+        </html>";
         $doc = $this->parse($html);
 
         $this->assertInstanceOf('\DOMDocument', $doc);
         $this->assertEquals('html', $doc->documentElement->tagName);
 
-        $xpath = new \DOMXPath($doc);
-        $xpath->registerNamespace('x', 'http://www.w3.org/1999/xhtml');
+        $xpath = new \DOMXPath( $doc );
+        $xpath->registerNamespace( "x", "http://www.w3.org/1999/xhtml" );
 
-        $this->assertEquals('Hello, world!', $xpath->query('//x:title')->item(0)->nodeValue);
-        $this->assertEquals('foo', $xpath->query('//x:script')->item(0)->nodeValue);
+        $this->assertEquals("Hello, world!", $xpath->query( "//x:title" )->item( 0 )->nodeValue);
+        $this->assertEquals("foo", $xpath->query( "//x:script" )->item( 0 )->nodeValue);
     }
 
     public function testDocumentWithDisabledNamespaces()
     {
-        $html = '<!DOCTYPE html><html></html>';
+        $html = "<!DOCTYPE html><html></html>";
         $doc = $this->parse($html, array('disable_html_ns' => true));
 
         $this->assertInstanceOf('\DOMDocument', $doc);
@@ -167,7 +165,7 @@ class DOMTreeBuilderTest extends \Masterminds\HTML5\Tests\TestCase
     {
         $targetDom = new \DOMDocument();
 
-        $html = '<!DOCTYPE html><html></html>';
+        $html = "<!DOCTYPE html><html></html>";
         $doc = $this->parse($html, array('target_document' => $targetDom));
 
         $this->assertInstanceOf('\DOMDocument', $doc);
@@ -177,16 +175,16 @@ class DOMTreeBuilderTest extends \Masterminds\HTML5\Tests\TestCase
 
     public function testDocumentFakeAttrAbsence()
     {
-        $html = '<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml"><body>foo</body></html>';
-        $doc = $this->parse($html, array('xmlNamespaces' => true));
+        $html = "<!DOCTYPE html><html xmlns=\"http://www.w3.org/1999/xhtml\"><body>foo</body></html>";
+        $doc = $this->parse($html, array('xmlNamespaces'=>true));
 
         $xp = new \DOMXPath($doc);
-        $this->assertEquals(0, $xp->query('//@html5-php-fake-id-attribute')->length);
+        $this->assertEquals(0, $xp->query("//@html5-php-fake-id-attribute")->length);
     }
 
     public function testFragment()
     {
-        $html = '<div>test</div><span>test2</span>';
+        $html = "<div>test</div><span>test2</span>";
         $doc = $this->parseFragment($html);
 
         $this->assertInstanceOf('\DOMDocumentFragment', $doc);
@@ -199,7 +197,7 @@ class DOMTreeBuilderTest extends \Masterminds\HTML5\Tests\TestCase
 
     public function testElements()
     {
-        $html = '<!DOCTYPE html><html><head><title></title></head><body></body></html>';
+        $html = "<!DOCTYPE html><html><head><title></title></head><body></body></html>";
         $doc = $this->parse($html);
         $root = $doc->documentElement;
 
@@ -235,8 +233,8 @@ class DOMTreeBuilderTest extends \Masterminds\HTML5\Tests\TestCase
     {
         $dom = $this->parse('<!DOCTYPE html><html><body><a t:href="bar">foo</a></body></html>', array(
             'implicitNamespaces' => array(
-                't' => 'http://www.example.com',
-            ),
+                't' => 'http://www.example.com'
+            )
         ));
         $a = $dom->getElementsByTagName('a')->item(0);
         $attr = $a->getAttributeNode('t:href');
@@ -244,8 +242,8 @@ class DOMTreeBuilderTest extends \Masterminds\HTML5\Tests\TestCase
 
         $dom = $this->parse('<!DOCTYPE html><html><body><t:a>foo</t:a></body></html>', array(
             'implicitNamespaces' => array(
-                't' => 'http://www.example.com',
-            ),
+                't' => 'http://www.example.com'
+            )
         ));
         $list = $dom->getElementsByTagNameNS('http://www.example.com', 'a');
         $this->assertEquals(1, $list->length);
@@ -260,7 +258,7 @@ class DOMTreeBuilderTest extends \Masterminds\HTML5\Tests\TestCase
             </body>
             <div>foo</div>
           </html>', array(
-                'xmlNamespaces' => true,
+                'xmlNamespaces' => true
             ));
         $a = $dom->getElementsByTagName('a')->item(0);
         $attr = $a->getAttributeNode('t:href');
@@ -285,8 +283,9 @@ class DOMTreeBuilderTest extends \Masterminds\HTML5\Tests\TestCase
                 <xn:d xmlns:xn="http://www.prefixed.com/xn" xmlns="http://www.prefixed.com/bar5_x" id="bar5"><x id="bar5_x"/></xn:d>
             </body>
           </html>', array(
-                'xmlNamespaces' => true,
+                'xmlNamespaces' => true
             ));
+
 
         $this->assertEmpty($this->errors);
 
@@ -300,34 +299,34 @@ class DOMTreeBuilderTest extends \Masterminds\HTML5\Tests\TestCase
         $this->assertEquals('http://www.prefixed.com/bar1', $bar1->namespaceURI);
 
         $bar2 = $dom->getElementById('bar2');
-        $this->assertEquals('http://www.prefixed.com/bar2', $bar2->namespaceURI);
+        $this->assertEquals("http://www.prefixed.com/bar2", $bar2->namespaceURI);
 
         $bar3 = $dom->getElementById('bar3');
-        $this->assertEquals('http://www.w3.org/1999/xhtml', $bar3->namespaceURI);
+        $this->assertEquals("http://www.w3.org/1999/xhtml", $bar3->namespaceURI);
 
         $bar4 = $dom->getElementById('bar4');
-        $this->assertEquals('http://www.prefixed.com/bar4', $bar4->namespaceURI);
+        $this->assertEquals("http://www.prefixed.com/bar4", $bar4->namespaceURI);
 
         $svg = $dom->getElementById('svg');
-        $this->assertEquals('http://www.w3.org/2000/svg', $svg->namespaceURI);
+        $this->assertEquals("http://www.w3.org/2000/svg", $svg->namespaceURI);
 
         $prefixed = $dom->getElementById('prefixed');
-        $this->assertEquals('http://www.prefixed.com', $prefixed->namespaceURI);
+        $this->assertEquals("http://www.prefixed.com", $prefixed->namespaceURI);
 
         $prefixed = $dom->getElementById('bar5');
-        $this->assertEquals('http://www.prefixed.com/xn', $prefixed->namespaceURI);
+        $this->assertEquals("http://www.prefixed.com/xn", $prefixed->namespaceURI);
 
         $prefixed = $dom->getElementById('bar5_x');
-        $this->assertEquals('http://www.prefixed.com/bar5_x', $prefixed->namespaceURI);
+        $this->assertEquals("http://www.prefixed.com/bar5_x", $prefixed->namespaceURI);
     }
 
     public function testMoveNonInlineElements()
     {
-        $doc = $this->parse('<p>line1<br/><hr/>line2</p>');
-        $this->assertEquals('<html xmlns="http://www.w3.org/1999/xhtml"><p>line1<br/></p><hr/>line2</html>', $doc->saveXML($doc->documentElement), 'Move non-inline elements outside of inline containers.');
+    	$doc = $this->parse('<p>line1<br/><hr/>line2</p>');
+		$this->assertEquals('<html xmlns="http://www.w3.org/1999/xhtml"><p>line1<br/></p><hr/>line2</html>', $doc->saveXML($doc->documentElement), 'Move non-inline elements outside of inline containers.');
 
-        $doc = $this->parse('<p>line1<div>line2</div></p>');
-        $this->assertEquals('<html xmlns="http://www.w3.org/1999/xhtml"><p>line1</p><div>line2</div></html>', $doc->saveXML($doc->documentElement), 'Move non-inline elements outside of inline containers.');
+		$doc = $this->parse('<p>line1<div>line2</div></p>');
+		$this->assertEquals('<html xmlns="http://www.w3.org/1999/xhtml"><p>line1</p><div>line2</div></html>', $doc->saveXML($doc->documentElement), 'Move non-inline elements outside of inline containers.');
     }
 
     public function testAttributes()
@@ -397,7 +396,7 @@ class DOMTreeBuilderTest extends \Masterminds\HTML5\Tests\TestCase
 
     public function testMissingHtmlTag()
     {
-        $html = '<!DOCTYPE html><title>test</title>';
+        $html = "<!DOCTYPE html><title>test</title>";
         $doc = $this->parse($html);
 
         $this->assertEquals('html', $doc->documentElement->tagName);
@@ -412,23 +411,23 @@ class DOMTreeBuilderTest extends \Masterminds\HTML5\Tests\TestCase
 
         $comment = $doc->documentElement->childNodes->item(0);
         $this->assertEquals(XML_COMMENT_NODE, $comment->nodeType);
-        $this->assertEquals('Hello World.', $comment->data);
+        $this->assertEquals("Hello World.", $comment->data);
 
         $html = '<!--Hello World.--><html></html>';
         $doc = $this->parse($html);
 
         $comment = $doc->childNodes->item(1);
         $this->assertEquals(XML_COMMENT_NODE, $comment->nodeType);
-        $this->assertEquals('Hello World.', $comment->data);
+        $this->assertEquals("Hello World.", $comment->data);
 
         $comment = $doc->childNodes->item(2);
         $this->assertEquals(XML_ELEMENT_NODE, $comment->nodeType);
-        $this->assertEquals('html', $comment->tagName);
+        $this->assertEquals("html", $comment->tagName);
     }
 
     public function testCDATA()
     {
-        $html = '<!DOCTYPE html><html><math><![CDATA[test]]></math></html>';
+        $html = "<!DOCTYPE html><html><math><![CDATA[test]]></math></html>";
         $doc = $this->parse($html);
 
         $wrapper = $doc->getElementsByTagName('math')->item(0);
@@ -440,7 +439,7 @@ class DOMTreeBuilderTest extends \Masterminds\HTML5\Tests\TestCase
 
     public function testText()
     {
-        $html = '<!DOCTYPE html><html><head></head><body><math>test</math></body></html>';
+        $html = "<!DOCTYPE html><html><head></head><body><math>test</math></body></html>";
         $doc = $this->parse($html);
 
         $wrapper = $doc->getElementsByTagName('math')->item(0);
@@ -450,8 +449,8 @@ class DOMTreeBuilderTest extends \Masterminds\HTML5\Tests\TestCase
         $this->assertEquals('test', $data->data);
 
         // The DomTreeBuilder has special handling for text when in before head mode.
-        $html = '<!DOCTYPE html><html>
-    Foo<head></head><body></body></html>';
+        $html = "<!DOCTYPE html><html>
+    Foo<head></head><body></body></html>";
         $doc = $this->parse($html);
         $this->assertEquals('Line 0, Col 0: Unexpected text. Ignoring: Foo', $this->errors[0]);
         $headElement = $doc->documentElement->firstChild;
@@ -460,7 +459,7 @@ class DOMTreeBuilderTest extends \Masterminds\HTML5\Tests\TestCase
 
     public function testParseErrors()
     {
-        $html = '<!DOCTYPE html><html><math><![CDATA[test';
+        $html = "<!DOCTYPE html><html><math><![CDATA[test";
         $doc = $this->parse($html);
 
         // We're JUST testing that we can access errors. Actual testing of
@@ -489,7 +488,7 @@ class DOMTreeBuilderTest extends \Masterminds\HTML5\Tests\TestCase
 
     public function testAutocloseP()
     {
-        $html = '<!DOCTYPE html><html><body><p><figure></body></html>';
+        $html = "<!DOCTYPE html><html><body><p><figure></body></html>";
         $doc = $this->parse($html);
 
         $p = $doc->getElementsByTagName('p')->item(0);
@@ -577,7 +576,7 @@ class DOMTreeBuilderTest extends \Masterminds\HTML5\Tests\TestCase
     }
 
     /**
-     * Regression for issue #13.
+     * Regression for issue #13
      */
     public function testRegressionHTMLNoBody()
     {
@@ -636,14 +635,13 @@ class DOMTreeBuilderTest extends \Masterminds\HTML5\Tests\TestCase
     </body>
 </html>
 EOM;
-        $dom = $this->parse($html);
+        $dom  = $this->parse($html);
 
         $this->assertSame(3, $dom->getElementById('first')->getElementsByTagName('option')->length);
         $this->assertSame(2, $dom->getElementById('second')->getElementsByTagName('option')->length);
     }
 
-    public function testVoidTag()
-    {
+    public function testVoidTag() {
         $html = <<<EOM
 <!DOCTYPE html>
 <html>
@@ -662,8 +660,7 @@ EOM;
         $this->assertSame(0, $dom->getElementsByTagName('meta')->item(1)->childNodes->length);
     }
 
-    public function testIgnoreSelfClosingTag()
-    {
+    public function testIgnoreSelfClosingTag() {
         $html = <<<EOM
 <!DOCTYPE html>
 <html>
@@ -680,8 +677,7 @@ EOM;
         $this->assertSame(1, $dom->getElementsByTagName('div')->item(0)->childNodes->length);
     }
 
-    public function testIAudioInParagraph()
-    {
+    public function testIAudioInParagraph() {
         $html = <<<EOM
 <!DOCTYPE html>
 <html>
