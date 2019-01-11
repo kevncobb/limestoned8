@@ -12,7 +12,7 @@ article.node--type-news {
 .panel-oedu-container {
   @extend .grid-container;
 }
-.row {
+.bs-region .row {
   @extend .grid-container;
 }
 .col-sm-1 {
