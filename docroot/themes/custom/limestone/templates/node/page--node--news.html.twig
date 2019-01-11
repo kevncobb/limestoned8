@@ -56,106 +56,122 @@
 #}
 
 <div class="off-canvas-wrapper">
-  <div class="inner-wrap off-canvas-wrapper-inner" id="inner-wrap" data-off-canvas-wrapper>
-    <aside id="top-off-canvas-search" class="off-canvas position-top" role="complementary" data-off-canvas>
-      {{ page.top_off_canvas }}
-    </aside>
-    <aside id="left-off-canvas-menu" class="off-canvas left-off-canvas-menu position-left" role="complementary" data-off-canvas>
-      {{ page.left_off_canvas }}
-    </aside>
-    <aside id="right-off-canvas-menu" class="off-canvas right-off-canvas-menu position-right" role="complementary" data-off-canvas>
-      {{ page.right_off_canvas }}
-    </aside>
+    <div class="inner-wrap off-canvas-wrapper-inner" id="inner-wrap" data-off-canvas-wrapper>
+        <aside id="top-off-canvas-search" class="off-canvas position-top" role="complementary" data-off-canvas>
+            {{ page.top_off_canvas }}
+        </aside>
+        <aside id="left-off-canvas-menu" class="off-canvas left-off-canvas-menu position-left" role="complementary"
+               data-off-canvas>
+            {{ page.left_off_canvas }}
+        </aside>
+        <aside id="right-off-canvas-menu" class="off-canvas right-off-canvas-menu position-right" role="complementary"
+               data-off-canvas>
+            {{ page.right_off_canvas }}
+        </aside>
 
-    <div class="off-canvas-content" data-off-canvas-content>
-      {% if page.top_bar %}
-          <div class="top-bar">
-          <div class="grid-container">
-              <div class="grid-x grid-margin-x">
-                 {{ page.top_bar }}
-              </div>
-          </div>
-          </div>
-      {% endif %}
-
-      <header class="site-header" role="banner" aria-label="{{ 'Site header'|t }}">
-        <div class="grid-container">
-            <div class="grid-x grid-margin-x">
-              {{ page.header }}
-              <div class="grid-x site-header-meta-links">
-                <button type="button" class="clear button search-button" data-toggle="top-off-canvas-search"><span class="icon-search"></span></button>
-                <button type="button" class="clear button quicklink-button" data-toggle="right-off-canvas-menu">Quick Links <span class="icon-chevron-down"></span></button>
-              </div>
-            </div>
-        </div>
-      </header>
-
-        <div class="main-menu-region">
-            {{ page.main_menu_region }}
-        </div>
-
-          {% if messages and not zurb_foundation_messages_modal %}
-          <div class="l-messages grid-container">
-            <div class="large-12 cell">
-              {{ messages }}
-            </div>
-          </div>
-          {% endif %}
-
-          {% if page.help %}
-          <div class="l-help grid-container">
-            <div class="large-12 cell">
-              {{ page.help }}
-            </div>
-          </div>
-          {% endif %}
-
-            <main id="main" class="{{ main_grid }} cell" role="main">
-              {% if page.highlighted %}
-                {% spaceless %}
-                  {{ page.highlighted }}
-                {% endspaceless %}
-              {% endif %}
-              <a id="main-content"></a>
-                <div class="lc-news-header">
-                    <div class="grid-container" id="lc-news-header">
-                        <a href="/news" title="LC News"><span class="lc-news-title">LC News</span></a>
+        <div class="off-canvas-content" data-off-canvas-content>
+            {% if page.top_bar %}
+                <div class="top-bar">
+                    <div class="grid-container">
+                        <div class="grid-x grid-margin-x">
+                            {{ page.top_bar }}
+                        </div>
                     </div>
                 </div>
-                {{ page.content }}
-
-            </main>
-            {% if page.sidebar_first %}
-              <div id="sidebar-first" class="{{ sidebar_first_grid }} cell sidebar ">
-                {{ page.sidebar_first }}
-              </div>
             {% endif %}
-            {% if page.sidebar_second %}
-              <div id="sidebar-second" class="{{ sidebar_sec_grid }} cell sidebar">
-                {{ page.sidebar_second }}
-              </div>
-            {% endif %}
-
-        {% if page.footer  %}
-            <footer class="site-footer">
+            <header class="site-header" role="banner" aria-label="{{ 'Site header'|t }}">
                 <div class="grid-container">
-                    {% if page.footer %}
-                        <div id="footer" class="large-12 cell">
-                            {{ page.footer }}
+                    <div class="grid-x grid-margin-x">
+                        {{ page.header }}
+                        <div class="cell auto site-header-meta-links">
+                            <div class="grid-x align-right">
+                                <div class="cell">
+                                    <button type="button" class="clear button search-button"
+                                            data-toggle="top-off-canvas-search"><span class="icon-search"></span>
+                                    </button>
+                                    <button type="button" class="clear button quicklink-button"
+                                            data-toggle="right-off-canvas-menu">Quick Links <span
+                                                class="icon-chevron-down"></span>
+                                    </button>
+                                </div>
+                            </div>
                         </div>
-                    {% endif %}
+                    </div>
                 </div>
-            </footer>
-        {% endif %}
-      <div class="bottom-bar panel">
-        <div class="grid-container">
-          <div class="large-12 cell">
-              &copy; {{ "now"|date('Y') }} {{ site_name }} {{ 'All rights reserved.'|t }} <a href="https://goo.gl/maps/HgKHGbrkNoS2"><span class="icon-location"></span> Gaffney, SC</a>
-              <a class="phone" href="tel:8644897151"><span class="icon-phone"></span> 864.489.7151</a>
-              <a class="info" href="/contact"><span class="icon-info"></span> Contact LC</a>
-          </div>
+            </header>
+            <section class="grid-container">
+                <div class="main-menu-region">
+                    {{ page.main_menu_region }}
+                </div>
+            </section>
+            {% if node.title.value %}
+                <div class="sub-page-header" role="heading">
+                    {{ title_prefix }}
+                    <h1 class="sub-header-title grid-container">{{ title }}</h1>
+                    {{ title_suffix }}
+                </div>
+            {% endif %}
+            {% if messages and not zurb_foundation_messages_modal %}
+                <div class="l-messages grid-container">
+                    <div class="large-12 cell">
+                        {{ messages }}
+                    </div>
+                </div>
+            {% endif %}
+
+            {% if page.help %}
+                <div class="l-help grid-container">
+                    <div class="large-12 cell">
+                        {{ page.help }}
+                    </div>
+                </div>
+            {% endif %}
+
+            <div class="grid-container">
+                <main id="main" class="{{ main_grid }} cell" role="main">
+                    {% if page.highlighted %}
+                        {% spaceless %}
+                            {{ page.highlighted }}
+                        {% endspaceless %}
+                    {% endif %}
+                    <a id="main-content"></a>
+                    <section>
+                        {{ page.content }}
+                    </section>
+                </main>
+                {% if page.sidebar_first %}
+                    <div id="sidebar-first" class="{{ sidebar_first_grid }} cell sidebar ">
+                        {{ page.sidebar_first }}
+                    </div>
+                {% endif %}
+                {% if page.sidebar_second %}
+                    <div id="sidebar-second" class="{{ sidebar_sec_grid }} cell sidebar">
+                        {{ page.sidebar_second }}
+                    </div>
+                {% endif %}
+            </div>
+
+            {% if page.footer %}
+                <footer class="site-footer">
+                    <div class="grid-container">
+                        {% if page.footer %}
+                            <div id="footer" class="large-12 cell">
+                                {{ page.footer }}
+                            </div>
+                        {% endif %}
+                    </div>
+                </footer>
+            {% endif %}
+            <div class="bottom-bar panel">
+                <div class="grid-container">
+                    <div class="large-12 cell">
+                        &copy; {{ "now"|date('Y') }} {{ site_name }} {{ 'All rights reserved.'|t }} <a
+                                href="https://goo.gl/maps/HgKHGbrkNoS2"><span class="icon-location"></span> Gaffney, SC</a>
+                        <a class="phone" href="tel:8644897151"><span class="icon-phone"></span> 864.489.7151</a>
+                        <a class="info" href="/contact"><span class="icon-info"></span> Contact LC</a>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
 </div>
