@@ -20,8 +20,8 @@
   Drupal.behaviors.callout = {
     attach: function (context, settings) {
       // Using once() to apply the myCustomBehaviour effect when you want to do just run one function.
-      $(context).find('.callout').prepend( "<span class='watermark'>&nbsp;</span>" );
-      $(context).find('.callout right').prepend( "<span class='watermark right'>&nbsp;</span>" );
+      $(context).find('.lc-callout').prepend( "<span class='watermark'>&nbsp;</span>" );
+      $(context).find('.lc-callout right').prepend( "<span class='watermark right'>&nbsp;</span>" );
     }
   };
   Drupal.behaviors.trim_next_headline = {

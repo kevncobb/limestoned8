@@ -17,7 +17,7 @@
   /* W3C */
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00ffffff', endColorstr='#00ffffff',GradientType=1 );
 }
-p.callout, blockquote.callout {
+p.lc-callout, blockquote.lc-callout {
   @include callout($white);
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00ffffff', endColorstr='#00ffffff',GradientType=1 );
   /* IE6-9 */
