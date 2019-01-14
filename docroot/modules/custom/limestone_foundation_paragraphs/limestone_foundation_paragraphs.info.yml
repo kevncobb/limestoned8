@@ -1,8 +1,8 @@
 name: 'Limestone Foundation Paragraphs'
 type: module
 description: 'A suite of Paragraph bundles to be used for Varbase distribution. Made with the Boostrap framework, based on a fork of Bootstrap Paragraph module (bootstrap_paragraphs).'
-# core: 8.x
-# version: 8.x-6.x-dev
+core: 8.x
+version: 8.x-6.x-dev
 package: Limestone
 components:
   - vbp_text_and_image
