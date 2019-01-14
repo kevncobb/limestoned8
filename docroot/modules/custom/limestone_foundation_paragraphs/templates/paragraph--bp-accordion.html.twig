@@ -109,7 +109,7 @@ view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class,
       <div class="{{- VBP.bp_width.value -}}">
         {% if paragraph_title and paragraph_title_status %}<h2 class="text-center">{{- paragraph_title -}}</h2>{% endif %}
         {{ title_suffix }}
-        <div class="card panel panel-default">
+        <ul class="accordion" data-accordion>
           {# Loop through all of the accordion sections. #}
           {% for key, item in content.bp_accordion_section if key|first != '#' %}
             {% set attributes = attributes.removeClass('bg-edge2edge') %}
@@ -135,7 +135,7 @@ view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class,
               {% endfor %}
             </div>
           {% endfor %}
-        </div>
+        </ul>
       </div>
     </div>
   {% if add_container %}</div>{% endif %}
