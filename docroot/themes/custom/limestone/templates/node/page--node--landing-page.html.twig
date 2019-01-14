@@ -99,11 +99,9 @@
                     </div>
                 </div>
             </header>
-            <section class="grid-container">
-                <div class="main-menu-region">
-                    {{ page.main_menu_region }}
-                </div>
-            </section>
+            <div class="main-menu-region">
+                {{ page.main_menu_region }}
+            </div>
             {% if messages and not zurb_foundation_messages_modal %}
                 <div class="l-messages grid-container">
                     <div class="large-12 cell">
