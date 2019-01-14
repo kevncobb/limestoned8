@@ -3,7 +3,7 @@ type: module
 description: 'A suite of Paragraph bundles to be used for Varbase distribution. Made with the Boostrap framework, based on a fork of Bootstrap Paragraph module (bootstrap_paragraphs).'
 # core: 8.x
 # version: 8.x-6.x-dev
-package: Varbase
+package: Limestone
 components:
   - vbp_text_and_image
 dependencies:
@@ -22,9 +22,3 @@ install:
   - entity_reference_revisions
   - paragraphs
   - paragraphs_previewer
-
-# Information added by Drupal.org packaging script on 2018-12-18
-version: '8.x-6.2'
-core: '8.x'
-project: 'limestone_foundation_paragraphs'
-datestamp: 1545148984
