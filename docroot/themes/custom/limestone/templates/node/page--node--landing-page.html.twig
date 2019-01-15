@@ -118,29 +118,27 @@
                 </div>
             {% endif %}
 
-            <div class="grid-container">
-                <main id="main" class="{{ main_grid }} cell" role="main">
-                    {% if page.highlighted %}
-                        {% spaceless %}
-                            {{ page.highlighted }}
-                        {% endspaceless %}
-                    {% endif %}
-                    <a id="main-content"></a>
-                    <section>
-                        {{ page.content }}
-                    </section>
-                </main>
-                {% if page.sidebar_first %}
-                    <div id="sidebar-first" class="{{ sidebar_first_grid }} cell sidebar ">
-                        {{ page.sidebar_first }}
-                    </div>
+            <main id="main" class="landing-main" role="main">
+                {% if page.highlighted %}
+                    {% spaceless %}
+                        {{ page.highlighted }}
+                    {% endspaceless %}
                 {% endif %}
-                {% if page.sidebar_second %}
-                    <div id="sidebar-second" class="{{ sidebar_sec_grid }} cell sidebar">
-                        {{ page.sidebar_second }}
-                    </div>
-                {% endif %}
-            </div>
+                <a id="main-content"></a>
+                <section>
+                    {{ page.content }}
+                </section>
+            </main>
+            {% if page.sidebar_first %}
+                <div id="sidebar-first" class="{{ sidebar_first_grid }} cell sidebar ">
+                    {{ page.sidebar_first }}
+                </div>
+            {% endif %}
+            {% if page.sidebar_second %}
+                <div id="sidebar-second" class="{{ sidebar_sec_grid }} cell sidebar">
+                    {{ page.sidebar_second }}
+                </div>
+            {% endif %}
 
             {% if page.footer %}
                 <footer class="site-footer">
