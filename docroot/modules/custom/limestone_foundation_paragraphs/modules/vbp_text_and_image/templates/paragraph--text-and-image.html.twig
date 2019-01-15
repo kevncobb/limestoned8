@@ -99,7 +99,7 @@ view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class,
 {# Prints div with classes, and content. #}
 <div{{ attributes.addClass(classes).setAttribute('id', paragraph_id) }} {% if VBP.background_image.url %} style="background-image:url({{- VBP.background_image.url -}});" {% endif %}>
   {% if add_container %}<div class="container">{% endif %}
-    <div class="row">
+    <div class="grid-container">
       <div class="{{- VBP.bp_width.value -}}">
           {% if paragraph_title and paragraph_title_status %}<h2 class="text-center">{{- paragraph_title -}}</h2>{% endif %}
           {# Check the Image position field. #}

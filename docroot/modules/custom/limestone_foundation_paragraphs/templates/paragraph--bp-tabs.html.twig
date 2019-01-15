@@ -105,7 +105,7 @@ view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class,
 {# Prints Tabs template. #}
 <div{{ attributes.addClass(classes).setAttribute('id', paragraph_id) }} role="tablist" aria-multiselectable="true" {% if VBP.background_image.url %} style="background-image:url({{- VBP.background_image.url -}});" {% endif %}>
   {% if add_container %}<div class="container">{% endif %}
-    <div class="row">
+    <div class="grid-container">
       <div class="{{- VBP.bp_width.value -}}">
         {% if paragraph_title and paragraph_title_status %}<h2 class="text-center">{{- paragraph_title -}}</h2>{% endif %}
         {{ title_suffix }}
