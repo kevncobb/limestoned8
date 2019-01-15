@@ -126,6 +126,9 @@ p {
 .background-blue, .bg-blue {
   background-color: $limestone-blue;
   color: white;
+  &.bg-faded {
+    background-color: rgba($limestone-blue, 0.6);
+  }
   h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6 {
     color: white;
   }
@@ -147,6 +150,9 @@ p {
 }
 .bg-orange {
   background-color: $orange;
+  &.bg-faded {
+    background-color: rgba($orange, 0.6);
+  }
   color: white;
   h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6 {
     color: white;
@@ -157,6 +163,9 @@ p {
 }
 .bg-yellow {
   background-color: $limestone-yellow;
+  &.bg-faded {
+    background-color: rgba($limestone-yellow, 0.6);
+  }
   color: $limestone-blue-body;
   h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6 {
     color: $limestone-blue-body;
@@ -167,6 +176,9 @@ p {
 }
 .bg-white {
   background-color: white;
+  &.bg-faded {
+    background-color: rgba(white, 0.6);
+  }
   color: $body-font-color;
   > h1, > h2, > h3, > h4, > h5, > h6 {
     color: $header-color;
@@ -179,7 +191,9 @@ p {
 .color-category {
   color: $category;
 }
-
+.color-white {
+  color: white;
+}
 .bold {
   font-weight: bold;
 }
@@ -243,6 +257,3 @@ ul.line-items {
   margin: 0.5rem auto 0.5rem;
 }
 
-section.block-ctools-block {
-  padding-bottom: 4rem;
-}
