@@ -76,7 +76,7 @@ header.site-header {
     position: relative;
   }
   .site-header-meta-links {
-    margin-top: 16px;
+    margin-top: 19px;
     position: relative;
   }
 }
@@ -195,12 +195,34 @@ header.site-header {
   -webkit-transform: translate(-50%, -50%);
   -ms-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
-font-size: 190%;
+  font-size: 190%;
   @include breakpoint(medium) {
     font-size: 300%;
   }
   @include breakpoint(large) {
     font-size: 415%;
+  }
+}
+.splash-header-subtitle {
+  color: white;
+  width: 100%;
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: bold;
+  line-height: 1;
+  text-shadow: rgba(0, 0, 0, 0.5) 0 0 15px;
+  position: absolute;
+  top: 63%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  font-size: 120%;
+  @include breakpoint(medium) {
+    font-size: 240%;
+  }
+  @include breakpoint(large) {
+    font-size: 320%;
   }
 }
 .overlay {
@@ -211,6 +233,50 @@ font-size: 190%;
   height: 100%;
   box-shadow: inset 0px 0px 0px 111.11111rem rgba(0, 0, 0, 0.4);
 }
+.fullscreen-bg {
+  position: relative;
+  width: 100%;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  overflow: hidden;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+
+  .content {
+    //margin-top: 12rem;
+    margin-bottom: 1rem;
+    p:last-child {
+      margin-bottom: 0;
+    }
+    @include breakpoint(large) {
+      //margin-top: 17rem;
+    }
+  }
+}
+.fullscreen-bg__video {
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  right: 0;
+  bottom: 0;
+  min-width: 100%;
+  width: auto;
+  height: 100%;
+  z-index: -100;
+  @include breakpoint(xlarge) {
+    top: 0%;
+    width: 100%;
+    height: auto;
+  }
+  @include breakpoint(superlarge) {
+    top: -30%;
+  }
+}
+
 
 .mega-title {
   font-family: $header-font-family;
@@ -227,6 +293,10 @@ font-size: 190%;
   @include breakpoint(large) {
     font-size: 7rem;
     line-height: 7rem;
+  }
+  &.color-white {
+    color: white;
+    text-shadow: rgba(0, 0, 0, 0.5) 0 0 15px;
   }
 }
 
