@@ -42,12 +42,12 @@ background color options.
 
 **Widths:**
 
-  * Tiny : col-md-4 col-md-offset-4 col-sm-8 col-sm-offset-2
-  * Narrow : col-md-6 col-md-offset-3 col-sm-10 col-sm-offset-1
-  * Medium : col-md-8 col-md-offset-2
-  * Wide : col-md-10 col-md-offset-1
-  * Full : col-xs-12
-  * Edge to Edge : bg-edge2edge col-xs-12
+  * Tiny : medium-4 medium-offset-4 small-8 small-offset-2
+  * Narrow : medium-6 medium-offset-3 small-10 small-offset-1
+  * Medium : medium-8 medium-offset-2
+  * Wide : medium-10 medium-offset-1
+  * Full : xsmall-12
+  * Edge to Edge : bg-edge2edge xsmall-12
 
 **Installation:**
 

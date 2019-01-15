@@ -24,19 +24,19 @@
 {% if content.text_and_image_style|render %}
     {% set fields_style = content.text_and_image_style['#items'].getString() %}
     {% set col_1 = [
-    'paragraph--style--50-50' == fields_style ? 'col-lg-6',
-    'paragraph--style--75-25' == fields_style ? 'col-lg-9',
-    'paragraph--style--66-33' == fields_style ? 'col-lg-8',
-    'paragraph--style--25-75' == fields_style ? 'col-lg-3',
-    'paragraph--style--33-66' == fields_style ? 'col-lg-4',
+    'paragraph--style--50-50' == fields_style ? 'large-6',
+    'paragraph--style--75-25' == fields_style ? 'large-9',
+    'paragraph--style--66-33' == fields_style ? 'large-8',
+    'paragraph--style--25-75' == fields_style ? 'large-3',
+    'paragraph--style--33-66' == fields_style ? 'large-4',
     ]
     %}
     {% set col_2 = [
-    'paragraph--style--50-50' == fields_style ? 'col-lg-6',
-    'paragraph--style--75-25' == fields_style ? 'col-lg-3',
-    'paragraph--style--66-33' == fields_style ? 'col-lg-4',
-    'paragraph--style--25-75' == fields_style ? 'col-lg-9',
-    'paragraph--style--33-66' == fields_style ? 'col-lg-8',
+    'paragraph--style--50-50' == fields_style ? 'large-6',
+    'paragraph--style--75-25' == fields_style ? 'large-3',
+    'paragraph--style--66-33' == fields_style ? 'large-4',
+    'paragraph--style--25-75' == fields_style ? 'large-9',
+    'paragraph--style--33-66' == fields_style ? 'large-8',
     ]
     %}
 {% endif %}
