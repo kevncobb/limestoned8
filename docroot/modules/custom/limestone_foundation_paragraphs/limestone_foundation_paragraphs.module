@@ -62,15 +62,15 @@ function limestone_foundation_paragraphs_preprocess_paragraph(&$variables) {
   }
 
   $width_map = [
-    'paragraph--width--tiny' => 'medium-4 medium-offset-4 small-8 small-offset-2',
-    'paragraph--width--narrow' => 'medium-6 medium-offset-3 small-10 small-offset-1',
+    'paragraph--width--tiny' => 'medium-4 medium-offset-4 smedium-8 smedium-offset-2',
+    'paragraph--width--narrow' => 'medium-6 medium-offset-3 smedium-10 smedium-offset-1',
     'paragraph--width--medium' => 'medium-8 medium-offset-2',
     'paragraph--width--wide' => 'medium-10 medium-offset-1',
-    'paragraph--width--full' => 'xsmall-12',
-    'bg-edge2edge' => 'bg-edge2edge xsmall-12 no-padding',
+    'paragraph--width--full' => 'small-12',
+    'bg-edge2edge' => 'bg-edge2edge small-12 no-padding',
   ];
 
-  $width = 'xsmall-12';
+  $width = 'small-12';
   if (isset($width_map[$width_value])) {
     $width = $width_map[$width_value];
   }
