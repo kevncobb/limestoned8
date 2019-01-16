@@ -226,7 +226,12 @@ p {
     padding-right: 4rem;
   }
 }
-
+ul.list-unstyled, ul.unstyled-list {
+  margin-left: 0;
+  li {
+    list-style-type: none;
+  }
+}
 ul.line-items {
   padding: 0;
   margin: 0;
