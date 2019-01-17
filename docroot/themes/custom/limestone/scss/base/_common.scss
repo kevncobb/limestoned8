@@ -23,7 +23,27 @@
 .wf-inactive {
 
 }
-
+.col-2 {
+  @include breakpoint(smedium) {
+    column-count: 2;
+  }
+}
+.col-3 {
+  @include breakpoint(smedium) {
+    column-count: 2;
+  }
+  @include breakpoint(medium) {
+    column-count: 3;
+  }
+}
+.col-4 {
+  @include breakpoint(smedium) {
+    column-count: 2;
+  }
+  @include breakpoint(medium) {
+    column-count: 4;
+  }
+}
 .max-500 {
   max-width: 500px;
 }
@@ -260,22 +280,23 @@ ul.line-items {
 .stripes-dark-tile {
   &:before {
     position: absolute;
+    z-index: 1;
     bottom: 0;
     left: 0;
     height: 80px;
     width: 100%;
     content: "";
-    opacity: 0.4;
+    opacity: 0.5;
     background: -webkit-gradient(linear, 0 0, 0 100%, from(rgba(0, 0, 0, 0)), to(rgba(0, 0, 0, 0.8))) 0 0 no-repeat;
   }
   &:after {
     position: absolute;
-    z-index: 1;
+    z-index: 0;
     bottom: 0;
     height: 80px;
     width: 100%;
     content: "";
     background: url("/themes/custom/limestone/images/stripes-dark-tile.svg");
-    opacity: 0.08;
+    opacity: 0.4;
   }
 }
