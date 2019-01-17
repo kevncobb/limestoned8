@@ -55,7 +55,7 @@ rule_of_thirds:
     bottom:
       label: Bottom Content
 rule_of_thirds_full:
-  label: Rule of Thirds Layout
+  label: Rule of Thirds Layout Full
   category: 'Limestone Layouts'
   path: layouts/rule_of_thirds_full
   icon: thirds.jpg
