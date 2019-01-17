@@ -225,15 +225,40 @@ header.site-header {
     font-size: 320%;
   }
 }
-
 .big-title {
+  @media screen and (min-width: 40em) {
+    font-size: 3.8rem;
+  }
+}
+.paragraph-section-title {
   font-family: $site-header-font-family;
   font-weight: $site-header-font-weight;
-
   @media screen and (min-width: 40em) {
     font-size: 4rem;
   }
 }
+.mega-title {
+  font-family: $header-font-family;
+  font-weight: bold;
+  text-transform: uppercase;
+  @include breakpoint(small) {
+    font-size: 4rem;
+    line-height: 4rem;
+  }
+  @include breakpoint(medium) {
+    font-size: 5.5rem;
+    line-height: 5.5rem;
+  }
+  @include breakpoint(large) {
+    font-size: 7rem;
+    line-height: 7rem;
+  }
+  &.color-white {
+    color: white;
+    text-shadow: rgba(0, 0, 0, 0.5) 0 0 15px;
+  }
+}
+
 .embedded-entity.align-center {
   img {
     display: block;
@@ -294,27 +319,6 @@ header.site-header {
 }
 
 
-.mega-title {
-  font-family: $header-font-family;
-  font-weight: bold;
-  text-transform: uppercase;
-  @include breakpoint(small) {
-    font-size: 4rem;
-    line-height: 4rem;
-  }
-  @include breakpoint(medium) {
-    font-size: 5.5rem;
-    line-height: 5.5rem;
-  }
-  @include breakpoint(large) {
-    font-size: 7rem;
-    line-height: 7rem;
-  }
-  &.color-white {
-    color: white;
-    text-shadow: rgba(0, 0, 0, 0.5) 0 0 15px;
-  }
-}
 
 
 .lc-header,
