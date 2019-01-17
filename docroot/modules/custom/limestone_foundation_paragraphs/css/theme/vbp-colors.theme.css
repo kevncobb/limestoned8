@@ -73,3 +73,42 @@
 .vbp_color_05 a.is-active {
   color: #ffffff;
 }
+.bg-blue {
+  background-color: #0038a5;
+  color: #ffffff;
+}
+.bg-blue a {
+  color: #ffffff;
+}
+.bg-blue a:hover,
+.bg-blue a:focus,
+.bg-blue a:active,
+.bg-blue a.is-active {
+  color: #ffffff;
+}
+.bg-yellow {
+  background-color: #fbea65;
+  color: #2556a3;
+}
+.bg-yellow a {
+  color: #2556a3;
+}
+.bg-yellow a:hover,
+.bg-yellow a:focus,
+.bg-yellow a:active,
+.bg-yellow a.is-active {
+  color: #2556a3;
+}
+.bg-orange {
+  background-color: #ec8a22;
+  color: #ffffff;
+}
+.bg-orange a {
+  color: #ffffff;
+}
+.bg-orange a:hover,
+.bg-orange a:focus,
+.bg-orange a:active,
+.bg-orange a.is-active {
+  color: #ffffff;
+}

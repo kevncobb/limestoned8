@@ -33,6 +33,7 @@
 @vbp_color_03: #a4a4a4; // Dark Gray
 @vbp_color_04: #d3d3d3; // Light Gray
 @vbp_color_05: #cc3c2d; // Red
+@body-blue: #2556a3;
 @bg-blue: #0038a5;
 @bg-yellow: #fbea65;
 @bg-orange: #ec8a22;
@@ -117,6 +118,51 @@
   a {
     color: @vbp_foreground_color_05;
     
+    &:hover,
+    &:focus,
+    &:active,
+    &.is-active {
+      color: @vbp_foreground_color_05;
+    }
+  }
+}
+.bg-blue {
+  background-color: @bg-blue;
+  color: @vbp_foreground_color_05;
+
+  a {
+    color: @vbp_foreground_color_05;
+
+    &:hover,
+    &:focus,
+    &:active,
+    &.is-active {
+      color: @vbp_foreground_color_05;
+    }
+  }
+}
+.bg-yellow {
+  background-color: @bg-yellow;
+  color: @body-blue;
+
+  a {
+    color: @body-blue;
+
+    &:hover,
+    &:focus,
+    &:active,
+    &.is-active {
+      color: @body-blue;
+    }
+  }
+}
+.bg-orange {
+  background-color: @bg-orange;
+  color: @vbp_foreground_color_05;
+
+  a {
+    color: @vbp_foreground_color_05;
+
     &:hover,
     &:focus,
     &:active,
