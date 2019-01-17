@@ -15,12 +15,11 @@
 <div class="thirds" {% if css_id %}{{ css_id }}{% endif %}>
   <div class="thirds-top">
     {{ content.top|without('field_background_splash_image', 'field_semester_year', 'title') }}
-    <div class="splash-header" role="heading" style="background-image: url('{{ node.field_media.entity.field_background_splash_image.entity.uri.value | image_style('d06_standard') }}');">
+    <div class="splash-header" role="heading" style="background-image: url('{{ file_url(content.field_background_splash_image|field_target_entity.image.entity.uri.value | image_style('d06_standard')) }}');">
       <h1 class="h1 mega-title max-1000 test splash-header-title">{{ content.field_semester_year }}</h1>
       <h2 class="h1 max-1000 splash-header-subtitle">{{ node.title.value }}</h2>
     </div>
   </div>
-  {{  dd(var) }}
   <!-- drupal_entity('media', content.field_background_splash_image['#object'].mid.value, 'd06_standard') -->
   <div class="grid-container">
     <div class="grid-x grid-margin-x">
