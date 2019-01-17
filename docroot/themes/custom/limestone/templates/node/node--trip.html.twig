@@ -87,7 +87,7 @@
     </div>
   {% endif %}
 
-  <div class="splash-header" role="heading" style="background-image: url('{{ file_url(content.field_background_splash_image|field_target_entity.image.entity.uri.value | image-style('d12_standard'))   }}');">
+  <div class="splash-header" role="heading" style="background-image: url('{{ file_url(content.field_background_splash_image|field_target_entity.uri.value | image-style('d12_standard'))   }}');">
     <h1 class="h1 mega-title max-1000 test splash-header-title">{{ content.field_semester_year }}</h1>
     <h2 class="h1 max-1000 splash-header-subtitle">{{ node.title.value }}</h2>
   </div>
