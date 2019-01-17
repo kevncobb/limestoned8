@@ -2,11 +2,11 @@
   display: table;
 }
 .paragraph.paragraph--color > .paragraph__column {
-  padding-top: 30px;
-  padding-bottom: 30px;
+  padding-top: 0;
+  padding-bottom: 0;
 }
 .paragraph.paragraph--color + .paragraph > .paragraph__column {
-  padding-top: 30px;
+  padding-top: 0;
 }
 .vbp_color_01 {
   background-color: #338ec7;
