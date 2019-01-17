@@ -225,6 +225,22 @@ header.site-header {
     font-size: 320%;
   }
 }
+
+.big-title {
+  font-family: $site-header-font-family;
+  font-weight: $site-header-font-weight;
+
+  @media screen and (min-width: 40em) {
+    font-size: 4rem;
+  }
+}
+.embedded-entity.align-center {
+  img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
 .overlay {
   position: absolute;
   top: 0;

@@ -87,13 +87,13 @@
     </div>
   {% endif %}
 
-  <div class="splash-header" role="heading">
+  <div class="splash-header stripes-dark-tile" role="heading">
     {{ content.field_background_splash_image }}
     <h1 class="h1 mega-title max-1000 test splash-header-title">{{ content.field_semester_year }}</h1>
     <h2 class="h1 max-1000 splash-header-subtitle">{{ node.title.value }}</h2>
   </div>
   {# We hide the comments and links now so that we can render them later. #}
-  <div class="grid-container">
+  <div class="grid-container content-bump-up bg-white spacing-xs padding-sides-sm" >
     <div class="grid-x grid-margin-x">
       <div class="thirds-main cell medium-8">
         {{ content.dates }}

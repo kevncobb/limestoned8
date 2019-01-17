@@ -41,23 +41,12 @@ p {
   display: block;
   margin: 0 auto;
 }
-.big-title {
-  font-family: $site-header-font-family;
-  font-weight: $site-header-font-weight;
-
-  @media screen and (min-width: 40em) {
-    font-size: 4rem;
-  }
-}
-.embedded-entity.align-center {
-  img {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-  }
-}
 .fill {
   width: 100%;
+}
+.content-bump-up {
+  position: relative;
+  top: -5rem;
 }
 .cover-image {
   width: 100%;
@@ -199,6 +188,11 @@ p {
   font-weight: bold;
 }
 
+.spacing-xs {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+
 .spacing-sm {
   padding-top: 4rem;
   padding-bottom: 4rem;
@@ -263,3 +257,25 @@ ul.line-items {
   margin: 0.5rem auto 0.5rem;
 }
 
+.stripes-dark-tile {
+  &:before {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 80px;
+    width: 100%;
+    content: "";
+    opacity: 0.4;
+    background: -webkit-gradient(linear, 0 0, 0 100%, from(rgba(0, 0, 0, 0)), to(rgba(0, 0, 0, 0.8))) 0 0 no-repeat;
+  }
+  &:after {
+    position: absolute;
+    z-index: 1;
+    bottom: 0;
+    height: 80px;
+    width: 100%;
+    content: "";
+    background: url("/themes/custom/limestone/images/stripes-dark-tile.svg");
+    opacity: 0.08;
+  }
+}
