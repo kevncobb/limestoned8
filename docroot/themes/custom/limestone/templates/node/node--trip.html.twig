@@ -93,9 +93,19 @@
     <h2 class="h1 max-1000 splash-header-subtitle">{{ node.title.value }}</h2>
   </div>
   {# We hide the comments and links now so that we can render them later. #}
-  <div{{ content_attributes }} class="grid-container">
-    {{ content|without('comment', 'links', 'field_tags', 'field_background_splash_image', 'field_semester_year') }}
+  <div class="grid-container">
+    <div class="grid-x grid-margin-x">
+      <div class="thirds-main cell medium-8">
+        {{ content.dates }}
+        {{ content.body }}
+
+      </div>
+      <div class="thirds-right cell medium-4">
+        {{ content.field_image }}
+      </div>
+    </div>
   </div>
+  {{ content.field_lp_paragraphs }}
   {% if content.field_tags|length and not is_front %}
     {{ content.field_tags }}
   {% endif %}
