@@ -54,6 +54,24 @@ rule_of_thirds:
       label: Penultimate Content
     bottom:
       label: Bottom Content
+rule_of_thirds_full:
+  label: Rule of Thirds Layout
+  category: 'Limestone Layouts'
+  path: layouts/rule_of_thirds_full
+  icon: thirds.jpg
+  css: ../../css/limestone.css
+  template: panels-rule-of-thirds-full
+  regions:
+    top:
+      label: Top Content
+    main:
+      label: Main Content
+    right:
+      label: Aside Right
+    penultimate:
+      label: Penultimate Content
+    bottom:
+      label: Bottom Content
 
 card:
   label: Card
