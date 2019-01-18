@@ -67,6 +67,13 @@
  * @ingroup themeable
  */
 #}
+{# The template default set classes. #}
+{%
+  set classes = [
+  'image-on-title',
+]
+%}
+
 <article id="node-{{ node.id }}" {{ attributes }}>
 
   {{ title_prefix }}
@@ -79,7 +86,6 @@
 
   <div class="cover-image">
     {{ content.field_image }}
-    {{ node.title.value }}
   </div>
   {{ content.links }}
 </article>
