@@ -110,7 +110,7 @@
     {% if add_container %}
     <div class="grid-container">{% endif %}
         <div class="grid-x">
-            <div class="{{- VBP.bp_width.value -}}">
+            <div class="{{- VBP.bp_width.value -}} grid-x">
                 {% if paragraph_title and paragraph_title_status %}<h2
                         class="text-center">{{- paragraph_title -}}</h2>{% endif %}
                 {% set attributes = attributes.removeClass('bg-edge2edge') %}
@@ -118,5 +118,7 @@
                 {{ content|without('bp_title', 'bp_title_status', 'bp_width', 'bp_background', 'bp_image_field', 'bp_classes', 'bp_gutter') }}
             </div>
         </div>
-        {% if add_container %}</div>{% endif %}
+        {% if add_container %}
+    </div>
+    {% endif %}
 </div>
