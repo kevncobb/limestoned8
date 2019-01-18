@@ -67,7 +67,7 @@ function limestone_foundation_paragraphs_preprocess_paragraph(&$variables) {
     'paragraph--width--medium' => 'medium-8 medium-offset-2 grid-x',
     'paragraph--width--wide' => 'medium-10 medium-offset-1 grid-x grid-margin-x',
     'paragraph--width--full' => 'small-12 grid-x grid-margin-x',
-    'bg-edge2edge' => 'bg-edge2edge small-12 no-padding grid-x',
+    'bg-edge2edge' => 'bg-edge2edge small-12 grid-x',
   ];
 
   $width = 'small-12';
