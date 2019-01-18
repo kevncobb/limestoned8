@@ -143,3 +143,21 @@
   }
 }
 */
+
+.title-on-image {
+  .node-title {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%,-50%);
+    transform: translate(-50%,-50%);
+    a {
+      text-decoration: none;
+      color: white;
+      text-shadow: #666 0 0 8px;
+      &:focus, &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}
