@@ -129,6 +129,7 @@ view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class,
 <div{{ attributes.addClass(classes).setAttribute('id', paragraph_id) }} {% if VBP.background_image.url %} style="background-image:url({{- VBP.background_image.url -}});" {% endif %}>
   {% if add_container %}<div class="container">{% endif %}
     <div class="grid-container">
+      <div class="grid-x">
       <div class="{{- VBP.bp_width.value -}}">
         {% if paragraph_title and paragraph_title_status %}<h2 class="text-center">{{- paragraph_title -}}</h2>{% endif %}
         {% for key, item in content.bp_column_content_2 if key|first != '#' %}
@@ -146,6 +147,7 @@ view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class,
           {% endif %}
           <div{{ attributes.removeClass(classes).addClass(col_classes).addClass('no-padding') }}>{{ item }}</div>
         {% endfor %}
+      </div>
       </div>
     </div>
   {% if add_container %}</div>{% endif %}

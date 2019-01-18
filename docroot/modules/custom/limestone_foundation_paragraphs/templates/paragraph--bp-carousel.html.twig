@@ -114,6 +114,7 @@ view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class,
   {{ title_suffix }}
   {% if add_container %}<div class="container">{% endif %}
     <div class="grid-container">
+      <div class="grid-x">
       <div class="{{- VBP.bp_width.value -}}">
         <ol class="carousel-indicators">
           {% for key, item in content.bp_slide_content if key|first != '#' %}
@@ -133,6 +134,7 @@ view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class,
           <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
           <span class="sr-only">Next</span>
         </a>
+      </div>
       </div>
     </div>
   {% if add_container %}</div>{% endif %}
