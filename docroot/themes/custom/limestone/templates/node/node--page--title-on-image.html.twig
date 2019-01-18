@@ -76,6 +76,11 @@
 
 <article id="node-{{ node.id }}" {{ attributes }}>
 
+
+
+  <div class="cover-image">
+    {{ content.field_image }}
+  </div>
   {{ title_prefix }}
   {% if not page %}
     <h2{{ title_attributes }}>
@@ -83,9 +88,5 @@
     </h2>
   {% endif %}
   {{ title_suffix }}
-
-  <div class="cover-image">
-    {{ content.field_image }}
-  </div>
   {{ content.links }}
 </article>
