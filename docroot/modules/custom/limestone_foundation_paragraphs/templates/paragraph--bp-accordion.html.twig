@@ -101,11 +101,12 @@
 {% endif %}
 
 {# Prints Accordion template. #}
-<div{{ attributes.addClass(classes).setAttribute('id', paragraph_id) }} role="tablist"
-                                                                        aria-multiselectable="true" {% if VBP.background_image.url %} style="background-image:url({{- VBP.background_image.url -}});" {% endif %}>
-    {% if add_container %}<div class="grid-container">{% endif %}
+<div{{ attributes.addClass(classes).setAttribute('id', paragraph_id) }} role="tablist" aria-multiselectable="true"
+    {% if VBP.background_image.url %} style="background-image:url({{- VBP.background_image.url -}});" {% endif %}>
+    {% if add_container %}
+    <div class="grid-container">{% endif %}
         <div class="grid-x">
-            <div class="{{- VBP.bp_width.value -}} grid-x">
+            <div class="{{- VBP.bp_width.value -}}">
                 {% if paragraph_title and paragraph_title_status %}<h2
                         class="text-center">{{- paragraph_title -}}</h2>{% endif %}
                 {{ title_suffix }}

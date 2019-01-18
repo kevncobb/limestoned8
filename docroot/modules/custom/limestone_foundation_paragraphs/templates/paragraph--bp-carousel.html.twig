@@ -114,7 +114,7 @@ view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class,
   {{ title_suffix }}
   {% if add_container %}<div class="grid-container">{% endif %}
     <div class="grid-x">
-      <div class="{{- VBP.bp_width.value -}} grid-x">
+      <div class="{{- VBP.bp_width.value -}}">
         <ol class="carousel-indicators">
           {% for key, item in content.bp_slide_content if key|first != '#' %}
             <li class="{% if loop.first %}active{% endif %}" data-slide-to="{{ key }}" data-target="#{{ paragraph_id }}"></li>
