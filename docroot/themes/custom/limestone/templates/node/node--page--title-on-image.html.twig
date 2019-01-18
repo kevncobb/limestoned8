@@ -70,11 +70,8 @@
 
 <article id="node-{{ node.id }}" {{ attributes }} class="title-on-image">
 
+  {{ content.field_image }}
 
-
-  <div class="cover-image">
-    {{ content.field_image }}
-  </div>
   {{ title_prefix }}
   {% if not page %}
     <h2{{ title_attributes }}>
