@@ -68,10 +68,8 @@
  */
 #}
 
-<article id="node-{{ node.id }}" {{ attributes }} class="title-on-image">
-
+<article id="node-{{ node.id }}" {{ attributes.addClass('title-on-image') }}>
   {{ content.field_image }}
-
   {{ title_prefix }}
   {% if not page %}
     <h2{{ title_attributes }}>
