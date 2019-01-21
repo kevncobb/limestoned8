@@ -124,7 +124,7 @@ img {
 
 table {
   &.transparent {
-    tbody {
+    tbody, tbody tr, tbody th {
       border: 0px solid #f1f1f1;
       background-color: transparent;
     }
