@@ -146,7 +146,7 @@
 
 .title-on-image {
   position: relative;
-  margin: 1rem auto;
+  margin: 0 auto 1.8rem auto;
   &:focus, &:hover {
     .node-title a { text-decoration: underline; }
   }
