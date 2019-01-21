@@ -146,6 +146,13 @@
 
 .title-on-image {
   position: relative;
+  margin: 1rem auto;
+  &:focus, &:hover {
+    .node-title a { text-decoration: underline; }
+  }
+  .cover-image img {
+    margin-bottom: 1rem;
+  }
   .node-title {
     position: absolute;
     top: 50%;
@@ -156,9 +163,6 @@
       text-decoration: none;
       color: white;
       text-shadow: #666 0 0 8px;
-      &:focus, &:hover {
-        text-decoration: underline;
-      }
     }
   }
 }
