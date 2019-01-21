@@ -21,6 +21,10 @@ a {
   }
 }
 
+.center, .align-center {
+  text-align: center;
+}
+
 .centered, a.centered {
   display:block;
   margin-left: auto;
