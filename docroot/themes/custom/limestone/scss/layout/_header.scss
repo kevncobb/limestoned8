@@ -299,7 +299,7 @@ header.site-header {
 }
 .fullscreen-bg__video {
   position: absolute;
-  top: 0;
+
   left: 0;
   right: 0;
   bottom: 0;
@@ -307,6 +307,7 @@ header.site-header {
   width: auto;
   height: 100%;
   z-index: -100;
+  top: 0;
   @include breakpoint(xlarge) {
     top: 0%;
     width: 100%;
