@@ -122,6 +122,11 @@ img {
   padding-bottom: 56.25%;
 }
 
-.table {
-  
+table {
+  &.transparent {
+    tbody {
+      border: 0px solid #f1f1f1;
+      background-color: transparent;
+    }
+  }
 }
