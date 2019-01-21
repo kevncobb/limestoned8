@@ -147,27 +147,27 @@ $expander-toggle-margin: 1em;
     &::before {
       content: "";
       position: absolute;
-      right: 61px;
-      top: 0px;
+      right: 69px;
+      top: 2px;
       width: 20px;
       height: 40px;
-      background: url(/themes/custom/limestone/images/lc-sprite.svg) no-repeat -621px 2px transparent;
-      background-size: 643px !important;
+      background: url(/themes/custom/limestone/images/lc-sprite.svg) no-repeat -631px 6px transparent;
+      background-size: 651px !important;
     }
 
     &::after {
       // Icon-chevron-down
       content: "\f078";
       position: absolute;
-      top: 17px;
-      right: 22px;
+      top: 20px;
+      right: 30px;
       font-family: "icomoon" !important;
       speak: none;
       font-style: normal;
       font-weight: normal;
       font-variant: normal;
       text-transform: none;
-      font-size: 1.7em;
+      font-size: 1.6rem;
       line-height: 1;
 
       /* Better Font Rendering =========== */
