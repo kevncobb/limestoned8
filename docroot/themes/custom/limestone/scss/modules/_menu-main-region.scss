@@ -123,7 +123,7 @@ $expander-toggle-size: 1em;
 $expander-toggle-arrow-size: $expander-toggle-size;
 $expander-toggle-margin: 1em;
 
-@include breakpoint(medium down) {
+@include breakpoint(smedium down) {
   .expander {
     width: 100%;
     float: right;

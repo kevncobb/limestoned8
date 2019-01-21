@@ -57,6 +57,7 @@ p {
 
 .fill {
   width: 100%;
+  clear: both;
 }
 .content-bump-up {
   @include breakpoint(xlarge) {
