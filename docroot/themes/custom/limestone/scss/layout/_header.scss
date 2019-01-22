@@ -83,19 +83,19 @@ header.site-header {
       border: 2px solid white;
       padding: 0.5em;
       font-size: 1rem;
-      @include breakpoint(small) {
+      @include breakpoint(smedium) {
         margin-top: 19px;
         font-size: 1.3rem;
       }
     }
-    @include breakpoint(small) {
+    @include breakpoint(smedium) {
       margin-top: 19px;
     }
   }
   .block-limestone-branding {
     max-width: 100%;
     width: 100%;
-    @include breakpoint(small) {
+    @include breakpoint(smedium) {
       width: auto;
     }
   }
