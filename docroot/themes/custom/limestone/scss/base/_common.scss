@@ -59,6 +59,9 @@ p {
   width: 100%;
   clear: both;
 }
+.small-12.grid-x.grid-margin-x {
+  display: contents;
+}
 .content-bump-up {
   position: relative;
   @include breakpoint(xlarge) {
