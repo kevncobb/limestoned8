@@ -105,6 +105,9 @@
   p {
     font-size: $small-font-size;
   }
+  .field-name-node-link a {
+    @extend .lc-btn;
+  }
 }
 
 //Profile Card Styles

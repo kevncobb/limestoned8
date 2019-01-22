@@ -83,6 +83,10 @@ header.site-header {
       border: 2px solid white;
       padding: 0.5em;
       font-size: 1rem;
+      @include breakpoint(medium) {
+        margin-top: 19px;
+        font-size: 1.3rem;
+      }
     }
     @include breakpoint(medium) {
       margin-top: 19px;
