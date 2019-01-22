@@ -25,6 +25,7 @@ header.site-header {
       }
     }
   }
+
   a, button {
     color: white !important;
     span {
@@ -76,12 +77,28 @@ header.site-header {
     position: relative;
   }
   .site-header-meta-links {
-    margin-top: 19px;
     position: relative;
+    .button.search-button span {
+      border-radius: 50%;
+      border: 2px solid white;
+      padding: 0.5em;
+      font-size: 1rem;
+    }
+    @include breakpoint(medium) {
+      margin-top: 19px;
+    }
+  }
+  .block-limestone-branding {
+    max-width: 100%;
+    width: 100%;
+    @include breakpoint(medium) {
+      width: auto;
+    }
   }
 }
 .block-system-branding-block img {
-  width: 344px;
+  max-width: 344px;
+  width: 100%;
   margin: 5px 0;
 }
 .sub-page-header {
