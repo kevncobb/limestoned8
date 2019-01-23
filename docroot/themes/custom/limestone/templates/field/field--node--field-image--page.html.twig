@@ -37,7 +37,5 @@
  */
 #}
 {% for item in items %}
-  <div class="cover-image">
-    <a tabindex="-1" href="{{ content.field_image[0]['#url'] }}"></a><img src="{{ item.content['#item'].entity.uri.value | image_style('d05_traditional') }}" alt="{{ item.content['#item'].entity.alt.value  }}" title="{{ item.content['#item'].entity.title.value  }}"></div>
-  </div>
+  <div class="cover-image">{{ item.content }}</div>
 {% endfor %}
