@@ -91,7 +91,7 @@ function limestone_theme_suggestions_image_formatter_alter(array &$suggestions, 
   $entity = $variables['item']->getEntity();
   $field_name = $variables['item']->getParent()->getName();
   $node = $variables['item']->getParent()->getParent()->getName();
-  $mode = $node['#view_mode'];
+  kint($field_name);
   $suggestions[] = 'image_formatter__' . $entity->getEntityTypeId() . '__' . $entity->bundle() . '__' . $field_name;
-  $suggestions[] = 'image_formatter__' . $entity->getEntityTypeId() . '__' . $entity->bundle() . '__' . $field_name . '__' . $mode;
+  $suggestions[] = 'image_formatter__' . $entity->getEntityTypeId() . '__' . $entity->bundle() . '__' . $field_name . '__' . $node;
 }
