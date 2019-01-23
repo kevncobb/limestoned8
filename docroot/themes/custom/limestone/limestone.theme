@@ -83,3 +83,12 @@ function limestone_theme_suggestions_block_alter(array &$suggestions, array $var
   }
   return $suggestions;
 }
+
+/**
+ * Implements hook_theme_suggestions_HOOK_alter().
+ */
+function limestone_theme_suggestions_image_formatter_alter(array &$suggestions, array $variables) {
+  $entity = $variables['item']->getEntity();
+  $field_name = $variables['item']->getParent()->getName();
+  $suggestions[] = 'image_formatter__' . $entity->getEntityTypeId() . '__' . $entity->bundle() . '__' . $field_name;
+}
