@@ -38,6 +38,6 @@
 #}
 {% for item in items %}
   <div class="cover-image">
-    <a tabindex="-1" href="{{ node.field_name.0.url }}"></a><img src="{{ file_url(content.field_image['#items'].entity.uri.value }}" alt="{{ node.field_name.alt }}" title="{{ node.field_name.title }}"></div>
+    <a tabindex="-1" href="{{ node.field_name.0.url }}"></a><img src="{{ file_url(node.field_image.0.entity.uri.value) }}" alt="{{ node.field_name.alt }}" title="{{ node.field_name.title }}"></div>
   </div>
 {% endfor %}
