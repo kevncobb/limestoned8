@@ -38,9 +38,6 @@ libraries:
 # VARTHEME_SUBTHEME Better Login theme.
 #  - VARTHEME_SUBTHEME/betterlogin
 
-# VARTHEME_SUBTHEME Varbase hero slider media general styling.
-#  - VARTHEME_SUBTHEME/varbase-heroslider-media
-
 # OPTIONALLY: You can choose to remove Vartheme base theme stylesheets and/or
 # Javascript files.
 libraries-override:
@@ -65,7 +62,6 @@ libraries-override:
   varbase_bootstrap_paragraphs/vbp-colors: VARTHEME_SUBTHEME/vbp-colors
   vartheme/vbp-colors: VARTHEME_SUBTHEME/vbp-colors
 #  vartheme/betterlogin: VARTHEME_SUBTHEME/betterlogin
-#  varbase_heroslider_media/general-styling: VARTHEME_SUBTHEME/varbase-heroslider-media
   
 # Uncomment lines to replace, exclude css and js files from vartheme.
 # You will need to copy less/css files from Vartheme to use theme for the
@@ -76,7 +72,6 @@ libraries-override:
 #  vartheme/outside-in: VARTHEME_SUBTHEME/outside-in
 #  vartheme/edge2edge: VARTHEME_SUBTHEME/edge2edge
 #  vartheme/equal-height: VARTHEME_SUBTHEME/equal-height
-#  vartheme/spacing: VARTHEME_SUBTHEME/spacing
 #  vartheme/navbar-admin: VARTHEME_SUBTHEME/navbar-admin
 # ------------------------------------------------------------------------------
 #  vartheme/ajax: VARTHEME_SUBTHEME/ajax
@@ -112,4 +107,3 @@ ckeditor_stylesheets:
   - css/component/node.component.css
   - css/component/bs-callouts.component.css
   - css/layout/edge2edge.layout.css
-  - css/layout/spacing.layout.css

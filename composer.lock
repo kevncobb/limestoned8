@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "1dd1a92a7f8b40e553c44578ceb51e0f",
+    "content-hash": "c02c7ee7421abeb34939d2bfb63c08e5",
     "packages": [
         {
             "name": "abraham/twitteroauth",
@@ -4691,6 +4691,9 @@
                         "status": "not-covered",
                         "message": "Beta releases are not covered by Drupal security advisories."
                     }
+                },
+                "patches_applied": {
+                    "Issue #2921228: Accordion does not work": "https://www.drupal.org/files/issues/field_group_accordion-2921228-3.patch"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -6603,6 +6606,9 @@
                         "status": "not-covered",
                         "message": "Project has not opted into security advisory coverage!"
                     }
+                },
+                "patches_applied": {
+                    "Issue #2665328: Variants take entity label not the variant title": "https://www.drupal.org/files/issues/2018-12-12/2665328-variants-take-entity-label-87.patch"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -10676,6 +10682,9 @@
                     "services": {
                         "drush.services.yml": "^9"
                     }
+                },
+                "patches_applied": {
+                    "Issue #2952498: Fixed [VBO) Fatal error when executing simple actions on Adminimal theme": "https://www.drupal.org/files/issues/2018-09-19/views_bulk_operations-theme_error-2952498-29.patch"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -14287,16 +14296,16 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
-        "drupal/image_resize_filter": 20,
         "drupal/entity_clone": 20,
-        "drupal/tour_builder": 20,
+        "drupal/google_analytics_reports": 20,
+        "drupal/image_resize_filter": 20,
         "drupal/l10n_client": 20,
+        "drupal/login_destination": 20,
+        "drupal/mail_edit": 20,
+        "drupal/menu_position": 20,
         "drupal/node_edit_protection": 20,
         "drupal/security_review": 20,
-        "drupal/menu_position": 20,
-        "drupal/mail_edit": 20,
-        "drupal/google_analytics_reports": 20,
-        "drupal/login_destination": 20
+        "drupal/tour_builder": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,

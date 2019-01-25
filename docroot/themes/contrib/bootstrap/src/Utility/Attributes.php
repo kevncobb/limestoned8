@@ -2,8 +2,6 @@
 
 namespace Drupal\bootstrap\Utility;
 
-use Drupal\Core\Template\AttributeValueBase;
-
 /**
  * Class to help modify attributes.
  *
@@ -27,11 +25,6 @@ class Attributes extends ArrayObject {
    * @see \Drupal\bootstrap\Utility\Attributes::getClasses()
    */
   public function addClass($class) {
-    // Handle core Attribute based object values.
-    // @see https://www.drupal.org/project/bootstrap/issues/3020266
-    if ($class instanceof AttributeValueBase) {
-      $class = $class->value();
-    }
     $classes = &$this->getClasses();
     $classes = array_unique(array_merge($classes, (array) $class));
   }

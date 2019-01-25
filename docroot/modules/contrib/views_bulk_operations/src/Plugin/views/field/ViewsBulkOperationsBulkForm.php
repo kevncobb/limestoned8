@@ -794,6 +794,11 @@ class ViewsBulkOperationsBulkForm extends FieldPluginBase implements CacheableDe
       }
 
       // Routing - determine redirect route.
+
+      // Set default redirection due to issue #2952498.
+      // TODO: remove the next line when core cause is eliminated.
+      $redirect_route = 'views_bulk_operations.execute_batch';
+
       if ($this->options['form_step'] && $configurable) {
         $redirect_route = 'views_bulk_operations.execute_configurable';
       }

@@ -155,7 +155,6 @@
           }
 
           options = Bootstrap.normalizeObject($.extend({}, Modal.DEFAULTS, data && data.options, $this.data(), options));
-          delete options['bs.modal'];
 
           if (!data) {
             $this.data('bs.modal', (data = new Modal(this, options)));
@@ -181,10 +180,12 @@
               Bootstrap.unsupported('method', method);
             }
           }
-          // No method, set options and open if necessary.
           else {
+            // If no method set the options.
             data.option(options);
-            if (options.show && !data.isShown) {
+
+            // Handle native modal showing.
+            if (!options.jQueryUiBridge && options.show && !data.isShown) {
               data.show(relatedTarget);
             }
           }

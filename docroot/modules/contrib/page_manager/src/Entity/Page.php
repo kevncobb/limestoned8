@@ -18,6 +18,7 @@ use Drupal\Core\Condition\ConditionPluginCollection;
 use Drupal\Core\Config\Entity\ConfigEntityBase;
 use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\page_manager\PageVariantInterface;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Defines a Page entity class.
@@ -342,14 +343,18 @@ class Page extends ConfigEntityBase implements PageInterface {
   /**
    * {@inheritdoc}
    */
-  public function getContexts() {
+  public function getContexts(Request $request = NULL, $reset_cache = FALSE) {
+    if ($reset_cache) {
+      // Reset contexts when requested
+      $this->contexts = [];
+    }
     // @todo add the other global contexts here as they are added
     // @todo maybe come up with a non-hardcoded way of doing this?
     $global_contexts = [
       'current_user'
     ];
     if (!$this->contexts) {
-      $this->eventDispatcher()->dispatch(PageManagerEvents::PAGE_CONTEXT, new PageManagerContextEvent($this));
+      $this->eventDispatcher()->dispatch(PageManagerEvents::PAGE_CONTEXT, new PageManagerContextEvent($this, $request));
       foreach ($this->getParameters() as $machine_name => $configuration) {
         // Parameters can be updated in the UI, so unless it's a global context
         // we'll need to rely on the current settings in the tempstore instead

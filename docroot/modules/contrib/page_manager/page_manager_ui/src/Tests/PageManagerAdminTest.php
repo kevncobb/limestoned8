@@ -1,7 +1,6 @@
 <?php
 
 /**
- * @file
  * Contains \Drupal\page_manager_ui\Tests\PageManagerAdminTest.
  */
 
@@ -39,7 +38,11 @@ class PageManagerAdminTest extends WebTestBase {
     \Drupal::service('theme_handler')->install(['bartik', 'classy']);
     $this->config('system.theme')->set('admin', 'classy')->save();
 
-    $this->drupalLogin($this->drupalCreateUser(['administer pages', 'access administration pages', 'view the administration theme']));
+    $this->drupalLogin($this->drupalCreateUser([
+      'administer pages',
+      'access administration pages',
+      'view the administration theme'
+    ]));
 
     // Remove the default node_view page to start with a clean UI.
     Page::load('node_view')->delete();
@@ -124,7 +127,7 @@ class PageManagerAdminTest extends WebTestBase {
 
     $this->drupalGet('admin/foo');
     $this->assertResponse(200);
-    $this->assertTitle('Foo | Drupal');
+    $this->assertTitle('Status Code | Drupal');
 
     // Change the status code to 403.
     $this->drupalGet('admin/structure/page_manager/manage/foo/page_variant__foo-http_status_code-0__general');
@@ -147,7 +150,7 @@ class PageManagerAdminTest extends WebTestBase {
    *
    * @param string $path
    *   The path this step is supposed to be at.
-   * @param bool|TRUE $redirect
+   * @param bool|true $redirect
    *   Whether or not to redirect to the path.
    */
   protected function doTestAccessConditions($path = 'admin/structure/page_manager/manage/foo/access', $redirect = TRUE) {
@@ -194,7 +197,7 @@ class PageManagerAdminTest extends WebTestBase {
    *
    * @param string $path
    *   The path this step is supposed to be at.
-   * @param bool|TRUE $redirect
+   * @param bool|true $redirect
    *   Whether or not to redirect to the path.
    */
   protected function doTestSelectionCriteria($path = 'admin/structure/page_manager/manage/foo/page_variant__foo-http_status_code-0__selection', $redirect = TRUE) {

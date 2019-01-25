@@ -5,8 +5,9 @@ namespace Drupal\bootstrap\Plugin\Provider;
 use Drupal\bootstrap\Plugin\PluginBase;
 use Drupal\bootstrap\Plugin\ProviderManager;
 use Drupal\Component\Serialization\Json;
-use GuzzleHttp\Exception\GuzzleException;
+use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Psr7\Request;
+use GuzzleHttp\Psr7\Response;
 
 /**
  * CDN provider base class.
@@ -137,24 +138,22 @@ class ProviderBase extends PluginBase implements ProviderInterface {
       // Use manually imported API data, if it exists.
       if (file_exists("$provider_path/$plugin_id.json") && ($imported_data = file_get_contents("$provider_path/$plugin_id.json"))) {
         $definition['imported'] = TRUE;
-        try {
-          $json = Json::decode($imported_data);
-        }
-        catch (\Exception $e) {
-          // Intentionally left blank.
-        }
+        $response = new Response(200, [], $imported_data);
       }
       // Otherwise, attempt to request API data if the provider has specified
       // an "api" URL to use.
       else {
-        $json = $this->requestJson($api);
+        $client = \Drupal::httpClient();
+        $request = new Request('GET', $api);
+        try {
+          $response = $client->send($request);
+        }
+        catch (RequestException $e) {
+          $response = new Response(400);
+        }
       }
-
-      if (!isset($json)) {
-        $json = [];
-        $definition['error'] = TRUE;
-      }
-
+      $contents = $response->getBody(TRUE)->getContents();
+      $json = Json::decode($contents) ?: [];
       $this->processApi($json, $definition);
     }
   }
@@ -163,45 +162,5 @@ class ProviderBase extends PluginBase implements ProviderInterface {
    * {@inheritdoc}
    */
   public function processApi(array $json, array &$definition) {}
-
-  /**
-   * Retrieves JSON from a URI.
-   *
-   * @param string $uri
-   *   The URI to retrieve JSON from.
-   * @param array $options
-   *   The options to pass to the HTTP client.
-   *
-   * @return array|null
-   *   The requested JSON array or NULL if an error occurred.
-   */
-  protected function requestJson($uri, array $options = []) {
-    $json = NULL;
-
-    $options += [
-      'method' => 'GET',
-      'headers' => [
-        'User-Agent' => 'Drupal Bootstrap (https://www.drupal.org/project/bootstrap)',
-      ],
-    ];
-
-    /** @var \GuzzleHttp\Client $client */
-    $client = \Drupal::service('http_client_factory')->fromOptions($options);
-    $request = new Request($options['method'], $uri);
-    try {
-      $response = $client->send($request, $options);
-      if ($response->getStatusCode() == 200) {
-        $contents = $response->getBody(TRUE)->getContents();
-        $json = Json::decode($contents);
-      }
-    }
-    catch (GuzzleException $e) {
-      // Intentionally left blank.
-    }
-    catch (\Exception $e) {
-      // Intentionally left blank.
-    }
-    return $json;
-  }
 
 }

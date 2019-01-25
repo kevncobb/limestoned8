@@ -96,7 +96,7 @@ flexibility if the need ever arises.
       </div>
       <pre class=" language-yaml"><code>
 cdn_custom_css:
-'https://cdn.jsdelivr.net/npm/bootstrap@3.4.0/dist/css/bootstrap.css'
+'https://cdn.jsdelivr.net/bootstrap/3.3.7/css/bootstrap.css'
 
 </code></pre>
     </td>
@@ -112,7 +112,7 @@ used instead if site aggregation is enabled.
       </div>
       <pre class=" language-yaml"><code>
 cdn_custom_css_min:
-'https://cdn.jsdelivr.net/npm/bootstrap@3.4.0/dist/css/bootstrap.min.css'
+'https://cdn.jsdelivr.net/bootstrap/3.3.7/css/bootstrap.min.css'
 
 </code></pre>
     </td>
@@ -127,8 +127,7 @@ It is best to use <code>https</code> protocols here as it will allow more
 flexibility if the need ever arises.
       </div>
       <pre class=" language-yaml"><code>
-cdn_custom_js:
-'https://cdn.jsdelivr.net/npm/bootstrap@3.4.0/dist/js/bootstrap.js'
+cdn_custom_js: 'https://cdn.jsdelivr.net/bootstrap/3.3.7/js/bootstrap.js'
 
 </code></pre>
     </td>
@@ -144,7 +143,7 @@ used instead if site aggregation is enabled.
       </div>
       <pre class=" language-yaml"><code>
 cdn_custom_js_min:
-'https://cdn.jsdelivr.net/npm/bootstrap@3.4.0/dist/js/bootstrap.min.js'
+'https://cdn.jsdelivr.net/bootstrap/3.3.7/js/bootstrap.min.js'
 
 </code></pre>
     </td>
@@ -158,7 +157,7 @@ cdn_jsdelivr_version
 Choose the Bootstrap version from jsdelivr
       </div>
       <pre class=" language-yaml"><code>
-cdn_jsdelivr_version: 3.4.0
+cdn_jsdelivr_version: 3.3.7
 
 </code></pre>
     </td>
@@ -674,9 +673,10 @@ modal_jquery_ui_bridge
     <td>
       <div class="help-block">
 Enabling this replaces the core/jquery.ui.dialog dependency in the
-core/drupal.dialog library with a jQuery UI Dialog widget bridge. This
-bridge adds support to Bootstrap Modals so that it may interpret jQuery UI
-Dialog functionality.
+core/drupal.dialog library with a bridge. This bridge adds support to
+Bootstrap Modals so that it may interpret jQuery UI Dialog functionality.
+It is highly recommended that this remain enabled unless you know what
+you're really doing.
       </div>
       <pre class=" language-yaml"><code>
 modal_jquery_ui_bridge: 1
@@ -720,8 +720,7 @@ modal_focus_input
     <td>
       <div class="help-block">
 Enabling this focuses on the first available and visible input found in the
-modal after it's opened. If no element is found, the close button (if
-visible) is focused instead.
+modal after it's opened.
       </div>
       <pre class=" language-yaml"><code>
 modal_focus_input: 1
@@ -1131,4 +1130,4 @@ tooltip_trigger: hover
 </table>
 
 [Drupal Bootstrap]: https://www.drupal.org/project/bootstrap
-[Bootstrap Framework]: https://getbootstrap.com/docs/3.4/
+[Bootstrap Framework]: https://getbootstrap.com/docs/3.3/
