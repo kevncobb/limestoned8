@@ -42,7 +42,7 @@
     "drupal/bootstrap_layouts": "~5.0",
     "drupal/layout_builder_restrictions": "~1.0",
     "drupal/ds": "~3.0",
-    "drupal/views_bootstrap": "3.1",
+    "drupal/views_bootstrap": "~3.0",
     "drupal/field_group": "~3.0",
     "drupal/smart_trim": "~1.0",
     "drupal/advanced_text_formatter": "~1.0",
@@ -51,7 +51,7 @@
     "drupal/features": "~3.0",
     "drupal/views_infinite_scroll": "~1.0",
     "drupal/entity": "~1.0",
-    "drupal/entity_clone": "1.x-dev#6d0ce053605e9aaf8412927a9b0ea8da7a9a06e5",
+    "drupal/entity_clone": "~1.0",
     "drupal/entityqueue": "~1.0",
     "drupal/entityqueue_form_widget": "~1.0",
     "drupal/inline_entity_form": "~1.0",
@@ -100,7 +100,7 @@
     "drupal/mailsystem": "~4.0",
     "drupal/smtp": "~1.0",
     "drupal/maxlength": "~1.0",
-    "drupal/menu_position": "1.x-dev#d134276b4bbd08b3c9678943d0225fbef7dd05b5",
+    "drupal/menu_position": "~1.0",
     "drupal/mail_edit": "1.x-dev#bcd0041830d8581b36e6211f0c8eabd8caf9652b",
     "drupal/taxonomy_access_fix": "~2.0",
     "drupal/better_exposed_filters": "~3.0",
@@ -192,6 +192,18 @@
       "drupal/login_destination": {
         "Issue #2947616: Fixed SetOptions on null causing error.":
         "https://www.drupal.org/files/issues/2018-03-09/toolbar_alter_error-2947616-11.patch"
+      },
+      "drupal/views_bulk_operations": {
+        "Issue #2952498: Fixed [VBO) Fatal error when executing simple actions on Adminimal theme":
+        "https://www.drupal.org/files/issues/2018-09-19/views_bulk_operations-theme_error-2952498-29.patch"
+      },
+      "drupal/page_manager": {
+        "Issue #2665328: Variants take entity label not the variant title":
+        "https://www.drupal.org/files/issues/2018-12-12/2665328-variants-take-entity-label-87.patch"
+      },
+      "drupal/field_group": {
+        "Issue #2921228: Accordion does not work":
+        "https://www.drupal.org/files/issues/field_group_accordion-2921228-3.patch"
       }
     }
   }

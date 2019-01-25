@@ -51,6 +51,7 @@ libraries:
   - vartheme/outside-in
   - vartheme/edge2edge
   - vartheme/equal-height
+  - vartheme/spacing
   - vartheme/bootstrap-print
   - vartheme/bootstrap-no-spacing
 
@@ -87,9 +88,10 @@ ckeditor_stylesheets:
   - css/component/node.component.css
   - css/component/bs-callouts.component.css
   - css/layout/edge2edge.layout.css
+  - css/layout/spacing.layout.css
 
-# Information added by Drupal.org packaging script on 2018-12-17
-version: '8.x-6.2'
+# Information added by Drupal.org packaging script on 2019-01-16
+version: '8.x-6.3'
 core: '8.x'
 project: 'vartheme'
-datestamp: 1545046086
+datestamp: 1547651593

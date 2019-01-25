@@ -21,8 +21,8 @@ install:
   - security_review
   - username_enumeration_prevention
 
-# Information added by Drupal.org packaging script on 2018-12-27
-version: '8.x-6.4'
+# Information added by Drupal.org packaging script on 2019-01-20
+version: '8.x-6.5'
 core: '8.x'
 project: 'varbase_core'
-datestamp: 1545914890
+datestamp: 1547991184

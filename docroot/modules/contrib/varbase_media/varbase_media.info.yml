@@ -36,9 +36,11 @@ dependencies:
   - entity_embed:entity_embed
   - focal_point:focal_point
   - views_infinite_scroll:views_infinite_scroll
-
-# Information added by Drupal.org packaging script on 2018-12-26
-version: '8.x-6.2'
+install:
+  - views_bulk_operations
+  - views_bulk_edit
+# Information added by Drupal.org packaging script on 2019-01-20
+version: '8.x-6.3'
 core: '8.x'
 project: 'varbase_media'
-datestamp: 1545856689
+datestamp: 1547984284

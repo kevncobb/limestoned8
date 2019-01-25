@@ -152,6 +152,12 @@ vbp-colors:
 #    layout:
 #      css/layout/equal-height.layout.css: {}
 
+# Vartheme Spacing layout library.
+#spacing:
+#  css:
+#    layout:
+#      css/layout/spacing.layout.css: {}
+
 # Vartheme Bootstrap Callouts component library.
 #bs-callouts:
 #  css:
@@ -269,3 +275,11 @@ vbp-colors:
 #  css:
 #    component:
 #      css/component/autocomplete.component.css: {}
+
+# Varbase hero slider media general styling.
+#varbase-heroslider-media:
+#  css:
+#    component:
+#      css/component/varbase-heroslider-media.component.css: { }
+#    theme:
+#      css/theme/varbase-heroslider-media.theme.css: { }

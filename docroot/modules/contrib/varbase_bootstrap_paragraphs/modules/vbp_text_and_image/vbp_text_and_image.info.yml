@@ -6,9 +6,10 @@ type: module
 package: Varbase
 dependencies:
   - varbase_bootstrap_paragraphs:varbase_bootstrap_paragraphs
-
-# Information added by Drupal.org packaging script on 2018-12-18
-version: '8.x-6.2'
+install:
+  - varbase_landing
+# Information added by Drupal.org packaging script on 2019-01-12
+version: '8.x-6.3'
 core: '8.x'
 project: 'varbase_bootstrap_paragraphs'
-datestamp: 1545148984
+datestamp: 1547251987

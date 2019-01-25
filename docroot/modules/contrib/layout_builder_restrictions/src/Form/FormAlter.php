@@ -6,7 +6,6 @@ use Drupal\Core\Block\BlockManagerInterface;
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
 use Drupal\Core\DependencyInjection\DependencySerializationTrait;
 use Drupal\Core\Extension\ModuleHandlerInterface;
-use Drupal\Core\Extension\ModuleHandler;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Layout\LayoutPluginManagerInterface;
 use Drupal\Core\Plugin\Context\ContextHandlerInterface;
@@ -14,6 +13,7 @@ use Drupal\layout_builder\Context\LayoutBuilderContextTrait;
 use Drupal\layout_builder\Entity\LayoutEntityDisplayInterface;
 use Drupal\layout_builder\SectionStorage\SectionStorageManagerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Drupal\Core\Plugin\Context\EntityContext;
 
 /**
  * Supplement form UI to add setting for which blocks & layouts are available.
@@ -104,7 +104,14 @@ class FormAlter implements ContainerInjectionInterface {
    *   plugin IDs and the values are plugin definitions.
    */
   protected function getBlockDefinitions(LayoutEntityDisplayInterface $display) {
-    $section_storage = $this->sectionStorageManager->loadEmpty('defaults')->setSectionList($display);
+    // Check for 'load' method, which only exists in > 8.7.
+    if (method_exists($this->sectionStorageManager, 'load')) {
+      $section_storage = $this->sectionStorageManager->load('defaults', ['display' => EntityContext::fromEntity($display)]);
+    }
+    else {
+      // BC for < 8.7.
+      $section_storage = $this->sectionStorageManager->loadEmpty('defaults')->setSectionList($display);
+    }
     // Do not use the plugin filterer here, but still filter by contexts.
     $definitions = $this->blockManager->getDefinitions();
     $definitions = $this->contextHandler->filterPluginDefinitionsByContexts($this->getAvailableContexts($section_storage), $definitions);
@@ -234,31 +241,25 @@ class FormAlter implements ContainerInjectionInterface {
   public function entityFormEntityBuild($entity_type_id, LayoutEntityDisplayInterface $display, &$form, FormStateInterface &$form_state) {
     // Set allowed blocks.
     $allowed_blocks = [];
-    foreach ($this->getBlockDefinitions($display) as $category => $blocks) {
-      $category_setting = $form_state->getValue([
-        'layout_builder_restrictions',
-        'allowed_blocks',
-        $category,
-        'restriction',
-      ]);
-      if ($category_setting == 'restricted') {
-        // A category that has been restricted starts with zero allowed blocks.
-        $allowed_blocks[$category] = [];
-        foreach ($blocks as $block_id => $block) {
-          $block_setting = $form_state->getValue([
-            'layout_builder_restrictions',
-            'allowed_blocks',
-            $category,
-            $block_id,
-          ]);
-          if ($block_setting == '1') {
-            // Include only checked blocks.
-            $allowed_blocks[$category][] = $block_id;
+    $categories = $form_state->getValue([
+      'layout_builder_restrictions',
+      'allowed_blocks',
+    ]);
+    if (!empty($categories)) {
+      foreach ($categories as $category => $category_setting) {
+        if ($category_setting['restriction'] === 'restricted') {
+          $allowed_blocks[$category] = [];
+          unset($category_setting['restriction']);
+          foreach ($category_setting as $block_id => $block_setting) {
+            if ($block_setting == '1') {
+              // Include only checked blocks.
+              $allowed_blocks[$category][] = $block_id;
+            }
           }
         }
       }
+      $display->setThirdPartySetting('layout_builder_restrictions', 'allowed_blocks', $allowed_blocks);
     }
-    $display->setThirdPartySetting('layout_builder_restrictions', 'allowed_blocks', $allowed_blocks);
 
     // Set allowed layouts.
     $layout_restriction = $form_state->getValue([
