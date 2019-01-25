@@ -292,6 +292,7 @@ $connection->insert('actions')
   'description' => 'Block current user',
 ))
 ->execute();
+
 $connection->schema()->createTable('actions_aid', array(
   'fields' => array(
     'aid' => array(
@@ -330,6 +331,7 @@ $connection->insert('actions_aid')
   'aid' => '6',
 ))
 ->execute();
+
 $connection->schema()->createTable('aggregator_category', array(
   'fields' => array(
     'cid' => array(
@@ -461,6 +463,7 @@ $connection->insert('aggregator_feed')
   'block' => '7',
 ))
 ->execute();
+
 $connection->schema()->createTable('aggregator_item', array(
   'fields' => array(
     'iid' => array(
@@ -536,6 +539,7 @@ $connection->insert('aggregator_item')
   'guid' => '395218 at https://groups.drupal.org',
 ))
 ->execute();
+
 $connection->schema()->createTable('authmap', array(
   'fields' => array(
     'aid' => array(
@@ -613,6 +617,7 @@ $connection->insert('batch')
   'batch' => NULL,
 ))
 ->execute();
+
 $connection->schema()->createTable('blocks', array(
   'fields' => array(
     'bid' => array(
@@ -1075,6 +1080,7 @@ $connection->insert('blocks')
   'cache' => '-1',
 ))
 ->execute();
+
 $connection->schema()->createTable('blocks_roles', array(
   'fields' => array(
     'module' => array(
@@ -1119,6 +1125,7 @@ $connection->insert('blocks_roles')
   'rid' => '3',
 ))
 ->execute();
+
 $connection->schema()->createTable('book', array(
   'fields' => array(
     'mlid' => array(
@@ -1181,6 +1188,7 @@ $connection->insert('book')
   'bid' => '8',
 ))
 ->execute();
+
 $connection->schema()->createTable('boxes', array(
   'fields' => array(
     'bid' => array(
@@ -1233,6 +1241,7 @@ $connection->insert('boxes')
   'format' => '2',
 ))
 ->execute();
+
 $connection->schema()->createTable('cache', array(
   'fields' => array(
     'cid' => array(
@@ -2014,6 +2023,7 @@ $connection->insert('comments')
   'homepage' => '',
 ))
 ->execute();
+
 $connection->schema()->createTable('config', array(
   'fields' => array(
     'collection' => array(
@@ -2053,6 +2063,7 @@ $connection->insert('config')
   'data' => 'a:1:{s:4:"path";a:1:{s:9:"temporary";s:4:"/tmp";}}',
 ))
 ->execute();
+
 $connection->schema()->createTable('contact', array(
   'fields' => array(
     'cid' => array(
@@ -2130,6 +2141,7 @@ $connection->insert('contact')
   'selected' => '0',
 ))
 ->execute();
+
 $connection->schema()->createTable('content_field_company', array(
   'fields' => array(
     'vid' => array(
@@ -2207,6 +2219,7 @@ $connection->insert('content_field_company')
   'field_company_nid' => '16',
 ))
 ->execute();
+
 $connection->schema()->createTable('content_field_image', array(
   'fields' => array(
     'vid' => array(
@@ -2275,6 +2288,7 @@ $connection->insert('content_field_image')
   'field_image_data' => 'a:2:{s:3:"alt";s:0:"";s:5:"title";s:0:"";}',
 ))
 ->execute();
+
 $connection->schema()->createTable('content_field_multivalue', array(
   'fields' => array(
     'vid' => array(
@@ -2337,6 +2351,7 @@ $connection->insert('content_field_multivalue')
   'delta' => '1',
 ))
 ->execute();
+
 $connection->schema()->createTable('content_field_test', array(
   'fields' => array(
     'vid' => array(
@@ -2414,6 +2429,7 @@ $connection->insert('content_field_test')
   'field_test_format' => '1',
 ))
 ->execute();
+
 $connection->schema()->createTable('content_field_test_text_single_checkbox', array(
   'fields' => array(
     'vid' => array(
@@ -2479,6 +2495,7 @@ $connection->insert('content_field_test_text_single_checkbox')
   'field_test_text_single_checkbox_value' => '0',
 ))
 ->execute();
+
 $connection->schema()->createTable('content_field_test_two', array(
   'fields' => array(
     'vid' => array(
@@ -2564,6 +2581,7 @@ $connection->insert('content_field_test_two')
   'field_test_two_value' => '20',
 ))
 ->execute();
+
 $connection->schema()->createTable('content_group', array(
   'fields' => array(
     'group_type' => array(
@@ -3055,6 +3073,7 @@ $connection->insert('content_node_field')
   'locked' => '0',
 ))
 ->execute();
+
 $connection->schema()->createTable('content_node_field_instance', array(
   'fields' => array(
     'field_name' => array(
@@ -3496,6 +3515,7 @@ $connection->insert('content_node_field_instance')
   'widget_active' => '1',
 ))
 ->execute();
+
 $connection->schema()->createTable('content_type_employee', array(
   'fields' => array(
     'vid' => array(
@@ -3581,6 +3601,7 @@ $connection->insert('content_type_employee')
   'field_company_3_nid' => NULL,
 ))
 ->execute();
+
 $connection->schema()->createTable('content_type_page', array(
   'fields' => array(
     'vid' => array(
@@ -3666,6 +3687,7 @@ $connection->insert('content_type_page')
   'field_reference_2_nid' => '11',
 ))
 ->execute();
+
 $connection->schema()->createTable('content_type_story', array(
   'fields' => array(
     'nid' => array(
@@ -4035,6 +4057,7 @@ $connection->insert('content_type_story')
   'field_test_string_selectlist_value' => NULL,
 ))
 ->execute();
+
 $connection->schema()->createTable('content_type_test_page', array(
   'fields' => array(
     'vid' => array(
@@ -4125,6 +4148,7 @@ $connection->insert('content_type_test_planet')
   'vid' => '11',
 ))
 ->execute();
+
 $connection->schema()->createTable('date_format_locale', array(
   'fields' => array(
     'format' => array(
@@ -4197,6 +4221,7 @@ $connection->insert('date_format_types')
   'locked' => '1',
 ))
 ->execute();
+
 $connection->schema()->createTable('date_formats', array(
   'fields' => array(
     'dfid' => array(
@@ -4446,6 +4471,7 @@ $connection->insert('date_formats')
   'locked' => '1',
 ))
 ->execute();
+
 $connection->schema()->createTable('event', array(
   'fields' => array(
     'nid' => array(
@@ -8245,6 +8271,7 @@ $connection->insert('event_timezones')
   'is_dst' => '0',
 ))
 ->execute();
+
 $connection->schema()->createTable('files', array(
   'fields' => array(
     'fid' => array(
@@ -8367,6 +8394,7 @@ $connection->insert('files')
   'timestamp' => '1420858106',
 ))
 ->execute();
+
 $connection->schema()->createTable('filter_formats', array(
   'fields' => array(
     'format' => array(
@@ -8431,6 +8459,7 @@ $connection->insert('filter_formats')
   'cache' => '0',
 ))
 ->execute();
+
 $connection->schema()->createTable('filters', array(
   'fields' => array(
     'fid' => array(
@@ -8562,6 +8591,7 @@ $connection->insert('filters')
   'weight' => '10',
 ))
 ->execute();
+
 $connection->schema()->createTable('flood', array(
   'fields' => array(
     'fid' => array(
@@ -8644,6 +8674,7 @@ $connection->insert('forum')
   'tid' => '8',
 ))
 ->execute();
+
 $connection->schema()->createTable('history', array(
   'fields' => array(
     'uid' => array(
@@ -8739,6 +8770,7 @@ $connection->insert('history')
   'timestamp' => '1534014763',
 ))
 ->execute();
+
 $connection->schema()->createTable('i18n_blocks', array(
   'fields' => array(
     'ibid' => array(
@@ -8800,6 +8832,7 @@ $connection->insert('i18n_blocks')
   'language' => 'zu',
 ))
 ->execute();
+
 $connection->schema()->createTable('i18n_strings', array(
   'fields' => array(
     'lid' => array(
@@ -10063,6 +10096,7 @@ $connection->insert('i18n_strings')
   'format' => '0',
 ))
 ->execute();
+
 $connection->schema()->createTable('i18n_variable', array(
   'fields' => array(
     'name' => array(
@@ -10502,6 +10536,7 @@ $connection->insert('i18n_variable')
   'value' => 's:1:"1";',
 ))
 ->execute();
+
 $connection->schema()->createTable('imagecache_action', array(
   'fields' => array(
     'actionid' => array(
@@ -10587,6 +10622,7 @@ $connection->insert('imagecache_action')
   'data' => 'a:3:{s:7:"degrees";s:2:"55";s:6:"random";i:0;s:7:"bgcolor";s:0:"";}',
 ))
 ->execute();
+
 $connection->schema()->createTable('imagecache_preset', array(
   'fields' => array(
     'presetid' => array(
@@ -10621,6 +10657,7 @@ $connection->insert('imagecache_preset')
   'presetname' => 'big_blue_cheese',
 ))
 ->execute();
+
 $connection->schema()->createTable('languages', array(
   'fields' => array(
     'language' => array(
@@ -10756,6 +10793,7 @@ $connection->insert('languages')
   'javascript' => '',
 ))
 ->execute();
+
 $connection->schema()->createTable('locales_source', array(
   'fields' => array(
     'lid' => array(
@@ -22650,6 +22688,7 @@ $connection->insert('locales_source')
   'version' => '1',
 ))
 ->execute();
+
 $connection->schema()->createTable('locales_target', array(
   'fields' => array(
     'lid' => array(
@@ -27709,14 +27748,6 @@ $connection->insert('locales_target')
   'i18n_status' => '0',
 ))
 ->values(array(
-  'lid' => '1672',
-  'translation' => 'fr - Type',
-  'language' => 'fr',
-  'plid' => '0',
-  'plural' => '0',
-  'i18n_status' => '0',
-))
-->values(array(
   'lid' => '1678',
   'translation' => 'fr - I really, really, really love migrating ',
   'language' => 'fr',
@@ -27727,6 +27758,14 @@ $connection->insert('locales_target')
 ->values(array(
   'lid' => '1690',
   'translation' => 'Noir',
+  'language' => 'fr',
+  'plid' => '0',
+  'plural' => '0',
+  'i18n_status' => '0',
+))
+->values(array(
+  'lid' => '1672',
+  'translation' => 'fr - Type',
   'language' => 'fr',
   'plid' => '0',
   'plural' => '0',
@@ -27861,14 +27900,6 @@ $connection->insert('locales_target')
   'i18n_status' => '0',
 ))
 ->values(array(
-  'lid' => '1672',
-  'translation' => 'zu - Type',
-  'language' => 'zu',
-  'plid' => '0',
-  'plural' => '0',
-  'i18n_status' => '0',
-))
-->values(array(
   'lid' => '1690',
   'translation' => 'Okumnyama',
   'language' => 'zu',
@@ -27879,6 +27910,14 @@ $connection->insert('locales_target')
 ->values(array(
   'lid' => '1691',
   'translation' => 'Mhlophe',
+  'language' => 'zu',
+  'plid' => '0',
+  'plural' => '0',
+  'i18n_status' => '0',
+))
+->values(array(
+  'lid' => '1672',
+  'translation' => 'zu - Type',
   'language' => 'zu',
   'plid' => '0',
   'plural' => '0',
@@ -27901,6 +27940,7 @@ $connection->insert('locales_target')
   'i18n_status' => '0',
 ))
 ->execute();
+
 $connection->schema()->createTable('menu_custom', array(
   'fields' => array(
     'menu_name' => array(
@@ -27949,6 +27989,7 @@ $connection->insert('menu_custom')
   'description' => 'Secondary links are often used for pages like legal notices, contact details, and other secondary navigation items that play a lesser role than primary links',
 ))
 ->execute();
+
 $connection->schema()->createTable('menu_links', array(
   'fields' => array(
     'menu_name' => array(
@@ -34437,6 +34478,7 @@ $connection->insert('menu_links')
   'updated' => '0',
 ))
 ->execute();
+
 $connection->schema()->createTable('menu_router', array(
   'fields' => array(
     'path' => array(
@@ -43648,6 +43690,7 @@ $connection->insert('menu_router')
   'file' => '',
 ))
 ->execute();
+
 $connection->schema()->createTable('node', array(
   'fields' => array(
     'nid' => array(
@@ -44142,6 +44185,7 @@ $connection->insert('node')
   'translate' => '0',
 ))
 ->execute();
+
 $connection->schema()->createTable('node_access', array(
   'fields' => array(
     'nid' => array(
@@ -44212,6 +44256,7 @@ $connection->insert('node_access')
   'grant_delete' => '0',
 ))
 ->execute();
+
 $connection->schema()->createTable('node_comment_statistics', array(
   'fields' => array(
     'nid' => array(
@@ -44360,6 +44405,7 @@ $connection->insert('node_comment_statistics')
   'comment_count' => '1',
 ))
 ->execute();
+
 $connection->schema()->createTable('node_counter', array(
   'fields' => array(
     'nid' => array(
@@ -44506,6 +44552,7 @@ $connection->insert('node_counter')
   'timestamp' => '1534014763',
 ))
 ->execute();
+
 $connection->schema()->createTable('node_revisions', array(
   'fields' => array(
     'nid' => array(
@@ -44855,6 +44902,7 @@ $connection->insert('node_revisions')
   'format' => '1',
 ))
 ->execute();
+
 $connection->schema()->createTable('node_type', array(
   'fields' => array(
     'type' => array(
@@ -45154,6 +45202,7 @@ $connection->insert('node_type')
   'orig_type' => 'test_story',
 ))
 ->execute();
+
 $connection->schema()->createTable('permission', array(
   'fields' => array(
     'pid' => array(
@@ -45219,6 +45268,7 @@ $connection->insert('permission')
   'tid' => '0',
 ))
 ->execute();
+
 $connection->schema()->createTable('profile_fields', array(
   'fields' => array(
     'fid' => array(
@@ -45451,6 +45501,7 @@ $connection->insert('profile_fields')
   'options' => '',
 ))
 ->execute();
+
 $connection->schema()->createTable('profile_values', array(
   'fields' => array(
     'fid' => array(
@@ -45667,6 +45718,7 @@ $connection->insert('profile_values')
   'value' => '1',
 ))
 ->execute();
+
 $connection->schema()->createTable('role', array(
   'fields' => array(
     'rid' => array(
@@ -45714,6 +45766,7 @@ $connection->insert('role')
   'name' => 'migrate test role 3 that is longer than thirty two characters',
 ))
 ->execute();
+
 $connection->schema()->createTable('semaphore', array(
   'fields' => array(
     'name' => array(
@@ -47019,6 +47072,7 @@ $connection->insert('system')
   'info' => 'a:13:{s:4:"name";s:10:"Pushbutton";s:11:"description";s:52:"Tabled, multi-column theme in blue and orange tones.";s:7:"version";s:4:"6.38";s:4:"core";s:3:"6.x";s:6:"engine";s:11:"phptemplate";s:7:"project";s:6:"drupal";s:9:"datestamp";s:10:"1456343372";s:7:"regions";a:5:{s:4:"left";s:12:"Left sidebar";s:5:"right";s:13:"Right sidebar";s:7:"content";s:7:"Content";s:6:"header";s:6:"Header";s:6:"footer";s:6:"Footer";}s:8:"features";a:10:{i:0;s:20:"comment_user_picture";i:1;s:7:"favicon";i:2;s:7:"mission";i:3;s:4:"logo";i:4;s:4:"name";i:5;s:17:"node_user_picture";i:6;s:6:"search";i:7;s:6:"slogan";i:8;s:13:"primary_links";i:9;s:15:"secondary_links";}s:11:"stylesheets";a:1:{s:3:"all";a:1:{s:9:"style.css";s:27:"themes/pushbutton/style.css";}}s:7:"scripts";a:1:{s:9:"script.js";s:27:"themes/pushbutton/script.js";}s:10:"screenshot";s:32:"themes/pushbutton/screenshot.png";s:3:"php";s:5:"4.3.5";}',
 ))
 ->execute();
+
 $connection->schema()->createTable('term_data', array(
   'fields' => array(
     'tid' => array(
@@ -47216,6 +47270,7 @@ $connection->insert('term_data')
   'trid' => '0',
 ))
 ->execute();
+
 $connection->schema()->createTable('term_hierarchy', array(
   'fields' => array(
     'tid' => array(
@@ -47310,6 +47365,7 @@ $connection->insert('term_hierarchy')
   'parent' => '5',
 ))
 ->execute();
+
 $connection->schema()->createTable('term_node', array(
   'fields' => array(
     'nid' => array(
@@ -47383,6 +47439,7 @@ $connection->insert('term_node')
   'tid' => '8',
 ))
 ->execute();
+
 $connection->schema()->createTable('term_relation', array(
   'fields' => array(
     'trid' => array(
@@ -47546,6 +47603,7 @@ $connection->insert('upload')
   'weight' => '0',
 ))
 ->execute();
+
 $connection->schema()->createTable('url_alias', array(
   'fields' => array(
     'pid' => array(
@@ -47635,6 +47693,7 @@ $connection->insert('url_alias')
   'language' => '',
 ))
 ->execute();
+
 $connection->schema()->createTable('users', array(
   'fields' => array(
     'uid' => array(
@@ -47956,6 +48015,7 @@ $connection->insert('users')
   'timezone_id' => '0',
 ))
 ->execute();
+
 $connection->schema()->createTable('users_roles', array(
   'fields' => array(
     'uid' => array(
@@ -48022,6 +48082,7 @@ $connection->insert('users_roles')
   'rid' => '5',
 ))
 ->execute();
+
 $connection->schema()->createTable('variable', array(
   'fields' => array(
     'name' => array(
@@ -49288,6 +49349,7 @@ $connection->insert('variable')
   'value' => 's:1:"1";',
 ))
 ->execute();
+
 $connection->schema()->createTable('vocabulary', array(
   'fields' => array(
     'vid' => array(
@@ -49487,6 +49549,7 @@ $connection->insert('vocabulary')
   'language' => '',
 ))
 ->execute();
+
 $connection->schema()->createTable('vocabulary_node_types', array(
   'fields' => array(
     'vid' => array(
@@ -49544,6 +49607,7 @@ $connection->insert('vocabulary_node_types')
   'type' => 'story',
 ))
 ->execute();
+
 $connection->schema()->createTable('watchdog', array(
   'fields' => array(
     'wid' => array(
