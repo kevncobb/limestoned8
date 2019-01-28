@@ -9,7 +9,7 @@
   padding-top: 0;
 }
 .vbp_color_01 {
-  background-color: #338ec7;
+  background-color: #0678be;
   color: #ffffff;
 }
 .vbp_color_01 a,
@@ -591,4 +591,15 @@
 .bg-orange h6.is-active,
 .bg-orange .h6.is-active {
   color: #ffffff;
+}
+.bg-edge2edge.paragraph--type--bp-columns-two-uneven.container-white .grid-container {
+  background-color: rgba(255, 255, 255, 0.75);
+}
+.bg-edge2edge.paragraph--type--bp-columns-two-uneven.container-white > h1,
+.bg-edge2edge.paragraph--type--bp-columns-two-uneven.container-white > h2,
+.bg-edge2edge.paragraph--type--bp-columns-two-uneven.container-white > h3,
+.bg-edge2edge.paragraph--type--bp-columns-two-uneven.container-white > h4,
+.bg-edge2edge.paragraph--type--bp-columns-two-uneven.container-white > h5,
+.bg-edge2edge.paragraph--type--bp-columns-two-uneven.container-white > h6 {
+  color: #0038a5;
 }
