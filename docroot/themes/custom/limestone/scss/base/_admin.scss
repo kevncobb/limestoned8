@@ -19,3 +19,15 @@ body.adminimal-admin-toolbar.toolbar-tray-open.toolbar-horizontal {
     position: absolute;
   }
 }
+
+html.login-screen {
+  display: table;
+  height: 100%;
+  position: absolute;
+  overflow: hidden;
+  width: 100%;
+  body {
+    display: table-cell;
+    vertical-align: middle;
+  }
+}
