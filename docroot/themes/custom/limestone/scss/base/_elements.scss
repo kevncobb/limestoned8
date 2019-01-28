@@ -143,5 +143,8 @@ table {
 .button {
   &.success {
     color: white;
+    &:focus, &:hover {
+      color: white;
+    }
   }
 }
