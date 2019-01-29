@@ -153,6 +153,7 @@ table {
   a {
     padding-left: 25px;
     &:before {
+      content: "";
       background: url(/themes/custom/limestone/images/icons/icon-pdf.svg) no-repeat;
       background-size: 35px;
       width: 35px;
