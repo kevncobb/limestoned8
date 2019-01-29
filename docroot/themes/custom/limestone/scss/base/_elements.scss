@@ -148,3 +148,15 @@ table {
     }
   }
 }
+
+.file--application-pdf {
+  a {
+    padding-left: 25px;
+    &:before {
+      background: url(/themes/custom/limestone/images/icons/icon-pdf.svg) no-repeat;
+      background-size: 35px;
+      width: 35px;
+      height: 39px;
+    }
+  }
+}
