@@ -154,29 +154,7 @@ table {
     position: fixed;
     right: 0;
     top: 50%;
-    width: 60px;
-    z-index: 2;
-
     background-color: $primary-color;
-    font-family: $header-font-family;
-    font-weight: 600;
-    text-transform: uppercase;
-  }
-  &:focus, &:hover {
-    text-decoration: underline;
-    width: auto;
-    &:before {
-      top: 9px;
-    }
-  }
-
-  a {
-    text-decoration: none;
-    color: white;
-    padding: 1rem;
-    &:focus, &:hover {
-      text-decoration: underline;
-    }
     &:before {
       content: "";
       display: inline-flex;
@@ -187,5 +165,21 @@ table {
       position: relative;
       top: 6px;
     }
+  }
+  a {
+    text-decoration: none;
+    color: white;
+    padding: 1rem;
+    background-color: $primary-color;
+    font-family: $header-font-family;
+    font-weight: 600;
+    text-transform: uppercase;
+    z-index: 2;
+    position: relative;
+    right: -100%;
+    &:focus, &:hover {
+      text-decoration: underline;
+    }
+
   }
 }
