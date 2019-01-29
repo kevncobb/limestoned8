@@ -156,7 +156,7 @@ table {
     top: 50%;
     width: 60px;
     z-index: 2;
-    padding: 1rem;
+
     background-color: $primary-color;
     font-family: $header-font-family;
     font-weight: 600;
@@ -165,30 +165,27 @@ table {
   &:focus, &:hover {
     text-decoration: underline;
     width: auto;
-    a {
-      content: inherit;
-    }
     &:before {
       top: 9px;
     }
   }
-  &:before {
-    content: "";
-    display: inline-flex;
-    background: url(/themes/custom/limestone/images/lc-sprite.svg) no-repeat -98px -282px;
-    background-size: 562px;
-    width: 32px;
-    height: 22px;
-    position: relative;
-    top: 6px;
-  }
+
   a {
     text-decoration: none;
     color: white;
-    content: "";
+    padding: 1rem;
     &:focus, &:hover {
       text-decoration: underline;
     }
-
+    &:before {
+      content: "";
+      display: inline-flex;
+      background: url(/themes/custom/limestone/images/lc-sprite.svg) no-repeat -98px -282px;
+      background-size: 562px;
+      width: 32px;
+      height: 22px;
+      position: relative;
+      top: 6px;
+    }
   }
 }
