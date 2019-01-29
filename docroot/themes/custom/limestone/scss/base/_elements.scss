@@ -148,3 +148,25 @@ table {
     }
   }
 }
+
+.floating-button {
+  position: fixed;
+  right: 0;
+  z-index: 2;
+  padding: 1rem;
+  background-color: $primary-color;
+  font-family: $header-font-family;
+  font-weight: 600;
+  text-transform: uppercase;
+  a {
+    text-decoration: none;
+    padding-left: 35px;
+    &:before {
+      content: "";
+      background: url(/themes/custom/limestone/images/lc-sprite.svg) no-repeat -102px -270px;
+      background-size: 562px;
+      width: 32px;
+      height: 37px;
+    }
+  }
+}
