@@ -150,23 +150,28 @@ table {
 }
 
 .floating-button {
-  position: fixed;
-  right: 0;
-  z-index: 2;
-  padding: 1rem;
-  background-color: $primary-color;
-  font-family: $header-font-family;
-  font-weight: 600;
-  text-transform: uppercase;
+
   a {
+    position: fixed;
+    right: 0;
+    top: 50%;
+    z-index: 2;
     text-decoration: none;
-    padding-left: 35px;
+    color: white;
+    padding: 1rem;
+    background-color: $primary-color;
+    font-family: $header-font-family;
+    font-weight: 600;
+    text-transform: uppercase;
     &:before {
       content: "";
-      background: url(/themes/custom/limestone/images/lc-sprite.svg) no-repeat -102px -270px;
+      display: inline-flex;
+      background: url(/themes/custom/limestone/images/lc-sprite.svg) no-repeat -98px -282px;
       background-size: 562px;
       width: 32px;
-      height: 37px;
+      height: 22px;
+      position: relative;
+      top: 6px;
     }
   }
 }
