@@ -148,38 +148,3 @@ table {
     }
   }
 }
-
-.floating-button {
-  .file--application-pdf {
-    position: fixed;
-    right: 0;
-    top: 50%;
-    background-color: $primary-color;
-    &:before {
-      content: "";
-      display: inline-flex;
-      background: url(/themes/custom/limestone/images/lc-sprite.svg) no-repeat -98px -282px;
-      background-size: 562px;
-      width: 32px;
-      height: 22px;
-      position: relative;
-      top: 6px;
-    }
-  }
-  a {
-    text-decoration: none;
-    color: white;
-    padding: 1rem;
-    background-color: $primary-color;
-    font-family: $header-font-family;
-    font-weight: 600;
-    text-transform: uppercase;
-    z-index: 2;
-    position: relative;
-    right: -100%;
-    &:focus, &:hover {
-      text-decoration: underline;
-    }
-
-  }
-}

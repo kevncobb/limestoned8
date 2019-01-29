@@ -92,7 +92,7 @@
     <h1 class="h1 max-1000 splash-header-subtitle">{{ node.title.value }}</h1>
     <h2 class="h1 mega-title max-1000 test splash-header-title">{{ content.field_semester_year }}</h2>
   </div>
-  {{ content.field_pdf }}
+
   {# We hide the comments and links now so that we can render them later. #}
   <div class="grid-container content-bump-up bg-white spacing-xs padding-sides-sm" >
     <div class="grid-x grid-margin-x">
@@ -102,6 +102,10 @@
 
       </div>
       <div class="thirds-right cell medium-4">
+        {% if content.field_pdf %}
+
+        {{ content.field_pdf }}
+        {% endif %}
         {{ content.field_image }}
       </div>
     </div>
