@@ -308,7 +308,7 @@ $expander-toggle-margin: 1em;
       li {
         width: 80%;
         margin: 0 10%;
-        padding: 0.4em 0;
+        padding: 0 0;
         list-style: none;
         display: inline-block;
         float: left;
@@ -321,7 +321,7 @@ $expander-toggle-margin: 1em;
         }
 
         > a {
-          padding: 4px 15px;
+          padding: 12px 15px;
           color: $primary-color;
 
           &:hover,
@@ -335,12 +335,8 @@ $expander-toggle-margin: 1em;
         &:focus,
         &.menu-focus {
           > a {
-
-            &:hover,
-            &:focus {
-              background-color: $light-gray;
-              color: $limestone-blue;
-            }
+            background-color: $light-gray;
+            color: $limestone-blue;
           }
         }
       }
