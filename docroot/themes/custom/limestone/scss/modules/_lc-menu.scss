@@ -27,7 +27,7 @@
       margin: 0;
       > a {
         float: left;
-        padding: 6px 15px;
+        padding: 12px 15px;
         width: 100%;
         text-decoration: none;
         &:hover,
@@ -259,7 +259,7 @@ $expander-toggle-margin: 1em;
 
         &::before {
           // Icon-chevron-down
-          content: "";
+          content: "\f078";
           position: absolute;
           top: 0.5em;
           right: 0.4em;
@@ -285,7 +285,7 @@ $expander-toggle-margin: 1em;
 
           &::before {
             //icon-arrow-right2
-            content: "";
+            content: "\ea34";
           }
         }
       }
