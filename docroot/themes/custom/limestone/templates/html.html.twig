@@ -52,13 +52,13 @@ db_offline ? 'db-offline',
     <js-placeholder token="{{ placeholder_token }}">
   </head>
   <body{{ attributes.addClass(body_classes) }}>
-  <a href="#main-content" class="visually-hidden focusable skip-link">
+  <a href="#main-content" class="visually-hidden focusable skip-link" id="skip-link">
     {{ 'Skip to main content'|t }}
   </a>
   {{ page_top }}
   {{ page }}
   {{ page_bottom }}
   <js-bottom-placeholder token="{{ placeholder_token }}">
-    <a href="#header" class="anchor-link to-top" id="to-top"><span class="icon-circle-right"></span></a>
+    <a href="#skip-link" class="anchor-link to-top" id="to-top"><span class="icon-circle-right"></span></a>
   </body>
 </html>

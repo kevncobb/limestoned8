@@ -336,7 +336,7 @@ a.to-top {
     color: $limestone-yellow;
     text-decoration: none;
     &::after {
-    color: $limestone-blue;
+      background: $limestone-blue;
     }
   }
   &::after {
