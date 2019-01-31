@@ -7,7 +7,9 @@ article.node--type-news {
   @extend .grid-container;
 }
 .fibonacci-aside.small-5 {
-  @include xy-cell(5 of 13);
+  @include breakpoint(medium) {
+    @include xy-cell(5 of 13);
+  }
 }
 .panel-oedu-container {
   @extend .grid-container;
