@@ -96,10 +96,6 @@ header.site-header {
   .block-limestone-branding {
     max-width: 45%;
     width: 100%;
-    @include breakpoint(small) {
-      max-width: 55%;
-      width: 100%;
-    }
     @include breakpoint(smedium) {
       max-width: 344px;
       width: 100%;
