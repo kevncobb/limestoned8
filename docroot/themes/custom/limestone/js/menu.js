@@ -844,11 +844,7 @@
         $(window).bind("load resize", function() {
             var ww = window.innerWidth;
             if (ww >= 768) {
-                var navgateway = new Menubar('block-limestonegatewaymenu', false);
-                var navgateway = new Menubar('block-limestonegatewaymenu-2', false);
                 var navgateway = new Menubar('block-mainnavigation', false);
-                var navgateway = new Menubar('block-communicationsdepartment', false);
-                var navgateway = new Menubar('block-topmenu', false);
             }
             if (ww < 768) {
                 $('.expander-content ul.menubar li.menu-item.menu-item--expanded > a').bind('touchstart click', function(event) {
@@ -874,42 +870,5 @@
                 });
             }
         });
-
-    $('.lc-search').click(function() {
-        if ($('#lcsearcharea').attr('aria-hidden') == 'false') {
-            $('#lcsearcharea').attr('aria-hidden', 'true');
-        } else {
-            $('#lcsearcharea').attr('aria-hidden', 'false');
-        }
-    });
-
-
-    $('.sliding-panel-button,.sliding-panel-fade-screen,.sliding-panel-close').on('click touchstart',function (e) {
-        $('.sliding-panel-content,.sliding-panel-fade-screen').toggleClass('is-visible');
-        if ($('.sliding-panel-content').attr('aria-hidden') == 'false') {
-            $('.sliding-panel-content').attr('aria-hidden', 'true');
-        } else {
-            $('.sliding-panel-content').attr('aria-hidden', 'false');
-        }
-        $('.layout-container').toggleClass('sliding-panel-active');
-        e.preventDefault();
-    });
-
-    $('.lc-search').on('click touchstart',function (e) {
-        if ($('.lc-search-bar-container').attr('aria-hidden') == 'false') {
-            $('.lc-search-bar-container').attr('aria-hidden', 'true');
-        } else {
-            $('.lc-search-bar-container').attr('aria-hidden', 'false');
-        }
-        $('.lc-search-bar-container').toggleClass('is-visible');
-        $('.layout-container').toggleClass('search-panel-active');
-        $('.lc-search').toggleClass('lc-search-panel-close');
-        e.preventDefault();
-    });
-
-    $('.lc-mobile-menu-toggle').click(function(){
-        $(this).toggleClass("expander-hidden");
-    });
-
 
 } (Drupal, jQuery, this));
