@@ -326,18 +326,24 @@ ul.line-items {
 a.to-top {
   position: fixed;
   bottom: 0.5em;
-  right: 0.5em;
+  right: 1.5em;
   z-index: 101;
   color: $limestone-blue;
-  font-size: 37px;
+  font-size: 20px;
   text-decoration: none;
-  transform: rotate(-90deg);
+  transform: rotate(-180deg);
+  display: none;
   &:hover, &:focus {
     color: $limestone-yellow;
     text-decoration: none;
     &::after {
       background: $limestone-blue;
     }
+  }
+  span {
+    position: relative;
+    top: 8px;
+    right: 8px;
   }
   &::after {
     content: "";
