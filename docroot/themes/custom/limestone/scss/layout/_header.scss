@@ -78,15 +78,18 @@ header.site-header {
   }
   .site-header-meta-links {
     position: relative;
-    top: 8px;
+    top: 2px;
     margin-right: 0;
-    .button.search-button span {
-      border-radius: 50%;
-      border: 2px solid white;
-      padding: 0.5em;
-      font-size: 1rem;
-      @include breakpoint(smedium) {
-        font-size: 1.3rem;
+    .button.search-button {
+      padding: 0.55rem 0.2rem;
+      span {
+        border-radius: 50%;
+        border: 2px solid white;
+        padding: 0.5em;
+        font-size: 1rem;
+        @include breakpoint(smedium) {
+          font-size: 1.3rem;
+        }
       }
     }
     @include breakpoint(smedium) {
