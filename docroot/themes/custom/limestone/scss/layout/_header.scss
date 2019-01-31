@@ -65,6 +65,10 @@ header.site-header {
         bottom: 0;
         font-size: 0.8rem;
       }
+      margin-right: -80px;
+      @include breakpoint(smedium) {
+        margin-right: 0;
+      }
     }
   }
   ul.menu {

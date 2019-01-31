@@ -1,5 +1,5 @@
 // All Menus
-@include breakpoint(medium) {
+@include breakpoint(smedium) {
   .menubar {
     //Global Menubar styles
     ul[aria-hidden=true] {
@@ -68,7 +68,7 @@ $expander-toggle-size: 1em;
 $expander-toggle-arrow-size: $expander-toggle-size;
 $expander-toggle-margin: 1em;
 
-@include breakpoint(medium down) {
+@include breakpoint(smedium down) {
   .expander {
     width: 100%;
     float: right;
@@ -90,26 +90,26 @@ $expander-toggle-margin: 1em;
     &::before {
       content: "";
       position: absolute;
-      right: 61px;
-      top: 0px;
+      right: 62px;
+      top: 5px;
       width: 20px;
       height: 40px;
-      background: url(/themes/custom/limestone/images/lc-sprite.svg) no-repeat -621px 2px transparent;
-      background-size: 643px !important;
+      background: url(/themes/custom/limestone/images/lc-sprite.svg) no-repeat -630px 4px transparent;
+      background-size: 650px !important;
     }
     &::after {
       // Icon-chevron-down
       content: "\f078";
       position: absolute;
-      top: 17px;
-      right: 22px;
+      top: 21px;
+      right: 28px;
       font-family: "icomoon" !important;
       speak: none;
       font-style: normal;
       font-weight: normal;
       font-variant: normal;
       text-transform: none;
-      font-size: 1.7em;
+      font-size: 1.2rem;
       line-height: 1;
       /* Better Font Rendering =========== */
       -webkit-font-smoothing: antialiased;
@@ -204,7 +204,7 @@ $expander-toggle-margin: 1em;
 
 
 
-@include breakpoint(medium) {
+@include breakpoint(smedium) {
   a.lc-mobile-menu-toggle {
     display: none;
   }
