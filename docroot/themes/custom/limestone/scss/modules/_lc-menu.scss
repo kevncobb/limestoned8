@@ -27,7 +27,7 @@
       margin: 0;
       > a {
         float: left;
-        padding: 12px 15px;
+        padding: 18px 15px;
         width: 100%;
         text-decoration: none;
         &:hover,
@@ -99,7 +99,7 @@ $expander-toggle-margin: 1em;
     }
     &::after {
       // Icon-chevron-down
-      content: "";
+      content: "\f078";
       position: absolute;
       top: 17px;
       right: 22px;
@@ -233,7 +233,7 @@ $expander-toggle-margin: 1em;
             right: -11px;
             height: 24px;
             width: 12px;
-            top: 13px;
+            top: 34%;
             background: url("/themes/custom/limestone/images/slash.svg") no-repeat;
           }
         }
@@ -266,8 +266,8 @@ $expander-toggle-margin: 1em;
           content: "\f078";
           position: absolute;
           font-size: 0.8rem;
-          top: 0.8rem;
-          right: 0.4rem;
+          top: 34%;
+          right: 9px;
           font-family: "icomoon" !important;
           speak: none;
           font-style: normal;
@@ -293,7 +293,6 @@ $expander-toggle-margin: 1em;
             //icon-arrow-right2
             content: "\ea34";
             font-size: 0.9rem;
-            top: 0.75rem;
             right: 0.3rem;
           }
         }
