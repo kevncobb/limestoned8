@@ -1,0 +1,145 @@
+@include breakpoint(medium) {
+  a.lc-mobile-menu-toggle {
+    display: none;
+  }
+  .expander-hidden + .expander-content {
+    display: block;
+  }
+  nav.sub-menu-block {
+    box-shadow: 0 1px 3px rgba(34, 25, 25, 0.4);
+    background-color: #fff;
+    position: relative;
+    z-index: 5;
+    text-transform: uppercase;
+    a {
+      color: $limestone-blue;
+    }
+    > ul.menubar {
+      padding: 0 0.8em;
+      @include xy-grid-container;
+      > li {
+        > a {
+
+          //top level separator
+          &:after {
+            content: "";
+            position: absolute;
+            right: -11px;
+            height: 24px;
+            width: 12px;
+            top: 13px;
+            background: url("/themes/custom/limestone/images/slash.svg") no-repeat;
+          }
+        }
+      }
+    }
+
+    li {
+
+      &:hover,
+      &:focus,
+      &.menu-focus,
+      &.menu-hover {
+        > a {
+          color: $success-color;
+        }
+      }
+    }
+
+    // Dropdowns
+    li.menu-item--expanded {
+
+      // &:last-child
+      //  > a
+      //    padding-right: 0
+      > a {
+        padding-right: 1.5em;
+
+        &::before {
+          // Icon-chevron-down
+          content: "";
+          position: absolute;
+          top: 0.5em;
+          right: 0.4em;
+          font-family: "icomoon" !important;
+          speak: none;
+          font-style: normal;
+          font-weight: normal;
+          font-variant: normal;
+          text-transform: none;
+          line-height: 1;
+          /* Better Font Rendering =========== */
+          -webkit-font-smoothing: antialiased;
+          -moz-osx-font-smoothing: grayscale;
+        }
+      }
+
+      &:hover,
+      &:focus,
+      &.menu-focus,
+      &.menu-hover {
+        > a {
+          color: $success-color;
+
+          &::before {
+            //icon-arrow-right2
+            content: "";
+          }
+        }
+      }
+    }
+
+    ul.dropdown {
+      top: 2em;
+      border: 0;
+      border-top: 4px solid $limestone-blue;
+      padding: 10px 0;
+      background: #fff;
+      min-width: 13em;
+      z-index: 3;
+      -webkit-box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.5);
+      -moz-box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.5);
+      box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.5);
+
+      li {
+        width: 80%;
+        margin: 0 10%;
+        padding: 0.4em 0;
+        list-style: none;
+        display: inline-block;
+        float: left;
+        clear: left;
+        border-bottom: thin solid #eee;
+        font-size: 1rem;
+
+        &:last-child {
+          border: none;
+        }
+
+        > a {
+          padding: 4px 15px;
+          color: $primary-color;
+
+          &:hover,
+          &:focus {
+            background-color: $light-gray;
+            color: $limestone-blue;
+          }
+        }
+
+        &:hover,
+        &:focus,
+        &.menu-focus {
+          > a {
+
+            &:hover,
+            &:focus {
+              background-color: $light-gray;
+              color: $limestone-blue;
+            }
+          }
+        }
+      }
+    }
+  }
+}
