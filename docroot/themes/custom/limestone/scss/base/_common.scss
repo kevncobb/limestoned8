@@ -328,32 +328,23 @@ a.to-top {
   bottom: 0.5em;
   right: 0.5em;
   z-index: 101;
-  color: transparent;
-  font-size: 0.5em;
+  color: $limestone-blue;
+  font-size: 1.5rem;
+  transform: rotate(-90deg);
   &:hover, &:focus {
-    color: transparent;
+    color: $limestone-yellow;
     text-decoration: none;
     &::after {
     color: $limestone-yellow;
     }
   }
   &::after {
-    content: "\e90b";
-    position: relative;
-    text-decoration: none;
-    top: 0;
-    right: 0.5em;
-    color: $limestone-blue;
-    font-family: 'icomoon' !important;
-    font-size: 3.5em;
-    speak: none;
-    font-style: normal;
-    font-weight: normal;
-    font-variant: normal;
-    text-transform: none;
-    line-height: 1;
-    /* Better Font Rendering =========== */
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+    content: "";
+    position: absolute;
+    top:0;
+    width: 50px;
+    height: 500px;
+    background: $limestone-yellow;
+    border-radius: 50%
   }
 }
