@@ -5,6 +5,34 @@ header.site-header {
   font-weight: bold;
   $header-font-size: 1.2rem;
   font-size: $header-font-size;
+  .block-limestone-branding {
+    max-width: 280px;
+    width: 100%;
+    @include breakpoint(smedium) {
+      max-width: 344px;
+      width: 100%;
+    }
+  }
+  .site-header-meta-links {
+    position: relative;
+    margin-right: 0;
+    .button.search-button {
+      padding: 0.55rem 0.1rem;
+      span {
+        border-radius: 50%;
+        border: 2px solid white;
+        padding: 0.5em;
+        font-size: 1rem;
+        @include breakpoint(smedium) {
+          font-size: 1.3rem;
+        }
+      }
+    }
+    @include breakpoint(smedium) {
+      top: 19px;
+    }
+  }
+  /*
   .dropdown.menu {
     a {
       padding: 0.7rem 0.5rem;
@@ -25,7 +53,7 @@ header.site-header {
       }
     }
   }
-
+ */
   a, button {
     color: white !important;
     span {
@@ -79,33 +107,6 @@ header.site-header {
     margin: 0;
     padding: 0.55rem 0.7rem;
     position: relative;
-  }
-  .site-header-meta-links {
-    position: relative;
-    margin-right: 0;
-    .button.search-button {
-      padding: 0.55rem 0.1rem;
-      span {
-        border-radius: 50%;
-        border: 2px solid white;
-        padding: 0.5em;
-        font-size: 1rem;
-        @include breakpoint(smedium) {
-          font-size: 1.3rem;
-        }
-      }
-    }
-    @include breakpoint(smedium) {
-      top: 19px;
-    }
-  }
-  .block-limestone-branding {
-    max-width: 45%;
-    width: 100%;
-    @include breakpoint(smedium) {
-      max-width: 344px;
-      width: 100%;
-    }
   }
 }
 .block-system-branding-block img {
