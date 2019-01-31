@@ -11,6 +11,12 @@
   font-weight: normal;
   font-style: normal;
 }
+.skip-link {
+  &:focus {
+    color: $primary-color;
+    padding: 1rem;
+  }
+}
 //styles to use when web fonts are loading
 .wf-loading {
   visibility: hidden;

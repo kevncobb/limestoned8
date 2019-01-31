@@ -78,19 +78,18 @@ header.site-header {
   }
   .site-header-meta-links {
     position: relative;
+    top: 10px;
     .button.search-button span {
       border-radius: 50%;
       border: 2px solid white;
       padding: 0.5em;
       font-size: 1rem;
-      margin-top: 10px;
       @include breakpoint(smedium) {
-        margin-top: 19px;
         font-size: 1.3rem;
       }
     }
     @include breakpoint(smedium) {
-      margin-top: 19px;
+      top: 19px;
     }
   }
   .block-limestone-branding {
