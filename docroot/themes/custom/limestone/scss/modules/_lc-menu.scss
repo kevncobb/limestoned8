@@ -255,15 +255,15 @@ $expander-toggle-margin: 1em;
       //  > a
       //    padding-right: 0
       > a {
-        padding-right: 1.5em;
+        padding-right: 1.4rem;
 
         &::before {
           // Icon-chevron-down
           content: "\f078";
           position: absolute;
           font-size: 0.8rem;
-          top: 0.7em;
-          right: 0.7em;
+          top: 0.8rem;
+          right: 0.4rem;
           font-family: "icomoon" !important;
           speak: none;
           font-style: normal;
@@ -278,16 +278,19 @@ $expander-toggle-margin: 1em;
 
       }
 
-      > a {
-        &:hover,
-        &:focus,
-        &.menu-focus,
-        &.menu-hover {
+
+      &:hover,
+      &:focus,
+      &.menu-focus,
+      &.menu-hover {
+        > a {
           color: $success-color;
           &::before {
             //icon-arrow-right2
             content: "\ea34";
             font-size: 0.9rem;
+            top: 0.75rem;
+            right: 0.3rem;
           }
         }
       }

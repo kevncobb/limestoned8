@@ -24,6 +24,30 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-brand:before {
+  content: "\e901";
+  color: #3b5998;
+}
+.icon-brand2:before {
+  content: "\e902";
+  color: #0063dc;
+}
+.icon-brand3:before {
+  content: "\e903";
+  color: #dc4e41;
+}
+.icon-brand4:before {
+  content: "\e905";
+  color: #0077b5;
+}
+.icon-brand5:before {
+  content: "\e906";
+  color: #1da1f2;
+}
+.icon-brand6:before {
+  content: "\e908";
+  color: #cd201f;
+}
 .icon-calendar2:before {
   content: "\e909";
 }
@@ -236,30 +260,6 @@
 }
 .icon-ruler:before {
   content: "\e95d";
-}
-.icon-brand:before {
-  content: "\e901";
-  color: #3b5998;
-}
-.icon-brand2:before {
-  content: "\e902";
-  color: #0063dc;
-}
-.icon-brand3:before {
-  content: "\e903";
-  color: #dc4e41;
-}
-.icon-brand4:before {
-  content: "\e905";
-  color: #0077b5;
-}
-.icon-brand5:before {
-  content: "\e906";
-  color: #1da1f2;
-}
-.icon-brand6:before {
-  content: "\e908";
-  color: #cd201f;
 }
 .icon-home:before {
   content: "\e900";
