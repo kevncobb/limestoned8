@@ -1,8 +1,10 @@
 // Side Menu
 .fibonacci-aside {
-  width: xy-cell-size(4 of 12);
-  @include xy-gutters($gutter-position: left);
-  padding-left: 1rem;
+  @include breakpoint(medium) {
+    width: xy-cell-size(4 of 12);
+    @include xy-gutters($gutter-position: left);
+    padding-left: 1rem;
+  }
   nav {
     font-family: $header-font-family;
     h2 {
