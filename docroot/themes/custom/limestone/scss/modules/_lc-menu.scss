@@ -275,15 +275,15 @@ $expander-toggle-margin: 1em;
           -webkit-font-smoothing: antialiased;
           -moz-osx-font-smoothing: grayscale;
         }
+
       }
 
-      &:hover,
-      &:focus,
-      &.menu-focus,
-      &.menu-hover {
-        > a {
+      > a {
+        &:hover,
+        &:focus,
+        &.menu-focus,
+        &.menu-hover {
           color: $success-color;
-
           &::before {
             //icon-arrow-right2
             content: "\ea34";
