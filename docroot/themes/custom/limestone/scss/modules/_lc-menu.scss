@@ -33,7 +33,11 @@
         &:hover,
         &:focus {
           outline: none;
-          &:before {}
+        }
+      }
+      &:first-child {
+        > a {
+          padding-left: 0;
         }
       }
     }
