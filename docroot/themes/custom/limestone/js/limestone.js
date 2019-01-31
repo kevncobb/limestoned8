@@ -44,4 +44,25 @@
       $(this).toggleClass("expander-hidden");
     });
   });
+  Drupal.behaviors.to_top = {
+    attach: function (context, settings) {
+      // Execute code once the DOM is ready. $(document).ready() not required within Drupal.behaviors.
+
+      // To Top button appear on scroll
+      $(window).bind("scroll", function() {
+        if ($(this).scrollTop() > 300) {
+          $('#to-top:hidden').stop(true, true).fadeIn();
+        } else {
+          $('#to-top').stop(true, true).fadeOut();
+        }
+        if ($(this).scrollTop() > 400) {
+          $('.scroll-fade-1').stop(true, true).css("display", "none");
+          $('.scroll-fade-in-1:hidden').stop(true, true).fadeIn();
+        } else {
+          $('.scroll-fade-1:hidden').stop(true, true).fadeIn();
+          $('.scroll-fade-in-1').stop(true, true).css("display", "none");
+        }
+      });
+    }
+  };
 })(jQuery, Drupal);

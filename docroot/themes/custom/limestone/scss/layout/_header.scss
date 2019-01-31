@@ -16,6 +16,7 @@ header.site-header {
   .site-header-meta-links {
     position: relative;
     margin-right: 0;
+    top: 8px;
     .button.search-button {
       padding: 0.55rem 0.1rem;
       span {
@@ -63,19 +64,37 @@ header.site-header {
       color: $limestone-yellow !important;
     }
     &.quicklink-button {
-      background: url(/themes/custom/limestone/images/lc-sprite.svg) no-repeat -370px -184px;
-      background-size: 562px;
       width: 134px;
-      height: 44px;
       color: transparent !important;
       font-size: 19px;
       text-align: left;
       font-weight: bold;
       position: relative;
-      top: 50%;
       left: auto;
       -ms-transform: translatey(-50%);
       transform: translatey(-50%);
+      top: 51%;
+      height: 50px;
+      background: url(/themes/custom/limestone/images/lc-sprite.svg) no-repeat -498px -257px;
+      background-size: 757px;
+      margin-right: -86px;
+      &:before {
+        content: "\e9cb";
+        position: absolute;
+        color: $limestone-blue !important;
+        top: 20px;
+        right: 30px;
+        font-family: "icomoon" !important;
+        speak: none;
+        font-style: normal;
+        font-weight: normal;
+        font-variant: normal;
+        text-transform: none;
+        font-size: 1.6rem;
+        line-height: 1;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
       &:focus, &:hover {
         color: $limestone-blue !important;
         span {
@@ -93,10 +112,14 @@ header.site-header {
         bottom: 0;
         font-size: 0.8rem;
       }
-      margin-right: -80px;
       @include breakpoint(smedium) {
         margin-right: 0;
         color: $limestone-blue !important;
+        background: url(/themes/custom/limestone/images/lc-sprite.svg) no-repeat -370px -184px;
+        background-size: 562px;
+        width: 134px;
+        height: 44px;
+        top: 50%;
       }
     }
   }
