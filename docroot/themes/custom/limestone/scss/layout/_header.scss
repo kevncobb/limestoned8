@@ -6,7 +6,7 @@ header.site-header {
   $header-font-size: 1.2rem;
   font-size: $header-font-size;
   .block-limestone-branding {
-    max-width: 280px;
+    max-width: 240px;
     width: 100%;
     @include breakpoint(smedium) {
       max-width: 344px;
@@ -67,7 +67,7 @@ header.site-header {
       background-size: 562px;
       width: 134px;
       height: 44px;
-      color: $limestone-blue !important;
+      color: transparent !important;
       font-size: 19px;
       text-align: left;
       font-weight: bold;
@@ -96,6 +96,7 @@ header.site-header {
       margin-right: -80px;
       @include breakpoint(smedium) {
         margin-right: 0;
+        color: $limestone-blue !important;
       }
     }
   }

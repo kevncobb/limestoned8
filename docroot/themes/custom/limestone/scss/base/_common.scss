@@ -11,6 +11,9 @@
   font-weight: normal;
   font-style: normal;
 }
+html {
+  scroll-behavior: smooth;
+}
 .skip-link {
   &:focus {
     color: $primary-color;
