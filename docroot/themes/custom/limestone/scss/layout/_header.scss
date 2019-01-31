@@ -360,8 +360,11 @@ form#views-exposed-form-news-latest-news-block .form-item-search label {
   line-height: 2rem;
   color: $limestone-blue;
   overflow-x: hidden;
+  @include breakpoint(smedium) {
+    font-size: 1.25rem;
+  }
   @include breakpoint(medium) {
-    font-size: 1.55rem;
+    font-size: 1.45rem;
   }
   @include breakpoint(large) {
     font-size: 1.7rem;
