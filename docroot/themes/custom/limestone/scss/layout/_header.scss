@@ -96,7 +96,8 @@ header.site-header {
     max-width: 100%;
     width: 100%;
     @include breakpoint(smedium) {
-      width: auto;
+      max-width: 344px;
+      width: 100%;
     }
   }
 }
