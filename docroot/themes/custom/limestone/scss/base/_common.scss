@@ -329,21 +329,24 @@ a.to-top {
   right: 0.5em;
   z-index: 101;
   color: $limestone-blue;
-  font-size: 1.5rem;
+  font-size: 37px;
+  text-decoration: none;
   transform: rotate(-90deg);
   &:hover, &:focus {
     color: $limestone-yellow;
     text-decoration: none;
     &::after {
-    color: $limestone-yellow;
+    color: $limestone-blue;
     }
   }
   &::after {
     content: "";
     position: absolute;
-    top:0;
-    width: 50px;
-    height: 500px;
+    top: 1px;
+    right: 1px;
+    width: 35px;
+    height: 35px;
+    z-index: -1;
     background: $limestone-yellow;
     border-radius: 50%
   }

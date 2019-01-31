@@ -75,7 +75,7 @@
 
 
       // To Top button appear on scroll
-      $(window).scroll(function() {
+      $(window).bind("scroll", function() {
         if ($(this).scrollTop() > 300) {
           $('#to-top:hidden').stop(true, true).fadeIn();
         } else {
