@@ -20,3 +20,8 @@ lc-slider:
     js/lc-slider.js: {}
   dependencies:
     - core/jquery
+
+lc-menu:
+  version: 1.x
+  js:
+    js/menu.js: {}
