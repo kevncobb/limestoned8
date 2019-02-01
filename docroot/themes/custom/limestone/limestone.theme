@@ -54,7 +54,7 @@ function limestone_preprocess_page(&$variables) {
 
     $variables['title'] = $variables['node']->title->value;
     $variables['field_header_background_image'] = $variables['node']->field_header_background_image->processed;
-    $variables['bg_image_url'] = $variables['node']->field_header_background_image->field_target_entity->field_media_image->entity->getFileUri();
+    $variables['bg_image_url'] = $variables['node']->field_header_background_image->field_target_entity->field_media_image->entity->uri;
 
   }else{
     $variables['title'] =$variables['page']['#title'];
