@@ -59,6 +59,7 @@ function limestone_preprocess_page(&$variables) {
   }
   if (!empty($variables['node']) && !empty($variables['node']->field_header_background_image)) {
     $variables['field_header_background_image'] = $variables['node']->field_header_background_image->value;
+    echo ('yep');
   }
   /*
   if($variables['is_front']){
