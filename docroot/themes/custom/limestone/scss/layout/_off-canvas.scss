@@ -1,6 +1,9 @@
 // search
+.position-top {
+  height: 175px;
+}
 #top-off-canvas-search {
-  padding-top: rem-calc(10);
+  padding-top: rem-calc(100);
 
   > div {
     @extend .grid-container;
