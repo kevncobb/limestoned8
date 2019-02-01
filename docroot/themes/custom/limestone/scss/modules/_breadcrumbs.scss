@@ -28,7 +28,7 @@
       text-transform: none;
     }
     &:first-child a {
-      background: url(/themes/custom/limestone/images/lc-sprite.svg) no-repeat -277px -11px;
+      background: url(/themes/custom/limestone/images/lc-sprite.svg) no-repeat -277px -5px;
       background-size: 770px;
       display: block;
       text-indent: -99999px;
@@ -44,10 +44,10 @@
       position: absolute;
       height: 12px;
       width: 15px;
-      right: -6px;
-      top: 5px;
-      opacity: .8;
-      filter: alpha(opacity=80);
+      right: -9px;
+      top: 10px;
+      opacity: 0.95;
+      filter: alpha(opacity=95);
       background: url(/themes/custom/limestone/images/lc-sprite.svg) no-repeat;
       background-position: -383px -41px;
       background-size: 770px;
