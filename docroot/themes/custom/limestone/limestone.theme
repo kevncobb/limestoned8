@@ -50,12 +50,17 @@ function limestone_preprocess_page(&$variables) {
 
 
   if(isset($variables['node'])) {
+    $node = $variables['node'];
     $variables['bg_image_url'] = $variables['node']->field_media->field_target_entity->field_header_background_image->entity->uri->value;
     $variables['title'] = $variables['node']->title->value;
+    $field_header_background_image = $node->get('field_header_background_image')->processed;
+    $variables['field_header_background_image'] = $field_header_background_image;
   }else{
     $node = $variables['node'];
     $variables['title'] =$variables['page']['#title'];
     $variables['bg_image_url'] = file_create_url($node->field_media->field_target_entity->field_header_background_image->entity->getFileUri());
+    $field_header_background_image = $node->get('field_header_background_image')->processed;
+    $variables['field_header_background_image'] = $field_header_background_image;
   }
   /*
   if($variables['is_front']){
