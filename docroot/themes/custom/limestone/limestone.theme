@@ -59,7 +59,6 @@ function limestone_preprocess_page(&$variables) {
   }
   if (!empty($variables['node']) && !empty($variables['node']->field_header_background_image)) {
     $variables['field_header_background_image'] = $variables['node']->field_header_background_image->value;
-    echo ('yep');
   }
   /*
   if($variables['is_front']){
@@ -100,22 +99,4 @@ function limestone_theme_suggestions_image_formatter_alter(array &$suggestions, 
   $entity = $variables['item']->getEntity();
   $field_name = $variables['item']->getParent()->getName();
   $suggestions[] = 'image_formatter__' . $entity->getEntityTypeId() . '__' . $entity->bundle() . '__' . $field_name;
-}
-
-function limestone_theme_suggestions_alter(array &$suggestions, array $variables, $hook) {
-  switch ($hook) {
-    case 'image_formatter':
-
-      /**
-       * @var Drupal\url_image\Plugin\Field\FieldType\UrlImageItem $item
-       */
-      $item = $variables['item'];
-      $config = $item->getFieldDefinition();
-      switch ($config->getTargetBundle()) {
-        case 'b_partner_images':
-          $suggestions[] = 'image_formatter__b_partner_images';
-          break;
-      }
-      break;
-  }
 }
