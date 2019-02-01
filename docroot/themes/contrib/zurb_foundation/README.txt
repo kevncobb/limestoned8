@@ -135,18 +135,6 @@ Lastly, we also provide a Meta Header region, which can be used to place blocks
 above all other page regions. This is most useful for the Main Menu block,
 which can be then rendered as a Top Bar.
 
-Responsive Images
------------------
-
-The breakpoints file (zurb_foundation.breakpoints.yml) is only needed if you are
-creating images with different aspect ratios (art direction) for different size
-screens, e.g. when you need to use the "picture" element. If you are merely sending
-different resolution images, then you want to use srcset, because the browser is
-choosing the image and then you don't need the breakpoints file.
-
-Please see the following for more information on responsive images:
-https://www.drupal.org/project/zurb_foundation/issues/2958265
-
 Known Issues
 ------------
 
