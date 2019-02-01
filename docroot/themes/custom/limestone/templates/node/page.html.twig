@@ -104,7 +104,7 @@
             </div>
             {% if node.title.value %}
                 <div class="sub-page-header" role="heading">
-                    {{ node.field_media.entity.field_header_background_image.entity.uri.value | image_style('thumbnail') }}
+                    {{ bg_image_url }}
                     {{ title_prefix }}
                     <h1 class="sub-header-title grid-container">{{ title }}</h1>
                     {{ title_suffix }}
