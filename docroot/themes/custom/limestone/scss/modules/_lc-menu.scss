@@ -1,27 +1,28 @@
-//Keyboard user notification to use UP/DOWN arrows
-#block-mainnavigation {
-  ul.menubar.root-level {
-    li.menu-item:first-child:focus {
-      &:before {
-        content: "Keyboard users please use arrows for navigating main menu.";
-        position: absolute;
-        text-transform: none;
-        font-size: 0.8rem;
-        font-weight: normal;
-        width: 315px;
-        top: -1.5rem;
-        padding: 0 0.5rem;
-        left: -4rem;
-        background-color: #ecf5daf2;
-        border: thin solid #b4baa5;
-        z-index: 5;
-      }
-    }
-  }
-}
 
 // All Menus
 @include breakpoint(smedium) {
+  //Keyboard user notification to use UP/DOWN arrows
+  #block-mainnavigation {
+    ul.menubar.root-level {
+      > li.menu-item:first-child:focus {
+        &:before {
+          content: "Keyboard users please use arrows for navigating main menu.";
+          position: absolute;
+          text-transform: none;
+          font-size: 0.8rem;
+          font-weight: normal;
+          width: 315px;
+          top: -1.5rem;
+          padding: 0 0.5rem;
+          left: -4rem;
+          background-color: #ecf5daf2;
+          border: thin solid #b4baa5;
+          z-index: 5;
+        }
+      }
+    }
+  }
+
   .menubar {
     //Global Menubar styles
     ul[aria-hidden=true] {
