@@ -38,15 +38,16 @@ function limestone_preprocess_node(&$variables) {
  */
 function limestone_preprocess_page(&$variables) {
 
-  /*  // How to make a field available in page.html.twig
-  if ( $vars['node'] ) {
-      $node = $vars['node'];
+   // How to make a field available in page.html.twig
+  if ( $variables['node'] ) {
+      $node = $variables['node'];
       // Get Sub Header value and make available for page.html.twig
-      //kint($node);
-      $field_sub_header_title = $node->get('field_sub_header_title')->processed;
-      $vars['field_sub_header_title'] = $field_sub_header_title;
+
+      $field_header_background_image = $node->get('field_header_background_image')->processed;
+      $variables['field_header_background_image'] = $field_header_background_image;
+
   }
-  */
+
 
   if(isset($variables['node'])) {
     $variables['bg_image_url'] = $variables['node']->field_media->field_target_entity->field_header_background_image->entity->uri->value;
