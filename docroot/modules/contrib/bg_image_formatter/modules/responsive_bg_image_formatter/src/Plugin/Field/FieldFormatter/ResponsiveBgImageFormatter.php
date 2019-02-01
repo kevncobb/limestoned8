@@ -1,14 +1,19 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Drupal\responsive_bg_image_formatter\Plugin\Field\FieldFormatter;
 
-use Drupal\Core\Url;
+use Drupal\bg_image_formatter\Plugin\Field\FieldFormatter\BgImageFormatter;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\bg_image_formatter\Plugin\Field\FieldFormatter\BgImageFormatter;
+use Drupal\Core\Render\Markup;
+use Drupal\Core\Url;
 use Drupal\responsive_image\Entity\ResponsiveImageStyle;
 
 /**
+ * Class ResponsiveBgImageFormatter.
+ *
  * @FieldFormatter(
  *  id = "responsive_bg_image_formatter",
  *  label = @Translation("Responsive Background Image"),
@@ -18,35 +23,17 @@ use Drupal\responsive_image\Entity\ResponsiveImageStyle;
 class ResponsiveBgImageFormatter extends BgImageFormatter {
 
   /**
-   * Get the possible responsive image styles.
-   */
-  protected function getResponsiveImageStyles($withNone = FALSE) {
-    $styles = ResponsiveImageStyle::loadMultiple();
-    $options = array();
-
-    if ($withNone && empty($styles)) {
-      $options[''] = t('- Defined None -');
-    }
-
-    foreach ($styles as $name => $style) {
-      $options[$name] = $style->label();
-    }
-
-    return $options;
-  }
-
-  /**
    * {@inheritdoc}
    */
   public function settingsForm(array $form, FormStateInterface $form_state) {
     $element = parent::settingsForm($form, $form_state);
     $element['image_style']['#options'] = $this->getResponsiveImageStyles(TRUE);
     $element['image_style']['#description'] = $this->t(
-      'Select <a href="@href_image_style">the responsive image style</a> to use.',
-      array(
-        '@href_image_style' =>
-        Url::fromRoute('entity.responsive_image_style.collection')->toString(),
-      )
+        'Select <a href="@href_image_style">the responsive image style</a> to use.',
+        [
+          '@href_image_style' =>
+          Url::fromRoute('entity.responsive_image_style.collection')->toString(),
+        ]
     );
 
     unset($element['css_settings']['bg_image_media_query']);
@@ -63,7 +50,7 @@ class ResponsiveBgImageFormatter extends BgImageFormatter {
     $options = $this->getResponsiveImageStyles();
 
     if (isset($options[$settings['image_style']])) {
-      $summary[1] = $this->t('URL for image style: @style', array('@style' => $options[$settings['image_style']]));
+      $summary[1] = $this->t('URL for image style: @style', ['@style' => $options[$settings['image_style']]]);
     }
     else {
       $summary[1] = $this->t('Original image style');
@@ -76,15 +63,15 @@ class ResponsiveBgImageFormatter extends BgImageFormatter {
    * {@inheritdoc}
    */
   public function viewElements(FieldItemListInterface $items, $langcode) {
-    $elements = array();
+    $elements = [];
     $index = 0;
     $settings = $this->getSettings();
     $css_settings = $settings['css_settings'];
     $selectors = array_filter(preg_split('/$/', $css_settings['bg_image_selector']));
     $files = $this->getEntitiesToView($items, $langcode);
 
-    // Filter out empty selectors
-    $selectors = array_map(function($value) {
+    // Filter out empty selectors.
+    $selectors = array_map(function ($value) {
       return trim($value, ',');
     }, $selectors);
 
@@ -94,10 +81,10 @@ class ResponsiveBgImageFormatter extends BgImageFormatter {
     }
 
     // Prepare token data in bg image css selector.
-    $token_data = array(
+    $token_data = [
       'user' => \Drupal::currentUser(),
       $items->getEntity()->getEntityTypeId() => $items->getEntity(),
-    );
+    ];
     foreach ($selectors as &$selector) {
       $selector = \Drupal::token()->replace($selector, $token_data);
     }
@@ -109,10 +96,10 @@ class ResponsiveBgImageFormatter extends BgImageFormatter {
       // Use specified selectors in round-robin order.
       $selector = $selectors[$index % count($selectors)];
 
-      $vars = array(
+      $vars = [
         'uri' => $file->getFileUri(),
         'responsive_image_style_id' => $settings['image_style'],
-      );
+      ];
       template_preprocess_responsive_image($vars);
 
       // Split each source into multiple rules.
@@ -144,24 +131,32 @@ class ResponsiveBgImageFormatter extends BgImageFormatter {
           // Define unique key to prevent collisions when displaying multiple
           // background images on the same page.
           $html_head_key = 'responsive_bg_image_formatter_css__' . sha1(
-              implode('__', [
-                $items->getEntity()->uuid(),
-                $items->getName(),
-                $settings['image_style'],
-                $delta,
-                $src_i,
-                $source_i,
-              ])
-            );
+          implode('__', [
+            $items->getEntity()->uuid(),
+            $items->getName(),
+            $settings['image_style'],
+            $delta,
+            $src_i,
+            $source_i,
+          ])
+          );
 
-          $elements['#attached']['html_head'][] = [[
+          $style_element = [
+            '#type' => 'html_tag',
             '#tag' => 'style',
             '#attributes' => [
               'media' => $css['media'],
             ],
-            '#value' => $css['style'],
-          ], $html_head_key,
+            '#value' => Markup::create($css['style']),
           ];
+
+          if ($this->isAjax()) {
+            $elements['#attached']['drupalSettings']['bg_image_formatter_css'][] =
+                            $this->renderer->renderPlain($style_element);
+          }
+          else {
+            $elements['#attached']['html_head'][] = [$style_element, $html_head_key];
+          }
         }
       }
 
@@ -169,6 +164,30 @@ class ResponsiveBgImageFormatter extends BgImageFormatter {
     }
 
     return $elements;
+  }
+
+  /**
+   * Get the possible responsive image styles.
+   *
+   * @param bool $withNone
+   *   True to include the 'None' option, false otherwise.
+   *
+   * @return array
+   *   The select options.
+   */
+  protected function getResponsiveImageStyles($withNone = FALSE) {
+    $styles = ResponsiveImageStyle::loadMultiple();
+    $options = [];
+
+    if ($withNone && empty($styles)) {
+      $options[''] = t('- Defined None -');
+    }
+
+    foreach ($styles as $name => $style) {
+      $options[$name] = $style->label();
+    }
+
+    return $options;
   }
 
 }
