@@ -77,31 +77,23 @@ header.site-header {
       height: 50px;
       background: url(/themes/custom/limestone/images/lc-sprite.svg) no-repeat -498px -257px;
       background-size: 757px;
-      margin-right: -86px;
+      margin-right: -75px;
       &:before {
         content: "\e9cb";
         position: absolute;
         color: $limestone-blue !important;
-        top: 20px;
-        right: 30px;
+        top: 12px;
+        left: 15px;
         font-family: "icomoon" !important;
         speak: none;
         font-style: normal;
         font-weight: normal;
         font-variant: normal;
         text-transform: none;
-        font-size: 1.6rem;
+        font-size: 1.3rem;
         line-height: 1;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
-      }
-      &:focus, &:hover {
-        color: $limestone-blue !important;
-        span {
-          right: -4px;
-          position: relative;
-          transition: 300ms;
-        }
       }
       span {
         transform: rotate(-90deg);
@@ -122,6 +114,14 @@ header.site-header {
         top: 50%;
         &:before {
           display: none;
+        }
+        &:focus, &:hover {
+          color: $limestone-blue !important;
+          span {
+            right: -4px;
+            position: relative;
+            transition: 300ms;
+          }
         }
       }
     }
