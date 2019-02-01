@@ -60,6 +60,9 @@ function limestone_preprocess_page(&$variables) {
   if (!empty($variables['node']) && !empty($variables['node']->field_header_background_image)) {
     $variables['field_header_background_image'] = $variables['node']->field_header_background_image->value;
   }
+  else{
+    $variables['field_header_background_image'] =$variables['page']['#field_header_background_image'];
+  }
   /*
   if($variables['is_front']){
       $variables['#attached']['library'][] = 'lc/custom-library';
