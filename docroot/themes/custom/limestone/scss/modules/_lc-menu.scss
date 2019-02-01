@@ -1,3 +1,14 @@
+//Keyboard user notification to use UP/DOWN arrows
+#block-mainnavigation {
+  ul.menubar.root-level {
+    li.menu-item:first-child:focus {
+      &:before {
+        content: "<div role='contentinfo' aria-label='Status message' class='zurb-foundation-callout callout success'><h2 class='visually-hidden'>Status message</h2>Keyboard users please use arrows for navigating main menu.</div>";
+      }
+    }
+  }
+}
+
 // All Menus
 @include breakpoint(smedium) {
   .menubar {
