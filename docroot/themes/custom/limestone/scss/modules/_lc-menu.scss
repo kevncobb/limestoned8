@@ -3,6 +3,7 @@
   ul.menubar.root-level {
     li.menu-item:first-child:focus {
       &:before {
+        @include xy-grid-container;
         @include callout($success-color);
         content: "Keyboard users please use arrows for navigating main menu.";
       }
