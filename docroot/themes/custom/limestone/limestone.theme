@@ -96,3 +96,10 @@ function limestone_theme_suggestions_image_formatter_alter(array &$suggestions, 
   $field_name = $variables['item']->getParent()->getName();
   $suggestions[] = 'image_formatter__' . $entity->getEntityTypeId() . '__' . $entity->bundle() . '__' . $field_name;
 }
+
+function limestone_theme_suggestions_image_alter(&$suggestions, &$vars, $hook) {
+  $request = \Drupal::routeMatch()->getRouteObject()->getDefault('view_id');
+  if (!empty($request)) {
+    $suggestions[] = 'image__' . $request;
+  }
+}
