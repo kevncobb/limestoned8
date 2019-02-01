@@ -3,7 +3,8 @@
   ul.menubar.root-level {
     li.menu-item:first-child:focus {
       &:before {
-        content: "<div role='contentinfo' aria-label='Status message' class='zurb-foundation-callout callout success'><h2 class='visually-hidden'>Status message</h2>Keyboard users please use arrows for navigating main menu.</div>";
+        @include callout($success-color);
+        content: "Keyboard users please use arrows for navigating main menu.";
       }
     }
   }
