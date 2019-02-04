@@ -1,5 +1,0 @@
-services:
-    bamboo_twig_path.twig.path:
-        class: Drupal\bamboo_twig_path\TwigExtension\Path
-        tags:
-            - { name: twig.extension }
