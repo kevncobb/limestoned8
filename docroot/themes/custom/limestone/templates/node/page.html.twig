@@ -103,8 +103,7 @@
                 {{ page.main_menu_region }}
             </div>
             {% if node.title.value %}
-                {% set media_img_url = file_url(node.field_header_background_image.0['#item'].entity.uri.value) %}
-                <div class="sub-page-header" role="heading" style="background-image: url('{{ media_img_url }}');">
+                <div class="sub-page-header" role="heading" style="background-image: url('{{ drupal_field('field_header_background_image', 'node', 1)  }}');">
 
                     {{ title_prefix }}
                     <h1 class="sub-header-title grid-container">{{ title }}</h1>
