@@ -103,7 +103,8 @@
                 {{ page.main_menu_region }}
             </div>
             {% if node.title.value %}
-                <div class="sub-page-header" role="heading" style="background-image: url('{{ node.field_header_background_image.value }}');">
+                {% set media_img_url = file_url(content.field_header_background_image.0['#item'].entity.uri.value) %}
+                <div class="sub-page-header" role="heading" style="background-image: url('{{ media_img_url }}');">
 
                     {{ title_prefix }}
                     <h1 class="sub-header-title grid-container">{{ title }}</h1>
