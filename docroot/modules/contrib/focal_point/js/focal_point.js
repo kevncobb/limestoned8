@@ -10,13 +10,13 @@
    * Focal Point indicator.
    */
   Drupal.behaviors.focalPointIndicator = {
-    attach: function(context, settings) {
+    attach: function(context) {
       $(".focal-point", context).once('focal-point-hide-field').each(function() {
         // Hide the focal_point form item. We do this with js so that a non-js
         // user can still set the focal point values. Also, add functionality so
         // that if the indicator is double clicked, the form item is displayed.
         if (!$(this).hasClass('error')) {
-          $(this).closest('.form-item').hide();
+          $(this).closest('.focal-point-wrapper').hide();
         }
       });
 
@@ -95,13 +95,9 @@
     this.$img.css('cursor', 'crosshair');
 
     // Add a change event to the focal point field so it will properly update
-    // the indicator position.
+    // the indicator position and preview link.
     this.$field.on('change', function() {
-      // Update the indicator position in case someone has typed in a value.
-      self.setIndicator();
-
-      // Update the href of the preview link.
-      self.updatePreviewLink($(this).attr('data-selector'), $(this).val());
+     $(document).trigger('drupalFocalPointSet', { $focalPoint: self });
     });
 
     // Wrap the focal point indicator and thumbnail image in a div so that
@@ -120,7 +116,8 @@
   Drupal.FocalPoint.prototype.set = function(offsetX, offsetY) {
     var focalPoint = this.calculate(offsetX, offsetY);
     this.$field.val(focalPoint.x + ',' + focalPoint.y).trigger('change');
-    this.setIndicator();
+
+    $(document).trigger('drupalFocalPointSet', { $focalPoint: this });
   };
 
   /**
@@ -177,14 +174,14 @@
   /**
    * Updates the preview link to include the correct focal point value.
    *
-   * @param selector string
+   * @param dataSelector string
    *   The data-selector value for the preview link.
    * @param value string
    *   The new focal point value in the form x,y where x and y are integers from
    *   0 to 100.
    */
-  Drupal.FocalPoint.prototype.updatePreviewLink = function (selector, value) {
-    var $previewLink = $('a.focal-point-preview-link[data-selector=' + selector + ']');
+  Drupal.FocalPoint.prototype.updatePreviewLink = function (dataSelector, value) {
+    var $previewLink = $('a.focal-point-preview-link[data-selector=' + dataSelector + ']');
     if ($previewLink.length > 0) {
       var href = $previewLink.attr('href').split('/');
       href.pop();
@@ -193,6 +190,30 @@
       href.push(value.replace(',', 'x').concat($previewLink[0].search ? $previewLink[0].search : ''));
       $previewLink.attr('href', href.join('/'));
     }
-  }
+
+    // Update the ajax binding to reflect the new preview link href value.
+    Drupal.ajax.instances.forEach(function(instance, index) {
+      if (instance && $(instance.element).data('selector') === dataSelector) {
+        var href = $(instance.selector).attr('href');
+        Drupal.ajax.instances[index].url = href;
+        Drupal.ajax.instances[index].options.url = href;
+      }
+    });
+  };
+
+  /**
+   * Update the Focal Point indicator and preview link when focal point changes.
+   *
+   * @param {jQuery.Event} event
+   *   The `drupalFocalPointSet` event.
+   * @param {object} data
+   *   An object containing the data relevant to the event.
+   *
+   * @listens event:drupalFocalPointSet
+   */
+  $(document).on('drupalFocalPointSet', function (event, data) {
+    data.$focalPoint.setIndicator();
+    data.$focalPoint.updatePreviewLink(data.$focalPoint.$field.attr('data-selector'), data.$focalPoint.$field.val());
+  });
 
 })(jQuery, Drupal);

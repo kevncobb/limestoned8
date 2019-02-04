@@ -47,7 +47,7 @@ class FocalPointImageWidget extends ImageWidget {
     unset($form['preview_image_style']['#empty_option']);
     // @todo Implement https://www.drupal.org/node/2872960
     //   The preview image should not be generated using a focal point effect
-    //   and should maintain teh aspect ratio of the original image.
+    //   and should maintain the aspect ratio of the original image.
     $form['preview_image_style']['#description'] = t(
       $form['preview_image_style']['#description']->getUntranslatedString() . "<br/>Do not choose an image style that alters the aspect ratio of the original image nor an image style that uses a focal point effect.",
       $form['preview_image_style']['#description']->getArguments(),
@@ -127,15 +127,14 @@ class FocalPointImageWidget extends ImageWidget {
       'focal_point' => 'focal-point-' . implode('-', $element['#parents']),
     ];
 
-    $focal_point_settings = \Drupal::service('config.factory')->getEditable('focal_point.settings');
-    $default_focal_point_value = $focal_point_settings->get('default_value');
+    $default_focal_point_value = isset($item['focal_point']) ? $item['focal_point'] : $element['#focal_point']['offsets'];
 
-    if (isset($item['focal_point'])) {
-      $default_focal_point_value = $item['focal_point'];
-    }
-    elseif (isset($element['#focal_point'])
-            && isset($element['#focal_point']['offsets'])) {
-      $default_focal_point_value = $element['#focal_point']['offsets'];
+    // Override the default Image Widget template when using the Media Library
+    // module so we can use the image field's preview rather than the preview
+    // provided by Media Library.
+    if ($form['#form_id'] == 'media_library_upload_form') {
+      $element['#theme'] = 'focal_point_media_library_image_widget';
+      unset($form['media'][0]['preview']);
     }
 
     // Add the focal point indicator to preview.
@@ -148,7 +147,7 @@ class FocalPointImageWidget extends ImageWidget {
       // Even for image fields with a cardinality higher than 1 the correct fid
       // can always be found in $item['fids'][0].
       $fid = isset($item['fids'][0]) ? $item['fids'][0] : '';
-      if (!empty($fid)) {
+      if ($element['#focal_point']['preview_link'] && !empty($fid)) {
         $preview['preview_link'] = self::createPreviewLink($fid, $element['#field_name'], $element_selectors, $default_focal_point_value);
       }
 
@@ -258,10 +257,10 @@ class FocalPointImageWidget extends ImageWidget {
    * @param string $default_focal_point_value
    *   The default focal point value in the form x,y.
    *
-   * @return array The preview link form element.
+   * @return array
    *   The preview link form element.
    */
-  private static function createFocalPointField($field_name, $element_selectors, $default_focal_point_value) {
+  private static function createFocalPointField($field_name, array $element_selectors, $default_focal_point_value) {
     $field = [
       '#type' => 'textfield',
       '#title' => new TranslatableMarkup('Focal point'),
@@ -272,6 +271,9 @@ class FocalPointImageWidget extends ImageWidget {
         'class' => ['focal-point', $element_selectors['focal_point']],
         'data-selector' => $element_selectors['focal_point'],
         'data-field-name' => $field_name,
+      ],
+      '#wrapper_attributes' => [
+        'class' => ['focal-point-wrapper'],
       ],
       '#attached' => [
         'library' => ['focal_point/drupal.focal_point'],
@@ -292,7 +294,7 @@ class FocalPointImageWidget extends ImageWidget {
    * @return array
    *   The focal point field form element.
    */
-  private static function createFocalPointIndicator($delta, $element_selectors) {
+  private static function createFocalPointIndicator($delta, array $element_selectors) {
     $indicator = [
       '#type' => 'html_tag',
       '#tag' => 'div',
@@ -318,10 +320,10 @@ class FocalPointImageWidget extends ImageWidget {
    * @param string $default_focal_point_value
    *   The default focal point value in the form x,y.
    *
-   * @return array The preview link form element.
+   * @return array
    *   The preview link form element.
    */
-  private static function createPreviewLink($fid, $field_name, $element_selectors, $default_focal_point_value) {
+  private static function createPreviewLink($fid, $field_name, array $element_selectors, $default_focal_point_value) {
     // Replace comma (,) with an x to make javascript handling easier.
     $preview_focal_point_value = str_replace(',', 'x', $default_focal_point_value);
 
@@ -339,10 +341,14 @@ class FocalPointImageWidget extends ImageWidget {
         [
           'query' => ['focal_point_token' => $token],
         ]),
+      '#attached' => [
+        'library' => ['core/drupal.dialog.ajax'],
+      ],
       '#attributes' => [
-        'class' => ['focal-point-preview-link'],
+        'class' => ['focal-point-preview-link', 'use-ajax'],
         'data-selector' => $element_selectors['focal_point'],
         'data-field-name' => $field_name,
+        'data-dialog-type' => 'modal',
         'target' => '_blank',
       ],
     ];

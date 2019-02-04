@@ -4,13 +4,13 @@ description: Allows users to specify the focal point of an image for use during 
 # core: 8.x
 package: Images
 test_dependencies:
-  - crop
+  - crop:crop
 dependencies:
-  - image
-  - crop
+  - drupal:image
+  - crop:crop
 
-# Information added by Drupal.org packaging script on 2018-03-01
-version: '8.x-1.0-beta6'
+# Information added by Drupal.org packaging script on 2019-01-18
+version: '8.x-1.0-beta6+12-dev'
 core: '8.x'
 project: 'focal_point'
-datestamp: 1519932491
+datestamp: 1547836091
