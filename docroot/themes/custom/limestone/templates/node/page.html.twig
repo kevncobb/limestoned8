@@ -103,7 +103,7 @@
                 {{ page.main_menu_region }}
             </div>
             {% if node.title.value %}
-                <div class="sub-page-header" role="heading" style="background-image: url('{{ node.field_header_background_image.value.0 }}');">
+                <div class="sub-page-header" role="heading" style="background-image: url('{{ node.field_header_background_image.value|field_formatter_with_inline_settings }}');">
 
                     {{ title_prefix }}
                     <h1 class="sub-header-title grid-container">{{ title }}</h1>
