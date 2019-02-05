@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ea1aee2962b06476c5c9961f163621f6",
+    "content-hash": "9b133e9f85373ebd705bcd1950a0a513",
     "packages": [
         {
             "name": "abraham/twitteroauth",
@@ -1492,67 +1492,6 @@
             }
         },
         {
-            "name": "drupal/bamboo_twig",
-            "version": "4.1.0",
-            "source": {
-                "type": "git",
-                "url": "https://git.drupal.org/project/bamboo_twig",
-                "reference": "8.x-4.1"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/bamboo_twig-8.x-4.1.zip",
-                "reference": "8.x-4.1",
-                "shasum": "9e70166a3252509f18d6d5d0de784f497b099642"
-            },
-            "require": {
-                "drupal/core": "~8.0"
-            },
-            "require-dev": {
-                "drupal/coder": "*",
-                "squizlabs/php_codesniffer": "^2.7",
-                "twig/extensions": "^1.4.1"
-            },
-            "type": "drupal-module",
-            "extra": {
-                "branch-alias": {
-                    "dev-4.x": "4.x-dev"
-                },
-                "drupal": {
-                    "version": "8.x-4.1",
-                    "datestamp": "1535186880",
-                    "security-coverage": {
-                        "status": "covered",
-                        "message": "Covered by Drupal's security advisory policy"
-                    }
-                }
-            },
-            "notification-url": "https://packages.drupal.org/8/downloads",
-            "license": [
-                "GPL-2.0-or-later"
-            ],
-            "authors": [
-                {
-                    "name": "Antistatique",
-                    "homepage": "https://www.antistatique.net",
-                    "email": "info@antistatique.net",
-                    "role": "Sponsor"
-                },
-                {
-                    "name": "Kevin Wenger",
-                    "email": "contact@kevin-wenger.ch",
-                    "homepage": "https://www.drupal.org/u/wengerk",
-                    "role": "Author & Maintainer"
-                }
-            ],
-            "description": "Several Twig extensions with some useful functions and filters that can improve development experience.",
-            "homepage": "https://www.drupal.org/project/bamboo_twig",
-            "support": {
-                "source": "http://cgit.drupalcode.org/bamboo_twig",
-                "issues": "https://www.drupal.org/project/issues/bamboo_twig"
-            }
-        },
-        {
             "name": "drupal/better_exposed_filters",
             "version": "3.0.0-alpha5",
             "source": {
@@ -2739,8 +2678,7 @@
             "homepage": "https://www.drupal.org/project/content_sync",
             "support": {
                 "source": "http://cgit.drupalcode.org/content_sync"
-            },
-            "time": "2018-05-12T00:09:17+00:00"
+            }
         },
         {
             "name": "drupal/core",
@@ -5481,6 +5419,70 @@
             "homepage": "https://www.drupal.org/project/inline_entity_form",
             "support": {
                 "source": "http://cgit.drupalcode.org/inline_entity_form"
+            }
+        },
+        {
+            "name": "drupal/jsonapi",
+            "version": "2.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupal.org/project/jsonapi",
+                "reference": "8.x-2.1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/jsonapi-8.x-2.1.zip",
+                "reference": "8.x-2.1",
+                "shasum": "8173e0f44cd86752b055f069ce55c5bf7632e719"
+            },
+            "require": {
+                "drupal/core": "^8.5.4"
+            },
+            "require-dev": {
+                "drupal/schemata": "1.x-dev#8325d172e1d6880aa24073f8f751ef089282cf9a",
+                "drupal/schemata_json_schema": "*",
+                "justinrainbow/json-schema": "^5.2"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "branch-alias": {
+                    "dev-2.x": "2.x-dev"
+                },
+                "drupal": {
+                    "version": "8.x-2.1",
+                    "datestamp": "1548087544",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "authors": [
+                {
+                    "name": "Wim Leers",
+                    "homepage": "https://www.drupal.org/user/99777"
+                },
+                {
+                    "name": "dawehner",
+                    "homepage": "https://www.drupal.org/user/99340"
+                },
+                {
+                    "name": "e0ipso",
+                    "homepage": "https://www.drupal.org/user/550110"
+                },
+                {
+                    "name": "gabesullice",
+                    "homepage": "https://www.drupal.org/user/2287430"
+                }
+            ],
+            "description": "Provides a JSON API standards-compliant API for accessing and manipulating Drupal content and configuration entities.",
+            "homepage": "https://www.drupal.org/project/jsonapi",
+            "support": {
+                "source": "http://cgit.drupalcode.org/jsonapi"
             }
         },
         {
