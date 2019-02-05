@@ -1531,69 +1531,6 @@
         }
     },
     {
-        "name": "drupal/bamboo_twig",
-        "version": "4.1.0",
-        "version_normalized": "4.1.0.0",
-        "source": {
-            "type": "git",
-            "url": "https://git.drupal.org/project/bamboo_twig",
-            "reference": "8.x-4.1"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://ftp.drupal.org/files/projects/bamboo_twig-8.x-4.1.zip",
-            "reference": "8.x-4.1",
-            "shasum": "9e70166a3252509f18d6d5d0de784f497b099642"
-        },
-        "require": {
-            "drupal/core": "~8.0"
-        },
-        "require-dev": {
-            "drupal/coder": "*",
-            "squizlabs/php_codesniffer": "^2.7",
-            "twig/extensions": "^1.4.1"
-        },
-        "type": "drupal-module",
-        "extra": {
-            "branch-alias": {
-                "dev-4.x": "4.x-dev"
-            },
-            "drupal": {
-                "version": "8.x-4.1",
-                "datestamp": "1535186880",
-                "security-coverage": {
-                    "status": "covered",
-                    "message": "Covered by Drupal's security advisory policy"
-                }
-            }
-        },
-        "installation-source": "dist",
-        "notification-url": "https://packages.drupal.org/8/downloads",
-        "license": [
-            "GPL-2.0-or-later"
-        ],
-        "authors": [
-            {
-                "name": "Antistatique",
-                "homepage": "https://www.antistatique.net",
-                "email": "info@antistatique.net",
-                "role": "Sponsor"
-            },
-            {
-                "name": "Kevin Wenger",
-                "email": "contact@kevin-wenger.ch",
-                "homepage": "https://www.drupal.org/u/wengerk",
-                "role": "Author & Maintainer"
-            }
-        ],
-        "description": "Several Twig extensions with some useful functions and filters that can improve development experience.",
-        "homepage": "https://www.drupal.org/project/bamboo_twig",
-        "support": {
-            "source": "http://cgit.drupalcode.org/bamboo_twig",
-            "issues": "https://www.drupal.org/project/issues/bamboo_twig"
-        }
-    },
-    {
         "name": "drupal/better_exposed_filters",
         "version": "3.0.0-alpha5",
         "version_normalized": "3.0.0.0-alpha5",
@@ -2763,6 +2700,61 @@
         "homepage": "https://www.drupal.org/project/content_lock",
         "support": {
             "source": "http://cgit.drupalcode.org/content_lock"
+        }
+    },
+    {
+        "name": "drupal/content_sync",
+        "version": "dev-2.x",
+        "version_normalized": "dev-2.x",
+        "source": {
+            "type": "git",
+            "url": "https://git.drupal.org/project/content_sync",
+            "reference": "4c259ebbde12c4ca02612112bcaddb3ba581d0f3"
+        },
+        "require": {
+            "drupal/core": "*"
+        },
+        "type": "drupal-module",
+        "extra": {
+            "branch-alias": {
+                "dev-2.x": "2.x-dev"
+            },
+            "drupal": {
+                "version": "8.x-2.0+3-dev",
+                "datestamp": "1524798184",
+                "security-coverage": {
+                    "status": "not-covered",
+                    "message": "Dev releases are not covered by Drupal security advisories."
+                }
+            }
+        },
+        "installation-source": "source",
+        "notification-url": "https://packages.drupal.org/8/downloads",
+        "license": [
+            "GPL-2.0-or-later"
+        ],
+        "authors": [
+            {
+                "name": "Blanca.Esqueda",
+                "homepage": "https://www.drupal.org/user/3082389"
+            },
+            {
+                "name": "chris.smith",
+                "homepage": "https://www.drupal.org/user/1812018"
+            },
+            {
+                "name": "dabito",
+                "homepage": "https://www.drupal.org/user/2400660"
+            },
+            {
+                "name": "david4lim",
+                "homepage": "https://www.drupal.org/user/934262"
+            }
+        ],
+        "description": "Allows to import/export content using YAML files",
+        "homepage": "https://www.drupal.org/project/content_sync",
+        "support": {
+            "source": "http://cgit.drupalcode.org/content_sync"
         }
     },
     {
