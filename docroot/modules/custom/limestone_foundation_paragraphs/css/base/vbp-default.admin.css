@@ -3,7 +3,7 @@
   position: absolute;
 }
 .field--name-bp-background .form-type-radio input:checked + label {
-  border: #000000 2px solid;
+  border: #000000 4px solid;
 }
 .field--name-bp-background .form-type-radio label {
   cursor: pointer !important;

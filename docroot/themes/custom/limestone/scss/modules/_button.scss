@@ -39,7 +39,7 @@
 .lc-btn {
   padding: 8px 17px;
   text-transform: uppercase;
-  background-color: #e6e6e6b0;
+  background-color: rgba(230, 230, 230, 0.69);
   font-family: $header-font-family;
   font-weight: 800;
   color: $limestone-blue;
@@ -78,8 +78,8 @@
     background-position: 68.5% 9%;
     background-size: 444px;
     position: absolute;
-    right: -31px;
-    top: 8px;
+    right: -32%;
+    top: 21%;
     height: 25px;
     width: 17px;
     transition: right 100ms ease-in-out;
