@@ -80,6 +80,8 @@ else {
     CONFIG_SYNC_DIRECTORY => 'sites/default/config',
   );
 }
+global $content_directories;
+$content_directories['sync'] = $app_root.'/../content/sync';
 
 
 /**
