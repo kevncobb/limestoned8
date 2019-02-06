@@ -80,9 +80,6 @@ else {
     CONFIG_SYNC_DIRECTORY => 'sites/default/config',
   );
 }
-global $content_directories;
-$content_directories['sync'] = $app_root.'/../content/sync';
-
 
 /**
  * Allow Drupal 8 to Cleanly Redirect to Install.php For New Sites.
