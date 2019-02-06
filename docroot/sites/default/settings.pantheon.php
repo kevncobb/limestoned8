@@ -77,7 +77,7 @@ if ($is_installer_url) {
 }
 else {
   $config_directories = array(
-    CONFIG_SYNC_DIRECTORY => 'sites/default/config',
+    CONFIG_SYNC_DIRECTORY => 'sites/default/config_7wJonxvCLFn6ToJo4KBlJiYMQraILjVZHjefNjAFuJbuO4DGIlNw2hvUJ7Af694-Nxs9OVsrWQ',
   );
 }
 
