@@ -84,6 +84,8 @@ class ComposerStaticInit2e130ffdba7f5e53893658baf9755e86
             'Symfony\\Component\\ClassLoader\\' => 30,
             'Symfony\\Cmf\\Component\\Routing\\' => 30,
             'Symfony\\Bridge\\PsrHttpMessage\\' => 30,
+            'Shaper\\Tests\\' => 13,
+            'Shaper\\' => 7,
         ),
         'P' => 
         array (
@@ -102,6 +104,10 @@ class ComposerStaticInit2e130ffdba7f5e53893658baf9755e86
         'L' => 
         array (
             'League\\OAuth2\\Client\\' => 21,
+        ),
+        'J' => 
+        array (
+            'JsonSchema\\' => 11,
         ),
         'G' => 
         array (
@@ -261,6 +267,14 @@ class ComposerStaticInit2e130ffdba7f5e53893658baf9755e86
         array (
             0 => __DIR__ . '/..' . '/symfony/psr-http-message-bridge',
         ),
+        'Shaper\\Tests\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/e0ipso/shaper/tests/src',
+        ),
+        'Shaper\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/e0ipso/shaper/src',
+        ),
         'Psr\\Log\\' => 
         array (
             0 => __DIR__ . '/..' . '/psr/log/Psr/Log',
@@ -287,6 +301,10 @@ class ComposerStaticInit2e130ffdba7f5e53893658baf9755e86
             1 => __DIR__ . '/..' . '/league/oauth2-facebook/src',
             2 => __DIR__ . '/..' . '/league/oauth2-google/src',
             3 => __DIR__ . '/..' . '/league/oauth2-linkedin/src',
+        ),
+        'JsonSchema\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/justinrainbow/json-schema/src/JsonSchema',
         ),
         'GuzzleHttp\\Psr7\\' => 
         array (
