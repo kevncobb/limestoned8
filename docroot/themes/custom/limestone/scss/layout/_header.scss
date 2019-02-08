@@ -212,6 +212,9 @@ header.site-header {
     font-size: 3em;
   }
 }
+.vertical-center {
+  @include vertical-center;
+}
 .splash-header {
   height: 100%;
   position: relative;
