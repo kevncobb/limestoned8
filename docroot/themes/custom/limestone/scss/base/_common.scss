@@ -61,7 +61,9 @@ html {
 }
 
 p {
-  //letter-spacing: -0.2px;
+  @include breakpoint(large) {
+    font-size: $global-font-size * 1.12;
+  }
 }
 
 .fill {
