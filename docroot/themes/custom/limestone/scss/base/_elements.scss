@@ -166,3 +166,14 @@ table {
     }
   }
 }
+
+
+// Exposed Filters
+.bef-exposed-form {
+  .form--inline > .form-item {
+    float: left;
+  }
+  label {
+    @extend .lc-news-header;
+  }
+}
