@@ -213,7 +213,9 @@ header.site-header {
   }
 }
 .vertical-center {
-  @include vertical-center;
+  > div:first-child {
+    @include vertical-center;
+  }
 }
 .splash-header {
   height: 100%;
