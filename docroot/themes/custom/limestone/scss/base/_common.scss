@@ -61,7 +61,7 @@ html {
 }
 
 p {
-  @include breakpoint(large) {
+  @include breakpoint(xxlarge) {
     font-size: $global-font-size * 1.12;
   }
 }
