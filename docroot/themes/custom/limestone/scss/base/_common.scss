@@ -110,6 +110,14 @@ p {
       background-color: rgba($orange, 0.79);
     }
   }
+  // If used in Paragraph Equal Columns
+  .bg-edge2edge {
+    margin: $grid-margin-rm-gutters;
+  }
+  .bg-edge2edge, .field-items, .field-item, .contextual-region, .field-wrapper {
+    height: 100%;
+    width: 100%;
+  }
 }
 .field-name-field-header-background-image {
   position: absolute;
