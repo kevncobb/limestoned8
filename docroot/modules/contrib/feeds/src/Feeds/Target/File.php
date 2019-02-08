@@ -218,10 +218,10 @@ class File extends EntityReference {
    *   In case the file extension is not valid.
    */
   protected function getFileName($url) {
-    $filename = trim(drupal_basename($url), " \t\n\r\0\x0B.");
+    $filename = trim(\Drupal::service('file_system')->basename($url), " \t\n\r\0\x0B.");
     $extension = substr($filename, strrpos($filename, '.') + 1);
 
-    if (!in_array($extension, $this->fileExtensions)) {
+    if (!preg_grep('/' . $extension . '/i', $this->fileExtensions)) {
       throw new TargetValidationException($this->t('The file, %url, failed to save because the extension, %ext, is invalid.', [
         '%url' => $url,
         '%ext' => $extension,

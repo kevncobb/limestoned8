@@ -2,7 +2,6 @@
 
 namespace Drupal\Tests\feeds\Traits;
 
-use Drupal\Component\Utility\Unicode;
 use Drupal\feeds\Entity\Feed;
 use Drupal\feeds\Entity\FeedType;
 use Drupal\feeds\FeedInterface;
@@ -33,7 +32,7 @@ trait FeedCreationTrait {
   protected function createFeedType(array $settings = []) {
     // Populate default array.
     $settings += [
-      'id' => Unicode::strtolower($this->randomMachineName()),
+      'id' => mb_strtolower($this->randomMachineName()),
       'label' => $this->randomMachineName(),
       'import_period' => FeedTypeInterface::SCHEDULE_NEVER,
       'processor_configuration' => [
@@ -49,6 +48,51 @@ trait FeedCreationTrait {
     $feed_type->save();
 
     return $feed_type;
+  }
+
+  /**
+   * Creates a feed type for the CSV parser.
+   *
+   * @param array $columns
+   *   The CSV columns, keyed by machine name.
+   * @param array $settings
+   *   (optional) An associative array of settings for the feed type entity.
+   *   The following defaults are provided:
+   *   - label: Random string.
+   *   - ID: Random string.
+   *   - import_period: never.
+   *   - processor_configuration: authorize off and article bundle.
+   *   - mappings: mapping to guid and title.
+   *
+   * @return \Drupal\feeds\FeedTypeInterface
+   *   The created feed type entity.
+   */
+  protected function createFeedTypeForCsv(array $columns, array $settings = []) {
+    $sources = [];
+    foreach ($columns as $machine_name => $column) {
+      $sources[$machine_name] = [
+        'label' => $column,
+        'value' => $column,
+        'machine_name' => $machine_name,
+      ];
+    }
+
+    if (!isset($settings['custom_sources'])) {
+      $settings['custom_sources'] = $sources;
+    }
+    else {
+      $settings['custom_sources'] += $sources;
+    }
+
+    $settings += [
+      'fetcher' => 'directory',
+      'fetcher_configuration' => [
+        'allowed_extensions' => 'csv',
+      ],
+      'parser' => 'csv',
+    ];
+
+    return $this->createFeedType($settings);
   }
 
   /**
@@ -81,7 +125,7 @@ trait FeedCreationTrait {
    * @param array $settings
    *   (optional) An associative array of settings for the feed entity.
    *   The following defaults are provided:
-   *   - label: Random string.
+   *   - title: Random string.
    *
    * @return \Drupal\feeds\FeedTypeInterface
    *   The created feed type entity.
@@ -89,7 +133,7 @@ trait FeedCreationTrait {
   protected function createFeed($feed_type_id, array $settings = []) {
     // Populate default array.
     $settings += [
-      'label' => $this->randomMachineName(),
+      'title' => $this->randomMachineName(),
     ];
     $settings['type'] = $feed_type_id;
 

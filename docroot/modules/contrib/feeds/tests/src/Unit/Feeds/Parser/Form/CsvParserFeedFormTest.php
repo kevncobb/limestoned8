@@ -23,13 +23,11 @@ class CsvParserFeedFormTest extends FeedsUnitTestCase {
    */
   public function testFeedForm() {
     $plugin = $this->getMock(FeedsPluginInterface::class);
-    $plugin->expects($this->once())
-      ->method('setConfiguration')
-      ->with(['delimiter' => ';', 'no_headers' => TRUE]);
 
     $feed = $this->prophesize(FeedInterface::class);
     $feed->getConfigurationFor($plugin)
       ->willReturn(['delimiter' => ',', 'no_headers' => FALSE]);
+    $feed->setConfigurationFor($plugin, ['delimiter' => ';', 'no_headers' => TRUE])->shouldBeCalled();
 
     $form_object = new CsvParserFeedForm();
 

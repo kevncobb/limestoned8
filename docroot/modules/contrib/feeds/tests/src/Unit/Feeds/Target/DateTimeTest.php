@@ -9,7 +9,7 @@ use Drupal\feeds\Feeds\Target\DateTime;
  * @coversDefaultClass \Drupal\feeds\Feeds\Target\DateTime
  * @group feeds
  */
-class DateTimeTest extends FieldTargetTestBase {
+class DateTimeTest extends FieldTargetWithContainerTestBase {
 
   /**
    * The feed type entity.
@@ -30,19 +30,6 @@ class DateTimeTest extends FieldTargetTestBase {
    */
   public function setUp() {
     parent::setUp();
-
-    $container = new ContainerBuilder();
-    $language_manager = $this->getMock('Drupal\Core\Language\LanguageManagerInterface');
-    $language = $this->getMock('Drupal\Core\Language\LanguageInterface');
-    $language->expects($this->any())
-      ->method('getId')
-      ->will($this->returnValue('en'));
-    $language_manager->expects($this->any())
-      ->method('getCurrentLanguage')
-      ->will($this->returnValue($language));
-    $container->set('language_manager', $language_manager);
-
-    \Drupal::setContainer($container);
 
     $this->feedType = $this->getMock('Drupal\feeds\FeedTypeInterface');
     $method = $this->getMethod('Drupal\feeds\Feeds\Target\DateTime', 'prepareTarget')->getClosure();
@@ -111,6 +98,42 @@ class DateTimeTest extends FieldTargetTestBase {
     $values = ['value' => '2000'];
     $method(0, $values);
     $this->assertSame('2000-01-01T00:00:00', $values['value']);
+  }
+
+  /**
+   * Test the timezone configuration.
+   */
+  public function testGetTimezoneConfiguration() {
+    // Timezone setting for default timezone.
+    $container = new ContainerBuilder();
+    $config = ['system.date' => ['timezone.default' => 'UTC']];
+    $container->set('config.factory', $this->getConfigFactoryStub($config));
+    \Drupal::setContainer($container);
+
+    $method = $this->getMethod('Drupal\feeds\Feeds\Target\DateTime', 'prepareTarget')->getClosure();
+    $this->targetDefinition = $method($this->getMockFieldDefinition(['datetime_type' => 'date']));
+
+    // Test timezone options with one of the timezones.
+    $configuration = [
+      'feed_type' => $this->feedType,
+      'target_definition' => $this->targetDefinition,
+      'timezone' => 'Europe/Helsinki',
+    ];
+    $target = new DateTime($configuration, 'datetime', []);
+    $method = $this->getProtectedClosure($target, 'getTimezoneConfiguration');
+
+    $this->assertSame('Europe/Helsinki', $method());
+
+    // Test timezone options with site default option.
+    $configuration = [
+      'feed_type' => $this->feedType,
+      'target_definition' => $this->targetDefinition,
+      'timezone' => '__SITE__',
+    ];
+    $target = new DateTime($configuration, 'datetime', []);
+    $method = $this->getProtectedClosure($target, 'getTimezoneConfiguration');
+
+    $this->assertSame('UTC', $method());
   }
 
 }

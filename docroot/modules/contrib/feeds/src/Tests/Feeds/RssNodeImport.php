@@ -2,7 +2,6 @@
 
 namespace Drupal\feeds\Tests\Feeds;
 
-use Drupal\Component\Utility\Unicode;
 use Drupal\Core\Field\FieldStorageDefinitionInterface;
 use Drupal\feeds\Entity\Feed;
 use Drupal\feeds\FeedTypeInterface;
@@ -65,7 +64,7 @@ class RssNodeImport extends WebTestBase {
     $this->drupalLogin($web_user);
 
     $this->type = entity_create('feeds_feed_type', [
-      'id' => Unicode::strtolower($this->randomMachineName()),
+      'id' => mb_strtolower($this->randomMachineName()),
       'mappings' => [
         [
           'target' => 'title',

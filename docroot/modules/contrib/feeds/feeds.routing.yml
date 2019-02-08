@@ -4,7 +4,7 @@ feeds.admin:
     _title: 'Feeds'
     _entity_list: 'feeds_feed'
   requirements:
-    _permission: 'access administration pages'
+    _permission: 'access feed overview'
 
 feeds.item_list:
   path: '/feed/{feeds_feed}/list'

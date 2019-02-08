@@ -482,7 +482,7 @@ class FeedType extends ConfigEntityBundleBase implements FeedTypeInterface, Enti
 
     $options = [];
     foreach ($manager->getDefinitions() as $id => $definition) {
-      $options[$id] = Html::escape($definition['title']);
+      $options[$id] = $definition['title'];
     }
 
     return $options;

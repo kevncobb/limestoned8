@@ -131,7 +131,7 @@ class FeedsEnclosure {
     }
     // Downloading file.
     else {
-      $filename = drupal_basename($this->uri);
+      $filename = \Drupal::service('file_system')->basename($this->uri);
       if (\Drupal::moduleHandler()->moduleExists('transliteration')) {
         require_once drupal_get_path('module', 'transliteration') . '/transliteration.inc';
         $filename = transliteration_clean_filename($filename);

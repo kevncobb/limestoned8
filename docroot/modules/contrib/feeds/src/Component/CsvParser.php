@@ -328,6 +328,12 @@ class CsvParser implements \Iterator {
       $fields = $this->parseLine($line, $in_quotes, $field, $fields);
     }
 
+    // If we're not in quoted after the line is read but the field contains
+    // data, we are processing a line that did not end.
+    if (!$in_quotes && $field) {
+      $fields[] = $field;
+    }
+
     return $fields;
   }
 

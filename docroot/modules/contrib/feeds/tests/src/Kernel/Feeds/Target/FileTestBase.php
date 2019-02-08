@@ -209,6 +209,16 @@ abstract class FileTestBase extends FeedsKernelTestBase {
         ],
       ],
 
+      // Importing a file with uppercase extension.
+      'file-uppercase' => [
+        'expected' => [
+          'target_id' => 1,
+        ],
+        'values' => [
+          'target_id' => '[url]/assets/attersee.JPG',
+        ],
+      ],
+
       // Importing a file url that does *not* exist.
       'file-not-found' => [
         'expected' => [],

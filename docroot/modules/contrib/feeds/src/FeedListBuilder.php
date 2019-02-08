@@ -91,15 +91,24 @@ class FeedListBuilder extends EntityListBuilder {
    * {@inheritdoc}
    */
   public function buildRow(EntityInterface $entity) {
+    if (!$entity->access('view') && !$entity->access('update') && !$entity->access('import') && !$entity->access('clear')) {
+      return [];
+    }
+
     $uri = $entity->toUrl();
     $options = $uri->getOptions();
     $uri->setOptions($options);
 
-    $row['title']['data'] = [
-      '#type' => 'link',
-      '#title' => $entity->label(),
-      '#url' => $uri,
-    ];
+    if ($entity->access('view')) {
+      $row['title']['data'] = [
+        '#type' => 'link',
+        '#title' => $entity->label(),
+        '#url' => $uri,
+      ];
+    }
+    else {
+      $row['title'] = $entity->label();
+    }
 
     $row['type'] = Html::escape($entity->getType()->label());
     $row['author']['data'] = [
@@ -121,7 +130,9 @@ class FeedListBuilder extends EntityListBuilder {
   protected function getDefaultOperations(EntityInterface $entity) {
     $operations = parent::getDefaultOperations($entity);
 
-    $operations['edit']['weight'] = 0;
+    if ($entity->access('update')) {
+      $operations['edit']['weight'] = 0;
+    }
 
     if ($entity->access('import') && $entity->hasLinkTemplate('import-form')) {
       $operations['import'] = [

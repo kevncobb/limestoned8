@@ -38,8 +38,8 @@ class CsvParserTest extends FeedsUnitTestCase {
     $second = array_slice($expected, 4);
 
     // // Test that rewinding works as expected.
-    $this->assertSame(2, count(iterator_to_array($parser)));
-    $this->assertSame(2, count(iterator_to_array($parser)));
+    $this->assertSame(3, count(iterator_to_array($parser)));
+    $this->assertSame(3, count(iterator_to_array($parser)));
     foreach ($parser as $delta => $row) {
       $this->assertSame($second[$delta], $row);
     }
@@ -56,6 +56,7 @@ class CsvParserTest extends FeedsUnitTestCase {
       ["\r\n\r\nline1", "\r\n\r\nline2", "\r\n\r\nline3"],
       ["new\r\nline 1", "new\r\nline 2", "new\r\nline 3"],
       ["\r\n\r\nline1\r\n\r\n", "\r\n\r\nline2\r\n\r\n", "\r\n\r\nline3\r\n\r\n"],
+      ['Col A', 'Col B', 'Col, C'],
     ];
 
     $unix = $expected;
@@ -83,7 +84,7 @@ class CsvParserTest extends FeedsUnitTestCase {
     $file = dirname(dirname(dirname(dirname(__DIR__)))) . '/tests/resources/csv/example.csv';
     $parser = CsvParser::createFromFilePath($file)->setHasHeader();
 
-    $this->assertSame(count(iterator_to_array($parser)), 5);
+    $this->assertSame(count(iterator_to_array($parser)), 6);
     $this->assertSame(['Header A', 'Header B', 'Header C'], $parser->getHeader());
   }
 

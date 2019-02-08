@@ -2,6 +2,8 @@
 
 namespace Drupal\feeds\Feeds\Target;
 
+use Drupal\Component\Datetime\DateTimePlus;
+
 /**
  * Defines a timestamp field mapper.
  *
@@ -13,19 +15,20 @@ namespace Drupal\feeds\Feeds\Target;
  *   }
  * )
  */
-class Timestamp extends Number {
+class Timestamp extends DateTargetBase {
 
   /**
    * {@inheritdoc}
    */
   protected function prepareValue($delta, array &$values) {
-    $value = trim($values['value']);
+    $date = $this->convertToDate($values['value']);
 
-    // This is a year value.
-    if (ctype_digit($value) && strlen($value) === 4) {
-      $value = strtotime('January ' . $value);
+    if ($date instanceof DateTimePlus) {
+      $values['value'] = $date->getTimestamp();
     }
-    $values['value'] = is_numeric($value) ? (int) $value : '';
+    else {
+      $values['value'] = '';
+    }
   }
 
 }
