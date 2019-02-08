@@ -170,10 +170,12 @@ table {
 
 // Exposed Filters
 .bef-exposed-form {
-  .form--inline > .form-item {
+  .form-item {
     float: left;
   }
-  label {
-    @extend .lc-header;
+  .js-form-type-select {
+    label {
+      @extend .lc-header;
+    }
   }
 }
