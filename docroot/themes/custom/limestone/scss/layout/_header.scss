@@ -228,6 +228,9 @@ header.site-header {
   background-size: cover;
   height: 80vh;
   min-height: 300px;
+  &.splash-header-half {
+    height: 40vh;
+  }
   &.traditions-header {
     background-color: #FFFFFF;
     background-image: url(/themes/custom/limestone/images/football-give-me-an-l.jpg);
