@@ -179,13 +179,13 @@ table {
 }
 
 .js-form-item-field-course-discipline-target-id {
-  background-color: rgba(26, 168, 0, 0.02);
-  border: thin solid rgba(26, 168, 0, 0.15);
+  background-color: $light-gray;
   padding: 1rem;
   margin: 0 1rem 1rem 0;
   width: 320px;
   float: left;
-  label {
+  position: relative;
+label {
     @include breakpoint(smedium) {
       font-size: 1.25rem;
     }
