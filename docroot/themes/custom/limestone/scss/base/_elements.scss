@@ -233,24 +233,44 @@ label {
   }
 }
 
-.not-chosen {
-  .chosen-container-single {
-    border: 1px solid #aaa;
-    .chosen-single {
-      border: none;
-      background: transparent;
-      box-shadow: none;
-      div b {
-        background: none;
-      }
-      .chosen-drop {
-        left: -1px;
-        width: 101%;
-      }
+//chosen select box
+.chosen-container {
+  font-size: 1rem;
+  line-height: 1rem;
+  height: 2rem;
+  .chosen-single {
+    box-shadow: none;
+    height: 2rem;
+    line-height: 2rem;
+    div b {
+      background: none;
     }
   }
-}
-
-.chosen-drop {
-  left: 0;
+  .chosen-results {
+    li {
+      padding: 7px 6px 2px;
+      line-height: 1rem;
+    }
+  }
+  chosen-container-active {
+    .chosen-single {
+      border: 1.5px solid $primary-color;
+    }
+  }
+  &::after {
+    content: "\f078";
+    position: absolute;
+    font-size: 0.8rem;
+    top: 34%;
+    right: 9px;
+    font-family: "icomoon" !important;
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
 }
