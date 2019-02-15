@@ -226,6 +226,6 @@
   margin: 0 1.5em 0.5em 0;
   padding: 0.5em 2em;
   &:hover, &:focus {
-    color: scale-color($success-color, $lightness: –10%);
+    color: smart-scale($success-color, 5%, 10%);
   }
 }
