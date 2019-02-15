@@ -227,7 +227,7 @@ table {
     &:checked {
       background: $limestone-blue;
     }
-    :&+label {
+    +label {
       margin-left: .12105rem;
     }
   }
