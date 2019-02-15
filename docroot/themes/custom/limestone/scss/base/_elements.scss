@@ -175,7 +175,7 @@ table {
   }
   .js-form-type-select {
     label {
-      @extend .lc-header;
+
     }
   }
 }
@@ -185,12 +185,21 @@ table {
   border: thin solid rgba(26, 168, 0, 0.15);
   padding: 1rem;
   margin: 0 1rem 1rem 0;
+  label {
+    @include breakpoint(smedium) {
+      font-size: 1.25rem;
+    }
+    @include breakpoint(medium) {
+      font-size: 1.35rem;
+    }
+    @include breakpoint(large) {
+      font-size: 1.5rem;
+    }
+  }
 }
 
 .js-form-type-checkbox {
   clear: left;
-  font-weight: 900;
-  text-transform: uppercase;
   position: relative;
   font-family: $header-font-family;
   line-height: 2rem;
@@ -200,23 +209,26 @@ table {
       font-size: 1.25rem;
     }
     @include breakpoint(medium) {
-      font-size: 1.45rem;
+      font-size: 1.35rem;
     }
     @include breakpoint(large) {
-      font-size: 1.7rem;
+      font-size: 1.5rem;
     }
   }
   input {
     position: relative;
-    top: 10px;
+    top: 18px;
     -webkit-appearance: none;
-    width: 25px;
-    height: 25px;
+    width: 20px;
+    height: 21px;
     background: white;
     border-radius: 5px;
     border: 2px solid $limestone-blue;
     &:checked {
       background: $limestone-blue;
+    }
+    :&+label {
+      margin-left: .12105rem;
     }
   }
 }
