@@ -179,7 +179,6 @@ table {
 }
 
 .js-form-item-field-course-discipline-target-id {
-  background-color: $light-gray;
   padding: 1rem;
   margin: 0 1rem 1rem 0;
   width: 320px;
@@ -222,9 +221,9 @@ label {
     height: 21px;
     background: white;
     border-radius: 5px;
-    border: 2px solid $medium-gray;
+    border: 2px solid $dark-gray;
     &:checked {
-      background: $medium-gray;
+      background: $dark-gray;
     }
     +label {
       margin-left: 0.2rem;
