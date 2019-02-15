@@ -222,9 +222,9 @@ label {
     height: 21px;
     background: white;
     border-radius: 5px;
-    border: 2px solid $limestone-blue;
+    border: 2px solid $medium-gray;
     &:checked {
-      background: $limestone-blue;
+      background: $medium-gray;
     }
     +label {
       margin-left: 0.2rem;
@@ -252,7 +252,7 @@ label {
       line-height: 1rem;
     }
   }
-  chosen-container-active {
+  .chosen-container-active {
     .chosen-single {
       border: 1.5px solid $primary-color;
     }
