@@ -215,15 +215,17 @@
 }
 
 .cta-button {
-  display: block;
-  height: 100px;
-  width: 500px;
+  display: inline-block;
+  font-family: $header-font-family;
   background: $success-color;
   color: #ffffff;
-  text-align: center;
   font-weight: bold;
-  font-size: 3rem;
-  line-height: 100px;
+  font-size: 2rem;
   border-radius: 20px;
   text-decoration: none;
+  margin: 0 1.5em 0.5em 0;
+  padding: 0.5em 2em;
+  &:hover, &:focus {
+    color: scale-color($success-color, $lightness: –10%);
+  }
 }
