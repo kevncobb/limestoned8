@@ -253,17 +253,17 @@ header.site-header {
   line-height: 1;
   text-shadow: rgba(0,0,0,1) 1px 1px 15px;
   position: absolute;
-  top: 40%;
+  top: 50%;
   left: 50%;
   -webkit-transform: translate(-50%, -50%);
   -ms-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
-  font-size: 190%;
+  font-size: 2rem;
   @include breakpoint(medium) {
-    font-size: 300%;
+    font-size: 3rem;
   }
   @include breakpoint(large) {
-    font-size: 415%;
+    font-size: 4rem;
   }
 }
 .splash-header-subtitle {
