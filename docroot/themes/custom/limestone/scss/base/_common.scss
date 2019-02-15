@@ -61,9 +61,13 @@ html {
 }
 
 p {
+  @include breakpoint(xlarge) {
+    font-size: $global-font-size * 1.03;
+    line-height: $paragraph-lineheight * 1.03;
+  }
   @include breakpoint(xxlarge) {
-    font-size: $global-font-size * 1.12;
-    line-height: $paragraph-lineheight * 1.12;
+    font-size: $global-font-size * 1.08;
+    line-height: $paragraph-lineheight * 1.08;
   }
 }
 
