@@ -5,6 +5,7 @@
   font-weight: $header-font-weight;
   text-decoration: none;
   font-size: 1.3em;
+
   [class^="icon-"], [class*=" icon-"] {
     position: relative;
     padding-right: 0.5rem;
@@ -12,30 +13,38 @@
     font-size: 1.5rem;
     line-height: 1rem;
   }
+
   &.large [class^="icon-"], &.large [class*=" icon-"] {
     padding-right: 1rem;
     bottom: -0.2rem;
     font-size: 1.6rem;
   }
+
   &.red {
     background-color: $red;
   }
+
   &.green {
     background-color: $success-color;
   }
+
   &.twitter-blue {
     background-color: $twitter-blue;
   }
+
   &.orange {
     background-color: $orange;
   }
+
   &.category {
     background-color: $category;
   }
 }
+
 .fibonacci-aside .button {
   max-width: 300px;
 }
+
 .lc-btn {
   padding: 8px 17px;
   text-transform: uppercase;
@@ -53,8 +62,10 @@
   line-height: 24px;
   font-size: 14px;
   text-decoration: none;
+
   &:hover, &:focus {
     color: black;
+
     &::after {
       right: -31px;
       transition: right 100ms ease-in-out;
@@ -83,18 +94,21 @@
     height: 25px;
     width: 17px;
     transition: right 100ms ease-in-out;
-    @media screen and (-webkit-min-device-pixel-ratio:0) {
+    @media screen and (-webkit-min-device-pixel-ratio: 0) {
       background-position: 68.5% 10%;
     }
   }
+
   &.larger {
     padding: 14px 20px;
     font-size: 20px;
+
     &::after {
       background-size: 487px;
       background-position: -321px -40px;
       top: 10px;
     }
+
     &.back {
       &::after {
         background-position: -342px -40px;
@@ -104,6 +118,7 @@
       }
     }
   }
+
   &.blue {
     background-color: rgba($limestone-blue, 0.9);
     color: white;
@@ -113,6 +128,7 @@
 
     }
   }
+
   &.back {
     &::before {
       content: "";
@@ -148,16 +164,16 @@
 
 
 .button-icon {
-  -webkit-box-shadow: 3px 3px 0px -1px rgba(0,0,0,0.15);
-  -moz-box-shadow: 3px 3px 0px -1px rgba(0,0,0,0.15);
-  box-shadow: 3px 3px 0px -1px rgba(0,0,0,0.15);
+  -webkit-box-shadow: 3px 3px 0px -1px rgba(0, 0, 0, 0.15);
+  -moz-box-shadow: 3px 3px 0px -1px rgba(0, 0, 0, 0.15);
+  box-shadow: 3px 3px 0px -1px rgba(0, 0, 0, 0.15);
   border-radius: 5px;
   padding-right: 25px;
   padding-left: 0;
   padding-top: 20px;
   padding-bottom: 20px;
   margin-bottom: 1rem;
-  border: thin solid rgba(112,112,112,0.3);
+  border: thin solid rgba(112, 112, 112, 0.3);
   color: $limestone-blue-body;
   background-color: #f9f9f9;
   line-height: 25px;
@@ -167,19 +183,22 @@
   font-weight: bold;
   transition: 200ms;
   text-decoration: none;
+
   &:hover, &:focus {
     background-color: $success-color;
     color: $white;
-    -webkit-box-shadow: 0px 0px 0px 0px rgba(0,0,0,0.15);
-    -moz-box-shadow: 0px 0px 0px 0px rgba(0,0,0,0.15);
-    box-shadow: 0px 0px 0px 0px rgba(0,0,0,0.15);
+    -webkit-box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0.15);
+    -moz-box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0.15);
+    box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0.15);
     transition: 200ms;
+
     [class^="icon-"], [class*=" icon-"] {
       color: $white;
       //background-color: $limestone-blue-body;
       transition: 200ms;
     }
   }
+
   [class^="icon-"], [class*=" icon-"], [class^="menu-icon-"], [class*=" menu-icon-"] {
     color: $limestone-blue-body;
     padding: 19px;
@@ -193,4 +212,18 @@
     line-height: 1rem;
     position: relative;
   }
+}
+
+.cta-button {
+  display: block;
+  height: 100px;
+  width: 500px;
+  background: $success-color;
+  color: #ffffff;
+  text-align: center;
+  font-weight: bold;
+  font-size: 3rem;
+  line-height: 100px;
+  border-radius: 20px;
+  text-decoration: none;
 }
