@@ -218,14 +218,14 @@
   display: inline-block;
   font-family: $header-font-family;
   background: $success-color;
-  color: #ffffff;
+  color: white;
   font-weight: bold;
   font-size: 2rem;
-  border-radius: 20px;
   text-decoration: none;
   margin: 0 1.5em 0.5em 0;
   padding: 0.5em 2em;
   &:hover, &:focus {
-    color: smart-scale($success-color, 5%, 10%);
+    background: smart-scale($success-color, 10%, 10%);
+    color: white;
   }
 }
