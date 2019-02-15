@@ -185,6 +185,7 @@ table {
   width: 320px;
   float: left;
   position: relative;
+  z-index: 2;
 label {
     @include breakpoint(smedium) {
       font-size: 1.25rem;
@@ -230,4 +231,26 @@ label {
       margin-right: 1.5rem;
     }
   }
+}
+
+.not-chosen {
+  .chosen-container-single {
+    border: 1px solid #aaa;
+    .chosen-single {
+      border: none;
+      background: transparent;
+      box-shadow: none;
+      div b {
+        background: none;
+      }
+      .chosen-drop {
+        left: -1px;
+        width: 101%;
+      }
+    }
+  }
+}
+
+.chosen-drop {
+  left: 0;
 }
