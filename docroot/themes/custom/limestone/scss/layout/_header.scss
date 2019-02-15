@@ -137,7 +137,7 @@ header.site-header {
   width: 100%;
   margin: 5px 0;
 }
-.sub-page-header, .paragraph--type--splash-header {
+.sub-page-header, .paragraph--type--sub-header-title {
   clear: both;
   position: relative;
   background-image: url("/themes/custom/limestone/images/pano-front-quad.jpg");
@@ -219,7 +219,7 @@ header.site-header {
     @include vertical-center;
   }
 }
-.splash-header {
+.splash-header, .paragraph--type--splash-header {
   height: 100%;
   position: relative;
   opacity: 0.65;
