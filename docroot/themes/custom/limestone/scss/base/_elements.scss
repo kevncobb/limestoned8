@@ -260,8 +260,9 @@ label {
   &::after {
     content: "\f078";
     position: absolute;
-    font-size: 0.8rem;
-    top: 34%;
+    color: $primary-color;
+    font-size: 1rem;
+    top: 23%;
     right: 9px;
     font-family: "icomoon" !important;
     speak: none;
