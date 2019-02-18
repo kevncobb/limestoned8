@@ -141,6 +141,7 @@
                     {% endif %}
                     <a id="main-content"></a>
                     <section class="grid-container">
+                        {{ dump('page.content') }}
                         {{ page.content|without('node.field_lp_paragraphs') }}
                     </section>
                     <section>
