@@ -97,6 +97,8 @@ function limestone_theme_suggestions_image_formatter_alter(array &$suggestions, 
   $field_name = $variables['item']->getParent()->getName();
   $suggestions[] = 'image_formatter__' . $entity->getEntityTypeId() . '__' . $entity->bundle() . '__' . $field_name;
 }
+
+
 function limestone_theme_suggestions_field_alter(&$suggestions, $variables) {
   $suggestions[] = 'field__node__' .
     $variables['element']['#field_name'] . '__' .
