@@ -126,7 +126,7 @@
                 </div>
             {% endif %}
 
-            
+
             {% if node.field_lp_paragraphs %}
                 {% if page.sidebar_first %}
                     <div id="sidebar-first" class="{{ sidebar_first_grid }} cell sidebar ">
@@ -140,8 +140,11 @@
                         {% endspaceless %}
                     {% endif %}
                     <a id="main-content"></a>
+                    <section class="grid-container">
+                        {{ page.content|without('node.field_lp_paragraphs') }}
+                    </section>
                     <section>
-                        {{ page.content }}
+                        {{ node.field_lp_paragraphs }}
                     </section>
                 </main>
                 {% if page.sidebar_second %}
