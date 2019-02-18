@@ -127,7 +127,7 @@
             {% endif %}
 
 
-            {% if node.field_lp_paragraphs %}
+            {% if drupal_field('field_lp_paragraphs', 'node') %}
                 {% if page.sidebar_first %}
                     <div id="sidebar-first" class="{{ sidebar_first_grid }} cell sidebar ">
                         {{ page.sidebar_first }}
@@ -144,7 +144,7 @@
                         {{ page.content|without('node.field_lp_paragraphs') }}
                     </section>
                     <section>
-                        {{ node.field_lp_paragraphs }}
+                        {{ drupal_field('field_lp_paragraphs', 'node') }}
                     </section>
                 </main>
                 {% if page.sidebar_second %}
