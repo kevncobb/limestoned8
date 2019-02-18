@@ -67,6 +67,7 @@ header.site-header {
       width: 134px;
       color: transparent !important;
       font-size: 19px;
+      line-height: 18px;
       text-align: left;
       font-weight: bold;
       position: relative;
@@ -100,6 +101,7 @@ header.site-header {
         padding: 0;
         bottom: 0;
         font-size: 0.8rem;
+        line-height: 0.7rem;
       }
       @include breakpoint(smedium) {
         margin-right: 0;
