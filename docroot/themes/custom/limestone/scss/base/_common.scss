@@ -92,6 +92,16 @@ p {
     margin-bottom: -5rem;
   }
 }
+.with-overlay {
+  position: relative;
+  &::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: rgba(17,17,17,0.2);
+  }
+}
 .cover-image, .field-name-field-header-background-image {
   width: 100%;
   height: 100%;
