@@ -94,7 +94,7 @@ p {
 }
 .with-overlay {
   position: relative;
-  &::before {
+  &::after {
     content: "";
     position: absolute;
     width: 100%;
