@@ -129,46 +129,50 @@
 
             {% if page.sidebar_first %}
                 <div class="grid-container">
-                    <div id="sidebar-first" class="{{ sidebar_first_grid }} cell sidebar ">
-                        {{ page.sidebar_first }}
-                    </div>
-                    <main id="main" class="{{ main_grid }} cell" role="main">
-                        {% if page.highlighted %}
-                            {% spaceless %}
-                                {{ page.highlighted }}
-                            {% endspaceless %}
-                        {% endif %}
-                        <a id="main-content"></a>
-                        <section>
-                            {{ page.content }}
-                        </section>
-                    </main>
-                    {% if page.sidebar_second %}
-                        <div id="sidebar-second" class="{{ sidebar_sec_grid }} cell sidebar">
-                            {{ page.sidebar_second }}
-                        </div>
-                    {% endif %}
-                </div>
-            {% elseif page.sidebar_second %}
-                <div class="grid-container">
-                    {% if page.sidebar_first %}
+                    <div class="grid-x grid-margin-x">
                         <div id="sidebar-first" class="{{ sidebar_first_grid }} cell sidebar ">
                             {{ page.sidebar_first }}
                         </div>
-                    {% endif %}
-                    <main id="main" class="{{ main_grid }} cell" role="main">
-                        {% if page.highlighted %}
-                            {% spaceless %}
-                                {{ page.highlighted }}
-                            {% endspaceless %}
+                        <main id="main" class="{{ main_grid }} cell" role="main">
+                            {% if page.highlighted %}
+                                {% spaceless %}
+                                    {{ page.highlighted }}
+                                {% endspaceless %}
+                            {% endif %}
+                            <a id="main-content"></a>
+                            <section>
+                                {{ page.content }}
+                            </section>
+                        </main>
+                        {% if page.sidebar_second %}
+                            <div id="sidebar-second" class="{{ sidebar_sec_grid }} cell sidebar">
+                                {{ page.sidebar_second }}
+                            </div>
                         {% endif %}
-                        <a id="main-content"></a>
-                        <section>
-                            {{ page.content }}
-                        </section>
-                    </main>
-                    <div id="sidebar-second" class="{{ sidebar_sec_grid }} cell sidebar">
-                        {{ page.sidebar_second }}
+                    </div>
+                </div>
+            {% elseif page.sidebar_second %}
+                <div class="grid-container">
+                    <div class="grid-x grid-margin-x">
+                        {% if page.sidebar_first %}
+                            <div id="sidebar-first" class="{{ sidebar_first_grid }} cell sidebar ">
+                                {{ page.sidebar_first }}
+                            </div>
+                        {% endif %}
+                        <main id="main" class="{{ main_grid }} cell" role="main">
+                            {% if page.highlighted %}
+                                {% spaceless %}
+                                    {{ page.highlighted }}
+                                {% endspaceless %}
+                            {% endif %}
+                            <a id="main-content"></a>
+                            <section>
+                                {{ page.content }}
+                            </section>
+                        </main>
+                        <div id="sidebar-second" class="{{ sidebar_sec_grid }} cell sidebar">
+                            {{ page.sidebar_second }}
+                        </div>
                     </div>
                 </div>
             {% else %}
