@@ -253,7 +253,7 @@ header.site-header {
   text-transform: uppercase;
   font-weight: bold;
   line-height: 1;
-  text-shadow: rgba(0,0,0,1) 1px 1px 15px;
+  text-shadow: rgba(0,0,0,0.8) 6px 6px 7px;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -270,7 +270,7 @@ header.site-header {
 }
 body.section-trip {
   .splash-header-title {
-    top: 40%;
+    top: 38%;
   }
 }
 .splash-header-subtitle {
@@ -280,7 +280,7 @@ body.section-trip {
   text-transform: uppercase;
   font-weight: bold;
   line-height: 1;
-  text-shadow: rgba(0,0,0,1) 1px 1px 15px;
+  text-shadow: rgba(0,0,0,0.8) 6px 6px 7px;
   position: absolute;
   top: 53%;
   left: 50%;
