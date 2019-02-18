@@ -127,38 +127,11 @@
             {% endif %}
 
 
-            {% if drupal_field('field_lp_paragraphs', 'node') %}
-                {% if page.sidebar_first %}
+            {% if page.sidebar_first %}
+                <div class="grid-container">
                     <div id="sidebar-first" class="{{ sidebar_first_grid }} cell sidebar ">
                         {{ page.sidebar_first }}
                     </div>
-                {% endif %}
-                <main id="main" class="{{ main_grid }} cell" role="main">
-                    {% if page.highlighted %}
-                        {% spaceless %}
-                            {{ page.highlighted }}
-                        {% endspaceless %}
-                    {% endif %}
-                    <a id="main-content"></a>
-                    <section class="grid-container">
-                        {{ page.content|without('field_lp_paragraphs') }}
-                    </section>
-                    <section>
-                        {{ drupal_field('field_lp_paragraphs', 'node') }}
-                    </section>
-                </main>
-                {% if page.sidebar_second %}
-                    <div id="sidebar-second" class="{{ sidebar_sec_grid }} cell sidebar">
-                        {{ page.sidebar_second }}
-                    </div>
-                {% endif %}
-            {% else %}
-                <div class="grid-container">
-                    {% if page.sidebar_first %}
-                        <div id="sidebar-first" class="{{ sidebar_first_grid }} cell sidebar ">
-                            {{ page.sidebar_first }}
-                        </div>
-                    {% endif %}
                     <main id="main" class="{{ main_grid }} cell" role="main">
                         {% if page.highlighted %}
                             {% spaceless %}
@@ -176,6 +149,44 @@
                         </div>
                     {% endif %}
                 </div>
+            {% elseif page.sidebar_second %}
+                <div class="grid-container">
+                    {% if page.sidebar_first %}
+                        <div id="sidebar-first" class="{{ sidebar_first_grid }} cell sidebar ">
+                            {{ page.sidebar_first }}
+                        </div>
+                    {% endif %}
+                    <main id="main" class="{{ main_grid }} cell" role="main">
+                        {% if page.highlighted %}
+                            {% spaceless %}
+                                {{ page.highlighted }}
+                            {% endspaceless %}
+                        {% endif %}
+                        <a id="main-content"></a>
+                        <section>
+                            {{ page.content }}
+                        </section>
+                    </main>
+                    <div id="sidebar-second" class="{{ sidebar_sec_grid }} cell sidebar">
+                        {{ page.sidebar_second }}
+                    </div>
+                </div>
+            {% else %}
+
+                <main id="main" class="{{ main_grid }} cell" role="main">
+                    {% if page.highlighted %}
+                        {% spaceless %}
+                            {{ page.highlighted }}
+                        {% endspaceless %}
+                    {% endif %}
+                    <a id="main-content"></a>
+                    <section class="grid-container">
+                        {{ page.content|without('node.field_lp_paragraphs') }}
+                    </section>
+                    <section>
+                        {{ drupal_field('field_lp_paragraphs', 'node') }}
+                    </section>
+                </main>
             {% endif %}
 
 
