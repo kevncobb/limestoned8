@@ -23,7 +23,7 @@
 .top-bar-menu {
   a {
     [class^="menu-icon-"]::before, a[class*=" menu-icon-"]::before {
-      position: relative;
+      position: absolute;
     }
   }
 }
