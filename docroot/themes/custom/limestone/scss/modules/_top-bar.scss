@@ -7,7 +7,7 @@
     color: $white;
     &:focus, &:hover {
       color: $limestone-yellow;
-      span {
+      &::before {
         color: $limestone-yellow;
       }
     }
@@ -21,12 +21,4 @@
 }
 
 .top-bar-menu {
-  a {
-    &:focus, &:hover {
-      span [class^="icon-"], span [class*=" icon-"] {
-        color: $limestone-yellow;
-      }
-    }
-
-  }
 }
