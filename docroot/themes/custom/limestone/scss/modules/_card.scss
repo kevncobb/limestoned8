@@ -153,6 +153,11 @@
   .cover-image img {
     //margin-bottom: 1rem;
   }
+  &:hover {
+    .node-title a {
+      text-decoration: underline;
+    }
+  }
   .node-title {
     position: absolute;
     top: 50%;
