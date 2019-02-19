@@ -165,6 +165,9 @@ header.site-header {
     background: url("/themes/custom/limestone/images/stripes-dark-tile.svg");
     opacity: 0.08;
   }
+  .contextual-region {
+    position: static;
+  }
 }
 .sub-header-title {
   font-size: 1.2em;
