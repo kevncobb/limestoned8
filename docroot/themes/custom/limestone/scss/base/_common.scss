@@ -96,7 +96,8 @@ p {
   position: relative;
   &::after {
     content: "";
-    position: relative;
+    position: absolute;
+    display: table;
     width: 100%;
     height: 100%;
     background: rgba(17,17,17,0.2);
