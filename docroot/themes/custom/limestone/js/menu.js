@@ -843,10 +843,10 @@
 
         $(window).bind("load resize", function() {
             var ww = window.innerWidth;
-            if (ww >= 768) {
+            if (ww >= 540) {
                 var navgateway = new Menubar('block-mainnavigation', false);
             }
-            if (ww < 768) {
+            if (ww < 540) {
                 $('.expander-content ul.menubar li.menu-item.menu-item--expanded > a').bind('touchstart click', function(event) {
                     // If submenu is not hidden
                     if ($(this).siblings('ul.menu.dropdown').attr('aria-hidden') == 'false') {

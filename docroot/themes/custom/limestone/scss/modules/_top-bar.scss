@@ -1,7 +1,8 @@
 .top-bar, top-bar ul {
-  background-color: $almost-black;
+  background-color: $almost-black !important;
   font-family: $site-header-font-family;
   font-weight: normal;
+  padding: 0;
   a {
     color: $white;
     &:focus, &:hover {
