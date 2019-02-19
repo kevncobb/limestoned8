@@ -7,6 +7,9 @@
     color: $white;
     &:focus, &:hover {
       color: $limestone-yellow;
+      span {
+        color: $limestone-yellow;
+      }
     }
   }
 }
@@ -17,18 +20,13 @@
   }
 }
 
-.top-bar-buttons {
-  position: relative;
+.top-bar-menu {
   a {
-    margin: 0;
-    position: absolute;
-    right: 0;
-    top: -10px;
-    font-size: 21px;
-    padding: 12px 15px;
-    span [class^="icon-"], span [class*=" icon-"] {
-      line-height: 12px;
-      font-size: 24px;
+    &:focus, &:hover {
+      span [class^="icon-"], span [class*=" icon-"] {
+        color: $limestone-yellow;
+      }
     }
+
   }
 }

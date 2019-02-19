@@ -60,7 +60,22 @@
   top: -3px;
   left: -3px;
 }
-
+.menu-icon-info::before {
+  content: "\ea0c";
+  font-family: 'icomoon' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-size: 22px;
+  font-size: 25px;
+  top: 12px;
+  left: -19px;
+}
 .menu-icon-mail::before {
   content: "\e945";
   // use !important to prevent issues with browser extensions that change fonts
