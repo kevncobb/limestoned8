@@ -37,7 +37,9 @@ a {
 img {
   margin-bottom: $mediaobject-margin-bottom;
 }
-
+figure figcaption {
+  margin-bottom: 2rem;
+}
 
 // Service Area listing
 .field-name-field-service-area {
