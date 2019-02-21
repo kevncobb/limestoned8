@@ -2,13 +2,10 @@
 
 namespace Drupal\paragraphs_previewer\Plugin\Field\FieldWidget;
 
-use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Ajax\AjaxResponse;
 use Drupal\Core\Ajax\OpenModalDialogCommand;
-use Drupal\Core\Ajax\AlertCommand;
-use Drupal\Component\Utility\NestedArray;
 use Drupal\Core\Url;
 
 /**
@@ -127,7 +124,7 @@ trait ParagraphsPreviewerWidgetTrait {
    *
    * @param array $form
    *   The form array.
-   * @param FormStateInterface $form_state
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
    *   The form state.
    */
   public static function submitPreviewerItem(array $form, FormStateInterface $form_state) {
@@ -141,13 +138,13 @@ trait ParagraphsPreviewerWidgetTrait {
    *
    * @param array $form
    *   The form array.
-   * @param FormStateInterface $form_state
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
    *   The form state.
    */
   public static function ajaxSubmitPreviewerItem(array $form, FormStateInterface $form_state) {
     $preview_url = NULL;
     $dialog_title = t('Preview');
-    $dialog_options = array(
+    $dialog_options = [
       'dialogClass' => 'paragraphs-previewer-ui-dialog',
       'minWidth' => 320,
       'width' => '98%',
@@ -160,7 +157,7 @@ trait ParagraphsPreviewerWidgetTrait {
       'resizable' => TRUE,
       'closeOnEscape' => TRUE,
       'closeText' => '',
-    );
+    ];
 
     $previewer_element = $form_state->getTriggeringElement();
 

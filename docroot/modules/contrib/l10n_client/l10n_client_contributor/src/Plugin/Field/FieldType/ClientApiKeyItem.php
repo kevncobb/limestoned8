@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * @file
+ * Contains \Drupal\l10n_client_contributor\Plugin\Field\FieldType\ClientApiKeyItem.
+ */
+
 namespace Drupal\l10n_client_contributor\Plugin\Field\FieldType;
 
 use Drupal\Core\Field\Plugin\Field\FieldType\StringItem;

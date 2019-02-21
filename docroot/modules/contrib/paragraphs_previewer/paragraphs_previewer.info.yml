@@ -5,10 +5,10 @@ description: 'Provides a rendered preview of a paragraphs item while on an entit
 package: Paragraphs
 
 dependencies:
-  - paragraphs
+  - paragraphs:paragraphs
 
-# Information added by Drupal.org packaging script on 2018-02-10
-version: '8.x-1.2'
+# Information added by Drupal.org packaging script on 2019-02-14
+version: '8.x-1.4'
 core: '8.x'
 project: 'paragraphs_previewer'
-datestamp: 1518288200
+datestamp: 1550182986

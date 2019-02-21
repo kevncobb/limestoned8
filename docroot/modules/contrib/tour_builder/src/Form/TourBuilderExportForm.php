@@ -65,8 +65,15 @@ class TourBuilderExportForm extends EntityForm {
     $definition = $this->entityManager->getDefinition('tour');
     $name = $definition->getConfigPrefix() . '.' . $this->entity->getOriginalId();
 
-
-    $content = Yaml::encode($this->configStorage->read($name));
+    $config = $this->configStorage->read($name);
+    $unset_keys = [
+      'uuid',
+      '_core',
+    ];
+    foreach($unset_keys as $key) {
+      unset($config[$key]);
+    }
+    $content = Yaml::encode($config);
 
 //    $filename = $name . '.yml';
 //    $path = 'temporary://' . $filename;

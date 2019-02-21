@@ -2,56 +2,14 @@
 
 namespace Drupal\social_auth_linkedin\Form;
 
-use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\Path\PathValidatorInterface;
-use Drupal\Core\Routing\RequestContext;
-use Drupal\Core\Routing\RouteProviderInterface;
+use Drupal\Core\Url;
 use Drupal\social_auth\Form\SocialAuthSettingsForm;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Settings form for Social Auth LinkedIn.
  */
 class LinkedInAuthSettingsForm extends SocialAuthSettingsForm {
-
-  /**
-   * The request context.
-   *
-   * @var \Drupal\Core\Routing\RequestContext
-   */
-  protected $requestContext;
-
-  /**
-   * Constructor.
-   *
-   * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
-   *   The configuration factory.
-   * @param \Drupal\Core\Routing\RouteProviderInterface $route_provider
-   *   Used to check if route exists.
-   * @param \Drupal\Core\Path\PathValidatorInterface $path_validator
-   *   Used to check if path is valid and exists.
-   * @param \Drupal\Core\Routing\RequestContext $request_context
-   *   Holds information about the current request.
-   */
-  public function __construct(ConfigFactoryInterface $config_factory, RouteProviderInterface $route_provider, PathValidatorInterface $path_validator, RequestContext $request_context) {
-    parent::__construct($config_factory, $route_provider, $path_validator);
-    $this->requestContext = $request_context;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public static function create(ContainerInterface $container) {
-    // Instantiates this class.
-    return new static(
-    // Load the services required to construct this class.
-      $container->get('config.factory'),
-      $container->get('router.route_provider'),
-      $container->get('path.validator'),
-      $container->get('router.request_context')
-    );
-  }
 
   /**
    * {@inheritdoc}
@@ -102,9 +60,9 @@ class LinkedInAuthSettingsForm extends SocialAuthSettingsForm {
     $form['linkedin_settings']['authorized_redirect_url'] = [
       '#type' => 'textfield',
       '#disabled' => TRUE,
-      '#title' => $this->t('Authorized redirect URIs'),
-      '#description' => $this->t('Copy this value to <em>Authorized redirect URIs</em> field of your LinkedIn App settings.'),
-      '#default_value' => $GLOBALS['base_url'] . '/user/login/linkedin/callback',
+      '#title' => $this->t('Authorized redirect URL'),
+      '#description' => $this->t('Copy this value to <em>Authorized Redirect URLs</em> field of your LinkedIn App settings.'),
+      '#default_value' => Url::fromRoute('social_auth_linkedin.callback')->setAbsolute()->toString(),
     ];
 
     $form['linkedin_settings']['advanced'] = [
@@ -126,7 +84,7 @@ class LinkedInAuthSettingsForm extends SocialAuthSettingsForm {
       '#type' => 'textarea',
       '#title' => $this->t('API calls to be made to collect data'),
       '#default_value' => $config->get('endpoints'),
-      '#description' => $this->t('Define the Endpoints to be requested when user authenticates with Facebook for the first time<br>
+      '#description' => $this->t('Define the endpoints to be requested when user authenticates with LinkedIn for the first time<br>
                                   Enter each endpoint in different lines in the format <em>endpoint</em>|<em>name_of_endpoint</em>.<br>
                                   <b>For instance:</b><br>
                                   /v1/people/~:(num-connections)|connections_num'),

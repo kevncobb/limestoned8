@@ -2704,17 +2704,17 @@
     },
     {
         "name": "drupal/core",
-        "version": "8.6.7",
-        "version_normalized": "8.6.7.0",
+        "version": "8.6.10",
+        "version_normalized": "8.6.10.0",
         "source": {
             "type": "git",
             "url": "https://github.com/drupal/core.git",
-            "reference": "e0a09bda1da7552204464894811a59387608c9f9"
+            "reference": "59568ac02948cf075ee8543e6c6d4386ad8daec1"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/drupal/core/zipball/e0a09bda1da7552204464894811a59387608c9f9",
-            "reference": "e0a09bda1da7552204464894811a59387608c9f9",
+            "url": "https://api.github.com/repos/drupal/core/zipball/59568ac02948cf075ee8543e6c6d4386ad8daec1",
+            "reference": "59568ac02948cf075ee8543e6c6d4386ad8daec1",
             "shasum": ""
         },
         "require": {
@@ -2887,7 +2887,7 @@
             "symfony/debug": "^3.4.0",
             "symfony/phpunit-bridge": "^3.4.3"
         },
-        "time": "2019-01-16T23:30:03+00:00",
+        "time": "2019-02-20T18:35:01+00:00",
         "type": "drupal-core",
         "extra": {
             "merge-plugin": {
@@ -5009,21 +5009,21 @@
     },
     {
         "name": "drupal/google_analytics",
-        "version": "2.3.0",
-        "version_normalized": "2.3.0.0",
+        "version": "2.4.0",
+        "version_normalized": "2.4.0.0",
         "source": {
             "type": "git",
             "url": "https://git.drupal.org/project/google_analytics",
-            "reference": "8.x-2.3"
+            "reference": "8.x-2.4"
         },
         "dist": {
             "type": "zip",
-            "url": "https://ftp.drupal.org/files/projects/google_analytics-8.x-2.3.zip",
-            "reference": "8.x-2.3",
-            "shasum": "9ea88a81925ba538d9fa7ac6ce4f1598e5ee48e4"
+            "url": "https://ftp.drupal.org/files/projects/google_analytics-8.x-2.4.zip",
+            "reference": "8.x-2.4",
+            "shasum": "f2e78ec140024ddcd19e027704ba73c33731f656"
         },
         "require": {
-            "drupal/core": "~8.0"
+            "drupal/core": "~8.5"
         },
         "require-dev": {
             "drupal/php": "*",
@@ -5035,8 +5035,8 @@
                 "dev-2.x": "2.x-dev"
             },
             "drupal": {
-                "version": "8.x-2.3",
-                "datestamp": "1531469021",
+                "version": "8.x-2.4",
+                "datestamp": "1548968580",
                 "security-coverage": {
                     "status": "covered",
                     "message": "Covered by Drupal's security advisory policy"
@@ -5061,41 +5061,41 @@
         "description": "Allows your site to be tracked by Google Analytics by adding a Javascript tracking code to every page.",
         "homepage": "https://www.drupal.org/project/google_analytics",
         "support": {
-            "source": "http://git.drupal.org/project/google_analytics.git",
+            "source": "https://git.drupal.org/project/google_analytics.git",
             "issues": "https://www.drupal.org/project/issues/google_analytics"
         }
     },
     {
         "name": "drupal/google_analytics_reports",
-        "version": "dev-3.x",
-        "version_normalized": "dev-3.x",
+        "version": "3.0.0-beta2",
+        "version_normalized": "3.0.0.0-beta2",
         "source": {
             "type": "git",
             "url": "https://git.drupal.org/project/google_analytics_reports",
-            "reference": "2b6bb8efbc7f61ce3c1225638075aa6037b8db44"
+            "reference": "8.x-3.0-beta2"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://ftp.drupal.org/files/projects/google_analytics_reports-8.x-3.0-beta2.zip",
+            "reference": "8.x-3.0-beta2",
+            "shasum": "51635f28abd80f462baced969d45629c041ea53c"
         },
         "require": {
             "drupal/core": "~8.0",
             "drupal/google_analytics_reports_api": "*"
         },
-        "time": "2016-07-24T07:33:18+00:00",
         "type": "drupal-module",
         "extra": {
             "branch-alias": {
                 "dev-3.x": "3.x-dev"
             },
             "drupal": {
-                "version": "8.x-3.0-beta1+1-dev",
-                "datestamp": "1469345639",
+                "version": "8.x-3.0-beta2",
+                "datestamp": "1550685485",
                 "security-coverage": {
                     "status": "not-covered",
-                    "message": "Dev releases are not covered by Drupal security advisories."
+                    "message": "Beta releases are not covered by Drupal security advisories."
                 }
-            },
-            "patches_applied": {
-                "Issue #2850463: Error when saving either google_analytics_reports view": "https://www.drupal.org/files/issues/error_when_saving-2850463-2.patch",
-                "Issue #2860399: Warning: htmlspecialchars() expects parameter 1 to be string": "https://www.drupal.org/files/issues/Fix_message-2860399-5.patch",
-                "Issue #2932010: Fixed an issue to Not to check Updates or import Fields while the Drupal site MAINTENANCE_MODE is in Install or Update.": "https://www.drupal.org/files/issues/2932010-4.patch"
             }
         },
         "installation-source": "source",
@@ -5105,8 +5105,16 @@
         ],
         "authors": [
             {
+                "name": "Mohammed J. Razem",
+                "homepage": "https://www.drupal.org/user/255384"
+            },
+            {
                 "name": "Plazik",
                 "homepage": "https://www.drupal.org/user/982724"
+            },
+            {
+                "name": "RajabNatshah",
+                "homepage": "https://www.drupal.org/user/1414312"
             },
             {
                 "name": "grendzy",
@@ -5137,8 +5145,8 @@
     },
     {
         "name": "drupal/google_analytics_reports_api",
-        "version": "dev-3.x",
-        "version_normalized": "dev-3.x",
+        "version": "3.0.0-beta2",
+        "version_normalized": "3.0.0.0-beta2",
         "require": {
             "drupal/core": "~8.0",
             "drupal/google_analytics_reports": "self.version"
@@ -5149,11 +5157,11 @@
                 "dev-3.x": "3.x-dev"
             },
             "drupal": {
-                "version": "8.x-3.0-beta1+1-dev",
-                "datestamp": "1469345639",
+                "version": "8.x-3.0-beta2",
+                "datestamp": "1550685485",
                 "security-coverage": {
                     "status": "not-covered",
-                    "message": "Dev releases are not covered by Drupal security advisories."
+                    "message": "Beta releases are not covered by Drupal security advisories."
                 }
             }
         },
@@ -5163,8 +5171,16 @@
         ],
         "authors": [
             {
+                "name": "Mohammed J. Razem",
+                "homepage": "https://www.drupal.org/user/255384"
+            },
+            {
                 "name": "Plazik",
                 "homepage": "https://www.drupal.org/user/982724"
+            },
+            {
+                "name": "RajabNatshah",
+                "homepage": "https://www.drupal.org/user/1414312"
             },
             {
                 "name": "grendzy",
@@ -5513,135 +5529,6 @@
         "homepage": "https://www.drupal.org/project/inline_entity_form",
         "support": {
             "source": "http://cgit.drupalcode.org/inline_entity_form"
-        }
-    },
-    {
-        "name": "drupal/jsonapi",
-        "version": "2.1.0",
-        "version_normalized": "2.1.0.0",
-        "source": {
-            "type": "git",
-            "url": "https://git.drupal.org/project/jsonapi",
-            "reference": "8.x-2.1"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://ftp.drupal.org/files/projects/jsonapi-8.x-2.1.zip",
-            "reference": "8.x-2.1",
-            "shasum": "8173e0f44cd86752b055f069ce55c5bf7632e719"
-        },
-        "require": {
-            "drupal/core": "^8.5.4"
-        },
-        "require-dev": {
-            "drupal/schemata": "1.x-dev#8325d172e1d6880aa24073f8f751ef089282cf9a",
-            "drupal/schemata_json_schema": "*",
-            "justinrainbow/json-schema": "^5.2"
-        },
-        "type": "drupal-module",
-        "extra": {
-            "branch-alias": {
-                "dev-2.x": "2.x-dev"
-            },
-            "drupal": {
-                "version": "8.x-2.1",
-                "datestamp": "1548087544",
-                "security-coverage": {
-                    "status": "covered",
-                    "message": "Covered by Drupal's security advisory policy"
-                }
-            }
-        },
-        "installation-source": "dist",
-        "notification-url": "https://packages.drupal.org/8/downloads",
-        "license": [
-            "GPL-2.0+"
-        ],
-        "authors": [
-            {
-                "name": "Wim Leers",
-                "homepage": "https://www.drupal.org/user/99777"
-            },
-            {
-                "name": "dawehner",
-                "homepage": "https://www.drupal.org/user/99340"
-            },
-            {
-                "name": "e0ipso",
-                "homepage": "https://www.drupal.org/user/550110"
-            },
-            {
-                "name": "gabesullice",
-                "homepage": "https://www.drupal.org/user/2287430"
-            }
-        ],
-        "description": "Provides a JSON API standards-compliant API for accessing and manipulating Drupal content and configuration entities.",
-        "homepage": "https://www.drupal.org/project/jsonapi",
-        "support": {
-            "source": "http://cgit.drupalcode.org/jsonapi"
-        }
-    },
-    {
-        "name": "drupal/jsonapi_extras",
-        "version": "3.3.0",
-        "version_normalized": "3.3.0.0",
-        "source": {
-            "type": "git",
-            "url": "https://git.drupal.org/project/jsonapi_extras",
-            "reference": "8.x-3.3"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://ftp.drupal.org/files/projects/jsonapi_extras-8.x-3.3.zip",
-            "reference": "8.x-3.3",
-            "shasum": "ce4ff18612feaf36efdcca4d1f1940990ef7ed42"
-        },
-        "require": {
-            "drupal/core": "^8.5",
-            "drupal/jsonapi": "^2.1",
-            "e0ipso/shaper": "^1"
-        },
-        "require-dev": {
-            "drupal/jsonapi": "*"
-        },
-        "type": "drupal-module",
-        "extra": {
-            "branch-alias": {
-                "dev-3.x": "3.x-dev"
-            },
-            "drupal": {
-                "version": "8.x-3.3",
-                "datestamp": "1548088380",
-                "security-coverage": {
-                    "status": "covered",
-                    "message": "Covered by Drupal's security advisory policy"
-                }
-            }
-        },
-        "installation-source": "dist",
-        "notification-url": "https://packages.drupal.org/8/downloads",
-        "license": [
-            "GPL-2.0+"
-        ],
-        "authors": [
-            {
-                "name": "Mateu Aguiló Bosch",
-                "homepage": "https://www.drupal.org/user/550110",
-                "email": "mateu.aguilo.bosch@gmail.com"
-            },
-            {
-                "name": "Martin Kolar",
-                "homepage": "https://www.drupal.org/u/mkolar"
-            },
-            {
-                "name": "Karel Majzlik",
-                "homepage": "https://www.drupal.org/u/karlos007"
-            }
-        ],
-        "description": "JSON:API Extras provides a means to override and provide limited configurations to the default zero-configuration implementation provided by the JSON:API module.",
-        "homepage": "https://www.drupal.org/project/jsonapi_extras",
-        "support": {
-            "source": "http://cgit.drupalcode.org/jsonapi_extras"
         }
     },
     {
@@ -6765,18 +6652,18 @@
     },
     {
         "name": "drupal/metatag",
-        "version": "1.7.0",
-        "version_normalized": "1.7.0.0",
+        "version": "1.8.0",
+        "version_normalized": "1.8.0.0",
         "source": {
             "type": "git",
             "url": "https://git.drupal.org/project/metatag",
-            "reference": "8.x-1.7"
+            "reference": "8.x-1.8"
         },
         "dist": {
             "type": "zip",
-            "url": "https://ftp.drupal.org/files/projects/metatag-8.x-1.7.zip",
-            "reference": "8.x-1.7",
-            "shasum": "93decaefd053c524918ceae5b5ef05dd77de0857"
+            "url": "https://ftp.drupal.org/files/projects/metatag-8.x-1.8.zip",
+            "reference": "8.x-1.8",
+            "shasum": "fb5d31aa08c8c2e175f096f9917e9741db152ea8"
         },
         "require": {
             "drupal/core": "*",
@@ -6798,8 +6685,8 @@
                 "dev-1.x": "1.x-dev"
             },
             "drupal": {
-                "version": "8.x-1.7",
-                "datestamp": "1535726393",
+                "version": "8.x-1.8",
+                "datestamp": "1550692511",
                 "security-coverage": {
                     "status": "covered",
                     "message": "Covered by Drupal's security advisory policy"
@@ -10749,18 +10636,18 @@
     },
     {
         "name": "drupal/varbase_total_control",
-        "version": "6.3.0",
-        "version_normalized": "6.3.0.0",
+        "version": "6.4.0",
+        "version_normalized": "6.4.0.0",
         "source": {
             "type": "git",
             "url": "https://git.drupal.org/project/varbase_total_control",
-            "reference": "8.x-6.3"
+            "reference": "8.x-6.4"
         },
         "dist": {
             "type": "zip",
-            "url": "https://ftp.drupal.org/files/projects/varbase_total_control-8.x-6.3.zip",
-            "reference": "8.x-6.3",
-            "shasum": "73f5775abd2dcbde6c17a613160d9a720b83304d"
+            "url": "https://ftp.drupal.org/files/projects/varbase_total_control-8.x-6.4.zip",
+            "reference": "8.x-6.4",
+            "shasum": "dfb9c827c1f5fde2af831b265d4c081f6cbd19e8"
         },
         "require": {
             "composer/installers": "~1.0",
@@ -10768,7 +10655,7 @@
             "drupal/charts": "~3.0",
             "drupal/core": "~8.0",
             "drupal/drupal-library-installer-plugin": "^0.3",
-            "drupal/google_analytics_reports": "3.x-dev#2b6bb8efbc7f61ce3c1225638075aa6037b8db44",
+            "drupal/google_analytics_reports": "~3.0",
             "drupal/masonry": "~1.0",
             "drupal/total_control": "~2.0",
             "oomphinc/composer-installers-extender": "~1.0"
@@ -10780,8 +10667,8 @@
                 "dev-8.x-6.x": "8.6.x-dev"
             },
             "drupal": {
-                "version": "8.x-6.3",
-                "datestamp": "1545049084",
+                "version": "8.x-6.4",
+                "datestamp": "1550703184",
                 "security-coverage": {
                     "status": "covered",
                     "message": "Covered by Drupal's security advisory policy"
@@ -10794,11 +10681,6 @@
             "enable-patching": true,
             "composer-exit-on-patch-failure": true,
             "patches": {
-                "drupal/google_analytics_reports": {
-                    "Issue #2850463: Error when saving either google_analytics_reports view": "https://www.drupal.org/files/issues/error_when_saving-2850463-2.patch",
-                    "Issue #2860399: Warning: htmlspecialchars() expects parameter 1 to be string": "https://www.drupal.org/files/issues/Fix_message-2860399-5.patch",
-                    "Issue #2932010: Fixed an issue to Not to check Updates or import Fields while the Drupal site MAINTENANCE_MODE is in Install or Update.": "https://www.drupal.org/files/issues/2932010-4.patch"
-                },
                 "drupal/total_control": {
                     "Issue #2935351: Fixed the issue when Enabled with multilingual of Translatable Markup for Invalid Argument Exception: $string (Array) must be a string.": "https://www.drupal.org/files/issues/2935351-2.patch"
                 }
@@ -10833,18 +10715,18 @@
     },
     {
         "name": "drupal/vartheme",
-        "version": "6.3.0",
-        "version_normalized": "6.3.0.0",
+        "version": "6.4.0",
+        "version_normalized": "6.4.0.0",
         "source": {
             "type": "git",
             "url": "https://git.drupal.org/project/vartheme",
-            "reference": "8.x-6.3"
+            "reference": "8.x-6.4"
         },
         "dist": {
             "type": "zip",
-            "url": "https://ftp.drupal.org/files/projects/vartheme-8.x-6.3.zip",
-            "reference": "8.x-6.3",
-            "shasum": "d7f7ceeccb1e82720fe89f8ea1a6e034dc04b9f9"
+            "url": "https://ftp.drupal.org/files/projects/vartheme-8.x-6.4.zip",
+            "reference": "8.x-6.4",
+            "shasum": "45a6a9aabfe0d2ad73d21081e61764702078f23e"
         },
         "require": {
             "composer/installers": "~1.0",
@@ -10861,8 +10743,8 @@
                 "dev-8.x-6.x": "8.6.x-dev"
             },
             "drupal": {
-                "version": "8.x-6.3",
-                "datestamp": "1547651580",
+                "version": "8.x-6.4",
+                "datestamp": "1548598685",
                 "security-coverage": {
                     "status": "covered",
                     "message": "Covered by Drupal's security advisory policy"
@@ -10900,18 +10782,18 @@
     },
     {
         "name": "drupal/vartheme_admin",
-        "version": "6.4.0",
-        "version_normalized": "6.4.0.0",
+        "version": "6.5.0",
+        "version_normalized": "6.5.0.0",
         "source": {
             "type": "git",
             "url": "https://git.drupal.org/project/vartheme_admin",
-            "reference": "8.x-6.4"
+            "reference": "8.x-6.5"
         },
         "dist": {
             "type": "zip",
-            "url": "https://ftp.drupal.org/files/projects/vartheme_admin-8.x-6.4.zip",
-            "reference": "8.x-6.4",
-            "shasum": "84e2cc440eb86b769b7aab6844d31815db239afe"
+            "url": "https://ftp.drupal.org/files/projects/vartheme_admin-8.x-6.5.zip",
+            "reference": "8.x-6.5",
+            "shasum": "349e6d775fb27f77d999fc0be9c6f4eec1f9b095"
         },
         "require": {
             "composer/installers": "~1.0",
@@ -10928,8 +10810,8 @@
                 "dev-8.x-6.x": "8.6.x-dev"
             },
             "drupal": {
-                "version": "8.x-6.4",
-                "datestamp": "1548006780",
+                "version": "8.x-6.5",
+                "datestamp": "1550707085",
                 "security-coverage": {
                     "status": "covered",
                     "message": "Covered by Drupal's security advisory policy"
@@ -11633,50 +11515,6 @@
         }
     },
     {
-        "name": "e0ipso/shaper",
-        "version": "1.2.2",
-        "version_normalized": "1.2.2.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/e0ipso/shaper.git",
-            "reference": "a9b1420201ca3d0831d91879f72bf90e1186fd32"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/e0ipso/shaper/zipball/a9b1420201ca3d0831d91879f72bf90e1186fd32",
-            "reference": "a9b1420201ca3d0831d91879f72bf90e1186fd32",
-            "shasum": ""
-        },
-        "require": {
-            "justinrainbow/json-schema": "^5.2"
-        },
-        "require-dev": {
-            "php-coveralls/php-coveralls": "^2.0",
-            "phpunit/phpcov": "^5.0",
-            "phpunit/phpunit": "^7.0.2"
-        },
-        "time": "2018-04-23T08:52:32+00:00",
-        "type": "library",
-        "installation-source": "dist",
-        "autoload": {
-            "psr-4": {
-                "Shaper\\": "src",
-                "Shaper\\Tests\\": "tests/src"
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "GPL-2.0"
-        ],
-        "authors": [
-            {
-                "name": "Mateu Aguiló Bosch",
-                "email": "mateu.aguilo.bosch@gmail.com"
-            }
-        ],
-        "description": "Lightweight library to handle in and out transformations in PHP."
-    },
-    {
         "name": "easyrdf/easyrdf",
         "version": "0.9.1",
         "version_normalized": "0.9.1.0",
@@ -12082,74 +11920,6 @@
             "api",
             "php",
             "twitter"
-        ]
-    },
-    {
-        "name": "justinrainbow/json-schema",
-        "version": "5.2.8",
-        "version_normalized": "5.2.8.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/justinrainbow/json-schema.git",
-            "reference": "dcb6e1006bb5fd1e392b4daa68932880f37550d4"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/justinrainbow/json-schema/zipball/dcb6e1006bb5fd1e392b4daa68932880f37550d4",
-            "reference": "dcb6e1006bb5fd1e392b4daa68932880f37550d4",
-            "shasum": ""
-        },
-        "require": {
-            "php": ">=5.3.3"
-        },
-        "require-dev": {
-            "friendsofphp/php-cs-fixer": "~2.2.20",
-            "json-schema/json-schema-test-suite": "1.2.0",
-            "phpunit/phpunit": "^4.8.35"
-        },
-        "time": "2019-01-14T23:55:14+00:00",
-        "bin": [
-            "bin/validate-json"
-        ],
-        "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "5.0.x-dev"
-            }
-        },
-        "installation-source": "dist",
-        "autoload": {
-            "psr-4": {
-                "JsonSchema\\": "src/JsonSchema/"
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Bruno Prieto Reis",
-                "email": "bruno.p.reis@gmail.com"
-            },
-            {
-                "name": "Justin Rainbow",
-                "email": "justin.rainbow@gmail.com"
-            },
-            {
-                "name": "Igor Wiedler",
-                "email": "igor@wiedler.ch"
-            },
-            {
-                "name": "Robert Schönthal",
-                "email": "seroscho@googlemail.com"
-            }
-        ],
-        "description": "A library to validate a json schema.",
-        "homepage": "https://github.com/justinrainbow/json-schema",
-        "keywords": [
-            "json",
-            "schema"
         ]
     },
     {

@@ -41,7 +41,7 @@ function l10n_client_contributor_help($route_name, RouteMatchInterface $route_ma
           return '<p><strong>' . t('All changes made will be automatically submitted to :server too. Thanks for contributing!', array(':server' => $config->get('server'))) . '</strong></p>';
         }
         else {
-          drupal_set_message(t('<a href=":edit">Set your personal API key</a> to contribute translations automatically to :server. Thanks for contributing!', array(':edit' => Url::fromRoute('entity.user.edit_form', array('user' => $account->id()))->toString(), ':server' => $config->get('server'))), 'warning');
+          return '<p><strong>' . t('<a href=":edit">Set your personal API key</a> to contribute translations automatically to :server. Thanks for contributing!', array(':edit' => Url::fromRoute('entity.user.edit_form', array('user' => $account->id())), ':server' => $config->get('server'))) . '</strong></p>';
         }
       }
       break;
@@ -62,13 +62,13 @@ function l10n_client_contributor_form_locale_translate_settings_alter(&$form, Fo
   $form['l10n_client_contributor_server'] = array(
     '#title'         => t('Address of localization server to use'),
     '#type'          => 'textfield',
-    '#description'   => t('Each local translation submission or change will also be submitted to this server. We suggest you enter <a href="@localize">https://localize.drupal.org/</a> to share with the greater Drupal community. Make sure you set up an API-key in the user account settings for each user that will participate in the translations.', array('@localize' => 'https://localize.drupal.org/')),
+    '#description'   => t('Each local translation submission or change will also be submitted to this server. We suggest you enter <a href="@localize">http://localize.drupal.org/</a> to share with the greater Drupal community. Make sure you set up an API-key in the user account settings for each user that will participate in the translations.', array('@localize' => 'http://localize.drupal.org/')),
     '#default_value' => $config->get('server'),
     '#states' => array('visible' => array(':input[name=l10n_client_contributor_use_server]' => array('checked' => TRUE))),
   );
 
   $form['#validate'][] = 'l10n_client_contributor_form_locale_translate_settings_validate';
-  $form['#submit'][] = 'l10n_client_contributor_form_locale_translate_settings_submit';
+  $form['actions']['submit']['#submit'][] = 'l10n_client_contributor_form_locale_translate_settings_submit';
 }
 
 /**
@@ -93,7 +93,7 @@ function l10n_client_contributor_form_locale_translate_settings_validate($form, 
       }
     }
     else {
-      $form_state->setErrorByName('l10n_client_contributor_server', t('You should provide a server address, such as https://localize.drupal.org/'));
+      $form_state->setErrorByName('l10n_client_contributor_server', t('You should provide a server address, such as http://localize.drupal.org'));
     }
   }
 }
@@ -151,52 +151,34 @@ function l10n_client_contributor_form_locale_translate_edit_form_alter(&$form, F
  * Additional submission functionality for translation editing.
  */
 function l10n_client_contributor_form_locale_translate_edit_form_submit($form, FormStateInterface $form_state) {
-  $lids = array_keys($form_state->getValue('strings'));
-  $langcode = $form_state->getValue('langcode');
-  $strings = $form_state->getValue('strings');
 
-  l10n_client_contributor_save_translation($langcode, $lids, $strings);
-}
-
-/**
- * Save the suggested translations and it sends them to the localization server.
- *
- * @param string $langcode
- *   The language code of a translated string.
- * @param array $lids
- *   Local ideas of the strings.
- * @param array $strings
- *   List of strings and its translations.
- *
- * @return \Drupal\Core\StringTranslation\TranslatableMarkup|string
- *   The reponse message.
- */
-function l10n_client_contributor_save_translation($langcode, array $lids, array $strings) {
   /** @var \Drupal\user\UserInterface $account */
   $account = User::load(\Drupal::currentUser()->id());
-  $translation_objects = $source_objects = [];
 
+  // BEGIN mostly copy of TranslateEditForm::submitForm()
+  $langcode = $form_state->getValue('langcode');
+  $updated = array();
+
+  $lids = array_keys($form_state->getValue('strings'));
+  $translation_objects = $source_objects = [];
   $locale_storage = \Drupal::service('locale.storage');
+
   foreach ($locale_storage->getTranslations(array('lid' => $lids, 'language' => $langcode, 'translated' => TRUE)) as $existing_translation_object) {
     $translation_objects[$existing_translation_object->lid] = $existing_translation_object;
   }
-
   foreach ($locale_storage->getStrings(array('lid' => $lids)) as $source_object) {
     $source_objects[$source_object->lid] = $source_object;
   }
 
   $contributed = 0;
   $refused = [];
-  $code = 200;
-  $message = t('The translation saving was successfully, but nothing changed.');
-
-  foreach ($strings as $lid => $new_translation) {
+  foreach ($form_state->getValue('strings') as $lid => $new_translation) {
     $existing_translation = isset($translation_objects[$lid]);
 
     // Plural translations are saved in a delimited string. To be able to
     // compare the new strings with the existing strings a string in the same
     // format is created.
-    $new_translation_string_delimited = implode(\Drupal\Core\StringTranslation\PluralTranslatableMarkup::DELIMITER, $new_translation['translations']);
+    $new_translation_string_delimited = implode(LOCALE_PLURAL_DELIMITER, $new_translation['translations']);
 
     // Generate an imploded string without delimiter, to be able to run
     // empty() on it.
@@ -216,7 +198,7 @@ function l10n_client_contributor_save_translation($langcode, array $lids, array 
 
     // Changed or new translation and its not empty.
     if ($is_changed && !empty($new_translation_string)) {
-      list($code, $message) = l10n_client_contributor_send_translation(
+      list($code, $message) = l10n_client_contributor_submit_translation(
         $langcode,
         $source_objects[$lid]->getString(),
         $new_translation_string_delimited,
@@ -231,69 +213,48 @@ function l10n_client_contributor_save_translation($langcode, array $lids, array 
       }
     }
   }
-
   // END mostly copy of TranslateEditForm::submitForm().
+
   if ($contributed) {
     drupal_set_message(\Drupal::translation()->formatPlural($contributed, 'Just contributed a translation to the community. Great job!', 'Contributed @count translations to the community, rock!'));
   }
   if ($refused) {
-    drupal_set_message(t('Errors while contributing translations:') . '<ul><li>' . implode('</li><li>', $refused) . '</li></ul>', 'error');
+    drupal_set_message(t('Errors while contributing translations:') . '<ul><li>' . join('</li><li>', $refused) . '</li></ul>', 'error');
   }
-
-  return $message;
 }
 
 /**
- * Send translation to the server.
- *
- * @param string $langcode
- *   The language code of a translated string.
- * @param string $source
- *   The translatable string.
- * @param string $translation
- *   The translated string.
- * @param string $user_key
- *   User API key to localization server.
- * @param string $user_token
- *   User based semi unique token.
- *
- * @return array
- *    The result of the send request.
- *    [response code/FALSE, message]
+ * Submit translation to the server.
  */
-function l10n_client_contributor_send_translation($langcode, $source, $translation, $user_key, $user_token) {
+function l10n_client_contributor_submit_translation($langcode, $source, $translation, $user_key, $user_token) {
   $server_uid = current(explode(':', $user_key));
   $signature = md5($user_key . $langcode . $source . $translation . $user_token);
   $config = \Drupal::config('l10n_client_contributor.settings');
   $server_url = $config->get('server');
 
   $response = xmlrpc(
-    $server_url . '/xmlrpc.php',
-    array(
-      'l10n.submit.translation' => array(
-        $langcode,
-        $source,
-        $translation,
-        (int) $server_uid,
-        $user_token,
-        $signature,
-      ),
-    )
+    $server_url .'/xmlrpc.php',
+    array('l10n.submit.translation' => array(
+      $langcode,
+      $source,
+      $translation,
+      (int)$server_uid,
+      $user_token,
+      $signature
+    ))
   );
 
   if (!empty($response) && isset($response['status'])) {
     if ($response['status']) {
       $message = t('Translation sent and accepted by @server.', array('@server' => $server_url));
       \Drupal::logger('l10n_client_contributor')->notice('Translation sent and accepted by @server.', array('@server' => $server_url));
-    }
-    else {
+    } else {
       $message = t('Translation rejected by @server. Reason: %reason', array('%reason' => $response['reason'], '@server' => $server_url));
       \Drupal::logger('l10n_client_contributor')->error('Translation rejected by @server. Reason: %reason', array('%reason' => $response['reason'], '@server' => $server_url));
     }
     return array($response['status'], $message);
   }
   else {
-    module_load_include('inc', 'xmlrpc', 'xmlrpc');
     $message = t('The connection with @server failed with the following error: %error_code: %error_message.', array('%error_code' => xmlrpc_errno(), '%error_message' => xmlrpc_error_msg(), '@server' => $server_url));
     \Drupal::logger('l10n_client_contributor')->error('The connection with @server failed with the following error: %error_code: %error_message.', array('%error_code' => xmlrpc_errno(), '%error_message' => xmlrpc_error_msg(), '@server' => $server_url));
     return array(FALSE, $message);

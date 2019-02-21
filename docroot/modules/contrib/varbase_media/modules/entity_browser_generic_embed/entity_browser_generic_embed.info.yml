@@ -8,8 +8,8 @@ package: Media
 dependencies:
   - entity_browser:entity_browser
 
-# Information added by Drupal.org packaging script on 2019-01-20
-version: '8.x-6.3'
+# Information added by Drupal.org packaging script on 2019-01-27
+version: '8.x-6.4'
 core: '8.x'
 project: 'varbase_media'
-datestamp: 1547984284
+datestamp: 1548588784

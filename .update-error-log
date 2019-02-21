@@ -1,36 +1,39 @@
 
 [32mPreparing composer.json for Varbase updates...(B[0m
 [32mUpdating Varbase...(B[0m
-Removing package drupal/field_group so that it can be re-installed and re-patched.
-  - Removing drupal/field_group (3.0.0-beta1)
-Deleting docroot/modules/contrib/field_group - deleted
-Removing package drupal/page_manager so that it can be re-installed and re-patched.
-  - Removing drupal/page_manager (4.0.0-beta3)
-Deleting docroot/modules/contrib/page_manager - deleted
-Removing package drupal/views_bulk_operations so that it can be re-installed and re-patched.
-  - Removing drupal/views_bulk_operations (2.4.0)
-Deleting docroot/modules/contrib/views_bulk_operations - deleted
+Please install composer-patches package from Vardot's repository to catch and handle errors when applying patches.
+Do not run Composer as root/super user! See https://getcomposer.org/root for details
 Loading composer repositories with package information
 Reading composer.json of cweagans/composer-patches (1.7.4)Reading composer.json of cweagans/composer-patches (1.7.3)Reading composer.json of cweagans/composer-patches (1.7.2)Reading composer.json of cweagans/composer-patches (1.7.1)Reading composer.json of cweagans/composer-patches (1.6.5)Reading composer.json of cweagans/composer-patches (1.6.4)Reading composer.json of cweagans/composer-patches (1.6.3)Reading composer.json of cweagans/composer-patches (1.6.2)Reading composer.json of cweagans/composer-patches (1.6.1)Reading composer.json of cweagans/composer-patches (1.6.0)Reading composer.json of cweagans/composer-patches (1.5.0)Reading composer.json of cweagans/composer-patches (1.4.0)Reading composer.json of cweagans/composer-patches (1.3.0)Reading composer.json of cweagans/composer-patches (1.2.0)Reading composer.json of cweagans/composer-patches (1.1.0)Reading composer.json of cweagans/composer-patches (1.0.0)                                                          Reading composer.json of cweagans/composer-patches (issue-178)Reading composer.json of cweagans/composer-patches (master)   Reading composer.json of cweagans/composer-patches (1.x)   Reading composer.json of cweagans/composer-patches (2.x-prototype)                                                                  Updating dependencies (including require-dev)
-Package operations: 3 installs, 6 updates, 0 removals
+Package operations: 4 installs, 37 updates, 0 removals
+  - Installing cweagans/composer-patches (1.7.4): Loading from cache
 No patches supplied.
 Gathering patches for dependencies. This might take a minute.
-  - Installing drupal/views_bulk_operations (2.4.0): Loading from cache
+  - Installing drupal-composer/drupal-scaffold (2.5.4): Loading from cache
+  - Updating drupal/vartheme_admin (6.4.0 => 6.5.0): Loading from cache
+  - Updating drupal/vartheme (6.3.0 => 6.4.0): Loading from cache
+  - Updating drupal/google_analytics_reports (dev-3.x 2b6bb8e => 3.0.0-beta2):     Update failed (The .git directory is missing from docroot/modules/contrib/google_analytics_reports, see https://getcomposer.org/commit-deps for more information)
+    Would you like to try reinstalling the package instead [yes]?   - Removing drupal/google_analytics_reports (dev-3.x)
+  - Installing drupal/google_analytics_reports (3.0.0-beta2): Cloning 8.x-3.0-beta2 from cache
+google_analytics_reports: 
+Previous HEAD position was 9e4794c Issue #2850463 by sylus: Fix Error whenever saving either of the provided google_analytics_reports view without any customization
+HEAD is now at 2b6bb8e Issue #2765333 by Vinay15: Remove @file tag docblock from all the .php files
+  - Updating drupal/varbase_total_control (6.3.0 => 6.4.0): Loading from cache
+  - Updating drupal/metatag (1.7.0 => 1.8.0): Loading from cache
+  - Updating drupal/google_analytics (2.3.0 => 2.4.0): Loading from cache
+  - Updating drupal/views_bulk_operations (2.4.0 => 2.5.0): Downloading (connecting...)Downloading (0%)           Downloading (10%)Downloading (35%)Downloading (45%)Downloading (55%)Downloading (100%)
   - Applying patches for drupal/views_bulk_operations
     https://www.drupal.org/files/issues/2018-09-19/views_bulk_operations-theme_error-2952498-29.patch (Issue #2952498: Fixed [VBO) Fatal error when executing simple actions on Adminimal theme)
+   Could not apply patch! Skipping. The error was: Cannot apply patch https://www.drupal.org/files/issues/2018-09-19/views_bulk_operations-theme_error-2952498-29.patch
 
-  - Installing drupal/field_group (3.0.0-beta1): Loading from cache
-  - Applying patches for drupal/field_group
-    https://www.drupal.org/files/issues/field_group_accordion-2921228-3.patch (Issue #2921228: Accordion does not work)
+                                                                                                                               
+  [Exception]                                                                                                                  
+  Cannot apply patch Issue #2952498: Fixed [VBO) Fatal error when executing simple actions on Adminimal theme (https://www.dr  
+  upal.org/files/issues/2018-09-19/views_bulk_operations-theme_error-2952498-29.patch)!                                        
+                                                                                                                               
 
-  - Installing drupal/page_manager (4.0.0-beta3): Loading from cache
-  - Applying patches for drupal/page_manager
-    https://www.drupal.org/files/issues/2018-12-12/2665328-variants-take-entity-label-87.patch (Issue #2665328: Variants take entity label not the variant title)
+update [--prefer-source] [--prefer-dist] [--dry-run] [--dev] [--no-dev] [--lock] [--no-custom-installers] [--no-autoloader] [--no-scripts] [--no-progress] [--no-suggest] [--with-dependencies] [--with-all-dependencies] [-v|vv|vvv|--verbose] [-o|--optimize-autoloader] [-a|--classmap-authoritative] [--apcu-autoloader] [--ignore-platform-reqs] [--prefer-stable] [--prefer-lowest] [-i|--interactive] [--root-reqs] [--] [<packages>]...
 
-Writing lock file
-Generating autoload files
-> Varbase\composer\ScriptHandler::createRequiredFiles
-> Varbase\composer\ScriptHandler::removeGitDirectories
 RuntimeException: Missing $settings['hash_salt'] in settings.php. in [31;40m[1m[error][0m
 /Users/kcobb/Documents/GitHub/lime-up-d8/docroot/core/lib/Drupal/Core/Site/Settings.php:149
 Stack trace:
@@ -62,3 +65,17 @@ Drush\Boot\BaseBoot->bootstrap_and_dispatch()
 #8 /usr/local/bin/drush-8/vendor/drush/drush/drush.php(12):
 drush_main()
 #9 {main}
+[32mEnabling new required modules for the latest Varbase version...(B[0m
+[32mUpdating the database for latest changes.(B[0m
+Error: Call to undefined function drupal_get_installed_schema_version() in /Users/kcobb/Documents/GitHub/lime-up-d8/docroot/core/includes/install.inc on line 81 #0 /usr/local/bin/drush-8/vendor/drush/drush/commands/core/drupal/update.inc(130): drupal_load_updates()
+#1 /usr/local/bin/drush-8/vendor/drush/drush/commands/core/core.drush.inc(462): update_main()
+#2 /usr/local/bin/drush-8/vendor/drush/drush/includes/command.inc(422): drush_core_updatedb()
+#3 /usr/local/bin/drush-8/vendor/drush/drush/includes/command.inc(231): _drush_invoke_hooks(Array, Array)
+#4 /usr/local/bin/drush-8/vendor/drush/drush/includes/command.inc(199): drush_command()
+#5 /usr/local/bin/drush-8/vendor/drush/drush/lib/Drush/Boot/BaseBoot.php(67): drush_dispatch(Array)
+#6 /usr/local/bin/drush-8/vendor/drush/drush/includes/preflight.inc(66): Drush\Boot\BaseBoot->bootstrap_and_dispatch()
+#7 /usr/local/bin/drush-8/vendor/drush/drush/drush.php(12): drush_main()
+#8 {main}
+Error: Call to undefined function drupal_get_installed_schema_version() in drupal_load_updates() (line 81 of /Users/kcobb/Documents/GitHub/lime-up-d8/docroot/core/includes/install.inc).
+Drush command terminated abnormally due to an unrecoverable error.   [31;40m[1m[error][0m
+[32mHoya! Updates are now done. We will add a link in the near future for here to link to common issues appearing after updates and how to fix them.(B[0m

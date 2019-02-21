@@ -65,8 +65,8 @@
     "drupal/admin_toolbar": "~1.0",
     "drupal/adminimal_admin_toolbar": "~1.0",
     "drupal/tour_ui": "~1.0",
-    "drupal/tour_builder": "1.x-dev#d70e898949b7ec4095efb391a0dbec56d0117558",
-    "drupal/l10n_client": "1.x-dev#9bf8d597732870bdca301512c71b6e5d74d48db2",
+    "drupal/tour_builder": "~1.0",
+    "drupal/l10n_client": "*",
     "drupal/coffee": "~1.0",
     "drupal/responsive_preview": "~1.0",
     "drupal/views_bulk_operations": "~2.0",
@@ -78,7 +78,7 @@
     "drupal/default_content": "1.0-alpha7",
     "drupal/better_normalizers": "~1.0",
     "drupal/content_lock": "~1.0",
-    "drupal/node_edit_protection": "1.x-dev#902339c08222f838030c07aaea23bdc51ababebd",
+    "drupal/node_edit_protection": "~1.0",
     "drupal/rabbit_hole": "~1.0",
     "drupal/yoast_seo": "~1.0",
     "drupal/fast_404": "~1.0",
@@ -88,11 +88,11 @@
     "drupal/menu_admin_per_menu": "~1.0",
     "drupal/drd_agent": "~3.0",
     "drupal/libraries_ui": "~1.0",
-    "drupal/devel": "~1.0",
+    "drupal/devel": "*",
     "drupal/username_enumeration_prevention": "~1.0",
     "drupal/password_policy": "~3.0",
     "drupal/seckit": "~1.0",
-    "drupal/security_review": "1.x-dev#35ebae445bb260e961e47c4c58efe7c50c228999",
+    "drupal/security_review": "*",
     "drupal/honeypot": "~1.0",
     "drupal/shield": "~1.0",
     "drupal/captcha": "~1.0",
@@ -101,7 +101,7 @@
     "drupal/smtp": "~1.0",
     "drupal/maxlength": "~1.0",
     "drupal/menu_position": "~1.0",
-    "drupal/mail_edit": "1.x-dev#bcd0041830d8581b36e6211f0c8eabd8caf9652b",
+    "drupal/mail_edit": "*",
     "drupal/taxonomy_access_fix": "~2.0",
     "drupal/better_exposed_filters": "~3.0",
     "drupal/autocomplete_deluxe": "~1.0",
@@ -151,12 +151,6 @@
         "Issue #2872093: Coffee css fixes in RTL":
         "https://www.drupal.org/files/issues/2872093-10.patch"
       },
-      "drupal/l10n_client": {
-        "Issue #2867460: Incompatible with this version of Drupal core ~8.0":
-        "https://www.drupal.org/files/issues/2867460-2.patch",
-        "Issue #2872668: User error: 0 is an invalid render array key":
-        "https://www.drupal.org/files/issues/l10n_client-hook_toolbar-fix-2872668-3.patch"
-      },
       "drupal/default_content": {
         "Issue #2900089: Invalid translation language error when selected installation language does not match demo content language":
         "https://www.drupal.org/files/issues/2900089-14.patch",
@@ -177,17 +171,9 @@
         "Issue #2966959: Value Conflict with Layout Builder":
         "https://www.drupal.org/files/issues/2018-04-27/2966959-ds-namespace_form_for_layout_builder-4.patch"
       },
-      "drupal/node_edit_protection": {
-        "Issue #2941962: Fixed Warning: array_search() expects parameter 2 to be array.":
-        "https://www.drupal.org/files/issues/2018-05-16/warning-array-search-2941962-4.patch"
-      },
       "drupal/rabbit_hole": {
         "Issue #2961738: Ensure getOperation method exists on form":
         "https://www.drupal.org/files/issues/2018-05-10/rabbit_hole-instance_of_check-2961738-5.patch"
-      },
-      "drupal/entity_clone": {
-        "Issue #2743379: Clone operation shows regardless of permission":
-        "https://www.drupal.org/files/issues/2018-08-26/2743379-18.patch"
       },
       "drupal/login_destination": {
         "Issue #2947616: Fixed SetOptions on null causing error.":

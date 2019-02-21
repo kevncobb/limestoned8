@@ -81,7 +81,8 @@ class FocalPointManager implements FocalPointManagerInterface {
         'uri' => $file->getFileUri(),
       ];
 
-      $crop = $this->cropStorage
+      $crop = \Drupal::entityTypeManager()
+        ->getStorage('crop')
         ->create($values);
     }
 

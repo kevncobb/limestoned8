@@ -19,7 +19,7 @@
       });
 
       // Let all form submit buttons through.
-      $(".node-form input[type='submit']").each(function() {
+      $(".node-form input[type='submit'], .node-form button[type='submit']").each(function() {
         $(this).addClass('node-edit-protection-processed');
         $(this).click(function() {
           click = true;
@@ -27,7 +27,7 @@
       });
 
       // Catch all links and buttons EXCEPT for "#" links.
-      $("a, button, input[type='submit']:not(.node-edit-protection-processed)")
+      $("a, button, input[type='submit']:not(.node-edit-protection-processed), button[type='submit']:not(.node-edit-protection-processed)")
           .each(function() {
             $(this).click(function() {
               // Return when a "#" link is clicked so as to skip the

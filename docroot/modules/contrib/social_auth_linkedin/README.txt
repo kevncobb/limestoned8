@@ -43,6 +43,9 @@ INSTALLATION
    https://drupal.org/documentation/install/modules-themes/modules-8
    for further information.
 
+ * A more comprehensive installation instruction for Drupal 8 can be found at
+   https://www.drupal.org/docs/8/modules/social-api/social-api-2x/social-auth-2x/social-auth-linkedin-2x-installation
+
 
 CONFIGURATION
 -------------
@@ -50,7 +53,7 @@ CONFIGURATION
  * Add your LinkedIn project OAuth information in
    Configuration » User Authentication » LinkedIn.
 
- * Place a Social Auth LinkedIn block in Structure » Block Layout.
+ * Place a Social Auth Login block in Structure » Block Layout.
 
  * If you already have a Social Auth Login block in the site, rebuild the cache.
 
@@ -58,33 +61,32 @@ CONFIGURATION
 HOW IT WORKS
 ------------
 
-User can click on the LinkedIn logo on the Social Auth Login block
+The user can click on the LinkedIn logo on the Social Auth Login block
 You can also add a button or link anywhere on the site that points
 to /user/login/linkedin, so theming and customizing the button or link
 is very flexible.
 
-When the user opens the /user/login/linkedin link, it automatically takes
-user to LinkedIn Accounts for authentication. LinkedIn then returns the user to
-Drupal site. If we have an existing Drupal user with the same email address
-provided by LinkedIn, that user is logged in. Otherwise a new Drupal user is
-created.
+After LinkedIn has returned the user to your site, the module compares the user
+id or email address provided by LinkedIn. If the user has previously registered
+using LinkedIn or your site already has an account with the same email address,
+the user is logged in. If not, a new user account is created. Also, a LinkedIn
+account can be associated with an authenticated user.
 
 
 SUPPORT REQUESTS
 ----------------
 
-Before posting a support request, carefully read the installation
-instructions provided in module documentation page.
+ * Before posting a support request, carefully read the installation
+   instructions provided in module documentation page.
 
-Before posting a support request, check Recent log entries at
-admin/reports/dblog
+ * Before posting a support request, check the Recent Log entries at
+   admin/reports/dblog
 
-Once you have done this, you can post a support request at module issue queue:
-https://www.drupal.org/project/issues/social_auth_linkedin
+ * Once you have done this, you can post a support request at module issue
+   queue: https://www.drupal.org/project/issues/social_auth_linkedin
 
-When posting a support request, please inform what does the status report say
-at admin/reports/dblog and if you were able to see any errors in
-Recent log entries.
+ * When posting a support request, please inform if you were able to see any
+   errors in the Recent Log entries.
 
 
 MAINTAINERS

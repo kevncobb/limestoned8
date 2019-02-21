@@ -132,21 +132,21 @@ abstract class FocalPointEffectBase extends ResizeImageEffect implements Contain
 
     if ($crop_width > $crop_height) {
       $resize_data['width'] = (int) $crop_width;
-      $resize_data['height'] = (int) ceil(($crop_width * $image_height) / $image_width);
+      $resize_data['height'] = (int) ($crop_width * $image_height / $image_width);
 
       // Ensure there is enough area to crop.
       if ($resize_data['height'] < $crop_height) {
-        $resize_data['width'] = (int) ceil(($crop_height * $resize_data['width']) / $resize_data['height']);
+        $resize_data['width'] = (int) ($crop_height * $resize_data['width'] / $resize_data['height']);
         $resize_data['height'] = (int) $crop_height;
       }
     }
     else {
-      $resize_data['width'] = (int) ceil(($crop_height * $image_width) / $image_height);
+      $resize_data['width'] = (int) ($crop_height * $image_width / $image_height);
       $resize_data['height'] = (int) $crop_height;
 
       // Ensure there is enough area to crop.
       if ($resize_data['width'] < $crop_width) {
-        $resize_data['height'] = (int) ceil(($crop_width * $resize_data['height']) / $resize_data['width']);
+        $resize_data['height'] = (int) ($crop_width * $resize_data['height'] / $resize_data['width']);
         $resize_data['width'] = (int) $crop_width;
       }
     }
@@ -157,9 +157,9 @@ abstract class FocalPointEffectBase extends ResizeImageEffect implements Contain
   /**
    * Applies the crop effect to an image.
    *
-   * @param \Drupal\Core\Image\ImageInterface $image
+   * @param ImageInterface $image
    *   The image resource to crop.
-   * @param \Drupal\crop\CropInterface $crop
+   * @param CropInterface $crop
    *   A crop object containing the relevant crop information.
    *
    * @return bool
@@ -187,13 +187,10 @@ abstract class FocalPointEffectBase extends ResizeImageEffect implements Contain
   }
 
   /**
-   * Get the cropped image.
-   *
    * @param \Drupal\Core\Image\ImageInterface $image
    *   The image resource whose crop is being requested.
    *
    * @return \Drupal\crop\CropInterface
-   *   The crop.
    */
   public function getCrop(ImageInterface $image) {
     $crop_type = $this->focalPointConfig->get('crop_type');
@@ -273,15 +270,15 @@ abstract class FocalPointEffectBase extends ResizeImageEffect implements Contain
    *
    * @param array $focal_point
    *   The focal point value.
-   * @param \Drupal\Core\Image\ImageInterface $image
+   * @param ImageInterface $image
    *   The original image to be cropped.
-   * @param \Drupal\crop\CropInterface $crop
+   * @param CropInterface $crop
    *   The crop object used to define the crop.
    *
    * @return array
    *   An array with the keys 'x' and 'y'.
    */
-  protected function calculateAnchor(array $focal_point, ImageInterface $image, CropInterface $crop) {
+  protected function calculateAnchor($focal_point, ImageInterface $image, CropInterface $crop) {
     $crop_size = $crop->size();
 
     // The anchor must be the top-left coordinate of the crop area but the focal
@@ -306,15 +303,15 @@ abstract class FocalPointEffectBase extends ResizeImageEffect implements Contain
    * @param array $anchor
    *   An array with the keys 'x' and 'y'. Values are in pixels representing the
    *   top left corner of the of the crop area relative to the image.
-   * @param \Drupal\Core\Image\ImageInterface $image
+   * @param ImageInterface $image
    *   The image to which the crop area must be constrained.
-   * @param \Drupal\crop\CropInterface $crop
+   * @param CropInterface $crop
    *   The crop object used to define the crop.
    *
    * @return array
    *   An array with the keys 'x' and 'y'.
    */
-  protected function constrainCropArea(array $anchor, ImageInterface $image, CropInterface $crop) {
+  protected function constrainCropArea($anchor, ImageInterface $image, CropInterface $crop) {
     $image_size = [
       'width' => $image->getWidth(),
       'height' => $image->getHeight(),
@@ -366,7 +363,7 @@ abstract class FocalPointEffectBase extends ResizeImageEffect implements Contain
   /**
    * Returns the focal point value (in pixels) relative to the provided image.
    *
-   * @param \Drupal\Core\Image\ImageInterface $image
+   * @param ImageInterface $image
    *   Image object that the focal point must be applied to.
    * @param array $original_focal_point
    *   An array with keys 'x' and 'y' which represent the focal point in pixels
@@ -375,7 +372,7 @@ abstract class FocalPointEffectBase extends ResizeImageEffect implements Contain
    * @return array
    *   An array with the keys 'x' and 'y'. Values are in pixels.
    */
-  protected function transformFocalPoint(ImageInterface $image, array $original_focal_point) {
+  protected function transformFocalPoint(ImageInterface $image, $original_focal_point) {
     $image_size = [
       'width' => $image->getWidth(),
       'height' => $image->getHeight(),

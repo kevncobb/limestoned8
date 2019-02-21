@@ -35,7 +35,7 @@ projects[bootstrap_layouts][type] = module
 projects[bootstrap_layouts][version] = 5.1
 
 projects[layout_builder_restrictions][type] = module
-projects[layout_builder_restrictions][version] = 1.2
+projects[layout_builder_restrictions][version] = 1.4
 
 projects[ds][type] = module
 projects[ds][version] = 3.2
@@ -49,6 +49,8 @@ projects[views_bootstrap][version] = 3.1
 
 projects[field_group][type] = module
 projects[field_group][version] = 3.0-beta1
+;; Issue #2921228: Accordion does not work
+projects[field_group][patch][] = https://www.drupal.org/files/issues/field_group_accordion-2921228-3.patch
 
 projects[smart_trim][type] = module
 projects[smart_trim][version] = 1.1
@@ -83,11 +85,7 @@ projects[entity][type] = module
 projects[entity][version] = 1.0-rc1
 
 projects[entity_clone][type] = module
-projects[entity_clone][download][url] = https://git.drupal.org/project/entity_clone.git
-projects[entity_clone][download][revision] = 6d0ce053605e9aaf8412927a9b0ea8da7a9a06e5
-projects[entity_clone][download][branch] = 8.x-1.x
-;; Issue #2743379: Clone operation shows regardless of permission.
-projects[entity_clone][patch][] = https://www.drupal.org/files/issues/2018-08-26/2743379-18.patch
+projects[entity_clone][version] = 1.0-beta2
 
 projects[entity_browser][type] = module
 projects[entity_browser][version] = 2.0
@@ -142,7 +140,7 @@ projects[entityqueue_form_widget][type] = module
 projects[entityqueue_form_widget][version] = 1.0-beta3
 
 projects[imagemagick][type] = module
-projects[imagemagick][version] = 2.3
+projects[imagemagick][version] = 2.4
 
 projects[imageapi_optimize][type] = module
 projects[imageapi_optimize][version] = 2.0-alpha4
@@ -165,18 +163,16 @@ projects[roleassign][type] = module
 projects[roleassign][version] = 1.0-alpha2
 
 projects[admin_toolbar][type] = module
-projects[admin_toolbar][version] = 1.25
+projects[admin_toolbar][version] = 1.26
 
 projects[adminimal_admin_toolbar][type] = module
-projects[adminimal_admin_toolbar][version] = 1.8
+projects[adminimal_admin_toolbar][version] = 1.9
 
 projects[tour_ui][type] = module
-projects[tour_ui][version] = 1.0-beta2 
+projects[tour_ui][version] = 1.0-beta2
 
 projects[tour_builder][type] = module
-projects[tour_builder][download][url] = https://git.drupal.org/project/tour_builder.git
-projects[tour_builder][download][revision] = d70e898949b7ec4095efb391a0dbec56d0117558
-projects[tour_builder][download][branch] = 8.x-1.x
+projects[tour_builder][version] = 1.0-alpha1
 
 projects[responsive_preview][type] = module
 projects[responsive_preview][version] = 1.0-alpha7
@@ -191,7 +187,7 @@ projects[revision_log_default][type] = module
 projects[revision_log_default][version] = 1.0
 
 projects[webform][type] = module
-projects[webform][version] = 5.0
+projects[webform][version] = 5.1
 
 projects[webform_analysis][type] = module
 projects[webform_analysis][version] = 1.0-beta7
@@ -213,11 +209,7 @@ projects[content_lock][type] = module
 projects[content_lock][version] = 1.0-alpha8
 
 projects[node_edit_protection][type] = module
-projects[node_edit_protection][download][url] = https://git.drupal.org/project/node_edit_protection.git
-projects[node_edit_protection][download][revision] = 902339c08222f838030c07aaea23bdc51ababebd
-projects[node_edit_protection][download][branch] = 8.x-1.x
-;; #2941962: Fixed Warning: array_search() expects parameter 2 to be array.
-projects[node_edit_protection][patch][] = https://www.drupal.org/files/issues/2018-05-16/warning-array-search-2941962-4.patch
+projects[node_edit_protection][version] = 1.0-alpha1
 
 projects[rabbit_hole][type] = module
 projects[rabbit_hole][version] = 1.0-beta4
@@ -225,7 +217,7 @@ projects[rabbit_hole][version] = 1.0-beta4
 projects[rabbit_hole][patch][] = https://www.drupal.org/files/issues/2018-05-10/rabbit_hole-instance_of_check-2961738-5.patch
 
 projects[fast_404][type] = module
-projects[fast_404][version] = 1.0-alpha3
+projects[fast_404][version] = 1.0-alpha4
 
 projects[mailsystem][type] = module
 projects[mailsystem][version] = 4.1
@@ -237,14 +229,10 @@ projects[maxlength][type] = module
 projects[maxlength][version] = 1.0-beta2
 
 projects[menu_position][type] = module
-projects[menu_position][download][url] = https://git.drupal.org/project/menu_position.git
-projects[menu_position][download][revision] = d134276b4bbd08b3c9678943d0225fbef7dd05b5
-projects[menu_position][download][branch] = 8.x-1.x
+projects[menu_position][version] = 1.0-alpha1
 
 projects[mail_edit][type] = module
-projects[mail_edit][download][url] = https://git.drupal.org/project/mail_edit.git
-projects[mail_edit][download][revision] = bcd0041830d8581b36e6211f0c8eabd8caf9652b
-projects[mail_edit][download][branch] = 8.x-1.x
+projects[mail_edit][version] = 1.x-dev
 
 projects[taxonomy_access_fix][type] = module
 projects[taxonomy_access_fix][version] = 2.6
@@ -255,7 +243,7 @@ projects[taxonomy_menu][version] = 3.4
 projects[taxonomy_menu][patch][] = https://www.drupal.org/files/issues/2018-12-23/2939143-10.patch
 
 projects[better_exposed_filters][type] = module
-projects[better_exposed_filters][version] = 3.0-alpha5
+projects[better_exposed_filters][version] = 3.0-alpha6
 
 projects[autocomplete_deluxe][type] = module
 projects[autocomplete_deluxe][version] = 1.0-beta1
@@ -264,14 +252,14 @@ projects[link_attributes][type] = module
 projects[link_attributes][version] = 1.5
 
 projects[paragraphs[type] = module
-projects[paragraphs][version] = 1.5
+projects[paragraphs][version] = 1.6
 ;; Issue #2924774: Let Editors add/delete/clone paragraphs When [Editing a translation]
 projects[paragraphs][patch][] = https://www.drupal.org/files/issues/2018-06-03/2924774-29.patch
 
 projects[paragraphs_previewer][type] = module
-projects[paragraphs_previewer][version] = 1.2
+projects[paragraphs_previewer][version] = 1.4
 ;; Issue #2904917: Make paragraph previewer work with new UI/UX improvement patch
-projects[paragraphs_previewer][patch][] = https://www.drupal.org/files/issues/2904917-2.patch
+projects[paragraphs_previewer][patch][] = https://www.drupal.org/files/issues/2019-02-20/2904917-8.patch
 
 projects[paragraphs_features][type] = module
 projects[paragraphs_features][version] = 1.4
@@ -300,15 +288,7 @@ projects[charts][type] = module
 projects[charts][version] = 3.0-beta2
 
 projects[google_analytics_reports][type] = module
-projects[google_analytics_reports][download][url] = https://git.drupal.org/project/google_analytics_reports.git
-projects[google_analytics_reports][download][revision] = 2b6bb8efbc7f61ce3c1225638075aa6037b8db44
-projects[google_analytics_reports][download][branch] = 8.x-3.x
-;; Issue #2850463: Error when saving either google_analytics_reports view
-projects[google_analytics_reports][patch][] = https://www.drupal.org/files/issues/error_when_saving-2850463-2.patch
-;; Issue #2860399: Warning: htmlspecialchars() expects parameter 1 to be string
-projects[google_analytics_reports][patch][] = https://www.drupal.org/files/issues/Fix_message-2860399-5.patch
-;; Issue #2932010: Fixed an issue to Not to check Updates or import Fields while the Drupal site MAINTENANCE_MODE is in Install or Update.
-projects[google_analytics_reports][patch][] = https://www.drupal.org/files/issues/2932010-4.patch
+projects[google_analytics_reports][version] = 3.0-beta2
 
 projects[login_destination][type] = module
 projects[login_destination][download][url] = https://git.drupal.org/project/login_destination.git
@@ -321,22 +301,24 @@ projects[betterlogin][type] = module
 projects[betterlogin][version] = 1.2
 
 projects[social_api][type] = module
-projects[social_api][version] = 2.0-beta4
+projects[social_api][version] = 2.0-beta5
 
 projects[social_auth][type] = module
-projects[social_auth][version] = 2.0-beta4
+projects[social_auth][version] = 2.0-beta5
 
 projects[social_auth_google][type] = module
-projects[social_auth_google][version] = 2.0-beta3
+projects[social_auth_google][version] = 2.0-beta4
+;; Issue #3034353: Change the Google+ logo to Google accounts as Google shutdown Google+
+projects[social_auth_google][patch][] = https://www.drupal.org/files/issues/2019-02-20/3034353-2.patch
 
 projects[social_auth_facebook][type] = module
-projects[social_auth_facebook][version] = 2.0-beta3
+projects[social_auth_facebook][version] = 2.0-beta4
 
 projects[social_auth_twitter][type] = module
-projects[social_auth_twitter][version] = 2.0-alpha2
+projects[social_auth_twitter][version] = 2.0-alpha3
 
 projects[social_auth_linkedin][type] = module
-projects[social_auth_linkedin][version] = 2.0-beta1
+projects[social_auth_linkedin][version] = 2.0-beta2
 
 projects[ckeditor_media_embed][type] = module
 projects[ckeditor_media_embed][version] = 1.3
@@ -353,7 +335,7 @@ projects[redirect][type] = module
 projects[redirect][version] = 1.3
 
 projects[metatag][type] = module
-projects[metatag][version] = 1.7
+projects[metatag][version] = 1.8
 
 projects[schema_metatag][type] = module
 projects[schema_metatag][version] = 1.3
@@ -362,19 +344,13 @@ projects[simple_sitemap][type] = module
 projects[simple_sitemap][version] = 2.12
 
 projects[google_analytics][type] = module
-projects[google_analytics][version] = 2.3
+projects[google_analytics][version] = 2.4 
 
 projects[yoast_seo][type] = module
 projects[yoast_seo][version] = 1.5
 
 projects[l10n_client][type] = module
-projects[l10n_client][download][url] = https://git.drupal.org/project/l10n_client.git
-projects[l10n_client][download][revision] = 9bf8d597732870bdca301512c71b6e5d74d48db2
-projects[l10n_client][download][branch] = 8.x-1.x
-;; Issue #2867460: Incompatible with this version of Drupal core ~8.0
-projects[l10n_client][patch][] = https://www.drupal.org/files/issues/2867460-2.patch
-;; Issue #2872668: User error: 0 is an invalid render array key":
-projects[l10n_client][patch][] = https://www.drupal.org/files/issues/l10n_client-hook_toolbar-fix-2872668-3.patch
+projects[l10n_client][version] = 1.x-dev
 
 projects[username_enumeration_prevention][type] = module
 projects[username_enumeration_prevention][version] = 1.0-beta2
@@ -386,9 +362,7 @@ projects[seckit][type] = module
 projects[seckit][version] = 1.1
 
 projects[security_review][type] = module
-projects[security_review][download][url] = https://git.drupal.org/project/security_review.git
-projects[security_review][download][revision] = 35ebae445bb260e961e47c4c58efe7c50c228999
-projects[security_review][download][branch] = 8.x-1.x
+projects[security_review][version] = 1.x-dev
 
 projects[honeypot][type] = module
 projects[honeypot][version] = 1.29
@@ -400,7 +374,7 @@ projects[captcha][type] = module
 projects[captcha][version] = 1.0-beta1
 
 projects[recaptcha][type] = module
-projects[recaptcha][version] = 2.3
+projects[recaptcha][version] = 2.4
 
 projects[search_api][type] = module
 projects[search_api][version] = 1.11
@@ -414,7 +388,7 @@ projects[slick][type] = module
 projects[slick][version] = 1.1
 
 projects[slick_views][type] = module
-projects[slick_views][version] = 1.0-rc2
+projects[slick_views][version] = 1.0
 
 projects[slick_media][type] = module
 projects[slick_media][version] = 2.0-alpha3
@@ -456,12 +430,10 @@ projects[devel][version] = 1.2
 ;;;;;;;;;;;;;;;;;;;;;
 
 projects[bootstrap][type] = theme
-projects[bootstrap][version] = 3.16
+projects[bootstrap][version] = 3.17
 
 projects[adminimal_theme][type] = theme
-projects[adminimal_theme][version] = 1.3
-;; Issue #2696393: Checkboxes with .error class are not usable
-projects[adminimal_theme][patch][] = https://www.drupal.org/files/issues/adminimal-checkboxes_with_error-2696393-3.patch
+projects[adminimal_theme][version] = 1.4
 
 ;;;;;;;;;;;;;;;;;;;;;
 ;; General Public contributed modules.
@@ -486,13 +458,13 @@ projects[total_control][patch][] = https://www.drupal.org/files/issues/2935351-2
 ;;;;;;;;;;;;;;;;;;;;;
 
 projects[varbase_core][type] = module
-projects[varbase_core][version] = 6.4
+projects[varbase_core][version] = 6.7
 
 projects[varbase_media][type] = module
-projects[varbase_media][version] = 6.2
+projects[varbase_media][version] = 6.4
 
 projects[varbase_bootstrap_paragraphs][type] = module
-projects[varbase_bootstrap_paragraphs][version] = 6.2
+projects[varbase_bootstrap_paragraphs][version] = 6.4
 
 projects[varbase_editor][type] = module
 projects[varbase_editor][version] = 6.2
@@ -504,19 +476,19 @@ projects[varbase_search][type] = module
 projects[varbase_search][version] = 6.1
 
 projects[varbase_seo][type] = module
-projects[varbase_seo][version] = 6.2
+projects[varbase_seo][version] = 6.3
 
 projects[varbase_heroslider_media][type] = module
-projects[varbase_heroslider_media][version] = 6.1
+projects[varbase_heroslider_media][version] = 6.3
 
 projects[varbase_carousels][type] = module
 projects[varbase_carousels][version] = 6.1
 
 projects[varbase_total_control][type] = module
-projects[varbase_total_control][version] = 6.3
+projects[varbase_total_control][version] = 6.4
 
 projects[varbase_auth][type] = module
-projects[varbase_auth][version] = 6.2
+projects[varbase_auth][version] = 6.3
 
 projects[varbase_blog][type] = module
 projects[varbase_blog][version] = 6.1
@@ -529,10 +501,10 @@ projects[varbase_styleguide][version] = 6.1
 ;;;;;;;;;;;;;;;;;;;;;
 
 projects[vartheme][type] = theme
-projects[vartheme][version] = 6.2
+projects[vartheme][version] = 6.4
 
 projects[vartheme_admin][type] = theme
-projects[vartheme_admin][version] = 6.2
+projects[vartheme_admin][version] = 6.5
 
 ;;;;;;;;;;;;;;;;;;;;;
 ;; Libraries

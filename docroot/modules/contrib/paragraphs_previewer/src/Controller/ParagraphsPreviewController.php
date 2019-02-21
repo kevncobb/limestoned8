@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\paragraphs_previewer\Controller\ParagraphsPreviewController.
- */
-
 namespace Drupal\paragraphs_previewer\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
@@ -15,8 +10,6 @@ use Drupal\Core\Field\WidgetBase;
 use Drupal\paragraphs\Entity\Paragraph;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\ContentEntityBase;
-use Drupal\Core\Entity\Entity\EntityViewDisplay;
-use Drupal\Core\Field\Plugin\Field\FieldFormatter\EntityReferenceFormatterBase;
 
 /**
  * Previewer for paragraphs.
@@ -34,8 +27,8 @@ class ParagraphsPreviewController extends ControllerBase {
    *
    * @param string $form_build_id
    *   The form build id.
-   * @param array $element_parents
-   *   An array of item parents from the field to the item delta.
+   * @param string|array $element_parents
+   *   The item parents argument from the field to the item delta.
    *
    * @return array
    *   The render array.
@@ -50,10 +43,10 @@ class ParagraphsPreviewController extends ControllerBase {
     }
 
     // Initialize render array.
-    $output_render = array();
+    $output_render = [];
 
     // Expand element parents.
-    $element_parents_array = explode(':', $element_parents);
+    $element_parents_array = is_array($element_parents) ? $element_parents : explode(':', $element_parents);
 
     if (!empty($element_parents_array) && count($element_parents_array) >= 2) {
       $form_state = new FormState();
@@ -80,9 +73,9 @@ class ParagraphsPreviewController extends ControllerBase {
 
     // Set empty message if nothing is rendered.
     if (empty($output_render)) {
-      $output_render['empty'] = array(
+      $output_render['empty'] = [
         '#markup' => $this->t('No preview available.'),
-      );
+      ];
     }
 
     // Add styles to cleanup display.
@@ -103,6 +96,8 @@ class ParagraphsPreviewController extends ControllerBase {
    *   The field parents of the paragraph.
    * @param \Drupal\Core\Form\FormStateInterface $form_state
    *   The form state.
+   * @param \Drupal\Core\Entity\EntityInterface $form_entity
+   *   The form entity.
    *
    * @return \Drupal\Core\Entity\EntityInterface
    *   The parent entity if found else the form entity.
@@ -173,7 +168,6 @@ class ParagraphsPreviewController extends ControllerBase {
         // Based on \Drupal\Core\Entity\EntityViewBuilder to allow arbitrary
         // field data to be rendered.
         // See https://www.drupal.org/node/2274169
-
         // Push the item as the single value for the field, and defer to
         // FieldItemBase::view() to build the render array.
         $parent_clone->{$parent_field_name}->setValue([$parent_field_item_value]);

@@ -215,6 +215,12 @@ class ViewsBulkOperationsBulkForm extends FieldPluginBase implements CacheableDe
       'redirect_url' => Url::createFromRequest(clone $this->requestStack->getCurrentRequest()),
       'exposed_input' => $this->view->getExposedInput(),
     ];
+    $query = $variable['redirect_url']->getOption('query');
+    if (!$query) {
+      $query = [];
+    }
+    $query += $variable['exposed_input'];
+    $variable['redirect_url']->setOption('query', $query);
 
     // Create tempstore data object if it doesn't exist.
     if (!is_array($this->tempStoreData)) {
@@ -624,7 +630,7 @@ class ViewsBulkOperationsBulkForm extends FieldPluginBase implements CacheableDe
         $action_id = $form_state->getValue('action');
         if (!empty($action_id)) {
           $action = $this->actions[$action_id];
-          if ($this->isConfigurable($action)) {
+          if ($this->isActionConfigurable($action)) {
             $actionObject = $this->actionManager->createInstance($action_id);
             $form['header'][$this->options['id']]['configuration'] += $actionObject->buildConfigurationForm($form['header'][$this->options['id']]['configuration'], $form_state);
             $form['header'][$this->options['id']]['configuration']['#config_included'] = TRUE;
@@ -778,7 +784,7 @@ class ViewsBulkOperationsBulkForm extends FieldPluginBase implements CacheableDe
         $this->tempStoreData['list'] = [];
       }
 
-      $configurable = $this->isConfigurable($action);
+      $configurable = $this->isActionConfigurable($action);
 
       // Get configuration if using AJAX.
       if ($configurable && empty($this->options['form_step'])) {
@@ -892,7 +898,7 @@ class ViewsBulkOperationsBulkForm extends FieldPluginBase implements CacheableDe
   /**
    * Check if an action is configurable.
    */
-  protected function isConfigurable($action) {
+  protected function isActionConfigurable($action) {
     return (in_array('Drupal\Core\Plugin\PluginFormInterface', class_implements($action['class']), TRUE) || method_exists($action['class'], 'buildConfigurationForm'));
   }
 

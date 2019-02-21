@@ -61,8 +61,7 @@ class RouteSubscriber extends RouteSubscriberBase {
           '_title' => 'Clone ' . $entity_type->getLabel(),
         ])
         ->addRequirements([
-          '_permission' => 'clone ' . $entity_type_id . ' entity',
-          '_entity_access', $entity_type_id . '.clone',
+          '_entity_access' => $entity_type_id . '.clone',
         ])
         ->setOption('_entity_clone_entity_type_id', $entity_type_id)
         ->setOption('_admin_route', TRUE)
