@@ -97,13 +97,13 @@
   <div class="grid-container content-bump-up bg-white spacing-xs padding-sides-sm" >
     <div class="grid-x grid-margin-x">
       <div class="thirds-main cell medium-8">
+        {{ content.field_addtoany }}
         {{ content.field_dates }}
         {{ content.body }}
 
       </div>
       <div class="thirds-right cell medium-4">
-        {% if content.field_pdf %}
-
+        {% if content.field_pdf %}{{ content.field_pdf }}
         {{ content.field_pdf }}
         {% endif %}
         {{ content.field_image }}
