@@ -58,7 +58,7 @@ section.block-block-contentfe8537ce-54d8-467c-ba0f-931c4b8e3ced {
   }
   &.large {
     font-weight: 900;
-    margin-bottom: 15px;
+    margin: 15px;
     @include breakpoint(smedium) {
       font-size: 1.25rem;
     }
