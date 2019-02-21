@@ -10,8 +10,6 @@ use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Menu\MenuActiveTrailInterface;
 use Drupal\Core\Menu\MenuLinkTreeInterface;
 use Drupal\Core\Menu\MenuTreeParameters;
-use Drupal\Core\Link;
-use Drupal\Core\Render\Markup;
 
 /**
  * Provides an extended Menu block.
@@ -137,23 +135,6 @@ class MenuBlock extends SystemMenuBlock {
       ],
     ];
 
-    $form['advanced']['label_link'] = [
-      '#type' => 'checkbox',
-      '#title' => $this->t('Link the title?'),
-      '#default_value' => $config['label_link'],
-      '#states' => [
-        'visible' => [
-          ':input[name="settings[label_type]"]' => [
-            ['value' => self::LABEL_ACTIVE_ITEM],
-            ['value' => self::LABEL_PARENT],
-            ['value' => self::LABEL_ROOT],
-            ['value' => self::LABEL_FIXED_PARENT ],
-            ['value' => 'initial_menu_item'],
-          ],
-        ],
-      ],
-    ];
-
     $form['style'] = [
       '#type' => 'details',
       '#title' => $this->t('HTML and style options'),
@@ -205,7 +186,6 @@ class MenuBlock extends SystemMenuBlock {
     $this->configuration['parent'] = $form_state->getValue('parent');
     $this->configuration['suggestion'] = $form_state->getValue('suggestion');
     $this->configuration['label_type'] = $form_state->getValue('label_type');
-    $this->configuration['label_link'] = $form_state->getValue('label_link');
   }
 
   /**
@@ -316,7 +296,6 @@ class MenuBlock extends SystemMenuBlock {
       'parent' => $this->getDerivativeId() . ':',
       'suggestion' => strtr($this->getDerivativeId(), '-', '_'),
       'label_type' => self::LABEL_BLOCK,
-      'label_link' => 0,
     ];
   }
 
@@ -453,17 +432,10 @@ class MenuBlock extends SystemMenuBlock {
    *   The menu item title.
    */
   protected function getLinkTitleFromLink($link_id) {
-    $config = $this->configuration;
     $parameters = new MenuTreeParameters();
     $menu = $this->menuTree->load($this->getDerivativeId(), $parameters);
     if ($link = $this->findLinkInTree($menu, $link_id)) {
-      if ($config['label_link']) {
-        $block_link = Link::fromTextAndUrl($link->link->getTitle(), $link->link->getUrlObject())->toString();
-        return Markup::create($block_link);
-      }
-      else {
-        return $link->link->getTitle();
-      }
+      return $link->link->getTitle();
     }
   }
 
