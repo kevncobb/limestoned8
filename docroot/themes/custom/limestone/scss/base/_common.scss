@@ -18,16 +18,16 @@ html {
     line-height: $paragraph-lineheight * 1.03;
   }
   @include breakpoint(large) {
-    font-size: $global-font-size * 1.06;
-    line-height: $paragraph-lineheight * 1.06;
+    font-size: $global-font-size * 1.08;
+    line-height: $paragraph-lineheight * 1.08;
   }
   @include breakpoint(xlarge) {
-    font-size: $global-font-size * 1.10;
-    line-height: $paragraph-lineheight * 1.10;
+    font-size: $global-font-size * 1.15;
+    line-height: $paragraph-lineheight * 1.15;
   }
   @include breakpoint(xxlarge) {
-    font-size: $global-font-size * 1.14;
-    line-height: $paragraph-lineheight * 1.14;
+    font-size: $global-font-size * 1.19;
+    line-height: $paragraph-lineheight * 1.19;
   }
 }
 .skip-link {
