@@ -83,12 +83,6 @@
       border-bottom: thin solid #eee;
       float: left;
       clear: left;
-      &:focus, &:hover {
-        background-color: #E7E7E7;
-        a {
-          color: $limestone-blue;
-        }
-      }
       &:last-child {
         border-bottom: none;
       }
@@ -104,6 +98,10 @@
         margin-bottom: 4px;
         font-size: 18px;
         line-height: 24px;
+        &:focus, &:hover {
+          background-color: #E7E7E7;
+          color: $limestone-blue;
+        }
       }
     }
   }

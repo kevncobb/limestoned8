@@ -150,6 +150,11 @@ p {
     position: absolute;
   }
 }
+.content-container {
+  .grid-x.grid-margin-x {
+    @extend .grid-container;
+  }
+}
 .v-centered-container {
   position: relative;
   background-size: cover;
