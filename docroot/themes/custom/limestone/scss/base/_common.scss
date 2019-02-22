@@ -152,7 +152,7 @@ p {
 }
 .content-container {
   > div {
-    > div.small-12.grid-x {
+    > div.grid-x {
       @extend .grid-container;
       display: inherit;
     }
