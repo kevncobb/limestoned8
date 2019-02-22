@@ -154,6 +154,7 @@ p {
   > div {
     > div.small-12.grid-x {
       @extend .grid-container;
+      display: inherit;
     }
   }
 }
