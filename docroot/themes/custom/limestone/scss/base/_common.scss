@@ -151,8 +151,10 @@ p {
   }
 }
 .content-container {
-  .grid-x.grid-margin-x {
-    @extend .grid-container;
+  > div {
+    > div.small-12.grid-x {
+      @extend .grid-container;
+    }
   }
 }
 .v-centered-container {
