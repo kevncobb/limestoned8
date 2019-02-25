@@ -16,7 +16,6 @@ header.site-header {
   .site-header-meta-links {
     position: relative;
     margin-right: 0;
-    top: 8px;
     .button.search-button {
       padding: 0.55rem 0.1rem;
       span {
@@ -24,21 +23,13 @@ header.site-header {
         border: 2px solid white;
         padding: 0.5em;
         font-size: 1rem;
-        &.icon-search {
-          -moz-transform: scaleX(-1);
-          -o-transform: scaleX(-1);
-          -webkit-transform: scaleX(-1);
-          transform: scaleX(-1);
-          filter: FlipH;
-          -ms-filter: "FlipH";
-        }
-        @include breakpoint(smedium) {
-          font-size: 1.3rem;
-        }
       }
     }
     @include breakpoint(smedium) {
-      top: 19px;
+      .align-right {
+        position: relative;
+        top: 17px;
+      }
     }
   }
   /*
