@@ -48,9 +48,9 @@
 .lc-btn {
   padding: 8px 17px;
   text-transform: uppercase;
-  background-color: rgba(230, 230, 230, 0.69);
+  background-color: white;
   font-family: $header-font-family;
-  font-weight: 800;
+  font-weight: 600;
   color: $limestone-blue;
   display: inline-block;
   position: relative;
@@ -64,8 +64,7 @@
   text-decoration: none;
 
   &:hover, &:focus {
-    color: black;
-
+    color: rgba(230, 230, 230, 0.69);
     &::after {
       right: -33px;
       transition: right 100ms ease-in-out;
@@ -86,6 +85,7 @@
   &::after {
     content: "\f078";
     position: absolute;
+    color: white;
     transform: rotate(-90deg);
     font-size: 16px;
     top: 30%;
@@ -123,9 +123,8 @@
     background-color: rgba($limestone-blue, 0.9);
     color: white;
 
-    &::before {
-      //background-color: $limestone-yellow
-
+    &:focus, &:hover {
+      color: #fff5a9;
     }
   }
 
