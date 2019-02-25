@@ -64,9 +64,10 @@
   text-decoration: none;
 
   &:hover, &:focus {
-    color: rgba(230, 230, 230, 0.69);
+    color: $category;
     &::after {
       right: -33px;
+      color: $category;
       transition: right 100ms ease-in-out;
     }
   }
