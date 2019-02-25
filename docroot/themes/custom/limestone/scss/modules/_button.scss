@@ -67,7 +67,6 @@
     color: $category;
     &::after {
       right: -33px;
-      color: $category;
       transition: right 100ms ease-in-out;
     }
   }
