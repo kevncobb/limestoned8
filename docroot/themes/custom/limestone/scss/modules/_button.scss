@@ -84,19 +84,20 @@
   }
 
   &::after {
-    content: "";
-    background: url(/themes/custom/limestone/images/lc-sprite.svg) no-repeat;
-    background-position: 68.5% 9%;
-    background-size: 444px;
+    content: "\f078";
     position: absolute;
-    right: -30px;
-    top: 24%;
-    height: 25px;
-    width: 17px;
-    transition: right 100ms ease-in-out;
-    @media screen and (-webkit-min-device-pixel-ratio: 0) {
-      background-position: 68.5% 10%;
-    }
+    font-size: 0.8rem;
+    top: 34%;
+    right: 9px;
+    font-family: "icomoon" !important;
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
   &.larger {
@@ -104,9 +105,6 @@
     font-size: 20px;
 
     &::after {
-      background-size: 487px;
-      background-position: -321px -40px;
-      top: 10px;
     }
 
     &.back {
