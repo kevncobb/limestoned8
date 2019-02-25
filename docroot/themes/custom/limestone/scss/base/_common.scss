@@ -14,19 +14,19 @@
 html {
   scroll-behavior: smooth;
   @include breakpoint(medium) {
-    font-size: $global-font-size * 1.03;
+    font-size: $global-font-size * 1.02;
     line-height: $paragraph-lineheight * 1.03;
   }
   @include breakpoint(large) {
-    font-size: $global-font-size * 1.08;
+    font-size: $global-font-size * 1.05;
     line-height: $paragraph-lineheight * 1.08;
   }
   @include breakpoint(xlarge) {
-    font-size: $global-font-size * 1.15;
+    font-size: $global-font-size * 1.09;
     line-height: $paragraph-lineheight * 1.15;
   }
   @include breakpoint(xxlarge) {
-    font-size: $global-font-size * 1.19;
+    font-size: $global-font-size * 1.11;
     line-height: $paragraph-lineheight * 1.19;
   }
 }
@@ -277,13 +277,17 @@ p {
   padding-top: 2rem;
   padding-bottom: 2rem;
 }
-.space-xs {
-  margin-top: 2rem;
-  margin-bottom: 2rem;
+.spacing-top-xs {
+  padding-top: 2rem;
 }
 .spacing-bottom-xs {
   padding-bottom: 2rem;
 }
+.space-xs {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
 .spacing-sm {
   padding-top: 4rem;
   padding-bottom: 4rem;
