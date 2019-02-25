@@ -31,7 +31,7 @@ ul.styled-list-xs {
 ul.styled-list-xs li,
 ul.styled-list-xs div.field--item {
   font-size: 1.5rem;
-  padding: 3px 2px;
+  padding: 2px 2px;
   list-style-type: none;
   margin-left: 4px;
 }

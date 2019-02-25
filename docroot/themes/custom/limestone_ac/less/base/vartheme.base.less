@@ -130,9 +130,23 @@ p:last-child,
 
 // Search form.
 form#search-block-form {
-  margin: 0;
+  margin: 2rem 0;
+  max-width: 300px;
+  .description {
+    display: none;
+  }
+  button.form-submit {
+    background-color: @gray-shade;
+    border-color: @gray-light;
+    span.icon {
+      top: 3px;
+      color: white;
+    }
+  }
 }
-
+.form-type-search {
+  max-width: 450px;
+}
 .navbar #block-search-form {
   float: none;
   margin: 5px 0 5px 5px;

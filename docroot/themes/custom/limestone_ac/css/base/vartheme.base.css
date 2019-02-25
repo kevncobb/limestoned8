@@ -88,7 +88,22 @@ p:last-child,
   overflow: hidden;
 }
 form#search-block-form {
-  margin: 0;
+  margin: 2rem 0;
+  max-width: 300px;
+}
+form#search-block-form .description {
+  display: none;
+}
+form#search-block-form button.form-submit {
+  background-color: #aaaaaa;
+  border-color: #777777;
+}
+form#search-block-form button.form-submit span.icon {
+  top: 3px;
+  color: white;
+}
+.form-type-search {
+  max-width: 450px;
 }
 .navbar #block-search-form {
   float: none;

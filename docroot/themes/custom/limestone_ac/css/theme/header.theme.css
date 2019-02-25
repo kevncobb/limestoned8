@@ -28,6 +28,11 @@
 .sub_menu {
   padding-bottom: 2rem;
 }
+.sub_menu .caret {
+  top: 47%;
+  position: absolute;
+  right: 1px;
+}
 .region-sub-menu {
   background-color: #f4f5f7;
 }

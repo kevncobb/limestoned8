@@ -43,6 +43,10 @@
   padding-top: 5rem;
   padding-bottom: 5rem;
 }
+.padding-xs-horizontal, .spacing-sides-xs {
+  padding-left: @padding-xs-horizontal;
+  padding-right: @padding-xs-horizontal;
+}
 .col-3 {
   @media (min-width: @screen-xs) {
     column-count: 2;
@@ -61,6 +65,9 @@
 }
 .margin-bottom-0 {
   margin-bottom: 0;
+}
+.margin-bottom, .margin-bottom-1 {
+  margin-bottom: 1rem;
 }
 .split-col {
   @media (min-width: @screen-xs) {
@@ -91,10 +98,29 @@
 
 .degree-plan-wrapper {
   margin: 5px 0 0 0;
-  .degree-plan-header {
-    font-weight: bold;
-    color: @brand-primary;
-    padding-left: 5px;
+  a.degree-plan-header {
+    color: white;
+    background: #0038a5;
+    text-transform: uppercase;
+    padding: 15px;
+    font-weight: 100;
+    margin: 3rem 0;
+    font-size: 2.5rem;
+    margin-bottom: -3rem;
+    display: block;
+    position: relative;
+    z-index: 2;
+    &:focus, &:hover {
+      cursor: pointer;
+    }
+    &:after {
+      content: "Click for full view";
+      font-size: 1.2rem;
+      display: block;
+      clear: both;
+      padding-left: 1px;
+      text-transform: none;
+    }
   }
 
 }
