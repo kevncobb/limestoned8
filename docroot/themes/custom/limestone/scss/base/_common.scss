@@ -13,22 +13,6 @@
 }
 html {
   scroll-behavior: smooth;
-  @include breakpoint(medium) {
-    font-size: $global-font-size * 1.02;
-    line-height: $paragraph-lineheight * 1.03;
-  }
-  @include breakpoint(large) {
-    font-size: $global-font-size * 1.05;
-    line-height: $paragraph-lineheight * 1.08;
-  }
-  @include breakpoint(xlarge) {
-    font-size: $global-font-size * 1.09;
-    line-height: $paragraph-lineheight * 1.15;
-  }
-  @include breakpoint(xxlarge) {
-    font-size: $global-font-size * 1.11;
-    line-height: $paragraph-lineheight * 1.19;
-  }
 }
 .skip-link {
   &:focus {
