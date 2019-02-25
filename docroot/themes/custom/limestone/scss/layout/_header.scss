@@ -24,6 +24,14 @@ header.site-header {
         border: 2px solid white;
         padding: 0.5em;
         font-size: 1rem;
+        &.icon-search {
+          -moz-transform: scaleX(-1);
+          -o-transform: scaleX(-1);
+          -webkit-transform: scaleX(-1);
+          transform: scaleX(-1);
+          filter: FlipH;
+          -ms-filter: "FlipH";
+        }
         @include breakpoint(smedium) {
           font-size: 1.3rem;
         }
