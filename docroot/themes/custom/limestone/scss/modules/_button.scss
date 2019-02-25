@@ -65,6 +65,9 @@
 
   &:hover, &:focus {
     color: $category;
+    &::before {
+      background-color: $limestone-light-blue;
+    }
     &::after {
       right: -33px;
       transition: right 100ms ease-in-out;
