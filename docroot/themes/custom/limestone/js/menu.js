@@ -18,7 +18,7 @@
         this.$rootItems = this.$id.children('ul.root-level li[tabindex="0"]'); // jQuery array of all root-level menu items
         this.$items = this.$id.find('.menu-item').not('.separator'); // jQuery array of menu items
 
-        this.$parents = this.$id.find('.is-dropdown-submenu-parent'); // jQuery array of menu items
+        this.$parents = this.$id.find('.menu-item--expanded'); // jQuery array of menu items
         this.$parents.attr( "aria-haspopup", "true" );
         this.$allItems = this.$parents.add(this.$items); // jQuery array of all menu items
 
@@ -133,7 +133,7 @@
         // add hover style
         $item.addClass('menu-hover');
         // expand the first level submenu
-        if ($item.hasClass ('is-dropdown-submenu-parent')) {
+        if ($item.hasClass ('menu-item--expanded')) {
             $item.children('ul').attr('aria-hidden', 'false');
             this.bChildOpen = true;
         }
@@ -381,7 +381,7 @@
             case this.keys.enter:
             case this.keys.space: {
 
-                if (!($item.hasClass('is-dropdown-submenu-parent'))) {
+                if (!($item.hasClass('menu-item--expanded'))) {
                     // user pressed enter or space on a dropdown menu item,
                     // not an item on the menu bar
                     // get the target href and go there
@@ -389,7 +389,7 @@
                     console.log($item.find('a').attr('href'));
                     return false;
                 }
-                if ($item.hasClass('is-dropdown-submenu-parent')) {
+                if ($item.hasClass('menu-item--expanded')) {
                     // user pressed enter or space on a dropdown menu item,
                     // not an item on the menu bar
                     // get the target href and go there
@@ -846,9 +846,8 @@
             if (ww >= 540) {
                 var navgateway = new Menubar('block-mainnavigation', false);
             }
-            /*
             if (ww < 540) {
-                $('.expander-content ul.menubar li.menu-item.is-dropdown-submenu-parent > a').bind('touchstart click', function(event) {
+                $('.expander-content ul.menubar li.menu-item.menu-item--expanded > a').bind('touchstart click', function(event) {
                     // If submenu is not hidden
                     if ($(this).siblings('ul.menu.dropdown').attr('aria-hidden') == 'false') {
                         // HIDE it for screenreaders
@@ -869,7 +868,7 @@
                     event.stopPropagation();
                     event.preventDefault();
                 });
-            }*/
+            }
         });
 
 } (Drupal, jQuery, this));

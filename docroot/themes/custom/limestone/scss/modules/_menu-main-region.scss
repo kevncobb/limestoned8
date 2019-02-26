@@ -12,12 +12,12 @@
   ul.main-menu > li > a {
     padding: 1rem 1rem;
   }
-  .dropdown.menu>li.is-dropdown-submenu-parent>a {
+  .dropdown.menu>li.menu-item--expanded>a {
     &:focus, &:hover {
       color: $success-color;
     }
   }
-  ul.dropdown.menu > li.is-dropdown-submenu-parent {
+  ul.dropdown.menu > li.menu-item--expanded {
     > a::before {
       content: "\f078";
       font-family: 'icomoon' !important;
