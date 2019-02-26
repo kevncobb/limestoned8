@@ -1,62 +1,124 @@
-// All Menus
-@include breakpoint(smedium) {
-  .menubar {
-    //Global Menubar styles
-    ul[aria-hidden=true] {
-      display: none;
+.main-menu-region {
+  font-size: 1.1em !important;
+  font-family: $header-font-family;
+  font-weight: 600;
+  box-shadow: 0 1px 1px rgba(34,25,25,0.3);
+  @include breakpoint(large) {
+    font-size: 1.25em !important;
+  }
+  ul.grid-container.align-center {
+    margin: 0 auto;
+  }
+  ul.main-menu > li > a {
+    padding: 1rem 1rem;
+  }
+  .dropdown.menu>li.menu-item--expanded>a {
+    &:focus, &:hover {
+      color: $success-color;
     }
-    ul[aria-hidden=false] {
-      display: block;
-      opacity: 1;
-    }
-    ul {
+  }
+  ul.dropdown.menu > li.menu-item--expanded {
+    > a::before {
+      content: "\f078";
+      font-family: 'icomoon' !important;
+      speak: none;
+      color: $primary-color;
+      font-style: normal;
+      font-weight: normal;
+      font-variant: normal;
+      text-transform: none;
+      line-height: 1;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      font-size: 13px;
+      border: inset 0px;
       position: absolute;
-      top: 1.7em;
-      -webkit-transition: 0.1s linear opacity;
-      min-width: 150px;
-      z-index: 9;
-      cursor: hand;
+      right: 0.6rem;
+      left: auto;
+      margin-top: 0.2rem;
     }
+    > a::after {
+      content: "";
+      position: absolute;
+      right: -17px;
+      height: 37px;
+      width: 22px;
+      top: 17px;
+      background: url(/themes/custom/limestone/images/slash.svg) 0px 0px no-repeat;
+      background-size: 15px;
+    }
+    &.is-active {
+      color: $success-color;
+      > a::before {
+        content: "\ea34";
+        color: $success-color;
+        font-size: 15px;
+        right: 0.6rem;
+        margin-top: 0.2rem;
+      }
+    }
+  }
+  a:focus, a:hover {
+    color: $success-color;
+  }
+  .menu.dropdown {
+    text-transform: uppercase;
+    padding: 7px 0 5px 0;
+    margin: 0 auto;
+  }
+  .submenu {
+    background-color: white;
+    border: none;
+    border-top: 4px solid $limestone-blue;
+    min-width: 260px;
+    padding: 10px 0;
+    text-transform: none;
+    -webkit-box-shadow: 1px 1px 8px rgba(0,0,0,.5);
+    -moz-box-shadow: 1px 1px 8px rgba(0,0,0,.5);
+    box-shadow: 1px 1px 8px rgba(0,0,0,.5);
+    z-index: 100;
     > li {
-      &.menu-item--expanded {}
-    }
-    li {
+      width: 80%;
+      margin: 0 10%;
+      border-bottom: thin solid #eee;
       float: left;
-      position: relative;
-      display: inline;
-      margin: 0;
-      > a {
-        float: left;
-        padding: 16px 13px;
-        font-weight: 600;
-        width: 100%;
-        text-decoration: none;
-        &:hover,
-        &:focus {
-          outline: none;
-          &:before {}
+      clear: left;
+      &:last-child {
+        border-bottom: none;
+      }
+      a {
+        color: $dark-gray;
+        font-weight: 400;
+        padding-bottom: 4px;
+        padding-left: 10px;
+        padding-top: 4px;
+        margin-left: 0;
+        margin-right: 0;
+        margin-top: 4px;
+        margin-bottom: 4px;
+        font-size: 18px;
+        line-height: 24px;
+        &:focus, &:hover {
+          background-color: #E7E7E7;
+          color: $limestone-blue;
         }
       }
     }
   }
-  //White Submenu menubar styles
-  .expander-content .menubar {
-    font-family: $header-font-family;
-    ul {
-      top: 2.5em;
-      &.menu-focus {
-        > a::before {}
-      }
-    }
+  nav {
+
+
   }
 }
 
-
-@include breakpoint(smedium) {
+@include breakpoint(medium) {
   a.lc-mobile-menu-toggle {
-    display: none;
+  display: none
   }
   .expander-hidden + .expander-content {
+<<<<<<< HEAD
+    display: block
+=======
     display: block;
   }
   nav.sub-menu-block {
@@ -138,7 +200,6 @@
     }
     ul.dropdown {
       top: 2.75rem;
-      margin-left: 0;
       border: 0;
       border-top: 4px solid $limestone-blue;
       padding: 10px 0;
@@ -183,19 +244,9 @@
         }
       }
     }
+>>>>>>> parent of 8fece7cc9... styled menu
   }
 }
-
-
-
-
-$base-font-size: 1em !default;
-$base-line-height: 1.5em !default;
-$base-spacing: 1.5em !default;
-$action-color: #477DCA !default;
-$dark-gray: #333 !default;
-$light-gray: #DDD !default;
-$base-font-color: $dark-gray !default;
 $expander-arrow-width: 0.7em;
 $expander-toggle-size: 1em;
 $expander-toggle-arrow-size: $expander-toggle-size;
@@ -209,9 +260,10 @@ $expander-toggle-margin: 1em;
     position: relative;
     background: white;
   }
+
   .expander-trigger {
     //border-bottom: 1px solid $light-gray
-    color: $action-color;
+    color: $success-color;
     cursor: pointer;
     display: block;
     float: right;
@@ -220,104 +272,49 @@ $expander-toggle-margin: 1em;
     padding: 0.1em 1em;
     text-decoration: none;
     user-select: none;
+
     &::before {
       content: "";
       position: absolute;
-      right: 61px;
-      top: 0px;
+      right: 77px;
+      top: 6px;
       width: 20px;
       height: 40px;
-      background: url(/themes/custom/limestone/images/lc-sprite.svg) no-repeat -621px 2px transparent;
-      background-size: 643px !important;
+      background: url(/themes/custom/limestone/images/lc-sprite.svg) no-repeat -631px 6px transparent;
+      background-size: 651px !important;
     }
+
     &::after {
       // Icon-chevron-down
-      content: "";
+      content: "\f078";
       position: absolute;
-      top: 17px;
-      right: 22px;
+      top: 20px;
+      right: 30px;
       font-family: "icomoon" !important;
       speak: none;
       font-style: normal;
       font-weight: normal;
       font-variant: normal;
       text-transform: none;
-      font-size: 1.7em;
+      font-size: 1.6rem;
       line-height: 1;
-      /* Better Font Rendering =========== */
+
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
     }
   }
+
   .expander-content {
     clear: both;
+
     a {
       text-decoration: none;
     }
-    ul.menubar {
-      li.menu-item {
-        width: 100%;
-        display: block;
-        padding: 0;
-        margin: 0;
-        -webkit-font-smoothing: auto;
-        background-color: #eee;
-        border-bottom: 1px solid #fff;
-        a {
-          padding: 10px 10px 10px 20px;
-          width: 100%;
-          display: block;
-          color: $limestone-blue;
-          border-bottom: thin solid #eee;
-          position: relative;
-        }
-        ul.menu.dropdown {
-          &[aria-hidden=true] {
-            display: none;
-          }
-          &[aria-hidden=false] {
-            display: block;
-            opacity: 1;
-          }
-        }
-      }
-      li.menu-item.menu-item--expanded {
-        position: relative;
-        &.expanded {
-          &::after {
-            background-position: (-283px) -24px;
-          }
-        }
-        > a {
-          &::after {
-            content: "";
-            position: absolute;
-            top: 11px;
-            right: 11px;
-            width: 26px;
-            height: 23px;
-            background: url(/themes/custom/limestone/images/lc-sprite.svg) no-repeat -283px -1px;
-            background-size: 643px !important;
-            opacity: 0.8;
-            margin-top: 0;
-          }
-        }
-        ul.menu.dropdown li.menu-item {
-          background: white;
-          font-size: 1rem;
-          a {
-            padding: 8px 10px 8px 25px;
-          }
-        }
-        ul.menu.dropdown li.menu-item.added-toplevel-link {
-          font-size: 98%;
-          a {
-            padding: 8px 10px 8px 20px;
-          }
-        }
-      }
+    .is-drilldown {
+      max-width: none !important;
     }
   }
+
   .expander-hidden + .expander-content {
     display: none;
   }
