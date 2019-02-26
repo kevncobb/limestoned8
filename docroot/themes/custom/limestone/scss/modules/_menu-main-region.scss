@@ -41,7 +41,7 @@
     li:first-child {
       &:focus {
         &::before {
-          content: "Keyboard users please use arrow keys for navigating this menu.";
+          content: "Keyboard users may use the arrow keys for navigating this menu.";
           position: absolute;
           bottom: 100%;
           display: inline-block;
