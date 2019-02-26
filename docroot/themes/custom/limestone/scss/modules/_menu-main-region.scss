@@ -25,6 +25,8 @@
       position: relative;
       display: inline;
       margin: 0;
+      list-style-type: none;
+      list-style-image: none;
       > a {
         float: left;
         padding: 16px 13px;
@@ -38,7 +40,7 @@
         }
       }
     }
-    li:first-child {
+    > li:first-child {
       &:focus {
         &::before {
           content: "Keyboard users may use the arrow keys for navigating this menu.";
