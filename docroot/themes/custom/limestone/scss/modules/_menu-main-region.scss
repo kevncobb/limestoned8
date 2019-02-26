@@ -64,6 +64,7 @@
     position: relative;
     z-index: 5;
     text-transform: uppercase;
+    font-size: 1.3rem;
     a {
       color: $limestone-blue;
     }
@@ -107,9 +108,10 @@
         &::before {
           // Icon-chevron-down
           content: "\f078";
+          font-size: 1rem;
           position: absolute;
-          top: 0.5em;
-          right: 0.4em;
+          top: 0.55rem;
+          right: 0.8rem;
           font-family: "icomoon" !important;
           speak: none;
           font-style: normal;
@@ -136,7 +138,7 @@
       }
     }
     ul.dropdown {
-      top: 2em;
+      top: 2rem;
       border: 0;
       border-top: 4px solid $limestone-blue;
       padding: 10px 0;
@@ -155,7 +157,6 @@
         float: left;
         clear: left;
         border-bottom: thin solid #eee;
-        font-size: modular-scale(0);
         &:last-child {
           border: none;
         }
