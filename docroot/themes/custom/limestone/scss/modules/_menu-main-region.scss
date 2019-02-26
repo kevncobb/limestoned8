@@ -27,7 +27,8 @@
       margin: 0;
       > a {
         float: left;
-        padding: 6px 15px;
+        padding: 16px 13px;
+        font-weight: 600;
         width: 100%;
         text-decoration: none;
         &:hover,
@@ -74,8 +75,6 @@
       max-width: 65.15789rem;
       > li {
         > a {
-          padding-top: 0.5rem;
-          padding-bottom: 0.5rem;
           &:after {
             content: "";
             position: absolute;
@@ -99,7 +98,7 @@
       }
     }
     // Dropdowns
-    li.menu-item--expanded {
+    > li.menu-item--expanded {
       // &:last-child
       //  > a
       //    padding-right: 0
@@ -108,9 +107,9 @@
         &::before {
           // Icon-chevron-down
           content: "\f078";
-          font-size: 1rem;
+          font-size: 0.8rem;
           position: absolute;
-          top: 0.55rem;
+          top: 0.95rem;
           right: 0.8rem;
           font-family: "icomoon" !important;
           speak: none;
@@ -138,7 +137,7 @@
       }
     }
     ul.dropdown {
-      top: 2rem;
+      top: 2.75rem;
       border: 0;
       border-top: 4px solid $limestone-blue;
       padding: 10px 0;
@@ -148,6 +147,7 @@
       -webkit-box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.5);
       -moz-box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.5);
       box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.5);
+      font-size: 1rem;
       li {
         width: 80%;
         margin: 0 10%;
