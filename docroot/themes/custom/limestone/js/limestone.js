@@ -24,6 +24,14 @@
       $(context).find('.lc-callout right').prepend( "<span class='watermark right'>&nbsp;</span>" );
     }
   };
+  Drupal.behaviors.flyout = {
+    attach: function (context, settings) {
+      // Using once() to apply the myCustomBehaviour effect when you want to do just run one function.
+      $(context).find('.flyout').click(function() {
+        $(this).toggleClass('open');
+      });
+    }
+  };
   Drupal.behaviors.trim_next_headline = {
     attach: function (context, settings) {
       // Using once() to apply the myCustomBehaviour effect when you want to do just run one function.
