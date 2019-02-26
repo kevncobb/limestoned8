@@ -67,6 +67,9 @@ div.apply-now-wrapper {
   transition: 0.3s ease-in-out;
   &.open {
     width: 233px;
+    div.apply-now {
+      left: -31px;
+    }
   }
   div.apply-tab {
     cursor: pointer;
@@ -84,7 +87,7 @@ div.apply-now-wrapper {
     font-size: 20px;
     line-height: 20px;
     color: white;
-    background-color: rgba($alert-color, 0.8);
+    background-color: rgba($alert-color, 0.9);
     -webkit-transform: rotate(90deg);
     -moz-transform: rotate(90deg);
     -ms-transform: rotate(90deg);
@@ -94,7 +97,7 @@ div.apply-now-wrapper {
     list-style-type: none;
     display: block;
     width: 180px;
-    background: $limestone-yellow;
+    background: rgba($alert-color, 0.9);
     li {
       list-style-type: none;
       a {
@@ -102,6 +105,7 @@ div.apply-now-wrapper {
         padding: 8px 10px;
         text-align: center;
         text-transform: uppercase;
+        text-decoration: none;
         font-size: 16px;
         font-family: $header-font-family;
         font-weight: 300;
