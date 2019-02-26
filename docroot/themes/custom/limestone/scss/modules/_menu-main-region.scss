@@ -29,7 +29,7 @@
       list-style-image: none;
       > a {
         float: left;
-        padding: 16px 13px;
+        padding: 18px 13px;
         font-weight: 600;
         width: 100%;
         text-decoration: none;
@@ -97,11 +97,12 @@
           &:after {
             content: "";
             position: absolute;
-            right: -11px;
+            right: -6px;
             height: 24px;
             width: 12px;
-            top: 13px;
+            top: 19px;
             background: url("/themes/custom/limestone/images/slash.svg") no-repeat;
+            background-size: 13px;
           }
         }
       }
@@ -128,7 +129,7 @@
           content: "\f078";
           font-size: 0.8rem;
           position: absolute;
-          top: 0.95rem;
+          top: 1.1rem;
           right: 0.8rem;
           font-family: "icomoon" !important;
           speak: none;
