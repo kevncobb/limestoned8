@@ -66,17 +66,17 @@ div.apply-now-wrapper {
   -ms-transition: 0.3s ease-in-out;
   transition: 0.3s ease-in-out;
   &.open {
-    width: 233px;
+    width: 245px;
   }
   div.apply-tab {
     cursor: pointer;
     position: relative;
     display: block;
-    left: -98px;
-    top: 53px;
+    left: -105px;
+    top: 106px;
     width: 160px;
     height: 51px;
-    padding-top: 18px;
+    padding-top: 14px;
     text-align: center;
     text-transform: uppercase;
     letter-spacing: 1px;
@@ -93,7 +93,7 @@ div.apply-now-wrapper {
     .half-circle-top {
       background-color: rgba($alert-color, 0.9);
       position: absolute;
-      bottom: -18%;
+      bottom: -11px;
       left: 42%;
       display: inline-block;
       transform: rotate(180deg);
