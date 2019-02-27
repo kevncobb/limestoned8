@@ -298,6 +298,9 @@ body.section-trip {
     font-size: 320%;
   }
 }
+.splash-mega-title {
+  @extend .mega-title;
+}
 .big-title {
   @media screen and (min-width: 40em) {
     font-size: 3.8rem;

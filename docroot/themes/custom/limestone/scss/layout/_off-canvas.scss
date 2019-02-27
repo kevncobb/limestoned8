@@ -57,7 +57,7 @@ div.apply-now-wrapper {
   overflow: hidden;
   z-index: 10;
   position: fixed;
-  top: 33%;
+  top: 20.5%;
   right: 0px;
   width: 53px;
   padding-left: 65px;
@@ -76,13 +76,13 @@ div.apply-now-wrapper {
     top: 106px;
     width: 160px;
     height: 51px;
-    padding-top: 14px;
+    padding-top: 16px;
     text-align: center;
     text-transform: uppercase;
     letter-spacing: 1px;
     font-family: $header-font-family;
     font-weight: 600;
-    font-size: 20px;
+    font-size: 29px;
     line-height: 20px;
     color: white;
     background-color: rgba($alert-color, 0.9);
@@ -93,7 +93,7 @@ div.apply-now-wrapper {
     .half-circle-top {
       background-color: rgba($alert-color, 0.9);
       position: absolute;
-      bottom: -11px;
+      bottom: -9px;
       left: 42%;
       display: inline-block;
       transform: rotate(180deg);
