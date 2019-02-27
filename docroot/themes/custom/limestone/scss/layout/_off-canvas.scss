@@ -60,7 +60,7 @@ div.apply-now-wrapper {
   top: 33%;
   right: 0px;
   width: 53px;
-  padding-left: 53px;
+  padding-left: 65px;
   -webkit-transition: 0.3s ease-in-out;
   -moz-transition: 0.3s ease-in-out;
   -ms-transition: 0.3s ease-in-out;
@@ -70,13 +70,13 @@ div.apply-now-wrapper {
   }
   div.apply-tab {
     cursor: pointer;
-    position: absolute;
+    position: relative;
     display: block;
-    left: -54px;
+    left: -98px;
     top: 53px;
-    width: 163px;
+    width: 160px;
     height: 51px;
-    padding-top: 13px;
+    padding-top: 18px;
     text-align: center;
     text-transform: uppercase;
     letter-spacing: 1px;
@@ -90,6 +90,14 @@ div.apply-now-wrapper {
     -moz-transform: rotate(90deg);
     -ms-transform: rotate(90deg);
     transform: rotate(90deg);
+    .half-circle-top {
+      background-color: rgba($alert-color, 0.9);
+      position: absolute;
+      bottom: -18%;
+      left: 42%;
+      display: inline-block;
+      transform: rotate(180deg);
+    }
   }
   ul {
     list-style-type: none;
