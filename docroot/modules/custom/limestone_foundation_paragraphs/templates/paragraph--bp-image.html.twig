@@ -99,19 +99,18 @@ view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class
 <div{{ attributes.addClass(classes).addClass(layout_background_classes).setAttribute('id', paragraph_id) }}>
   {% if add_container %}<div class="container">{% endif %}
         {% if attributes.hasClass('cover-image') %}
-            <div class="cover-image-inner">
+          <div class="cover-image-inner">
         {% else %}
-            <div class="{{- VBP.bp_width.value -}}">
+          <div class="{{- VBP.bp_width.value -}}">
         {% endif %}
-      <div class="{{- VBP.bp_width.value -}}">
-        {% if paragraph_title and paragraph_title_status %}<h2 class="text-center">{{- paragraph_title -}}</h2>{% endif %}
-        {% if content.bp_link|render is not empty %}
-          <a href="{{ content.bp_link.0['#url'] }}">
-        {% endif %}
-        {{ content|without('bp_title', 'bp_title_status', 'bp_title_status', 'bp_width', 'bp_background', 'bp_link', 'bp_classes', 'bp_gutter') }}
-        {% if content.bp_link|render is not empty %}
-          </a>
-        {% endif %}
-      </div>
+            {% if paragraph_title and paragraph_title_status %}<h2 class="text-center">{{- paragraph_title -}}</h2>{% endif %}
+            {% if content.bp_link|render is not empty %}
+              <a href="{{ content.bp_link.0['#url'] }}">
+            {% endif %}
+            {{ content|without('bp_title', 'bp_title_status', 'bp_title_status', 'bp_width', 'bp_background', 'bp_link', 'bp_classes', 'bp_gutter') }}
+            {% if content.bp_link|render is not empty %}
+              </a>
+            {% endif %}
+          </div>
   {% if add_container %}</div>{% endif %}
 </div>
