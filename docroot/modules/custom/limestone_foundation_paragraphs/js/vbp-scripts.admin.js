@@ -1,4 +1,4 @@
-/**
+  /**
  * @file
  * Behaviors Varbase hero slider media general scripts.
  */
@@ -40,5 +40,13 @@
 
     }
   };
-
+  Drupal.behaviors.customCKEditorConfig = {
+    attach: function (context, settings) {
+      if (typeof CKEDITOR !== "undefined") {
+        CKEDITOR.dtd.$removeEmpty['i'] = false;
+        CKEDITOR.dtd.$removeEmpty['span'] = false;
+        //console.log(CKEDITOR.dtd);
+      }
+    }
+  };
 })(window.jQuery, window._, window.Drupal, window.drupalSettings);

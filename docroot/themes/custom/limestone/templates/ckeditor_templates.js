@@ -41,26 +41,6 @@ CKEDITOR.addTemplates( 'default', {
     '</div>'
 	},
 	{
-		title: 'Slope Separated Content',
-		image: 'template2.gif',
-		description: 'Single column content separated by sloped alternating colors.',
-		html:
-    '<section class="se-container">' +
-    	'<div class="se-slope">' +
-    		'<article class="se-content">' +
-    			'<h3>Sample Headline</h3>' +
-    			'<p>Sample paragraph content.</p>' +
-    		'</article>' +
-    	'</div>' +
-    	'<div class="se-slope">' +
-    		'<article class="se-content">' +
-    			'<h3>Sample Headline</h3>' +
-    			'<p>Sample paragraph content.</p>' +
-    		'</article>' +
-    	'</div>' +
-		'</section>'
-	},
-	{
 		title: 'Text and Table',
 		image: 'template3.gif',
 		description: 'A title with some text and a table.',
