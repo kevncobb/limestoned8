@@ -311,12 +311,16 @@ p {
   padding-bottom: 10rem;
 }
 .padding-sides-sm {
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
   @include breakpoint(smedium) {
     padding-left: 2rem;
     padding-right: 2rem;
   }
 }
 .padding-sides-md {
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
   @include breakpoint(smedium) {
     padding-left: 2rem;
     padding-right: 2rem;
