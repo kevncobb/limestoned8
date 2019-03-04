@@ -63,7 +63,7 @@
     }
 
     &.is-active {
-      color: $success-color;
+      > a { color: $success-color; }
 
       > a::before {
         content: "\ea34";
