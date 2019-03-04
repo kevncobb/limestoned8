@@ -65,8 +65,8 @@ function limestone_foundation_paragraphs_preprocess_paragraph(&$variables) {
     'paragraph--width--tiny' => 'medium-4 medium-offset-4 smedium-8 smedium-offset-2 grid-x',
     'paragraph--width--narrow' => 'medium-6 medium-offset-3 smedium-10 smedium-offset-1 grid-x',
     'paragraph--width--medium' => 'medium-8 medium-offset-2 grid-x',
-    'paragraph--width--wide' => 'medium-10 medium-offset-1 grid-x',
-    'paragraph--width--full' => 'small-12 grid-x',
+    'paragraph--width--wide' => 'medium-10 medium-offset-1 grid-x grid-margin-x',
+    'paragraph--width--full' => 'small-12 grid-x grid-margin-x',
     'bg-edge2edge' => 'bg-edge2edge small-12 grid-x',
   ];
 
