@@ -48,8 +48,10 @@
     }
   };
   $(window).bind("load resize", function() {
-    $('.lc-mobile-menu-toggle').click(function(){
+    $('.lc-mobile-menu-toggle').bind('touchstart click', function(event) {
       $(this).toggleClass("expander-hidden");
+      event.stopPropagation();
+      event.preventDefault();
     });
   });
   Drupal.behaviors.to_top = {
