@@ -27,19 +27,25 @@
 {% macro menu_links(items, attributes, menu_level, top_bar) %}
   {% import _self as menus %}
   {% if items %}
+
     {% if top_bar %}
+
       {% if menu_level == 0 %}
         <ul{{ attributes.addClass('menu', 'vertical', 'medium-horizontal').setAttribute('data-responsive-menu', 'drilldown medium-dropdown') }}>
       {% else %}
         <ul class="submenu menu vertical" data-submenu>
       {% endif %}
+
     {% else %}
+
       {% if menu_level == 0 %}
-        <ul{{ attributes.addClass('vertical', 'medium-horizontal', 'menu', 'grid-container', 'main-menu') }} data-responsive-menu="drilldown medium-dropdown">
+        <ul{{ attributes.addClass('vertical', 'medium-horizontal', 'menu', 'grid-container', 'main-menu').setAttribute('data-responsive-menu', 'drilldown medium-dropdown') }}>
       {% else %}
         <ul class="menu">
       {% endif %}
+
     {% endif %}
+
     {% for item in items %}
       {% if top_bar %}
         {%
