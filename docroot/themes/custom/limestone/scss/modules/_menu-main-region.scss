@@ -105,7 +105,6 @@
   }
   nav {
 
-
   }
 }
 // All Menus
@@ -202,14 +201,6 @@
       max-width: 65.15789rem;
       > li {
         > a {
-          &:after {
-            content: "";
-            position: absolute;
-            right: -11px;
-            height: 24px;
-            width: 12px;
-            top: 13px;
-            background: url("/themes/custom/limestone/images/slash.svg") no-repeat;
           }
         }
       }
@@ -283,16 +274,22 @@ $expander-toggle-margin: 1em;
   .expander-trigger {
     //border-bottom: 1px solid $light-gray
     position: relative;
-    color: $success-color;
+    color: $limestone-blue;
     cursor: pointer;
     display: block;
     float: right;
     font-size: $expander-toggle-size;
-    height: 2.5em;
-    padding: 0.1em 1em;
+    height: 2.6rem;
+    padding: 0.1rem 1.2rem 0;
     text-decoration: none;
     user-select: none;
+    &.expander-hidden {
 
+    }
+    &:focus, &:hover {
+      transition: none;
+      color: inherit;
+    }
     &::before {
       content: "";
       position: absolute;
@@ -309,15 +306,15 @@ $expander-toggle-margin: 1em;
       content: "\f078";
       position: absolute;
       top: 20px;
-      right: 25px;
+      right: 28px;
       font-family: "icomoon" !important;
       speak: none;
       font-style: normal;
       font-weight: normal;
       font-variant: normal;
       text-transform: none;
-      font-size: 1.6rem;
-      line-height: 1;
+      font-size: 1.3rem;
+      line-height: 1.5rem;
 
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
