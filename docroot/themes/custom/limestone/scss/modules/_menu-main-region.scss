@@ -277,10 +277,12 @@ $expander-toggle-margin: 1em;
     z-index: 3;
     position: relative;
     background: white;
+    border-bottom: 2px solid $limestone-blue;
   }
 
   .expander-trigger {
     //border-bottom: 1px solid $light-gray
+    position: relative;
     color: $success-color;
     cursor: pointer;
     display: block;
@@ -324,7 +326,7 @@ $expander-toggle-margin: 1em;
 
   .expander-content {
     clear: both;
-
+    border-top: 2px solid $limestone-blue;
     a {
       text-decoration: none;
     }
