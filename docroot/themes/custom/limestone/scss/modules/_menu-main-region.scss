@@ -12,12 +12,17 @@
   ul.main-menu > li > a {
     padding: 1rem 1rem;
   }
-  .dropdown.menu>li.menu-item--expanded>a {
+  .lc-dropdown.menu>li.is-dropdown-submenu-parent>a {
     &:focus, &:hover {
       color: $success-color;
     }
   }
-  ul.dropdown.menu > li.menu-item--expanded {
+  li.is-submenu-parent-item > a {
+    font-size: 1.2rem;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+  > ul.dropdown.menu > li.is-dropdown-submenu-parent {
     > a::before {
       content: "\f078";
       font-family: 'icomoon' !important;
@@ -58,14 +63,7 @@
       }
     }
   }
-  a:focus, a:hover {
-    color: $success-color;
-  }
-  .menu.dropdown {
-    text-transform: uppercase;
-    padding: 7px 0 5px 0;
-    margin: 0 auto;
-  }
+
   .submenu {
     background-color: white;
     border: none;
@@ -198,7 +196,7 @@
     a {
       color: $limestone-blue;
     }
-    > ul.menubar {
+    > ul.menu {
       padding: 0 0.8em;
       margin: 0 auto;
       max-width: 65.15789rem;
@@ -227,7 +225,7 @@
       }
     }
     // Dropdowns
-    ul.root-level > li.menu-item--expanded {
+    > ul.menu > li.is-dropdown-submenu-parent {
       // &:last-child
       //  > a
       //    padding-right: 0
@@ -238,8 +236,8 @@
           content: "\f078";
           font-size: 0.8rem;
           position: absolute;
-          top: 0.95rem;
-          right: 0.8rem;
+          top: 0.9rem;
+          right: 0.5rem;
           font-family: "icomoon" !important;
           speak: none;
           font-style: normal;
@@ -265,7 +263,7 @@
         }
       }
     }
-    ul.dropdown {
+    ul.lc-dropdown {
       top: 2.75rem;
       border: 0;
       border-top: 4px solid $limestone-blue;
@@ -355,7 +353,7 @@ $expander-toggle-margin: 1em;
       content: "\f078";
       position: absolute;
       top: 20px;
-      right: 30px;
+      right: 25px;
       font-family: "icomoon" !important;
       speak: none;
       font-style: normal;
