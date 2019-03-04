@@ -39,3 +39,11 @@ html.login-screen {
     }
   }
 }
+
+#auth_box {
+  width: 90%;
+  max-width: 500px;
+  input[type="text"], input[type="password"] {
+    width: 100%;
+  }
+}
