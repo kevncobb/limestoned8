@@ -189,18 +189,13 @@ header.site-header {
   cursor: pointer;
   -webkit-font-smoothing: antialiased;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
-  padding: 0.3em 0 0.3em 0;
+  padding: 0.6rem 0 0.6rem 0;
 
-  @media screen and (min-width: 40em) {
-    font-size: 1.8em;
-    padding: 0.3em 0 0.7em 0;
-    line-height: 3.7rem;
-  }
-
-  @media screen and (min-width: 40em) {
+  @include breakpoint(medium) {
     font-size: 2.5em;
-    padding-top: 2rem;
-    padding-bottom: 3.5rem;
+    line-height: 3.7rem;
+    padding-top: 1rem;
+    padding-bottom: 2.5rem;
     padding-right: .85227rem;
     padding-left: .85227rem;
 
@@ -217,8 +212,10 @@ header.site-header {
     }
   }
 
-  @media screen and (min-width: 64em) {
+  @include breakpoint(large) {
     font-size: 3em;
+    padding-top: 2rem;
+    padding-bottom: 3rem;
   }
 }
 .field-header-background-image {
