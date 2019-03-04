@@ -2,28 +2,34 @@
   font-size: 1.1em !important;
   font-family: $header-font-family;
   font-weight: 600;
-  box-shadow: 0 1px 1px rgba(34,25,25,0.3);
+  box-shadow: 0 1px 1px rgba(34, 25, 25, 0.3);
   @include breakpoint(large) {
     font-size: 1.25em !important;
   }
+
   ul.grid-container.align-center {
     margin: 0 auto;
   }
+
   ul.main-menu > li > a {
     padding: 1rem 1rem;
   }
-  .lc-dropdown.menu>li.is-dropdown-submenu-parent>a {
+
+  .lc-dropdown.menu > li.is-dropdown-submenu-parent > a {
     &:focus, &:hover {
       color: $success-color;
     }
   }
+
   li.is-submenu-parent-item > a {
     font-size: 1.2rem;
     font-weight: 700;
     text-transform: uppercase;
   }
-  ul.dropdown.menu.medium-horizontal>li.is-dropdown-submenu-parent {
-    position:relative;
+
+  ul.dropdown.menu.medium-horizontal > li.is-dropdown-submenu-parent {
+    position: relative;
+
     > a::before {
       content: "\f078";
       font-family: 'icomoon' !important;
@@ -42,6 +48,7 @@
       right: 0.6rem;
       left: auto;
     }
+
     > a::after {
       content: "";
       display: none;
@@ -53,8 +60,10 @@
       background: url(/themes/custom/limestone/images/slash.svg) 0px 0px no-repeat;
       background-size: 15px;
     }
+
     &.is-active {
       color: $success-color;
+
       > a::before {
         content: "\ea34";
         color: $success-color;
@@ -71,19 +80,22 @@
     min-width: 260px;
     padding: 10px 0;
     text-transform: none;
-    -webkit-box-shadow: 1px 1px 8px rgba(0,0,0,.5);
-    -moz-box-shadow: 1px 1px 8px rgba(0,0,0,.5);
-    box-shadow: 1px 1px 8px rgba(0,0,0,.5);
+    -webkit-box-shadow: 1px 1px 8px rgba(0, 0, 0, .5);
+    -moz-box-shadow: 1px 1px 8px rgba(0, 0, 0, .5);
+    box-shadow: 1px 1px 8px rgba(0, 0, 0, .5);
     z-index: 100;
+
     > li {
       width: 80%;
       margin: 0 10%;
       border-bottom: thin solid #eee;
       float: left;
       clear: left;
+
       &:last-child {
         border-bottom: none;
       }
+
       a {
         color: $dark-gray;
         font-weight: 400;
@@ -96,6 +108,7 @@
         margin-bottom: 4px;
         font-size: 18px;
         line-height: 24px;
+
         &:focus, &:hover {
           background-color: #E7E7E7;
           color: $limestone-blue;
@@ -103,10 +116,12 @@
       }
     }
   }
+
   nav {
 
   }
 }
+
 // All Menus
 @include breakpoint(smedium) {
   .menubar {
@@ -114,10 +129,12 @@
     ul[aria-hidden=true] {
       display: none;
     }
+
     ul[aria-hidden=false] {
       display: block;
       opacity: 1;
     }
+
     ul {
       position: absolute;
       top: 1.7em;
@@ -126,9 +143,12 @@
       z-index: 9;
       cursor: hand;
     }
+
     > li {
-      &.menu-item--expanded {}
+      &.menu-item--expanded {
+      }
     }
+
     li {
       float: left;
       position: relative;
@@ -136,19 +156,24 @@
       margin: 0;
       list-style-type: none;
       list-style-image: none;
+
       > a {
         float: left;
         padding: 18px 13px;
         font-weight: 600;
         width: 100%;
         text-decoration: none;
+
         &:hover,
         &:focus {
           outline: none;
-          &:before {}
+
+          &:before {
+          }
         }
       }
     }
+
     > li:first-child {
       &:focus {
         &::before {
@@ -170,17 +195,21 @@
   //White Submenu menubar styles
   .expander-content .menubar {
     font-family: $header-font-family;
+
     ul {
       top: 2.5em;
+
       &.menu-focus {
-        > a::before {}
+        > a::before {
+        }
       }
     }
   }
 }
+
 @include breakpoint(medium) {
   a.lc-mobile-menu-toggle {
-  display: none
+    display: none
   }
   .expander-hidden + .expander-content {
     display: block;
@@ -192,70 +221,76 @@
     z-index: 5;
     text-transform: uppercase;
     font-size: 1.3rem;
+
     a {
       color: $limestone-blue;
     }
+
     > ul.menu {
       padding: 0 0.8em;
       margin: 0 auto;
       max-width: 65.15789rem;
+
       > li {
         > a {
-          }
         }
       }
     }
-    li {
-      &:hover,
-      &:focus,
-      &.menu-focus,
-      &.menu-hover {
-        > a {
-          color: $success-color;
-        }
-      }
-    }
-    // Dropdowns
-    > ul.menu > li.is-dropdown-submenu-parent {
-      // &:last-child
-      //  > a
-      //    padding-right: 0
+  }
+  li {
+    &:hover,
+    &:focus,
+    &.menu-focus,
+    &.menu-hover {
       > a {
-        padding-right: 1.5em;
-        &::before {
-          // Icon-chevron-down
-          content: "\f078";
-          font-size: 0.8rem;
-          position: absolute;
-          top: 0.9rem;
-          right: 0.5rem;
-          font-family: "icomoon" !important;
-          speak: none;
-          font-style: normal;
-          font-weight: normal;
-          font-variant: normal;
-          text-transform: none;
-          line-height: 1;
-          /* Better Font Rendering =========== */
-          -webkit-font-smoothing: antialiased;
-          -moz-osx-font-smoothing: grayscale;
-        }
+        color: $success-color;
       }
-      &:hover,
-      &:focus,
-      &.menu-focus,
-      &.menu-hover {
-        > a {
-          color: $success-color;
-          &::before {
-            //icon-arrow-right2
-            content: "\ea34";
-          }
+    }
+  }
+  // Dropdowns
+  > ul.menu > li.is-dropdown-submenu-parent {
+    // &:last-child
+    //  > a
+    //    padding-right: 0
+    > a {
+      padding-right: 1.5em;
+
+      &::before {
+        // Icon-chevron-down
+        content: "\f078";
+        font-size: 0.8rem;
+        position: absolute;
+        top: 0.9rem;
+        right: 0.5rem;
+        font-family: "icomoon" !important;
+        speak: none;
+        font-style: normal;
+        font-weight: normal;
+        font-variant: normal;
+        text-transform: none;
+        line-height: 1;
+        /* Better Font Rendering =========== */
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+    }
+
+    &:hover,
+    &:focus,
+    &.menu-focus,
+    &.menu-hover {
+      > a {
+        color: $success-color;
+
+        &::before {
+          //icon-arrow-right2
+          content: "\ea34";
         }
       }
     }
   }
 }
+
 $expander-arrow-width: 0.7em;
 $expander-toggle-size: 1em;
 $expander-toggle-arrow-size: $expander-toggle-size;
@@ -283,13 +318,16 @@ $expander-toggle-margin: 1em;
     padding: 0.1rem 1.2rem 0;
     text-decoration: none;
     user-select: none;
+
     &.expander-hidden {
 
     }
+
     &:focus, &:hover {
       transition: none;
       color: inherit;
     }
+
     &::before {
       content: "";
       position: absolute;
@@ -324,9 +362,11 @@ $expander-toggle-margin: 1em;
   .expander-content {
     clear: both;
     border-top: 2px solid $limestone-blue;
+
     a {
       text-decoration: none;
     }
+
     .is-drilldown {
       max-width: none !important;
     }
