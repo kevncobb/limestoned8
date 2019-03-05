@@ -369,7 +369,9 @@ $expander-toggle-margin: 1em;
     }
 
     .is-drilldown {
-      max-width: none !important;
+      ul.drilldown {
+        display: block;
+      }
     }
   }
 
