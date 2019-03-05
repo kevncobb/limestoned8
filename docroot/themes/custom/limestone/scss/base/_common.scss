@@ -176,6 +176,8 @@ p {
 }
 .background-blue, .bg-blue {
   background-color: $limestone-blue;
+  width: 100%;
+  height: 100%;
   color: white;
   &.bg-faded {
     background-color: rgba($limestone-blue, 0.7);
@@ -189,6 +191,8 @@ p {
 }
 .bg-l-gray {
   background-color: $light-gray;
+  width: 100%;
+  height: 100%;
   &.bg-faded {
     background-color: rgba($light-gray, 0.7);
   }
@@ -204,6 +208,8 @@ p {
 }
 .bg-orange {
   background-color: $orange;
+  width: 100%;
+  height: 100%;
   &.bg-faded {
     background-color: rgba($orange, 0.7);
   }
@@ -217,6 +223,8 @@ p {
 }
 .bg-yellow {
   background-color: $limestone-yellow;
+  width: 100%;
+  height: 100%;
   &.bg-faded {
     background-color: rgba($limestone-yellow, 0.75);
   }
@@ -230,6 +238,8 @@ p {
 }
 .bg-white {
   background-color: white;
+  width: 100%;
+  height: 100%;
   &.bg-faded {
     background-color: rgba(white, 0.75);
   }
