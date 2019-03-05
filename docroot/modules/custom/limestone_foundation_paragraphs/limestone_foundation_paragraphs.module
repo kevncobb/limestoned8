@@ -71,7 +71,7 @@ function limestone_foundation_paragraphs_preprocess_paragraph(&$variables) {
     'bg-edge2edge' => 'bg-edge2edge ',
   ];
 
-  $width = 'small-12';
+  $width = 'small-12 ';
   if (isset($width_map[$width_value])) {
     $width = $width_map[$width_value];
   }
