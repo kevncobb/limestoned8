@@ -51,11 +51,7 @@
     $('.lc-mobile-menu-toggle').bind('touchstart click', function(event) {
       event.stopPropagation();
       event.preventDefault();
-      if (event.handled !== true) {
-        $(this).toggleClass("expander-hidden");
-      } else {
-        return false;
-      }
+      $(this).toggleClass("expander-hidden");
     });
   });
   Drupal.behaviors.to_top = {
