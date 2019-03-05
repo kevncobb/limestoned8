@@ -72,5 +72,19 @@ CKEDITOR.addTemplates( 'default', {
 				'Type the text here' +
 			'</p>' +
 			'</div>'
-	} ]
+	},
+		{
+			title: 'AddToAny Buttons',
+			image: 'addtoany_buttons.jpg',
+			description: 'An easy way to manually put share buttons on the page.',
+			html: '<div class="a2a_kit a2a_kit_size_32 a2a_default_style centered spacing-bottom-xs" style="width:12rem;">' +
+					'<a class="a2a_dd" href="https://www.addtoany.com/share"></a>' +
+					'<a class="a2a_button_facebook"></a>' +
+					'<a class="a2a_button_twitter"></a>' +
+					'<a class="a2a_button_linkedin"></a>' +
+					'<a class="a2a_button_email"></a>' +
+					'<a class="a2a_button_copy_link"></a>' +
+					'</div>' +
+					'<script async src="https://static.addtoany.com/menu/page.js"></script>'
+		} ]
 } );
