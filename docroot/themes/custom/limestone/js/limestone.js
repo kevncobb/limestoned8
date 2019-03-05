@@ -49,7 +49,13 @@
   };
   $(window).bind("load resize", function() {
     $('.lc-mobile-menu-toggle').bind('touchstart click', function(event) {
-      $(this).toggleClass("expander-hidden");
+      event.stopPropagation();
+      event.preventDefault();
+      if (event.handled !== true) {
+        $(this).toggleClass("expander-hidden");
+      } else {
+        return false;
+      }
     });
   });
   Drupal.behaviors.to_top = {
