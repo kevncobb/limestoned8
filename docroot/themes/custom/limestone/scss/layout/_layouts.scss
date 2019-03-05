@@ -100,3 +100,11 @@ article.node--type-news {
   margin: auto;
 }
 
+.show-first-item-only {
+  > .field-items > .field-item {
+    display: none;
+    &:first-child {
+      display: block;
+    }
+  }
+}
