@@ -326,7 +326,7 @@ $expander-toggle-margin: 1em;
 
     &:focus, &:hover {
       transition: none;
-      color: inherit;
+      color: $success-color;
     }
 
     &::before {
@@ -370,9 +370,6 @@ $expander-toggle-margin: 1em;
 
     .is-drilldown {
       max-width: none !important;
-      ul.drilldown {
-        display: block;
-      }
     }
   }
 

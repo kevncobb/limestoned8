@@ -47,13 +47,18 @@
       }
     }
   };
-  $(window).bind("load resize", function() {
-    $('.lc-mobile-menu-toggle').bind('touchstart click', function(event) {
-      event.stopPropagation();
-      event.preventDefault();
-      $(this).toggleClass("expander-hidden");
-    });
-  });
+  Drupal.behaviors.lc_menu = {
+    attach: function (context, settings) {
+      $(context).find('.lc-mobile-menu-toggle').bind('touchstart click', function(event) {
+        event.stopPropagation();
+        event.preventDefault();
+        $(this).toggleClass("expander-hidden");
+        if (!Foundation.MediaQuery.atLeast("medium")){
+          // workaround for https://github.com/zurb/foundation-sites/issues/10478
+          $(".is-dropdown-submenu-parent").removeClass("is-dropdown-submenu-parent");
+        }
+      });
+  };
   Drupal.behaviors.to_top = {
     attach: function (context, settings) {
       // Execute code once the DOM is ready. $(document).ready() not required within Drupal.behaviors.
