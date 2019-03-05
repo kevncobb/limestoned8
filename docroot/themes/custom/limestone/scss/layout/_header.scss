@@ -304,6 +304,7 @@ body.section-trip {
   @extend .mega-title;
 }
 .big-title {
+  font-family: $site-header-font-family;
   @media screen and (min-width: 40em) {
     font-size: 3.8rem;
   }
