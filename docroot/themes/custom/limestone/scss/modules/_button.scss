@@ -186,19 +186,19 @@
   display: inline-block;
   font-family: $header-font-family;
   font-weight: bold;
-  transition: 200ms;
+  transition: 100ms;
   text-decoration: none;
 
   &:hover, &:focus {
     background-color: $medium-gray;
-    color: $white;
+    color: $limestone-blue !important;
     -webkit-box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0.15);
     -moz-box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0.15);
     box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0.15);
     transition: 100ms;
 
     [class^="icon-"], [class*=" icon-"] {
-      color: $white;
+      color: $limestone-blue;
       //background-color: $limestone-blue-body;
       transition: 100ms;
     }
