@@ -17,6 +17,7 @@ use Drupal\field\Entity\FieldStorageConfig;
 function limestone_foundation_paragraphs_theme($existing, $type, $theme, $path) {
   return [
     'paragraph__default' => ['base hook' => 'paragraph'],
+    'paragraph__default_vertical' => ['base hook' => 'paragraph'],
     'paragraph__bp_accordion' => ['base hook' => 'paragraph'],
     'paragraph__bp_carousel' => ['base hook' => 'paragraph'],
     'paragraph__bp_tabs' => ['base hook' => 'paragraph'],
@@ -62,12 +63,12 @@ function limestone_foundation_paragraphs_preprocess_paragraph(&$variables) {
   }
 
   $width_map = [
-    'paragraph--width--tiny' => 'medium-4 medium-offset-4 smedium-8 smedium-offset-2 grid-x',
-    'paragraph--width--narrow' => 'medium-6 medium-offset-3 smedium-10 smedium-offset-1 grid-x',
+    'paragraph--width--tiny' => 'medium-4 medium-offset-4 smedium-8 smedium-offset-2',
+    'paragraph--width--narrow' => 'medium-6 medium-offset-3 smedium-10 smedium-offset-1',
     'paragraph--width--medium' => 'medium-8 medium-offset-2 grid-x',
-    'paragraph--width--wide' => 'medium-10 medium-offset-1 grid-x grid-margin-x',
-    'paragraph--width--full' => 'small-12 grid-x grid-margin-x',
-    'bg-edge2edge' => 'bg-edge2edge small-12 grid-x',
+    'paragraph--width--wide' => 'medium-10 medium-offset-1',
+    'paragraph--width--full' => 'small-12',
+    'bg-edge2edge' => 'bg-edge2edge small-12',
   ];
 
   $width = 'small-12';
