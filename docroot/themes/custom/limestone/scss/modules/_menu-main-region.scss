@@ -371,6 +371,9 @@ $expander-toggle-margin: 1em;
     .is-drilldown {
       //max-width: none !important;
     }
+    .vertical.drilldown {
+      height: auto;
+    }
   }
 
   .expander-hidden + .expander-content {
