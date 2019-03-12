@@ -111,3 +111,7 @@ article.node--type-news {
 .bg-edge2edge {
   width: 100%;
 }
+
+.use-margin-x > .grid-x {
+  @extend .grid-margin-x;
+}
