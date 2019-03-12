@@ -43,6 +43,11 @@ figure figcaption {
   margin-bottom: 1rem;
   text-align: center;
 }
+.hide-caption {
+  figure figcaption {
+    display: none;
+  }
+}
 
 // Service Area listing
 .field-name-field-service-area {

@@ -302,6 +302,9 @@ body.section-trip {
 }
 .splash-mega-title {
   @extend .mega-title;
+  h1 {
+    @extend .mega-title;
+  }
 }
 .big-title {
   font-family: $site-header-font-family;
