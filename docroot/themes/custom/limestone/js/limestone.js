@@ -53,6 +53,10 @@
         event.stopPropagation();
         event.preventDefault();
         $(this).toggleClass("expander-hidden");
+        if (!Foundation.MediaQuery.atLeast("medium")){
+          // workaround for https://github.com/zurb/foundation-sites/issues/10478
+          $(".is-dropdown-submenu-parent").removeClass("is-dropdown-submenu-parent");
+        }
       });
     }
   };
