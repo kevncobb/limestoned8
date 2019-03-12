@@ -369,7 +369,8 @@ $expander-toggle-margin: 1em;
     }
 
     .is-drilldown {
-      //max-width: none !important;
+      max-width: none !important;
+      height: auto !important;
     }
     .vertical.drilldown {
       height: auto;
