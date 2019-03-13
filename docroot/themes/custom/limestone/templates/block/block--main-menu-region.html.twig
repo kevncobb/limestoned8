@@ -41,6 +41,12 @@
 ]
 %}
 {% set heading_id = attributes.id ~ '-menu'|clean_id %}
+
+<div class="title-bar" data-responsive-toggle="block-mainnavigation" data-hide-for="medium">
+    <button class="menu-icon" type="button" data-toggle="block-mainnavigation"></button>
+    <div class="title-bar-title">Menu</div>
+</div>
+
 <nav role="navigation" aria-labelledby="{{ heading_id }}"{{ attributes.addClass(classes)|without('role', 'aria-labelledby') }}>
     {# Label. If not displayed, we still provide it for screen readers. #}
     {% if not configuration.label_display %}
