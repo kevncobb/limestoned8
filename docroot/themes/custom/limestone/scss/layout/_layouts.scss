@@ -115,3 +115,9 @@ article.node--type-news {
 .use-margin-x > .grid-x {
   @extend .grid-margin-x;
 }
+.content-container {
+  > div.grid-x {
+    @extend .grid-container;
+    display: inherit;
+  }
+}

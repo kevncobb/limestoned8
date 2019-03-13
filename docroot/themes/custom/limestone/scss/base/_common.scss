@@ -137,14 +137,7 @@ p {
     position: absolute;
   }
 }
-.content-container {
-  > div {
-    > div.grid-x {
-      @extend .grid-container;
-      display: inherit;
-    }
-  }
-}
+
 .v-centered-container {
   position: relative;
   background-size: cover;
