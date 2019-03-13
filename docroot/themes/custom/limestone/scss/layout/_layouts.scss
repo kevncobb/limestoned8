@@ -114,6 +114,7 @@ article.node--type-news {
 
 .use-margin-x > div > .grid-x {
   @extend .grid-margin-x;
+  margin: auto;
 }
 .content-container {
   > div {
