@@ -25,3 +25,9 @@
       position: absolute;
     }
 }
+
+@include breakpoint(smedium down) {
+  .top-bar, .bottom-bar {
+    font-size: 18px; //for small screens
+  }
+}

@@ -141,7 +141,8 @@ view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class,
 {# Prints div with classes, and content without Width and Background. #}
 <div{{ attributes.addClass(classes).setAttribute('id', paragraph_id) }} {% if VBP.background_image.url %} style="background-image:url({{- VBP.background_image.url -}});" {% endif %}>
   {% if add_container %}<div class="grid-container">{% endif %}
-      <div class="{{- VBP.bp_width.value -}} grid-x">
+    <div>
+      <div class="{{- VBP.bp_width.value -}}  grid-x" data-equalizer data-equalize-on="smedium">
         {% if paragraph_title and paragraph_title_status %}<h2 class="text-center">{{- paragraph_title -}}</h2>{% endif %}
         {% for key, item in content.bp_column_content_3 if key|first != '#' %}
           {% set attributes = attributes.removeClass('bg-edge2edge') %}
@@ -164,5 +165,6 @@ view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class,
           <div{{ attributes.removeClass(classes).addClass(col_classes).addClass('no-padding') }}>{{ item }}</div>
         {% endfor %}
       </div>
+    </div>
   {% if add_container %}</div>{% endif %}
 </div>

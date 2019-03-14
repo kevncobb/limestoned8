@@ -44,14 +44,16 @@
 .fibonacci-aside .button {
   max-width: 300px;
 }
-
+.bg-blue a.lc-btn::before {
+  background-color: #1550c3;
+}
 .lc-btn {
   padding: 8px 17px;
   text-transform: uppercase;
   background-color: #ececec;
   font-family: $header-font-family;
   font-weight: 600;
-  color: $limestone-blue;
+  color: $limestone-blue !important;
   display: inline-block;
   position: relative;
   background-image: none;

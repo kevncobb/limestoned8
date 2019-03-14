@@ -110,6 +110,7 @@
 <div{{ attributes.addClass(classes).setAttribute('id', paragraph_id) }} {% if VBP.background_image.url %} style="background-image:url({{- VBP.background_image.url -}});" {% endif %}>
     {% if add_container %}
     <div class="grid-container">{% endif %}
+        <div>
         <div class="grid-x" data-equalizer data-equalize-on="smedium" >
             <div class="{{- VBP.bp_width.value -}}  grid-x">
                 {% if paragraph_title and paragraph_title_status %}<h2
@@ -119,6 +120,7 @@
                 {{ title_suffix }}
                 {{ content|without('bp_title', 'bp_title_status', 'bp_width', 'bp_background', 'bp_image_field', 'bp_classes', 'bp_gutter') }}
             </div>
+        </div>
         </div>
         {% if add_container %}
     </div>
