@@ -126,7 +126,7 @@
 
   &.blue {
     background-color: rgba($limestone-blue, 0.9);
-    color: white;
+    color: white !important;
 
     &:focus, &:hover {
       color: #fff5a9;
