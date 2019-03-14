@@ -112,7 +112,7 @@ article.node--type-news {
   width: 100%;
 }
 
-.use-margin-x > div > .grid-x {
+.use-margin-x > div > .grid-x, .use-margin-x > div.grid-container div > .grid-x {
   @extend .grid-margin-x;
   margin: auto;
 }
