@@ -168,6 +168,10 @@ p {
 .font-reg {
   font-weight: normal;
 }
+// .content used in paragraphs with backgrounds overlaid on colored full-width backgrounds.
+.content {
+  @extend .padding-sides-md;
+}
 .background-blue, .bg-blue {
   background-color: $limestone-blue;
   width: 100%;
@@ -237,6 +241,7 @@ p {
   &.bg-faded {
     background-color: rgba(white, 0.75);
   }
+
   color: $body-font-color;
   > h1, > h2, > h3, > h4, > h5, > h6 {
     color: $header-color;
