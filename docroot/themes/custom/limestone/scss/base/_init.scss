@@ -1,0 +1,13 @@
+.no-js {
+  @include breakpoint(small only) {
+    .menu--main {
+      display: none;
+    }
+  }
+
+  @include breakpoint(medium) {
+    .title-bar {
+      display: none;
+    }
+  }
+}
