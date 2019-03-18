@@ -93,9 +93,10 @@
           event.preventDefault();
           galleryLink.eq(0).click();
         });
-        //console.log(holdingCell);
-        //console.log(galleryLink);
-        //console.log(this);
+        console.log(holdingCell);
+        console.log(galleryElement);
+        console.log(galleryLink);
+        console.log(this);
       });
     }
   };
