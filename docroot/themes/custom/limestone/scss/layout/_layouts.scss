@@ -111,7 +111,9 @@ article.node--type-news {
 .bg-edge2edge {
   width: 100%;
 }
-
+.max-1000 {
+  max-width: 1000px;
+}
 .use-margin-x > div > .grid-x, .use-margin-x > div.grid-container div > .grid-x {
   @extend .grid-margin-x;
   margin: auto;

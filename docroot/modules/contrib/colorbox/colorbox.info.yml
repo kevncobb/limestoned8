@@ -6,10 +6,10 @@ package: Media
 configure: colorbox.admin_settings
 
 dependencies:
-  - image
+  - drupal:image
 
-# Information added by Drupal.org packaging script on 2017-04-24
-version: '8.x-1.4'
+# Information added by Drupal.org packaging script on 2019-02-05
+version: '8.x-1.4+16-dev'
 core: '8.x'
 project: 'colorbox'
-datestamp: 1493051361
+datestamp: 1549377790

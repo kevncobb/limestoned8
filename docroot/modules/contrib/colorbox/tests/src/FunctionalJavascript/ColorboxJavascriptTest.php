@@ -135,13 +135,13 @@ class ColorboxJavascriptTest extends JavascriptTestBase {
   protected function setUp() {
     parent::setUp();
     $this->createContentType(['type' => 'page']);
-    FieldStorageConfig::create(array(
+    FieldStorageConfig::create([
       'field_name' => 'field_test_image',
       'entity_type' => 'node',
       'type' => 'image',
       'settings' => [],
       'cardinality' => 3,
-    ))->save();
+    ])->save();
     $field_config = FieldConfig::create([
       'field_name' => 'field_test_image',
       'label' => 'Colorbox Field',

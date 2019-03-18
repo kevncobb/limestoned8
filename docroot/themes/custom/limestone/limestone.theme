@@ -29,6 +29,7 @@ function limestone_preprocess_html(&$variables) {
  * Add template suggestions and classes
  */
 function limestone_preprocess_node(&$variables) {
+
 }
 
 /**

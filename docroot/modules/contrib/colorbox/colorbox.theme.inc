@@ -22,8 +22,11 @@ use Drupal\image\Entity\ImageStyle;
  *     placed in the img tag.
  *   - entity: An entity object.
  *   - settings: Formatter settings array.
+ *
+ * @codingStandardsIgnoreStart
  */
 function template_preprocess_colorbox_formatter(&$variables) {
+  // @codingStandardsIgnoreEnd
   static $gallery_token = NULL;
 
   $item = $variables['item'];
@@ -196,83 +199,4 @@ function template_preprocess_colorbox_formatter(&$variables) {
   if (!empty($data_cbox_img_attrs)) {
     $variables['attributes']['data-cbox-img-attrs'] = '{' . implode(',', $data_cbox_img_attrs) . '}';
   }
-}
-
-/**
- * Prepares variables for colorbox view modes formatter template.
- *
- * Default template: colorbox-view-mode-formatter.html.twig.
- *
- * @param array $variables
- *   An associative array containing:
- *   - item: A entity object.
- *   - content: A rendered entity view mode to display in the content.
- *   - modal: A rendered entity view mode to display in the colorbox modal
- *   - item_attributes: An optional associative array of html attributes to be
- *     placed on the colorbox anchor.
- *   - entity: An entity object.
- *   - settings: Formatter settings array.
- */
-function template_preprocess_colorbox_view_mode_formatter(&$variables) {
-  static $gallery_token = NULL;
-
-  /** @var \Drupal\Core\Entity\EntityInterface $item */
-  $item = $variables['item'];
-  /** @var \Drupal\Core\Entity\EntityInterface $entity */
-  $entity = $variables['entity'];
-  $field_name = $variables['field_name'];
-  $settings = $variables['settings'];
-
-
-  $config = \Drupal::config('colorbox.settings');
-
-  // Build the gallery id.
-  $entity_type = $entity->getEntityTypeId();
-  $entity_bundle = $entity->bundle();
-  $id = $entity->id();
-  $entity_id = !empty($id) ? $entity_bundle . '-' . $id : 'entity-id';
-
-  switch ($settings['colorbox_gallery']) {
-    case 'post':
-      $gallery_id = 'gallery-' . $entity_id;
-      break;
-
-    case 'page':
-      $gallery_id = 'gallery-all';
-      break;
-
-    case 'field_post':
-      $gallery_id = 'gallery-' . $entity_id . '-' . $field_name;
-      break;
-
-    case 'field_page':
-      $gallery_id = 'gallery-' . $field_name;
-      break;
-
-    case 'custom':
-      $token_service = \Drupal::token();
-      $gallery_id = $token_service->replace($settings['colorbox_gallery_custom'], [$entity_type => $entity, 'entity' => $item], ['clear' => TRUE]);
-      break;
-
-    default:
-      $gallery_id = '';
-  }
-
-  // If gallery id is not empty add unique per-request token to avoid
-  // images being added manually to galleries.
-  if (!empty($gallery_id) && $config->get('advanced.unique_token')) {
-    // Check if gallery token has already been set, we need to reuse
-    // the token for the whole request.
-    if ($gallery_token === NULL) {
-      // We use a short token since randomness is not critical.
-      $gallery_token = Crypt::randomBytesBase64(8);
-    }
-    $gallery_id = $gallery_id . '-' . $gallery_token;
-  }
-
-  $variables['url'] = $item->toUrl();
-
-  $variables['attributes']['title'] = $item->label();
-  $variables['attributes']['data-colorbox-gallery'] = $gallery_id;
-  $variables['attributes']['class'] = ['colorbox'];
 }

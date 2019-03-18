@@ -1,3 +1,7 @@
+/**
+ * @file
+ */
+
 (function ($) {
 
 Drupal.behaviors.initColorboxDefaultStyle = {
