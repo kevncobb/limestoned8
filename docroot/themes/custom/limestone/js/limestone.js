@@ -87,11 +87,15 @@
         event.stopPropagation();
         event.preventDefault();
         var holdingCell = $(this).parents('.cell');
-        var galleryLink = $(holdingCell).siblings('.cell').find('.cover-image > .field-items > .field-item:first-child a.colorbox');
-        $(this).find(galleryLink).trigger('click');
-        console.log(holdingCell);
-        console.log(galleryLink);
-        console.log(this);
+        var galleryElement = $(holdingCell).siblings('.cell').find('.cover-image > .field-items > .field-item:first-child a.colorbox');
+        var galleryLink = $(galleryElement).colorbox();
+        $(this).find(galleryElement).trigger('click', function (event) {
+          event.preventDefault();
+          galleryLink.eq(0).click();
+        });
+        //console.log(holdingCell);
+        //console.log(galleryLink);
+        //console.log(this);
       });
     }
   };
