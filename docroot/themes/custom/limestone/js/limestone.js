@@ -84,12 +84,11 @@
   Drupal.behaviors.open_gallery = {
     attach: function (context, settings) {
       $(context).find('a.open-side-column-gallery').bind('touchstart click', function (event) {
-        event.stopPropagation();
-        event.preventDefault();
         var holdingCell = $(this).parents('.cell');
         var galleryElement = $(holdingCell).siblings('.cell').find('.cover-image > .field-items > .field-item:first-child a.colorbox');
         var galleryLink = $(galleryElement).colorbox();
         $(this).click(function(event){
+          event.stopPropagation();
           event.preventDefault();
           galleryLink.eq(0).click();
         });
