@@ -83,7 +83,7 @@
   };
   Drupal.behaviors.open_gallery = {
     attach: function (context, settings) {
-      $(context).find('.open-side-column-gallery').bind('touchstart click', function (event) {
+      $(context).find('a.open-side-column-gallery').bind('touchstart click', function (event) {
         event.stopPropagation();
         event.preventDefault();
         var holdingCell = $(this).parents('.cell');
