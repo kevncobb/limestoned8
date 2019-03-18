@@ -126,8 +126,11 @@ header.site-header {
       }
     }
   }
-  ul.menu {
+  ul.menu.dropdown {
     margin-top: 1rem;
+    .is-dropdown-submenu {
+      z-index: 1;
+    }
   }
   button {
     font-size: 1rem;
