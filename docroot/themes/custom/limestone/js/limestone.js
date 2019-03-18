@@ -89,15 +89,9 @@
         var holdingCell = $(this).parents('.cell');
         var galleryElement = $(holdingCell).siblings('.cell').find('.cover-image > .field-items > .field-item:first-child a.colorbox');
         var galleryLink = $(galleryElement).colorbox();
-        $(this).click(function(event){
-          event.stopPropagation();
-          event.preventDefault();
-          galleryLink.eq(0).click();
-        });
-        console.log(holdingCell);
-        console.log(galleryElement);
-        console.log(galleryLink);
-        console.log(this);
+
+        galleryLink.eq(0).click();
+        return false;
       });
     }
   };
