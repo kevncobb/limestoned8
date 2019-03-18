@@ -89,6 +89,9 @@
         var holdingCell = $(this).parents('.cell');
         var galleryLink = $(holdingCell).siblings('.cell').find('.cover-image > .field-items > .field-item a.colorbox');
         $(this).find(galleryLink).trigger('click');
+        console.log(holdingCell);
+        console.log(galleryLink);
+        console.log(this);
       });
     }
   };
