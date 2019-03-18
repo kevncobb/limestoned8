@@ -81,4 +81,15 @@
       });
     }
   };
+  Drupal.behaviors.open_gallery = {
+    attach: function (context, settings) {
+      $(context).find('.open-side-column-gallery').bind('touchstart click', function (event) {
+        event.stopPropagation();
+        event.preventDefault();
+        var holdingCell = $(this).parents('.cell');
+        var galleryLink = $(holdingCell).siblings('.cell').find('.cover-image > .field-items > .field-item a.colorbox');
+        $(this).find(galleryLink).trigger('click');
+      });
+    }
+  };
 })(jQuery, Drupal);
