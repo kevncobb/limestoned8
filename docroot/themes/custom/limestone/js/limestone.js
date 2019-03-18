@@ -89,7 +89,7 @@
         var holdingCell = $(this).parents('.cell');
         var galleryElement = $(holdingCell).siblings('.cell').find('.cover-image > .field-items > .field-item:first-child a.colorbox');
         var galleryLink = $(galleryElement).colorbox();
-        $(this).find(galleryElement).trigger('click', function (event) {
+        $(this).click(function(event){
           event.preventDefault();
           galleryLink.eq(0).click();
         });
