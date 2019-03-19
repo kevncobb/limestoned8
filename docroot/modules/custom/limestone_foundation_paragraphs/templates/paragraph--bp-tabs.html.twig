@@ -108,7 +108,7 @@ view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class,
     <div class="grid-container">
       <div class="grid-x">
       <div class="{{- VBP.bp_width.value -}}">
-        {% if paragraph_title and paragraph_title_status %}<h2 class="text-center">{{- paragraph_title.value -}}</h2>{% endif %}
+        {% if paragraph_title and paragraph_title_status %}<h2 class="text-center">{{- paragraph_title -}}</h2>{% endif %}
         {{ title_suffix }}
         <ul class="tabs" data-tabs id="{{ paragraph_title }}">
           {# Loops through the tab sections to print the tab section titles. #}
@@ -117,7 +117,7 @@ view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class,
             <li role="presentation" class="tabs-title {% if loop.first %}is-active{% endif %}"><a href="#panel{{ paragraph_id }}-{{ key }}" aria-controls="{{ item['#paragraph'].bp_tab_section_title.value }}" role="tab">{{ item['#paragraph'].bp_tab_section_title.value }}</a></li>
           {% endfor %}
         </ul>
-        <div class="tabs-content" data-tabs-content="{{ paragraph_title.value }}">
+        <div class="tabs-content" data-tabs-content="{{ paragraph_title }}">
           {# Loops through the tab sections again to print the tab section bodies. #}
           {% for key, item in content.bp_tab_section if key|first != '#' %}
             <div role="tabpanel" class="tabs-panel{% if loop.first %} is-active{% endif %}" id="panel{{ paragraph_id }}-{{ key }}">
