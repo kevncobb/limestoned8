@@ -443,3 +443,11 @@ a.to-top {
   border-top-left-radius: 10px * 2;
   border-top-right-radius: 10px * 2;
 }
+.field-label-inline {
+  .field-label, .field-items, .field-item {
+    display: inline;
+  }
+}
+.field-label {
+  font-weight: bold;
+}
