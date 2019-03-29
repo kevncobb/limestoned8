@@ -138,14 +138,7 @@ function zurb_foundation_preprocess_field(&$variables) {
 
   // Add classes to body based on content type and view mode.
   if ($variables['element']['#field_name'] == 'body') {
-    // Add classes to other content types with view mode 'teaser';
-    if ($variables['element']['#view_mode'] == 'teaser') {
-      $classes[] = 'text-secondary';
-    }
-    // The rest is text-content.
-    else {
       $classes[] = 'field';
-    }
   }
 }
 
@@ -401,4 +394,11 @@ function zurb_foundation_preprocess_status_messages(&$variables) {
   $variables['zurb_foundation_status_in_reveal'] = $status_in_reveal;
   $variables['#attached']['library'][] = $status_in_reveal ?
     'zurb_foundation/status_in_reveal' : 'zurb_foundation/alert_close';
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK_alter().
+ */
+function zurb_foundation_theme_suggestions_field_alter(&$suggestions, $variables) {
+  $suggestions[] = 'field__node__' . $variables['element']['#field_name'] . '__' . $variables['element']['#bundle'] . '__' . $variables['element']['#view_mode'];
 }

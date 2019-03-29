@@ -25,9 +25,9 @@ function zurb_foundation_menu_local_tasks(&$variables) {
 }
 
 /**
- * Implements theme_menu_local_task().
+ * Implements theme_preprocess_menu_local_task().
  */
-function zurb_foundation_menu_local_task(&$variables) {
+function zurb_foundation_preprocess_menu_local_task(&$variables) {
   $link = $variables['element']['#link'];
   $link_text = [
     '#markup' => $link['title'],
@@ -40,10 +40,6 @@ function zurb_foundation_menu_local_task(&$variables) {
 
   $state = !empty($variables['element']['#active']) ? 'active' : 'secondary';
   $link['url']->setOption('attributes', ['class' => ['button', $state]]);
-
-  $a_tag = Link::fromTextAndUrl($link_text, $link['url'])->toString();
-
-  return $a_tag;
 }
 
 /**
