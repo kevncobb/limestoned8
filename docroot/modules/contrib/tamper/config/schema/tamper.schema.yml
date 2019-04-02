@@ -68,11 +68,29 @@ tamper.implode:
       type: string
       label: 'String glue'
 
+tamper.number_format:
+  mapping:
+    decimals:
+      type: integer
+      label: 'Decimals'
+    dec_point:
+      type: string
+      label: 'Decimal point'
+    thousands_sep:
+      type: string
+      label: 'Thousands separator'
+
 tamper.required:
   mapping:
     invert:
       type: boolean
       label: 'Invert filter'
+
+tamper.sprintf:
+  mapping:
+    format:
+      type: string
+      label: 'Format string'
 
 tamper.str_pad:
   mapping:
@@ -101,3 +119,14 @@ tamper.trim:
       type: string
       label: 'Side'
 
+tamper.truncate_text:
+  mapping:
+    num_char:
+      type: integer
+      label: 'Number of characters'
+    ellipses:
+      type: boolean
+      label: 'Ellipses'
+    wordsafe:
+      type: boolean
+      label: 'Truncate on a word boundary'
