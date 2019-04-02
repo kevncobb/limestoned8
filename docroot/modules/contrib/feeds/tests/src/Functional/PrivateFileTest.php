@@ -1,26 +1,44 @@
 <?php
 
-namespace Drupal\feeds\Tests;
+namespace Drupal\Tests\feeds\Functional;
 
 use Drupal\file\Entity\File;
-use Drupal\file\Tests\FileFieldTestBase;
+use Drupal\Tests\file\Functional\FileFieldTestBase;
 
 /**
- * Tests private files work with Feeds module.
+ * Tests private files work with the Feeds module.
  *
  * @group feeds
  */
 class PrivateFileTest extends FileFieldTestBase {
 
   /**
-   * Modules to enable.
-   *
-   * @var array
+   * {@inheritdoc}
    */
-  public static $modules = ['feeds'];
+  public static $modules = [
+    'node',
+    'file',
+    'file_module_test',
+    'field_ui',
+    'feeds',
+  ];
 
   /**
-   * Tests private files work with Feeds module.
+   * {@inheritdoc}
+   */
+  protected function setUp() {
+    parent::setUp();
+
+    // This test expects unused managed files to be marked as a temporary file.
+    $this->config('file.settings')
+      ->set('make_unused_managed_files_temporary', TRUE)
+      ->save();
+  }
+
+  /**
+   * Tests private files work with the Feeds module.
+   *
+   * @see feeds_file_download()
    */
   public function testPrivateFile() {
     $node_storage = $this->container->get('entity_type.manager')->getStorage('node');
