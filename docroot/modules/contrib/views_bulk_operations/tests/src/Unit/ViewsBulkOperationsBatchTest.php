@@ -133,6 +133,8 @@ class ViewsBulkOperationsBatchTest extends UnitTestCase {
       'sandbox' => [
         'processed' => 0,
         'total' => $entities_count,
+        'page' => 0,
+        'npages' => ceil($entities_count / $batch_size),
       ],
     ];
 

@@ -87,12 +87,7 @@ class ConfirmAction extends FormBase {
       return;
     }
 
-    if (!empty($form_data['entity_labels'])) {
-      $form['list'] = [
-        '#theme' => 'item_list',
-        '#items' => $form_data['entity_labels'],
-      ];
-    }
+    $form['list'] = $this->getListRenderable($form_data);
 
     $form['#title'] = $this->formatPlural(
       $form_data['selected_count'],

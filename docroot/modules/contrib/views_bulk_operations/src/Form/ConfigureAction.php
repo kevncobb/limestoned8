@@ -89,20 +89,7 @@ class ConfigureAction extends FormBase {
 
     $form['#title'] = $this->t('Configure "%action" action applied to the selection', ['%action' => $form_data['action_label']]);
 
-    $selection = [];
-    if (!empty($form_data['entity_labels'])) {
-      $form['list'] = [
-        '#theme' => 'item_list',
-        '#items' => $form_data['entity_labels'],
-      ];
-    }
-    else {
-      $form['list'] = [
-        '#type' => 'item',
-        '#markup' => $this->t('All view results'),
-      ];
-    }
-    $form['list']['#title'] = $this->t('Selected @count entities:', ['@count' => $form_data['selected_count']]);
+    $form['list'] = $this->getListRenderable($form_data);
 
     // :D Make sure the submit button is at the bottom of the form
     // and is editale from the action buildConfigurationForm method.
