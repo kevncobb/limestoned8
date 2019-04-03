@@ -335,17 +335,32 @@ body.section-trip {
   font-family: $header-font-family;
   font-weight: bold;
   text-transform: uppercase;
+  &.bold {
+    font-family: $site-header-font-family;
+  }
   @include breakpoint(small) {
     font-size: 4rem;
     line-height: 4rem;
+    &.bold {
+      font-size: 3.1rem;
+      line-height: 3.1rem;
+    }
   }
   @include breakpoint(medium) {
     font-size: 5.5rem;
     line-height: 5.5rem;
+    &.bold {
+      font-size: 4.5rem;
+      line-height: 4.5rem;
+    }
   }
   @include breakpoint(large) {
     font-size: 7rem;
     line-height: 7rem;
+    &.bold {
+      font-size: 5.8rem;
+      line-height: 5.8rem;
+    }
   }
   &.color-white {
     color: white;
