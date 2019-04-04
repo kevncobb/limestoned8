@@ -90,23 +90,44 @@ section.block-block-contentfe8537ce-54d8-467c-ba0f-931c4b8e3ced {
   @extend .medium-4;
   @extend .cell;
   h3 {
-
     font-size: 1.25rem;
-    margin-top: 20px;
+    margin-top: 5px;
     margin-bottom: 5px;
   }
-  @include breakpoint(medium down) {
+  img {
+    float: left;
+    width: 100px;
+    margin: 0 20px 10px 0;
+  }
+  .img-text-widget {
+    border-top: 1px dotted #D3D3D3;
+    text-align: left;
+    margin: 0 0 20px;
+    padding: 15px 0 0;
+    overflow: hidden;
+  }
+  @include breakpoint(medium) {
+    h3 {
+      font-size: 1.05rem;
+      margin-top: 20px;
+      margin-bottom: 5px;
+    }
     img {
-      float: left;
-      width: 100px;
-      margin: 0 20px 10px 0;
+      float: none;
+      width: auto;
+      margin: auto;
     }
     .img-text-widget {
-      border-top: 1px dotted #D3D3D3;
+      border-top: none;
       text-align: left;
-      margin: 0 0 20px;
-      padding: 15px 0 0;
+      margin: inherit;
+      padding: inherit;
       overflow: hidden;
+    }
+  }
+  @include breakpoint(large) {
+    h3 {
+      font-size: 1.25rem;
     }
   }
 }
