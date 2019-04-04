@@ -85,3 +85,24 @@ section.block-block-contentfe8537ce-54d8-467c-ba0f-931c4b8e3ced {
     font-weight: normal;
   }
 }
+
+.block-third {
+  @extend .smedium-4;
+  @extend .cell;
+  @include breakpoint(smedium down) {
+
+    img {
+      float: left;
+      width: 100px;
+      margin: 0 20px 10px 0;
+    }
+  }
+  @include breakpoint(smedium) {
+    h3 {
+
+        font-size: 1.25rem;
+        margin-top: 20px;
+        margin-bottom: 5px;
+    }
+  }
+}
