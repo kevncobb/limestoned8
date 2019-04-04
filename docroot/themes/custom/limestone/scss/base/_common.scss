@@ -327,6 +327,12 @@ p {
     padding-right: 2rem;
   }
 }
+.padding-right-sm {
+  padding-right: inherit;
+  @include breakpoint(smedium) {
+    padding-right: 2rem;
+  }
+}
 .padding-sides-md {
   padding-left: 0.5rem;
   padding-right: 0.5rem;
