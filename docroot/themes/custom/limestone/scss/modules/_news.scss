@@ -108,7 +108,7 @@ section.block-block-contentfe8537ce-54d8-467c-ba0f-931c4b8e3ced {
   }
   @include breakpoint(medium) {
     h3 {
-      font-size: 1.05rem;
+      font-size: 1.25rem;
       margin-top: 20px;
       margin-bottom: 5px;
     }
@@ -123,11 +123,6 @@ section.block-block-contentfe8537ce-54d8-467c-ba0f-931c4b8e3ced {
       margin: inherit;
       padding: inherit;
       overflow: hidden;
-    }
-  }
-  @include breakpoint(large) {
-    h3 {
-      font-size: 1.25rem;
     }
   }
 }
