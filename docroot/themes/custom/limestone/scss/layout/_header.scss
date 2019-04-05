@@ -522,13 +522,16 @@ form#views-exposed-form-news-latest-news-block .form-item-search label {
     //border-bottom: 1px solid $light-gray;
     height: 95px;
     margin-bottom: 10px;
-
+    .cell.auto {
+      position: relative;
+    }
     .lc-news-title {
       text-indent: -99999px;
       text-transform: uppercase;
       margin-bottom: 0;
       height: 0px;
       margin-top: 21px;
+      display: block;
       //overflow: hidden;
       //background: url(/themes/custom/limestone/images/limestone-news.png) 0 0 no-repeat;
       //background-size: 616px;
@@ -540,7 +543,8 @@ form#views-exposed-form-news-latest-news-block .form-item-search label {
     max-width: 260px;
   }
   .lc-news-image {
-
+    position: absolute;
+    bottom: 8px;
   }
 }
 
