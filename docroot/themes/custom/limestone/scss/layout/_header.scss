@@ -509,33 +509,36 @@ form#views-exposed-form-news-latest-news-block .form-item-search label {
   background-color: #f4efcf;
   position: relative;
   &::before {
-    position: absolute;
-    bottom: 0;
-    height: 80px;
-    width: 100%;
-    content: "";
-    background: url("/themes/custom/limestone/images/stripes-dark-tile.svg");
-    opacity: 0.2;
+    //position: absolute;
+    //bottom: 0;
+    //height: 80px;
+    //width: 100%;
+    //content: "";
+    //background: url("/themes/custom/limestone/images/stripes-dark-tile.svg");
+    //opacity: 0.2;
   }
   #lc-news-header {
     position: relative;
-    border-bottom: 1px solid $light-gray;
+    //border-bottom: 1px solid $light-gray;
     height: 95px;
-    margin-bottom: 1em;
+    margin-bottom: 10px;
 
     h1, span.lc-news-title {
       display: block;
       height: 69px;
-      width: 330px;
+      width: 617px;
       text-indent: -99999px;
       text-transform: uppercase;
       margin-bottom: 0;
-      margin-top: 25px;
+      margin-top: 21px;
       overflow: hidden;
       background: url(/themes/custom/limestone/images/limestone-news.png) 0 0 no-repeat;
-      background-size: 327px;
+      background-size: 616px;
       float: left;
     }
+  }
+  .align-right {
+    padding-top: 16px;
   }
 }
 
