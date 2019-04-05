@@ -523,22 +523,24 @@ form#views-exposed-form-news-latest-news-block .form-item-search label {
     height: 95px;
     margin-bottom: 10px;
 
-    h1, span.lc-news-title {
-      display: block;
-      height: 69px;
-      width: 617px;
+    .lc-news-title {
       text-indent: -99999px;
       text-transform: uppercase;
       margin-bottom: 0;
+      height: 0px;
       margin-top: 21px;
-      overflow: hidden;
-      background: url(/themes/custom/limestone/images/limestone-news.png) 0 0 no-repeat;
-      background-size: 616px;
-      float: left;
+      //overflow: hidden;
+      //background: url(/themes/custom/limestone/images/limestone-news.png) 0 0 no-repeat;
+      //background-size: 616px;
+      //float: left;
     }
   }
   .align-right {
     padding-top: 16px;
+    max-width: 260px;
+  }
+  .lc-news-image {
+
   }
 }
 
