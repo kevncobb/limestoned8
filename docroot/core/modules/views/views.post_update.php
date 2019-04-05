@@ -366,3 +366,11 @@ function views_post_update_table_display_cache_max_age(&$sandbox = NULL) {
     return FALSE;
   });
 }
+
+/**
+ * Rebuild cache to allow placeholder texts to be translatable.
+ */
+function views_post_update_make_placeholders_translatable() {
+  // Empty update to cause a cache rebuild to allow placeholder texts to be
+  // translatable.
+}

@@ -1,7 +1,7 @@
 {
     "name": "vardot/varbase-project",
-    "version": "dev-master",
-    "version_normalized": "dev-master",
+    "version": "No version set (parsed as 1.0.0)",
+    "version_normalized": "1.0.0.0",
     "require": {
         "composer/installers": "~1.0",
         "cweagans/composer-patches": "~1.0",
