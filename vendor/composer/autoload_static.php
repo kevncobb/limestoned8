@@ -45,7 +45,6 @@ class ComposerStaticInit0a326385dc1ee3790ca0560342a6f1b8
         ),
         'Z' => 
         array (
-            'ZipStream\\' => 10,
             'Zend\\Stdlib\\' => 12,
             'Zend\\Feed\\' => 10,
             'Zend\\Escaper\\' => 13,
@@ -87,13 +86,13 @@ class ComposerStaticInit0a326385dc1ee3790ca0560342a6f1b8
             'Symfony\\Component\\ClassLoader\\' => 30,
             'Symfony\\Cmf\\Component\\Routing\\' => 30,
             'Symfony\\Bridge\\PsrHttpMessage\\' => 30,
-            'Solarium\\' => 9,
         ),
         'P' => 
         array (
             'Psr\\Log\\' => 8,
             'Psr\\Http\\Message\\' => 17,
             'Psr\\Container\\' => 14,
+            'PantheonSystems\\CDNBehatHelpers\\' => 32,
         ),
         'O' => 
         array (
@@ -158,10 +157,6 @@ class ComposerStaticInit0a326385dc1ee3790ca0560342a6f1b8
         'cweagans\\Composer\\' => 
         array (
             0 => __DIR__ . '/..' . '/cweagans/composer-patches/src',
-        ),
-        'ZipStream\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/maennchen/zipstream-php/src',
         ),
         'Zend\\Stdlib\\' => 
         array (
@@ -279,10 +274,6 @@ class ComposerStaticInit0a326385dc1ee3790ca0560342a6f1b8
         array (
             0 => __DIR__ . '/..' . '/symfony/psr-http-message-bridge',
         ),
-        'Solarium\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/solarium/solarium/src',
-        ),
         'Psr\\Log\\' => 
         array (
             0 => __DIR__ . '/..' . '/psr/log/Psr/Log',
@@ -294,6 +285,10 @@ class ComposerStaticInit0a326385dc1ee3790ca0560342a6f1b8
         'Psr\\Container\\' => 
         array (
             0 => __DIR__ . '/..' . '/psr/container/src',
+        ),
+        'PantheonSystems\\CDNBehatHelpers\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/docroot/modules/contrib/pantheon_advanced_page_cache/tests/behat/helper_classes',
         ),
         'OomphInc\\ComposerInstallersExtender\\' => 
         array (
@@ -404,6 +399,10 @@ class ComposerStaticInit0a326385dc1ee3790ca0560342a6f1b8
             'Stack' => 
             array (
                 0 => __DIR__ . '/..' . '/stack/builder/src',
+            ),
+            'Solarium\\' => 
+            array (
+                0 => __DIR__ . '/..' . '/solarium/solarium/library',
             ),
         ),
         'K' => 

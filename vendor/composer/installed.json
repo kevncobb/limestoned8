@@ -2799,17 +2799,17 @@
     },
     {
         "name": "drupal/core",
-        "version": "8.6.13",
-        "version_normalized": "8.6.13.0",
+        "version": "8.6.14",
+        "version_normalized": "8.6.14.0",
         "source": {
             "type": "git",
             "url": "https://github.com/drupal/core.git",
-            "reference": "8d5b80030ac3f13df2d66aeef0ea388fd9a90632"
+            "reference": "7f5f0369ffe08478aa0f26bd48dc95bcc9cde4b5"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/drupal/core/zipball/8d5b80030ac3f13df2d66aeef0ea388fd9a90632",
-            "reference": "8d5b80030ac3f13df2d66aeef0ea388fd9a90632",
+            "url": "https://api.github.com/repos/drupal/core/zipball/7f5f0369ffe08478aa0f26bd48dc95bcc9cde4b5",
+            "reference": "7f5f0369ffe08478aa0f26bd48dc95bcc9cde4b5",
             "shasum": ""
         },
         "require": {
@@ -2982,7 +2982,7 @@
             "symfony/debug": "^3.4.0",
             "symfony/phpunit-bridge": "^3.4.3"
         },
-        "time": "2019-03-20T06:01:19+00:00",
+        "time": "2019-04-08T01:37:34+00:00",
         "type": "drupal-core",
         "extra": {
             "merge-plugin": {
@@ -7081,6 +7081,92 @@
         }
     },
     {
+        "name": "drupal/pantheon_advanced_page_cache",
+        "version": "1.0.0",
+        "version_normalized": "1.0.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://git.drupalcode.org/project/pantheon_advanced_page_cache.git",
+            "reference": "8.x-1.0"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://ftp.drupal.org/files/projects/pantheon_advanced_page_cache-8.x-1.0.zip",
+            "reference": "8.x-1.0",
+            "shasum": "c398e19dd098d0536bd49f0dfd0037674854a2e6"
+        },
+        "require": {
+            "drupal/core": "~8.0"
+        },
+        "require-dev": {
+            "drupal/coder": "^8.2",
+            "drupal/drupal-extension": "^3.3",
+            "phpunit/phpunit": "^6.3"
+        },
+        "type": "drupal-module",
+        "extra": {
+            "branch-alias": {
+                "dev-1.x": "1.x-dev"
+            },
+            "drupal": {
+                "version": "8.x-1.0",
+                "datestamp": "1529441320",
+                "security-coverage": {
+                    "status": "covered",
+                    "message": "Covered by Drupal's security advisory policy"
+                }
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "PantheonSystems\\CDNBehatHelpers\\": "tests/behat/helper_classes/"
+            }
+        },
+        "notification-url": "https://packages.drupal.org/8/downloads",
+        "scripts": {
+            "codesniff": [
+                "phpcs --report=full --extensions=php,module,inc,theme,info,install --standard=vendor/drupal/coder/coder_sniffer/Drupal src",
+                "phpcs --report=full --extensions=php,module,inc,theme,info,install --standard=vendor/drupal/coder/coder_sniffer/Drupal tests/modules",
+                "phpcs  tests/behat  --standard=PSR2"
+            ],
+            "phpcbf": [
+                "phpcbf --report=full --extensions=php,module,inc,theme,info,install --standard=vendor/drupal/coder/coder_sniffer/Drupal src",
+                "phpcbf --report=full --extensions=php,module,inc,theme,info,install --standard=vendor/drupal/coder/coder_sniffer/Drupal tests/modules",
+                "phpcbf  tests/behat  --standard=PSR2"
+            ],
+            "phpunit": [
+                "phpunit tests --colors=always"
+            ]
+        },
+        "license": [
+            "GPL-2.0-or-later"
+        ],
+        "authors": [
+            {
+                "name": "Ari Gold",
+                "homepage": "https://www.drupal.org/user/329006"
+            },
+            {
+                "name": "David Strauss",
+                "homepage": "https://www.drupal.org/user/93254"
+            },
+            {
+                "name": "Fabianx",
+                "homepage": "https://www.drupal.org/user/693738"
+            },
+            {
+                "name": "stevector",
+                "homepage": "https://www.drupal.org/user/179805"
+            }
+        ],
+        "description": "Advanced page cache capabilities for Pantheon.",
+        "homepage": "https://www.drupal.org/project/pantheon_advanced_page_cache",
+        "support": {
+            "source": "https://git.drupalcode.org/project/pantheon_advanced_page_cache"
+        }
+    },
+    {
         "name": "drupal/paragraphs",
         "version": "1.6.0",
         "version_normalized": "1.6.0.0",
@@ -8074,53 +8160,100 @@
         }
     },
     {
-        "name": "drupal/search_api_solr",
-        "version": "2.7.0",
-        "version_normalized": "2.7.0.0",
+        "name": "drupal/search_api_pantheon",
+        "version": "1.0.0",
+        "version_normalized": "1.0.0.0",
         "source": {
             "type": "git",
-            "url": "https://git.drupalcode.org/project/search_api_solr.git",
-            "reference": "8.x-2.7"
+            "url": "https://git.drupalcode.org/project/search_api_pantheon.git",
+            "reference": "8.x-1.0"
         },
         "dist": {
             "type": "zip",
-            "url": "https://ftp.drupal.org/files/projects/search_api_solr-8.x-2.7.zip",
-            "reference": "8.x-2.7",
-            "shasum": "e1c22328bcb4fb74ca84384fb4ac8af75dc7a618"
+            "url": "https://ftp.drupal.org/files/projects/search_api_pantheon-8.x-1.0.zip",
+            "reference": "8.x-1.0",
+            "shasum": "8ccaec9b60fafb2f406e21559f9ac74faae64aba"
         },
         "require": {
-            "drupal/core": "^8.5",
-            "drupal/search_api": "~1.11",
-            "ext-json": "*",
-            "maennchen/zipstream-php": "0.4.*",
-            "php": "^7.0",
-            "solarium/solarium": "~4.2.0"
-        },
-        "conflict": {
-            "drupal/core": "<8.5",
-            "drupal/search_api_solr_multilingual": "*"
+            "drupal/core": "~8.0",
+            "drupal/search_api_solr": "~1.0-beta1"
         },
         "require-dev": {
-            "drupal/devel": "*",
-            "drupal/facets": "1.x-dev",
-            "drupal/geofield": "1.x-dev",
-            "drupal/search_api_autocomplete": "1.x-dev",
-            "drupal/search_api_location": "1.x-dev",
-            "phayes/geophp": "^1.2"
-        },
-        "suggest": {
-            "drupal/facets": "Provides facetted search.",
-            "drupal/search_api_autocomplete": "Provides auto complete for search boxes.",
-            "drupal/search_api_location": "Provides location searches."
+            "drupal/coder": "2.0-beta1",
+            "drupal/drupal-extension": "^3.4",
+            "drush-ops/behat-drush-endpoint": "*",
+            "squizlabs/php_codesniffer": "2.0.*@dev"
         },
         "type": "drupal-module",
         "extra": {
             "branch-alias": {
-                "dev-2.x": "2.x-dev"
+                "dev-1.x": "1.x-dev"
             },
             "drupal": {
-                "version": "8.x-2.7",
-                "datestamp": "1553881385",
+                "version": "8.x-1.0",
+                "datestamp": "1546025880",
+                "security-coverage": {
+                    "status": "covered",
+                    "message": "Covered by Drupal's security advisory policy"
+                }
+            }
+        },
+        "installation-source": "dist",
+        "notification-url": "https://packages.drupal.org/8/downloads",
+        "license": [
+            "GPL-2.0-or-later"
+        ],
+        "authors": [
+            {
+                "name": "stevector",
+                "homepage": "https://www.drupal.org/user/179805"
+            }
+        ],
+        "description": "Search API + Solr + Pantheon integration",
+        "homepage": "https://www.drupal.org/project/search_api_pantheon",
+        "support": {
+            "source": "https://git.drupalcode.org/project/search_api_pantheon"
+        }
+    },
+    {
+        "name": "drupal/search_api_solr",
+        "version": "1.2.0",
+        "version_normalized": "1.2.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://git.drupalcode.org/project/search_api_solr.git",
+            "reference": "8.x-1.2"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://ftp.drupal.org/files/projects/search_api_solr-8.x-1.2.zip",
+            "reference": "8.x-1.2",
+            "shasum": "cd77fc851d36ecfb04a0c29967c93e5c47e2d2c6"
+        },
+        "require": {
+            "drupal/core": "~8.0",
+            "drupal/search_api": "~1.3",
+            "solarium/solarium": "3.8.*"
+        },
+        "require-dev": {
+            "drupal/facets": "1.x-dev",
+            "drupal/geofield": "1.x-dev",
+            "drupal/search_api_autocomplete": "1.x-dev",
+            "drupal/search_api_location": "1.x-dev",
+            "phayes/geophp": "dev-master"
+        },
+        "suggest": {
+            "drupal/facets": "Provides facetted search.",
+            "drupal/search_api_solr_multilingual": "Highly recommended if installation is multilingual or uses a language different than English."
+        },
+        "type": "drupal-module",
+        "extra": {
+            "branch-alias": {
+                "dev-1.x": "1.x-dev"
+            },
+            "drupal": {
+                "version": "8.x-1.2",
+                "datestamp": "1549962207",
                 "security-coverage": {
                     "status": "covered",
                     "message": "Covered by Drupal's security advisory policy"
@@ -8163,7 +8296,7 @@
         "support": {
             "source": "http://git.drupal.org/project/search_api_solr.git",
             "issues": "https://www.drupal.org/project/issues/search_api_solr",
-            "irc": "https://drupalchat.me/channel/search"
+            "irc": "irc://irc.freenode.org/drupal-search-api"
         }
     },
     {
@@ -12626,60 +12759,6 @@
         ]
     },
     {
-        "name": "maennchen/zipstream-php",
-        "version": "v0.4.1",
-        "version_normalized": "0.4.1.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/maennchen/ZipStream-PHP.git",
-            "reference": "89e0cdb3c9ecabef4da988852003781a7802afb7"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/maennchen/ZipStream-PHP/zipball/89e0cdb3c9ecabef4da988852003781a7802afb7",
-            "reference": "89e0cdb3c9ecabef4da988852003781a7802afb7",
-            "shasum": ""
-        },
-        "require": {
-            "ext-mbstring": "*",
-            "php": ">= 5.6"
-        },
-        "require-dev": {
-            "phpunit/phpunit": "4.3.*"
-        },
-        "time": "2016-09-13T10:29:17+00:00",
-        "type": "library",
-        "installation-source": "dist",
-        "autoload": {
-            "psr-4": {
-                "ZipStream\\": "src/"
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Paul Duncan",
-                "email": "pabs@pablotron.org"
-            },
-            {
-                "name": "Jesse Donat",
-                "email": "donatj@gmail.com"
-            },
-            {
-                "name": "Jonatan Männchen",
-                "email": "jonatan@maennchen.ch"
-            }
-        ],
-        "description": "ZipStream is a library for dynamically streaming dynamic zip files from PHP without writing to the disk at all on the server.",
-        "keywords": [
-            "stream",
-            "zip"
-        ]
-    },
-    {
         "name": "masterminds/html5",
         "version": "2.6.0",
         "version_normalized": "2.6.0.0",
@@ -13178,44 +13257,44 @@
     },
     {
         "name": "solarium/solarium",
-        "version": "4.2.0",
-        "version_normalized": "4.2.0.0",
+        "version": "3.8.1",
+        "version_normalized": "3.8.1.0",
         "source": {
             "type": "git",
             "url": "https://github.com/solariumphp/solarium.git",
-            "reference": "20cf9e906a4e8e4a29c1ff48a2b145fa31d1064d"
+            "reference": "c353babec89fdbe8c64054bfec8e77bcb5da6705"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/solariumphp/solarium/zipball/20cf9e906a4e8e4a29c1ff48a2b145fa31d1064d",
-            "reference": "20cf9e906a4e8e4a29c1ff48a2b145fa31d1064d",
+            "url": "https://api.github.com/repos/solariumphp/solarium/zipball/c353babec89fdbe8c64054bfec8e77bcb5da6705",
+            "reference": "c353babec89fdbe8c64054bfec8e77bcb5da6705",
             "shasum": ""
         },
         "require": {
-            "php": "^7.0",
-            "symfony/event-dispatcher": "^2.7 || ^3.0 || ^4.0"
+            "php": ">=5.3.2",
+            "symfony/event-dispatcher": "~2.3|~3.0"
         },
         "require-dev": {
             "guzzlehttp/guzzle": "^3.8 || ^6.2",
-            "php-coveralls/php-coveralls": "^1.0",
-            "phpunit/phpunit": "^6.5",
-            "squizlabs/php_codesniffer": "^1.4",
-            "zendframework/zendframework": "^3.0"
+            "phpunit/phpunit": "~3.7",
+            "satooshi/php-coveralls": "~1.0",
+            "squizlabs/php_codesniffer": "~1.4",
+            "zendframework/zendframework1": "~1.12"
         },
         "suggest": {
             "minimalcode/search": "Query builder compatible with Solarium, allows simplified solr-query handling"
         },
-        "time": "2018-11-24T09:20:30+00:00",
+        "time": "2017-02-02T13:32:22+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
-                "dev-master": "4.1.x-dev"
+                "dev-develop": "3.3.x-dev"
             }
         },
         "installation-source": "dist",
         "autoload": {
-            "psr-4": {
-                "Solarium\\": "src/"
+            "psr-0": {
+                "Solarium\\": "library/"
             }
         },
         "notification-url": "https://packagist.org/downloads/",
