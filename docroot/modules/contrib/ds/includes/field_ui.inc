@@ -273,10 +273,10 @@ function ds_field_ui_row_region(array $row) {
  */
 function ds_field_ui_layouts_validate($form, FormStateInterface $form_state) {
   // Determine layout variables.
-  $layout = $form_state->getValue('layout');
+  $layout = $form_state->getValue('ds_layout');
   if ($layout === '_none') {
     $layout = '';
-    $form_state->setValue('layout', '');
+    $form_state->setValue('ds_layout', '');
   }
   $old_layout = $form_state->getValue('old_layout');
   $new_layout = ($layout != $old_layout) || empty($old_layout);
@@ -284,7 +284,7 @@ function ds_field_ui_layouts_validate($form, FormStateInterface $form_state) {
   // Only validate the layout settings if the layout hasn't changed.
   if (!$new_layout && !empty($layout)) {
     /* @var \Drupal\layout_plugin\Plugin\Layout\LayoutInterface $layout_plugin */
-    $layout_plugin = \Drupal::service('plugin.manager.core.layout')->createInstance($form_state->getValue('layout'), []);
+    $layout_plugin = \Drupal::service('plugin.manager.core.layout')->createInstance($form_state->getValue('ds_layout'), []);
     $layout_form = isset($form['layout_configuration']) ? $form['layout_configuration'] : [];
     foreach (Element::children($form) as $name) {
       if (!empty($form[$name]['#ds_layout_configuration'])) {
@@ -327,13 +327,13 @@ function ds_field_ui_layouts_save($form, FormStateInterface $form_state) {
   $view_mode = $display->getMode();
 
   // Determine layout variables.
-  $layout = $form_state->getValue(['ds_layouts', 'layout']);
+  $layout = $form_state->getValue('ds_layout');
   $disable_css = $form_state->getValue('disable_css');
   $entity_classes = $form_state->getValue('entity_classes');
   if (empty($entity_classes)) {
     $entity_classes = 'all_classes';
   }
-  $old_layout = $form_state->getValue(['ds_layouts', 'old_layout']);
+  $old_layout = $form_state->getValue('old_layout');
   $new_layout = ($layout != $old_layout) || empty($old_layout);
 
   $key = array_search('ds_field_ui_change_layout_submit', $form['actions']['submit']['#submit']);
@@ -367,12 +367,13 @@ function ds_field_ui_layouts_save($form, FormStateInterface $form_state) {
       $form_state->set('ignore_ds_fields', FALSE);
       $display->unsetThirdPartySetting('ds', 'fields');
 
-      if ($fields = $form_state->getValue('fields')) {
+      $fields = $form_state->getValue('fields');
+      if (!empty($fields)) {
         foreach (array_keys($display->getComponents()) as $name) {
           $fields[$name]['region'] = NULL;
         }
-        $form_state->setValue('fields', $fields);
       }
+      $form_state->setValue('fields', $fields);
     }
 
     $display->save();
@@ -612,7 +613,7 @@ function ds_field_ui_layout_clone($form, FormStateInterface $form_state) {
   $clone_display->save();
 
   // Show message.
-  drupal_set_message(t('The layout has been cloned.'));
+  \Drupal::messenger()->addMessage(t('The layout has been cloned.'));
 }
 
 /**
@@ -745,7 +746,6 @@ function _ds_field_ui_table_layouts($entity_type, $bundle, $view_mode, array &$f
     '#group' => 'additional_settings',
     '#collapsed' => FALSE,
     '#weight' => -100,
-    '#tree' => TRUE,
   ];
 
   // @todo cleanup
@@ -756,19 +756,13 @@ function _ds_field_ui_table_layouts($entity_type, $bundle, $view_mode, array &$f
   $display = $entity_form->getEntity();
   if ($display->getThirdPartySetting('ds', 'layout')) {
     $layout_configuration = $display->getThirdPartySetting('ds', 'layout');
-
-    if (isset($ds_layouts[$layout_configuration['id']])) {
-      $layout = (array) $ds_layouts[$layout_configuration['id']];
-      $layout['layout'] = $layout_configuration['id'];
-      $layout['disable_css'] = $layout_configuration['disable_css'];
-      $layout['entity_classes'] = $layout_configuration['entity_classes'];
-      $layout['settings'] = $layout_configuration['settings'] ?: [];
-      $layout['regions'] = $display->getThirdPartySetting('ds', 'regions');
-      $layout['fields'] = $display->getThirdPartySetting('ds', 'fields');
-    }
-    else {
-      drupal_set_message(t('The configured layout (@layout) is missing, please select a new one', ['@layout' => $layout_configuration['id']]), 'error');
-    }
+    $layout = (array) $ds_layouts[$layout_configuration['id']];
+    $layout['layout'] = $layout_configuration['id'];
+    $layout['disable_css'] = $layout_configuration['disable_css'];
+    $layout['entity_classes'] = $layout_configuration['entity_classes'];
+    $layout['settings'] = $layout_configuration['settings'] ?: [];
+    $layout['regions'] = $display->getThirdPartySetting('ds', 'regions');
+    $layout['fields'] = $display->getThirdPartySetting('ds', 'fields');
   }
 
   if (!empty($layout) && isset($layout['layout']) && isset($ds_layouts[$layout['layout']])) {
@@ -805,7 +799,7 @@ function _ds_field_ui_table_layouts($entity_type, $bundle, $view_mode, array &$f
         }
       }
 
-      // If anything is left, then we put it on it's own vertial tab.
+      // If anything is left, then we put it on it's own vertical tab.
       if (!Element::isEmpty($layout_configuration_form)) {
         $form['layout_configuration'] = array_merge($layout_configuration_form, [
           '#group' => 'additional_settings',
@@ -884,12 +878,12 @@ function _ds_field_ui_table_layouts($entity_type, $bundle, $view_mode, array &$f
 function _ds_field_ui_table_layouts_preview(array &$form, FormStateInterface $form_state, array $ds_layouts, array $layout, EntityViewDisplayInterface $display) {
   $layout_string = '';
 
-  $form['ds_layouts']['layout'] = [
+  $form['ds_layouts']['ds_layout'] = [
     '#type' => 'select',
     '#title' => t('Select a layout'),
     '#options' => $layout['layout_options'],
     '#default_value' => isset($layout['layout']) ? $layout['layout'] : NULL,
-    '#empty_value' => '',
+    '#empty_value' => '_none',
     '#weight' => -1,
     '#ajax' => [
       'callback' => 'ds_field_ui_table_layouts_preview_callback',
@@ -898,7 +892,7 @@ function _ds_field_ui_table_layouts_preview(array &$form, FormStateInterface $fo
   ];
 
   if (!isset($layout['layout'])) {
-    $form['ds_layouts']['layout']['#description'] = t("A layout must be selected to enable Display Suite functionality.");
+    $form['ds_layouts']['ds_layout']['#description'] = t("A layout must be selected to enable Display Suite functionality.");
   }
 
   $form['ds_layouts']['preview'] = [
@@ -908,26 +902,22 @@ function _ds_field_ui_table_layouts_preview(array &$form, FormStateInterface $fo
     '#weight' => -3,
   ];
 
-  if (isset($layout['layout']) || $form_state->hasValue('layout')) {
-    $layout_string = $form_state->hasValue('ds_layouts') ? $form_state->getValue(['ds_layouts', 'layout']) : $layout['layout'];
+  if (isset($layout['layout']) || $form_state->hasValue('ds_layout')) {
+    $layout_string = $form_state->hasValue('ds_layout') ? $form_state->getValue('ds_layout') : $layout['layout'];
   }
 
-  $suggestions_array = [];
-
   if (!empty($layout_string)) {
-    if (isset($ds_layouts[$layout_string])) {
-      /** @var \Drupal\Core\Layout\LayoutDefinition $chosen_layout */
-      $chosen_layout = $ds_layouts[$layout_string];
-
-      $selected = '<strong>' . $chosen_layout->getLabel() . '</strong>';
-      $selected .= '<br/>' . t('The default template can be found in %path', ['%path' => $chosen_layout->getPath() . '/' . $chosen_layout->getTemplate()]);
-      $suggestions_array[0] = $chosen_layout->getTemplate() . '--' . $display->getTargetEntityTypeId();
-      $suggestions_array[2] = $chosen_layout->getTemplate() . '--' . $display->getTargetEntityTypeId() . '-' . $display->getTargetBundle();
-      $suggestions_array[4] = $chosen_layout->getTemplate() . '--' . $display->getTargetEntityTypeId() . '--{id}';
-      if ($display->getMode() != 'default') {
-        $suggestions_array[1] = $chosen_layout->getTemplate() . '--' . $display->getTargetEntityTypeId() . '-' . $display->getMode();
-        $suggestions_array[3] = $chosen_layout->getTemplate() . '--' . $display->getTargetEntityTypeId() . '-' . $display->getTargetBundle() . '-' . $display->getMode();
-      }
+    /** @var \Drupal\Core\Layout\LayoutDefinition $chosen_layout */
+    $chosen_layout = $ds_layouts[$layout_string];
+    $selected = '<strong>' . $chosen_layout->getLabel() . '</strong>';
+    $selected .= '<br/>' . t('The default template can be found in %path', ['%path' => $chosen_layout->getPath() . '/' . $chosen_layout->getTemplate()]);
+    $suggestions_array = [];
+    $suggestions_array[0] = $chosen_layout->getTemplate() . '--' . $display->getTargetEntityTypeId();
+    $suggestions_array[2] = $chosen_layout->getTemplate() . '--' . $display->getTargetEntityTypeId() . '-' . $display->getTargetBundle();
+    $suggestions_array[4] = $chosen_layout->getTemplate() . '--' . $display->getTargetEntityTypeId() . '--{id}';
+    if ($display->getMode() != 'default') {
+      $suggestions_array[1] = $chosen_layout->getTemplate() . '--' . $display->getTargetEntityTypeId() . '-' . $display->getMode();
+      $suggestions_array[3] = $chosen_layout->getTemplate() . '--' . $display->getTargetEntityTypeId() . '-' . $display->getTargetBundle() . '-' . $display->getMode();
     }
 
     ksort($suggestions_array);
@@ -938,9 +928,9 @@ function _ds_field_ui_table_layouts_preview(array &$form, FormStateInterface $fo
       $suggestions_array[$key] = $suggestion_replace . '.html.twig';
     }
 
-    if ($form_state->hasValue('layout') || (!empty($layout) && isset($layout['regions']) && (!empty($chosen_layout)))) {
+    if ($form_state->hasValue('ds_layout') || (!empty($layout) && isset($layout['regions']))) {
       $fallback_image = drupal_get_path('module', 'ds') . '/images/preview.png';
-      $current_layout = $form_state->hasValue('layout') && (!isset($layout->layout) || $form_state->getValue('layout') != $layout->layout) ? t('Current layout (after save)') : t('Current layout');
+      $current_layout = $form_state->hasValue('ds_layout') && (!isset($layout->layout) || $form_state->getValue('ds_layout') != $layout->layout) ? t('Current layout (after save)') : t('Current layout');
       $image = $chosen_layout->getIconPath();
       if (empty($image)) {
         $image = $fallback_image;
@@ -1357,19 +1347,19 @@ function ds_field_row_form_format_construct(&$table, $key, $settings_form, FormS
     'actions' => [
       '#type' => 'actions',
       'save_settings' => $base_button + [
-          '#type' => 'submit',
-          '#name' => $key . '_plugin_settings_update',
-          '#value' => t('Update'),
-          '#op' => 'update',
-        ],
+        '#type' => 'submit',
+        '#name' => $key . '_plugin_settings_update',
+        '#value' => t('Update'),
+        '#op' => 'update',
+      ],
       'cancel_settings' => $base_button + [
-          '#type' => 'submit',
-          '#name' => $key . '_plugin_settings_cancel',
-          '#value' => t('Cancel'),
-          '#op' => 'cancel',
-          // Do not check errors for the 'Cancel' button.
-          '#limit_validation_errors' => [],
-        ],
+        '#type' => 'submit',
+        '#name' => $key . '_plugin_settings_cancel',
+        '#value' => t('Cancel'),
+        '#op' => 'cancel',
+        // Do not check errors for the 'Cancel' button.
+        '#limit_validation_errors' => [],
+      ],
     ],
   ];
   $table[$key]['#attributes']['class'][] = 'field-plugin-settings-editing';
@@ -1394,17 +1384,17 @@ function ds_field_row_form_format_summary_construct(&$table, $key, FormStateInte
 
   // Add the configure button.
   $table[$key]['settings_edit'] = $base_button + [
-      '#type' => 'image_button',
-      '#name' => $key . '_plugin_settings_edit',
-      '#src' => 'core/misc/icons/787878/cog.svg',
-      '#attributes' => ['class' => ['field-plugin-settings-edit'], 'alt' => t('Edit')],
-      '#op' => 'edit',
-      // Do not check errors for the 'Edit' button, but make sure we get
-      // the value of the 'plugin type' select.
-      '#limit_validation_errors' => [['fields', $key, 'type']],
-      '#prefix' => '<div class="field-plugin-settings-edit-wrapper">',
-      '#suffix' => '</div>',
-    ];
+    '#type' => 'image_button',
+    '#name' => $key . '_plugin_settings_edit',
+    '#src' => 'core/misc/icons/787878/cog.svg',
+    '#attributes' => ['class' => ['field-plugin-settings-edit'], 'alt' => t('Edit')],
+    '#op' => 'edit',
+    // Do not check errors for the 'Edit' button, but make sure we get
+    // the value of the 'plugin type' select.
+    '#limit_validation_errors' => [['fields', $key, 'type']],
+    '#prefix' => '<div class="field-plugin-settings-edit-wrapper">',
+    '#suffix' => '</div>',
+  ];
 }
 
 /**

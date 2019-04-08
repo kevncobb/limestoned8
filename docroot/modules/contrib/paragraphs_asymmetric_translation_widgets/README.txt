@@ -1,4 +1,4 @@
-Paragraphs asymmetric translation widgets
+Paragraphs Asymmetric Translation Widgets
 
 This module starts as a spin-off from this task:
 https://www.drupal.org/project/paragraphs/issues/2461695

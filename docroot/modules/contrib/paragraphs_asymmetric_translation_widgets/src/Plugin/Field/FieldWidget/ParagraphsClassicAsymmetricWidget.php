@@ -40,6 +40,7 @@ class ParagraphsClassicAsymmetricWidget extends InlineParagraphsWidget {
     $parents = $element['#field_parents'];
     $info = [];
 
+    /** @var \Drupal\paragraphs\ParagraphInterface $paragraphs_entity */
     $paragraphs_entity = NULL;
     $host = $items->getEntity();
     $widget_state = static::getWidgetState($parents, $field_name, $form_state);
@@ -108,7 +109,7 @@ class ParagraphsClassicAsymmetricWidget extends InlineParagraphsWidget {
       }
     }
 
-    if ($paragraphs_entity instanceof ParagraphInterface) {
+    if ($paragraphs_entity) {
       // Detect if we are translating.
       $this->initIsTranslating($form_state, $host);
       $langcode = $form_state->get('langcode');
@@ -178,6 +179,7 @@ class ParagraphsClassicAsymmetricWidget extends InlineParagraphsWidget {
       $element += array(
         '#type' => 'container',
         '#element_validate' => array(array($this, 'elementValidate')),
+        '#paragraph_type' => $paragraphs_entity->bundle(),
         'subform' => array(
           '#type' => 'container',
           '#parents' => $element_parents,

@@ -4,12 +4,12 @@ description: "Replicate UI provides integration for Replicate with front-end sit
 name: "Replicate UI"
 package: "Entity"
 dependencies:
-  - user
-  - replicate
+  - drupal:user
+  - replicate:replicate
 configure: replicate_ui.settings
 
-# Information added by Drupal.org packaging script on 2018-12-09
-version: '8.x-1.0-beta1+2-dev'
+# Information added by Drupal.org packaging script on 2019-03-20
+version: '8.x-1.0-beta2'
 core: '8.x'
 project: 'replicate_ui'
-datestamp: 1544395084
+datestamp: 1553092390

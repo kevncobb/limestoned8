@@ -55,7 +55,7 @@ class RouteSubscriberTest extends UnitTestCase {
 
     $this->assertEquals('/entity_test_1/{entity_test_1}/replicate', $routes->get('entity.entity_test_1.replicate')->getPath());
     $this->assertEquals('entity_test_1.replicate', $routes->get('entity.entity_test_1.replicate')->getDefault('_entity_form'));
-    $this->assertFalse($routes->get('entity.entity_test_1.replicate')->getOption('_admin_route'));
+    $this->assertFalse($routes->get('entity.entity_test_1.replicate')->hasOption('_admin_route'));
     $this->assertEquals('/entity_test_2/{entity_test_2}/replicate', $routes->get('entity.entity_test_2.replicate')->getPath());
     $this->assertEquals('entity_test_2.replicate', $routes->get('entity.entity_test_2.replicate')->getDefault('_entity_form'));
     $this->assertTrue($routes->get('entity.entity_test_2.replicate')->getOption('_admin_route'));

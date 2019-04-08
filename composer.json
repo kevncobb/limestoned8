@@ -13,7 +13,8 @@
         "vardot/varbase": "~8.6.0",
         "vardot/varbase-updater": "~1.0",
         "webflo/drupal-finder": "~1.0",
-        "webmozart/path-util": "~2.0"
+        "webmozart/path-util": "~2.0",
+        "drupal/search_api_solr": "^2.7"
     },
     "conflict": {
         "drupal/drupal": "*"

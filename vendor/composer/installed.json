@@ -2035,7 +2035,7 @@
         "description": "Bootstrap 4 base theme.",
         "homepage": "https://www.drupal.org/project/bootstrap_barrio",
         "support": {
-            "source": "http://cgit.drupalcode.org/bootstrap_barrio"
+            "source": "https://git.drupalcode.org/project/bootstrap_barrio"
         }
     },
     {
@@ -2799,17 +2799,17 @@
     },
     {
         "name": "drupal/core",
-        "version": "8.6.14",
-        "version_normalized": "8.6.14.0",
+        "version": "8.6.13",
+        "version_normalized": "8.6.13.0",
         "source": {
             "type": "git",
             "url": "https://github.com/drupal/core.git",
-            "reference": "7f5f0369ffe08478aa0f26bd48dc95bcc9cde4b5"
+            "reference": "8d5b80030ac3f13df2d66aeef0ea388fd9a90632"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/drupal/core/zipball/7f5f0369ffe08478aa0f26bd48dc95bcc9cde4b5",
-            "reference": "7f5f0369ffe08478aa0f26bd48dc95bcc9cde4b5",
+            "url": "https://api.github.com/repos/drupal/core/zipball/8d5b80030ac3f13df2d66aeef0ea388fd9a90632",
+            "reference": "8d5b80030ac3f13df2d66aeef0ea388fd9a90632",
             "shasum": ""
         },
         "require": {
@@ -2982,7 +2982,7 @@
             "symfony/debug": "^3.4.0",
             "symfony/phpunit-bridge": "^3.4.3"
         },
-        "time": "2019-04-08T01:37:34+00:00",
+        "time": "2019-03-20T06:01:19+00:00",
         "type": "drupal-core",
         "extra": {
             "merge-plugin": {
@@ -5389,18 +5389,12 @@
     },
     {
         "name": "drupal/image_resize_filter",
-        "version": "1.0.0-beta1",
-        "version_normalized": "1.0.0.0-beta1",
+        "version": "dev-1.x",
+        "version_normalized": "dev-1.x",
         "source": {
             "type": "git",
             "url": "https://git.drupalcode.org/project/image_resize_filter.git",
-            "reference": "8.x-1.0-beta1"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://ftp.drupal.org/files/projects/image_resize_filter-8.x-1.0-beta1.zip",
-            "reference": "8.x-1.0-beta1",
-            "shasum": "6a5d549df9db1c4b3fdb5418a4ded9006d24b813"
+            "reference": "c3f4b23b02005859092aaff746b9f21b794adc58"
         },
         "require": {
             "drupal/core": "*"
@@ -5411,15 +5405,15 @@
                 "dev-1.x": "1.x-dev"
             },
             "drupal": {
-                "version": "8.x-1.0-beta1",
-                "datestamp": "1551698884",
+                "version": "8.x-1.0-beta1+0-dev",
+                "datestamp": "1551698584",
                 "security-coverage": {
                     "status": "not-covered",
-                    "message": "Beta releases are not covered by Drupal security advisories."
+                    "message": "Dev releases are not covered by Drupal security advisories."
                 }
             }
         },
-        "installation-source": "dist",
+        "installation-source": "source",
         "notification-url": "https://packages.drupal.org/8/downloads",
         "license": [
             "GPL-2.0-or-later"
@@ -5445,7 +5439,7 @@
         "description": "Resizes images based on width and height attributes and optionally link to the original image.",
         "homepage": "https://www.drupal.org/project/image_resize_filter",
         "support": {
-            "source": "http://cgit.drupalcode.org/image_resize_filter"
+            "source": "https://git.drupalcode.org/project/image_resize_filter"
         }
     },
     {
@@ -6003,18 +5997,12 @@
     },
     {
         "name": "drupal/login_destination",
-        "version": "1.0.0-alpha2",
-        "version_normalized": "1.0.0.0-alpha2",
+        "version": "dev-1.x",
+        "version_normalized": "dev-1.x",
         "source": {
             "type": "git",
             "url": "https://git.drupalcode.org/project/login_destination.git",
-            "reference": "8.x-1.0-alpha2"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://ftp.drupal.org/files/projects/login_destination-8.x-1.0-alpha2.zip",
-            "reference": "8.x-1.0-alpha2",
-            "shasum": "ff8fa5aa208c59fb4aa43630a0c4b1b8500ddc59"
+            "reference": "54be8b89fdc073ca40af6b9b2eeb050e0aeb7908"
         },
         "require": {
             "drupal/core": "~8.0"
@@ -6029,15 +6017,15 @@
                 "dev-1.x": "1.x-dev"
             },
             "drupal": {
-                "version": "8.x-1.0-alpha2",
-                "datestamp": "1552486988",
+                "version": "8.x-1.0-alpha2+3-dev",
+                "datestamp": "1553447888",
                 "security-coverage": {
                     "status": "not-covered",
-                    "message": "Alpha releases are not covered by Drupal security advisories."
+                    "message": "Dev releases are not covered by Drupal security advisories."
                 }
             }
         },
-        "installation-source": "dist",
+        "installation-source": "source",
         "notification-url": "https://packages.drupal.org/8/downloads",
         "license": [
             "GPL-2.0-or-later"
@@ -8083,6 +8071,99 @@
             "source": "http://git.drupal.org/project/search_api.git",
             "issues": "https://www.drupal.org/project/issues/search_api",
             "irc": "irc://irc.freenode.org/drupal-search-api"
+        }
+    },
+    {
+        "name": "drupal/search_api_solr",
+        "version": "2.7.0",
+        "version_normalized": "2.7.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://git.drupalcode.org/project/search_api_solr.git",
+            "reference": "8.x-2.7"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://ftp.drupal.org/files/projects/search_api_solr-8.x-2.7.zip",
+            "reference": "8.x-2.7",
+            "shasum": "e1c22328bcb4fb74ca84384fb4ac8af75dc7a618"
+        },
+        "require": {
+            "drupal/core": "^8.5",
+            "drupal/search_api": "~1.11",
+            "ext-json": "*",
+            "maennchen/zipstream-php": "0.4.*",
+            "php": "^7.0",
+            "solarium/solarium": "~4.2.0"
+        },
+        "conflict": {
+            "drupal/core": "<8.5",
+            "drupal/search_api_solr_multilingual": "*"
+        },
+        "require-dev": {
+            "drupal/devel": "*",
+            "drupal/facets": "1.x-dev",
+            "drupal/geofield": "1.x-dev",
+            "drupal/search_api_autocomplete": "1.x-dev",
+            "drupal/search_api_location": "1.x-dev",
+            "phayes/geophp": "^1.2"
+        },
+        "suggest": {
+            "drupal/facets": "Provides facetted search.",
+            "drupal/search_api_autocomplete": "Provides auto complete for search boxes.",
+            "drupal/search_api_location": "Provides location searches."
+        },
+        "type": "drupal-module",
+        "extra": {
+            "branch-alias": {
+                "dev-2.x": "2.x-dev"
+            },
+            "drupal": {
+                "version": "8.x-2.7",
+                "datestamp": "1553881385",
+                "security-coverage": {
+                    "status": "covered",
+                    "message": "Covered by Drupal's security advisory policy"
+                }
+            }
+        },
+        "installation-source": "dist",
+        "notification-url": "https://packages.drupal.org/8/downloads",
+        "license": [
+            "GPL-2.0+"
+        ],
+        "authors": [
+            {
+                "name": "Markus Kalkbrenner",
+                "homepage": "https://www.drupal.org/u/mkalkbrenner"
+            },
+            {
+                "name": "Other contributors",
+                "homepage": "https://www.drupal.org/node/982682/committers"
+            },
+            {
+                "name": "amateescu",
+                "homepage": "https://www.drupal.org/user/729614"
+            },
+            {
+                "name": "cspitzlay",
+                "homepage": "https://www.drupal.org/user/419305"
+            },
+            {
+                "name": "drunken monkey",
+                "homepage": "https://www.drupal.org/user/205582"
+            },
+            {
+                "name": "mkalkbrenner",
+                "homepage": "https://www.drupal.org/user/124705"
+            }
+        ],
+        "description": "Offers an implementation of the Search API that uses an Apache Solr server for indexing content.",
+        "homepage": "https://www.drupal.org/project/search_api_solr",
+        "support": {
+            "source": "http://git.drupal.org/project/search_api_solr.git",
+            "issues": "https://www.drupal.org/project/issues/search_api_solr",
+            "irc": "https://drupalchat.me/channel/search"
         }
     },
     {
@@ -12545,6 +12626,60 @@
         ]
     },
     {
+        "name": "maennchen/zipstream-php",
+        "version": "v0.4.1",
+        "version_normalized": "0.4.1.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/maennchen/ZipStream-PHP.git",
+            "reference": "89e0cdb3c9ecabef4da988852003781a7802afb7"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/maennchen/ZipStream-PHP/zipball/89e0cdb3c9ecabef4da988852003781a7802afb7",
+            "reference": "89e0cdb3c9ecabef4da988852003781a7802afb7",
+            "shasum": ""
+        },
+        "require": {
+            "ext-mbstring": "*",
+            "php": ">= 5.6"
+        },
+        "require-dev": {
+            "phpunit/phpunit": "4.3.*"
+        },
+        "time": "2016-09-13T10:29:17+00:00",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "ZipStream\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Paul Duncan",
+                "email": "pabs@pablotron.org"
+            },
+            {
+                "name": "Jesse Donat",
+                "email": "donatj@gmail.com"
+            },
+            {
+                "name": "Jonatan Männchen",
+                "email": "jonatan@maennchen.ch"
+            }
+        ],
+        "description": "ZipStream is a library for dynamically streaming dynamic zip files from PHP without writing to the disk at all on the server.",
+        "keywords": [
+            "stream",
+            "zip"
+        ]
+    },
+    {
         "name": "masterminds/html5",
         "version": "2.6.0",
         "version_normalized": "2.6.0.0",
@@ -12658,7 +12793,9 @@
         "version_normalized": "1.4.3.0",
         "dist": {
             "type": "tar",
-            "url": "https://registry.npmjs.org/ace-builds/-/ace-builds-1.4.3.tgz"
+            "url": "https://registry.npmjs.org/ace-builds/-/ace-builds-1.4.3.tgz",
+            "reference": null,
+            "shasum": null
         },
         "type": "npm-asset",
         "installation-source": "dist",
@@ -12672,7 +12809,9 @@
         "version_normalized": "1.8.2.0",
         "dist": {
             "type": "tar",
-            "url": "https://registry.npmjs.org/blazy/-/blazy-1.8.2.tgz"
+            "url": "https://registry.npmjs.org/blazy/-/blazy-1.8.2.tgz",
+            "reference": null,
+            "shasum": null
         },
         "type": "npm-asset",
         "installation-source": "dist",
@@ -12686,7 +12825,9 @@
         "version_normalized": "4.3.0.0",
         "dist": {
             "type": "tar",
-            "url": "https://registry.npmjs.org/dropzone/-/dropzone-4.3.0.tgz"
+            "url": "https://registry.npmjs.org/dropzone/-/dropzone-4.3.0.tgz",
+            "reference": null,
+            "shasum": null
         },
         "type": "npm-asset",
         "installation-source": "dist"
@@ -12697,7 +12838,9 @@
         "version_normalized": "1.8.1.0",
         "dist": {
             "type": "tar",
-            "url": "https://registry.npmjs.org/slick-carousel/-/slick-carousel-1.8.1.tgz"
+            "url": "https://registry.npmjs.org/slick-carousel/-/slick-carousel-1.8.1.tgz",
+            "reference": null,
+            "shasum": null
         },
         "type": "npm-asset",
         "installation-source": "dist",
@@ -13032,6 +13175,66 @@
             }
         ],
         "description": "A polyfill for getallheaders."
+    },
+    {
+        "name": "solarium/solarium",
+        "version": "4.2.0",
+        "version_normalized": "4.2.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/solariumphp/solarium.git",
+            "reference": "20cf9e906a4e8e4a29c1ff48a2b145fa31d1064d"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/solariumphp/solarium/zipball/20cf9e906a4e8e4a29c1ff48a2b145fa31d1064d",
+            "reference": "20cf9e906a4e8e4a29c1ff48a2b145fa31d1064d",
+            "shasum": ""
+        },
+        "require": {
+            "php": "^7.0",
+            "symfony/event-dispatcher": "^2.7 || ^3.0 || ^4.0"
+        },
+        "require-dev": {
+            "guzzlehttp/guzzle": "^3.8 || ^6.2",
+            "php-coveralls/php-coveralls": "^1.0",
+            "phpunit/phpunit": "^6.5",
+            "squizlabs/php_codesniffer": "^1.4",
+            "zendframework/zendframework": "^3.0"
+        },
+        "suggest": {
+            "minimalcode/search": "Query builder compatible with Solarium, allows simplified solr-query handling"
+        },
+        "time": "2018-11-24T09:20:30+00:00",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "4.1.x-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Solarium\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "BSD-3-Clause"
+        ],
+        "authors": [
+            {
+                "name": "See GitHub contributors",
+                "homepage": "https://github.com/basdenooijer/solarium/contributors"
+            }
+        ],
+        "description": "PHP Solr client",
+        "homepage": "http://www.solarium-project.org",
+        "keywords": [
+            "php",
+            "search",
+            "solr"
+        ]
     },
     {
         "name": "stack/builder",

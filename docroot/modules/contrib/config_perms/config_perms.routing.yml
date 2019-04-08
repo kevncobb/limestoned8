@@ -16,6 +16,6 @@ custom_perms_select_list_form:
     _title: 'Custom permissions list forms'
     _form: 'Drupal\config_perms\Form\ConfigPermListForm'
   requirements:
-    _permission: 'access content'
+    _permission: 'administer config permissions'
   options:
     _admin_route: TRUE

@@ -6,8 +6,8 @@ package: Webform
 dependencies:
   - 'webform:webform'
 
-# Information added by Drupal.org packaging script on 2018-05-10
-version: '8.x-1.0-beta5+15-dev'
+# Information added by Drupal.org packaging script on 2018-10-28
+version: '8.x-1.0-beta7'
 core: '8.x'
 project: 'webform_analysis'
-datestamp: 1525962491
+datestamp: 1540735087

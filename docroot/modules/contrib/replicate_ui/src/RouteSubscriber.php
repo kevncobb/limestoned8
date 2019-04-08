@@ -58,12 +58,10 @@ class RouteSubscriber implements EventSubscriberInterface {
         }
         else {
           // Inherit admin route status from the edit route, if it exists.
-          $is_admin = FALSE;
           $route_name = "entity.$entity_type_id.edit_form";
-          if ($edit_route = $collection->get($route_name)) {
-            $is_admin = (bool) $edit_route->getOption('_admin_route');
+          if (($edit_route = $collection->get($route_name)) && $edit_route->getOption('_admin_route')) {
+            $options['_admin_route'] = TRUE;
           }
-          $options['_admin_route'] = $is_admin;
         }
 
         $defaults = [

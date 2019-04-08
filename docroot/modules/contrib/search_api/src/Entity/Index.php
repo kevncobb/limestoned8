@@ -1378,8 +1378,7 @@ class Index extends ConfigEntityBase implements IndexInterface {
         if (!$use_batch || Utility::isRunningInCli()) {
           $index_task_manager->addItemsAll($this);
         }
-        elseif (!defined('MAINTENANCE_MODE')
-            || (!in_array(MAINTENANCE_MODE, ['install', 'update']))) {
+        else {
           $index_task_manager->addItemsBatch($this);
         }
       }
