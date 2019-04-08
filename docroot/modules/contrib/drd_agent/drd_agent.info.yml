@@ -10,8 +10,8 @@ recommends:
   - monitoring
   - security_review
 
-# Information added by Drupal.org packaging script on 2018-04-25
-version: '8.x-3.7'
+# Information added by Drupal.org packaging script on 2019-04-01
+version: '8.x-3.8'
 core: '8.x'
 project: 'drd_agent'
-datestamp: 1524662891
+datestamp: 1554113026

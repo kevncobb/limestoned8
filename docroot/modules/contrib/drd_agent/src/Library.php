@@ -12,6 +12,11 @@ use GuzzleHttp\Client;
 class Library {
 
   /**
+   * Base path to the downloadable DRD agent libraries in the git repo.
+   */
+  const DRD_AGENT_LIB_BASE_URI = 'https://git.drupalcode.org/project/drd_agent_lib/raw/master/';
+
+  /**
    * Callback to download the DRD library if required.
    *
    * @param bool $force
@@ -25,7 +30,7 @@ class Library {
     if ($force || !file_exists($uri)) {
       // Send request.
       try {
-        $client = new Client(['base_uri' => 'https://cgit.drupalcode.org/drd_agent_lib/plain/' . $archive]);
+        $client = new Client(['base_uri' => self::DRD_AGENT_LIB_BASE_URI . $archive]);
         $response = $client->request('get');
       }
       catch (\Exception $ex) {

@@ -9,8 +9,10 @@ login_destination.destination.*:
       type: string
       label: 'Short description of the rule'
     triggers:
-      type: array
+      type: sequence
       label: 'Triggers'
+      sequence:
+        - type: string
     destination_path:
       type: string
       label: 'Destination'
@@ -20,9 +22,14 @@ login_destination.destination.*:
     pages:
       type: string
       label: 'Pages'
+    language:
+      type: string
+      label: 'Language'
     roles:
-      type: array
+      type: sequence
       label: 'Roles'
+      sequence:
+        - type: string
     weight:
       type: integer
       label: 'Weight'

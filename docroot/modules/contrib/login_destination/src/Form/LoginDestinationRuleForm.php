@@ -123,6 +123,18 @@ class LoginDestinationRuleForm extends EntityForm {
       ]),
     ];
 
+    $languages[''] = $this->t('All languages');
+    foreach (\Drupal::languageManager()->getLanguages() as $key => $value) {
+      $languages[$key] = $value->getName();
+    }
+    $form['language'] = [
+      '#type' => 'select',
+      '#title' => $this->t('Redirect for language'),
+      '#options' => $languages,
+      '#default_value' => $login_destination->getLanguage(),
+      '#description' => $this->t('Redirect only for the selected language.'),
+    ];
+
     $form['roles'] = [
       '#type' => 'checkboxes',
       '#title' => $this->t('Redirect users with roles'),
@@ -192,11 +204,16 @@ class LoginDestinationRuleForm extends EntityForm {
     // URI , ensure the raw value begins with '/', '?' or '#'.
     // @todo '<front>' is valid input for BC reasons, may be removed by
     //   https://www.drupal.org/node/2421941
-    if (parse_url($uri, PHP_URL_SCHEME) === 'internal' && !in_array($element['#value'][0], [
-        '/',
-        '?',
-        '#',
-      ], TRUE) && substr($element['#value'], 0, 7) !== '<front>'
+    if (parse_url($uri, PHP_URL_SCHEME) === 'internal'
+      && !in_array(
+        $element['#value'][0], [
+          '/',
+          '?',
+          '#',
+        ],
+        TRUE
+      )
+      && substr($element['#value'], 0, 7) !== '<front>'
       && substr($element['#value'], 0, 9) !== '<current>'
     ) {
       $form_state->setError($element, t('Manually entered paths should start with /, ? or #.'));

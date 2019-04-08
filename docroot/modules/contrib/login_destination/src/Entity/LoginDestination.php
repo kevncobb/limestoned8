@@ -2,7 +2,7 @@
 
 namespace Drupal\login_destination\Entity;
 
-use \Drupal\Component\Utility\Html;
+use Drupal\Component\Utility\Html;
 use Drupal\Component\Utility\Unicode;
 use Drupal\Core\Config\Entity\ConfigEntityBase;
 use Drupal\Core\Url;
@@ -110,6 +110,13 @@ class LoginDestination extends ConfigEntityBase implements LoginDestinationInter
   public $pages = '';
 
   /**
+   * The login destination language.
+   *
+   * @var string
+   */
+  public $language = '';
+
+  /**
    * Status.
    *
    * @var bool
@@ -138,56 +145,63 @@ class LoginDestination extends ConfigEntityBase implements LoginDestinationInter
   }
 
   /**
-   * @inheritdoc
+   * {@inheritdoc}
    */
   public function getLabel() {
     return $this->label;
   }
 
   /**
-   * @inheritdoc
+   * {@inheritdoc}
    */
   public function getMachineName() {
     return $this->name;
   }
 
   /**
-   * @inheritdoc
+   * {@inheritdoc}
    */
   public function getTriggers() {
     return $this->triggers;
   }
 
   /**
-   * @inheritdoc
+   * {@inheritdoc}
    */
   public function getDestination() {
     return $this->destination_path;
   }
 
   /**
-   * @inheritdoc
+   * {@inheritdoc}
    */
   public function getPagesType() {
     return $this->pages_type;
   }
 
   /**
-   * @inheritdoc
+   * {@inheritdoc}
    */
   public function getPages() {
     return $this->pages;
   }
 
   /**
-   * @inheritdoc
+   * {@inheritdoc}
+   */
+  public function getLanguage() {
+    return $this->language;
+  }
+
+  /**
+   * {@inheritdoc}
    */
   public function getRoles() {
     return $this->roles;
   }
 
   /**
-   * @inheritdoc
+   * {@inheritdoc}
    */
   public function getWeight() {
     return $this->weight;

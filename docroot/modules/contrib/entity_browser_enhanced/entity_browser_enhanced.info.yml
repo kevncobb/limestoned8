@@ -4,10 +4,10 @@ type: module
 package: Media
 # core: 8.x
 dependencies:
-  - entity_browser
+  - entity_browser:entity_browser
 
-# Information added by Drupal.org packaging script on 2018-06-13
-version: '8.x-1.0-rc3'
+# Information added by Drupal.org packaging script on 2019-03-30
+version: '8.x-1.0-rc4'
 core: '8.x'
 project: 'entity_browser_enhanced'
-datestamp: 1528884543
+datestamp: 1553929987

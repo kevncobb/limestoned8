@@ -102,15 +102,19 @@ class LoginDestinationManager implements LoginDestinationManagerInterface {
 
     /** @var LoginDestination $destination */
     foreach ($destinations as $destination) {
+
       if (!$destination->isEnabled()) {
         continue;
       }
+
 
       // Determine if the trigger matches that of the login destination rule.
       $destination_triggers = $destination->getTriggers();
       if (!in_array($trigger, $destination_triggers)) {
         continue;
       }
+
+
       $destination_roles = $destination->getRoles();
 
       $role_match = array_intersect($user_roles, $destination_roles);
@@ -119,6 +123,14 @@ class LoginDestinationManager implements LoginDestinationManagerInterface {
       if (empty($role_match) && !empty($destination_roles)) {
         continue;
       }
+
+
+      $destination_language = $destination->getLanguage();
+      $lang_code = \Drupal::languageManager()->getCurrentLanguage()->getId();
+      if ($destination_language != '' && $destination_language != $lang_code) {
+        continue;
+      }
+
 
       $pages = Unicode::strtolower($destination->getPages());
       if (!empty($pages)) {
@@ -132,6 +144,7 @@ class LoginDestinationManager implements LoginDestinationManagerInterface {
         }
         continue;
       }
+
 
       return $destination;
     }

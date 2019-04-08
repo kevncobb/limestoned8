@@ -35,15 +35,15 @@
     "drupal/config_update": "~1.0",
     "drupal/config_filter": "~1.0",
     "drupal/config_ignore": "~2.0",
-    "drupal/ctools": "3.0",
+    "drupal/ctools": "3.2",
     "drupal/token": "~1.0",
-    "drupal/page_manager": "~4.0",
-    "drupal/panels": "~4.0",
+    "drupal/page_manager": "4.0-beta3",
+    "drupal/panels": "4.3",
     "drupal/bootstrap_layouts": "~5.0",
     "drupal/layout_builder_restrictions": "~1.0",
-    "drupal/ds": "~3.0",
+    "drupal/ds": "3.3",
     "drupal/views_bootstrap": "~3.0",
-    "drupal/field_group": "~3.0",
+    "drupal/field_group": "3.0-beta1",
     "drupal/smart_trim": "~1.0",
     "drupal/advanced_text_formatter": "~1.0",
     "drupal/block_class": "~1.0",
@@ -56,9 +56,9 @@
     "drupal/entityqueue_form_widget": "~1.0",
     "drupal/inline_entity_form": "~1.0",
     "drupal/ultimate_cron": "~2.0",
-    "drupal/persistent_login": "~1.0",
+    "drupal/persistent_login": "1.1",
     "drupal/userprotect": "~1.0",
-    "drupal/login_destination": "1.x-dev#54be8b89fdc073ca40af6b9b2eeb050e0aeb7908",
+    "drupal/login_destination": "~1.0",
     "drupal/betterlogin": "~1.0",
     "drupal/config_perms": "~2.0",
     "drupal/roleassign": "~1.0",
@@ -67,7 +67,7 @@
     "drupal/tour_ui": "~1.0",
     "drupal/tour_builder": "~1.0",
     "drupal/l10n_client": "*",
-    "drupal/coffee": "~1.0",
+    "drupal/coffee": "1.0-beta2",
     "drupal/responsive_preview": "~1.0",
     "drupal/views_bulk_operations": "~2.0",
     "drupal/views_bulk_edit": "~2.0",
@@ -133,7 +133,7 @@
         "Issue #2885441: EntityReferenceAutocompleteWidget should define its size setting as an integer":
         "https://www.drupal.org/files/issues/2885441-2.patch",
         "Issue #2815221: Add quickedit to the latest-revision route":
-        "https://www.drupal.org/files/issues/2018-09-24/2815221-109.patch",
+        "https://www.drupal.org/files/issues/2019-03-05/2815221-116.patch",
         "Issue #1356276: Allow profiles to define a base/parent profile and load them in the correct order":
         "https://www.drupal.org/files/issues/2018-10-23/1356276-549-8.6.x.patch",
         "Issue #2914389: Allow profiles to exclude dependencies of their parent":
@@ -143,7 +143,9 @@
         "Issue #2599228: Programmatically created translatable content type returns SQL error on content creation":
         "https://www.drupal.org/files/issues/2018-10-06/2599228-74.patch",
         "Issue #2893892: Fixed Warning Invalid argument supplied for foreach() in Drupal":
-        "https://www.drupal.org/files/issues/patch_empty_fix.patch"
+        "https://www.drupal.org/files/issues/patch_empty_fix.patch",
+        "Issue #3023452: Views placeholder texts are not translatable'":
+        "https://www.drupal.org/files/issues/2019-01-14/3023452-5.patch"
       },
       "drupal/coffee": {
         "Issue #2815381: Coffee breaks whole page when using right to left (rtl) languages in drupal 8":
@@ -163,29 +165,21 @@
       },
       "drupal/ctools": {
         "Issue #2820783: Fix Block.php notices and warnings.":
-        "https://www.drupal.org/files/issues/fixblockpager-2820783-27.patch"
+        "https://www.drupal.org/files/issues/2019-02-18/ctools-Block.php_notices_and_warnings-2820783-51-D8.patch"
       },
       "drupal/ds": {
-        "Issue #2920868: Fixed fatal errors when we have missing layouts, on an update." :
-        "https://www.drupal.org/files/issues/error-when-layout-is-removed-2920868-4.patch",
-        "Issue #2966959: Value Conflict with Layout Builder":
-        "https://www.drupal.org/files/issues/2018-04-27/2966959-ds-namespace_form_for_layout_builder-4.patch"
-      },
-      "drupal/rabbit_hole": {
-        "Issue #2961738: Ensure getOperation method exists on form":
-        "https://www.drupal.org/files/issues/2018-05-10/rabbit_hole-instance_of_check-2961738-5.patch"
-      },
-      "drupal/login_destination": {
-        "Issue #2947616: Fixed SetOptions on null causing error.":
-        "https://www.drupal.org/files/issues/2018-03-09/toolbar_alter_error-2947616-11.patch"
-      },
-      "drupal/views_bulk_operations": {
-        "Issue #2952498: Fixed [VBO) Fatal error when executing simple actions on Adminimal theme":
-        "https://www.drupal.org/files/issues/2018-09-19/views_bulk_operations-theme_error-2952498-29.patch"
+        "Issue #2920868: Fix fatal errors when we have missing layouts, on an update" :
+        "https://www.drupal.org/files/issues/2019-03-03/2920868-12.patch"
       },
       "drupal/page_manager": {
         "Issue #2665328: Variants take entity label not the variant title":
-        "https://www.drupal.org/files/issues/2018-12-12/2665328-variants-take-entity-label-87.patch"
+        "https://www.drupal.org/files/issues/2018-12-12/2665328-variants-take-entity-label-87.patch",
+        "Issue #3033057: Page Manager currently not working with CTools 3.1":
+        "https://www.drupal.org/files/issues/2019-02-23/3033057-13.patch"
+      },
+      "drupal/panels": {
+        "Issue #3031778: Change panels store":
+        "https://www.drupal.org/files/issues/2019-02-21/panels_tempstore-updated-3031778-37.patch"
       },
       "drupal/field_group": {
         "Issue #2921228: Accordion does not work":
