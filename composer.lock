@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4de23d8b2285289f6db25f2967f84a05",
+    "content-hash": "698012464becd056fdda42a31526f1ba",
     "packages": [
         {
             "name": "abraham/twitteroauth",
@@ -7931,6 +7931,65 @@
             }
         },
         {
+            "name": "drupal/search_api_page",
+            "version": "1.0.0-alpha12",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/search_api_page.git",
+                "reference": "8.x-1.0-alpha12"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/search_api_page-8.x-1.0-alpha12.zip",
+                "reference": "8.x-1.0-alpha12",
+                "shasum": "98e5c367dd5e26cb0aeadc70a91733a46809336b"
+            },
+            "require": {
+                "drupal/core": "~8.0",
+                "drupal/search_api": "*"
+            },
+            "require-dev": {
+                "drupal/facets": "*"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "branch-alias": {
+                    "dev-1.x": "1.x-dev"
+                },
+                "drupal": {
+                    "version": "8.x-1.0-alpha12",
+                    "datestamp": "1532507885",
+                    "security-coverage": {
+                        "status": "not-covered",
+                        "message": "Alpha releases are not covered by Drupal security advisories."
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "borisson_",
+                    "homepage": "https://www.drupal.org/user/2393360"
+                },
+                {
+                    "name": "drunken monkey",
+                    "homepage": "https://www.drupal.org/user/205582"
+                },
+                {
+                    "name": "swentel",
+                    "homepage": "https://www.drupal.org/user/107403"
+                }
+            ],
+            "description": "Create search pages using Search API indexes.",
+            "homepage": "https://www.drupal.org/project/search_api_page",
+            "support": {
+                "source": "https://git.drupalcode.org/project/search_api_page"
+            }
+        },
+        {
             "name": "drupal/search_api_pantheon",
             "version": "1.0.0",
             "source": {
@@ -14933,7 +14992,8 @@
     "minimum-stability": "dev",
     "stability-flags": {
         "drupal/image_resize_filter": 20,
-        "drupal/login_destination": 20
+        "drupal/login_destination": 20,
+        "drupal/search_api_page": 15
     },
     "prefer-stable": true,
     "prefer-lowest": false,
