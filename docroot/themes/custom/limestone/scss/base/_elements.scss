@@ -282,10 +282,11 @@ label {
 //Search Form
 form.search-api-page-block-form {
   .js-form-type-search {
-    width: calc(100% - 2.5rem);
     input.form-search {
       width: 100%;
-      padding: 14px 0 13px 25px;
+      padding: 13px 0 0 25px;
+      height: 50px;
+      line-height: 50px;
       border: none;
       font-size: 16px;
       font-weight: 400;
@@ -293,37 +294,7 @@ form.search-api-page-block-form {
       background-color: #F5F5F5;
     }
   }
-
-
   .js-form-submit.button {
-    float: left;
-    display: block;
-    height: 2.5rem;
-    width: 2.5rem;
-    text-indent: -99999px;
-    outline: 1px solid #134ea5;
-    background-color: $limestone-blue;
-    overflow: hidden;
-    position: relative;
-    border: none;
-    -webkit-background-size: 22px;
-    -moz-background-size: 22px;
-    -o-background-size: 22px;
-    background-size: 22px;
-    right: 0;
-    top: 0;
-    &::after {
-      content: "\e986";
-      font-family: 'icomoon' !important;
-      speak: none;
-      font-style: normal;
-      font-weight: normal;
-      font-variant: normal;
-      text-transform: none;
-      line-height: 1;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-      position: absolute;
-    }
+    font-size: 17px;
   }
 }
