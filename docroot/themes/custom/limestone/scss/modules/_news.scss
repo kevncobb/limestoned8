@@ -1,5 +1,14 @@
 .field-name-field-news-categories {
   margin: 1rem 0;
+  .field-item {
+    display: inline;
+    &:after {
+      content: " | ";
+    }
+    &:last-child::after {
+      display: none;
+    }
+  }
   a {
     text-transform: uppercase;
     text-decoration: underline;
