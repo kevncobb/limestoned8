@@ -17,9 +17,10 @@
 
 a {
   text-decoration: underline;
+  color: $link-color;
   &:focus, &:hover {
     transition: 200ms;
-    color: $category;
+    color: $limestone-blue-body;
   }
 }
 
