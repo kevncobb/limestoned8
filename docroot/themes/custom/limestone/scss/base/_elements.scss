@@ -290,13 +290,14 @@ form.search-api-page-block-form {
     outline: 0;
     background-color: #F5F5F5;
   }
-  .js-form-submit input {
+  .js-form-submit.button {
     float: left;
     display: block;
     height: 54px;
     width: 55px;
     text-indent: -99999px;
-    outline: 1px solid #4b2e83;
+    outline: 1px solid #134ea5;
+    background-color: $limestone-blue;
     overflow: hidden;
     position: relative;
     border: none;
