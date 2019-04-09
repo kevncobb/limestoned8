@@ -281,7 +281,7 @@ label {
 
 //Search Form
 form.search-api-page-block-form {
-  .js-form-type-search {
+  .js-form-type-search input.form-search {
     width: 100%;
     padding: 14px 0 13px 25px;
     border: none;
@@ -290,7 +290,7 @@ form.search-api-page-block-form {
     outline: 0;
     background-color: #F5F5F5;
   }
-  .js-form-submit {
+  .js-form-submit input {
     float: left;
     display: block;
     height: 54px;
