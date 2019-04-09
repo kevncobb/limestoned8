@@ -307,6 +307,10 @@ label {
     }
     .js-form-submit.button {
       font-size: 17px;
+      background-color: $limestone-blue;
+      &:focus, &:hover {
+        background-color: darken($limestone-blue, .2);
+      }
     }
   }
 
