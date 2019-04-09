@@ -281,20 +281,25 @@ label {
 
 //Search Form
 form.search-api-page-block-form {
-  .js-form-type-search input.form-search {
-    width: 100%;
-    padding: 14px 0 13px 25px;
-    border: none;
-    font-size: 16px;
-    font-weight: 400;
-    outline: 0;
-    background-color: #F5F5F5;
+  .js-form-type-search {
+    width: calc(100% - 2.5rem);
+    input.form-search {
+      width: 100%;
+      padding: 14px 0 13px 25px;
+      border: none;
+      font-size: 16px;
+      font-weight: 400;
+      outline: 0;
+      background-color: #F5F5F5;
+    }
   }
+
+
   .js-form-submit.button {
     float: left;
     display: block;
-    height: 54px;
-    width: 55px;
+    height: 2.5rem;
+    width: 2.5rem;
     text-indent: -99999px;
     outline: 1px solid #134ea5;
     background-color: $limestone-blue;
