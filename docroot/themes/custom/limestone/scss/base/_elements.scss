@@ -309,7 +309,7 @@ label {
       font-size: 17px;
       background-color: $limestone-blue;
       &:focus, &:hover {
-        background-color: darken($limestone-blue, .2);
+        background-color: darken($limestone-blue, .6);
       }
     }
   }

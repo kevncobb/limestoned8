@@ -5,6 +5,7 @@
 #top-off-canvas-search {
   padding-top: rem-calc(85);
   padding-bottom: rem-calc(33);
+  position: absolute;
   > div {
     @extend .grid-container;
   }
@@ -15,6 +16,9 @@
       height: 51px;
       line-height: 51px;
     }
+  }
+  .search-bar form .form-actions {
+    top: 1px;
   }
   .form-actions input {
     width: 100px;
