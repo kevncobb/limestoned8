@@ -278,3 +278,46 @@ label {
     -moz-osx-font-smoothing: grayscale;
   }
 }
+
+//Search Form
+form.search-api-page-block-form {
+  .js-form-type-search {
+    width: 100%;
+    padding: 14px 0 13px 25px;
+    border: none;
+    font-size: 16px;
+    font-weight: 400;
+    outline: 0;
+    background-color: #F5F5F5;
+  }
+  .js-form-submit {
+    float: left;
+    display: block;
+    height: 54px;
+    width: 55px;
+    text-indent: -99999px;
+    outline: 1px solid #4b2e83;
+    overflow: hidden;
+    position: relative;
+    border: none;
+    -webkit-background-size: 22px;
+    -moz-background-size: 22px;
+    -o-background-size: 22px;
+    background-size: 22px;
+    right: 0;
+    top: 0;
+    &::after {
+      content: "\e986";
+      font-family: 'icomoon' !important;
+      speak: none;
+      font-style: normal;
+      font-weight: normal;
+      font-variant: normal;
+      text-transform: none;
+      line-height: 1;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      position: absolute;
+    }
+  }
+}
