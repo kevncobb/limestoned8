@@ -1,5 +1,5 @@
 global:
-  version: VERSION
+  version: 1.x
   css:
     base:
       css/limestone.css: {}
@@ -22,5 +22,8 @@ lc-menu:
 
 lc-select:
   version: 1.x
+  css:
+    base:
+      css/lc-select.css: {}
   js:
     js/lc-select.js: {}
