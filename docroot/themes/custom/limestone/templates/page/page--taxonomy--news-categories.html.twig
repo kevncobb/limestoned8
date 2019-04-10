@@ -104,11 +104,17 @@
             </div>
             <div class="lc-news-header">
                 <div class="grid-container grid-x" id="lc-news-header">
-                    <div class="cell auto"><span class="lc-news-title">Limestone News</span> <a href="/news" title="LC News"><img alt="" class="lc-news-image" src="/themes/custom/limestone/images/limestone-news.png" /></a></div>
+                    <div class="cell auto"><span class="lc-news-title">Limestone News</span> <a href="/news" title="LC News"><img alt="" class="lc-news-image" src="/themes/custom/limestone/images/limestone-news.png" /></a><br>{% if node.title.value %}
+                        {{ title_prefix }}
+                        <h1 class="news-category-subtitle">{{ title }}</h1>
+                        {{ title_suffix }}
+                        {% endif %}
+                    </div>
 
                     <div class="align-right cell auto" style="max-width: 260px;">
                         <div id="cont_072e443206a6cacdaebaad6fa15278ba"><script type="text/javascript" async src="https://www.theweather.com/wid_loader/072e443206a6cacdaebaad6fa15278ba"></script></div>
                     </div>
+
                 </div>
             </div>
             {% if messages and not zurb_foundation_messages_modal %}
@@ -131,6 +137,7 @@
             {% if page.sidebar_first %}
                 <div class="grid-container">
                     <div class="grid-x grid-margin-x">
+
                         <div id="sidebar-first" class="{{ sidebar_first_grid }} cell sidebar ">
                             {{ page.sidebar_first }}
                         </div>
