@@ -345,11 +345,14 @@ label {
     line-height: 1;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    font-size: 13px;
+    font-size: 26px;
+    height: 100%;
+    width: 50px;
+    padding: 14px 12px;
     border: inset 0px;
     position: absolute;
-    right: 0.6rem;
-    top: 0.9rem;
+    right: 0;
+    top: 0;
     left: auto;
   }
   select.ViewsJumpMenu {
@@ -357,8 +360,8 @@ label {
     height: 100%;
     margin: 0;
     padding: 0.1rem 0 0 1rem;
-    color: $almost-black;
-    font-size: 1rem;
+    color: #525252;
+    font-size: 1.2rem;
     font-weight: normal;
     line-height: 1.4;
     cursor: pointer;
