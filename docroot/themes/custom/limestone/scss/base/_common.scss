@@ -457,3 +457,15 @@ a.to-top {
 .field-label {
   font-weight: bold;
 }
+.field-inline {
+  display: inline;
+  .field-items {
+    display: inline;
+    .field-item {
+      display: inline;
+      p {
+        display: inline;
+      }
+    }
+  }
+}
