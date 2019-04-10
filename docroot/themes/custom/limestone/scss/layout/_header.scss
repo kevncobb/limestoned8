@@ -327,9 +327,13 @@ body.section-trip {
 .paragraph-section-title {
   font-family: $site-header-font-family;
   font-weight: $site-header-font-weight;
-  @media screen and (min-width: 40em) {
+  @include breakpoint(large) {
     font-size: 4rem;
   }
+}
+.news-category-page-title {
+  @extend .paragraph-section-title;
+  margin-top: 0.7rem;
 }
 .mega-title {
   font-family: $header-font-family;
