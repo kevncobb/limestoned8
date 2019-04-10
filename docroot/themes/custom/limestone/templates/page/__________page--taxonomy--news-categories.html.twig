@@ -104,7 +104,8 @@
             </div>
             <div class="lc-news-header">
                 <div class="grid-container grid-x" id="lc-news-header">
-                    <div class="cell auto"><span class="lc-news-title">Limestone News</span> <a href="/news" title="LC News"><img alt="" class="lc-news-image" src="/themes/custom/limestone/images/limestone-news.png" /></a><br>{% if node.title.value %}
+                    <div class="cell auto"><span class="lc-news-title">Limestone News</span> <a href="/news" title="LC News"><img alt="" class="lc-news-image" src="/themes/custom/limestone/images/limestone-news.png" /></a><br>
+                        {% if node.title.value %}
                         {{ title_prefix }}
                         <h1 class="news-category-subtitle">{{ title }}</h1>
                         {{ title_suffix }}
