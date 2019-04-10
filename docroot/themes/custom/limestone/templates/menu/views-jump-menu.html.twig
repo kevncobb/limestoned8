@@ -19,10 +19,9 @@
  */
 #}
 {{ attach_library('views_jump_menu/views-jump-menu') }}
-{{ attach_library('limestone/lc-select') }}
-{% if attributes -%}
-<div{{ attributes }}>
-{% endif %}
+
+<div class="lc-select">
+
   {% if title %}<h3>{{ title }}</h3>{% endif %}
   <select{{ select.attributes }}{% if select.select_label %} aria-label="{{ select.select_label }}"{% endif %}>
     <option data-url="">{{ select.select_text }}</option>
