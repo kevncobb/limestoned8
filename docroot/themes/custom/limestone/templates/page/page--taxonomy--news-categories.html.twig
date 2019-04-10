@@ -172,6 +172,20 @@
                                     {{ page.highlighted }}
                                 {% endspaceless %}
                             {% endif %}
+                            <section id="block-limestone-breadcrumbs" class="block-limestone-breadcrumbs block block-system block-system-breadcrumb-block">
+                                <nav role="navigation" aria-labelledby="system-breadcrumb">
+                                    <h2 id="system-breadcrumb" class="visually-hidden">You are here</h2>
+                                    <ul class="breadcrumbs">
+                                        <li>
+                                            <a href="/">Limestone College</a>
+                                        </li>
+                                        <li>
+                                            <a href="/news">News</a>
+                                        </li>
+                                        <li class="current"><a href="#">{{ title|t() }}</a></li>
+                                    </ul>
+                                </nav>
+                            </section>
                             <a id="main-content"></a>
                             <section>
                                 {{ page.content }}
@@ -191,6 +205,7 @@
                         {% endspaceless %}
                     {% endif %}
                     <a id="main-content"></a>
+
                     <section class="grid-container">
                         {{ page.content|without('node.field_lp_paragraphs') }}
                     </section>

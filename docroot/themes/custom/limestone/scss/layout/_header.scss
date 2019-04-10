@@ -331,10 +331,7 @@ body.section-trip {
     font-size: 4rem;
   }
 }
-.news-category-page-title {
-  @extend .paragraph-section-title;
-  margin-top: 0.7rem;
-}
+
 .mega-title {
   font-family: $header-font-family;
   font-weight: bold;
@@ -550,6 +547,11 @@ form#views-exposed-form-news-latest-news-block .form-item-search label {
   .lc-news-image {
     position: absolute;
     bottom: 8px;
+  }
+  .news-category-page-title {
+    @extend .paragraph-section-title;
+    line-height: 110px; // Height of lc-news-header
+    text-transform: uppercase;
   }
 }
 
