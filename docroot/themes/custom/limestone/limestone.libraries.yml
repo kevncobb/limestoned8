@@ -19,3 +19,8 @@ lc-menu:
   version: 1.x
   js:
     js/menu.js: {}
+
+lc-select:
+  version: 1.x
+  js:
+    js/lc-select.js: {}
