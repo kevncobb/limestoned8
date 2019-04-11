@@ -8,7 +8,7 @@
       color: $limestone-blue;
       margin-right: 10px;
       .month {
-        font-family: $interstate-font;
+        font-family: $interstate-font; //
         font-variant-numeric: lining-nums;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
@@ -41,7 +41,7 @@
     }
     .event-title {
       font-size: 14px;
-      margin-bottom: 14px;
+      margin-bottom: 15px;
     }
   }
 }
