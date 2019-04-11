@@ -1,0 +1,44 @@
+.upcoming-events-block {
+  .date-box {
+    float: left;
+    padding: 10px 15px;
+    background-color: $limestone-yellow;
+    color: $limestone-blue;
+    margin-right: 10px;
+    .month {
+      font-family: $interstate-font;
+      font-variant-numeric: lining-nums;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      font-size: 15px;
+      text-transform: uppercase;
+      text-align: center;
+      display: block;
+    }
+    .day {
+      font-family: $interstate-font;
+      font-variant-numeric: lining-nums;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      font-size: 30px;
+      line-height: 35px;
+      text-align: center;
+      display: block;
+    }
+  }
+  .time {
+    font-family: $header-font-family;
+    font-variant-numeric: lining-nums;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-weight: 900;
+    line-height: 1.5;
+    margin-bottom: 5px;
+    color: #000;
+    font-size: 15px;
+  }
+  .event-title {
+    font-size: 18px;
+    margin-bottom: 15px;
+  }
+}
