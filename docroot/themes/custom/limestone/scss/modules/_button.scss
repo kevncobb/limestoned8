@@ -47,7 +47,7 @@
 .bg-blue a.lc-btn::before {
   background-color: #1550c3;
 }
-.lc-btn {
+a.lc-btn, .lc-btn > a {
   padding: 8px 17px;
   text-transform: uppercase;
   background-color: #ececec;
