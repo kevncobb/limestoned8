@@ -14,10 +14,12 @@
     position: absolute;
   }
   .lc-slide-container {
+    @extend .grid-container;
+    @extend .col-md-8;
     position: relative;
     z-index: 1;
     color: white;
-    padding: 0 0 40px 0;
+    padding: 40px 0 40px 0;
 
     .field-name-body {
       z-index: 1;
@@ -65,6 +67,23 @@
       &.blue {
         color: $limestone-blue;
         text-shadow: none;
+      }
+      &:before, &:after {
+        position: absolute;
+        left: 0;
+        bottom: 0.2rem;
+        content: "";
+        height: 5px;
+      }
+
+      &:before {
+        width: 7rem;
+        background-color: $limestone-yellow;
+        transform: skewX(-35deg) skewY(0);
+        -ms-transform: skewX(-35deg) skewY(0);
+        transform: skew(-35deg,0);
+        left: 5px;
+        margin-left: -10px;
       }
     }
 
