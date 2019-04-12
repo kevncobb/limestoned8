@@ -74,14 +74,16 @@
         <div class="slide-cover-image">
           {{ content.field_image }}
         </div>
-        {{ title_prefix }}
-        <h3{{ title_attributes }}>
-          {{ label }}
-        </h3>
-        {{ title_suffix }}
-        {# We hide the comments and links now so that we can render them later. #}
+
         <div class="lc-slide-container">
-          {{ content|without('field_image', 'links', 'field_full_control_body') }}
+            {{ title_prefix }}
+            <h3{{ title_attributes }}>
+                {{ label }}
+            </h3>
+            {{ title_suffix }}
+            {{ content.body }}
+            {{ content.field_link }}
+            {{ content.field_link_to_content }}
         </div>
     {% endif %}
 </article>
