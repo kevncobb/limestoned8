@@ -68,7 +68,7 @@
  */
 #}
 <article id="node-{{ node.id }}" {{ attributes.addClass('lc-slide') }}>
-    {% if not (node.field_full_control_body.isEmpty == true) and content.field_full_control_body is defined %}
+    {% if not (node.field_full_control_body.isEmpty == true) and node.field_full_control_body is defined %}
         {{ node.field_full_control_body }}
     {% else %}
         <div class="slide-cover-image">
