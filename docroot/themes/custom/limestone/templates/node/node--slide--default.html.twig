@@ -70,7 +70,7 @@
 <article id="node-{{ node.id }}" {{ attributes.addClass('lc-slide') }}>
   {% if content.field_full_control_body %}
     {{ content.field_full_control_body }}
-  {% elseif %}
+  {% else %}
     <div class="slide-cover-image">
       {{ content.field_image }}
     </div>
