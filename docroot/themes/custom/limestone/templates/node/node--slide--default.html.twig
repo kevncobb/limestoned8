@@ -75,15 +75,12 @@
           {{ content.field_image }}
         </div>
 
-        <div class="lc-slide-container">
-            {{ title_prefix }}
-            <h3{{ title_attributes }}>
-                {{ label }}
-            </h3>
-            {{ title_suffix }}
-            {{ content.body }}
-            {{ content.field_link }}
-            {{ content.field_link_to_content }}
+        <div class="grid-container">
+            <div class="lc-slide-container">
+                {{ content.body }}
+                {{ content.field_link }}
+                {{ content.field_link_to_content }}
+            </div>
         </div>
     {% endif %}
 </article>

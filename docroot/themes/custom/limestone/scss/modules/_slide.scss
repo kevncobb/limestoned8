@@ -14,7 +14,6 @@
     position: absolute;
   }
   .lc-slide-container {
-    @extend .grid-container;
     @extend .col-md-8;
     position: relative;
     z-index: 1;
