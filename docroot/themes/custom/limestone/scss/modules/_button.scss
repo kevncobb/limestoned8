@@ -63,7 +63,7 @@
   z-index: 1;
   line-height: 24px;
   font-size: 14px;
-  text-decoration: none;
+  text-decoration: none !important;
 
   &:hover, &:focus {
     color: $category;

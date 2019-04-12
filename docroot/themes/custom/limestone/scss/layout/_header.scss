@@ -440,19 +440,19 @@ form#views-exposed-form-news-latest-news-block .form-item-search label {
   text-transform: uppercase;
   position: relative;
   padding-bottom: 10px;
-  margin-bottom: 15px;
+  margin-bottom: 11px;
   font-family: $header-font-family;
   line-height: 2rem;
   color: $limestone-blue;
   overflow-x: hidden;
   @include breakpoint(smedium) {
-    font-size: 1.25rem;
+    font-size: 1.2rem;
   }
   @include breakpoint(medium) {
-    font-size: 1.45rem;
+    font-size: 1.4rem;
   }
   @include breakpoint(large) {
-    font-size: 1.7rem;
+    font-size: 1.55rem;
   }
 
   a {
