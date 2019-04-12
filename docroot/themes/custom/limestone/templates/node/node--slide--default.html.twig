@@ -80,7 +80,7 @@
         </h3>
         {{ title_suffix }}
         {# We hide the comments and links now so that we can render them later. #}
-        <div{{ content_attributes.addClass('lc-slide-container') }}>
+        <div class="lc-slide-container">
           {{ content|without('field_image', 'links', 'field_full_control_body') }}
         </div>
     {% endif %}

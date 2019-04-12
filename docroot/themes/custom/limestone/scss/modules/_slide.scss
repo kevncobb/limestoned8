@@ -11,6 +11,7 @@
   }
   .slide-cover-image {
     @extend .cover-image;
+    position: absolute;
   }
   .lc-slide-container {
     position: relative;
