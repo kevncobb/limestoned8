@@ -9,6 +9,9 @@
   @include breakpoint(medium) {
     height: 80vh;
   }
+  .slide-cover-image {
+    @extend .cover-image;
+  }
   .lc-slide-container {
     position: relative;
     z-index: 1;
