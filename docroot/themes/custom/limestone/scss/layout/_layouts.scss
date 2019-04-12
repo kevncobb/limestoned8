@@ -133,3 +133,7 @@ article.node--type-news {
     clear: both;
   }
 }
+
+.field-paragraph--bp-view {
+  @extend .fill;
+}
