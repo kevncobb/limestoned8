@@ -31,10 +31,12 @@
     position: relative;
     z-index: 1;
     color: white;
-    padding: 40px 0 40px 0;
+    padding: 0 0 140px 0;
     @include breakpoint(smedium) {
-      @extend .col-md-9;
-      padding: 0 0 140px 0;
+      width: 1180px;
+      padding: 10px 0;
+      height: 450px;
+      position: relative;
     }
     .field-name-body {
       z-index: 1;
