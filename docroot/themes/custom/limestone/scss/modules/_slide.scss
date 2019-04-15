@@ -2,6 +2,11 @@
   position: relative;
   height: 450px;
   overflow: hidden;
+  .views_slideshow_slide {
+    width: 100% !important;
+    height: 525px !important;
+    float: left;
+  }
 }
 .lc-slide {
   height: 100%;
