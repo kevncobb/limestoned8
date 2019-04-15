@@ -40,7 +40,7 @@
     }
     .field-name-body {
       z-index: 1;
-      padding: 1em;
+      padding: 2rem 0 0;
       p {
         text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.7);
         @include breakpoint(smedium) {
