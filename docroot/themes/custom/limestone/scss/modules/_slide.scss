@@ -28,19 +28,22 @@
     position: absolute;
   }
   .lc-slide-container {
-    @extend .col-md-9;
     position: relative;
     z-index: 1;
     color: white;
     padding: 40px 0 40px 0;
-
+    @include breakpoint(smedium) {
+      @extend .col-md-9;
+      padding: 0 0 140px 0;
+    }
     .field-name-body {
       z-index: 1;
       padding: 1em;
       p {
         text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.7);
-        padding-right: 270px;
-
+        @include breakpoint(smedium) {
+          padding-right: 270px;
+        }
         &.dark {
           color: white;
           text-shadow: none;
@@ -49,7 +52,7 @@
           clear: both;
           padding: 5px 10px;
 
-          @media screen and (min-width: 40em) {
+          @include breakpoint(smedium) {
             color: $dark-gray;
             background-color: rgba(255, 255, 255, 0.5);
           }
@@ -71,13 +74,20 @@
       font-weight: 900;
       letter-spacing: -1px;
       text-transform: uppercase;
-      font-size: 50px;
-      line-height: 50px;
-      padding-right: 60px;
-      margin: 60px 0 0;
-      position: relative;
-      padding-bottom: 30px;
       overflow: hidden;
+      font-size: 25px;
+      line-height: 30px;
+      padding-right: 0;
+      margin: 0;
+      @include breakpoint(smedium) {
+        font-size: 50px;
+        line-height: 50px;
+        padding-right: 60px;
+        margin: 10px 0 0;
+        position: relative;
+        padding-bottom: 30px;
+      }
+
     &.dark {
         color: $dark-gray;
         text-shadow: none;
