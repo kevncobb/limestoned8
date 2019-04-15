@@ -1,3 +1,8 @@
+.lc-slider {
+  position: relative;
+  height: 450px;
+  overflow: hidden;
+}
 .lc-slide {
   height: 100%;
   position: relative;
@@ -8,6 +13,7 @@
   min-height: 300px;
   @include breakpoint(medium) {
     height: 80vh;
+    max-height: 600px;
   }
   .slide-cover-image {
     @extend .cover-image;
@@ -42,14 +48,14 @@
         }
       }
 
-      .field-type-link a {
-        @extend .lc-btn;
-        float: left;
-        clear: both;
-        text-shadow: none;
-      }
-    }
 
+    }
+    .field-type-link a {
+      @extend .lc-btn;
+      float: left;
+      clear: both;
+      text-shadow: none;
+    }
     h3 {
       color: #fff;
       text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
