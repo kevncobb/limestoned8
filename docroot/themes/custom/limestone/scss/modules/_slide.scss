@@ -8,14 +8,13 @@
     float: left;
   }
   footer {
-    .lc-slide-next {
-
+    .next-headline {
       background: 0 0;
       border: none;
       text-align: left;
       padding: 0;
       display: none;
-      font-family: "Encode Sans Compressed", sans-serif;
+      font-family: $interstate-font;
       letter-spacing: .03em;
       line-height: 1.3;
       font-weight: 900;
@@ -29,6 +28,29 @@
       bottom: 50px;
       width: 240px;
       outline: 0;
+      &::before {
+        content: "";
+        position: absolute;
+        left: -30px;
+        top: 50%;
+        margin-top: -14px;
+        width: 16px;
+        height: 28px;
+        background: url("/themes/custom/limestone/images/lc-sprite.svg") no-repeat -474px -55px;
+
+      }
+
+      span {
+        position: absolute;
+        top: -25px;
+        left: 0;
+        content: "Next";
+        color: #b7a57a;
+        text-shadow: 1px 1px 1px rgba(0,0,0,.6);
+        text-transform: uppercase;
+        font-style: italic;
+
+      }
     }
   }
 }
