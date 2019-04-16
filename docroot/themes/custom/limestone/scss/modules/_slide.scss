@@ -4,7 +4,7 @@
   overflow: hidden;
   .views_slideshow_slide {
     width: 100% !important;
-    height: 525px !important;
+    height: 450px !important;
     float: left;
   }
 }
@@ -44,7 +44,7 @@
       p {
         text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.7);
         @include breakpoint(smedium) {
-          padding-right: 270px;
+          padding-right: 250px;
         }
         &.dark {
           color: white;
@@ -122,4 +122,8 @@
       font-size: $lead-font-size;
     }
   }
+}
+
+.lc-slide-next {
+
 }
