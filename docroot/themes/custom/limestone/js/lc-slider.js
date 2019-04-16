@@ -8,7 +8,7 @@
   /**
    * Use this behavior as a template for custom Javascript.
    */
-  
+
 })(jQuery, Drupal);
 
 
