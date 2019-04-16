@@ -19,10 +19,6 @@
   background-repeat: no-repeat;
   background-size: cover;
   min-height: 300px;
-  @include breakpoint(medium) {
-    height: 80vh;
-    max-height: 600px;
-  }
   .slide-cover-image {
     @extend .cover-image;
     position: absolute;
