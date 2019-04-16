@@ -14,7 +14,7 @@
       }).get();
       console.log(titles);
       $( ".slideshow-controls a.next-headline" ).each(function(i) {
-        if (titles[i+1] == NULL) {
+        if ($(titles[i+1]).length) {
           $(this).append(titles[0]);
         } else {
           $(this).append(titles[i+1]);
