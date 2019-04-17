@@ -354,27 +354,20 @@ img {
 .maintenance-page #page {
   text-align: center; }
 
-.hidden-anonymous {
+.hidden-anonymous,
+.visible-admin,
+.visible-logged-in {
   display: none !important; }
 
-body.user-logged-in .visible-admin {
+body.user-logged-in .visible-admin,
+body.user-logged-in .visible-logged-in,
+body.user-logged-in .hidden-anonymous {
   display: inline-block !important; }
 
-body.user-logged-in .btn.visible-admin {
+body.user-logged-in .btn .visible-admin,
+body.user-logged-in .btn .visible-logged-in,
+body.user-logged-in .btn .hidden-anonymous {
   display: inline-block !important; }
-
-.justify-content-center {
-  -webkit-box-pack: center !important;
-  -ms-flex-pack: center !important;
-  -webkit-justify-content: center !important;
-          justify-content: center !important;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: -webkit-flex;
-  display: flex;
-  -ms-flex-wrap: wrap;
-  -webkit-flex-wrap: wrap;
-          flex-wrap: wrap; }
 
 body.path-frontpage h1.page-header {
   position: absolute;

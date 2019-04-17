@@ -24,6 +24,11 @@
     },
     "type": "project",
     "extra": {
+        "patches": {
+            "drupal/drupal": {
+                "2687479-37: $adminTags variable on core/lib/Drupal/Component/Utility/Xss.php": "https://www.drupal.org/files/issues/2018-12-07/drupal-2687479-37-responsive-image.patch"
+            }
+        },
         "_readme": [
             "NOTICE: We're now using composer patches from Vardot repository to suggest",
             "several fixes and better handling of patches in your Drupal project.",
