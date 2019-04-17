@@ -10,8 +10,6 @@
    */
       $('footer > div.lc-slide-next a.slide-2').addClass('next-slide');
 
-
-
 })(jQuery, Drupal);
 
 
