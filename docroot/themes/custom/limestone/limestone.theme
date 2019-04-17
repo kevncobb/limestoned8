@@ -50,7 +50,7 @@ function limestone_preprocess_page(&$variables) {
 
   }
 */
-  
+
   if(isset($variables['node'])) {
 
     $variables['title'] = $variables['node']->title->value;
