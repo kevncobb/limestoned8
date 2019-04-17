@@ -50,22 +50,14 @@ function limestone_preprocess_page(&$variables) {
 
   }
 */
-  $type_name = $node->type->entity->label();
-
+  
   if(isset($variables['node'])) {
+
     $variables['title'] = $variables['node']->title->value;
-
-    if($type_name == "course") {
-      $variables['code_name'] = $variables['node']->field_code_name->value;
-    }
-
+    $variables['code_name'] = $variables['node']->field_code_name->value;
   }else{
     $variables['title'] = $variables['page']['#title'];
-
-    if($type_name == "course") {
-      $variables['code_name'] = $variables['page']['#field_code_name'];
-    }
-
+    $variables['code_name'] = $variables['page']['#field_code_name'];
   }
   /*
   if($variables['is_front']){
