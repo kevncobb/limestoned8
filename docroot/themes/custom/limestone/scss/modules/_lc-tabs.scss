@@ -13,8 +13,9 @@
       text-transform: uppercase;
       text-align: center;
       color: #FFF;
-      font-size: 30px;
+      font-size: 35px;
       line-height: 30px;
+      font-weight: bold;
       background: #b3b3b3;
       -webkit-transition: 0.2s;
       -moz-transition: 0.2s;
@@ -23,9 +24,22 @@
       &.is-active {
         background-color: $limestone-blue;
       }
-
       &:last-child {
         margin-right: 0;
+      }
+      &:focus, &:hover {
+        background: $light-gray;
+      }
+      a {
+        color: inherit;
+        background: inherit;
+        padding: inherit;
+        font-size: inherit;
+        line-height: inherit;
+        text-decoration: none;
+        &:focus, &:hover {
+          background: inherit;
+        }
       }
     }
   }
