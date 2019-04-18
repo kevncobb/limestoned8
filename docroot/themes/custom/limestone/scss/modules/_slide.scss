@@ -97,8 +97,8 @@
     padding: 0 0 140px 0;
     @include breakpoint(smedium) {
       width: 1180px;
-      padding: 10px 0;
-      height: 450px;
+      padding: 40px 0 0;
+      height: 460px;
       position: relative;
     }
     .field-name-body {
