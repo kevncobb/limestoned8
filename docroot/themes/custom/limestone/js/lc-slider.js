@@ -12,17 +12,15 @@
         var titles = $('.lc-slide-next ul > li').map(function(i, el) {
           return $(el).text();
         }).get();
-        var length = titles.length;
         $( ".slideshow-controls a.next-headline" ).each(function(i) {
+          if (titles[i] == titles.length ) {
+            $(this).append(titles[0]);
+          } else {
             $(this).append(titles[i+1]);
-            i++;
+          }
         });
 
       });
     }
   };
 })(jQuery, Drupal);
-
-
-
-//gl - pr
