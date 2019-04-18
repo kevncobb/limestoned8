@@ -14,12 +14,12 @@
         }).get();
         console.log(titles.length);
         $( ".slideshow-controls a.next-headline" ).each(function(i) {
-          console.log(titles.length + 'before if statement');
+          console.log(titles[i] + ' before if statement');
           if (titles[i] == titles.length ) {
             $(this).append(titles[0]);
-            console.log(titles.length + 'before if statement');
+            console.log(titles[i] + ' in if');
           } else {
-            console.log(titles.length + 'before if statement');
+            console.log(titles[i] + ' if else');
             $(this).append(titles[i+1]);
           }
         });
