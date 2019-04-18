@@ -101,31 +101,27 @@
       height: 460px;
       position: relative;
     }
-    .field-name-body {
-      z-index: 1;
-      padding: 2rem 0 0;
-      p {
-        text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.7);
-        @include breakpoint(smedium) {
-          padding-right: 250px;
-        }
-        &.dark {
-          color: white;
-          text-shadow: none;
-          display: inline-block;
-          float: left;
-          clear: both;
-          padding: 5px 10px;
+    p {
+      text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.7);
+      @include breakpoint(smedium) {
+        padding-right: 250px;
+      }
+      &.dark {
+        color: white;
+        text-shadow: none;
+        display: inline-block;
+        float: left;
+        clear: both;
+        padding: 5px 10px;
 
-          @include breakpoint(smedium) {
-            color: $dark-gray;
-            background-color: rgba(255, 255, 255, 0.5);
-          }
+        @include breakpoint(smedium) {
+          color: $dark-gray;
+          background-color: rgba(255, 255, 255, 0.5);
         }
       }
-
-
     }
+
+
     .field-type-link a {
       @extend .lc-btn;
       float: left;
