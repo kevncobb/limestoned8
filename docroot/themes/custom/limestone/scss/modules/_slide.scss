@@ -13,56 +13,63 @@
     float: left;
   }
   footer {
+    display: none;
+  }
+  .slideshow-controls {
     position: absolute;
-    right: 0;
-    bottom: 0;
-    width: 250px;
-    z-index: 4;
-    .lc-slide-next a {
-      background: 0 0;
+    z-index: 3;
+    right: 4%;
+    bottom: 75px;
+    width: 240px;
+
+    &::before {
+      content: "";
+      position: absolute;
+      left: -30px;
+      top: 50%;
+      margin-top: -14px;
+      width: 16px;
+      height: 28px;
+      background: url('/themes/custom/limestone/images/lc-sprite.svg') no-repeat -483px -67px transparent;
+      background-size: 723px;
+    }
+
+    &::after {
+      background: url('/themes/custom/limestone/images/lc-sprite.svg') no-repeat -643px 0px transparent;
+      background-size: 723px;
+      content: "";
+      position: absolute;
+      bottom: -20px;
+      width: 38px;
+      height: 112px;
+      margin-right: 279px;
+      right: 0%;
+    }
+
+    .next-headline {
+      background: none;
       border: none;
       text-align: left;
-      padding: 0;
-      //display: none;
-      font-family: $interstate-font;
-      letter-spacing: .03em;
+      padding: 0; //display: none
+      font-family: "interstate-boldregular", "Helvetica Neue", "Helvetica", "Roboto", "Arial", sans-serif;
+      letter-spacing: 0;
       line-height: 1.3;
       font-weight: 900;
       text-transform: uppercase;
-      color: #fff;
+      color: white;
       cursor: pointer;
-      text-shadow: 2px 1px 1px rgba(0, 0, 0, .4);
-      position: absolute;
-      z-index: 3;
-      right: 15%;
-      bottom: 50px;
-      width: 240px;
-      outline: 0;
-      &.activeSlide {
-        display: block;
-      }
-      &::before {
-        content: "";
-        position: absolute;
-        left: -30px;
-        top: 50%;
-        margin-top: -14px;
-        width: 16px;
-        height: 28px;
-        background: url("/themes/custom/limestone/images/lc-sprite.svg") no-repeat -474px -55px;
-
-      }
+      text-shadow: 2px 1px 1px rgba(0, 0, 0, 0.6);
+      outline: none;
 
       span {
         position: absolute;
         top: -25px;
         left: 0;
         content: "Next";
-        color: #b7a57a;
-        text-shadow: 1px 1px 1px rgba(0,0,0,.6);
+        color: #fbea65;
+        text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.75);
         text-transform: uppercase;
         font-style: italic;
-
       }
     }
   }
