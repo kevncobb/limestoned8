@@ -125,7 +125,7 @@ p {
     }
   }
   // If used in Paragraph Equal Columns
-  .bg-edge2edge, .field-items, .field-item, .field-item > div, .field-wrapper, .contextual-region  {
+  .bg-edge2edge, .field-items, .field-item, .field-item > div, .field-wrapper, .contextual-region, > div {
     height: 100%;
     width: 100%;
   }
