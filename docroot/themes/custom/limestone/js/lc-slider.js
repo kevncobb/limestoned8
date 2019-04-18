@@ -14,11 +14,8 @@
         }).get();
         var length = titles.length;
         $( ".slideshow-controls a.next-headline" ).each(function(i) {
-          if (titles[i] == null ) {
-            $(this).append(titles[0]);
-          } else {
-            $(this).append(titles[i+1]);
-          }
+            $(this).append(titles[i]);
+            i++;
         });
 
       });
