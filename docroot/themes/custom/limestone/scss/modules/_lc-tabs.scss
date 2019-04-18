@@ -20,12 +20,15 @@
 
       &.is-active {
         background-color: $limestone-blue;
+        &:focus, &:hover {
+          background: $limestone-blue;
+        }
       }
       &:last-child {
         margin-right: 0;
       }
       &:focus, &:hover {
-        background: $light-gray;
+        background: $dark-gray;
       }
       a {
         color: #FFF;
