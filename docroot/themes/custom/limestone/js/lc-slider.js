@@ -13,9 +13,10 @@
           return $(el).text();
         }).get();
         console.log(titles.length);
+
         $( ".slideshow-controls a.next-headline" ).each(function(i) {
           console.log(i + ' before if statement');
-          if (i == titles.length ) {
+          if (i == (titles.length - 1) ) {
             $(this).append(titles[0]);
             console.log(i + ' in if');
           } else {
