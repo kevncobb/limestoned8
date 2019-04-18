@@ -7,7 +7,8 @@
 
   Drupal.behaviors.lc_slider = {
     attach: function (context, settings) {
-      $(window).bind("load", function() {
+
+      $('.lc-slider').once('lc_slider').each(function() {
         var titles = $('.lc-slide-next ul > li').map(function(i, el) {
           return $(el).text();
         }).get();
@@ -21,6 +22,7 @@
             $(this).append(titles[i+1]);
           }
         });
+
       });
     }
   };
