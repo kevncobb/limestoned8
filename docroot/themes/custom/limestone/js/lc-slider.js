@@ -12,22 +12,14 @@
           return $(el).text();
         }).get();
         console.log(titles);
-
-        var a = [];
-        for ( var i = 0; i < divs.length; i++ ) {
-          a.push( lis[ i ].innerHTML );
-        }
-        console.log(a);
+        var length = titles.length;
         $( ".slideshow-controls a.next-headline" ).each(function(i) {
-          if (a[i+1] == null) {
-            $(this).append(a[0]);
+          if (titles[i+1] == (length + 1) ) {
+            $(this).append(titles[0]);
           } else {
-            $(this).append(a[i+1]);
+            $(this).append(titles[i+1]);
           }
         });
-
-
-
       });
     }
   };
