@@ -8,25 +8,26 @@
   Drupal.behaviors.lc_slider = {
     attach: function (context, settings) {
       $(window).bind("load", function() {
-        /*
         var titles = $('.lc-slide-next ul > li').map(function(i, el) {
-
           return $(el).text();
         }).get();
         console.log(titles);
-        */
 
-        var listItems = document.getElementsByClassName('.lc-slide-next').getElementsByTagName('ul li'),
-
-            titles = map(listItems, getText);
-
+        var a = [];
+        for ( var i = 0; i < divs.length; i++ ) {
+          a.push( lis[ i ].innerHTML );
+        }
+        console.log(a);
         $( ".slideshow-controls a.next-headline" ).each(function(i) {
-          if (titles[i+1] == null) {
-            $(this).append(titles[0]);
+          if (a[i+1] == null) {
+            $(this).append(a[0]);
           } else {
-            $(this).append(titles[i+1]);
+            $(this).append(a[i+1]);
           }
         });
+
+
+
       });
     }
   };
