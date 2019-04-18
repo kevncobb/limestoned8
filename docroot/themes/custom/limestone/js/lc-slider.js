@@ -12,6 +12,7 @@
           return $(el).text();
         }).get();
         console.log(titles);
+        console.log("this is one console log function");
         var length = titles.length;
         $( ".slideshow-controls a.next-headline" ).each(function(i) {
           if (titles[i+1] == (length + 1) ) {
