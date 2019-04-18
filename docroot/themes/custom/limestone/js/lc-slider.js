@@ -11,7 +11,7 @@
         var titles = $('.lc-slide-next ul > li').map(function(i, el) {
           return $(el).text();
         }).get();
-        console.Log(titles);
+        console.log(titles);
         $( ".slideshow-controls a.next-headline" ).each(function(i) {
           if (titles[i+1] == null) {
             $(this).append(titles[0]);
