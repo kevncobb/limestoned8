@@ -12,14 +12,14 @@
     height: 450px !important;
     float: left;
   }
-  footer {
+  .view-footer {
     display: none;
   }
   .slideshow-controls {
     position: absolute;
     z-index: 3;
     right: 4%;
-    bottom: 75px;
+    bottom: 35px;
     width: 240px;
 
     &::before {
@@ -30,7 +30,7 @@
       margin-top: -14px;
       width: 16px;
       height: 28px;
-      background: url('/themes/custom/limestone/images/lc-sprite.svg') no-repeat -483px -67px transparent;
+      background: url('/themes/custom/limestone/images/lc-sprite.svg') no-repeat -485px -59px transparent;
       background-size: 723px;
     }
 
@@ -41,9 +41,10 @@
       position: absolute;
       bottom: -20px;
       width: 38px;
-      height: 112px;
+      height: 75px;
       margin-right: 279px;
       right: 0%;
+      opacity: 0.5;
     }
 
     .next-headline {
