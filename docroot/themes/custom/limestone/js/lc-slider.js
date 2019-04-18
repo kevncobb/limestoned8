@@ -12,11 +12,9 @@
         var titles = $('.lc-slide-next ul > li').map(function(i, el) {
           return $(el).text();
         }).get();
-        console.log(titles);
-        console.log("this is one console log function");
         var length = titles.length;
         $( ".slideshow-controls a.next-headline" ).each(function(i) {
-          if (titles[i+1] == (length + 1) ) {
+          if (titles[i] == (length + 1) ) {
             $(this).append(titles[0]);
           } else {
             $(this).append(titles[i+1]);
