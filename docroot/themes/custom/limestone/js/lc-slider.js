@@ -14,7 +14,7 @@
         }).get();
         var length = titles.length;
         $( ".slideshow-controls a.next-headline" ).each(function(i) {
-          if (titles[i] == (length + 1) ) {
+          if (titles[i] == (length) ) {
             $(this).append(titles[0]);
           } else {
             $(this).append(titles[i+1]);
@@ -28,3 +28,4 @@
 
 
 
+//gl - pr
