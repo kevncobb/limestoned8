@@ -12,10 +12,14 @@
         var titles = $('.lc-slide-next ul > li').map(function(i, el) {
           return $(el).text();
         }).get();
+        console.log(titles.length);
         $( ".slideshow-controls a.next-headline" ).each(function(i) {
+          console.log(titles.length + 'before if statement');
           if (titles[i] == titles.length ) {
             $(this).append(titles[0]);
+            console.log(titles.length + 'before if statement');
           } else {
+            console.log(titles.length + 'before if statement');
             $(this).append(titles[i+1]);
           }
         });
