@@ -14,7 +14,7 @@
         }).get();
         var length = titles.length;
         $( ".slideshow-controls a.next-headline" ).each(function(i) {
-            $(this).append(titles[i]);
+            $(this).append(titles[i+1]);
             i++;
         });
 
