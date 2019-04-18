@@ -20,7 +20,7 @@
 
       &.is-active {
         background-color: $limestone-blue;
-        &:focus, &:hover {
+        a:focus, a:hover {
           background: $limestone-blue;
         }
       }
