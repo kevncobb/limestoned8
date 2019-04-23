@@ -2,7 +2,7 @@
   font-size: 1.1em !important;
   font-family: $header-font-family;
   font-weight: 600;
-  box-shadow: 0 1px 1px rgba(34, 25, 25, 0.3);
+  box-shadow: 0 0px 1px rgba(34, 25, 25, 0.3);
   @include breakpoint(large) {
     font-size: 1.25em !important;
   }
@@ -216,7 +216,6 @@
     display: block;
   }
   nav.sub-menu-block {
-    box-shadow: 0 1px 1px rgba(34, 25, 25, 0.3);
     background-color: #fff;
     position: relative;
     z-index: 5;
