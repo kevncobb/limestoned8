@@ -4,9 +4,6 @@
     margin-bottom: 15px;
     padding: 0px 8px;
     border: none;
-    .tabs-content {
-      border: none;
-    }
     li {
       cursor: pointer;
       display: block;
@@ -51,5 +48,8 @@
         }
       }
     }
+  }
+  .tabs-content {
+    border: none;
   }
 }
