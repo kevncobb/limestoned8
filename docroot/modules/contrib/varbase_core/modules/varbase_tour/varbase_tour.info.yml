@@ -8,8 +8,8 @@ package: Varbase
 dependencies:
   - drupal:tour
 
-# Information added by Drupal.org packaging script on 2019-03-14
-version: '8.x-6.10'
+# Information added by Drupal.org packaging script on 2019-04-13
+version: '8.x-6.11'
 core: '8.x'
 project: 'varbase_core'
-datestamp: 1552524791
+datestamp: 1555171707

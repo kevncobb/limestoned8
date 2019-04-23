@@ -23,8 +23,8 @@ install:
   - paragraphs
   - paragraphs_previewer
 
-# Information added by Drupal.org packaging script on 2019-02-20
-version: '8.x-6.4'
+# Information added by Drupal.org packaging script on 2019-04-10
+version: '8.x-6.5'
 core: '8.x'
 project: 'varbase_bootstrap_paragraphs'
-datestamp: 1550697790
+datestamp: 1554897187

@@ -9,8 +9,8 @@ install:
   - search_api
   - search_api_db
 
-# Information added by Drupal.org packaging script on 2018-12-17
-version: '8.x-6.1'
+# Information added by Drupal.org packaging script on 2019-04-11
+version: '8.x-6.2'
 core: '8.x'
 project: 'varbase_search'
-datestamp: 1545057484
+datestamp: 1554969497

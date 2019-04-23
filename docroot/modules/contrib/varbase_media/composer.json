@@ -39,7 +39,7 @@
     "drupal/views_bulk_operations": "~2.0",
     "drupal/views_bulk_edit": "~2.0",
     "drupal/views_infinite_scroll": "~1.0",
-    "drupal/entity_browser": "2.0",
+    "drupal/entity_browser": "2.1",
     "drupal/entity_browser_enhanced": "~1.0",
     "drupal/dropzonejs": "~2.0",
     "drupal/entity_embed": "1.0-beta2",
@@ -49,12 +49,12 @@
     "drupal/media_entity_twitter": "~2.0",
     "drupal/media_entity_googledocs": "~4.0",
     "drupal/crop": "~2.0",
-    "drupal/focal_point": "1.0-beta6",
+    "drupal/focal_point": "1.0",
     "drupal/imagemagick": "~2.0",
     "drupal/imageapi_optimize": "~2.0",
-    "drupal/blazy": "~1.0",
-    "drupal/slick": "~1.0",
-    "drupal/slick_views": "~1.0",
+    "drupal/blazy": "~2.0",
+    "drupal/slick": "~2.0",
+    "drupal/slick_views": "~2.0",
     "drupal/slick_media": "~2.0",
     "drupal/bootstrap": "~3.0"
   },
@@ -86,7 +86,7 @@
     "patches": {
       "drupal/focal_point": {
         "Issue #2916562: Broken image preview":
-        "https://www.drupal.org/files/issues/2916562-16.patch"
+        "https://www.drupal.org/files/issues/2019-03-30/2916562-39.patch"
       },
       "drupal/entity_embed": {
         "Issue #2832504: Send the CKEditor instance ID to the embed.preview route.":
