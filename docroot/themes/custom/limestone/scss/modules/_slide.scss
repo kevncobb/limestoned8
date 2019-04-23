@@ -23,6 +23,12 @@
     box-shadow: 0px 33px 140px 71px rgba(0,0,0,0.4);
     background-color: rgba(0,0,0,0.24);
     right: 34%;
+    @include breakpoint(medium) {
+      right: 10%;
+    }
+    @include breakpoint(large) {
+      right: 0%;
+    }
     &::before {
       content: "";
       position: absolute;
