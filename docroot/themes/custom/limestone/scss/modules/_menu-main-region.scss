@@ -124,7 +124,7 @@
 }
 
 // All Menus
-@include breakpoint(small) {
+@include breakpoint(smedium) {
   nav.sub-menu-block {
     > ul.menu {
       padding: 0;
@@ -133,8 +133,6 @@
       }
     }
   }
-}
-@include breakpoint(smedium) {
   .menubar {
     //Global Menubar styles
     ul[aria-hidden=true] {
@@ -237,7 +235,7 @@
     }
 
     > ul.menu {
-      padding: 0 0.8em;
+      padding: 0 0.2em;
       margin: 0 auto;
       max-width: 65.15789rem;
       a {
