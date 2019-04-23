@@ -207,11 +207,7 @@
     }
   }
 }
-@include breakpoint(small) {
-  nav.sub-menu-block {
-    font-size: 1rem;
-  }
-}
+
 @include breakpoint(medium) {
   a.lc-mobile-menu-toggle {
     display: none
@@ -224,7 +220,7 @@
     position: relative;
     z-index: 5;
     text-transform: uppercase;
-    font-size: 1.3rem;
+    font-size: 1rem;
 
     a {
       color: $limestone-blue;
@@ -257,15 +253,15 @@
     //  > a
     //    padding-right: 0
     > a {
-      padding-right: 1.5em;
+      padding-right: 1em;
 
       &::before {
         // Icon-chevron-down
         content: "\f078";
         font-size: 0.8rem;
         position: absolute;
-        top: 0.9rem;
-        right: 0.5rem;
+        right: 0.2rem;
+        top: 0.8rem;
         font-family: "icomoon" !important;
         speak: none;
         font-style: normal;
@@ -294,7 +290,23 @@
     }
   }
 }
+@include breakpoint(large) {
+  nav.sub-menu-block {
+    font-size: 1.3rem;
+    // Dropdowns
+    > ul.menu > li.is-dropdown-submenu-parent {
+      > a {
+        padding-right: 1.5em;
 
+        &::before {
+          // Icon-chevron-down
+          top: 0.9rem;
+          right: 0.5rem;
+        }
+      }
+    }
+  }
+}
 $expander-arrow-width: 0.7em;
 $expander-toggle-size: 1em;
 $expander-toggle-arrow-size: $expander-toggle-size;
