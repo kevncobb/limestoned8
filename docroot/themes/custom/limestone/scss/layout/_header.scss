@@ -29,7 +29,7 @@ header.site-header {
       position: relative;
       top: 9px;
     }
-    @include breakpoint(smedium) {
+    @include breakpoint(small) {
       .align-right {
         top: 17px;
       }
@@ -105,7 +105,7 @@ header.site-header {
         font-size: 0.8rem;
         line-height: 0.7rem;
       }
-      @include breakpoint(smedium) {
+      @include breakpoint(small) {
         margin-right: 0;
         color: $limestone-blue !important;
         background: url(/themes/custom/limestone/images/lc-sprite.svg) no-repeat -370px -184px;

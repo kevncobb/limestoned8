@@ -23,7 +23,7 @@
       });
 
       $("ul.tabs li:nth-child(3) a").click();
-      
+
     }
   };
 })(jQuery, Drupal);
