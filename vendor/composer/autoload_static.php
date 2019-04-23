@@ -11,6 +11,7 @@ class ComposerStaticInit0a326385dc1ee3790ca0560342a6f1b8
         '5255c38a0faeba867671b61dfda6d864' => __DIR__ . '/..' . '/paragonie/random_compat/lib/random.php',
         '023d27dca8066ef29e6739335ea73bad' => __DIR__ . '/..' . '/symfony/polyfill-php70/bootstrap.php',
         '320cde22f66dd4f5d3fd621d3e88b98f' => __DIR__ . '/..' . '/symfony/polyfill-ctype/bootstrap.php',
+        '667aeda72477189d0494fecd327c3641' => __DIR__ . '/..' . '/symfony/var-dumper/Resources/functions/dump.php',
         'cf97c57bfe0f23854afd2f3818abb7a0' => __DIR__ . '/..' . '/zendframework/zend-diactoros/src/functions/create_uploaded_file.php',
         '9bf37a3d0dad93e29cb4e1b1bfab04e9' => __DIR__ . '/..' . '/zendframework/zend-diactoros/src/functions/marshal_headers_from_sapi.php',
         'ce70dccb4bcc2efc6e94d2ee526e6972' => __DIR__ . '/..' . '/zendframework/zend-diactoros/src/functions/marshal_method_from_sapi.php',
@@ -19,7 +20,6 @@ class ComposerStaticInit0a326385dc1ee3790ca0560342a6f1b8
         '0b0974a5566a1077e4f2e111341112c1' => __DIR__ . '/..' . '/zendframework/zend-diactoros/src/functions/normalize_server.php',
         '1ca3bc274755662169f9629d5412a1da' => __DIR__ . '/..' . '/zendframework/zend-diactoros/src/functions/normalize_uploaded_files.php',
         '40360c0b9b437e69bcbb7f1349ce029e' => __DIR__ . '/..' . '/zendframework/zend-diactoros/src/functions/parse_cookie_header.php',
-        '667aeda72477189d0494fecd327c3641' => __DIR__ . '/..' . '/symfony/var-dumper/Resources/functions/dump.php',
         '7b11c4dc42b3b3023073cb14e519683c' => __DIR__ . '/..' . '/ralouphie/getallheaders/src/getallheaders.php',
         'c964ee0ededf28c96ebd9db5099ef910' => __DIR__ . '/..' . '/guzzlehttp/promises/src/functions_include.php',
         'a0edc8309cc5e1d60e3047b5df6b7052' => __DIR__ . '/..' . '/guzzlehttp/psr7/src/functions_include.php',
@@ -28,6 +28,7 @@ class ComposerStaticInit0a326385dc1ee3790ca0560342a6f1b8
         '2cffec82183ee1cea088009cef9a6fc3' => __DIR__ . '/..' . '/ezyang/htmlpurifier/library/HTMLPurifier.composer.php',
         'fbeead2280a8f3911a1fe6dd034f7d5e' => __DIR__ . '/..' . '/mkalkbrenner/php-htmldiff-advanced/src/HtmlDiffAdvancedInterface.php',
         '96f8d8288528d52059397cad6ec61f17' => __DIR__ . '/..' . '/mkalkbrenner/php-htmldiff-advanced/src/HtmlDiffAdvanced.php',
+        '2c102faa651ef8ea5874edb585946bce' => __DIR__ . '/..' . '/swiftmailer/swiftmailer/lib/swift_required.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -45,6 +46,7 @@ class ComposerStaticInit0a326385dc1ee3790ca0560342a6f1b8
         ),
         'Z' => 
         array (
+            'ZipStream\\' => 10,
             'Zend\\Stdlib\\' => 12,
             'Zend\\Feed\\' => 10,
             'Zend\\Escaper\\' => 13,
@@ -86,13 +88,13 @@ class ComposerStaticInit0a326385dc1ee3790ca0560342a6f1b8
             'Symfony\\Component\\ClassLoader\\' => 30,
             'Symfony\\Cmf\\Component\\Routing\\' => 30,
             'Symfony\\Bridge\\PsrHttpMessage\\' => 30,
+            'Solarium\\' => 9,
         ),
         'P' => 
         array (
             'Psr\\Log\\' => 8,
             'Psr\\Http\\Message\\' => 17,
             'Psr\\Container\\' => 14,
-            'PantheonSystems\\CDNBehatHelpers\\' => 32,
         ),
         'O' => 
         array (
@@ -105,6 +107,10 @@ class ComposerStaticInit0a326385dc1ee3790ca0560342a6f1b8
         'L' => 
         array (
             'League\\OAuth2\\Client\\' => 21,
+        ),
+        'H' => 
+        array (
+            'Html2Text\\' => 10,
         ),
         'G' => 
         array (
@@ -157,6 +163,10 @@ class ComposerStaticInit0a326385dc1ee3790ca0560342a6f1b8
         'cweagans\\Composer\\' => 
         array (
             0 => __DIR__ . '/..' . '/cweagans/composer-patches/src',
+        ),
+        'ZipStream\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/maennchen/zipstream-php/src',
         ),
         'Zend\\Stdlib\\' => 
         array (
@@ -274,6 +284,10 @@ class ComposerStaticInit0a326385dc1ee3790ca0560342a6f1b8
         array (
             0 => __DIR__ . '/..' . '/symfony/psr-http-message-bridge',
         ),
+        'Solarium\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/solarium/solarium/src',
+        ),
         'Psr\\Log\\' => 
         array (
             0 => __DIR__ . '/..' . '/psr/log/Psr/Log',
@@ -285,10 +299,6 @@ class ComposerStaticInit0a326385dc1ee3790ca0560342a6f1b8
         'Psr\\Container\\' => 
         array (
             0 => __DIR__ . '/..' . '/psr/container/src',
-        ),
-        'PantheonSystems\\CDNBehatHelpers\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/docroot/modules/contrib/pantheon_advanced_page_cache/tests/behat/helper_classes',
         ),
         'OomphInc\\ComposerInstallersExtender\\' => 
         array (
@@ -304,6 +314,11 @@ class ComposerStaticInit0a326385dc1ee3790ca0560342a6f1b8
             1 => __DIR__ . '/..' . '/league/oauth2-facebook/src',
             2 => __DIR__ . '/..' . '/league/oauth2-google/src',
             3 => __DIR__ . '/..' . '/league/oauth2-linkedin/src',
+        ),
+        'Html2Text\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/html2text/html2text/src',
+            1 => __DIR__ . '/..' . '/html2text/html2text/test',
         ),
         'GuzzleHttp\\Psr7\\' => 
         array (
@@ -399,10 +414,6 @@ class ComposerStaticInit0a326385dc1ee3790ca0560342a6f1b8
             'Stack' => 
             array (
                 0 => __DIR__ . '/..' . '/stack/builder/src',
-            ),
-            'Solarium\\' => 
-            array (
-                0 => __DIR__ . '/..' . '/solarium/solarium/library',
             ),
         ),
         'K' => 
