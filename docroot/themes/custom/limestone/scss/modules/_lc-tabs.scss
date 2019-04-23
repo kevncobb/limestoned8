@@ -18,12 +18,7 @@
       font-weight: bold;
 
 
-      &.is-active {
-        background-color: $limestone-blue;
-        a:focus, a:hover {
-          background: $limestone-blue;
-        }
-      }
+
       &:last-child {
         margin-right: 0;
       }
@@ -43,6 +38,12 @@
         transition: 0.2s;
         &:focus, &:hover {
           background: inherit;
+        }
+      }
+      &.is-active {
+        a { background-color: $limestone-blue; }
+        a:focus, a:hover {
+          background: $limestone-blue;
         }
       }
     }
