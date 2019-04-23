@@ -141,7 +141,7 @@
       font-size: 25px;
       line-height: 30px;
       padding-right: 0;
-      margin: 0;
+      margin: 0 0 10px 0;
       position: relative;
       @include breakpoint(smedium) {
         font-size: 50px;
@@ -150,9 +150,26 @@
         margin: 10px 0 8px;
         position: relative;
         padding-bottom: 30px;
+        &:before, &:after {
+          position: absolute;
+          left: 0;
+          bottom: 0.5rem;
+          content: "";
+          height: 10px;
+        }
+
+        &:before {
+          width: 9rem;
+          background-color: $limestone-yellow;
+          transform: skewX(-35deg) skewY(0);
+          -ms-transform: skewX(-35deg) skewY(0);
+          transform: skew(-35deg,0);
+          left: 5px;
+          margin-left: -10px;
+        }
       }
 
-    &.dark {
+      &.dark {
         color: $dark-gray;
         text-shadow: none;
       }
@@ -161,23 +178,7 @@
         color: $limestone-blue;
         text-shadow: none;
       }
-      &:before, &:after {
-        position: absolute;
-        left: 0;
-        bottom: 0.5rem;
-        content: "";
-        height: 10px;
-      }
 
-      &:before {
-        width: 9rem;
-        background-color: $limestone-yellow;
-        transform: skewX(-35deg) skewY(0);
-        -ms-transform: skewX(-35deg) skewY(0);
-        transform: skew(-35deg,0);
-        left: 5px;
-        margin-left: -10px;
-      }
     }
 
     .large-text {
