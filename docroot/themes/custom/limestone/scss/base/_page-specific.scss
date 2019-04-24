@@ -6,12 +6,17 @@ body.path-frontpage .thirds .thirds-top {
   }
 }
 
-.lc-body-copy, .lc-body-copy .menu {
+.lc-body-copy {
   a {
     text-decoration: underline;
     color: $limestone-blue;
   }
   h3 {
+    a {
+      text-decoration: none;
+    }
+  }
+  .menu {
     a {
       text-decoration: none;
     }

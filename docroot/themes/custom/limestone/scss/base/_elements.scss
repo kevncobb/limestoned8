@@ -375,7 +375,15 @@ label {
 }
 
 .image-offset {
+  width: 100%;
   @include breakpoint(smedium) {
+    width: 47%;
+    float: left;
+    position: relative;
+    left: -6%;
+    margin-right: -5%;
+  }
+  @include breakpoint(xlarge) {
     width: 47%;
     float: left;
     position: relative;
