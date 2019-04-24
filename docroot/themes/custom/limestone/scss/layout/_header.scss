@@ -34,6 +34,11 @@ header.site-header {
         top: 12px;
       }
     }
+    @include breakpoint(phone) {
+      .align-right {
+        top: 17px;
+      }
+    }
   }
   /*
   .dropdown.menu {
