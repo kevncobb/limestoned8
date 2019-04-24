@@ -1,5 +1,10 @@
 .upcoming-events-row {
-  margin: 22px 0;
+  margin: 14px 0;
+  clear: both;
+  padding: 3px 0;
+  &:first-child {
+    padding-top: 0;
+  }
   .upcoming-events-block {
     .date-box {
       float: left;

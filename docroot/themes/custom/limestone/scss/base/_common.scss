@@ -145,7 +145,7 @@ p {
   &.percent-80 {
     height: 80vh;
     max-height: 500px;
-    @media screen and (min-width: 40em) {
+    @include breakpoint(medium) {
       max-height: none;
     }
   }

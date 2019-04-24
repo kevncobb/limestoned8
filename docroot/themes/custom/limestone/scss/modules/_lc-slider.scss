@@ -135,7 +135,7 @@
           clear: both;
           padding: 5px 10px;
 
-          @media screen and (min-width: 40em) {
+          @include breakpoint(smedium) {
             color: $dark-gray;
             background-color: rgba(255, 255, 255, 0.5);
           }
@@ -193,7 +193,7 @@
       width: 160px;
       margin: 20px 0 10px -30px;
 
-      @media screen and (min-width: 40em) {
+      @include breakpoint(smedium) {
         margin: 25px 0 10px 5px;
       }
     }
@@ -257,7 +257,7 @@
 .lc-hero-image {
   background-size: cover;
   background-position: bottom right; // Desktop changes  768px
-  @media screen and (min-width: 40em) {
+  @include breakpoint(smedium) {
     background-position: 80% 0;
   }
 
@@ -268,7 +268,7 @@
 }
 
 // Desktop changes  768px
-@media screen and (min-width: 40em) {
+@include breakpoint(smedium) {
   .lc-hero-slide {
     .desktop-image {
       display: block;

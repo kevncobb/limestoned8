@@ -1,5 +1,5 @@
 .field-name-field-news-categories {
-  margin: 1rem 0;
+  margin: 0.5rem 0 1rem;
   .field-item {
     display: inline;
     &:after {
@@ -118,7 +118,6 @@ section.block-block-contentfe8537ce-54d8-467c-ba0f-931c4b8e3ced {
   @extend .cell;
   h3 {
     font-size: 1.25rem;
-    margin-top: 5px;
     margin-bottom: 5px;
   }
   img {

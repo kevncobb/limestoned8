@@ -31,7 +31,7 @@ header.site-header {
     }
     @include breakpoint(small) {
       .align-right {
-        top: 17px;
+        top: 12px;
       }
     }
   }
@@ -320,7 +320,7 @@ body.section-trip {
 }
 .big-title {
   font-family: $site-header-font-family;
-  @media screen and (min-width: 40em) {
+  @include breakpoint(smedium) {
     font-size: 3.8rem;
   }
 }

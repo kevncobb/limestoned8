@@ -118,9 +118,6 @@
     }
   }
 
-  nav {
-
-  }
 }
 
 // All Menus
@@ -129,7 +126,7 @@
     > ul.menu {
       padding: 0;
       a {
-        padding: 0.7rem 0.8rem;
+        padding: 0.7rem 0.5rem;
       }
     }
   }
@@ -239,7 +236,7 @@
       margin: 0 auto;
       max-width: 65.15789rem;
       a {
-        padding: 0.7rem 1rem;
+        padding: 0.7rem 0.5rem;
       }
     }
   }
@@ -299,6 +296,11 @@
 @include breakpoint(large) {
   nav.sub-menu-block {
     font-size: 1.3rem;
+    > ul.menu {
+      a {
+        padding: 0.7rem 1rem;
+      }
+    }
     // Dropdowns
     > ul.menu > li.is-dropdown-submenu-parent {
       > a {
