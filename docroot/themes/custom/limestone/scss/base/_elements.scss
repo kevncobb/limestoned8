@@ -373,3 +373,13 @@ label {
     display: none;
   }
 }
+
+.image-offset {
+  @include breakpoint(smedium) {
+    width: 47%;
+    float: left;
+    position: relative;
+    left: -12%;
+    margin-right: -10%;
+  }
+}
