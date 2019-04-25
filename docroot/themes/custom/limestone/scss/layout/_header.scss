@@ -459,7 +459,15 @@ form#views-exposed-form-news-latest-news-block .form-item-search label {
   @include breakpoint(large) {
     font-size: 1.55rem;
   }
-
+  &.h1 {
+    text-transform: none;
+    font-size: 1.8rem;
+    padding-bottom: 0.5rem;
+    @include breakpoint(large) {
+      font-size: 2.5rem;
+      padding-bottom: 1rem;
+    }
+  }
   a {
     text-decoration: none;
     &:focus, &:hover {
@@ -478,7 +486,6 @@ form#views-exposed-form-news-latest-news-block .form-item-search label {
     content: "";
     height: 5px;
   }
-
   &:before {
     width: 7rem;
     background-color: $limestone-yellow;
@@ -487,20 +494,6 @@ form#views-exposed-form-news-latest-news-block .form-item-search label {
     transform: skew(-35deg,0);
     left: 5px;
     margin-left: -10px;
-  }
-
-  &:after {
-    //width: 1rem;
-    //-webkit-transform: skewX(-35deg) skewY(0);
-    //-o-transform: skewX(-35deg) skewY(0);
-    //transform: skewX(-35deg) skewY(0);
-    //-webkit-transform: skew(-35deg, 0);
-    //-ms-transform: skewX(-35deg) skewY(0);
-    //transform: skew(-35deg, 0);
-    //left: 127px;
-    //background-color: #fff;
-    //bottom: 0px;
-    //height: 8px;
   }
 }
 
