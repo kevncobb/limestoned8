@@ -76,6 +76,9 @@ class Explode extends TamperBase {
    * {@inheritdoc}
    */
   public function tamper($data, TamperableItemInterface $item = NULL) {
+    if ($data == NULL) {
+      return FALSE;
+    }
     if (!is_string($data)) {
       throw new TamperException('Input should be a string.');
     }
