@@ -6,6 +6,7 @@
  */
 
 use Drupal\draggableviews\DraggableViews;
+use Drupal\views\ViewExecutable;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Database\Database;
 use Drupal\Core\Cache\Cache;
@@ -70,9 +71,20 @@ function draggableviews_views_data_alter(&$data) {
         'left_table' => $base_table,
         'left_field' => $entity_keys['id'],
         'field' => 'entity_id',
+        'extra' => [
+          ['field' => 'view_name', 'value' => '***VIEW_ID***'],
+        ],
       ];
     }
   }
+}
+/**
+ * Implements hook_views_query_substitutions().
+ */
+function draggableviews_views_query_substitutions(ViewExecutable $view) {
+    return [
+        '***VIEW_ID***' => $view->id(),
+      ];
 }
 
 /**
