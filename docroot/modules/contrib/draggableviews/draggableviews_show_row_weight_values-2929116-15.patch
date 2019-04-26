@@ -1,0 +1,131 @@
+diff --git a/draggableviews.libraries.yml b/draggableviews.libraries.yml
+index e69de29..0efd6d2 100644
+--- a/draggableviews.libraries.yml
++++ b/draggableviews.libraries.yml
+@@ -0,0 +1,5 @@
++draggableviews:
++  js:
++    js/draggableviews.js: {}
++  dependencies:
++    - core/jquery
+diff --git a/draggableviews.module b/draggableviews.module
+index 0950a5a..ccb80fd 100644
+--- a/draggableviews.module
++++ b/draggableviews.module
+@@ -5,10 +5,10 @@
+  * Contains draggableviews.module.
+  */
+ 
+-use Drupal\draggableviews\DraggableViews;
+-use Drupal\Core\Form\FormStateInterface;
+-use Drupal\Core\Database\Database;
+ use Drupal\Core\Cache\Cache;
++use Drupal\Core\Database\Database;
++use Drupal\Core\Form\FormStateInterface;
++use Drupal\draggableviews\DraggableViews;
+ 
+ /**
+  * Implements hook_views_data_alter().
+@@ -51,7 +51,7 @@ function draggableviews_views_data_alter(&$data) {
+   foreach (\Drupal::entityTypeManager()->getDefinitions() as $entity_type) {
+     $base_table = $entity_type->getDataTable() ?: $entity_type->getBaseTable();
+     $entity_keys = $entity_type->getKeys();
+-    if ($base_table && isset($data[$base_table]['table'])) {
++    if ($base_table && isset($data[$base_table]['table']) && isset($data[$base_table]['table']['group'])) {
+       $data[$base_table]['draggableviews'] = [
+         'title' => $data[$base_table]['table']['group'],
+         'group' => t('Draggableviews'),
+@@ -135,6 +135,9 @@ function draggableviews_form_alter(&$form, FormStateInterface $form_state, $form
+     return;
+   }
+ 
++  // Attach library.
++  $form['#attached']['library'][] = 'draggableviews/draggableviews';
++
+   // Remove default submit button.
+   $form['actions']['submit']['#access'] = FALSE;
+ 
+@@ -166,8 +169,6 @@ function draggableviews_views_submit(&$form, FormStateInterface $form_state) {
+   $view_name = $view->id();
+   $view_display = $view->current_display;
+ 
+-  $weight = 0;
+-
+   $connection = Database::getConnection();
+   $transaction = $connection->startTransaction();
+   try {
+@@ -185,14 +186,13 @@ function draggableviews_views_submit(&$form, FormStateInterface $form_state) {
+         'view_display' => $view_display,
+         'args' => '[]',
+         'entity_id' => $item['id'],
+-        'weight' => $weight,
++        'weight' => $item['weight'],
+       ];
+       // Save parent if exists.
+       if (isset($item['parent'])) {
+         $record['parent'] = $item['parent'];
+       }
+       $connection->insert('draggableviews_structure')->fields($record)->execute();
+-      $weight++;
+     }
+     // We invalidate the entity list cache, so other views are also aware of the
+     // cache.
+diff --git a/js/draggableviews.js b/js/draggableviews.js
+index e69de29..2fb03c1 100644
+--- a/js/draggableviews.js
++++ b/js/draggableviews.js
+@@ -0,0 +1,18 @@
++/**
++ * @file
++ * draggableviews.js
++ *
++ * Defines the behaviors needed for draggableviews integration.
++ */
++
++(function ($, Drupal) {
++  Drupal.behaviors.draggableviewsWeights = {
++    attach: function (context, settings) {
++      if ($('.draggableviews-weight').length) {
++        $('.draggableviews-weight').each(function(i, obj) {
++          $(this).attr('value', i);
++        });
++      }
++    }
++  };
++})(jQuery, Drupal);
+diff --git a/src/Plugin/views/field/DraggableViewsField.php b/src/Plugin/views/field/DraggableViewsField.php
+index 8f1e6ff..2fc5119 100755
+--- a/src/Plugin/views/field/DraggableViewsField.php
++++ b/src/Plugin/views/field/DraggableViewsField.php
+@@ -2,13 +2,11 @@
+ 
+ namespace Drupal\draggableviews\Plugin\views\field;
+ 
++use Drupal\Core\Render\Markup;
+ use Drupal\Core\Form\FormStateInterface;
++use Drupal\Core\Session\AccountInterface;
+ use Drupal\draggableviews\DraggableViews;
+ use Drupal\system\Plugin\views\field\BulkForm;
+-use Drupal\Core\Render\Markup;
+-use Drupal\Core\Entity\EntityManagerInterface;
+-use Drupal\Core\Language\LanguageManagerInterface;
+-use Drupal\Core\Session\AccountInterface;
+ use Symfony\Component\DependencyInjection\ContainerInterface;
+ 
+ /**
+@@ -118,6 +116,15 @@ public function viewsForm(&$form, FormStateInterface $form_state) {
+         '#tree' => TRUE,
+       ];
+ 
++      // Add weight.
++      $form[$this->options['id']][$row_index]['weight'] = [
++        '#type' => 'textfield',
++        '#size' => '5',
++        '#maxlength' => '5',
++        '#value' => $row->draggableviews_structure_weight,
++        '#attributes' => ['class' => ['draggableviews-weight']],
++      ];
++
+       // Item to keep id of the entity.
+       $form[$this->options['id']][$row_index]['id'] = [
+         '#type' => 'hidden',
