@@ -415,13 +415,16 @@ body.section-trip {
 .fullscreen-bg__video {
   position: absolute;
   top: 0;
-  left: 0;
+  left: -75%;
   right: 0;
   bottom: 0;
   min-width: 100%;
   width: auto;
   height: 100%;
   z-index: -100;
+  @include breakpoint(phone) {
+    left: 0;
+  }
   @include breakpoint(xlarge) {
     top: 0%;
     width: 100%;

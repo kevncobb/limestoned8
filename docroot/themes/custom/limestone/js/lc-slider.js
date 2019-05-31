@@ -22,6 +22,8 @@
         });
       });
 
+
+      // Front page Tabs function to activate the 3rd tab on page load. Need to move to new behavior.
       $("ul.tabs li:nth-child(3) a").click();
 
     }
