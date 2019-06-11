@@ -71,6 +71,7 @@ header.site-header {
       color: $limestone-yellow !important;
     }
     &.quicklink-button {
+      width: 134px;
       color: transparent !important;
       font-size: 19px;
       line-height: 18px;
@@ -78,11 +79,10 @@ header.site-header {
       font-weight: bold;
       position: relative;
       left: auto;
-      margin-right: 0;
-      background: url(/themes/custom/limestone/images/lc-sprite.svg) no-repeat -388px -196px;
-      background-size: 600px;
-      width: 51px;
-      height: 47px;
+      height: 50px;
+      background: url(/themes/custom/limestone/images/lc-sprite.svg) no-repeat -498px -257px;
+      background-size: 757px;
+      margin-right: -80px;
       &:before {
         content: "\e9cb";
         position: absolute;
@@ -104,30 +104,21 @@ header.site-header {
         transform: rotate(-90deg);
         display: inline-block;
         float: right;
+        margin-top: 3px;
         padding: 0;
         bottom: 0;
-        font-size: 1.2rem;
-        line-height: 1.2rem;
-        margin: 0;
-        top: -15px;
-        right: -5px;
+        font-size: 0.8rem;
+        line-height: 0.7rem;
       }
       @include breakpoint(small) {
-        width: 134px;
-        height: 50px;
+        margin-right: 0;
         color: $limestone-blue !important;
-        background: url(/themes/custom/limestone/images/lc-sprite.svg) no-repeat -498px -257px;
-        background-size: 757px;
-        margin-right: -80px;
+        background: url(/themes/custom/limestone/images/lc-sprite.svg) no-repeat -370px -184px;
+        background-size: 562px;
+        width: 134px;
+        height: 44px;
         &:before {
           display: none;
-        }
-        span {
-          font-size: 0.8rem;
-          line-height: 0.7rem;
-          margin-top: 3px;
-          top: auto;
-          right: auto;
         }
         &:focus, &:hover {
           color: $limestone-blue !important;
