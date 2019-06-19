@@ -15,9 +15,12 @@ install:
   - entityqueue
   - rh_node
   - field_group
+  - length_indicator
+  - advanced_text_formatter
+  - maxlength
 
-# Information added by Drupal.org packaging script on 2019-04-11
-version: '8.x-6.4'
+# Information added by Drupal.org packaging script on 2019-05-05
+version: '8.x-6.7'
 core: '8.x'
 project: 'varbase_heroslider_media'
-datestamp: 1554969186
+datestamp: 1557061685

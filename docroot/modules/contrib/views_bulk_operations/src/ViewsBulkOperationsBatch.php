@@ -42,8 +42,6 @@ class ViewsBulkOperationsBatch {
     if (empty($context['sandbox'])) {
       $context['sandbox']['processed'] = 0;
       $context['sandbox']['page'] = 0;
-      $context['sandbox']['total'] = $data['exclude_mode'] ? $data['total_results'] - count($data['exclude_list']) : $data['total_results'];
-      $context['sandbox']['npages'] = ceil($data['total_results'] / $data['batch_size']);
       $context['results'] = $data;
     }
 
@@ -54,20 +52,29 @@ class ViewsBulkOperationsBatch {
     $list = $actionProcessor->getPageList($context['sandbox']['page']);
     $count = count($list);
 
-    foreach ($list as $item) {
-      $context['results']['list'][] = $item;
-    }
+    if ($count) {
+      foreach ($list as $item) {
+        $context['results']['list'][] = $item;
+      }
 
-    $context['sandbox']['page']++;
-    $context['sandbox']['processed'] += $count;
+      $context['sandbox']['page']++;
+      $context['sandbox']['processed'] += $count;
 
-    if ($context['sandbox']['page'] <= $context['sandbox']['npages']) {
+      // There may be cases where we don't know the total number of
+      // results (e.g. mini pager with a search_api view)
       $context['finished'] = 0;
-      $context['finished'] = $context['sandbox']['processed'] / $context['sandbox']['total'];
-      $context['message'] = static::t('Prepared @count of @total entities for processing.', [
-        '@count' => $context['sandbox']['processed'],
-        '@total' => $context['sandbox']['total'],
-      ]);
+      if ($data['total_results']) {
+        $context['finished'] = $context['sandbox']['processed'] / $data['total_results'];
+        $context['message'] = static::t('Prepared @count of @total entities for processing.', [
+          '@count' => $context['sandbox']['processed'],
+          '@total' => $data['total_results'],
+        ]);
+      }
+      else {
+        $context['message'] = static::t('Prepared @count entities for processing.', [
+          '@count' => $context['sandbox']['processed'],
+        ]);
+      }
     }
 
   }
@@ -107,8 +114,6 @@ class ViewsBulkOperationsBatch {
     if (empty($context['sandbox'])) {
       $context['sandbox']['processed'] = 0;
       $context['results']['operations'] = [];
-      $context['sandbox']['page'] = 0;
-      $context['sandbox']['npages'] = ceil($data['total_results'] / $data['batch_size']);
     }
 
     // Get entities to process.
@@ -116,27 +121,34 @@ class ViewsBulkOperationsBatch {
     $actionProcessor->initialize($data);
 
     // Do the processing.
-    $count = $actionProcessor->populateQueue($data, $context);
-
-    $batch_results = $actionProcessor->process();
-    if (!empty($batch_results)) {
-      // Convert translatable markup to strings in order to allow
-      // correct operation of array_count_values function.
-      foreach ($batch_results as $result) {
-        $context['results']['operations'][] = (string) $result;
+    $count = $actionProcessor->populateQueue($data['list'], $context);
+    if ($count) {
+      $batch_results = $actionProcessor->process();
+      if (!empty($batch_results)) {
+        // Convert translatable markup to strings in order to allow
+        // correct operation of array_count_values function.
+        foreach ($batch_results as $result) {
+          $context['results']['operations'][] = (string) $result;
+        }
       }
-    }
-    $context['sandbox']['processed'] += $count;
-    $context['sandbox']['page']++;
+      $context['sandbox']['processed'] += $count;
 
-    if ($context['sandbox']['page'] <= $context['sandbox']['npages']) {
       $context['finished'] = 0;
-
-      $context['finished'] = $context['sandbox']['processed'] / $context['sandbox']['total'];
-      $context['message'] = static::t('Processed @count of @total entities.', [
-        '@count' => $context['sandbox']['processed'],
-        '@total' => $context['sandbox']['total'],
-      ]);
+      // There may be cases where we don't know the total number of
+      // results (probably all of them were already eliminated but
+      // leaving this code just in case).
+      if ($context['sandbox']['total']) {
+        $context['finished'] = $context['sandbox']['processed'] / $context['sandbox']['total'];
+        $context['message'] = static::t('Processed @count of @total entities.', [
+          '@count' => $context['sandbox']['processed'],
+          '@total' => $context['sandbox']['total'],
+        ]);
+      }
+      else {
+        $context['message'] = static::t('Processed @count entities.', [
+          '@count' => $context['sandbox']['processed'],
+        ]);
+      }
     }
   }
 

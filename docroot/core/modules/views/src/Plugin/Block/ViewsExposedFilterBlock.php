@@ -52,7 +52,7 @@ class ViewsExposedFilterBlock extends ViewsBlockBase {
     if (!empty($this->configuration['label_display']) && ($this->view->getTitle() || !empty($this->configuration['views_label']))) {
       $output['#title'] = [
         '#markup' => empty($this->configuration['views_label']) ? $this->view->getTitle() : $this->configuration['views_label'],
-        '#allowed_tags' => Xss::getHtmlTagList()
+        '#allowed_tags' => Xss::getHtmlTagList(),
       ];
     }
 

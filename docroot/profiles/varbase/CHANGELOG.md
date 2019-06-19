@@ -1,3 +1,257 @@
+# 8.6.11
+
+### Highlighted important changes since Varbase 8.6.10:
+
+* Issue [#3056587](https://www.drupal.org/node/3056587):
+                  Updated [Drupal core] from 8.7.1 to 8.7.2 ( ~8.7.0 )
+                  and removed all patches for 8.7.1
+* Issue [#3056598](https://www.drupal.org/node/3056598):
+                 Varbase 8.6.11: Updated [CHANGELOG.md, README.md,
+                 drupal-org.make] files and filter the code for
+                 Drupal 8 Coding Standard
+* Updated [Admin Toolbar] module from 8.1.26 to 8.1.27
+* Updated [Adminimal - Responsive Administration Theme] theme
+          from 8.1.4 to 8.1.5
+
+--------------------------------------------------------------------------------
+
+# 8.6.10
+
+### Highlighted important changes since Varbase 8.6.9:
+* Issue [#3052218](https://www.drupal.org/node/3052218):
+                  Updated [Drupal core] from ~8.6.0 to ~8.7.0
+* Issue [#3051422](https://www.drupal.org/node/3051422):
+                  Have Vartheme BS4 as the default theme for Varbase and
+                  disable Vartheme
+* Issue [#3052293](https://www.drupal.org/node/3052293):
+                  Changed and shifted Varbase Media responsive image styles
+                  to work with the mapping of Bootstrap 3 breakpoints into
+                  Bootstrap 4 breakpoints.
+
+This update works for any theme, whether you are using Bootstrap 3,
+ Bootstrap 4, or any theme. It adds new breakpoints provided from Varbase
+ Media module (based on Bootstrap 4 media queries) to unify the way responsive
+ images are displayed.
+
+Varbase Media Mapping Bootstrap 3 into Bootstrap 4:
+* Switched BS3 XS max ( < 768px) to BS4 SM max ( <767.98px)
+* Switched BS3 SM min ( >=768px) to BS4 MD min ( >=768px)
+* Switched BS3 MD min ( >=992px) to BS4 LG min ( >=992px)
+* Switched BS3 LG min ( >=1200px) to BS4 XL min ( >=1200px)
+
+### Added since Varbase 8.6.9:
+* Issue [#3051878](https://www.drupal.org/node/3051878):
+                  Added project: varbase to varbase.info.yml
+* Issue [#3051417](https://www.drupal.org/node/3051417):
+                  Added default Vartheme optional blocks in Vartheme BS4
+                  and VARTHEM_BS4_SUBTHEME
+*                 Updated the create new vartheme BS4 sub-theme generator to
+                  rename new block config files
+* Issue [#3051709](https://www.drupal.org/node/3051709):
+                  Added logo.png and logo-print.png files for default logo
+                  and default print logo
+* Issue [#3051285](https://www.drupal.org/node/3051285):
+                  Added Max length (300) for the slide text in
+                  [Varbase Media Hero Slider]
+* Issue [#3051265](https://www.drupal.org/node/3051265)
+                  by
+                  [abu-zakham](https://www.drupal.org/u/abu-zakham)
+                  : Added the 3032549-18.patch for [Password Policy] module to
+                  fix the saving constraint issue
+* Issue [#3052248](https://www.drupal.org/node/3052248)
+                  by
+                  [devkinetic](https://www.drupal.org/u/devkinetic)
+                  : Added private flag to package.json for Vartheme BS4
+
+### Changed since Varbase 8.6.9:
+* Issue [#3051884](https://www.drupal.org/node/3051884):
+                  Switched to use [Varbase Entity Definition Update Manager]
+                  and remove deprecated
+                  \Drupal::entityDefinitionUpdateManager()->applyUpdates()
+* Issue [#3051483](https://www.drupal.org/node/3051483):
+                  Changed the default Hero Slider instant block at the
+                  home page to work with Vartheme BS4 theme as the
+                  default theme
+* Issue [#3051468](https://www.drupal.org/node/3051468):
+                  Changed the default content and Varbase Welcome Message
+                  to work with Vartheme BS4
+* Issue [#3052733](https://www.drupal.org/node/3052733):
+                  Generated config updates for Varbase 8.6.9 in the update
+                  helper checklist and optimized the config updates
+* Issue [#3053039](https://www.drupal.org/node/3053039):
+                  Marked all updates by the update helper checklist as
+                  successful on install
+* Issue [#3051248](https://www.drupal.org/node/3051248)
+                  by
+                  [Firass Ziedan](https://www.drupal.org/u/firass-ziedan)
+                  : Removed the language code from base_url in
+                  [Varbase Media Hero Slider] oembed base_path
+* Issue [#3053436](https://www.drupal.org/node/3053436)
+                  by
+                  [waleedq](https://www.drupal.org/u/waleedq)
+                  : Applied an update onsave for the [Update Helper] module, and
+                  disable applied updates and updated the patch
+                  to 3024165-31.patch
+* Issue [#3055619](https://www.drupal.org/node/3055619)
+                  by
+                  [metalbote](https://www.drupal.org/u/metalbote)
+                  : Changed Varbase Behat Context to use form element ids
+                 instead of labels, so that tests run on non-english installs
+* Issue [#3055719](https://www.drupal.org/node/3055719)
+                  by
+                  [YousefAnbar](https://www.drupal.org/u/yousefanbar)
+                  : Removed .equal-height-xs from bootstrap 4 as it is not needed
+
+### Updates since Varbase 8.6.9:
+* Issue [#3052578](https://www.drupal.org/node/3052578):
+                  Updated [Default Content] module
+                  from 8.1.0-alpha7 to 8.1.0-alpha8
+* Issue [#3052694](https://www.drupal.org/node/3052694):
+                  Updated [Entity Embed] module from 8.1.0-beta2 to 8.1.0-beta3
+* Issue [#3052708](https://www.drupal.org/node/3052708):
+                  Updated JavaScript/CSS libraries for Popper and Bootstrap
+                  Barrio theme for new toast and alert library
+
+### Fixes since Varbase 8.x-6.9:
+* Issue [#3052032](https://www.drupal.org/node/3052032)
+                  by
+                  [devkinetic](https://www.drupal.org/u/devkinetic)
+                  : Fixed Main menu template dropdown settings applied
+                  to all links
+* Issue [#3051462](https://www.drupal.org/node/3051462)
+                  by
+                  [m.alhawwari](https://www.drupal.org/u/malhawwari)
+                  : Fixed to return header media from default when no
+                  translation is available
+* Issue [#3053163](https://www.drupal.org/node/3053163):
+                  Fixed Media grid view style after the update to
+                  Drupal 8.7.0 stable
+* Issue [#3055737](https://www.drupal.org/node/3055737)
+                  by
+                  [mohammad faqeh](https://www.drupal.org/u/mohammad-faqeh)
+                  : Fixed card deck and space under card image on IE
+* Issue [#3056083](https://www.drupal.org/node/3056083):
+                  Fixed regression of responsive image styles when updating
+                  to Bootstrap 4 breakpoints
+
+--------------------------------------------------------------------------------
+
+# 8.6.9
+
+### Highlighted important changes since Varbase 8.6.8:
+* Issue [#3053839](https://www.drupal.org/node/3053839):
+                  Update [Drupal core] from 8.6.15 to 8.6.16
+* Drupal core - Moderately critical - Third-party libraries -
+  [SA-CORE-2019-007](https://www.drupal.org/SA-CORE-2019-007)
+* Issue [#3053828](https://www.drupal.org/node/3053828):
+                  Changed drupal/core ~8.6 to ~8.6.0 to let composer
+                  update to 8.6.16 and more 8.6.x versions and
+                  not to update to 8.7.x
+
+--------------------------------------------------------------------------------
+
+# 8.6.8
+
+### Highlighted important changes since Varbase 8.6.7:
+* Issue [#3048545](https://www.drupal.org/node/3048545):
+                  Implement theme suggestions and JS behaviors in
+                  Varbase Media for each video provider to support autoplay
+                  for various video providers (YouTube, Vimeo, and Local video)
+* Issue [#3048729](https://www.drupal.org/node/3048729):
+                  Initialized the Varbase Media Header slider 8.x-7.x branch
+                  structure and implement theme suggestions and JS behaviors
+                  for each video provider to support autoplay for various video
+                  providers (YouTube, Vimeo, and Local video)
+* Issue [#3050202](https://www.drupal.org/node/3050202):
+                  Implemented theme suggestions and JS behaviours in
+                  Varbase Media Header for each video provider to support
+                  autoplay for various video providers
+                  (YouTube, Vimeo, and Local video) targeted for
+                  the media header
+* Issue [#3048206](https://www.drupal.org/node/3048206):
+                  Added [Length Indicator] module 8.1.0-rc3
+                  length indicator with 15 50 10
+                  - Added [Length Indicator] to the form view config for
+                  [Basic page] content type
+                  - Added the checklist for optional updates over the
+                  [Length Indicator] configs modules
+                  - Added targeted modules with #dependency in the checklist
+                  item and updated the Updated Helper for optional updates
+
+### Added since Varbase 8.6.7:
+* Issue [#3049759](https://www.drupal.org/node/3049759):
+                  Added [Length Indicator] to the form view config for
+                  [Landing page] content type
+* Issue [#3049760](https://www.drupal.org/node/3049760):
+                  Added [Length Indicator] to the form view config for
+                  [Blog post] content type
+* Issue [#3049762](https://www.drupal.org/node/3049762):
+                  Added [Length Indicator] to the form view config for
+                  [Hero slider] content type
+
+### Changed since Varbase 8.6.7:
+* Issue [#3049751](https://www.drupal.org/node/3049751):
+                  Styled the one slide view and Full content hero slider page
+                  to look like a preview for the slide
+* Issue [#3049744](https://www.drupal.org/node/3049744):
+                  Have the title element go to the end of the line, with the
+                  Length Indicator and the title should have the same exact
+                  width, on all responsive sizes
+* Issue [#3050421](https://www.drupal.org/node/3050421)
+                  by
+                  [Mohammad Fayoumi](https://www.drupal.org/u/mohammad-fayoumi)
+                  : Support multi-language media header
+                  for the selected media field and content types
+* Issue [#3045727](https://www.drupal.org/node/3045727)
+                  by
+                  [scoff](https://www.drupal.org/u/scoff)
+                  : Changed VMH expects page_title and breadcrumbs
+                  to be NOT only in (header) region and if disabled or
+                  removed then costumed
+
+### Updates since Varbase 8.x-6.7:
+* Issue [#3050503](https://www.drupal.org/node/3050503):
+                  Varbase 8.6.8: Update [CHANGELOG.md, README.md,
+                  drupal-org.make] files and filter the code for Drupal 8
+                   Coding Standard
+* Updated [Drupal core] from 8.6.14 to 8.6.15 (Drush make) in composer
+   it's (~8.6.0)
+* Updated [Entityqueue] from 1.0-beta1 to 1.0-beta2  (Drush make) in composer
+   it's (~1.0)
+* Updated [dropzonejs] from 2.0-alpha3 to 2.0-alpha4  (Drush make) in composer
+   it's (~2.0)
+
+### Fixes since Varbase 8.x-6.7:
+* Issue [#3048899](https://www.drupal.org/node/3048899):
+                  Fixed module path in Varbase Media being passed to the
+                  selected oembed ifreame twig template for the current active
+                  library path to Varbase Media
+* Issue [#3049750](https://www.drupal.org/node/3049750):
+                  Fixed Vimeo view size issue in the Embed tab in Varbase
+                  entity browsers
+* Issue [#3050105](https://www.drupal.org/node/3050105)
+                  by
+                  [Mohammad Fayoumi](https://www.drupal.org/u/mohammad-fayoumi)
+                  : Removed the duplicated line of
+                  code (type: theme) in vartheme_bs4.info.yml
+* Issue [#3047417](https://www.drupal.org/node/3047417)
+                  by
+                  [Firass Ziedan](https://www.drupal.org/u/firass-ziedan)
+                  : Fixed fatal error after translating
+                  tabs paragraph type
+* Issue [#3050576](https://www.drupal.org/node/3050576)
+                  by
+                  [devkinetic](https://www.drupal.org/u/devkinetic)
+                  : Fixed VMI text teaser css typo
+* Issue [#3033781](https://www.drupal.org/node/3033781)
+                  by
+                  [stefan.korn](https://www.drupal.org/u/stefankorn)
+                  : Fixed vartheme subtheme does not use
+                  the toolbar top space issue as it was fixed from base theme
+
+--------------------------------------------------------------------------------
+
+
 # 8.6.7
 
 ### Highlighted important changes since Varbase 8.6.6:
@@ -130,6 +384,8 @@ Test Varbase Blog and VMI Images and Videos with Blazy
 * Issue [#3039513](https://www.drupal.org/node/3039513):
                   Fixed bootstrap variables not been overridden in
                   Vartheme BS4 and VARTHEME_BS4_SUBTHEME
+
+--------------------------------------------------------------------------------
 
 
 # 8.6.6

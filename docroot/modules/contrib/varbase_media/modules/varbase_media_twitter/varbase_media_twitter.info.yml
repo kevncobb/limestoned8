@@ -10,8 +10,8 @@ dependencies:
   - media_entity_twitter:media_entity_twitter
   - varbase_media:entity_browser_generic_embed
 
-# Information added by Drupal.org packaging script on 2019-04-22
-version: '8.x-6.8'
+# Information added by Drupal.org packaging script on 2019-05-08
+version: '8.x-6.11'
 core: '8.x'
 project: 'varbase_media'
-datestamp: 1555942985
+datestamp: 1557310692

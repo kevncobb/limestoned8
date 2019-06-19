@@ -60,13 +60,15 @@ So that I can use them after the install or update.
       And I wait
      Then I should see "Appearance"
       And I should see "Vartheme"
+      And I should see "Vartheme (Bootstrap 4 - SASS)"
       And I should see "Adminimal"
       And I should see "Bootstrap"
+      And I should see "Bootstrap Barrio"
       And I should see "Vartheme Admin"
 
    @check @local @development @staging @production
    Scenario: Check active type of media types.
-      When I go to "media/add"
+      When I go to "/media/add"
        And I wait
       Then I should see "File"
        And I should see "Image"
@@ -75,3 +77,11 @@ So that I can use them after the install or update.
        And I should see "Audio"
        And I should see "Instagram"
        And I should see "Tweet"
+
+   @check @local @development @staging @production
+   Scenario: Check Varbase update instructions page.
+      When I go to "/admin/config/development/update-helper"
+       And I wait
+      Then I should see "Varbase update instructions"
+       And I should see "100%"
+       And I should not see "Pending updates"

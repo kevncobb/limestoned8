@@ -4,16 +4,14 @@ type: module
 package: Varbase
 # version: 8.x-6.x-dev
 # core: 8.x
-libraries:
-  - varbase_update_helper/varbase_update_helper
 # project: varbase_core
 dependencies:
-  - update_helper
-  - update_helper_checklist
-  - checklistapi
+  - checklistapi:checklistapi
+  - update_helper:update_helper
+  - update_helper:update_helper_checklist
 
-# Information added by Drupal.org packaging script on 2019-04-13
-version: '8.x-6.11'
+# Information added by Drupal.org packaging script on 2019-05-23
+version: '8.x-6.17'
 core: '8.x'
 project: 'varbase_core'
-datestamp: 1555171707
+datestamp: 1558629487

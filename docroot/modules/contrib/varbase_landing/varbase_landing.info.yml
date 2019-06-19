@@ -14,9 +14,12 @@ install:
   - varbase_seo
   - paragraphs_features
   - paragraphs_asymmetric_translation_widgets
+  - length_indicator
+  - advanced_text_formatter
+  - maxlength
 
-# Information added by Drupal.org packaging script on 2018-12-18
-version: '8.x-6.1'
+# Information added by Drupal.org packaging script on 2019-04-24
+version: '8.x-6.2'
 core: '8.x'
 project: 'varbase_landing'
-datestamp: 1545154084
+datestamp: 1556119991

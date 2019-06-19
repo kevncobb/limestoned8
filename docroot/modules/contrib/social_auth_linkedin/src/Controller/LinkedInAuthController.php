@@ -17,6 +17,13 @@ use Symfony\Component\HttpFoundation\RequestStack;
 class LinkedInAuthController extends OAuth2ControllerBase {
 
   /**
+   * The LinkedIn authentication manager.
+   *
+   * @var \Drupal\social_auth_linkedin\LinkedInAuthManager
+   */
+  protected $providerManager;
+
+  /**
    * LinkedInAuthController constructor.
    *
    * @param \Drupal\Core\Messenger\MessengerInterface $messenger
@@ -80,9 +87,10 @@ class LinkedInAuthController extends OAuth2ControllerBase {
       $data = $this->userAuthenticator->checkProviderIsAssociated($profile->getId()) ? NULL : $this->providerManager->getExtraDetails();
 
       $name = $profile->getFirstName() . ' ' . $profile->getLastName();
+      $email = $this->providerManager->getEmail();
 
       // If user information could be retrieved.
-      return $this->userAuthenticator->authenticateUser($name, $profile->getEmail(), $profile->getId(), $this->providerManager->getAccessToken(), $profile->getImageurl(), $data);
+      return $this->userAuthenticator->authenticateUser($name, $email, $profile->getId(), $this->providerManager->getAccessToken(), $profile->getImageUrl(), $data);
     }
 
     return $this->redirect('user.login');

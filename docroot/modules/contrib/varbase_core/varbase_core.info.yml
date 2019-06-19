@@ -86,8 +86,8 @@ install:
   - login_destination
   - betterlogin
 
-# Information added by Drupal.org packaging script on 2019-04-13
-version: '8.x-6.11'
+# Information added by Drupal.org packaging script on 2019-05-23
+version: '8.x-6.17'
 core: '8.x'
 project: 'varbase_core'
-datestamp: 1555171707
+datestamp: 1558629487

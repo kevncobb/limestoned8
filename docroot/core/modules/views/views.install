@@ -532,26 +532,3 @@ function views_update_8500() {
     }
   }
 }
-
-/**
- * Update exposed filter blocks label display to be disabled.
- */
-function views_update_8600() {
-  /** @var \Drupal\block\BlockInterface $block_storage */
-  $block_storage = \Drupal::entityManager()->getStorage('block');
-  $config_factory = \Drupal::configFactory();
-
-  foreach ($config_factory->listAll('views.view.') as $view_config_name) {
-    $view = $config_factory->get($view_config_name);
-    foreach ($view->get('display') as $display_id => $display) {
-      if (isset($display['display_options']['exposed_block']) && $display['display_options']['exposed_block'] == 1) {
-        $plugin_id = 'views_exposed_filter_block:' . $view->get('id') . '-' . $display_id;
-        $blocks = $block_storage->loadByProperties(['plugin' => $plugin_id]);
-        foreach ($blocks as $block) {
-          $block->getPlugin()->setConfigurationValue('label_display', FALSE);
-          $block->save();
-        }
-      }
-    }
-  }
-}

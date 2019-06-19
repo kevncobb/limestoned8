@@ -31,7 +31,7 @@
     "oomphinc/composer-installers-extender": "~1.0",
     "cweagans/composer-patches": "~1.0",
     "drupal/drupal-library-installer-plugin": "^0.3",
-    "drupal/core": "~8.6",
+    "drupal/core": "~8.7.0",
     "drupal/config_update": "~1.0",
     "drupal/config_filter": "~1.0",
     "drupal/config_ignore": "~2.0",
@@ -75,7 +75,7 @@
     "drupal/webform": "~5.0",
     "drupal/webform_analysis": "~1.0",
     "drupal/webform_views": "~5.0",
-    "drupal/default_content": "1.0-alpha7",
+    "drupal/default_content": "1.0-alpha8",
     "drupal/better_normalizers": "~1.0",
     "drupal/content_lock": "~1.0",
     "drupal/node_edit_protection": "~1.0",
@@ -92,7 +92,7 @@
     "drupal/update_helper": "1.0",
     "drupal/checklistapi": "~1.0",
     "drupal/username_enumeration_prevention": "~1.0",
-    "drupal/password_policy": "~3.0",
+    "drupal/password_policy": "3.0-alpha4",
     "drupal/seckit": "~1.0",
     "drupal/security_review": "*",
     "drupal/honeypot": "~1.0",
@@ -101,6 +101,7 @@
     "drupal/recaptcha": "~2.0",
     "drupal/mailsystem": "~4.0",
     "drupal/smtp": "~1.0",
+    "drupal/length_indicator": "1.0-rc3",
     "drupal/maxlength": "~1.0",
     "drupal/menu_position": "~1.0",
     "drupal/mail_edit": "*",
@@ -137,17 +138,11 @@
         "Issue #2815221: Add quickedit to the latest-revision route":
         "https://www.drupal.org/files/issues/2019-03-05/2815221-116.patch",
         "Issue #1356276: Allow profiles to define a base/parent profile and load them in the correct order":
-        "https://www.drupal.org/files/issues/2018-10-23/1356276-549-8.6.x.patch",
+        "https://www.drupal.org/files/issues/2018-10-12/1356276-531.patch",
         "Issue #2914389: Allow profiles to exclude dependencies of their parent":
-        "https://www.drupal.org/files/issues/2018-11-07/2914389-11-do-not-test.patch",
-        "Issue #2720101 Label (Title) not set for Views block (exposed filters in Block)":
-        "https://www.drupal.org/files/issues/2720101-53.patch",
-        "Issue #2599228: Programmatically created translatable content type returns SQL error on content creation":
-        "https://www.drupal.org/files/issues/2018-10-06/2599228-74.patch",
+        "https://www.drupal.org/files/issues/2018-07-09/2914389-8-do-not-test.patch",
         "Issue #2893892: Fixed Warning Invalid argument supplied for foreach() in Drupal":
-        "https://www.drupal.org/files/issues/patch_empty_fix.patch",
-        "Issue #3023452: Views placeholder texts are not translatable'":
-        "https://www.drupal.org/files/issues/2019-01-14/3023452-5.patch"
+        "https://www.drupal.org/files/issues/2018-12-10/core--getDerivatives-Invalid-argument-foreach--2893892-11-d8.patch"
       },
       "drupal/coffee": {
         "Issue #2815381: Coffee breaks whole page when using right to left (rtl) languages in drupal 8":
@@ -185,7 +180,15 @@
       },
       "drupal/update_helper": {
         "Issue #3024165: [PATCH] Enhancements, Better messages for the unable to apply updates, drush command and removed the Mark all updates as successful on install":
-        "https://www.drupal.org/files/issues/2019-04-03/3024165-18-update_helper-enhancements.patch"
+        "https://www.drupal.org/files/issues/2019-05-19/3024165-31.patch"
+      },
+      "drupal/length_indicator": {
+        "Issue #3048286: Add cursor position direction support for RTL":
+        "https://www.drupal.org/files/issues/2019-04-15/3048286-3.patch"
+      },
+      "drupal/password_policy": {
+        "Issue #3032549: Fix Password policy module issue with saving constraint":
+        "https://www.drupal.org/files/issues/2019-04-28/3032549-18.patch"
       }
     }
   }

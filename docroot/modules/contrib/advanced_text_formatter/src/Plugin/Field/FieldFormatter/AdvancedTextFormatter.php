@@ -211,7 +211,7 @@ class AdvancedTextFormatter extends FormatterBase {
       case static::FORMAT_DRUPAL:
         $formats = filter_formats();
         $format  = $this->getSetting('format');
-        $format  = isset($formats[$format]) ? $formats[$format]->name : t('Unknown');
+        $format  = isset($formats[$format]) ? $formats[$format]->get('name') : t('Unknown');
 
         $summary[] = t('Filter: @filter', array('@filter' => t('Drupal')));
         $summary[] = t('Format: @format', array('@format' => $format));
@@ -231,7 +231,7 @@ class AdvancedTextFormatter extends FormatterBase {
           $text[] = t('Remove all HTML tags.');
         }
         else {
-          $text[] = t('Limit allowed HTML tags: !tags.', array('!tags' => $tags));
+          $text[] = t('Limit allowed HTML tags: @tags.', array('@tags' => $tags));
         }
 
         if (!empty($autop)) {
@@ -314,7 +314,7 @@ class AdvancedTextFormatter extends FormatterBase {
       $elements[$delta] = array(
         '#type' => 'processed_text',
         '#text' => $output,
-        '#format' => $item->format,
+        '#format' => $this->getSetting('format'),
         '#langcode' => $item->getLangcode(),
       );
     }

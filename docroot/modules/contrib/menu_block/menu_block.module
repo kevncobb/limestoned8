@@ -1,7 +1,5 @@
 <?php
 
-use Drupal\Core\GeneratedLink;
-
 /**
  * Implements hook_theme_suggestions_HOOK() for "block".
  */
@@ -101,22 +99,4 @@ function menu_block_theme_suggestions_menu(array $variables) {
   }
 
   return $suggestions;
-}
-
-/**
- * Implements hook_preprocess_hook() for "block".
- *
- *   Some modules may be stripping the link off of the block title.
- *   Replace the block label with the menu_block_configuration
- *   label if a link exists.
- */
-function menu_block_preprocess_block(&$variables) {
-
-  if (isset($variables['content']['#menu_block_configuration']['label'])) {
-    $config_label = $variables['content']['#menu_block_configuration']['label'];
-
-    if ($config_label instanceof GeneratedLink) {
-      $variables['label'] = $variables['content']['#menu_block_configuration']['label'];
-    }
-  }
 }

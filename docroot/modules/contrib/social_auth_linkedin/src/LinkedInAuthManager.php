@@ -53,7 +53,7 @@ class LinkedInAuthManager extends OAuth2Manager {
    * {@inheritdoc}
    */
   public function getAuthorizationUrl() {
-    $scopes = ['r_basicprofile', 'r_emailaddress'];
+    $scopes = ['r_liteprofile', 'r_emailaddress'];
 
     $extra_scopes = $this->getScopes();
     if ($extra_scopes) {
@@ -94,6 +94,16 @@ class LinkedInAuthManager extends OAuth2Manager {
    */
   public function getState() {
     return $this->client->getState();
+  }
+
+  /**
+   * Gets the email address.
+   *
+   * @return string
+   *   The user email address.
+   */
+  public function getEmail() {
+    return $this->client->getResourceOwnerEmail($this->getAccessToken());
   }
 
 }

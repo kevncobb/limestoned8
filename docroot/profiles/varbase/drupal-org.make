@@ -58,7 +58,7 @@ projects[smart_trim][type] = module
 projects[smart_trim][version] = 1.1
 
 projects[advanced_text_formatter][type] = module
-projects[advanced_text_formatter][version] = 1.0-beta3
+projects[advanced_text_formatter][version] = 1.0
 
 projects[block_class][type] = module
 projects[block_class][version] = 1.0
@@ -95,11 +95,11 @@ projects[entity_browser][patch][] = https://www.drupal.org/files/issues/entity-b
 projects[entity_browser][patch][] = https://www.drupal.org/files/issues/2877751-27-8.x-2.x.patch
 
 projects[dropzonejs][type] = module
-projects[dropzonejs][version] = 2.0-alpha3
+projects[dropzonejs][version] = 2.0-alpha4
 
 projects[entity_embed][type] = module
-projects[entity_embed][version] = 1.0-beta2
-;; Issue #2832504 - Send the CKEditor instance ID to the embed.preview route.
+projects[entity_embed][version] = 1.0-beta3
+;; Issue #2832504: Send the CKEditor instance ID to the embed.preview route.
 projects[entity_embed][patch][] = https://www.drupal.org/files/issues/2832504-2.patch
 ;; Issue #2511404: Image entities/fields embedded using Entity Embed cannot be linked in CKEditor.
 projects[entity_embed][patch][] = https://www.drupal.org/files/issues/2018-04-23/25114040-47.patch
@@ -134,7 +134,7 @@ projects[ace_editor][type] = module
 projects[ace_editor][version] = 1.1
 
 projects[entityqueue][type] = module
-projects[entityqueue][version] = 1.0-beta1
+projects[entityqueue][version] = 1.0-beta2
 
 projects[entityqueue_form_widget][type] = module
 projects[entityqueue_form_widget][version] = 1.0-beta3
@@ -163,7 +163,7 @@ projects[roleassign][type] = module
 projects[roleassign][version] = 1.0-alpha2
 
 projects[admin_toolbar][type] = module
-projects[admin_toolbar][version] = 1.26
+projects[admin_toolbar][version] = 1.27
 
 projects[adminimal_admin_toolbar][type] = module
 projects[adminimal_admin_toolbar][version] = 1.9
@@ -181,7 +181,7 @@ projects[views_bulk_operations][type] = module
 projects[views_bulk_operations][version] = 2.5
 
 projects[views_bulk_edit][type] = module
-projects[views_bulk_edit][version] = 2.2
+projects[views_bulk_edit][version] = 2.3
 
 projects[revision_log_default][type] = module
 projects[revision_log_default][version] = 1.0
@@ -193,10 +193,10 @@ projects[webform_analysis][type] = module
 projects[webform_analysis][version] = 1.0-beta7
 
 projects[webform_views][type] = module
-projects[webform_views][version] = 5.0-alpha6
+projects[webform_views][version] = 5.0-alpha7
 
 projects[default_content][type] = module
-projects[default_content][version] = 1.0-alpha7
+projects[default_content][version] = 1.0-alpha8
 ;; Issue #2900089: Invalid translation language error when selected installation language does not match demo content language
 projects[default_content][patch][] = https://www.drupal.org/files/issues/2900089-14.patch
 ;; Issue #2886350: Allow export of all site content.
@@ -212,7 +212,7 @@ projects[node_edit_protection][type] = module
 projects[node_edit_protection][version] = 1.0-alpha1
 
 projects[rabbit_hole][type] = module
-projects[rabbit_hole][version] = 1.0-beta5
+projects[rabbit_hole][version] = 1.0-beta6
 
 projects[fast_404][type] = module
 projects[fast_404][version] = 1.0-alpha4
@@ -225,6 +225,11 @@ projects[swiftmailer][version] = 1.0-beta2
 
 projects[smtp][type] = module
 projects[smtp][version] = 1.0-beta4
+
+projects[length_indicator][type] = module
+projects[length_indicator][version] = 1.0-rc3
+;; Issue #3048286: Add cursor position direction support for RTL
+projects[length_indicator][patch][] = https://www.drupal.org/files/issues/2019-04-15/3048286-3.patch
 
 projects[maxlength][type] = module
 projects[maxlength][version] = 1.0-beta2
@@ -313,7 +318,7 @@ projects[social_auth_twitter][type] = module
 projects[social_auth_twitter][version] = 2.0-alpha3
 
 projects[social_auth_linkedin][type] = module
-projects[social_auth_linkedin][version] = 2.0-beta2
+projects[social_auth_linkedin][version] = 2.0-beta3
 
 projects[ckeditor_media_embed][type] = module
 projects[ckeditor_media_embed][version] = 1.3
@@ -352,6 +357,8 @@ projects[username_enumeration_prevention][version] = 1.0-beta2
 
 projects[password_policy][type] = module
 projects[password_policy][version] = 3.0-alpha4
+;; Issue #3032549: Fix Password policy module issue with saving constraint
+projects[password_policy][patch][] = https://www.drupal.org/files/issues/2019-04-28/3032549-18.patch
 
 projects[seckit][type] = module
 projects[seckit][version] = 1.1
@@ -372,19 +379,19 @@ projects[recaptcha][type] = module
 projects[recaptcha][version] = 2.4
 
 projects[search_api][type] = module
-projects[search_api][version] = 1.12
+projects[search_api][version] = 1.13
 
 projects[blazy][type] = module
-projects[blazy][version] = 1.0-rc4
+projects[blazy][version] = 2.0-rc3
 
 projects[slick][type] = module
-projects[slick][version] = 1.1
+projects[slick][version] = 2.0-rc3
 
 projects[slick_views][type] = module
-projects[slick_views][version] = 1.0
+projects[slick_views][version] = 2.0
 
 projects[slick_media][type] = module
-projects[slick_media][version] = 2.0-alpha3
+projects[slick_media][version] = 2.0-alpha3 
 
 ;;;;;;;;;;;;;;;;;;;;;
 ;; Development contrib modules
@@ -416,10 +423,11 @@ projects[libraries_ui][type] = module
 projects[libraries_ui][version] = 1.0
 
 projects[devel][type] = module
-projects[devel][version] = 1.x-dev
 
 projects[update_helper][type] = module
 projects[update_helper][version] = 1.0
+;; Issue #3024165: [PATCH] Enhancements, Better messages for the unable to apply updates, drush command and removed the Mark all updates as successful on install
+projects[update_helper][patch][] = https://www.drupal.org/files/issues/2019-05-19/3024165-31.patch
 
 projects[checklistapi][type] = module
 projects[checklistapi][version] = 1.10
@@ -429,13 +437,13 @@ projects[checklistapi][version] = 1.10
 ;;;;;;;;;;;;;;;;;;;;;
 
 projects[bootstrap][type] = theme
-projects[bootstrap][version] = 3.17
+projects[bootstrap][version] = 3.19
 
 projects[bootstrap_barrio][type] = theme
 projects[bootstrap_barrio][version] = 4.22
 
 projects[adminimal_theme][type] = theme
-projects[adminimal_theme][version] = 1.4
+projects[adminimal_theme][version] = 1.5
 
 ;;;;;;;;;;;;;;;;;;;;;
 ;; General Public contributed modules.
@@ -448,7 +456,7 @@ projects[entity_browser_enhanced][type] = module
 projects[entity_browser_enhanced][version] = 1.0-rc4
 
 projects[vmi][type] = module
-projects[vmi][version] = 2.1
+projects[vmi][version] = 2.2
 
 projects[total_control][type] = module
 projects[total_control][version] = 2.0-alpha4
@@ -460,19 +468,19 @@ projects[total_control][patch][] = https://www.drupal.org/files/issues/2935351-2
 ;;;;;;;;;;;;;;;;;;;;;
 
 projects[varbase_core][type] = module
-projects[varbase_core][version] = 6.11
+projects[varbase_core][version] = 6.17
 
 projects[varbase_media][type] = module
-projects[varbase_media][version] = 6.5
+projects[varbase_media][version] = 6.11
 
 projects[varbase_bootstrap_paragraphs][type] = module
-projects[varbase_bootstrap_paragraphs][version] = 6.5
+projects[varbase_bootstrap_paragraphs][version] = 6.6
 
 projects[varbase_editor][type] = module
-projects[varbase_editor][version] =6.3
+projects[varbase_editor][version] = 6.3
 
 projects[varbase_landing][type] = module
-projects[varbase_landing][version] = 6.1
+projects[varbase_landing][version] = 6.2
 
 projects[varbase_search][type] = module
 projects[varbase_search][version] = 6.2
@@ -481,7 +489,7 @@ projects[varbase_seo][type] = module
 projects[varbase_seo][version] = 6.3
 
 projects[varbase_heroslider_media][type] = module
-projects[varbase_heroslider_media][version] = 6.4
+projects[varbase_heroslider_media][version] = 6.7
 
 projects[varbase_carousels][type] = module
 projects[varbase_carousels][version] = 6.2
@@ -490,10 +498,10 @@ projects[varbase_total_control][type] = module
 projects[varbase_total_control][version] = 6.4
 
 projects[varbase_auth][type] = module
-projects[varbase_auth][version] = 6.3
+projects[varbase_auth][version] = 6.4
 
 projects[varbase_blog][type] = module
-projects[varbase_blog][version] = 6.1
+projects[varbase_blog][version] = 6.2
 
 projects[varbase_styleguide][type] = module
 projects[varbase_styleguide][version] = 6.1
@@ -506,13 +514,13 @@ projects[varbase_email][version] = 6.0-alpha1
 ;;;;;;;;;;;;;;;;;;;;;
 
 projects[vartheme][type] = theme
-projects[vartheme][version] = 6.5
+projects[vartheme][version] = 6.6
 
 projects[vartheme_bs4][type] = theme
-projects[vartheme_bs4][version] = 6.0-beta5
+projects[vartheme_bs4][version] = 6.0-rc2
 
 projects[vartheme_admin][type] = theme
-projects[vartheme_admin][version] = 6.5
+projects[vartheme_admin][version] = 6.6
 
 ;;;;;;;;;;;;;;;;;;;;;
 ;; Libraries
@@ -532,5 +540,5 @@ libraries[slick][destination] = "libraries"
 
 libraries[ace][directory_name] = "ace"
 libraries[ace][download][type] = "get"
-libraries[ace][download][url] = "http://github.com/ajaxorg/ace-builds/archive/v1.4.3.tar.gz"
+libraries[ace][download][url] = "http://github.com/ajaxorg/ace-builds/archive/v1.4.4.tar.gz"
 libraries[ace][destination] = "libraries"

@@ -470,7 +470,12 @@ class ParagraphsClassicAsymmetricWidget extends InlineParagraphsWidget {
         ];
 
         field_group_attach_groups($element['subform'], $context);
-        $element['subform']['#pre_render'][] = 'field_group_form_pre_render';
+        if (function_exists('field_group_form_pre_render')) {
+          $element['subform']['#pre_render'][] = 'field_group_form_pre_render';
+        }
+        if (function_exists('field_group_form_process')) {
+          $element['subform']['#process'][] = 'field_group_form_process';
+        }
       }
 
       if ($item_mode == 'edit') {

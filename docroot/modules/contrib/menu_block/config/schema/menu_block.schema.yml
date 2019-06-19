@@ -8,7 +8,7 @@ block.settings.menu_block:*:
     depth:
       type: integer
       label: 'Maximum number of levels'
-    expand:
+    expanded:
       type: boolean
       label: 'Expand all menu links'
     parent:
@@ -17,6 +17,3 @@ block.settings.menu_block:*:
     suggestion:
       type: string
       label: 'Theme suggestion'
-    render_parent:
-      type: boolean
-      label: 'Render parent menu link'

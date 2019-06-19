@@ -8,9 +8,9 @@ class ComposerStaticInit0a326385dc1ee3790ca0560342a6f1b8
 {
     public static $files = array (
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
-        '5255c38a0faeba867671b61dfda6d864' => __DIR__ . '/..' . '/paragonie/random_compat/lib/random.php',
         '023d27dca8066ef29e6739335ea73bad' => __DIR__ . '/..' . '/symfony/polyfill-php70/bootstrap.php',
         '320cde22f66dd4f5d3fd621d3e88b98f' => __DIR__ . '/..' . '/symfony/polyfill-ctype/bootstrap.php',
+        '25072dd6e2470089de65ae7bf11d3109' => __DIR__ . '/..' . '/symfony/polyfill-php72/bootstrap.php',
         '667aeda72477189d0494fecd327c3641' => __DIR__ . '/..' . '/symfony/var-dumper/Resources/functions/dump.php',
         'cf97c57bfe0f23854afd2f3818abb7a0' => __DIR__ . '/..' . '/zendframework/zend-diactoros/src/functions/create_uploaded_file.php',
         '9bf37a3d0dad93e29cb4e1b1bfab04e9' => __DIR__ . '/..' . '/zendframework/zend-diactoros/src/functions/marshal_headers_from_sapi.php',
@@ -68,6 +68,7 @@ class ComposerStaticInit0a326385dc1ee3790ca0560342a6f1b8
         ),
         'S' => 
         array (
+            'Symfony\\Polyfill\\Php72\\' => 23,
             'Symfony\\Polyfill\\Php70\\' => 23,
             'Symfony\\Polyfill\\Mbstring\\' => 26,
             'Symfony\\Polyfill\\Iconv\\' => 23,
@@ -123,12 +124,17 @@ class ComposerStaticInit0a326385dc1ee3790ca0560342a6f1b8
             'FontLib\\' => 8,
             'FileEye\\MimeMap\\' => 16,
         ),
+        'E' => 
+        array (
+            'Egulias\\EmailValidator\\' => 23,
+        ),
         'D' => 
         array (
             'Drupal\\Driver\\' => 14,
             'Drupal\\Core\\' => 12,
             'Drupal\\Component\\' => 17,
             'DrupalComposer\\DrupalScaffold\\' => 30,
+            'Doctrine\\Common\\Lexer\\' => 22,
             'Doctrine\\Common\\Inflector\\' => 26,
             'Doctrine\\Common\\Collections\\' => 28,
             'Doctrine\\Common\\Cache\\' => 22,
@@ -203,6 +209,10 @@ class ComposerStaticInit0a326385dc1ee3790ca0560342a6f1b8
         'TYPO3\\PharStreamWrapper\\' => 
         array (
             0 => __DIR__ . '/..' . '/typo3/phar-stream-wrapper/src',
+        ),
+        'Symfony\\Polyfill\\Php72\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/polyfill-php72',
         ),
         'Symfony\\Polyfill\\Php70\\' => 
         array (
@@ -340,6 +350,10 @@ class ComposerStaticInit0a326385dc1ee3790ca0560342a6f1b8
         array (
             0 => __DIR__ . '/..' . '/fileeye/mimemap/src',
         ),
+        'Egulias\\EmailValidator\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/egulias/email-validator/EmailValidator',
+        ),
         'Drupal\\Driver\\' => 
         array (
             0 => __DIR__ . '/../..' . '/docroot/drivers/lib/Drupal/Driver',
@@ -355,6 +369,10 @@ class ComposerStaticInit0a326385dc1ee3790ca0560342a6f1b8
         'DrupalComposer\\DrupalScaffold\\' => 
         array (
             0 => __DIR__ . '/..' . '/drupal-composer/drupal-scaffold/src',
+        ),
+        'Doctrine\\Common\\Lexer\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/doctrine/lexer/lib/Doctrine/Common/Lexer',
         ),
         'Doctrine\\Common\\Inflector\\' => 
         array (
@@ -416,6 +434,13 @@ class ComposerStaticInit0a326385dc1ee3790ca0560342a6f1b8
                 0 => __DIR__ . '/..' . '/stack/builder/src',
             ),
         ),
+        'P' => 
+        array (
+            'PEAR' => 
+            array (
+                0 => __DIR__ . '/..' . '/pear/pear_exception',
+            ),
+        ),
         'K' => 
         array (
             'KubAT\\PhpSimple\\HtmlDomParser' => 
@@ -432,10 +457,6 @@ class ComposerStaticInit0a326385dc1ee3790ca0560342a6f1b8
         ),
         'E' => 
         array (
-            'Egulias\\' => 
-            array (
-                0 => __DIR__ . '/..' . '/egulias/email-validator/src',
-            ),
             'EasyRdf_' => 
             array (
                 0 => __DIR__ . '/..' . '/easyrdf/easyrdf/lib',
@@ -447,18 +468,29 @@ class ComposerStaticInit0a326385dc1ee3790ca0560342a6f1b8
             array (
                 0 => __DIR__ . '/..' . '/drupal/drupal-library-installer-plugin/src',
             ),
-            'Doctrine\\Common\\Lexer\\' => 
-            array (
-                0 => __DIR__ . '/..' . '/doctrine/lexer/lib',
-            ),
         ),
         'C' => 
         array (
+            'Console' => 
+            array (
+                0 => __DIR__ . '/..' . '/pear/console_getopt',
+            ),
             'Caxy\\HtmlDiff' => 
             array (
                 0 => __DIR__ . '/..' . '/caxy/php-htmldiff/lib',
             ),
         ),
+        'A' => 
+        array (
+            'Archive_Tar' => 
+            array (
+                0 => __DIR__ . '/..' . '/pear/archive_tar',
+            ),
+        ),
+    );
+
+    public static $fallbackDirsPsr0 = array (
+        0 => __DIR__ . '/..' . '/pear/pear-core-minimal/src',
     );
 
     public static $classMap = array (
@@ -486,6 +518,7 @@ class ComposerStaticInit0a326385dc1ee3790ca0560342a6f1b8
             $loader->prefixLengthsPsr4 = ComposerStaticInit0a326385dc1ee3790ca0560342a6f1b8::$prefixLengthsPsr4;
             $loader->prefixDirsPsr4 = ComposerStaticInit0a326385dc1ee3790ca0560342a6f1b8::$prefixDirsPsr4;
             $loader->prefixesPsr0 = ComposerStaticInit0a326385dc1ee3790ca0560342a6f1b8::$prefixesPsr0;
+            $loader->fallbackDirsPsr0 = ComposerStaticInit0a326385dc1ee3790ca0560342a6f1b8::$fallbackDirsPsr0;
             $loader->classMap = ComposerStaticInit0a326385dc1ee3790ca0560342a6f1b8::$classMap;
 
         }, null, ClassLoader::class);
