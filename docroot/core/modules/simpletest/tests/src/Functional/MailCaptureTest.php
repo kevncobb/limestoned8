@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\FunctionalTests;
+namespace Drupal\Tests\simpletest\Functional;
 
 use Drupal\Tests\BrowserTestBase;
 use Drupal\Core\Test\AssertMailTrait;
@@ -9,7 +9,7 @@ use Drupal\Core\Test\AssertMailTrait;
  * Tests the SimpleTest email capturing logic, the assertMail assertion and the
  * drupalGetMails function.
  *
- * @group browsertestbase
+ * @group simpletest
  */
 class MailCaptureTest extends BrowserTestBase {
   use AssertMailTrait {

@@ -10,7 +10,7 @@ Source: https://www.drupal.org/files/issues/2885441-2.patch
 
 
 Issue #2815221: Add quickedit to the latest-revision route
-Source: https://www.drupal.org/files/issues/2019-03-05/2815221-116.patch
+Source: https://www.drupal.org/files/issues/2018-09-24/2815221-109.patch
 
 
 Issue #1356276: Allow profiles to define a base/parent profile and load them in the correct order
