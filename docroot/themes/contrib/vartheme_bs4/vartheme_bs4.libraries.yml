@@ -193,6 +193,11 @@ affix:
     component:
       css/components/affix.component.css: {}
 
+alerts:
+  css:
+    component:
+      css/components/alerts.component.css: {}
+
 book-navigation:
   css:
     component:

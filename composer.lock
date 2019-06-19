@@ -5366,7 +5366,7 @@
             "description": "Resizes images based on width and height attributes and optionally link to the original image.",
             "homepage": "https://www.drupal.org/project/image_resize_filter",
             "support": {
-                "source": "http://cgit.drupalcode.org/image_resize_filter"
+                "source": "https://git.drupalcode.org/project/image_resize_filter"
             }
         },
         {
@@ -6003,6 +6003,10 @@
             ],
             "authors": [
                 {
+                    "name": "3CWebDev",
+                    "homepage": "https://www.drupal.org/user/61221"
+                },
+                {
                     "name": "Oliver Huynh",
                     "homepage": "https://www.drupal.org/user/243730"
                 },
@@ -6033,10 +6037,6 @@
                 {
                     "name": "perennial.sky",
                     "homepage": "https://www.drupal.org/user/2622667"
-                },
-                {
-                    "name": "quantumized",
-                    "homepage": "https://www.drupal.org/user/61221"
                 },
                 {
                     "name": "rsvelko",
@@ -10114,7 +10114,7 @@
                 },
                 "drupal": {
                     "version": "8.x-6.2",
-                    "datestamp": "1554894785",
+                    "datestamp": "1554894882",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
