@@ -7218,6 +7218,92 @@
         }
     },
     {
+        "name": "drupal/pantheon_advanced_page_cache",
+        "version": "1.0.0",
+        "version_normalized": "1.0.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://git.drupalcode.org/project/pantheon_advanced_page_cache.git",
+            "reference": "8.x-1.0"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://ftp.drupal.org/files/projects/pantheon_advanced_page_cache-8.x-1.0.zip",
+            "reference": "8.x-1.0",
+            "shasum": "c398e19dd098d0536bd49f0dfd0037674854a2e6"
+        },
+        "require": {
+            "drupal/core": "~8.0"
+        },
+        "require-dev": {
+            "drupal/coder": "^8.2",
+            "drupal/drupal-extension": "^3.3",
+            "phpunit/phpunit": "^6.3"
+        },
+        "type": "drupal-module",
+        "extra": {
+            "branch-alias": {
+                "dev-1.x": "1.x-dev"
+            },
+            "drupal": {
+                "version": "8.x-1.0",
+                "datestamp": "1529441320",
+                "security-coverage": {
+                    "status": "covered",
+                    "message": "Covered by Drupal's security advisory policy"
+                }
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "PantheonSystems\\CDNBehatHelpers\\": "tests/behat/helper_classes/"
+            }
+        },
+        "notification-url": "https://packages.drupal.org/8/downloads",
+        "scripts": {
+            "codesniff": [
+                "phpcs --report=full --extensions=php,module,inc,theme,info,install --standard=vendor/drupal/coder/coder_sniffer/Drupal src",
+                "phpcs --report=full --extensions=php,module,inc,theme,info,install --standard=vendor/drupal/coder/coder_sniffer/Drupal tests/modules",
+                "phpcs  tests/behat  --standard=PSR2"
+            ],
+            "phpcbf": [
+                "phpcbf --report=full --extensions=php,module,inc,theme,info,install --standard=vendor/drupal/coder/coder_sniffer/Drupal src",
+                "phpcbf --report=full --extensions=php,module,inc,theme,info,install --standard=vendor/drupal/coder/coder_sniffer/Drupal tests/modules",
+                "phpcbf  tests/behat  --standard=PSR2"
+            ],
+            "phpunit": [
+                "phpunit tests --colors=always"
+            ]
+        },
+        "license": [
+            "GPL-2.0-or-later"
+        ],
+        "authors": [
+            {
+                "name": "Ari Gold",
+                "homepage": "https://www.drupal.org/user/329006"
+            },
+            {
+                "name": "David Strauss",
+                "homepage": "https://www.drupal.org/user/93254"
+            },
+            {
+                "name": "Fabianx",
+                "homepage": "https://www.drupal.org/user/693738"
+            },
+            {
+                "name": "stevector",
+                "homepage": "https://www.drupal.org/user/179805"
+            }
+        ],
+        "description": "Advanced page cache capabilities for Pantheon.",
+        "homepage": "https://www.drupal.org/project/pantheon_advanced_page_cache",
+        "support": {
+            "source": "https://git.drupalcode.org/project/pantheon_advanced_page_cache"
+        }
+    },
+    {
         "name": "drupal/paragraphs",
         "version": "1.8.0",
         "version_normalized": "1.8.0.0",
@@ -7506,11 +7592,14 @@
             },
             "drupal": {
                 "version": "8.x-3.0-alpha4",
-                "datestamp": "1506649448",
+                "datestamp": "1559915584",
                 "security-coverage": {
                     "status": "not-covered",
                     "message": "Alpha releases are not covered by Drupal security advisories."
                 }
+            },
+            "patches_applied": {
+                "Issue #3032549: Fix Password policy module issue with saving constraint": "https://www.drupal.org/files/issues/2019-04-28/3032549-18.patch"
             }
         },
         "installation-source": "dist",
@@ -7543,7 +7632,7 @@
         "description": "Sets up constraints and expiration of passwords.",
         "homepage": "https://www.drupal.org/project/password_policy",
         "support": {
-            "source": "http://cgit.drupalcode.org/password_policy"
+            "source": "https://git.drupalcode.org/project/password_policy"
         }
     },
     {
@@ -9901,7 +9990,7 @@
                 }
             },
             "patches_applied": {
-                "Issue #3024165: [PATCH] Enhancements, Better messages for the unable to apply updates, drush command and removed the Mark all updates as successful on install": "https://www.drupal.org/files/issues/2019-04-03/3024165-18-update_helper-enhancements.patch"
+                "Issue #3024165: [PATCH] Enhancements, Better messages for the unable to apply updates, drush command and removed the Mark all updates as successful on install": "https://www.drupal.org/files/issues/2019-05-19/3024165-31.patch"
             }
         },
         "installation-source": "dist",
@@ -11747,6 +11836,69 @@
         "homepage": "https://www.drupal.org/project/views_infinite_scroll",
         "support": {
             "source": "http://cgit.drupalcode.org/views_infinite_scroll"
+        }
+    },
+    {
+        "name": "drupal/views_slideshow",
+        "version": "4.6.0",
+        "version_normalized": "4.6.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://git.drupalcode.org/project/views_slideshow.git",
+            "reference": "8.x-4.6"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://ftp.drupal.org/files/projects/views_slideshow-8.x-4.6.zip",
+            "reference": "8.x-4.6",
+            "shasum": "c0b2d3c0765b9215fdefb3313dd42a8bbb7409c5"
+        },
+        "require": {
+            "drupal/core": "*"
+        },
+        "type": "drupal-module",
+        "extra": {
+            "branch-alias": {
+                "dev-4.x": "4.x-dev"
+            },
+            "drupal": {
+                "version": "8.x-4.6",
+                "datestamp": "1510987085",
+                "security-coverage": {
+                    "status": "covered",
+                    "message": "Covered by Drupal's security advisory policy"
+                }
+            }
+        },
+        "installation-source": "dist",
+        "notification-url": "https://packages.drupal.org/8/downloads",
+        "license": [
+            "GPL-2.0+"
+        ],
+        "authors": [
+            {
+                "name": "See contributors",
+                "homepage": "https://www.drupal.org/node/160350/committers"
+            },
+            {
+                "name": "aaron",
+                "homepage": "https://www.drupal.org/user/33420"
+            },
+            {
+                "name": "redndahead",
+                "homepage": "https://www.drupal.org/user/160320"
+            },
+            {
+                "name": "vbouchet",
+                "homepage": "https://www.drupal.org/user/1671428"
+            }
+        ],
+        "description": "Describes relationships between entities.",
+        "homepage": "https://www.drupal.org/project/views_slideshow",
+        "support": {
+            "source": "https://cgit.drupalcode.org/views_slideshow",
+            "issues": "https://www.drupal.org/project/issues/views_slideshow",
+            "irc": "irc://irc.freenode.org/drupal-contribute"
         }
     },
     {

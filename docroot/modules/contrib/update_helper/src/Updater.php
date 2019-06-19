@@ -24,6 +24,8 @@ class Updater implements UpdaterInterface {
   const CONFIG_ALREADY_APPLIED = 1;
   const CONFIG_NOT_EXPECTED = 2;
   const CONFIG_APPLIED_SUCCESSFULLY = 3;
+  const MODULES_FOUND = 4;
+  const MODULES_NOT_FOUND = 5;
 
   /**
    * Site configFactory object.
@@ -139,6 +141,18 @@ class Updater implements UpdaterInterface {
     $this->warningCount = 0;
 
     $update_definitions = $this->configHandler->loadUpdate($module, $update_definition_name);
+
+    if (isset($update_definitions[UpdateDefinitionInterface::GLOBAL_CONDITIONS])) {
+      if(isset($update_definitions[UpdateDefinitionInterface::GLOBAL_CONDITIONS][UpdateDefinitionInterface::GLOBAL_CONDITION_EXPECTED_MODULES])){
+        $result = $this->checkExpectedModulesArray($update_definitions[UpdateDefinitionInterface::GLOBAL_CONDITIONS][UpdateDefinitionInterface::GLOBAL_CONDITION_EXPECTED_MODULES]);
+        if(!empty($result)){
+          return $this->logWarning($this->t('The following module(s) "@neededModules" are required for update @updateName.', ['@neededModules' => implode(", ", $result), '@updateName' => $update_definition_name]));
+        }
+      }
+      unset($update_definitions[UpdateDefinitionInterface::GLOBAL_CONDITIONS]);
+    }
+
+
     if (isset($update_definitions[UpdateDefinitionInterface::GLOBAL_ACTIONS])) {
       $this->executeGlobalActions($update_definitions[UpdateDefinitionInterface::GLOBAL_ACTIONS]);
 
@@ -146,7 +160,7 @@ class Updater implements UpdaterInterface {
     }
 
     if (!empty($update_definitions)) {
-      $this->executeConfigurationActions($update_definitions, $force);
+      $this->executeConfigurationActions($update_definitions);
     }
 
     // Dispatch event after update has finished.
@@ -169,11 +183,37 @@ class Updater implements UpdaterInterface {
    */
   public function checkUpdate($module, $update_definition_name) {
     $this->warningCount = 0;
-
+    $moduleHandler = \Drupal::service('module_handler');
+    $modulesInstalled = [];
     $update_definitions = $this->configHandler->loadUpdate($module, $update_definition_name);
+
+    if (isset($update_definitions[UpdateDefinitionInterface::GLOBAL_CONDITIONS])) {
+      if(isset($update_definitions[UpdateDefinitionInterface::GLOBAL_CONDITIONS][UpdateDefinitionInterface::GLOBAL_CONDITION_EXPECTED_MODULES])){
+        $result = $this->checkExpectedModulesArray($update_definitions[UpdateDefinitionInterface::GLOBAL_CONDITIONS][UpdateDefinitionInterface::GLOBAL_CONDITION_EXPECTED_MODULES]);
+        if(!empty($result)){
+          return Updater::MODULES_NOT_FOUND;
+        }
+      }
+      unset($update_definitions[UpdateDefinitionInterface::GLOBAL_CONDITIONS]);
+    }
+
+    if (isset($update_definitions[UpdateDefinitionInterface::GLOBAL_ACTIONS])) {
+      if (isset($update_definitions[UpdateDefinitionInterface::GLOBAL_ACTIONS][UpdateDefinitionInterface::GLOBAL_ACTION_INSTALL_MODULES])) {
+        $modules = $update_definitions[UpdateDefinitionInterface::GLOBAL_ACTIONS][UpdateDefinitionInterface::GLOBAL_ACTION_INSTALL_MODULES];
+        foreach ($modules as $module) {
+          if (!$moduleHandler->moduleExists($module)) return Updater::MODULES_NOT_FOUND;
+          $modulesInstalled[] = $module;
+        }
+      }
+      unset($update_definitions[UpdateDefinitionInterface::GLOBAL_ACTIONS]);
+    }
 
     if (!empty($update_definitions)) {
       return $this->executeConfigurationActions($update_definitions, FALSE, TRUE);
+    }
+
+    if (empty($update_definitions) && !empty($modulesInstalled)) {
+      return Updater::MODULES_FOUND;
     }
 
     return Updater::CONFIG_NOT_FOUND;
@@ -197,6 +237,45 @@ class Updater implements UpdaterInterface {
     if (isset($global_actions[UpdateDefinitionInterface::GLOBAL_ACTION_IMPORT_CONFIGS])) {
       $this->importConfigs($global_actions[UpdateDefinitionInterface::GLOBAL_ACTION_IMPORT_CONFIGS]);
     }
+  }
+
+  /**
+   * Check if modules are enabled and installed.
+   *
+   * @param string $module
+   *   Module name where update definition is saved.
+   * @param string $update_definition_name
+   *   Update definition name. Usually same name as update hook.
+   *
+   * @return array
+   *   Returns array needed modules.
+   */
+  public function checkExpectedModules($module, $update_definition_name) {
+    $update_definitions = $this->configHandler->loadUpdate($module, $update_definition_name);
+    if (isset($update_definitions[UpdateDefinitionInterface::GLOBAL_CONDITIONS])) {
+      if(isset($update_definitions[UpdateDefinitionInterface::GLOBAL_CONDITIONS][UpdateDefinitionInterface::GLOBAL_CONDITION_EXPECTED_MODULES])){
+        return $this->checkExpectedModulesArray($update_definitions[UpdateDefinitionInterface::GLOBAL_CONDITIONS][UpdateDefinitionInterface::GLOBAL_CONDITION_EXPECTED_MODULES]);
+      }
+    }
+    return [];
+  }
+
+  /**
+   * Check if modules are enabled and installed.
+   *
+   * @param array $global_actions
+   *   Array with list of expected modules.
+   *
+   * @return array
+   *   Returns array needed modules.
+   */
+  public function checkExpectedModulesArray(array $expected_modules) {
+    $needed_modules = [];
+    $moduleHandler = \Drupal::service('module_handler');
+    foreach ($expected_modules as $expected_module) {
+      if (!$moduleHandler->moduleExists($expected_module)) $needed_modules[] = $expected_module;
+    }
+    return $needed_modules;
   }
 
   /**
@@ -249,7 +328,7 @@ class Updater implements UpdaterInterface {
           break;
 
         case Updater::CONFIG_NOT_EXPECTED:
-          $this->logWarning($this->t('Expected current configuration is modefied, Unable to apply new config @configName.', ['@configName' => $configName]));
+          $this->logWarning($this->t('Expected current configuration for @configName is not matching. Unable to apply new config.', ['@configName' => $configName]));
           break;
 
         case Updater::CONFIG_NOT_FOUND:
@@ -398,7 +477,7 @@ class Updater implements UpdaterInterface {
 
     // Check if configuration is already in new state.
     $merged_data = NestedArray::mergeDeep($expected_configuration, $configuration);
-    if (!$force && empty(DiffArray::diffAssocRecursive($merged_data, $config_data))) {
+    if (!$force && empty(DiffArray::diffAssocRecursive($configuration, $config_data))) {
       return Updater::CONFIG_ALREADY_APPLIED;
     }
 

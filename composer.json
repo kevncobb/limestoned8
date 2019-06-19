@@ -1,34 +1,27 @@
 {
     "name": "vardot/varbase-project",
-    "version": "No version set (parsed as 1.0.0)",
-    "version_normalized": "1.0.0.0",
     "require": {
         "composer/installers": "~1.0",
         "cweagans/composer-patches": "~1.0",
         "drupal-composer/drupal-scaffold": "~2.0",
         "drupal/drupal-library-installer-plugin": "^0.3",
-        "drupal/image_resize_filter": "1.x-dev#c3f4b23b02005859092aaff746b9f21b794adc58",
-        "drupal/login_destination": "1.x-dev#54be8b89fdc073ca40af6b9b2eeb050e0aeb7908",
+        "drupal/search_api_solr": "^2.7",
         "oomphinc/composer-installers-extender": "~1.0",
-        "vardot/varbase": "~8.6.0",
-        "vardot/varbase-updater": "~1.0",
+        "vardot/varbase": "~8.6.7",
+        "vardot/varbase-updater": "1.x-dev",
         "webflo/drupal-finder": "~1.0",
         "webmozart/path-util": "~2.0",
         "drupal/pantheon_advanced_page_cache": "^1.0",
-        "drupal/search_api_pantheon": "~1.0",
-        "drupal/search_api_page": "^1.0@alpha",
         "drupal/views_slideshow": "^4.6"
     },
     "conflict": {
         "drupal/drupal": "*"
     },
+    "replace": {
+        "ajaxorg/ace-builds": "*"
+    },
     "type": "project",
     "extra": {
-        "patches": {
-            "drupal/drupal": {
-                "2687479-37: $adminTags variable on core/lib/Drupal/Component/Utility/Xss.php": "https://www.drupal.org/files/issues/2018-12-07/drupal-2687479-37-responsive-image.patch"
-            }
-        },
         "_readme": [
             "NOTICE: We're now using composer patches from Vardot repository to suggest",
             "several fixes and better handling of patches in your Drupal project.",
@@ -65,11 +58,6 @@
             "docroot/libraries/ace": [
                 "npm-asset/ace-builds"
             ],
-            "docroot/libraries/{$name}": [
-                "type:drupal-library",
-                "type:bower-asset",
-                "type:npm-asset"
-            ],
             "docroot/modules/custom/{$name}": [
                 "type:drupal-custom-module"
             ],
@@ -78,6 +66,11 @@
             ],
             "drush/contrib/{$name}": [
                 "type:drupal-drush"
+            ],
+            "docroot/libraries/{$name}": [
+                "type:drupal-library",
+                "type:bower-asset",
+                "type:npm-asset"
             ]
         },
         "drupal-libraries": {
@@ -101,8 +94,8 @@
                 }
             ]
         },
-        "enable-patching": true,
-        "composer-exit-on-patch-failure": true,
+        "enable-patching": "1",
+        "composer-exit-on-patch-failure": false,
         "patchLevel": {
             "drupal/core": "-p2"
         }
@@ -147,10 +140,6 @@
         "composer-patches": {
             "type": "vcs",
             "url": "https://github.com/vardot/composer-patches"
-        },
-        "packagist.org": {
-            "type": "composer",
-            "url": "https://packagist.org"
         }
     },
     "support": {

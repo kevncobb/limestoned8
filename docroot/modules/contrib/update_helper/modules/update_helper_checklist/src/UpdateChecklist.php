@@ -240,6 +240,7 @@ class UpdateChecklist {
       '#title',
       '#description',
       '#weight',
+      '#module'
     ];
 
     foreach ($this->getChecklist()->items as $version_items) {
