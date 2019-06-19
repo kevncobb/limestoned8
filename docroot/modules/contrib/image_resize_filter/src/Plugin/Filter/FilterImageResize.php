@@ -2,35 +2,45 @@
 
 namespace Drupal\image_resize_filter\Plugin\Filter;
 
+use Drupal\Component\Utility\Html;
 use Drupal\Core\Image\ImageFactory;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\filter\FilterProcessResult;
 use Drupal\filter\Plugin\FilterBase;
-use Drupal\Core\Form\FormStateInterface;
-use Drupal\editor\Entity\Editor;
+use Drupal\Core\Entity\EntityRepositoryInterface;
+use Drupal\Core\File\FileSystemInterface;
 
 /**
  * Provides a filter to resize images.
  *
  * @Filter(
  *   id = "filter_image_resize",
- *   title = @Translation("Image Resize Filter: Resize images based on their given height and width attributes"),
- *   description = @Translation("Analyze the &lt;img&gt; tags and compare the given height and width attributes to the actual file. If the file dimensions are different than those given in the &lt;img&gt; tag, the image will be copied and the src attribute will be updated to point to the resized image."),
- *   type = Drupal\filter\Plugin\FilterInterface::TYPE_TRANSFORM_REVERSIBLE,
- *   settings = {
- *     "image_locations" = {},
- *   }
+ *   title = @Translation("Image resize filter"),
+ *   description = @Translation("The image resize filter analyze <img> tags and compare the given height and width attributes to the actual file. If the file dimensions are different than those given in the <img> tag, the image will be copied and the src attribute will be updated to point to the resized image."),
+ *   type = Drupal\filter\Plugin\FilterInterface::TYPE_TRANSFORM_REVERSIBLE
  * )
  */
 class FilterImageResize extends FilterBase implements ContainerFactoryPluginInterface {
 
   /**
+   * The EntityRepository instance.
+   *
+   * @var EntityRepositoryInterface
+   */
+  protected $entityRepository;
+  /**
    * ImageFactory instance.
    *
-   * @var \Drupal\Core\Image\ImageFactory
+   * @var ImageFactory
    */
   protected $imageFactory;
+  /**
+   * The FileSystem instance.
+   *
+   * @var FileSystemInterface
+   */
+  protected $fileSystem;
 
   /**
    * FilterImageResize constructor.
@@ -46,9 +56,13 @@ class FilterImageResize extends FilterBase implements ContainerFactoryPluginInte
     array $configuration,
     $plugin_id,
     $plugin_definition,
-    ImageFactory $image_factory) {
+    EntityRepositoryInterface $entity_repository,
+    ImageFactory $image_factory,
+    FileSystemInterface $file_system) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
+    $this->entityRepository = $entity_repository;
     $this->imageFactory = $image_factory;
+    $this->fileSystem = $file_system;
   }
 
   /**
@@ -59,7 +73,9 @@ class FilterImageResize extends FilterBase implements ContainerFactoryPluginInte
       $configuration,
       $plugin_id,
       $plugin_definition,
-      $container->get('image.factory')
+      $container->get('entity.repository'),
+      $container->get('image.factory'),
+      $container->get('file_system')
     );
   }
 
@@ -84,99 +100,48 @@ class FilterImageResize extends FilterBase implements ContainerFactoryPluginInte
    * @param string $text
    *   The text to be updated with the new img src tags.
    *
-   * @return string $images
+   * @return array $images
    *   An list of images.
    */
   private function getImages($text) {
-    $images = image_resize_filter_get_images($this->settings, $text);
-
-    $search = [];
-    $replace = [];
-
-    foreach ($images as $image) {
-      // Copy remote images locally.
-      if ($image['location'] == 'remote') {
-        $local_file_path = 'resize/remote/' . md5(file_get_contents($image['local_path'])) . '-' . $image['expected_size']['width'] . 'x' . $image['expected_size']['height'] . '.'. $image['extension'];
-        $image['destination'] = file_default_scheme() . '://' . $local_file_path;
+    $dom = Html::load($text);
+    $xpath = new \DOMXPath($dom);
+    /** @var \DOMNode $node */
+    foreach ($xpath->query('//img') as $node) {
+      $file = $this->entityRepository->loadEntityByUuid('file', $node->getAttribute('data-entity-uuid'));
+      // If the image hasn't an uuid then don't try to resize it.
+      if (is_null($file)) {
+        continue;
       }
-      // Destination and local path are the same if we're just adding attributes.
-      elseif (!$image['resize']) {
-        $image['destination'] = $image['local_path'];
+      $image = $this->imageFactory->get($node->getAttribute('src'));
+      // Checking if the image needs to be resized.
+      if ($image->getWidth() == $node->getAttribute('width') && $image->getHeight() == $node->getAttribute('height')) {
+        continue;
       }
-      else {
-        $path_info = image_resize_filter_pathinfo($image['local_path']);
-        $local_file_dir = file_uri_target($path_info['dirname']);
-        $local_file_path = 'resize/' . ($local_file_dir ? $local_file_dir . '/' : '') . $path_info['filename'] . '-' . $image['expected_size']['width'] . 'x' . $image['expected_size']['height'] . '.' . $path_info['extension'];
-        $image['destination'] = $path_info['scheme'] . '://' . $local_file_path;
+      $target = file_uri_target($file->getFileUri());
+      $dirname = dirname($target) != '.' ? dirname($target) . '/' : '';
+      $info = pathinfo($file->getFileUri());
+      $resize_file_path = 'public://resize/' . $dirname . $info['filename'] . '-' . $node->getAttribute('width') . 'x' . $node->getAttribute('height') . '.' . $info['extension'];
+      // Checking if the image was already resized:
+      if (file_exists($resize_file_path)) {
+        $node->setAttribute('src', file_url_transform_relative(file_create_url($resize_file_path)));
+        continue;
       }
-
-      if (!file_exists($image['destination'])) {
-        // Basic flood prevention of resizing.
-        $resize_threshold = 10;
-        $flood = \Drupal::flood();
-        if (!$flood->isAllowed('image_resize_filter_resize', $resize_threshold, 120)) {
-          drupal_set_message(t('Image resize threshold of @count per minute reached. Some images have not been resized. Resave the content to resize remaining images.', ['@count' => floor($resize_threshold / 2)]), 'error', FALSE);
-          continue;
-        }
-        $flood->register('image_resize_filter_resize', 120);
-
-        // Create the resize directory.
-        $directory = dirname($image['destination']);
-        file_prepare_directory($directory, FILE_CREATE_DIRECTORY);
-
-        // Move remote images into place if they are already the right size.
-        if ($image['location'] == 'remote' && !$image['resize']) {
-          $handle = fopen($image['destination'], 'w');
-          fwrite($handle, file_get_contents($image['local_path']));
-          fclose($handle);
-        }
-        // Resize the local image if the sizes don't match.
-        elseif ($image['resize']) {
-          $copy = file_unmanaged_copy($image['local_path'], $image['destination'], FILE_EXISTS_RENAME);
-          $res = $this->imageFactory->get($copy);
-          if ($res) {
-            // Image loaded successfully; resize.
-            $res->resize($image['expected_size']['width'], $image['expected_size']['height']);
-            $res->save();
-          }
-          else {
-            // Image failed to load - type doesn't match extension or invalid; keep original file
-            $handle = fopen($image['destination'], 'w');
-            fwrite($handle, file_get_contents($image['local_path']));
-            fclose($handle);
-          }
-        }
-        @chmod($image['destination'], 0664);
+      // Delete this when https://www.drupal.org/node/2211657#comment-11510213
+      // be fixed.
+      $dirname = $this->fileSystem->dirname($resize_file_path);
+      if (!file_exists($dirname)) {
+        file_prepare_directory($dirname, FILE_CREATE_DIRECTORY);
       }
 
-      // Delete our temporary file if this is a remote image.
-      image_resize_filter_delete_temp_file($image['location'], $image['local_path']);
-
-      // Replace the existing image source with the resized image.
-      // Set the image we're currently updating in the callback function.
-      $search[] = $image['img_tag'];
-      $replace[] = image_resize_filter_image_tag($image, $this->settings);
+      // Checks if the resize filter exists if is not then create it.
+      $copy = file_unmanaged_copy($file->getFileUri(), $resize_file_path, FILE_EXISTS_REPLACE);
+      $copy_image = $this->imageFactory->get($copy);
+      $copy_image->resize($node->getAttribute('width'), $node->getAttribute('height'));
+      $copy_image->save();
+      $node->setAttribute('src', file_url_transform_relative(file_create_url($copy)));
     }
-
-    return str_replace($search, $replace, $text);
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  function settingsForm(array $form, FormStateInterface $form_state) {
-    $settings['image_locations'] = [
-      '#type' => 'checkboxes',
-      '#title' => $this->t('Resize images stored'),
-      '#options' => [
-        'local' => $this->t('Locally'),
-        'remote' => $this->t('On remote servers (note: this copies <em>all</em> remote images locally)')
-      ],
-      '#default_value' => array_keys(array_filter($this->settings['image_locations'])),
-      '#description' => $this->t('This option will determine which images will be analyzed for &lt;img&gt; tag differences. Enabling resizing of remote images can have performance impacts, as all images in the filtered text needs to be transferred via HTTP each time the filter cache is cleared.'),
-    ];
-
-    return $settings;
+    return Html::serialize($dom);
   }
 
 }

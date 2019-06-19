@@ -36,7 +36,6 @@ class LoginDestinationListBuilder extends DraggableListBuilder {
       'destination' => $this->t('Destination'),
       'triggers' => $this->t('Triggers'),
       'pages' => $this->t('Pages'),
-      'language' => $this->t('Language'),
       'roles' => $this->t('Roles'),
       'enabled' => $this->t('Enabled'),
     ];
@@ -67,9 +66,6 @@ class LoginDestinationListBuilder extends DraggableListBuilder {
     ];
     $row['pages'] = [
       '#markup' => $entity->viewPages(),
-    ];
-    $row['language'] = [
-      '#markup' => $entity->getLanguage() != "" ? $entity->getLanguage() : $this->t('All languages'),
     ];
     $row['roles'] = [
       '#markup' => $entity->viewRoles(),

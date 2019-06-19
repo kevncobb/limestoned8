@@ -13,7 +13,6 @@ use Drupal\editor\Entity\Editor;
  *   id = "ace_editor",
  *   label = "Ace Editor",
  *   supports_content_filtering = TRUE,
- *   supports_inline_editing = FALSE,
  *   is_xss_safe = FALSE,
  *   supported_element_types = {
  *     "textarea"
@@ -39,99 +38,102 @@ class AceEditor extends EditorBase {
    * @return array
    *   A primary render array for the settings form.
    */
-  public function getForm(array $settings) {
+  public function getForm($settings) {
 
     $config = \Drupal::config('ace_editor.settings');
 
-    return [
-      'theme' => [
+    return array(
+      'theme' => array(
         '#type' => 'select',
         '#title' => t('Theme'),
         '#options' => $config->get('theme_list'),
-        '#attributes' => [
+        '#attributes' => array(
           'style' => 'width: 150px;',
-        ],
+        ),
         '#default_value' => $settings['theme'],
-      ],
-      'syntax' => [
+      ),
+      'syntax' => array(
         '#type' => 'select',
         '#title' => t('Syntax'),
         '#description' => t('The syntax that will be highlighted.'),
         '#options' => $config->get('syntax_list'),
-        '#attributes' => [
+        '#attributes' => array(
           'style' => 'width: 150px;',
-        ],
+        ),
         '#default_value' => $settings['syntax'],
-      ],
-      'height' => [
+      ),
+      'height' => array(
         '#type' => 'textfield',
         '#title' => t('Height'),
-        '#description' => t('The height of the editor in either pixels or percents.'),
-        '#attributes' => [
+        '#description' => t('The height of the editor in either pixels or percents.
+        You can use "auto" to let the editor calculate the adequate height.'),
+        '#attributes' => array(
           'style' => 'width: 100px;',
-        ],
+        ),
         '#default_value' => $settings['height'],
-      ],
-      'width' => [
+      ),
+      'width' => array(
         '#type' => 'textfield',
         '#title' => t('Width'),
         '#description' => t('The width of the editor in either pixels or percents.'),
-        '#attributes' => [
+        '#attributes' => array(
           'style' => 'width: 100px;',
-        ],
+        ),
         '#default_value' => $settings['width'],
-      ],
-      'font_size' => [
+      ),
+      'font_size' => array(
         '#type' => 'textfield',
         '#title' => t('Font size'),
-        '#description' => t('The font size used in the editor.'),
-        '#attributes' => [
+        '#description' => t('The the font size of the editor.'),
+        '#attributes' => array(
           'style' => 'width: 100px;',
-        ],
+        ),
         '#default_value' => $settings['font_size'],
-      ],
-      'line_numbers' => [
+      ),
+      'line_numbers' => array(
         '#type' => 'checkbox',
         '#title' => t('Show line numbers'),
         '#default_value' => $settings['line_numbers'],
-      ],
-      'print_margins' => [
+      ),
+      'print_margins' => array(
         '#type' => 'checkbox',
-        '#title' => t('Show print margin (80 chars)'),
+        '#title' => t('Print Margins'),
         '#default_value' => $settings['print_margins'],
-      ],
-      'show_invisibles' => [
+      ),
+      'show_invisibles' => array(
         '#type' => 'checkbox',
-        '#title' => t('Show invisible characters (whitespaces, EOL...)'),
+        '#title' => t('Show partially visible ... for better code matching'),
         '#default_value' => $settings['show_invisibles'],
-      ],
-      'use_wrap_mode' => [
+      ),
+      'use_wrap_mode' => array(
         '#type' => 'checkbox',
         '#title' => t('Toggle word wrapping'),
         '#default_value' => $settings['use_wrap_mode'],
-      ],
-      'auto_complete' => [
-        '#type' => 'checkbox',
-        '#title' => t('Enable Autocomplete (Ctrl+Space'),
-        '#default_value' => isset($settings['auto_complete']) ? $settings['auto_complete'] : TRUE,
-      ],
-    ];
+      ),
+        /**
+           * 'auto_complete' => array(
+           * '#type' => 'checkbox',
+           * '#title' => t('Enable AutoComplete'),
+           * '#default_value' => $settings['auto_complete']
+           * ),
+            **/
+    );
   }
 
   /**
    * {@inheritdoc}
    */
-  public function settingsForm(array $form, FormStateInterface $formState, Editor $editor) {
+  public function settingsForm(array $form, FormStateInterface $form_state, Editor $editor) {
 
     $settings = $editor->getSettings();
 
-    $form = [];
+    $form = array();
 
-    $form['fieldset'] = [
+    $form['fieldset'] = array(
       '#type' => 'fieldset',
       '#title' => t('Ace Editor Settings'),
       '#collapsable' => TRUE,
-    ];
+    );
 
     if (array_key_exists('fieldset', $settings)) {
       $form['fieldset'] = array_merge($form['fieldset'], $this->getForm($settings['fieldset']));
@@ -146,7 +148,7 @@ class AceEditor extends EditorBase {
   /**
    * {@inheritdoc}
    */
-  public function settingsFormValidate(array $form, FormStateInterface $formState) {
+  public function settingsFormValidate(array $form, FormStateInterface $form_state) {
 
   }
 
@@ -154,7 +156,7 @@ class AceEditor extends EditorBase {
    * {@inheritdoc}
    */
   public function getLibraries(Editor $editor) {
-    // Get default ace_editor configuration.
+    // Get default ace_editor configutaion.
     $config = $config = \Drupal::config('ace_editor.settings');
 
     // Get theme and mode.
@@ -166,20 +168,20 @@ class AceEditor extends EditorBase {
     $mode_exist = \Drupal::service('library.discovery')->getLibraryByName('ace_editor', 'mode.' . $mode);
 
     // ace_editor/primary the basic library for ace_editor.
-    $libs = [ 'ace_editor/primary' ];
+    $libs = array("ace_editor/primary");
 
     if ($theme_exist) {
-      $libs[] = 'ace_editor/theme.' . $theme;
+      $libs[] = "ace_editor/theme." . $theme;
     }
     else {
-      $libs[] = 'ace_editor/theme.' . $config->get('theme');
+      $libs[] = "ace_editor/theme." . $config->get('theme');
     }
 
     if ($mode_exist) {
-      $libs[] = 'ace_editor/mode.' . $mode;
+      $libs[] = "ace_editor/mode." . $mode;
     }
     else {
-      $libs[] = 'ace_editor/mode.' . $config->get('syntax');
+      $libs[] = "ace_editor/mode." . $config->get('syntax');
     }
 
     return $libs;
@@ -188,7 +190,7 @@ class AceEditor extends EditorBase {
   /**
    * {@inheritdoc}
    */
-  public function getJsSettings(Editor $editor) {
+  public function getJSSettings(Editor $editor) {
     // Pass settings to javascript.
     return $editor->getSettings()['fieldset'];
   }
@@ -196,7 +198,7 @@ class AceEditor extends EditorBase {
   /**
    * {@inheritdoc}
    */
-  public function settingsFormSubmit(array $form, FormStateInterface $formState) {
+  public function settingsFormSubmit(array $form, FormStateInterface $form_state) {
     return $form;
   }
 

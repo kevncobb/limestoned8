@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * @file
+ * Contains \Drupal\image_resize_filter\Plugin\Filter\FilterImageLinkToSource.
+ */
+
 namespace Drupal\image_resize_filter\Plugin\Filter;
 
 use Drupal\Component\Utility\Html;
@@ -12,7 +17,7 @@ use Drupal\filter\Plugin\FilterBase;
  *
  * @Filter(
  *   id = "filter_image_link_to_source",
- *   title = @Translation("Image Resize Filter: Link images derivates to source"),
+ *   title = @Translation("Link images derivates to source"),
  *   description = @Translation("Link an image derivate to its source (original) image."),
  *   type = Drupal\filter\Plugin\FilterInterface::TYPE_TRANSFORM_REVERSIBLE
  * )

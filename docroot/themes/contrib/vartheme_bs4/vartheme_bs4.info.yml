@@ -3,7 +3,6 @@ type: theme
 base theme: bootstrap_barrio
 
 name: 'Vartheme (Bootstrap 4 - SASS)'
-type: theme
 description: 'Base theme for Varbase standard websites. Based on Bootstrap 4 framework using SASS, and extending Barrio contrib theme.'
 
 regions:
@@ -59,6 +58,7 @@ libraries-override:
   bootstrap_barrio/dropbutton: vartheme_bs4/dropbutton
   bootstrap_barrio/book-navigation: vartheme_bs4/book-navigation
   bootstrap_barrio/affix: vartheme_bs4/affix
+  bootstrap_barrio/alerts: vartheme_bs4/alerts
 
   # Varbase module compnents overrides in Vartheme BS4.
   varbase_bootstrap_paragraphs/vbp-colors: vartheme_bs4/vbp-colors
@@ -135,8 +135,8 @@ ckeditor_stylesheets:
   - css/theme/content.theme.css
   - css/theme/vbp-colors.theme.css
 
-# Information added by Drupal.org packaging script on 2019-04-11
-version: '8.x-6.0-beta5'
+# Information added by Drupal.org packaging script on 2019-05-20
+version: '8.x-6.0-rc2'
 core: '8.x'
 project: 'vartheme_bs4'
-datestamp: 1554968385
+datestamp: 1558345088

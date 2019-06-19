@@ -27,6 +27,7 @@ abstract class FunctionalTestBase extends BrowserTestBase {
     'search_api',
     'search_api_db',
     'block',
+    'field_ui',
   ];
 
   /**
@@ -37,7 +38,7 @@ abstract class FunctionalTestBase extends BrowserTestBase {
   protected $adminUser;
 
   /**
-   * A user without any permission..
+   * A user without any permission.
    *
    * @var \Drupal\Core\Session\AccountInterface
    */
@@ -80,6 +81,7 @@ abstract class FunctionalTestBase extends BrowserTestBase {
       'administer content types',
       'administer blocks',
       'view search api pages',
+      'administer node display',
     ]);
     $this->unauthorizedUser = $this->drupalCreateUser();
     $this->anonymousUser = $this->drupalCreateUser(['view search api pages']);
@@ -143,6 +145,8 @@ abstract class FunctionalTestBase extends BrowserTestBase {
               'entity:node' => [
                 'article' => 'default',
                 'page' => '',
+                'blog' => 'default',
+                'document' => 'teaser',
               ],
             ],
           ],

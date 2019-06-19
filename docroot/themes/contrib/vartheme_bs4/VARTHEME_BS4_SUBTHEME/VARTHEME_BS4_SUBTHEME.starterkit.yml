@@ -3,7 +3,6 @@ type: theme
 base theme: vartheme_bs4
 
 name: 'VARTHEME_BS4_SUBTHEME - Subtheme of Vartheme (Bootstrap 4 - SASS)'
-type: theme
 description: 'Based on Bootstrap 4 framework using SASS, and extending Vartheme (Bootstrap 4 - SASS).'
 
 regions:
@@ -48,7 +47,7 @@ libraries-override:
   vartheme_bs4/bootstrap-styles: false
   vartheme_bs4/bootstrap-scripts: false
   vartheme_bs4/global-styles: false
-#  vartheme_bs4/global-scripts: false
+  vartheme_bs4/global-scripts: false
   vartheme_bs4/vbp-colors: false
   vartheme_bs4/betterlogin: false
 
@@ -62,6 +61,7 @@ libraries-override:
   vartheme_bs4/sidebar-collapse: VARTHEME_BS4_SUBTHEME/sidebar-collapse
   vartheme_bs4/tabs: VARTHEME_BS4_SUBTHEME/tabs
   vartheme_bs4/verticaltabs: VARTHEME_BS4_SUBTHEME/verticaltabs
+  vartheme_bs4/alerts: VARTHEME_BS4_SUBTHEME/alerts
 
   # Varbase module compnents overrides in VARTHEME_BS4_SUBTHEME.
   varbase_bootstrap_paragraphs/vbp-colors: VARTHEME_BS4_SUBTHEME/vbp-colors

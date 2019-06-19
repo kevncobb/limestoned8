@@ -5,6 +5,8 @@
  * Update helper drush command.
  */
 
+use Drupal\update_helper\Utility\CommandHelper;
+
 /**
  * Implements hook_drush_command().
  */
@@ -30,14 +32,24 @@ function update_helper_drush_command() {
 }
 
 /**
- * Drush command implementation.
+ * Drush command logic.
+ *
+ * The drush_[MODULE_NAME]_[COMMAND_NAME]().
  */
-function drush_update_helper_apply_update($module = "", $updateName = "") {
-  if (!$module || !$updateName) {
-    return drush_print(dt('Please provide module name and update number, eg: drush uhau <module> <updateName>'));
-  }
+function drush_update_helper_apply_update($module = "", $update_hook = "") {
+  $commandhelper = _update_helper_drush_command_helper();
   $force = drush_get_option('force', FALSE);
-  $updateHelper = \Drupal::service('update_helper.updater');
-  $updateHelper->executeUpdate($module, $updateName, $force);
-  return $updateHelper->logger()->output();
+  $commandhelper->apply_update($module, $update_hook, $force);
+}
+
+/**
+ * Returns an instance of the command helper.
+ *
+ * @return \Drupal\update_helper\Utility\CommandHelper
+ *   An instance of the command helper class.
+ */
+function _update_helper_drush_command_helper() {
+  $command_helper = new CommandHelper();
+  $command_helper->setLogger(\Drupal::logger('update_helper'));
+  return $command_helper;
 }

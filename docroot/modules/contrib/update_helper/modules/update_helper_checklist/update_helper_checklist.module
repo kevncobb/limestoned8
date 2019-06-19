@@ -13,11 +13,7 @@ use Drupal\Core\Url;
 use Drupal\update_helper_checklist\UpdateChecklist;
 use Symfony\Component\Yaml\Yaml;
 use Drupal\update_helper_checklist\Entity\Update;
-
-const CONFIG_NOT_FOUND = 0;
-const CONFIG_ALREADY_APPLIED = 1;
-const CONFIG_NOT_EXPECTED = 2;
-const CONFIG_APPLIED_SUCCESSFULLY = 3;
+use Drupal\update_helper\Updater;
 
 /**
  * Implements hook_checklistapi_checklist_info().
@@ -44,7 +40,8 @@ function update_helper_checklist_checklistapi_checklist_info() {
 function _update_helper_checklist_checklistapi_checklist_items() {
   /** @var \Drupal\Core\Extension\ModuleHandler $module_handler */
   $module_handler = \Drupal::service('module_handler');
-
+  $updateHelper = \Drupal::service('update_helper.updater');
+  
   $module_directories = $module_handler->getModuleDirectories();
 
   $all_tasks = [];
@@ -61,11 +58,15 @@ function _update_helper_checklist_checklistapi_checklist_items() {
     foreach ($module_tasks as $version_key => $updates) {
       $version_updates = [];
       $use_module = $module_name;
+
       if (isset($updates["#module"])) {
         $use_module = $updates["#module"];
       }
+
       foreach ($updates as $update_key => $update) {
         if (is_array($update)) {
+          $neededModules = $updateHelper->checkExpectedModules($use_module, $update_key);
+          if(!empty($neededModules)) continue;
           // Change update key to contain module name.
           $update_key = str_replace('.', '_', $use_module . ':' . $update_key);
           $entry = Update::load($update_key);
@@ -78,9 +79,24 @@ function _update_helper_checklist_checklistapi_checklist_items() {
           elseif ($entry && !$status && !empty($update['#description_failed'])) {
             $update['#description'] .= $update['#description_failed'];
           }
-        }
 
-        $version_updates[$update_key] = $update;
+          // Check if the #module target config update is in the chcklist item.
+          if (isset($update['#module']) && !empty($update['#module'])) {
+            // Check if the module which created the config is enabled.
+            if (\Drupal::moduleHandler()->moduleExists($update['#module'])) {
+              // Add the checklist item only if the module were enabled.
+              $version_updates[$update_key] = $update;
+            }
+          }
+          else {
+            // Add the checklist item to the form.
+            $version_updates[$update_key] = $update;
+          }
+        }
+        else {
+          // Add the root checklist group tab item to the form. 
+          $version_updates[$update_key] = $update;
+        }
       }
 
       // Create unique key for version updates.
@@ -136,7 +152,7 @@ function update_helper_checklist_modules_installed(array $modules) {
             $use_module = $version_items["#module"];
           }
           $status = $updateHelper->checkUpdate($use_module, $update_hook_name);
-          if ($status != CONFIG_ALREADY_APPLIED) continue;
+          if ($status != Updater::CONFIG_ALREADY_APPLIED) continue;
 
           if (!isset($modules_checklist[$use_module])) {
             $modules_checklist[$use_module] = [];

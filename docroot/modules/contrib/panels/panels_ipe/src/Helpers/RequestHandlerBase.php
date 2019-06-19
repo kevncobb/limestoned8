@@ -97,7 +97,7 @@ abstract class RequestHandlerBase implements RequestHandlerInterface {
    * @param \Drupal\panels\Plugin\DisplayVariant\PanelsDisplayVariant $panels_display
    *   The Panels display to be saved.
    *
-   * @throws \Drupal\user\TempStoreException
+   * @throws \Drupal\Core\TempStore\SharedTempStore
    *   If there are any issues manipulating the entry in the temp store.
    */
   protected function savePanelsDisplay(PanelsDisplayVariant $panels_display) {
@@ -110,7 +110,7 @@ abstract class RequestHandlerBase implements RequestHandlerInterface {
    *
    * @param \Drupal\panels\Plugin\DisplayVariant\PanelsDisplayVariant $panels_display
    *
-   * @throws \Drupal\user\TempStoreException
+   * @throws \Drupal\Core\TempStore\SharedTempStore
    */
   protected function savePanelsDisplayToTempStore(PanelsDisplayVariant $panels_display) {
     $this->tempStore->set($panels_display->getTempStoreId(), $panels_display->getConfiguration());
@@ -121,7 +121,7 @@ abstract class RequestHandlerBase implements RequestHandlerInterface {
    *
    * @param \Drupal\panels\Plugin\DisplayVariant\PanelsDisplayVariant $panels_display
    *
-   * @throws \Drupal\user\TempStoreException
+   * @throws \Drupal\Core\TempStore\SharedTempStore
    */
   protected function deletePanelsDisplayTempStore(PanelsDisplayVariant $panels_display) {
     $this->tempStore->delete($panels_display->getTempStoreId());
