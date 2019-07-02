@@ -55,23 +55,29 @@ h2.block-title {
   margin-top: 12.5px;
   margin-bottom: 12.5px;
 }
-ul.styled-list-small .pdf-profile-row {
-  border-bottom: thin dashed #000;
-  .field, .field.field--name-field-job-title {
-    padding: 0 0 10px 0;
-    margin: 0 0 -5px 0;
-    background-color: white;
+ul.styled-list-small {
+  .pdf-profile-row {
+    border-bottom: thin dashed #000;
+    .field, .field.field--name-field-job-title {
+      padding: 0 0 10px 0;
+      margin: 0 0 -5px 0;
+      background-color: white;
+    }
+    span span span {
+      padding: 0 0 5px 0;
+      background-color: white;
+      margin: 0 0 -5px 0;
+      &:before {
+        content: "(";
+        margin-right: -3px;
+      }
+      &:after {
+        content: ")";
+      }
+    }
   }
-  span span span {
-    padding: 0 0 5px 0;
-    background-color: white;
-    margin: 0 0 -5px 0;
-    &:before {
-      content: "(";
-      margin-right: -3px;
-    }
-    &:after {
-      content: ")";
-    }
+  .field--name-field-degrees-and-schools {
+    font-size: @font-size-small;
+    color: @gray;
   }
 }
