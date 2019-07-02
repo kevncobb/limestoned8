@@ -390,3 +390,6 @@ table > tbody > tr > td {
   vertical-align: top;
   border-top: 1px solid #dddddd;
 }
+#pf-content .node--type-profile .pull-right {
+  margin: 0;
+}
