@@ -57,12 +57,13 @@ ul.styled-list-small .pdf-profile-row .field.field--name-field-job-title {
   background-color: white;
 }
 ul.styled-list-small .pdf-profile-row span span span {
-  padding: 0 0 10px 10px;
+  padding: 0 0 10px 0;
   background-color: white;
-  margin: 0 0 -5px -10px;
+  margin: 0 0 -5px 0;
 }
 ul.styled-list-small .pdf-profile-row span span span:before {
   content: "(";
+  margin-right: -3px;
 }
 ul.styled-list-small .pdf-profile-row span span span:after {
   content: ")";
