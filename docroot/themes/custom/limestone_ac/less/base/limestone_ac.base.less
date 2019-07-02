@@ -52,11 +52,22 @@ h2.block-title {
   margin-top: 12.5px;
   margin-bottom: 12.5px;
 }
-.pdf-profile-row {
+ul.styled-list-small .pdf-profile-row {
   border-bottom: thin dashed #000;
-  .field {
+  .field, .field.field--name-field-job-title {
     padding: 0 0 10px 0;
-    margin-bottom: -5px;
+    margin: 0 0 -5px 0;
     background-color: white;
+  }
+  span span span {
+    padding: 0 0 10px 10px;
+    background-color: white;
+    margin: 0 0 -5px -10px;
+    &:before {
+      content: "(";
+    }
+    &:after {
+      content: ")";
+    }
   }
 }
