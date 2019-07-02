@@ -47,3 +47,11 @@ h2.block-title {
   margin-top: 12.5px;
   margin-bottom: 12.5px;
 }
+.pdf-profile-row {
+  border-bottom: thin dashed #000;
+}
+.pdf-profile-row .field {
+  padding: 0 0 10px 0;
+  margin-bottom: -5px;
+  background-color: white;
+}

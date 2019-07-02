@@ -45,7 +45,9 @@
     margin: 0 0 10px;
   }
 }
-
+#pf-body h2 {
+  font-size: 2rem;
+}
 ul.styled-list-xs li, ul.styled-list-xs div.field--item {
   font-size: 1rem;
   padding: 0;
@@ -62,5 +64,18 @@ ul.styled-list-xs li, ul.styled-list-xs div.field--item {
     &:after {
       content: ": "
     }
+  }
+}
+
+
+table {
+  > tbody > tr:nth-of-type(odd) {
+    background-color: #f9f9f9;
+  }
+  > tbody > tr > td {
+    padding: 8px;
+    line-height: 1.42857143;
+    vertical-align: top;
+    border-top: 1px solid #dddddd;
   }
 }

@@ -47,6 +47,14 @@ h2.block-title {
   margin-top: 12.5px;
   margin-bottom: 12.5px;
 }
+.pdf-profile-row {
+  border-bottom: thin dashed #000;
+}
+.pdf-profile-row .field {
+  padding: 0 0 10px 0;
+  margin-bottom: -5px;
+  background-color: white;
+}
 .logo img {
   width: 300px;
 }
@@ -335,6 +343,9 @@ ol.breadcrumb {
   color: white;
   margin: 0 0 10px;
 }
+#pf-body h2 {
+  font-size: 2rem;
+}
 ul.styled-list-xs li,
 ul.styled-list-xs div.field--item {
   font-size: 1rem;
@@ -353,4 +364,13 @@ ul.styled-list-xs div.field--item {
 }
 .field--name-field-total-credit-hours .field--label:after {
   content: ": ";
+}
+table > tbody > tr:nth-of-type(odd) {
+  background-color: #f9f9f9;
+}
+table > tbody > tr > td {
+  padding: 8px;
+  line-height: 1.42857143;
+  vertical-align: top;
+  border-top: 1px solid #dddddd;
 }
