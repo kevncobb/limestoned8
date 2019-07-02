@@ -72,6 +72,6 @@ ul.styled-list-small .pdf-profile-row span span span:after {
   content: ")";
 }
 ul.styled-list-small .field--name-field-degrees-and-schools {
-  font-size: 16px;
+  font-size: 16px !important;
   color: #555555;
 }
