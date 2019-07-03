@@ -110,7 +110,12 @@
     padding: 0 10px 10px 6px;
   }
 }
-
+#views-exposed-form-course-listing-page-3 {
+  width: 100%;
+  @media @tablet {
+    width: auto;
+  }
+}
 
 .not-chosen {
   .chosen-container-single {
@@ -133,9 +138,10 @@
 .form-type-checkbox.js-form-type-checkbox label {
   padding: 0.5rem 1rem;
   margin-left: 3px;
+  line-height: 1rem;
   input:not(#edit-persistent-login) {
-    top: -1px;
-    left: -2px;
+    margin-right: 5px;
+    top: 0;
   }
 }
 .form-item {
@@ -143,4 +149,24 @@
 }
 .chosen-drop {
   left: 0;
+}
+.views-field-field-online-evening-term {
+  ul {
+    padding: 0;
+    margin: 0;
+    li {
+      list-style-type: none;
+      list-style-image: none;
+    }
+  }
+}
+.view-course-listing.view-display-id-page_3 {
+  tr {
+    th:nth-child(2), td:nth-child(2) {
+      display: none;
+      @media @tablet {
+        display: table-cell;
+      }
+    }
+  }
 }

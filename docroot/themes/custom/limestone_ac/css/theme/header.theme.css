@@ -98,7 +98,7 @@ ul.menu--site-version > .active > a {
 }
 .view-programs.view-id-programs input[type="radio"],
 .view-programs.view-id-programs input[type="checkbox"] {
-  margin: 0 5px 0 0;
+  margin-right: 5px;
 }
 .view-programs.view-id-programs .view-filters {
   margin-top: 15px;
