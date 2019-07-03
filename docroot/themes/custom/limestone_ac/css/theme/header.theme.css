@@ -84,6 +84,12 @@ ul.menu--site-version > .active > a {
 .view-header .block-printfriendly {
   float: right;
   padding-right: 15px;
+  display: none;
+}
+@media screen and (min-width: 768px) {
+  .view-header .block-printfriendly {
+    display: block;
+  }
 }
 .view-header .block-printfriendly .block-title {
   font-size: 0px;
