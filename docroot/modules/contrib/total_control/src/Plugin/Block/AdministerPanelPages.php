@@ -20,22 +20,27 @@ class AdministerPanelPages extends BlockBase {
    * {@inheritdoc}
    */
   public function build() {
-    $moduleHandler = \Drupal::service('module_handler');
-    $pm_ui_exist = $moduleHandler->moduleExists('page_manager_ui');
 
-    if (!$pm_ui_exist) {
+    if (!\Drupal::service('module_handler')->moduleExists('page_manager_ui')) {
+
+      $markup_data = '<p>' . $this->t('You have to enable')
+        . ' <strong>page manager ui</strong> '
+        . $this->t('module to see this block.')
+        . '</p>';
+
       return [
         '#type' => 'markup',
-        '#markup' => t('<p>You have to enable <strong>page manager ui</strong> module to see this block.</p>'),
+        '#markup' => $markup_data,
       ];
     }
+
     $panels = \Drupal::entityTypeManager()->getStorage('page')->loadMultiple();
     $header = [
       [
-        'data' => t('Page'),
+        'data' => $this->t('Page'),
       ],
       [
-        'data' => t('Operations'),
+        'data' => $this->t('Operations'),
         'colspan' => 2,
       ],
     ];
@@ -63,7 +68,7 @@ class AdministerPanelPages extends BlockBase {
 
     $link = '';
     if (\Drupal::currentUser()->hasPermission('administer pages')) {
-      $link = \Drupal::l('Page manager administration', new Url('entity.page.collection'));
+      $link = \Drupal::l($this->t('Page manager administration'), new Url('entity.page.collection'));
     }
 
     $body_data = [

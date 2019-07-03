@@ -83,4 +83,56 @@ class CronTest extends FeedsBrowserTestBase {
     $this->assertEquals(0, $feed->getNextImportTime());
   }
 
+  /**
+   * Tests importing a source that needs multiple cron runs to complete.
+   */
+  public function testImportSourceWithMultipleCronRuns() {
+    // Install module that alters how many items can be processed per cron run.
+    // By default, the module limits the number of processable items to 5.
+    $this->container->get('module_installer')->install(['feeds_test_files', 'feeds_test_multiple_cron_runs']);
+    $this->rebuildContainer();
+
+    // Create a feed type. Do not set a column as unique.
+    $feed_type = $this->createFeedTypeForCsv([
+      'guid' => 'GUID',
+      'title' => 'Title',
+    ], [
+      'fetcher' => 'http',
+      'fetcher_configuration' => [],
+      'mappings' => [
+        [
+          'target' => 'feeds_item',
+          'map' => ['guid' => 'guid'],
+        ],
+        [
+          'target' => 'title',
+          'map' => ['value' => 'title'],
+        ],
+      ],
+    ]);
+
+    // Select a file that contains 9 items.
+    $feed = $this->createFeed($feed_type->id(), [
+      'source' => \Drupal::request()->getSchemeAndHttpHost() . '/testing/feeds/nodes.csv',
+    ]);
+
+    // Schedule import.
+    $feed->startCronImport();
+
+    // Run cron. Five nodes should be imported.
+    $this->cronRun();
+    $this->assertNodeCount(5);
+
+    // Now change the source to test if the source is not refetched while the
+    // import hasn't been finished yet. The following is different:
+    // - Items 1 and 4 changed.
+    // - Items 2 and 7 were removed.
+    \Drupal::state()->set('feeds_test_nodes_last_modified', strtotime('Sun, 30 Mar 2016 10:19:55 GMT'));
+    \Drupal::cache('feeds_download')->deleteAll();
+
+    // Run cron again. Another four nodes should be imported.
+    $this->cronRun();
+    $this->assertNodeCount(9);
+  }
+
 }

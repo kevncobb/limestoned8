@@ -25,8 +25,6 @@ class ContentOverview extends BlockBase implements BlockPluginInterface {
     $items = [];
     $types = node_type_get_types();
     $config = $this->getConfiguration();
-    $moduleHandler = \Drupal::service('module_handler');
-    $comments_exist = $moduleHandler->moduleExists('comment');
 
     foreach ($types as $type => $object) {
       // Compare against type option on pane config.
@@ -37,7 +35,7 @@ class ContentOverview extends BlockBase implements BlockPluginInterface {
         $content_data[$type] = \Drupal::translation()->formatPlural($type_count, '1 ' . $object->get('name') . ' item', '@count ' . $object->get('name') . ' items');
 
         // Check if comments module is enabled.
-        if ($comments_exist) {
+        if (\Drupal::service('module_handler')->moduleExists('comment')) {
           // Compare against comment options on pane config.
           if ((!array_key_exists($type, $config['total_control_comments_overview'])) || (isset($config['total_control_comments_overview']) && $config['total_control_comments_overview'][$type]) == $type) {
             $comment_count = db_query("SELECT count(DISTINCT c.cid) FROM {comment} c INNER JOIN {comment_field_data} n ON c.cid = n.cid INNER JOIN {node} node WHERE n.entity_id = node.nid AND node.type = :type AND n.status = 1", [
@@ -60,6 +58,17 @@ class ContentOverview extends BlockBase implements BlockPluginInterface {
         $line .= (isset($content_data[$type . '_comments_spam'])) ? ' (' . $content_data[$type . '_comments_spam'] . ')' : '';
         $items[] = $line;
       }
+    }
+
+    if (empty($items)) {
+
+      $markup_data = $this->t('No content available. ') 
+        . \Drupal::l($this->t('Add content'), new Url('node.add_page'));
+
+      return [
+        '#type' => 'markup',
+        '#markup' => $markup_data,
+      ];
     }
 
     $body_data = [
@@ -106,8 +115,8 @@ class ContentOverview extends BlockBase implements BlockPluginInterface {
     ];
 
     $spam_options = [
-      0 => t('no'),
-      1 => t('Yes'),
+      0 => $this->t('no'),
+      1 => $this->t('Yes'),
     ];
 
     $form['total_control_spam_overview'] = [

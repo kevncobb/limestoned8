@@ -32,6 +32,16 @@ entity.feeds_feed.import_form:
     _entity_access: 'feeds_feed.import'
     feeds_feed: \d+
 
+entity.feeds_feed.schedule_import_form:
+  path: '/feed/{feeds_feed}/schedule-import'
+  defaults:
+    _entity_form: 'feeds_feed.schedule_import'
+  options:
+    _admin_route: TRUE
+  requirements:
+    _entity_access: 'feeds_feed.schedule_import'
+    feeds_feed: \d+
+
 entity.feeds_feed.clear_form:
   path: '/feed/{feeds_feed}/delete-items'
   defaults:

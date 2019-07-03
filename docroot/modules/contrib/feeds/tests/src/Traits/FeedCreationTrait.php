@@ -127,8 +127,8 @@ trait FeedCreationTrait {
    *   The following defaults are provided:
    *   - title: Random string.
    *
-   * @return \Drupal\feeds\FeedTypeInterface
-   *   The created feed type entity.
+   * @return \Drupal\feeds\FeedInterface
+   *   The created feed entity.
    */
   protected function createFeed($feed_type_id, array $settings = []) {
     // Populate default array.

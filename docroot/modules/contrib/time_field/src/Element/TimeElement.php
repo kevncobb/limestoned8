@@ -30,6 +30,7 @@ class TimeElement extends FormElement {
   public function getInfo() {
     $class = get_class($this);
     return [
+      '#show_seconds' => false,
       '#input' => TRUE,
       '#process' => [
         [$class, 'processAjaxForm'],
@@ -46,6 +47,10 @@ class TimeElement extends FormElement {
    * {@inheritdoc}
    */
   public static function valueCallback(&$element, $input, FormStateInterface $form_state) {
+    if ($input === FALSE && !empty($element['#default_value'])) {
+      $input = $element['#default_value'];
+    }
+
     if (!empty($input)) {
       $time = Time::createFromHtml5Format($input);
       return $time->getTimestamp();

@@ -7,10 +7,11 @@ use Drupal\Core\Ajax\AjaxResponse;
 use Drupal\Core\Ajax\CloseModalDialogCommand;
 use Drupal\Core\Ajax\HtmlCommand;
 use Drupal\Core\Ajax\SetDialogTitleCommand;
-use Drupal\Core\Entity\Element\EntityAutocomplete;
 use Drupal\Core\Entity\EntityFieldManagerInterface;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\Core\Entity\FieldableEntityInterface;
+use Drupal\Core\Entity\TranslatableInterface;
 use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormBuilderInterface;
@@ -121,7 +122,8 @@ class EntityEmbedDialog extends FormBase {
       $container->get('entity_type.manager'),
       $container->get('event_dispatcher'),
       $container->get('entity_field.manager'),
-      $container->get('module_handler')
+      $container->get('module_handler'),
+      $container->get('language_manager')
     );
   }
 
@@ -130,6 +132,29 @@ class EntityEmbedDialog extends FormBase {
    */
   public function getFormId() {
     return 'entity_embed_dialog';
+  }
+
+  /**
+   * Loads an entity (in the appropriate translation) given HTML attributes.
+   *
+   * @param string[] $attributes
+   *   An array of HTML attributes, including at least `data-entity-type` and
+   *   `data-entity-uuid`, and optionally `data-langcode`.
+   *
+   * @return \Drupal\Core\Entity\EntityInterface|null
+   *   The requested entity, or NULL.
+   */
+  protected function loadEntityByAttributes(array $attributes) {
+    $entity = $this->entityTypeManager->getStorage($attributes['data-entity-type'])
+      ->loadByProperties(['uuid' => $attributes['data-entity-uuid']]);
+    $entity = current($entity);
+    if ($entity && $entity instanceof TranslatableInterface && !empty($attributes['data-langcode'])) {
+      if ($entity->hasTranslation($attributes['data-langcode'])) {
+        $entity = $entity->getTranslation($attributes['data-langcode']);
+      }
+    }
+
+    return $entity;
   }
 
   /**
@@ -167,9 +192,8 @@ class EntityEmbedDialog extends FormBase {
       'data-entity-embed-display-settings' => isset($form_state->get('entity_element')['data-entity-embed-settings']) ? $form_state->get('entity_element')['data-entity-embed-settings'] : [],
     ];
     $form_state->set('entity_element', $entity_element);
-    $entity = $this->entityTypeManager->getStorage($entity_element['data-entity-type'])
-      ->loadByProperties(['uuid' => $entity_element['data-entity-uuid']]);
-    $form_state->set('entity', current($entity) ?: NULL);
+    $entity = $this->loadEntityByAttributes($entity_element);
+    $form_state->set('entity', $entity ?: NULL);
 
     if (!$form_state->get('step')) {
       // If an entity has been selected, then always skip to the embed options.
@@ -214,7 +238,7 @@ class EntityEmbedDialog extends FormBase {
    * @return array
    *   The form structure.
    */
-  public function buildSelectStep(array &$form, FormStateInterface $form_state) {
+  public function buildSelectStep(array $form, FormStateInterface $form_state) {
     // Entity element is calculated on every AJAX request/submit.
     // See self::buildForm().
     $entity_element = $form_state->get('entity_element');
@@ -231,7 +255,7 @@ class EntityEmbedDialog extends FormBase {
     // Attempt to display a better label if we can by getting it from
     // the label field definition.
     $entity_type = $this->entityTypeManager->getDefinition($entity_element['data-entity-type']);
-    if ($entity_type->isSubclassOf('\Drupal\Core\Entity\FieldableEntityInterface') && $entity_type->hasKey('label')) {
+    if ($entity_type->entityClassImplements(FieldableEntityInterface::class) && $entity_type->hasKey('label')) {
       $field_definitions = $this->entityFieldManager->getBaseFieldDefinitions($entity_type->id());
       if (isset($field_definitions[$entity_type->getKey('label')])) {
         $label = $field_definitions[$entity_type->getKey('label')]->getLabel();
@@ -264,6 +288,13 @@ class EntityEmbedDialog extends FormBase {
       if ($bundles = $embed_button->getTypeSetting('bundles')) {
         $form['entity_id']['#selection_settings']['target_bundles'] = $bundles;
       }
+    }
+
+    if (!empty($entity_element['data-langcode'])) {
+      $form['attributes']['data-langcode'] = [
+        '#type' => 'hidden',
+        '#value' => $entity_element['data-langcode'],
+      ];
     }
 
     $form['attributes']['data-entity-uuid'] = [
@@ -305,7 +336,7 @@ class EntityEmbedDialog extends FormBase {
    * @return array
    *   The form structure.
    */
-  public function buildReviewStep(array &$form, FormStateInterface $form_state) {
+  public function buildReviewStep(array $form, FormStateInterface $form_state) {
     /** @var \Drupal\Core\Entity\EntityInterface $entity */
     $entity = $form_state->get('entity');
 
@@ -375,14 +406,24 @@ class EntityEmbedDialog extends FormBase {
 
     $form['#title'] = $this->t('Embed @type', ['@type' => $entity->getEntityType()->getLowercaseLabel()]);
 
-    $entity_label = '';
     try {
-      $entity_label = $entity->link();
+      if ($entity->getEntityType()->hasLinkTemplate('canonical')) {
+        $options = [
+          'attributes' => [
+            'target' => '_blank',
+          ],
+        ];
+        $entity_label = $entity->toLink($entity->label(), 'canonical', $options)->toString();
+      }
+      elseif ($entity->getEntityTypeId() == 'file') {
+        $entity_label = '<a href="' . file_create_url($entity->getFileUri()) . '" target="_blank">' . $entity->label() . '</a>';
+      }
+      else {
+        $entity_label = '<a href="' . $entity->toUrl()->toString() . '" target="_blank">' . $entity->label() . '</a>';
+      }
     }
     catch (\Exception $e) {
-      // Construct markup of the link to the entity manually if link() fails.
-      // @see https://www.drupal.org/node/2402533
-      $entity_label = '<a href="' . $entity->url() . '">' . $entity->label() . '</a>';
+      $entity_label = $entity->label();
     }
 
     $form['entity'] = [
@@ -398,6 +439,13 @@ class EntityEmbedDialog extends FormBase {
       '#type' => 'hidden',
       '#value' => $entity_element['data-entity-uuid'],
     ];
+
+    if (!empty($entity_element['data-langcode'])) {
+      $form['attributes']['data-langcode'] = [
+        '#type' => 'hidden',
+        '#value' => $entity_element['data-langcode'],
+      ];
+    }
 
     // Build the list of allowed Entity Embed Display plugins.
     $display_plugin_options = $this->getDisplayPluginOptions($embed_button, $entity);
@@ -440,33 +488,12 @@ class EntityEmbedDialog extends FormBase {
     ];
     $plugin_id = !empty($values['attributes']['data-entity-embed-display']) ? $values['attributes']['data-entity-embed-display'] : $entity_element['data-entity-embed-display'];
     if (!empty($plugin_id)) {
-      if (is_string($entity_element['data-entity-embed-display-settings'])) {
+      if (empty($entity_element['data-entity-embed-display-settings'])) {
+        $entity_element['data-entity-embed-display-settings'] = [];
+      }
+      elseif (is_string($entity_element['data-entity-embed-display-settings'])) {
         $entity_element['data-entity-embed-display-settings'] = Json::decode($entity_element['data-entity-embed-display-settings']);
       }
-
-      // Supress Drupal's "Link image to" dropdown when embedding an image,
-      // since the 'Link to' option provides this functionality.
-      if (isset($form['attributes']['data-entity-embed-display-settings']['image_link'])) {
-        $form['attributes']['data-entity-embed-display-settings']['image_link']['#type'] = 'hidden';
-        $form['attributes']['data-entity-embed-display-settings']['image_link']['#value'] = '';
-      }
-      $form['attributes']['data-entity-embed-display-settings']['link_url'] = [
-        '#title' => t('Link to'),
-        '#type' => 'entity_autocomplete',
-        '#target_type' => 'node',
-        '#attributes' => [
-          'data-autocomplete-first-character-blacklist' => '/#?'
-        ],
-        '#element_validate' => [[get_called_class(), 'validateUriElement']],
-        '#process_default_value' => FALSE,
-        '#description' => $this->t('Start typing the title of a piece of content to select it. You can also enter an internal path such as %add-node or an external URL such as %url. Enter %front to link to the front page.', ['%front' => '<front>', '%add-node' => '/node/add', '%url' => 'http://example.com']),
-        '#default_value' => isset($entity_element['data-entity-embed-display-settings']['link_url']) ? $this->getUriAsDisplayableString($entity_element['data-entity-embed-display-settings']['link_url']) : '',
-      ];
-      $form['attributes']['data-entity-embed-display-settings']['link_url_target'] = [
-        '#title' => t('Open in a new window?'),
-        '#type' => 'checkbox',
-        '#default_value' => isset($entity_element['data-entity-embed-display-settings']['link_url_target']) ? Html::decodeEntities($entity_element['data-entity-embed-display-settings']['link_url_target']) : '',
-      ];
       $display = $this->entityEmbedDisplayManager->createInstance($plugin_id, $entity_element['data-entity-embed-display-settings']);
       $display->setContextValue('entity', $entity);
       $display->setAttributes($entity_element);
@@ -532,118 +559,6 @@ class EntityEmbedDialog extends FormBase {
   }
 
   /**
-   * Gets the URI without the 'internal:' or 'entity:' scheme.
-   *
-   * The following two forms of URIs are transformed:
-   * - 'entity:' URIs: to entity autocomplete ("label (entity id)") strings;
-   * - 'internal:' URIs: the scheme is stripped.
-   *
-   * This method is the inverse of ::getUserEnteredStringAsUri().
-   *
-   * @param string $uri
-   *   The URI to get the displayable string for.
-   *
-   * @return string
-   *
-   * @see static::getUserEnteredStringAsUri()
-   */
-  protected function getUriAsDisplayableString($uri) {
-    $uri = Html::decodeEntities($uri);
-    $scheme = parse_url($uri, PHP_URL_SCHEME);
-
-    // By default, the displayable string is the URI.
-    $displayable_string = $uri;
-
-    // A different displayable string may be chosen in case of the 'internal:'
-    // or 'entity:' built-in schemes.
-    if ($scheme === 'internal') {
-      $uri_reference = explode(':', $uri, 2)[1];
-
-      // @todo '<front>' is valid input for BC reasons, may be removed by
-      //   https://www.drupal.org/node/2421941
-      $path = parse_url($uri, PHP_URL_PATH);
-      if ($path === '/') {
-        $uri_reference = '<front>' . substr($uri_reference, 1);
-      }
-
-      $displayable_string = $uri_reference;
-    }
-    elseif ($scheme === 'entity') {
-      list($entity_type, $entity_id) = explode('/', substr($uri, 7), 2);
-      // Show the 'entity:' URI as the entity autocomplete would.
-      // @todo Support entity types other than 'node'. Will be fixed in
-      //    https://www.drupal.org/node/2423093.
-      if ($entity_type == 'node' && $entity = \Drupal::entityTypeManager()->getStorage($entity_type)->load($entity_id)) {
-        $displayable_string = EntityAutocomplete::getEntityLabels([$entity]);
-      }
-    }
-
-    return $displayable_string;
-  }
-
-  /**
-   * Gets the user-entered string as a URI.
-   *
-   * The following two forms of input are mapped to URIs:
-   * - entity autocomplete ("label (entity id)") strings: to 'entity:' URIs;
-   * - strings without a detectable scheme: to 'internal:' URIs.
-   *
-   * This method is the inverse of ::getUriAsDisplayableString().
-   *
-   * @param string $string
-   *   The user-entered string.
-   *
-   * @return string
-   *   The URI, if a non-empty $uri was passed.
-   *
-   * @see static::getUriAsDisplayableString()
-   */
-  protected static function getUserEnteredStringAsUri($string) {
-    // By default, assume the entered string is an URI.
-    $uri = $string;
-
-    // Detect entity autocomplete string, map to 'entity:' URI.
-    $entity_id = EntityAutocomplete::extractEntityIdFromAutocompleteInput($string);
-    if ($entity_id !== NULL) {
-      // @todo Support entity types other than 'node'. Will be fixed in
-      //    https://www.drupal.org/node/2423093.
-      $uri = 'entity:node/' . $entity_id;
-    }
-    // Detect a schemeless string, map to 'internal:' URI.
-    elseif (!empty($string) && parse_url($string, PHP_URL_SCHEME) === NULL) {
-      // @todo '<front>' is valid input for BC reasons, may be removed by
-      //   https://www.drupal.org/node/2421941
-      // - '<front>' -> '/'
-      // - '<front>#foo' -> '/#foo'
-      if (strpos($string, '<front>') === 0) {
-        $string = '/' . substr($string, strlen('<front>'));
-      }
-      $uri = 'internal:' . $string;
-    }
-
-    return $uri;
-  }
-
-  /**
-   * Form element validation handler for the 'uri' element.
-   *
-   * Disallows saving inaccessible or untrusted URLs.
-   */
-  public static function validateUriElement($element, FormStateInterface $form_state, $form) {
-    $uri = static::getUserEnteredStringAsUri($element['#value']);
-    $form_state->setValueForElement($element, $uri);
-
-    // If getUserEnteredStringAsUri() mapped the entered value to a 'internal:'
-    // URI , ensure the raw value begins with '/', '?' or '#'.
-    // @todo '<front>' is valid input for BC reasons, may be removed by
-    //   https://www.drupal.org/node/2421941
-    if (parse_url($uri, PHP_URL_SCHEME) === 'internal' && !in_array($element['#value'][0], ['/', '?', '#'], TRUE) && substr($element['#value'], 0, 7) !== '<front>') {
-      $form_state->setError($element, t('Manually entered paths should start with /, ? or #.'));
-      return;
-    }
-  }
-
-  /**
    * {@inheritdoc}
    */
   public function validateForm(array &$form, FormStateInterface $form_state) {
@@ -666,8 +581,10 @@ class EntityEmbedDialog extends FormBase {
    *   The current state of the form.
    */
   public function validateSelectStep(array $form, FormStateInterface $form_state) {
-    if (($form_state->hasValue(['entity_browser', 'entities'])) && (count($form_state->getValue(['entity_browser', 'entities'])) > 0)) {
-      $id = $form_state->getValue(['entity_browser', 'entities', 0])->id();
+    if ($form_state->hasValue(['entity_browser', 'entities'])) {
+      if (count($form_state->getValue(['entity_browser', 'entities'])) > 0) {
+        $id = $form_state->getValue(['entity_browser', 'entities', 0])->id();
+      }
       $element = $form['entity_browser'];
     }
     else {
@@ -677,6 +594,10 @@ class EntityEmbedDialog extends FormBase {
 
     $entity_type = $form_state->getValue(['attributes', 'data-entity-type']);
 
+    if (!isset($id)) {
+      $form_state->setError($element, $this->t('No entity selected.'));
+      return;
+    }
     if ($entity = $this->entityTypeManager->getStorage($entity_type)->load($id)) {
       if (!$entity->access('view')) {
         $form_state->setError($element, $this->t('Unable to access @type entity @id.', ['@type' => $entity_type, '@id' => $id]));
@@ -696,7 +617,7 @@ class EntityEmbedDialog extends FormBase {
         // If no plugin is available after taking the intersection, raise error.
         // Also log an exception.
         if (empty($display_plugin_options)) {
-          $form_state->setError($element, $this->t('No display options available for the selected entity. Please select another entity.'));
+          $form_state->setError($element, $this->t('No display options available for the selected %entity-type. Please select another %entity_type.', ['%entity_type' => $entity->getEntityType()->getLabel()]));
           $this->logger('entity_embed')->warning('No display options available for "@type:" entity "@id" while embedding using button "@button". Please ensure that at least one Entity Embed Display plugin is allowed for this embed button which is available for this entity.', [
             '@type' => $entity_type,
             '@id' => $entity->id(),
@@ -721,9 +642,7 @@ class EntityEmbedDialog extends FormBase {
   public function validateEmbedStep(array $form, FormStateInterface $form_state) {
     // Validate configuration forms for the Entity Embed Display plugin used.
     $entity_element = $form_state->getValue('attributes');
-    $entity = $this->entityTypeManager->getStorage($entity_element['data-entity-type'])
-      ->loadByProperties(['uuid' => $entity_element['data-entity-uuid']]);
-    $entity = current($entity) ?: NULL;
+    $entity = $form_state->get('entity');
     $plugin_id = $entity_element['data-entity-embed-display'];
     $plugin_settings = !empty($entity_element['data-entity-embed-display-settings']) ? $entity_element['data-entity-embed-display-settings'] : [];
     $display = $this->entityEmbedDisplayManager->createInstance($plugin_id, $plugin_settings);
@@ -880,9 +799,7 @@ class EntityEmbedDialog extends FormBase {
 
     // Submit configuration form the selected Entity Embed Display plugin.
     $entity_element = $form_state->getValue('attributes');
-    $entity = $this->entityTypeManager->getStorage($entity_element['data-entity-type'])
-      ->loadByProperties(['uuid' => $entity_element['data-entity-uuid']]);
-    $entity = current($entity);
+    $entity = $this->loadEntityByAttributes($entity_element);
     $plugin_id = $entity_element['data-entity-embed-display'];
     $plugin_settings = !empty($entity_element['data-entity-embed-display-settings']) ? $entity_element['data-entity-embed-display-settings'] : [];
     $display = $this->entityEmbedDisplayManager->createInstance($plugin_id, $plugin_settings);
@@ -946,13 +863,12 @@ class EntityEmbedDialog extends FormBase {
    *   List of allowed Entity Embed Display plugins.
    */
   public function getDisplayPluginOptions(EmbedButtonInterface $embed_button, EntityInterface $entity) {
-    $plugins = $this->entityEmbedDisplayManager->getDefinitionOptionsForEntity($entity);
+    $plugins = $this->entityEmbedDisplayManager->getDefinitionOptionsForContext([
+      'entity' => $entity,
+      'entity_type' => $entity->getEntityTypeId(),
+      'embed_button' => $embed_button,
+    ]);
 
-    if ($allowed_plugins = $embed_button->getTypeSetting('display_plugins')) {
-      $plugins = array_intersect_key($plugins, array_flip($allowed_plugins));
-    }
-
-    natsort($plugins);
     return $plugins;
   }
 

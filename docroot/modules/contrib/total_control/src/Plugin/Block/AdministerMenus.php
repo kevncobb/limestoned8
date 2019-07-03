@@ -24,15 +24,27 @@ class AdministerMenus extends BlockBase implements BlockPluginInterface {
   public function build() {
     $items = [];
 
+    if (!\Drupal::service('module_handler')->moduleExists('menu_ui')) {
+
+      $markup_data = $this->t('You have to enable')
+        . ' <strong>Menu ui</strong> '
+        . $this->t('module to see this block.');
+
+      return [
+        '#type' => 'markup',
+        '#markup' => $markup_data,
+      ];
+    }
+
     $menus = menu_ui_get_menus();
     $config = $this->getConfiguration();
 
     $header = [
       [
-        'data' => t('Menu'),
+        'data' => $this->t('Menu'),
       ],
       [
-        'data' => t('Operations'),
+        'data' => $this->t('Operations'),
         'colspan' => 2,
       ],
     ];
@@ -49,11 +61,11 @@ class AdministerMenus extends BlockBase implements BlockPluginInterface {
           $rows[] = [
             'data' => [
               $menu,
-              \Drupal::l('Configure', new Url('entity.menu.edit_form', [
+              \Drupal::l($this->t('Configure'), new Url('entity.menu.edit_form', [
                 'menu' => $menu_name,
                 'options' => $options,
               ])),
-              \Drupal::l('Add new link', new Url('entity.menu.add_link_form', [
+              \Drupal::l($this->t('Add new link'), new Url('entity.menu.add_link_form', [
                 'menu' => $menu_name,
                 'options' => $options,
               ])),
@@ -66,13 +78,13 @@ class AdministerMenus extends BlockBase implements BlockPluginInterface {
     // Build a link to the menu admin UI.
     $link = '';
     if (\Drupal::currentUser()->hasPermission('administer menu')) {
-      $link = \Drupal::l('Menu administration', new Url('entity.menu.collection'));
+      $link = \Drupal::l($this->t('Menu administration'), new Url('entity.menu.collection'));
     }
 
     if (empty($rows)) {
       $rows[] = [
         [
-          'data' => t('There are no menus to display.'),
+          'data' => $this->t('There are no menus to display.'),
           'colspan' => 3,
         ],
       ];

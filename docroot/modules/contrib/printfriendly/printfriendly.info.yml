@@ -18,8 +18,8 @@ configure: admin/config/services/printfriendly
 # project: 'printfriendly'
 # datestamp: 1501169261
 
-# Information added by Drupal.org packaging script on 2017-11-22
-version: '8.x-3.3'
+# Information added by Drupal.org packaging script on 2019-03-19
+version: '8.x-3.4'
 core: '8.x'
 project: 'printfriendly'
-datestamp: 1511338692
+datestamp: 1552999094

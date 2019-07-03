@@ -1,6 +1,7 @@
 <?php
 
 /**
+ * @file
  * Contains \Drupal\Tests\page_manager\Unit\PageManagerRoutesTest.
  */
 
@@ -92,7 +93,8 @@ class PageManagerRoutesTest extends UnitTestCase {
     $page1->getVariants()
       ->willReturn(['variant1' => $variant1->reveal()]);
     $page1->label()
-      ->shouldNotBeCalled();
+      ->willReturn('Page label')
+      ->shouldBeCalled();
     $page1->usesAdminTheme()
       ->willReturn(TRUE)
       ->shouldBeCalled();
@@ -128,7 +130,7 @@ class PageManagerRoutesTest extends UnitTestCase {
     $route = $collection->get('page_manager.page_view_page1_variant1');
     $expected_defaults = [
       '_entity_view' => 'page_manager_page_variant',
-      '_title_callback' => 'page_manager.page_manager_helper:getVariantTitle',
+      '_title' => 'Page label',
       'page_manager_page_variant' => 'variant1',
       'page_manager_page' => 'page1',
       'page_manager_page_variant_weight' => 0,
@@ -201,12 +203,12 @@ class PageManagerRoutesTest extends UnitTestCase {
       'test_route.POST_with_format',
       'test_route',
       'page_manager.page_view_page1_variant1',
-    ], array_keys($collection->all()));
+      ], array_keys($collection->all()));
 
     $route = $collection->get('page_manager.page_view_page1_variant1');
     $expected_defaults = [
       '_entity_view' => 'page_manager_page_variant',
-      '_title_callback' => 'page_manager.page_manager_helper:getVariantTitle',
+      '_title' => NULL,
       'page_manager_page_variant' => 'variant1',
       'page_manager_page' => 'page1',
       'page_manager_page_variant_weight' => 0,
@@ -230,29 +232,14 @@ class PageManagerRoutesTest extends UnitTestCase {
     $this->assertMatchingRoute($route, $existing_route_path, $expected_defaults, $expected_requirements, $expected_options);
   }
 
-  /**
-   * Tests alter overriding an existing route.
-   *
-   * @covers ::alterRoutes
-   */
   public function providerTestAlterRoutesOverrideExisting() {
     $data = [];
     $data['no_slug'] = ['/test_route', '/test_route'];
     $data['slug'] = ['/test_route/{test_route}', '/test_route/{test_route}'];
     $data['placeholder'] = ['/test_route/%', '/test_route/{test_route}'];
-    $data['slug_with_default'] = [
-      '/test_route/{default_exists}',
-      '/test_route/{default_exists}'
-    ];
-    $data['placeholder_with_default'] = [
-      '/test_route/%',
-      '/test_route/{default_exists}'
-    ];
-    $data['with_requirement'] = [
-      '/test_route/{foo}',
-      '/test_route/{foo}',
-      ['foo' => '\d+']
-    ];
+    $data['slug_with_default'] = ['/test_route/{default_exists}', '/test_route/{default_exists}'];
+    $data['placeholder_with_default'] = ['/test_route/%', '/test_route/{default_exists}'];
+    $data['with_requirement'] = ['/test_route/{foo}', '/test_route/{foo}', ['foo' => '\d+']];
     return $data;
   }
 
@@ -293,11 +280,12 @@ class PageManagerRoutesTest extends UnitTestCase {
       'test_route',
       'page_manager.page_view_page1_variant1',
       'page_manager.page_view_page2_variant2',
-    ], array_keys($collection->all()));
+      ], array_keys($collection->all()));
     $expected = [
       'test_route' => [
         'path' => '/test_route1',
-        'defaults' => [],
+        'defaults' => [
+        ],
         'requirements' => [
           '_access' => 'TRUE',
         ],
@@ -309,7 +297,7 @@ class PageManagerRoutesTest extends UnitTestCase {
         'path' => '/test_route1',
         'defaults' => [
           '_entity_view' => 'page_manager_page_variant',
-          '_title_callback' => 'page_manager.page_manager_helper:getVariantTitle',
+          '_title' => 'Page 1',
           'page_manager_page_variant' => 'variant1',
           'page_manager_page' => 'page1',
           'page_manager_page_variant_weight' => 0,
@@ -337,7 +325,7 @@ class PageManagerRoutesTest extends UnitTestCase {
         'path' => '/test_route2',
         'defaults' => [
           '_entity_view' => 'page_manager_page_variant',
-          '_title_callback' => 'page_manager.page_manager_helper:getVariantTitle',
+          '_title' => 'Page 2',
           'page_manager_page_variant' => 'variant2',
           'page_manager_page' => 'page2',
           'page_manager_page_variant_weight' => 0,
@@ -383,18 +371,7 @@ class PageManagerRoutesTest extends UnitTestCase {
     $page->id()->willReturn('page1');
     $page->label()->willReturn(NULL);
     $page->usesAdminTheme()->willReturn(FALSE);
-    $page->getParameters()->willReturn([
-      'foo' => [
-        'machine_name' => 'foo',
-        'type' => 'integer',
-        'label' => 'Foo'
-      ],
-      'test_route' => [
-        'machine_name' => 'test_route',
-        'type' => '',
-        'label' => ''
-      ]
-    ]);
+    $page->getParameters()->willReturn(['foo' => ['machine_name' => 'foo', 'type' => 'integer', 'label' => 'Foo'], 'test_route' => ['machine_name' => 'test_route', 'type' => '', 'label' => '']]);
 
     $variant1 = $this->prophesize(PageVariantInterface::class);
     $variant1->getWeight()->willReturn(0);
@@ -409,7 +386,7 @@ class PageManagerRoutesTest extends UnitTestCase {
 
     $expected_defaults = [
       '_entity_view' => 'page_manager_page_variant',
-      '_title_callback' => 'page_manager.page_manager_helper:getVariantTitle',
+      '_title' => NULL,
       'page_manager_page_variant' => 'variant1',
       'page_manager_page' => 'page1',
       'page_manager_page_variant_weight' => 0,

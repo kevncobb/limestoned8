@@ -10,8 +10,8 @@ dependencies:
 - ctools:ctools
 - token:token
 
-# Information added by Drupal.org packaging script on 2017-08-10
-version: '8.x-3.0+9-dev'
+# Information added by Drupal.org packaging script on 2017-09-14
+version: '8.x-3.1'
 core: '8.x'
 project: 'view_mode_page'
-datestamp: 1502356450
+datestamp: 1505374749

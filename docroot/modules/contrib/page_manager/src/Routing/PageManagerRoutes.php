@@ -1,6 +1,7 @@
 <?php
 
 /**
+ * @file
  * Contains \Drupal\page_manager\Routing\PageManagerRoutes.
  */
 
@@ -93,7 +94,7 @@ class PageManagerRoutes extends RouteSubscriberBase {
       $defaults['base_route_name'] = $base_route_name;
 
       $defaults['_entity_view'] = 'page_manager_page_variant';
-      $defaults['_title_callback'] = 'page_manager.page_manager_helper:getVariantTitle';
+      $defaults['_title'] = $entity->label();
       $defaults['page_manager_page'] = $entity->id();
       $parameters['page_manager_page_variant']['type'] = 'entity:page_variant';
       $parameters['page_manager_page']['type'] = 'entity:page';

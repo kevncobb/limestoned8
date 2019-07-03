@@ -1,6 +1,7 @@
 <?php
 
 /**
+ * @file
  * Contains \Drupal\page_manager_ui\Tests\PageManagerAdminTest.
  */
 
@@ -38,11 +39,7 @@ class PageManagerAdminTest extends WebTestBase {
     \Drupal::service('theme_handler')->install(['bartik', 'classy']);
     $this->config('system.theme')->set('admin', 'classy')->save();
 
-    $this->drupalLogin($this->drupalCreateUser([
-      'administer pages',
-      'access administration pages',
-      'view the administration theme'
-    ]));
+    $this->drupalLogin($this->drupalCreateUser(['administer pages', 'access administration pages', 'view the administration theme']));
 
     // Remove the default node_view page to start with a clean UI.
     Page::load('node_view')->delete();
@@ -121,13 +118,13 @@ class PageManagerAdminTest extends WebTestBase {
       'variant_settings[status_code]' => 200,
     ];
     $this->drupalPostForm(NULL, $edit, 'Finish');
-    $this->assertRaw(new FormattableMarkup('Saved the %label Page.', ['%label' => 'Foo']));
+    $this->assertRaw(new FormattableMarkup('The page %label has been added.', ['%label' => 'Foo']));
     // We've gone from the add wizard to the edit wizard.
     $this->drupalGet('admin/structure/page_manager/manage/foo/general');
 
     $this->drupalGet('admin/foo');
     $this->assertResponse(200);
-    $this->assertTitle('Status Code | Drupal');
+    $this->assertTitle('Foo | Drupal');
 
     // Change the status code to 403.
     $this->drupalGet('admin/structure/page_manager/manage/foo/page_variant__foo-http_status_code-0__general');
@@ -150,7 +147,7 @@ class PageManagerAdminTest extends WebTestBase {
    *
    * @param string $path
    *   The path this step is supposed to be at.
-   * @param bool|true $redirect
+   * @param bool|TRUE $redirect
    *   Whether or not to redirect to the path.
    */
   protected function doTestAccessConditions($path = 'admin/structure/page_manager/manage/foo/access', $redirect = TRUE) {
@@ -197,7 +194,7 @@ class PageManagerAdminTest extends WebTestBase {
    *
    * @param string $path
    *   The path this step is supposed to be at.
-   * @param bool|true $redirect
+   * @param bool|TRUE $redirect
    *   Whether or not to redirect to the path.
    */
   protected function doTestSelectionCriteria($path = 'admin/structure/page_manager/manage/foo/page_variant__foo-http_status_code-0__selection', $redirect = TRUE) {
@@ -301,7 +298,16 @@ class PageManagerAdminTest extends WebTestBase {
     $this->assertResponse(200);
     // Tests that the content region has no content at all.
     $elements = $this->xpath('//div[@class=:region]', [':region' => 'region region-content']);
-    $this->assertIdentical(0, $elements[0]->count());
+    // From Drupal 8.7, fallback area for messages is added by default.
+    // @see https://www.drupal.org/node/3002643
+    if (version_compare(\Drupal::VERSION, '8.7', '<')) {
+      $this->assertIdentical(0, $elements[0]->count());
+    }
+    else {
+      $this->assertIdentical(1, $elements[0]->count());
+      $status_messages_placeholder = $elements[0]->children()[0];
+      $this->assertTrue(isset($status_messages_placeholder['data-drupal-messages-fallback']));
+    }
   }
 
   /**
@@ -362,7 +368,7 @@ class PageManagerAdminTest extends WebTestBase {
 
     // We're now on the content step, but we don't need to add any blocks.
     $this->drupalPostForm(NULL, [], 'Finish');
-    $this->assertRaw(new FormattableMarkup('Saved the %label Page.', ['%label' => 'Second']));
+    $this->assertRaw(new FormattableMarkup('The page %label has been added.', ['%label' => 'Second']));
 
     // Visit both pages, make sure that they do not interfere with each other.
     $this->drupalGet('admin/foo');

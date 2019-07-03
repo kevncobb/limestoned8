@@ -1,11 +1,11 @@
-name: 'Time field'
+name: 'Time Field'
 type: module
 description: 'Provides "Time Field" and "Time Range Field".'
 # core: 8.x
 package: 'Field types'
 
-# Information added by Drupal.org packaging script on 2018-12-19
-version: '8.x-1.10+1-dev'
+# Information added by Drupal.org packaging script on 2019-03-28
+version: '8.x-1.12'
 core: '8.x'
 project: 'time_field'
-datestamp: 1545237167
+datestamp: 1553752986

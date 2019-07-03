@@ -34,12 +34,23 @@ class CreateContent extends BlockBase implements BlockPluginInterface {
       if ((!array_key_exists($type, $config['total_control_admin_types_links'])) || (isset($config['total_control_admin_types_links']) && $config['total_control_admin_types_links'][$type]) == $type) {
         // Check access, then add a link to create content.
         if (\Drupal::currentUser()->hasPermission('create ' . $object->get('type') . ' content')) {
-          $links[] = \Drupal::l('Add new  ' . $object->get('name'), new Url('node.add', [
+          $links[] = \Drupal::l($this->t('Add new@space', ['@space' => ' ']) . $object->get('name'), new Url('node.add', [
             'node_type' => $object->get('type'),
             'options' => $options,
           ]));
         }
       }
+    }
+
+    if (empty($links)) {
+
+      $markup_data = $this->t('No content types available. ')
+       . \Drupal::l($this->t('Add content type'), new Url('node.type_add'));
+
+      return [
+        '#type' => 'markup',
+        '#markup' => $markup_data,
+      ];
     }
 
     $body_data = [

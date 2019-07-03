@@ -10,7 +10,6 @@ use Drupal\feeds\FeedInterface;
 use Drupal\feeds\FieldTargetDefinition;
 use Drupal\feeds\FeedTypeInterface;
 use Drupal\feeds\Plugin\Type\Processor\EntityProcessorInterface;
-use LogicException;
 
 /**
  * Helper class for field mappers.

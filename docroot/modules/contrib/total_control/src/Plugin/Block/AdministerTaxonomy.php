@@ -23,15 +23,28 @@ class AdministerTaxonomy extends BlockBase implements BlockPluginInterface {
    * {@inheritdoc}
    */
   public function build() {
+
+    if (!\Drupal::service('module_handler')->moduleExists('taxonomy')) {
+
+      $markup_data = $this->t('You have to enable')
+        . ' <strong>Taxonomy</strong> '
+        . $this->t('module to see this block.');
+
+      return [
+        '#type' => 'markup',
+        '#markup' => $markup_data,
+      ];
+    }
+
     $vocabs = Vocabulary::loadMultiple();
     $config = $this->getConfiguration();
     $vids = $config['total_control_admin_taxonomy'];
     $header = [
       [
-        'data' => t('Vocabulary'),
+        'data' => $this->t('Vocabulary'),
       ],
       [
-        'data' => t('Operations'),
+        'data' => $this->t('Operations'),
         'colspan' => 3,
       ],
     ];
@@ -51,15 +64,15 @@ class AdministerTaxonomy extends BlockBase implements BlockPluginInterface {
             $rows[] = [
               'data' => [
                 $vocab->get('name') . ': ' . $terms,
-                \Drupal::l('Configure', new Url('entity.taxonomy_vocabulary.edit_form', [
+                \Drupal::l($this->t('Configure'), new Url('entity.taxonomy_vocabulary.edit_form', [
                   'taxonomy_vocabulary' => $vocab->get('vid'),
                   'options' => $options,
                 ])),
-                \Drupal::l('Manage categories', new Url('entity.taxonomy_vocabulary.overview_form', [
+                \Drupal::l($this->t('Manage categories'), new Url('entity.taxonomy_vocabulary.overview_form', [
                   'taxonomy_vocabulary' => $vocab->get('vid'),
                   'options' => $options,
                 ])),
-                \Drupal::l('Add new category', new Url('entity.taxonomy_term.add_form', [
+                \Drupal::l($this->t('Add new category'), new Url('entity.taxonomy_term.add_form', [
                   'taxonomy_vocabulary' => $vocab->get('vid'),
                   'options' => $options,
                 ])),
@@ -72,14 +85,14 @@ class AdministerTaxonomy extends BlockBase implements BlockPluginInterface {
 
     if (empty($rows)) {
       $rows[] = [
-        'data' => t('There are no vocabularies to display.'),
+        'data' => $this->t('There are no vocabularies to display.'),
         'colspan' => 4,
       ];
     }
 
     $link = '';
     if (\Drupal::currentUser()->hasPermission('administer taxonomy')) {
-      $link = \Drupal::l('Taxonomy administration', new Url('entity.taxonomy_vocabulary.collection', $options));
+      $link = \Drupal::l($this->t('Taxonomy administration'), new Url('entity.taxonomy_vocabulary.collection', $options));
     }
 
     $body_data = [
