@@ -1,9 +1,8 @@
 <?php
 
-namespace Drupal\csv_source_yield_test\Plugin\migrate\source;
+namespace Drupal\source_plugin_yield_test\Plugin\migrate\source;
 
 use Drupal\migrate_source_csv\Plugin\migrate\source\CSV;
-use League\Csv\Reader;
 
 /**
  * Yields each image and sku.
@@ -18,24 +17,25 @@ class YieldRows extends CSV {
    * {@inheritdoc}
    */
   public function initializeIterator() {
-    return $this->getYield(parent::initializeIterator());
+    $file = parent::initializeIterator();
+    return $this->getYield($file);
   }
 
   /**
    * Prepare a test row using yield.
    *
-   * @param \League\Csv\Reader $reader
-   *   The CSV reader.
+   * @param \SplFileObject $file
+   *   The source CSV file object.
    *
    * @codingStandardsIgnoreStart
    *
    * @return \Generator
-   *   A generator with only the id value.
+   *   A new row with only the id value.
    *
    * @codingStandardsIgnoreEnd
    */
-  public function getYield(Reader $reader) {
-    foreach ($reader as $row_num => $row) {
+  public function getYield(\SplFileObject $file) {
+    foreach ($file as $row_num => $row) {
       $new_row = [];
       $new_row['id'] = $row['id'];
       yield($new_row);
