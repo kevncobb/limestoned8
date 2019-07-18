@@ -194,6 +194,7 @@ class OAuth2ControllerBase extends ControllerBase {
         $state = $this->providerManager->getState();
         $this->dataHandler->set('oauth2state', $state);
 
+        $this->userAuthenticator->dispatchBeforeRedirect($destination);
         return new TrustedRedirectResponse($auth_url);
       }
       catch (PluginException $exception) {
@@ -251,7 +252,6 @@ class OAuth2ControllerBase extends ControllerBase {
       // Gets user's info from provider.
       if (!$profile = $this->providerManager->getUserInfo()) {
         $this->messenger->addError($this->t('Login failed, could not load user profile. Contact site administrator.'));
-
         return NULL;
       }
 
@@ -263,6 +263,38 @@ class OAuth2ControllerBase extends ControllerBase {
 
       return NULL;
     }
+  }
+
+  /**
+   * Checks if there was an error during authentication with provider.
+   *
+   * When there is an authentication problem in a provider (e.g. user did not
+   * authorize the app), a query to the client containing an error key is often
+   * returned. This method checks for such key, dispatches an event, and returns
+   * a redirect object where there is an authentication error.
+   *
+   * @param string $key
+   *   The query parameter key to check for authentication error.
+   *
+   * @return \Symfony\Component\HttpFoundation\RedirectResponse|null
+   *   Redirect response object that may be returned by the controller or null.
+   */
+  protected function checkAuthError($key = 'error') {
+    $request_query = $this->request->getCurrentRequest()->query;
+
+    // Checks if authentication failed.
+    if ($request_query->has($key)) {
+      $this->messenger->addError($this->t('You could not be authenticated.'));
+
+      $response = $this->userAuthenticator->dispatchAuthenticationError($request_query->get($key));
+      if ($response) {
+        return $response;
+      }
+
+      return $this->redirect('user.login');
+    }
+
+    return NULL;
   }
 
 }
