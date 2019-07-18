@@ -19,6 +19,7 @@ install:
   - pathauto
   - redirect
   - redirect_404
+  - redirect_domain
   - schema_metatag
   - schema_article
   - schema_item_list
@@ -28,8 +29,8 @@ install:
   - yoast_seo
   - google_analytics
 
-# Information added by Drupal.org packaging script on 2019-01-24
-version: '8.x-6.3'
+# Information added by Drupal.org packaging script on 2019-07-04
+version: '8.x-6.4'
 core: '8.x'
 project: 'varbase_seo'
-datestamp: 1548356584
+datestamp: 1562248090

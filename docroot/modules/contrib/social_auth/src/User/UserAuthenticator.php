@@ -10,8 +10,10 @@ use Drupal\Core\Session\AccountProxyInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\Core\Url;
 use Drupal\social_api\User\UserAuthenticator as SocialApiUserAuthenticator;
+use Drupal\social_auth\Event\BeforeRedirectEvent;
+use Drupal\social_auth\Event\FailedAuthenticationEvent;
 use Drupal\social_auth\Event\SocialAuthEvents;
-use Drupal\social_auth\Event\SocialAuthUserEvent;
+use Drupal\social_auth\Event\UserEvent;
 use Drupal\social_auth\SettingsTrait;
 use Drupal\social_auth\SocialAuthDataHandler;
 use Drupal\user\UserInterface;
@@ -147,8 +149,10 @@ class UserAuthenticator extends SocialApiUserAuthenticator {
       }
     }
 
+    $user = new SocialAuthUser($name, $email, $provider_user_id, $token, $picture_url, $data);
+
     // At this point, create a new user.
-    $drupal_user = $this->userManager->createNewUser($name, $email, $provider_user_id, $token, $picture_url, $data);
+    $drupal_user = $this->userManager->createNewUser($user);
 
     $this->authenticateNewUser($drupal_user);
 
@@ -352,7 +356,7 @@ class UserAuthenticator extends SocialApiUserAuthenticator {
       $this->userLoginFinalize($drupal_user);
 
       // Dispatches SocialAuthEvents::USER_LOGIN event.
-      $event = new SocialAuthUserEvent($drupal_user, $this->getPluginId());
+      $event = new UserEvent($drupal_user, $this->getPluginId());
       $this->eventDispatcher->dispatch(SocialAuthEvents::USER_LOGIN, $event);
 
       return TRUE;
@@ -403,6 +407,37 @@ class UserAuthenticator extends SocialApiUserAuthenticator {
    */
   protected function userLoginFinalize(UserInterface $account) {
     user_login_finalize($account);
+  }
+
+  /**
+   * Dispatch an event when authentication in provider fails.
+   *
+   * @param string|null $error
+   *   The error string/code from provider.
+   *
+   * @return \Symfony\Component\HttpFoundation\RedirectResponse
+   *   Return redirect response.
+   */
+  public function dispatchAuthenticationError($error = NULL) {
+    $event = new FailedAuthenticationEvent($this->dataHandler, $this->getPluginId(), $error ?? NULL);
+    $this->eventDispatcher->dispatch(SocialAuthEvents::FAILED_AUTH, $event);
+
+    if ($event->hasResponse()) {
+      return $event->getResponse();
+    }
+
+    return NULL;
+  }
+
+  /**
+   * Dispatch an event before user is redirected to the provider.
+   *
+   * @param string|null $destination
+   *   The destination url.
+   */
+  public function dispatchBeforeRedirect($destination = NULL) {
+    $event = new BeforeRedirectEvent($this->dataHandler, $this->getPluginId(), $destination);
+    $this->eventDispatcher->dispatch(SocialAuthEvents::BEFORE_REDIRECT, $event);
   }
 
 }

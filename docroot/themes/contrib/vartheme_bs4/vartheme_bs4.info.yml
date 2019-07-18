@@ -135,8 +135,8 @@ ckeditor_stylesheets:
   - css/theme/content.theme.css
   - css/theme/vbp-colors.theme.css
 
-# Information added by Drupal.org packaging script on 2019-05-20
-version: '8.x-6.0-rc2'
+# Information added by Drupal.org packaging script on 2019-07-02
+version: '8.x-6.0-rc3'
 core: '8.x'
 project: 'vartheme_bs4'
-datestamp: 1558345088
+datestamp: 1562054595

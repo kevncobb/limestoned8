@@ -1,6 +1,9 @@
 #!/bin/bash
+
+# Varbase Updater
+
 function clear_stdin(){
-    while read -e -t 1; do : ; done
+  while read -e -t 1; do : ; done
 }
 
 BASEDIR=$(pwd);
@@ -21,7 +24,10 @@ cat << "EOF"
  |     | |   _   ||   |  | ||       ||   |
   |___|  |__| |__||___|  |_||_______||___|
 EOF
+echo "";
 echo "$(tput setaf 4)Varbase Updater$(tput sgr 0)";
+echo "";
+echo "$(tput setaf 4)Project root           : ${BASEDIR} $(tput sgr 0)";
 echo "";
 clear_stdin;
 echo "$(tput setaf 1)Please choose your Drupal installation folder. Type the folder name or hit enter to choose the default one: ($DRUPALPATH): $(tput sgr 0)";
@@ -131,7 +137,7 @@ cleanup(){
     rm -rf ${BASEDIR}/vendor/vardot/varbase-updater/config/.download-before-update;
   fi
 
-  chmod -R gu+rwx ${BASEDIR}/${DRUPALPATH};
+  sudo chmod -R gu+rwx ${BASEDIR}/${DRUPALPATH};
 
   composer dump-autoload;
 }
@@ -273,6 +279,8 @@ elif [ "$answer" != "${answer#[YyUu]}" ] ; then
 
   echo -e "$(tput setaf 2)Updating the database for latest changes.$(tput sgr 0)";
   echo -e "$(tput setaf 2)Updating the database for latest changes.$(tput sgr 0)" >> ${ERRORLOG};
+  $DRUSH  cache-rebuild --yes;
+  $DRUSH  entity-updates --yes;
   $DRUSH  updb --yes --strict=0 1> >(tee -a ${ERRORLOG} >&1) 2> >(tee -a ${ERRORLOG} >&2);
   result="$?";
   if [ "$result" -ne 0 ]; then

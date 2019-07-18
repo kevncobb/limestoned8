@@ -1,13 +1,11 @@
 <?php
 
 /**
- * @file
  * Contains \Drupal\page_manager\Plugin\DisplayVariant\PageBlockDisplayVariant.
  */
 
 namespace Drupal\page_manager\Plugin\DisplayVariant;
 
-use Drupal\Component\Render\HtmlEscapedText;
 use Drupal\Component\Uuid\UuidInterface;
 use Drupal\Component\Utility\Html;
 use Drupal\Core\Block\BlockManager;
@@ -19,11 +17,11 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Plugin\Context\ContextHandlerInterface;
 use Drupal\Core\Plugin\ContextAwarePluginInterface;
 use Drupal\Core\Render\Element;
-use Drupal\Core\Render\Markup;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\Core\Utility\Token;
 use Drupal\ctools\Plugin\DisplayVariant\BlockDisplayVariant;
 use Drupal\ctools\Plugin\PluginWizardInterface;
+use Drupal\page_manager\PageManagerHelper;
 use Drupal\page_manager_ui\Form\VariantPluginContentForm;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -43,6 +41,13 @@ class PageBlockDisplayVariant extends BlockDisplayVariant implements PluginWizar
    * @var \Drupal\Core\Extension\ModuleHandlerInterface
    */
   protected $moduleHandler;
+
+  /**
+   * The page_manager helper.
+   *
+   * @var \Drupal\page_manager\PageManagerHelper
+   */
+  protected $pageManagerHelper;
 
   /**
    * Constructs a new BlockDisplayVariant.
@@ -67,10 +72,12 @@ class PageBlockDisplayVariant extends BlockDisplayVariant implements PluginWizar
    *   The condition manager.
    * @param \Drupal\Core\Extension\ModuleHandlerInterface $module_handler
    *   The module handler.
+   * @param \Drupal\page_manager\PageManagerHelper $page_manager_helper
+   *   The page_manager helper.
    */
-  public function __construct(array $configuration, $plugin_id, $plugin_definition, ContextHandlerInterface $context_handler, AccountInterface $account, UuidInterface $uuid_generator, Token $token, BlockManager $block_manager, ConditionManager $condition_manager, ModuleHandlerInterface $module_handler) {
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, ContextHandlerInterface $context_handler, AccountInterface $account, UuidInterface $uuid_generator, Token $token, BlockManager $block_manager, ConditionManager $condition_manager, ModuleHandlerInterface $module_handler, PageManagerHelper $page_manager_helper) {
     parent::__construct($configuration, $plugin_id, $plugin_definition, $context_handler, $account, $uuid_generator, $token, $block_manager, $condition_manager);
-
+    $this->pageManagerHelper = $page_manager_helper;
     $this->moduleHandler = $module_handler;
   }
 
@@ -88,7 +95,8 @@ class PageBlockDisplayVariant extends BlockDisplayVariant implements PluginWizar
       $container->get('token'),
       $container->get('plugin.manager.block'),
       $container->get('plugin.manager.condition'),
-      $container->get('module_handler')
+      $container->get('module_handler'),
+      $container->get('page_manager.page_manager_helper')
     );
   }
 
@@ -106,7 +114,7 @@ class PageBlockDisplayVariant extends BlockDisplayVariant implements PluginWizar
   }
 
   /**
-   * #pre_render callback for building the regions.
+   * Pre_render callback #pre_render for building the regions.
    */
   public function buildRegions(array $build) {
     $cacheability = CacheableMetadata::createFromRenderArray($build)
@@ -145,7 +153,11 @@ class PageBlockDisplayVariant extends BlockDisplayVariant implements PluginWizar
           '#block_plugin' => $block,
           '#pre_render' => [[$this, 'buildBlock']],
           '#cache' => [
-            'keys' => ['page_manager_block_display', $this->id(), 'block', $block_id],
+            'keys' => [
+              'page_manager_block_display',
+              $this->id(), 'block',
+              $block_id
+            ],
             // Each block needs cache tags of the page and the block plugin, as
             // only the page is a config entity that will trigger cache tag
             // invalidations in case of block configuration changes.
@@ -167,7 +179,7 @@ class PageBlockDisplayVariant extends BlockDisplayVariant implements PluginWizar
       }
     }
 
-    $build['#title'] = $this->renderPageTitle($this->configuration['page_title']);
+    $build['#title'] = $this->renderPageTitle($this->configuration['page_title'], $this->getContexts());
 
     $cacheability->applyTo($build);
 
@@ -175,7 +187,7 @@ class PageBlockDisplayVariant extends BlockDisplayVariant implements PluginWizar
   }
 
   /**
-   * #pre_render callback for building a block.
+   * Pre_render callback #pre_render for building a block.
    *
    * Renders the content using the provided block plugin, if there is no
    * content, aborts rendering, and makes sure the block won't be rendered.
@@ -223,8 +235,7 @@ class PageBlockDisplayVariant extends BlockDisplayVariant implements PluginWizar
     // Don't call VariantBase::buildConfigurationForm() on purpose, because it
     // adds a 'Label' field that we don't actually want to use - we store the
     // label on the page variant entity.
-    //$form = parent::buildConfigurationForm($form, $form_state);
-
+    // $form = parent::buildConfigurationForm($form, $form_state);.
     // Allow to configure the page title, even when adding a new display.
     // Default to the page label in that case.
     $form['page_title'] = [
@@ -287,36 +298,7 @@ class PageBlockDisplayVariant extends BlockDisplayVariant implements PluginWizar
    *   The page title after replacing any tokens.
    */
   protected function renderPageTitle($page_title) {
-    $data = $this->getContextAsTokenData();
-    // Token replace only escapes replacement values, ensure a consistent
-    // behavior by also escaping the input and then returning it as a Markup
-    // object to avoid double escaping.
-    // @todo: Simplify this when core provides an API for this in
-    //   https://www.drupal.org/node/2580723.
-    $title = (string) $this->token->replace(new HtmlEscapedText($page_title), $data);
-    return Markup::create($title);
-  }
-
-  /**
-   * Returns available context as token data.
-   *
-   * @return array
-   *   An array with token data values keyed by token type.
-   */
-  protected function getContextAsTokenData() {
-    $data = [];
-    foreach ($this->getContexts() as $context) {
-      // @todo Simplify this when token and typed data types are unified in
-      //   https://drupal.org/node/2163027.
-      if (strpos($context->getContextDefinition()->getDataType(), 'entity:') === 0) {
-        $token_type = substr($context->getContextDefinition()->getDataType(), 7);
-        if ($token_type == 'taxonomy_term') {
-          $token_type = 'term';
-        }
-        $data[$token_type] = $context->getContextValue();
-      }
-    }
-    return $data;
+    return $this->pageManagerHelper->getTitle($page_title, $this->getContexts());
   }
 
   /**
@@ -341,6 +323,13 @@ class PageBlockDisplayVariant extends BlockDisplayVariant implements PluginWizar
     }
 
     return $vars;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getTitle() {
+    return $this->configuration['page_title'] ?: $this->label();
   }
 
 }
