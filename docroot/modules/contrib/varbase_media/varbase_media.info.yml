@@ -2,7 +2,7 @@ name: 'Varbase Media'
 description: 'Manages type of media contents and entity browsers in the site.'
 type: module
 package: Varbase
-# version: 8.x-6.x-dev
+# version: 8.x-7.x-dev
 # core: 8.x
 # project: varbase_media
 components:
@@ -41,7 +41,7 @@ install:
   - views_bulk_edit
   - blazy
 # Information added by Drupal.org packaging script on 2019-07-06
-version: '8.x-6.13'
+version: '8.x-7.1'
 core: '8.x'
 project: 'varbase_media'
-datestamp: 1562396590
+datestamp: 1562396599

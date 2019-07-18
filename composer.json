@@ -8,7 +8,7 @@
         "drupal/search_api_solr": "^2.7",
         "oomphinc/composer-installers-extender": "~1.0",
         "vardot/varbase": "~8.6.7",
-        "vardot/varbase-updater": "1.x-dev",
+        "vardot/varbase-updater": "^1.1",
         "webflo/drupal-finder": "~1.0",
         "webmozart/path-util": "~2.0",
         "drupal/pantheon_advanced_page_cache": "^1.0",

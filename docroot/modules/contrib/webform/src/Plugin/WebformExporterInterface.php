@@ -175,12 +175,4 @@ interface WebformExporterInterface extends PluginInspectionInterface, Configurab
    */
   public function getArchiveFileName();
 
-  /**
-   * Get the number of submissions to be exported with each batch.
-   *
-   * @return int
-   *   Number of submissions to be exported with each batch.
-   */
-  public function getBatchLimit();
-
 }

@@ -4,14 +4,13 @@ namespace Drupal\webform\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
-use Drupal\Core\Render\Markup;
 use Drupal\webform\Element\WebformMessage;
 use Drupal\webform\WebformAddonsManagerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 
 /**
- * Provides route responses for Webform add-ons.
+ * Provides route responses for webform add-on.
  */
 class WebformAddonsController extends ControllerBase implements ContainerInjectionInterface {
 
@@ -53,7 +52,7 @@ class WebformAddonsController extends ControllerBase implements ContainerInjecti
   }
 
   /**
-   * Returns the Webform add-ons page.
+   * Returns the Webform extend page.
    *
    * @return array
    *   The webform submission webform.
@@ -117,9 +116,6 @@ class WebformAddonsController extends ControllerBase implements ContainerInjecti
       ];
       $projects = $this->addons->getProjects($category_name);
       foreach ($projects as $project_name => &$project) {
-        if (isset($project['logo'])) {
-          $project['title'] = Markup::create('<img src="' . $project['logo']->toString() . '" alt="' . $project['title'] . '"/>' . $project['title']);
-        }
         $project['description'] .= '<br /><small>' . $project['url']->toString() . '</small>';
 
         // Append recommended to project's description.

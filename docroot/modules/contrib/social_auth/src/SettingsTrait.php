@@ -123,8 +123,7 @@ trait SettingsTrait {
    *   Value 1 means that visitors can register new accounts without approval.
    */
   protected function getNewUserStatus() {
-    $allowed = $this->configFactory->get('user.settings')->get('register');
-    return (int) ($allowed === 'visitors');
+    return (int) $this->configFactory->get('user.settings')->get('register') == 'visitors';
   }
 
   /**
@@ -134,20 +133,26 @@ trait SettingsTrait {
    *   Post Login Path to which the user would be redirected after login.
    */
   protected function getPostLoginRedirection() {
+
     // Gets destination parameter previously stored in session.
     $destination = $this->dataHandler->get('login_destination');
-
     // If there was a destination parameter.
     if ($destination) {
       // Deletes the session key.
       $this->dataHandler->set('login_destination', NULL);
 
-      return new RedirectResponse(Url::fromUserInput($destination)->toString());
+      // Redirects to the defined destination path.
+      return new RedirectResponse(Url::fromUri('base:' . $destination)->toString());
     }
 
     $post_login = $this->configFactory->get('social_auth.settings')->get('post_login');
+    $routes = $this->routeProvider->getRoutesByNames([$post_login]);
+    if (empty($routes)) {
+      // Route does not exist so just redirect to path.
+      return new RedirectResponse(Url::fromUserInput($post_login)->toString());
+    }
 
-    return new RedirectResponse(Url::fromUserInput($post_login)->toString());
+    return new RedirectResponse(Url::fromUri('base:' . $destination)->toString());
   }
 
 }

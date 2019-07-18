@@ -49,7 +49,6 @@ function webform_drush_command() {
       ),
       'aliases' => array(
         'wfx',
-        'webform:export',
       ),
     ),
     'webform-import' => array(
@@ -70,7 +69,6 @@ function webform_drush_command() {
       ),
       'aliases' => array(
         'wfi',
-        'webform:import',
       ),
     ),
     'webform-purge' => array(
@@ -94,7 +92,6 @@ function webform_drush_command() {
       ),
       'aliases' => array(
         'wfp',
-        'webform:purge',
       ),
     ),
     'webform-tidy' => array(
@@ -115,7 +112,6 @@ function webform_drush_command() {
       ),
       'aliases' => array(
         'wft',
-        'webform:tidy',
       ),
     ),
     'webform-libraries-status' => array(
@@ -129,7 +125,6 @@ function webform_drush_command() {
       ),
       'aliases' => array(
         'wfls',
-        'webform:libraries:status',
       ),
     ),
     'webform-libraries-make' => array(
@@ -143,7 +138,6 @@ function webform_drush_command() {
       ),
       'aliases' => array(
         'wflm',
-        'webform:libraries:make',
       ),
     ),
     'webform-libraries-composer' => array(
@@ -160,7 +154,6 @@ function webform_drush_command() {
       ),
       'aliases' => array(
         'wflc',
-        'webform:libraries:composer',
       ),
     ),
     'webform-libraries-download' => array(
@@ -174,7 +167,6 @@ function webform_drush_command() {
       ),
       'aliases' => array(
         'wfld',
-        'webform:libraries:download',
       ),
     ),
     'webform-libraries-remove' => array(
@@ -188,7 +180,6 @@ function webform_drush_command() {
       ),
       'aliases' => array(
         'wflr',
-        'webform:libraries:remove',
       ),
     ),
     'webform-generate' => array(
@@ -205,7 +196,6 @@ function webform_drush_command() {
       ),
       'aliases' => array(
         'wfg',
-        'webform:generate',
       ),
     ),
     'webform-repair' => array(
@@ -219,7 +209,6 @@ function webform_drush_command() {
       ),
       'aliases' => array(
         'wfr',
-        'webform:repair',
       ),
     ),
     'webform-docs' => array(
@@ -233,7 +222,6 @@ function webform_drush_command() {
       ),
       'aliases' => array(
         'wfd',
-        'webform:docs',
       ),
     ),
     'webform-composer-update' => array(
@@ -250,7 +238,6 @@ function webform_drush_command() {
       ),
       'aliases' => array(
         'wfcu',
-        'webform:composer:update',
       ),
     ),
     'webform-generate-commands' => array(
@@ -264,7 +251,6 @@ function webform_drush_command() {
       ),
       'aliases' => array(
         'wfgc',
-        'webform:generate:commands',
       ),
     ),
   );

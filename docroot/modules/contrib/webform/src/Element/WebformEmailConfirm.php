@@ -67,9 +67,7 @@ class WebformEmailConfirm extends FormElement {
       '#size',
       '#maxlength',
       '#pattern',
-      '#pattern_error',
       '#required',
-      '#required_error',
       '#placeholder',
       '#attributes',
     ];

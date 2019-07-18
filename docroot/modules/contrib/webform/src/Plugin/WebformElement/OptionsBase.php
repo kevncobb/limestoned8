@@ -9,7 +9,6 @@ use Drupal\webform\Utility\WebformElementHelper;
 use Drupal\webform\Utility\WebformOptionsHelper;
 use Drupal\webform\Plugin\WebformElementBase;
 use Drupal\webform\Plugin\WebformElementEntityReferenceInterface;
-use Drupal\webform\Plugin\WebformElementOtherInterface;
 use Drupal\webform\WebformSubmissionConditionsValidator;
 use Drupal\webform\WebformSubmissionInterface;
 
@@ -48,7 +47,6 @@ abstract class OptionsBase extends WebformElementBase {
     if (preg_match('/(tableselect|tableselect_sort|table_sort)$/', $this->getPluginId())) {
       unset($properties['title_display']);
       unset($properties['help']);
-      unset($properties['help_display']);
       unset($properties['description']);
       unset($properties['description_display']);
     }
@@ -451,7 +449,7 @@ abstract class OptionsBase extends WebformElementBase {
         $header[] = $title;
       }
       // Add 'Other' option to header.
-      if ($this instanceof WebformElementOtherInterface) {
+      if ($this instanceof WebformOtherInterface) {
         $header[] = ($options['options_item_format'] == 'key') ? 'other' : $this->t('Other');
       }
       return $this->prefixExportHeader($header, $element, $options);
@@ -493,7 +491,7 @@ abstract class OptionsBase extends WebformElementBase {
         }
       }
       // Add 'Other' option to record.
-      if ($this instanceof WebformElementOtherInterface) {
+      if ($this instanceof WebformOtherInterface) {
         $record[] = (is_array($value)) ? implode($export_options['multiple_delimiter'], $value) : $value;
       }
       return $record;
@@ -673,7 +671,6 @@ abstract class OptionsBase extends WebformElementBase {
         'two_columns' => $this->t('Two columns'),
         'three_columns' => $this->t('Three columns'),
         'side_by_side' => $this->t('Side by side'),
-        'buttons' => $this->t('Buttons'),
       ],
     ];
     $form['options']['options_display_container']['options_description_display'] = [

@@ -123,8 +123,7 @@
             "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/c3js/c3/zipball/2b7f8d96f8215f949061ba14253904b0881f0ebb",
-                "reference": "2b7f8d96f8215f949061ba14253904b0881f0ebb",
-                "shasum": null
+                "reference": "2b7f8d96f8215f949061ba14253904b0881f0ebb"
             },
             "require": {
                 "bower-asset/d3": "~3.5.0"
@@ -145,8 +144,7 @@
             "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/chartjs/Chart.js/zipball/924a66bae23f7e938531024951f7251d46785473",
-                "reference": "924a66bae23f7e938531024951f7251d46785473",
-                "shasum": null
+                "reference": "924a66bae23f7e938531024951f7251d46785473"
             },
             "type": "bower-asset",
             "license": [
@@ -164,8 +162,7 @@
             "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/mbostock-bower/d3-bower/zipball/7a826d211d5067867debf9ce24a9987e0cb02b6e",
-                "reference": "7a826d211d5067867debf9ce24a9987e0cb02b6e",
-                "shasum": null
+                "reference": "7a826d211d5067867debf9ce24a9987e0cb02b6e"
             },
             "type": "bower-asset",
             "license": [
@@ -7213,7 +7210,8 @@
                     }
                 },
                 "patches_applied": {
-                    "Issue #2924774: Let Editors add/delete/clone paragraphs When [Editing a translation]": "https://www.drupal.org/files/issues/2018-06-03/2924774-29.patch"
+                    "Issue #2924774: Let Editors add/delete/clone paragraphs When [Editing a translation]": "https://www.drupal.org/files/issues/2018-06-03/2924774-29.patch",
+                    "Issue #2907094: Make paragraphs module working with field_group version 3.x with support for the field_layout module": "https://www.drupal.org/files/issues/2907094_7_field_group_support.patch"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -13144,9 +13142,7 @@
             "version": "1.4.5",
             "dist": {
                 "type": "tar",
-                "url": "https://registry.npmjs.org/ace-builds/-/ace-builds-1.4.5.tgz",
-                "reference": null,
-                "shasum": null
+                "url": "https://registry.npmjs.org/ace-builds/-/ace-builds-1.4.5.tgz"
             },
             "type": "npm-asset",
             "license": [
@@ -13158,9 +13154,7 @@
             "version": "1.8.2",
             "dist": {
                 "type": "tar",
-                "url": "https://registry.npmjs.org/blazy/-/blazy-1.8.2.tgz",
-                "reference": null,
-                "shasum": null
+                "url": "https://registry.npmjs.org/blazy/-/blazy-1.8.2.tgz"
             },
             "type": "npm-asset",
             "license": [
@@ -13172,9 +13166,7 @@
             "version": "2.0.2",
             "dist": {
                 "type": "tar",
-                "url": "https://registry.npmjs.org/desandro-matches-selector/-/desandro-matches-selector-2.0.2.tgz",
-                "reference": null,
-                "shasum": null
+                "url": "https://registry.npmjs.org/desandro-matches-selector/-/desandro-matches-selector-2.0.2.tgz"
             },
             "type": "npm-asset",
             "license": [
@@ -13186,9 +13178,7 @@
             "version": "4.3.0",
             "dist": {
                 "type": "tar",
-                "url": "https://registry.npmjs.org/dropzone/-/dropzone-4.3.0.tgz",
-                "reference": null,
-                "shasum": null
+                "url": "https://registry.npmjs.org/dropzone/-/dropzone-4.3.0.tgz"
             },
             "type": "npm-asset"
         },
@@ -13197,9 +13187,7 @@
             "version": "1.1.1",
             "dist": {
                 "type": "tar",
-                "url": "https://registry.npmjs.org/ev-emitter/-/ev-emitter-1.1.1.tgz",
-                "reference": null,
-                "shasum": null
+                "url": "https://registry.npmjs.org/ev-emitter/-/ev-emitter-1.1.1.tgz"
             },
             "type": "npm-asset",
             "license": [
@@ -13211,9 +13199,7 @@
             "version": "2.0.7",
             "dist": {
                 "type": "tar",
-                "url": "https://registry.npmjs.org/fizzy-ui-utils/-/fizzy-ui-utils-2.0.7.tgz",
-                "reference": null,
-                "shasum": null
+                "url": "https://registry.npmjs.org/fizzy-ui-utils/-/fizzy-ui-utils-2.0.7.tgz"
             },
             "require": {
                 "npm-asset/desandro-matches-selector": ">=2.0.0,<3.0.0"
@@ -13228,9 +13214,7 @@
             "version": "2.0.3",
             "dist": {
                 "type": "tar",
-                "url": "https://registry.npmjs.org/get-size/-/get-size-2.0.3.tgz",
-                "reference": null,
-                "shasum": null
+                "url": "https://registry.npmjs.org/get-size/-/get-size-2.0.3.tgz"
             },
             "type": "npm-asset",
             "license": [
@@ -13242,9 +13226,7 @@
             "version": "4.1.4",
             "dist": {
                 "type": "tar",
-                "url": "https://registry.npmjs.org/imagesloaded/-/imagesloaded-4.1.4.tgz",
-                "reference": null,
-                "shasum": null
+                "url": "https://registry.npmjs.org/imagesloaded/-/imagesloaded-4.1.4.tgz"
             },
             "require": {
                 "npm-asset/ev-emitter": ">=1.0.0,<2.0.0"
@@ -13259,9 +13241,7 @@
             "version": "4.2.2",
             "dist": {
                 "type": "tar",
-                "url": "https://registry.npmjs.org/masonry-layout/-/masonry-layout-4.2.2.tgz",
-                "reference": null,
-                "shasum": null
+                "url": "https://registry.npmjs.org/masonry-layout/-/masonry-layout-4.2.2.tgz"
             },
             "require": {
                 "npm-asset/get-size": ">=2.0.2,<3.0.0",
@@ -13277,9 +13257,7 @@
             "version": "2.1.1",
             "dist": {
                 "type": "tar",
-                "url": "https://registry.npmjs.org/outlayer/-/outlayer-2.1.1.tgz",
-                "reference": null,
-                "shasum": null
+                "url": "https://registry.npmjs.org/outlayer/-/outlayer-2.1.1.tgz"
             },
             "require": {
                 "npm-asset/ev-emitter": ">=1.0.0,<2.0.0",
@@ -13296,9 +13274,7 @@
             "version": "1.8.1",
             "dist": {
                 "type": "tar",
-                "url": "https://registry.npmjs.org/slick-carousel/-/slick-carousel-1.8.1.tgz",
-                "reference": null,
-                "shasum": null
+                "url": "https://registry.npmjs.org/slick-carousel/-/slick-carousel-1.8.1.tgz"
             },
             "type": "npm-asset",
             "license": [

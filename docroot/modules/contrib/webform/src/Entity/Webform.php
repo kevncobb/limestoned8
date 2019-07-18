@@ -14,7 +14,6 @@ use Drupal\user\UserInterface;
 use Drupal\webform\Plugin\WebformElement\WebformActions;
 use Drupal\webform\Plugin\WebformElement\WebformWizardPage;
 use Drupal\webform\Plugin\WebformElementAttachmentInterface;
-use Drupal\webform\Plugin\WebformElementWizardPageInterface;
 use Drupal\webform\Plugin\WebformHandlerMessageInterface;
 use Drupal\webform\Utility\WebformElementHelper;
 use Drupal\webform\Utility\WebformReflectionHelper;
@@ -925,13 +924,9 @@ class Webform extends ConfigEntityBundleBase implements WebformInterface {
     return [
       'ajax' => FALSE,
       'ajax_scroll_top' => 'form',
-      'ajax_progress_type' => '',
-      'ajax_effect' => '',
-      'ajax_speed' => NULL,
       'page' => TRUE,
       'page_submit_path' => '',
       'page_confirm_path' => '',
-      'page_admin_theme' => FALSE,
       'form_title' => 'both',
       'form_submit_once' => FALSE,
       'form_exception_message' => '',
@@ -1003,8 +998,6 @@ class Webform extends ConfigEntityBundleBase implements WebformInterface {
       'draft_auto_save' => FALSE,
       'draft_saved_message' => '',
       'draft_loaded_message' => '',
-      'draft_pending_single_message' => '',
-      'draft_pending_multiple_message' => '',
       'confirmation_type' => WebformInterface::CONFIRMATION_PAGE,
       'confirmation_title' => '',
       'confirmation_message' => '',
@@ -1015,7 +1008,6 @@ class Webform extends ConfigEntityBundleBase implements WebformInterface {
       'confirmation_back_attributes' => [],
       'confirmation_exclude_query' => FALSE,
       'confirmation_exclude_token' => FALSE,
-      'confirmation_update' => FALSE,
       'limit_total' => NULL,
       'limit_total_interval' => NULL,
       'limit_total_message' => '',
@@ -1176,25 +1168,14 @@ class Webform extends ConfigEntityBundleBase implements WebformInterface {
   /**
    * {@inheritdoc}
    */
-  public function getElementsSelectorOptions(array $options = []) {
+  public function getElementsSelectorOptions() {
     /** @var \Drupal\webform\Plugin\WebformElementManagerInterface $element_manager */
     $element_manager = \Drupal::service('plugin.manager.webform.element');
-
-    // The value element is excluded because it is not available
-    // to the #states API. The value element is available to WebformHandles.
-    // @see \Drupal\webform\Form\WebformHandlerFormBase
-    $options += ['excluded_elements' => ['value']];
 
     $selectors = [];
     $elements = $this->getElementsInitializedAndFlattened();
     foreach ($elements as $element) {
       $element_plugin = $element_manager->getElementInstance($element);
-
-      // Check excluded elements.
-      if ($options['excluded_elements'] && in_array($element_plugin->getPluginId(), $options['excluded_elements'])) {
-        continue;
-      }
-
       $element_selectors = $element_plugin->getElementSelectorOptions($element);
       foreach ($element_selectors as $element_selector_key => $element_selector_value) {
         // Suffix duplicate selector optgroups with empty characters.
@@ -1298,7 +1279,7 @@ class Webform extends ConfigEntityBundleBase implements WebformInterface {
       $this->elementsDecoded = $elements;
     }
     catch (\Exception $exception) {
-      $link = $this->toLink($this->t('Edit'), 'edit-form')->toString();
+      $link = $this->link($this->t('Edit'), 'edit-form');
       \Drupal::logger('webform')
         ->notice('%title elements are not valid. @message', [
           '%title' => $this->label(),
@@ -1377,8 +1358,7 @@ class Webform extends ConfigEntityBundleBase implements WebformInterface {
       // Copy only the element properties to decoded and flattened elements.
       $this->elementsDecodedAndFlattened[$key] = WebformElementHelper::getProperties($element);
 
-      // Set webform, id, key, parent_key, depth, and parent children.
-      $element['#webform'] = $this->id();
+      // Set id, key, parent_key, depth, and parent children.
       $element['#webform_id'] = $this->id() . '--' . $key;
       $element['#webform_key'] = $key;
       $element['#webform_parent_key'] = $parent;
@@ -1409,6 +1389,11 @@ class Webform extends ConfigEntityBundleBase implements WebformInterface {
         '#title' => NULL,
         '#admin_title' => NULL,
       ];
+
+      // If #private set #access.
+      if (!empty($element['#private'])) {
+        $element['#access'] = $this->access('submission_view_any');
+      }
 
       // Set #markup type to 'webform_markup' to trigger #display_on behavior.
       // @see https://www.drupal.org/node/2036237
@@ -1665,6 +1650,8 @@ class Webform extends ConfigEntityBundleBase implements WebformInterface {
 
     /** @var \Drupal\webform\Plugin\WebformElementManagerInterface $element_manager */
     $element_manager = \Drupal::service('plugin.manager.webform.element');
+    /** @var \Drupal\webform\Plugin\WebformElementInterface $element_plugin */
+    $element_plugin = $element_manager->createInstance('webform_wizard_page');
 
     $wizard_properties = [
       '#title' => '#title',
@@ -1679,13 +1666,7 @@ class Webform extends ConfigEntityBundleBase implements WebformInterface {
     $elements = $this->getElementsInitialized();
     if (is_array($elements) && !in_array($operation, ['edit_all', 'api'])) {
       foreach ($elements as $key => $element) {
-        if (!isset($element['#type'])) {
-          continue;
-        }
-
-        /** @var \Drupal\webform\Plugin\WebformElementInterface $element_plugin */
-        $element_plugin = $element_manager->createInstance($element['#type']);
-        if (!($element_plugin instanceof WebformElementWizardPageInterface)) {
+        if (!isset($element['#type']) || $element['#type'] != 'webform_wizard_page') {
           continue;
         }
 

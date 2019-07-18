@@ -38,9 +38,8 @@ class WebformLibrariesTest extends WebformTestBase {
 
     $this->drupalLogin($this->rootUser);
 
-    // Enable choices, jquery.chosen, and jquery.icheck.
+    // Enable jquery.chosen and jquery.icheck.
     $edit = [
-      'excluded_libraries[choices]' => TRUE,
       'excluded_libraries[jquery.chosen]' => TRUE,
       'excluded_libraries[jquery.icheck]' => TRUE,
     ];
@@ -49,7 +48,6 @@ class WebformLibrariesTest extends WebformTestBase {
     // Check optional libraries are included.
     $this->drupalGet('/webform/test_libraries_optional');
     $this->assertRaw('/select2.min.js');
-    $this->assertRaw('/choices.min.js');
     $this->assertRaw('/chosen.jquery.min.js');
     $this->assertRaw('/textcounter.min.js');
     $this->assertRaw('/intlTelInput.min.js');
@@ -70,7 +68,6 @@ class WebformLibrariesTest extends WebformTestBase {
       'excluded_libraries[ckeditor.image]' => FALSE,
       'excluded_libraries[ckeditor.link]' => FALSE,
       'excluded_libraries[codemirror]' => FALSE,
-      'excluded_libraries[choices]' => FALSE,
       'excluded_libraries[jquery.icheck]' => FALSE,
       'excluded_libraries[jquery.inputmask]' => FALSE,
       'excluded_libraries[jquery.intl-tel-input]' => FALSE,
@@ -84,7 +81,6 @@ class WebformLibrariesTest extends WebformTestBase {
     // Check optional libraries are excluded.
     $this->drupalGet('/webform/test_libraries_optional');
     $this->assertNoRaw('/select2.min.js');
-    $this->assertNoRaw('/choices.min.js');
     $this->assertNoRaw('/chosen.jquery.min.js');
     $this->assertNoRaw('/textcounter.min.js');
     $this->assertNoRaw('/intlTelInput.min.js');
@@ -108,7 +104,6 @@ class WebformLibrariesTest extends WebformTestBase {
     $this->assertNoText('jQuery: iCheck library ');
     $this->assertNoText('jQuery: Input Mask library ');
     $this->assertNoText('jQuery: Select2 library ');
-    $this->assertNoText('jQuery: Choices library ');
     $this->assertNoText('jQuery: Chosen library ');
     $this->assertNoText('jQuery: Timepicker library ');
     $this->assertNoText('jQuery: Text Counter library ');
@@ -135,7 +130,7 @@ class WebformLibrariesTest extends WebformTestBase {
     $this->assertNoText('Signature Pad library');
     */
 
-    // Check that choices, chosen, and select2 using webform's CDN URLs.
+    // Check that chosen and select2 using webform's CDN URLs.
     $edit = [
       'excluded_libraries[jquery.select2]' => TRUE,
       'excluded_libraries[jquery.chosen]' => TRUE,

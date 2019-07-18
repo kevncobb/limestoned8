@@ -68,13 +68,8 @@ class HTMLPurifier_Lexer_DOMLex extends HTMLPurifier_Lexer
         $doc = new DOMDocument();
         $doc->encoding = 'UTF-8'; // theoretically, the above has this covered
 
-        $options = 0;
-        if ($config->get('Core.AllowParseManyTags') && defined('LIBXML_PARSEHUGE')) {
-            $options |= LIBXML_PARSEHUGE;
-        }
-
         set_error_handler(array($this, 'muteErrorHandler'));
-        $doc->loadHTML($html, $options);
+        $doc->loadHTML($html);
         restore_error_handler();
 
         $body = $doc->getElementsByTagName('html')->item(0)-> // <html>
@@ -138,11 +133,11 @@ class HTMLPurifier_Lexer_DOMLex extends HTMLPurifier_Lexer
      */
     protected function getTagName($node)
     {
-        if (isset($node->tagName)) {
+        if (property_exists($node, 'tagName')) {
             return $node->tagName;
-        } else if (isset($node->nodeName)) {
+        } else if (property_exists($node, 'nodeName')) {
             return $node->nodeName;
-        } else if (isset($node->localName)) {
+        } else if (property_exists($node, 'localName')) {
             return $node->localName;
         }
         return null;
@@ -155,11 +150,11 @@ class HTMLPurifier_Lexer_DOMLex extends HTMLPurifier_Lexer
      */
     protected function getData($node)
     {
-        if (isset($node->data)) {
+        if (property_exists($node, 'data')) {
             return $node->data;
-        } else if (isset($node->nodeValue)) {
+        } else if (property_exists($node, 'nodeValue')) {
             return $node->nodeValue;
-        } else if (isset($node->textContent)) {
+        } else if (property_exists($node, 'textContent')) {
             return $node->textContent;
         }
         return null;

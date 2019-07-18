@@ -7,6 +7,7 @@ use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Routing\RouteProviderInterface;
+use Drupal\Core\Path\PathValidatorInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -21,16 +22,26 @@ class SocialAuthSettingsForm extends ConfigFormBase {
   protected $routeProvider;
 
   /**
+   * The path validator.
+   *
+   * @var \Drupal\Core\Path\PathValidatorInterface
+   */
+  protected $pathValidator;
+
+  /**
    * Constructor.
    *
    * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
    *   The configuration factory.
    * @param \Drupal\Core\Routing\RouteProviderInterface $route_provider
    *   Used to check if route exists.
+   * @param \Drupal\Core\Path\PathValidatorInterface $path_validator
+   *   Used to check if path is valid and exists.
    */
-  public function __construct(ConfigFactoryInterface $config_factory, RouteProviderInterface $route_provider) {
+  public function __construct(ConfigFactoryInterface $config_factory, RouteProviderInterface $route_provider, PathValidatorInterface $path_validator) {
     parent::__construct($config_factory);
     $this->routeProvider = $route_provider;
+    $this->pathValidator = $path_validator;
   }
 
   /**
@@ -39,7 +50,8 @@ class SocialAuthSettingsForm extends ConfigFormBase {
   public static function create(ContainerInterface $container) {
     return new static(
       $container->get('config.factory'),
-      $container->get('router.route_provider')
+      $container->get('router.route_provider'),
+      $container->get('path.validator')
     );
   }
 
@@ -75,8 +87,8 @@ class SocialAuthSettingsForm extends ConfigFormBase {
     $form['social_auth']['post_login'] = [
       '#type' => 'textfield',
       '#required' => TRUE,
-      '#title' => $this->t('Post login path'),
-      '#description' => $this->t('Path where the user should be redirected after successful login. It must begin with <em>/, #</em> or <em>?</em>.'),
+      '#title' => $this->t('Post login path or route'),
+      '#description' => $this->t('Drupal path or route where the user should be redirected after successful login. If path, it must begin with <em>/, #</em> or <em>?</em>. Use <em>&lt;front&gt;</em> to redirect to front page.'),
       '#default_value' => $social_auth_config->get('post_login'),
     ];
 
@@ -124,6 +136,27 @@ class SocialAuthSettingsForm extends ConfigFormBase {
     }
 
     return parent::buildForm($form, $form_state);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function validateForm(array &$form, FormStateInterface $form_state) {
+    $values = $form_state->getValues();
+    $post_login = $values['post_login'];
+    $routes = $this->routeProvider
+      ->getRoutesByNames([$post_login]);
+
+    if (empty($routes)) {
+      // If it is not a route and value does not start with '/', '#', or '?'.
+      if (!in_array($post_login[0], ["/", "#", "?"])) {
+        $form_state->setErrorByName('post_login', $this->t("The route doesn't exist. If path, it must begin with <em>/, #</em> or <em>?</em>"));
+      }
+      // If path is valid, check if it exists.
+      if (!$this->pathValidator->getUrlIfValidWithoutAccessCheck($post_login)) {
+        $form_state->setErrorByName('post_login', $this->t("The path or route you entered is not valid."));
+      }
+    }
   }
 
   /**

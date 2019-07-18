@@ -318,8 +318,7 @@ abstract class WebformUiElementTypeFormBase extends FormBase {
       $webform_element->initialize($element);
       $webform_element->prepare($element, $this->webformSubmission);
 
-      if ($webform_element->hasProperty('title_display')
-        && $webform_element->getDefaultProperty('title_display') !== 'after') {
+      if ($webform_element->hasProperty('title_display')) {
         $element['#title_display'] = 'invisible';
       }
     }

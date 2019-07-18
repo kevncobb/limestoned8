@@ -1,6 +1,6 @@
 name: Views Bootstrap
 type: module
-description: 'Views Twitter Bootstrap Components.'
+description: Views Bootstrap v4
 package: Views
 # core: 8.x
 dependencies:
@@ -8,8 +8,8 @@ dependencies:
 libraries:
   - views_bootstrap/components
 
-# Information added by Drupal.org packaging script on 2018-09-19
-version: '8.x-3.1'
+# Information added by Drupal.org packaging script on 2019-01-30
+version: '8.x-4.1'
 core: '8.x'
 project: 'views_bootstrap'
-datestamp: 1537360698
+datestamp: 1548889091

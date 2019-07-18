@@ -45,6 +45,26 @@ function template_preprocess_views_bootstrap_accordion(array &$vars) {
 }
 
 /**
+ * Prepares variables for views cards templates.
+ *
+ * Default template: views-bootstrap-cards.html.twig.
+ *
+ * @param array $vars
+ *   An associative array containing:
+ *   - view: A ViewExecutable object.
+ *   - rows: The raw row data.
+ */
+function template_preprocess_views_bootstrap_cards(array &$vars) {
+  $view = $vars['view'];
+  $vars['id'] = ViewsBootstrap::getUniqueId($view);
+  foreach ($vars['rows'] as $id => $row) {
+    $vars['rows'][$id] = [];
+    $vars['rows'][$id]['content'] = $row;
+    $vars['rows'][$id]['title'] = $vars['view']->style_plugin->getField($id, $options['title_field']);
+  }
+}
+
+/**
  * Prepares variables for views carousel template.
  *
  * Default template: views-bootstrap-carousel.html.twig.
@@ -66,6 +86,9 @@ function template_preprocess_views_bootstrap_carousel(array &$vars) {
   $vars['indicators'] = $view->style_plugin->options['indicators'];
   $vars['pause'] = $view->style_plugin->options['pause'] ? 'hover' : FALSE;
   $vars['wrap'] = $view->style_plugin->options['wrap'];
+  $vars['effect'] = $view->style_plugin->options['effect'];
+  $vars['use_caption'] = $view->style_plugin->options['use_caption'];
+  $vars['ride'] = $view->style_plugin->options['ride'];
 
   // Carousel rows.
   $image = $view->style_plugin->options['image'];

@@ -45,7 +45,7 @@ class VarbaseUpdateHelperCommands extends DrushCommands {
    * @param string $module
    *   Module name.
    * @param string $update_hook
-   *   Update Hook.
+   *   Update hook.
    * @param array $options
    *   Options.
    *

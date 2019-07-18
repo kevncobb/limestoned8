@@ -217,7 +217,6 @@ class WebformEntityTest extends KernelTestBase {
       'root' => [
         '#type' => 'textfield',
         '#title' => 'root',
-        '#webform' => 'webform_test',
         '#webform_id' => 'webform_test--root',
         '#webform_key' => 'root',
         '#webform_parent_key' => '',
@@ -232,7 +231,6 @@ class WebformEntityTest extends KernelTestBase {
       'container' => [
         '#type' => 'container',
         '#title' => 'container',
-        '#webform' => 'webform_test',
         '#webform_id' => 'webform_test--container',
         '#webform_key' => 'container',
         '#webform_parent_key' => '',
@@ -247,7 +245,6 @@ class WebformEntityTest extends KernelTestBase {
       'child' => [
         '#type' => 'textfield',
         '#title' => 'child',
-        '#webform' => 'webform_test',
         '#webform_id' => 'webform_test--child',
         '#webform_key' => 'child',
         '#webform_parent_key' => 'container',

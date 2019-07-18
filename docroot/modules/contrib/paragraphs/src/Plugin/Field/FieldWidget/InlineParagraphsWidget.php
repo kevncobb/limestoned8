@@ -643,7 +643,7 @@ class InlineParagraphsWidget extends WidgetBase {
         ];
 
         field_group_attach_groups($element['subform'], $context);
-        $element['subform']['#pre_render'][] = 'field_group_form_pre_render';
+        $element['subform']['#process'][] = 'field_group_form_process';
       }
 
       if ($item_mode == 'edit') {

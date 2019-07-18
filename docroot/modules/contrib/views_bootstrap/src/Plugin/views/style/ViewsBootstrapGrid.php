@@ -129,7 +129,7 @@ class ViewsBootstrapGrid extends StylePluginBase {
 
     $options['alignment'] = ['default' => 'horizontal'];
     $options['columns'] = ['default' => '4'];
-    $options['col_xs'] = ['default' => 'col-xs-12'];
+    $options['col_xs'] = ['default' => 'col-12'];
     $options['col_sm'] = ['default' => 'col-sm-12'];
     $options['col_md'] = ['default' => 'col-md-12'];
     $options['col_lg'] = ['default' => 'col-lg-12'];
@@ -153,6 +153,7 @@ class ViewsBootstrapGrid extends StylePluginBase {
    * {@inheritdoc}
    */
   public function buildOptionsForm(&$form, FormStateInterface $form_state) {
+    \Drupal::messenger()->addMessage(t('See <strong>Bootstrap Grid</strong> for how classes work: <a href="https://getbootstrap.com/docs/4.2/layout/grid/">https://getbootstrap.com/docs/4.2/layout/grid/</a>'),'warning');
     parent::buildOptionsForm($form, $form_state);
 
     $form['alignment'] = [
@@ -167,37 +168,35 @@ class ViewsBootstrapGrid extends StylePluginBase {
       '#default_value' => $this->options['alignment'],
     ];
 
-    $form['columns'] = [
-      '#type' => 'select',
-      '#title' => $this->t('Number of columns per row'),
-      '#required' => TRUE,
-      '#default_value' => isset($this->options['columns']) ? $this->options['columns'] : NULL,
-      '#options' => [
-        1 => 1,
-        2 => 2,
-        3 => 3,
-        4 => 4,
-        6 => 6,
-        12 => 12,
-        999 => $this->t('All'),
-      ],
-    ];
-
     foreach (['xs', 'sm', 'md', 'lg'] as $size) {
       $form["col_${size}"] = [
         '#type' => 'select',
         '#title' => $this->t("Number of columns (col-${size})"),
         '#required' => TRUE,
         '#default_value' => isset($this->options["col_${size}"]) ? $this->options["col_${size}"] : NULL,
-        '#options' => [
+      ];
+
+      $form["col_${size}}"]['#description'] = $this->t("This adds col-${size} to the div.");
+      if ($size == 'xs') {
+        $form["col_${size}"]['#options'] = [
+          "col-12" => 1,
+          "col-6" => 2,
+          "col-4" => 3,
+          "col-3" => 4,
+          "col-2" => 6,
+          "col-1" => 12,
+        ];
+      }
+      else {
+        $form["col_${size}"]['#options'] = [
           "col-${size}-12" => 1,
           "col-${size}-6" => 2,
           "col-${size}-4" => 3,
           "col-${size}-3" => 4,
           "col-${size}-2" => 6,
           "col-${size}-1" => 12,
-        ],
-      ];
+        ];
+      }
     }
   }
 

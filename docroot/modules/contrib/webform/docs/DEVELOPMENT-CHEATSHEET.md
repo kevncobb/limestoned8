@@ -69,10 +69,6 @@ echo 'true' > webform.features.yml
 
 echo 'true' > modules/webform_attachment/webform_attachment.features.yml
 echo 'true' > modules/webform_attachment/tests/modules/webform_attachment_test/webform_attachment_test.features.yml
-echo 'true' > modules/webform_entity_print/webform_entity_print.features.yml
-echo 'true' > modules/webform_entity_print/tests/modules/webform_entity_print_test/webform_entity_print_test.features.yml
-echo 'true' > modules/webform_entity_print_attachment/webform_entity_print_attachment.features.yml
-echo 'true' > modules/webform_entity_print_attachment/tests/modules/webform_entity_print_attachment_test/webform_entity_print_attachment_test.features.yml
 
 echo 'true' > modules/webform_examples/webform_examples.features.yml
 echo 'true' > modules/webform_examples_accessibility/webform_examples_accessibility.features.yml
@@ -125,8 +121,6 @@ echo 'true' > tests/modules/webform_test_wizard_custom/webform_test_wizard_custo
 # Make sure all modules that are going to be exported are enabled
 drush en -y webform\
   webform_attachment\
-  webform_entity_print\
-  webform_entity_print_attachment\
   webform_demo_application_evaluation\
   webform_demo_event_registration\
   webform_demo_region_contact\
@@ -151,8 +145,6 @@ drush en -y webform\
   webform_test_translation\
   webform_test_views\
   webform_attachment_test\
-  webform_entity_print_test\  
-  webform_entity_print_attachment_test\  
   webform_image_select_test\
   webform_node_test_multiple\
   webform_node_test_translation\
@@ -166,8 +158,6 @@ drush features-diff webform_test
 # Export webform configuration from your site.
 drush features-export -y webform
 drush features-export -y webform_attachment
-drush features-export -y webform_entity_print
-drush features-export -y webform_entity_print_attachment
 drush features-export -y webform_demo_application_evaluation
 drush features-export -y webform_demo_event_registration
 drush features-export -y webform_demo_region_contact
@@ -194,8 +184,6 @@ drush features-export -y webform_test_translation
 drush features-export -y webform_test_views
 drush features-export -y webform_test_paragraphs
 drush features-export -y webform_attachment_test
-drush features-export -y webform_entity_print_test
-drush features-export -y webform_entity_print_attachment_test
 drush features-export -y webform_image_select_test
 drush features-export -y webform_node_test_multiple
 drush features-export -y webform_node_test_translation
@@ -208,8 +196,6 @@ git checkout -- *.info.yml
 # Tidy webform configuration from your site.
 drush webform:tidy -y --dependencies webform
 drush webform:tidy -y --dependencies webform_attachment
-drush webform:tidy -y --dependencies webform_entity_print
-drush webform:tidy -y --dependencies webform_entity_print_attachment
 drush webform:tidy -y --dependencies webform_demo_application_evaluation
 drush webform:tidy -y --dependencies webform_demo_event_registration
 drush webform:tidy -y --dependencies webform_demo_region_contact
@@ -236,8 +222,6 @@ drush webform:tidy -y --dependencies webform_test_submissions
 drush webform:tidy -y --dependencies webform_test_translation
 drush webform:tidy -y --dependencies webform_test_views
 drush webform:tidy -y --dependencies webform_attachment_test
-drush webform:tidy -y --dependencies webform_entity_print_test
-drush webform:tidy -y --dependencies webform_entity_print_attachment_test
 drush webform:tidy -y --dependencies webform_image_select_test
 drush webform:tidy -y --dependencies webform_node_test_multiple
 drush webform:tidy -y --dependencies webform_node_test_translation
@@ -247,8 +231,6 @@ drush webform:tidy -y --dependencies webform_submission_export_import_test
 # Re-import all webform configuration into your site.
 drush features-import -y webform
 drush features-import -y webform_attachment
-drush features-import -y webform_entity_print
-drush features-import -y webform_entity_print_attachment
 drush features-import -y webform_demo_application_evaluation
 drush features-import -y webform_demo_event_registration
 drush features-import -y webform_demo_region_contact
@@ -258,7 +240,6 @@ drush features-import -y webform_example_element
 drush features-import -y webform_example_composite
 drush features-import -y webform_example_handler
 drush features-import -y webform_example_remote_post
-drush features-import -y webform_entity_print
 drush features-import -y webform_node
 drush features-import -y webform_image_select
 drush features-import -y webform_submission_export_import
@@ -276,8 +257,6 @@ drush features-import -y webform_test_submissions
 drush features-import -y webform_test_translation
 drush features-import -y webform_test_views
 drush features-import -y webform_attachment_test
-drush features-import -y webform_entity_print_test
-drush features-import -y webform_entity_print_attachment_test
 drush features-import -y webform_image_select_test
 drush features-import -y webform_node_test_multiple
 drush features-import -y webform_node_test_translation

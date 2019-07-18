@@ -45,7 +45,6 @@ class SchemaEventTest extends SchemaMetatagTagsTestBase {
     'schema_event_start_date' => 'SchemaEventStartDate',
     'schema_event_type' => 'SchemaEventType',
     'schema_event_url' => 'SchemaEventUrl',
-    'schema_event_is_accessible_for_free' => 'SchemaEventIsAccessibleForFree',
   ];
 
 }

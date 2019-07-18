@@ -54,8 +54,9 @@ class WebformEmailConfirm extends Email {
   public function form(array $form, FormStateInterface $form_state) {
     $form = parent::form($form, $form_state);
     $form['email_confirm'] = [
-      '#type' => 'fieldset',
+      '#type' => 'details',
       '#title' => $this->t('Email confirm settings'),
+      '#open' => TRUE,
     ];
     $form['email_confirm']['confirm__title'] = [
       '#type' => 'textfield',

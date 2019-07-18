@@ -23,7 +23,7 @@ metatag.metatag_tag.schema_person_email:
   type: text
   label: 'email'
 metatag.metatag_tag.schema_person_family_name:
-  type: text
+  type: label
   label: 'family_name'
 metatag.metatag_tag.schema_person_gender:
   type: text
@@ -32,7 +32,7 @@ metatag.metatag_tag.schema_person_given_name:
   type: text
   label: 'given_name'
 metatag.metatag_tag.schema_person_image:
-  type: text
+  type: label
   label: 'image'
 metatag.metatag_tag.schema_person_job_title:
   type: text

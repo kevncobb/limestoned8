@@ -33,7 +33,6 @@ class Item extends WebformMarkup {
       // Form display.
       'title_display' => '',
       'description_display' => '',
-      'help_display' => '',
       'field_prefix' => '',
       'field_suffix' => '',
       // Form validation.

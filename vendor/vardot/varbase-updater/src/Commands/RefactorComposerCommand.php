@@ -32,31 +32,21 @@ use Composer\Util\RemoteFilesystem;
 use Composer\Util\ProcessExecutor;
 use vardot\Composer\Helpers\VersionHelper;
 
-/**
- * Refactor composer command.
- */
 class RefactorComposerCommand extends BaseCommand{
 
-  /**
-   * Configure.
-   */
-  protected function configure() {
+  protected function configure()
+  {
     $this->setName('varbase-refactor-composer');
     $this->addArgument('file', InputArgument::REQUIRED, 'Where do you want to save the output');
     $this->addArgument('drupal-path', InputArgument::REQUIRED, 'Drupal installation path');
   }
 
-  /**
-   * Execute.
-   *
-   * @param InputInterface $input
-   * @param OutputInterface $output
-   */
-  protected function execute(InputInterface $input, OutputInterface $output) {
-    $output->writeln('Refactoring composer.json');
-    $path = $input->getArgument('file');
-    $drupalPath = $input->getArgument('drupal-path');
-    $this->generate($path, $drupalPath);
+  protected function execute(InputInterface $input, OutputInterface $output)
+  {
+      $output->writeln('Refactoring composer.json');
+      $path = $input->getArgument('file');
+      $drupalPath = $input->getArgument('drupal-path');
+      $this->generate($path, $drupalPath);
   }
 
   /**
@@ -72,13 +62,6 @@ class RefactorComposerCommand extends BaseCommand{
     return $project_root . '/' . $rootPath;
   }
 
-  /**
-   * Get Paths.
-   *
-   * @param type $package
-   * @param type $drupalPath
-   * @return string
-   */
   protected function getPaths($package, $drupalPath = "docroot") {
     $paths = [];
     $projectExtras = $package->getExtra();
@@ -94,43 +77,35 @@ class RefactorComposerCommand extends BaseCommand{
     $paths["librariesPath"] = $this->getDrupalRoot(getcwd(), $paths["rootPath"]) . "/libraries/";
     $paths["profilesPath"] = $this->getDrupalRoot(getcwd(), $paths["rootPath"]) . "/profiles/";
 
-    if (isset($projectExtras["installer-paths"])) {
-      foreach ($projectExtras["installer-paths"] as $path => $types) {
-        foreach ($types as $type) {
-          if ($type == "type:drupal-module") {
+    if(isset($projectExtras["installer-paths"])){
+      foreach($projectExtras["installer-paths"] as $path => $types){
+        foreach($types as $type){
+          if($type == "type:drupal-module"){
             $typePath = preg_replace('/\{\$.*\}$/', "", $path);
             $paths["contribModulesPath"] = $this->getDrupalRoot(getcwd(), "") . $typePath;
             continue;
           }
-
-          if ($type == "type:drupal-custom-module") {
+          if($type == "type:drupal-custom-module"){
             $typePath = preg_replace('/\{\$.*\}$/', "", $path);
             $paths["customModulesPath"] = $this->getDrupalRoot(getcwd(), "") . $typePath;
             continue;
           }
-
-          if ($type == "type:drupal-theme") {
+          if($type == "type:drupal-theme"){
             $typePath = preg_replace('/\{\$.*\}$/', "", $path);
             $paths["contribThemesPath"] = $this->getDrupalRoot(getcwd(), "") . $typePath;
             continue;
           }
-
-          if ($type == "type:drupal-custom-theme") {
+          if($type == "type:drupal-custom-theme"){
             $typePath = preg_replace('/\{\$.*\}$/', "", $path);
             $paths["customThemesPath"] = $this->getDrupalRoot(getcwd(), "") . $typePath;
             continue;
           }
-
-          if ($type == "type:drupal-profile") {
+          if($type == "type:drupal-profile"){
             $typePath = preg_replace('/\{\$.*\}$/', "", $path);
             $paths["profilesPath"] = $this->getDrupalRoot(getcwd(), "") . $typePath;
             continue;
           }
-
-          if ($type == "type:drupal-library"
-            || $type == "type:bower-asset"
-            || $type == "type:npm-asset" ) {
-
+          if($type == "type:drupal-library" || $type == "type:bower-asset" || $type == "type:npm-asset" ){
             $typePath = preg_replace('/\{\$.*\}$/', "", $path);
             $paths["librariesPath"] = $this->getDrupalRoot(getcwd(), "") . $typePath;
             continue;
@@ -142,44 +117,25 @@ class RefactorComposerCommand extends BaseCommand{
     return $paths;
   }
 
-  /**
-   *  Array merge recursive distinct.
-   *
-   * @param array $array1
-   * @param array $array2
-   * @param type $drupalPath
-   * @return type
-   */
   public function array_merge_recursive_distinct(array &$array1, array &$array2, $drupalPath){
     $merged = $array1;
     foreach ($array2 as $key => &$value) {
-      $newKey = preg_replace('/{\$drupalPath}/', $drupalPath, $key);
-      $newKey = preg_replace('/docroot/', $drupalPath, $newKey);
-
-      if (!isset($merged[$newKey])) {
-        $merged[$newKey] = [];
-      }
-
-      if (is_array($value) && isset($merged[$newKey]) && is_array($merged[$newKey])) {
-        $merged[$newKey] = self::array_merge_recursive_distinct($merged[$newKey], $value, $drupalPath);
-      }
-      else {
-        $newValue = preg_replace('/{\$drupalPath}/', $drupalPath, $value);
-        $newValue = preg_replace('/docroot/', $drupalPath, $newValue);
-        $merged[$newKey] = $newValue;
-      }
+        $newKey = preg_replace('/{\$drupalPath}/', $drupalPath, $key);
+        $newKey = preg_replace('/docroot/', $drupalPath, $newKey);
+        if(!isset($merged[$newKey])){
+          $merged[$newKey] = [];
+        }
+        if (is_array($value) && isset($merged[$newKey]) && is_array($merged[$newKey])) {
+            $merged[$newKey] = self::array_merge_recursive_distinct($merged[$newKey], $value, $drupalPath);
+        } else {
+            $newValue = preg_replace('/{\$drupalPath}/', $drupalPath, $value);
+            $newValue = preg_replace('/docroot/', $drupalPath, $newValue);
+            $merged[$newKey] = $newValue;
+        }
     }
-
     return $merged;
   }
 
-  /**
-   * Generate.
-   *
-   * @param type $savePath
-   * @param type $drupalPath
-   * @return type
-   */
   public function generate($savePath, $drupalPath) {
     $composer = $this->getComposer();
     $latestProjectJsonPackage = null;
@@ -199,10 +155,9 @@ class RefactorComposerCommand extends BaseCommand{
 
     $updateConfigPath = $paths["pluginPath"] . "config/update-config.json";
     $extraConfig = [];
-    if (file_exists($paths["composerPath"] . "update-config.json")) {
+    if(file_exists($paths["composerPath"] . "update-config.json")){
       $extraConfig = json_decode(file_get_contents($paths["composerPath"] . "update-config.json"), TRUE);
     }
-
     $updateConfig = json_decode(file_get_contents($updateConfigPath), TRUE);
     $error = json_last_error();
     $updateConfig = array_replace_recursive($updateConfig, $extraConfig);
@@ -213,26 +168,39 @@ class RefactorComposerCommand extends BaseCommand{
     $hostname = parse_url($composerProjectJsonUrl, PHP_URL_HOST);
     $downloader->copy($hostname, $composerProjectJsonUrl, $filename, FALSE);
 
-    if (file_exists($filename)) {
+    if(file_exists($filename)){
       $varbaseMetaData = JsonFile::parseJson(file_get_contents($filename), $filename);
     }
 
     $latestTags = VersionHelper::getLatestVersionInfo($varbaseMetaData);
     $versionInfo = VersionHelper::getVersionInfo($packages, $updateConfig, $latestTags);
 
-    if (!$versionInfo) {
+    $composerProjectJsonUrl = $updateConfig["composer-project-json-url"];
+    $filename = uniqid(sys_get_temp_dir().'/') . ".json";
+    $hostname = parse_url($composerProjectJsonUrl, PHP_URL_HOST);
+    $downloader->copy($hostname, $composerProjectJsonUrl, $filename, FALSE);
+
+    if(file_exists($filename)){
+      $latestProjectJsonConfig = JsonFile::parseJson(file_get_contents($filename), $filename);
+      $config = new Config();
+      $config->merge($latestProjectJsonConfig);
+      $rootLoader = new RootPackageLoader($repositoryManager, $config);
+      $latestProjectJsonPackage = $rootLoader->load($latestProjectJsonConfig);
+    }
+
+    if(!$versionInfo){
       $continue = false;
     }
 
-    if (!isset($updateConfig['profile']) || !isset($updateConfig['package'])) {
+    if(!isset($updateConfig['profile']) || !isset($updateConfig['package'])){
       $continue = false;
     }
 
-    if (!isset($versionInfo['next'])) {
+    if(!isset($versionInfo['next'])){
       $continue = false;
     }
 
-    if (!$continue) {
+    if(!$continue){
       $dumper = new ArrayDumper();
       $json = $dumper->dump($projectPackage);
       $json["prefer-stable"] = true;
@@ -241,7 +209,8 @@ class RefactorComposerCommand extends BaseCommand{
       return;
     }
 
-    if (isset($projectPackageExtras["patches"])) {
+
+    if(isset($projectPackageExtras["patches"])){
       $projectPackagePatches = $projectPackageExtras["patches"];
     }
 
@@ -260,47 +229,6 @@ class RefactorComposerCommand extends BaseCommand{
 
 
     foreach ($updateConfig as $key => $conf) {
-
-      if (isset($conf["composer-project-json-url"])) {
-        if ($conf["composer-project-json-url"] == 'latest') {
-
-          // Get the latest release for Varbase project.
-          $varbaseProjectTargetRelease = [];
-          $varbaseProjectTargetJsonUrl = "https://api.github.com/repos/vardot/varbase-project/releases/latest";
-          $varbaseProjectTargetFilename = uniqid(sys_get_temp_dir().'/') . ".json";
-          get_file($varbaseProjectTargetJsonUrl, $varbaseProjectTargetFilename, $varbaseProjectTargetFilename);
-
-          if (file_exists($varbaseProjectTargetFilename)) {
-            $varbaseProjectTargetRelease = JsonFile::parseJson(file_get_contents($varbaseProjectTargetFilename), $varbaseProjectTargetFilename);
-          }
-
-          // Varbase Project Latest release tag name.
-          $tagName = $varbaseProjectTargetRelease['tag_name'];
-
-          $composerProjectJsonUrl = "https://raw.githubusercontent.com/vardot/varbase-project/" . $tagName . "/composer.json";
-        }
-        else {
-          $composerProjectJsonUrl = "https://raw.githubusercontent.com/vardot/varbase-project/" . $conf["composer-project-json-url"] . "/composer.json";
-        }
-      }
-      elseif (isset($conf['to'])) {
-        $tagNameInTo = str_replace("*","0", $conf['to']);
-        $composerProjectJsonUrl = "https://raw.githubusercontent.com/vardot/varbase-project/" . $tagNameInTo . "/composer.json";
-      }
-
-      $filename = uniqid(sys_get_temp_dir().'/') . ".json";
-      $hostname = parse_url($composerProjectJsonUrl, PHP_URL_HOST);
-      $downloader->copy($hostname, $composerProjectJsonUrl, $filename, FALSE);
-
-      if (file_exists($filename)) {
-        $latestProjectJsonConfig = JsonFile::parseJson(file_get_contents($filename), $filename);
-        $config = new Config();
-        $config->merge($latestProjectJsonConfig);
-        $rootLoader = new RootPackageLoader($repositoryManager, $config);
-        $latestProjectJsonPackage = $rootLoader->load($latestProjectJsonConfig);
-      }
-
-
       if (isset($conf["from"]) && isset($conf["to"])) {
         $conf["from"] = preg_replace("/\*/", ".*", $conf["from"]);
         $conf["to"] = preg_replace("/\*/", ".*", $conf["to"]);
@@ -312,11 +240,10 @@ class RefactorComposerCommand extends BaseCommand{
           }
         }
 
-        if (preg_match('/' . $conf['to'] . '/', $profileVersion)) {
+        if(preg_match('/' . $conf['to'] . '/', $profileVersion)){
           continue;
         }
-
-        if (preg_match('/' . $conf["from"] . '/', $profileVersion)) {
+        if(preg_match('/' . $conf["from"] . '/', $profileVersion)){
           
           $profileLinkConstraint = new Constraint(">=", $conf["to"]);
           $profileLinkConstraint->setPrettyString("~" . $conf["to"]);
@@ -325,47 +252,44 @@ class RefactorComposerCommand extends BaseCommand{
           $requiredPackageLinks = [];
           $requiredPackageLinks[$updateConfig['package']] = $profileLink;
 
-          if (isset($conf["packages"]["crucial"])) {
+          if(isset($conf["packages"]["crucial"])){
             $crucialPackages = array_replace_recursive($crucialPackages, $conf["packages"]["crucial"]);
           }
           $enableAfterUpdatePath = $paths["pluginPath"] . "config/.enable-after-update";
-          if (isset($conf["enable-after-update"])) {
+          if(isset($conf["enable-after-update"])){
             $output = "";
             foreach ($conf["enable-after-update"] as $key => $value) {
               $output .= $value . PHP_EOL;
             }
             file_put_contents($enableAfterUpdatePath, $output);
-          }
-          else {
+          }else{
             file_put_contents($enableAfterUpdatePath, "");
           }
           $skipUpdatePath = $paths["pluginPath"] . "config/.skip-update";
-          if (isset($conf["skip"])) {
+          if(isset($conf["skip"])){
             $output = "";
             foreach ($conf["skip"] as $key => $value) {
               $output .= $value . PHP_EOL;
             }
             file_put_contents($skipUpdatePath, $output);
-          }
-          else {
+          }else{
             file_put_contents($skipUpdatePath, "");
           }
-          if (isset($conf["scripts"])) {
+          if(isset($conf["scripts"])){
             $scripts = array_replace_recursive($scripts, $conf["scripts"]);
           }
-          if (isset($conf["repos"])) {
+          if(isset($conf["repos"])){
             $repos = array_replace_recursive($repos, $conf["repos"]);
           }
-          if (isset($conf["extras"])) {
+          if(isset($conf["extras"])){
             $extras = array_replace_recursive($extras, $conf["extras"]);
           }
         }
-      }
-      elseif ($key == "all" && false) {
-        if (isset($conf["packages"]["crucial"])) {
+      } elseif ($key == "all" && false){
+        if(isset($conf["packages"]["crucial"])){
           $crucialPackages = array_replace_recursive($crucialPackages, $conf["packages"]["crucial"]);
         }
-        if (isset($conf["enable-after-update"])) {
+        if(isset($conf["enable-after-update"])){
           $output = "";
           foreach ($conf["enable-after-update"] as $key => $value) {
             $output .= $value . PHP_EOL;
@@ -373,7 +297,7 @@ class RefactorComposerCommand extends BaseCommand{
           $enableAfterUpdatePath = $paths["pluginPath"] . "config/.enable-after-update";
           file_put_contents($enableAfterUpdatePath, $output);
         }
-        if (isset($conf["skip"])) {
+        if(isset($conf["skip"])){
           $output = "";
           foreach ($conf["skip"] as $key => $value) {
             $output .= $value . PHP_EOL;
@@ -381,13 +305,13 @@ class RefactorComposerCommand extends BaseCommand{
           $skipUpdatePath = $paths["pluginPath"] . "config/.skip-update";
           file_put_contents($skipUpdatePath, $output);
         }
-        if (isset($conf["scripts"])) {
+        if(isset($conf["scripts"])){
           $scripts = array_replace_recursive($scripts, $conf["scripts"]);
         }
-        if (isset($conf["repos"])) {
+        if(isset($conf["repos"])){
           $repos = array_replace_recursive($repos, $conf["repos"]);
         }
-        if (isset($conf["extras"])) {
+        if(isset($conf["extras"])){
           $extras = array_replace_recursive($extras, $conf["extras"]);
         }
       }
@@ -395,18 +319,14 @@ class RefactorComposerCommand extends BaseCommand{
 
     foreach (glob($paths['contribModulesPath'] . "*/*.info.yml") as $file) {
       $yaml = Yaml::parse(file_get_contents($file));
-      if (isset($yaml["project"])
-        && isset($yaml["version"])
-        && $yaml["project"] != $updateConfig['profile']) {
-
+      if(isset($yaml["project"]) && isset($yaml["version"]) && $yaml["project"] != $updateConfig['profile']){
         $composerRepo = "drupal";
         $composerName = $composerRepo . "/" . $yaml["project"];
         $composerVersion = str_replace("8.x-", "", $yaml["version"]);
 
-        if (isset($projectPackagePatches[$composerName])) {
+        if(isset($projectPackagePatches[$composerName])){
           $requiredPackages[$composerName] = ["name"=> $composerName, "version" => $composerVersion, "patch" => true];
-        }
-        elseif (!isset($profilePackageRequires[$composerName])) {
+        }else if(!isset($profilePackageRequires[$composerName])){
           $requiredPackages[$composerName] = ["name"=> $composerName, "version" => $composerVersion];
         }
       }
@@ -414,14 +334,11 @@ class RefactorComposerCommand extends BaseCommand{
 
     foreach (glob($paths['contribThemesPath'] . "*/*.info.yml") as $file) {
       $yaml = Yaml::parse(file_get_contents($file));
-      if (isset($yaml["project"])
-        && isset($yaml["version"])
-        && $yaml["project"] != $updateConfig['profile']) {
-
+      if(isset($yaml["project"]) && isset($yaml["version"]) && $yaml["project"] != $updateConfig['profile']){
         $composerRepo = "drupal";
         $composerName = $composerRepo . "/" . $yaml["project"];
         $composerVersion = str_replace("8.x-", "", $yaml["version"]);
-        if (!isset($profilePackageRequires[$composerName])) {
+        if(!isset($profilePackageRequires[$composerName])){
           $requiredPackages[$composerName] = ["name"=> $composerName, "version" => $composerVersion];
         }
       }
@@ -430,7 +347,7 @@ class RefactorComposerCommand extends BaseCommand{
 
     foreach (glob($paths['contribModulesPath'] . "*/composer.json") as $file) {
       $pluginConfig = JsonFile::parseJson(file_get_contents($file), $file);
-      if (!isset($pluginConfig['version'])) {
+      if(!isset($pluginConfig['version'])){
         $pluginConfig['version'] = "0.0.0";
       }
       $pluginConfig = JsonFile::encode($pluginConfig);
@@ -438,10 +355,10 @@ class RefactorComposerCommand extends BaseCommand{
       $pluginPackageRequires = $pluginPackage->getRequires();
 
       foreach ($requiredPackages as $name => $package) {
-        if (isset($projectPackagePatches[$name])) {
+        if(isset($projectPackagePatches[$name])){
           continue;
         }
-        if (isset($pluginPackageRequires[$name])) {
+        if(isset($pluginPackageRequires[$name])){
           unset($requiredPackages[$name]);
         }
       }
@@ -449,7 +366,7 @@ class RefactorComposerCommand extends BaseCommand{
 
     foreach (glob($paths['contribThemesPath'] . "*/composer.json") as $file) {
       $pluginConfig = JsonFile::parseJson(file_get_contents($file), $file);
-      if (!isset($pluginConfig['version'])) {
+      if(!isset($pluginConfig['version'])){
         $pluginConfig['version'] = "0.0.0";
       }
       $pluginConfig = JsonFile::encode($pluginConfig);
@@ -457,17 +374,16 @@ class RefactorComposerCommand extends BaseCommand{
       $pluginPackageRequires = $pluginPackage->getRequires();
 
       foreach ($requiredPackages as $name => $package) {
-        if (isset($pluginPackageRequires[$name])) {
+        if(isset($pluginPackageRequires[$name])){
           unset($requiredPackages[$name]);
         }
       }
     }
 
     foreach ($requiredPackages as $name => $package) {
-      if (isset($projectPackageRequires[$name])) {
+      if(isset($projectPackageRequires[$name])){
         $requiredPackageLinks[$name] = $projectPackageRequires[$name];
-      }
-      else {
+      }else{
         $link = new Link($projectPackage->getName(), $package["name"], new Constraint(">=", $package["version"]), "", "^".$package["version"]);
         $requiredPackageLinks[$name] = $link;
       }
@@ -484,7 +400,7 @@ class RefactorComposerCommand extends BaseCommand{
       }
     }
 
-    if (!$projectPackageExtras) {
+    if(!$projectPackageExtras){
       $projectPackageExtras = [];
     }
 
@@ -492,7 +408,7 @@ class RefactorComposerCommand extends BaseCommand{
     $mergedRepos = self::array_merge_recursive_distinct($projectPackageRepos, $repos, $paths["rootPath"]);
     $mergedScripts = self::array_merge_recursive_distinct($projectScripts, $scripts, $paths["rootPath"]);
 
-    if (!$latestProjectJsonPackage) {
+    if(!$latestProjectJsonPackage){
       $projectPackage->setExtra($mergedExtras);
       $projectPackage->setRepositories($mergedRepos);
       $projectPackage->setRequires($requiredPackageLinks);
@@ -503,11 +419,8 @@ class RefactorComposerCommand extends BaseCommand{
       $json["prefer-stable"] = true;
       $json["extra"]["composer-exit-on-patch-failure"] = false;
 
-      // Fixing the position of installer path web/libraries/{$name} as it should be after slick and ace so it won't override them
-      if (isset($json["extra"])
-        && isset($json["extra"]["installer-paths"])
-        && isset($json["extra"]["installer-paths"][$paths["rootPath"].'/libraries/{$name}'])) {
-
+      //Fixing the position of installer path web/libraries/{$name} as it should be after slick and ace so it won't override them
+      if(isset($json["extra"]) && isset($json["extra"]["installer-paths"]) && isset($json["extra"]["installer-paths"][$paths["rootPath"].'/libraries/{$name}'])){
         $libsPathExtra = $json["extra"]["installer-paths"][$paths["rootPath"].'/libraries/{$name}'];
         unset($json["extra"]["installer-paths"][$paths["rootPath"].'/libraries/{$name}']);
         $extraLibsArray=[
@@ -516,35 +429,35 @@ class RefactorComposerCommand extends BaseCommand{
         $json["extra"]["installer-paths"] = $json["extra"]["installer-paths"] + $extraLibsArray;
       }
 
-      if (isset($json["repositories"]["packagist.org"])) {
+      if(isset($json["repositories"]["packagist.org"])){
         unset($json["repositories"]["packagist.org"]);
       }
 
-      if (isset($json["version"])) {
+      if(isset($json["version"])){
         unset($json["version"]);
       }
 
-      if (isset($json["version_normalized"])) {
+      if(isset($json["version_normalized"])){
         unset($json["version_normalized"]);
       }
 
       foreach ($json["repositories"] as $key => $value) {
-        if ($key == "packagist.org") {
+        if($key == "packagist.org"){
           unset($json["repositories"][$key]);
         }
-        if (isset($json["repositories"]["drupal"])
-          && $key != "drupal"
-          && isset($value["url"])
-          && $value["url"] == "https://packages.drupal.org/8") {
-
+        if(
+          isset($json["repositories"]["drupal"]) &&
+          $key != "drupal" &&
+          isset($value["url"]) &&
+          $value["url"] == "https://packages.drupal.org/8"
+        ){
           unset($json["repositories"][$key]);
         }
       }
 
       $projectConfig = JsonFile::encode($json);
       file_put_contents($savePath, $projectConfig);
-    }
-    else {
+    }else{
       $latestExtras = $latestProjectJsonPackage->getExtra();
       $latestRepos = $latestProjectJsonPackage->getRepositories();
       $latestRequires = $latestProjectJsonPackage->getRequires();
@@ -553,14 +466,11 @@ class RefactorComposerCommand extends BaseCommand{
 
       $latestMergedExtras = self::array_merge_recursive_distinct($mergedExtras, $latestExtras, $paths["rootPath"]);
       $latestMergedRepos = self::array_merge_recursive_distinct($mergedRepos, $latestRepos, $paths["rootPath"]);
-      // $latestMergedRequires = self::array_merge_recursive_distinct($requiredPackageLinks, $latestRequires, $paths["rootPath"]);
+      //$latestMergedRequires = self::array_merge_recursive_distinct($requiredPackageLinks, $latestRequires, $paths["rootPath"]);
       $latestMergedScripts = self::array_merge_recursive_distinct($mergedScripts, $latestScripts, $paths["rootPath"]);
 
       foreach ($latestRequires as $projectName => $projectPackageLink) {
-        if ($projectName == $updateConfig['package']) {
-          continue;
-        }
-
+        if($projectName == $updateConfig['package']) continue;
         $requiredPackageLinks[$projectName] = $projectPackageLink;
       }
 
@@ -580,12 +490,8 @@ class RefactorComposerCommand extends BaseCommand{
       $json["prefer-stable"] = true;
       $json["extra"]["composer-exit-on-patch-failure"] = false;
 
-      // Fixing the position of installer path web/libraries/{$name} as it
-      // should be after slick and ace so it won't override them.
-      if (isset($json["extra"])
-        && isset($json["extra"]["installer-paths"])
-        && isset($json["extra"]["installer-paths"][$paths["rootPath"].'/libraries/{$name}'])) {
-
+      //Fixing the position of installer path web/libraries/{$name} as it should be after slick and ace so it won't override them
+      if(isset($json["extra"]) && isset($json["extra"]["installer-paths"]) && isset($json["extra"]["installer-paths"][$paths["rootPath"].'/libraries/{$name}'])){
         $libsPathExtra = $json["extra"]["installer-paths"][$paths["rootPath"].'/libraries/{$name}'];
         unset($json["extra"]["installer-paths"][$paths["rootPath"].'/libraries/{$name}']);
         $extraLibsArray=[
@@ -594,28 +500,28 @@ class RefactorComposerCommand extends BaseCommand{
         $json["extra"]["installer-paths"] = $json["extra"]["installer-paths"] + $extraLibsArray;
       }
 
-      if (isset($json["repositories"]["packagist.org"])) {
+      if(isset($json["repositories"]["packagist.org"])){
         unset($json["repositories"]["packagist.org"]);
       }
 
-      if (isset($json["version"])) {
+      if(isset($json["version"])){
         unset($json["version"]);
       }
 
-      if (isset($json["version_normalized"])) {
+      if(isset($json["version_normalized"])){
         unset($json["version_normalized"]);
       }
 
       foreach ($json["repositories"] as $key => $value) {
-        if ($key == "packagist.org"){
+        if($key == "packagist.org"){
           unset($json["repositories"][$key]);
         }
-
-        if (isset($json["repositories"]["drupal"])
-          && $key != "drupal"
-          && isset($value["url"])
-          && $value["url"] == "https://packages.drupal.org/8") {
-
+        if(
+          isset($json["repositories"]["drupal"]) &&
+          $key != "drupal" &&
+          isset($value["url"]) &&
+          $value["url"] == "https://packages.drupal.org/8"
+        ){
           unset($json["repositories"][$key]);
         }
       }

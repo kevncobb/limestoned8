@@ -4,11 +4,11 @@ description: 'Provides webform access controls for webform nodes.'
 package: Webform
 type: module
 dependencies:
-  - 'webform:webform'
-  - 'webform:webform_node'
+  - 'drupal:webform'
+  - 'drupal:webform_node'
 
-# Information added by Drupal.org packaging script on 2019-07-18
-version: '8.x-5.3'
+# Information added by Drupal.org packaging script on 2019-03-28
+version: '8.x-5.2'
 core: '8.x'
 project: 'webform'
-datestamp: 1563460092
+datestamp: 1553768595

@@ -36,7 +36,6 @@ class Textarea extends TextBase {
       // Form display.
       'title_display' => '',
       'description_display' => '',
-      'help_display' => '',
       'field_prefix' => '',
       'field_suffix' => '',
       'placeholder' => '',

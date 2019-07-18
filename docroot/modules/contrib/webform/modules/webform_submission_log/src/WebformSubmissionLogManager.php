@@ -13,7 +13,6 @@ use Drupal\Core\DependencyInjection\DependencySerializationTrait;
  * Webform submission log manager.
  */
 class WebformSubmissionLogManager implements WebformSubmissionLogManagerInterface {
-
   use DependencySerializationTrait;
 
   /**

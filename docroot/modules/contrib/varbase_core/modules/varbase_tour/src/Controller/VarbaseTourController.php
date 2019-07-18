@@ -10,7 +10,7 @@ use Drupal\Core\Controller\ControllerBase;
 class VarbaseTourController extends ControllerBase {
 
   /**
-   * Content.
+   * Tour content.
    */
   public function content() {
 

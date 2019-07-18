@@ -2,7 +2,7 @@ name: 'Varbase Admin'
 description: 'Manage administration configurations.'
 type: module
 package: Varbase
-# version: 8.x-6.x-dev
+# version: 8.x-7.x-dev
 # core: 8.x
 # project: varbase_core
 dependencies:
@@ -13,11 +13,20 @@ install:
   - config_perms
   - roleassign
   - userprotect
+  - event_log_track
+  - event_log_track_file
+  - event_log_track_media
+  - event_log_track_user
+  - event_log_track_taxonomy
+  - event_log_track_node
+  - event_log_track_menu
+  - event_log_track_auth
   - views_bulk_operations
   - views_bulk_edit
   - admin_toolbar
   - admin_toolbar_tools
   - adminimal_admin_toolbar
+  - admin_toolbar_links_access_filter
   - mail_edit
   - masquerade
   - menu_admin_per_menu
@@ -33,7 +42,7 @@ install:
   - length_indicator
 
 # Information added by Drupal.org packaging script on 2019-07-06
-version: '8.x-6.18'
+version: '8.x-7.0'
 core: '8.x'
 project: 'varbase_core'
-datestamp: 1562418487
+datestamp: 1562420288

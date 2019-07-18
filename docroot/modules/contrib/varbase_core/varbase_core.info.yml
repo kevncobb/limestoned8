@@ -2,7 +2,7 @@ name: 'Varbase Core'
 description: 'Provides core components required by other features.'
 type: module
 # core: 8.x
-# version: 8.x-6.x-dev
+# version: 8.x-7.x-dev
 # project: varbase_core
 package: Varbase
 components:
@@ -71,6 +71,7 @@ install:
   - entityqueue
   - entityqueue_form_widget
   - inline_entity_form
+  - inline_form_errors
   - persistent_login
   - ultimate_cron
   - content_lock
@@ -88,7 +89,7 @@ install:
   - betterlogin
 
 # Information added by Drupal.org packaging script on 2019-07-06
-version: '8.x-6.18'
+version: '8.x-7.0'
 core: '8.x'
 project: 'varbase_core'
-datestamp: 1562418487
+datestamp: 1562420288

@@ -127,21 +127,12 @@ class FocalPointImageWidget extends ImageWidget {
       'focal_point' => 'focal-point-' . implode('-', $element['#parents']),
     ];
 
-    $focal_point_settings = \Drupal::service('config.factory')->getEditable('focal_point.settings');
-    $default_focal_point_value = $focal_point_settings->get('default_value');
-
-    if (isset($item['focal_point'])) {
-      $default_focal_point_value = $item['focal_point'];
-    }
-    elseif (isset($element['#focal_point'])
-            && isset($element['#focal_point']['offsets'])) {
-      $default_focal_point_value = $element['#focal_point']['offsets'];
-    }
+    $default_focal_point_value = isset($item['focal_point']) ? $item['focal_point'] : $element['#focal_point']['offsets'];
 
     // Override the default Image Widget template when using the Media Library
     // module so we can use the image field's preview rather than the preview
     // provided by Media Library.
-    if ($form['#form_id'] == 'media_library_upload_form') {
+    if ($form['#form_id'] == 'media_library_upload_form' || $form['#form_id'] == 'media_library_add_form') {
       $element['#theme'] = 'focal_point_media_library_image_widget';
       unset($form['media'][0]['preview']);
     }
@@ -156,7 +147,7 @@ class FocalPointImageWidget extends ImageWidget {
       // Even for image fields with a cardinality higher than 1 the correct fid
       // can always be found in $item['fids'][0].
       $fid = isset($item['fids'][0]) ? $item['fids'][0] : '';
-      if (!empty($fid)) {
+      if ($element['#focal_point']['preview_link'] && !empty($fid)) {
         $preview['preview_link'] = self::createPreviewLink($fid, $element['#field_name'], $element_selectors, $default_focal_point_value);
       }
 

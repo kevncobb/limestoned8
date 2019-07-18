@@ -35,9 +35,12 @@ class WebformHelpTest extends WebformTestBase {
     $this->drupalGet('/admin/structure/webform');
     $this->assertRaw('This is a warning notification.');
     $this->assertRaw('This is an info notification.');
-    $this->assertRaw('If you enjoy and value Drupal and the Webform module,');
+    $this->assertRaw('The Drupal Association brings value to Drupal and to you.');
+    $this->assertRaw('Welcome to the Webform module for Drupal 8.');
 
     // Close all notifications, promotion, and welcome messages.
+    $this->drupalGet('/admin/structure/webform');
+    $this->clickLink('×', 0);
     $this->drupalGet('/admin/structure/webform');
     $this->clickLink('×', 0);
     $this->drupalGet('/admin/structure/webform');
@@ -49,7 +52,8 @@ class WebformHelpTest extends WebformTestBase {
     $this->drupalGet('/admin/structure/webform');
     $this->assertNoRaw('This is a warning notification.');
     $this->assertNoRaw('This is an info notification.');
-    $this->assertNoRaw('If you enjoy and value Drupal and the Webform module,');
+    $this->assertNoRaw('The Drupal Association brings value to Drupal and to you.');
+    $this->assertNoRaw('Welcome to the Webform module for Drupal 8.');
 
     // Check that help is enabled.
     $this->drupalGet('/admin/structure/webform/config/advanced');

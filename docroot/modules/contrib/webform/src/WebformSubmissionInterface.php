@@ -263,9 +263,8 @@ interface WebformSubmissionInterface extends ContentEntityInterface, EntityOwner
    * Track the state of a submission.
    *
    * @return string
-   *   Either SSTATE_UNSAVED, STATE_DRAFT, STATE_COMPLETED, STATE_UPDATED,
-   *   STATE_LOCKED, or STATE_CONVERTED depending on the last
-   *   save operation performed.
+   *   Either STATE_NEW, STATE_DRAFT, STATE_COMPLETED, STATE_UPDATED, or
+   *   STATE_CONVERTED depending on the last save operation performed.
    */
   public function getState();
 

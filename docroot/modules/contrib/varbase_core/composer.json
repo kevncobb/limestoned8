@@ -42,7 +42,7 @@
     "drupal/bootstrap_layouts": "~5.0",
     "drupal/layout_builder_restrictions": "~1.0",
     "drupal/ds": "3.3",
-    "drupal/views_bootstrap": "~3.0",
+    "drupal/views_bootstrap": "~4.0",
     "drupal/field_group": "~3.0",
     "drupal/smart_trim": "~1.0",
     "drupal/advanced_text_formatter": "~1.0",
@@ -58,6 +58,7 @@
     "drupal/ultimate_cron": "~2.0",
     "drupal/persistent_login": "1.1",
     "drupal/userprotect": "~1.0",
+    "drupal/events_log_track": "1.1",
     "drupal/login_destination": "~1.0",
     "drupal/betterlogin": "~1.0",
     "drupal/config_perms": "~2.0",
@@ -69,7 +70,7 @@
     "drupal/l10n_client": "*",
     "drupal/coffee": "1.0-beta2",
     "drupal/responsive_preview": "~1.0",
-    "drupal/views_bulk_operations": "~2.0",
+    "drupal/views_bulk_operations": "~3.0",
     "drupal/views_bulk_edit": "~2.0",
     "drupal/revision_log_default": "~1.0",
     "drupal/webform": "~5.0",
@@ -93,6 +94,7 @@
     "drupal/checklistapi": "~1.0",
     "drupal/username_enumeration_prevention": "~1.0",
     "drupal/password_policy": "~3.0",
+    "drupal/genpass": "~1.0",
     "drupal/seckit": "~1.0",
     "drupal/security_review": "*",
     "drupal/honeypot": "~1.0",
@@ -118,7 +120,7 @@
   },
   "extra": {
     "branch-alias": {
-      "dev-8.x-6.x": "8.6.x-dev"
+      "dev-8.x-7.x": "8.7.x-dev"
     },
     "installer-types": [
       "bower-asset",
@@ -143,6 +145,10 @@
         "https://www.drupal.org/files/issues/2018-07-09/2914389-8-do-not-test.patch",
         "Issue #2893892: Fixed Warning Invalid argument supplied for foreach() in Drupal":
         "https://www.drupal.org/files/issues/2018-12-10/core--getDerivatives-Invalid-argument-foreach--2893892-11-d8.patch",
+        "Issue #3044656: Add a helper method to strip subdirectories from URL paths":
+        "https://www.drupal.org/files/issues/2019-03-31/3044656-2.patch",
+        "Issue #2646744: Drupal Core Url does not accept root-relative (file) URLs, making it impossible to let LinkGenerator create root-relative file URL links":
+        "https://www.drupal.org/files/issues/2018-12-15/2646744-34.patch",
         "Issue #3060550: oembed link does not pass the URL parameter to the provider":
         "https://www.drupal.org/files/issues/2019-06-10/3060550-oembed-link-does-not-pass-url-parameter-to-provider-1.patch"
       },
@@ -177,6 +183,20 @@
       "drupal/update_helper": {
         "Issue #3024165: [PATCH] Enhancements, Better messages for the unable to apply updates, drush command and removed the Mark all updates as successful on install":
         "https://www.drupal.org/files/issues/2019-05-19/3024165-31.patch"
+      },
+      "drupal/events_log_track": {
+        "Issue #2934036: Events Log Track breaks Entity Browser":
+        "https://www.drupal.org/files/issues/2018-04-19/2934036-check_empty_submit-5.patch",
+        "Issue #2930817: Entities with title longer than 50 characters":
+         "https://www.drupal.org/files/issues/increase-character-length-2930817-2.patch",
+        "Issue #2974170: Event logs for change in workflows":
+        "https://www.drupal.org/files/issues/2018-06-26/events_log_track-add-workflows-2974170-7.patch",
+        "Issue #2959769: Add handlers for file and media entities":
+        "https://www.drupal.org/files/issues/2018-06-26/events-log-track_add-file-media-2959769-9.patch",
+        "Issue #3027463: Skip password logging during failed authentication attempt":
+        "https://www.drupal.org/files/issues/2019-01-22/event-log-track-auth-3027463-2.patch",
+        "Issue #3060838: Fix fatal error when we request password with non-existing users/emails  on the Events Log Track User Authentication":
+        "https://www.drupal.org/files/issues/2019-06-11/3060838-4.patch"
       },
       "drupal/length_indicator": {
         "Issue #3048286: Add cursor position direction support for RTL":

@@ -71,7 +71,7 @@ class SchemaItemListElementBreadcrumbBase extends SchemaItemListElementBase {
         $values[$key] = [
           '@id' => $url,
           'name' => $text,
-          'item' => $url,
+          'url' => $url,
         ];
         $key++;
       }

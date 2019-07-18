@@ -330,11 +330,4 @@ abstract class WebformExporterBase extends PluginBase implements WebformExporter
     return $this->getBaseFileName() . '.tar.gz';
   }
 
-  /**
-   * {@inheritdoc}
-   */
-  public function getBatchLimit() {
-    return $this->configFactory->get('webform.settings')->get('batch.default_batch_export_size') ?: 500;
-  }
-
 }

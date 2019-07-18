@@ -36,9 +36,7 @@ class SchemaMetatagManager implements SchemaMetatagManagerInterface {
       if (empty($items)) {
         $items['@context'] = 'https://schema.org';
       }
-      if (!empty($data)) {
-        $items['@graph'][$group_key] = $data;
-      }
+      $items['@graph'][$group_key] = $data;
       $group_key++;
     }
     return $items;
@@ -97,7 +95,7 @@ class SchemaMetatagManager implements SchemaMetatagManagerInterface {
       // Encode the Schema.org metatags as JSON LD.
       if ($jsonld = self::encodeJsonld($items)) {
         // Pass back the rendered result.
-        return \Drupal::service('renderer')->render(self::renderArrayJsonLd($jsonld));
+        return drupal_render(self::renderArrayJsonLd($jsonld));
       }
     }
   }
@@ -219,7 +217,7 @@ class SchemaMetatagManager implements SchemaMetatagManagerInterface {
       }
       else {
         // Fail safe if unserialization is broken.
-        $value = [];
+        $value = '';
       }
     }
     return $value;
@@ -265,10 +263,6 @@ class SchemaMetatagManager implements SchemaMetatagManagerInterface {
    * {@inheritdoc}
    */
   public static function arrayTrim($array) {
-
-    // See if this is an array or an object.
-    $needs_type = static::isObject($array);
-
     foreach ($array as $key => &$value) {
       if (empty($value)) {
         unset($array[$key]);
@@ -282,29 +276,18 @@ class SchemaMetatagManager implements SchemaMetatagManagerInterface {
         }
       }
     }
-
     // If all that's left is the pivot, return empty.
     if ($array == ['pivot' => 1]) {
-      return [];
+      return '';
     }
     // If all that's left is @type, return empty.
-    if (count($array) == 1 && key($array) == '@type') {
-      return [];
-    }
-    // If this is an object but none of the values is @type or @id, return
-    // empty.
-    if ($needs_type && is_array($array) && !array_key_exists('@type', $array) && !array_key_exists('@id', $array)) {
-      return [];
+    elseif (count($array) == 1 && key($array) == '@type') {
+      return '';
     }
     // Otherwise return the cleaned up array.
-    return (array) $array;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public static function isObject($array) {
-    return empty(static::countNumericKeys($array));
+    else {
+      return $array;
+    }
   }
 
   /**
