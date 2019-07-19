@@ -173,12 +173,6 @@ ul.menu--site-version > .active > a {
   position: absolute;
   left: 999999999em;
 }
-.view-course-listing.view-display-id-page_1 .view-filters div.form-type-checkbox {
-  float: right;
-}
-.view-course-listing.view-display-id-page_1 .view-filters div.form-type-checkbox:last-child {
-  clear: both;
-}
 .view-programs.view-id-programs input[type="radio"],
 .view-programs.view-id-programs input[type="checkbox"] {
   margin-right: 5px;
