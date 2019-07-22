@@ -1,12 +1,9 @@
-name: Migrate Source CSV Test
+name: Source plugin using yield
 type: module
 package: Testing
 # core: 8.x
 dependencies:
   - migrate
-  - migrate_source_csv
-  - node
-  - datetime
 
 # Information added by Drupal.org packaging script on 2019-07-12
 version: '8.x-3.0'
