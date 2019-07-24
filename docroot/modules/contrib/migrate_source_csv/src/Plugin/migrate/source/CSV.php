@@ -2,149 +2,169 @@
 
 namespace Drupal\migrate_source_csv\Plugin\migrate\source;
 
-use Drupal\Component\Plugin\ConfigurableInterface;
+use Drupal\Component\Plugin\ConfigurablePluginInterface;
+use Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException;
 use Drupal\Component\Utility\NestedArray;
-use Drupal\migrate\Plugin\MigrationInterface;
+use Drupal\migrate\MigrateException;
 use Drupal\migrate\Plugin\migrate\source\SourcePluginBase;
-use League\Csv\Reader;
+use Drupal\migrate\Plugin\MigrationInterface;
 
 /**
- * Source for CSV files.
+ * Source for CSV.
  *
- * Available configuration options:
- * - path: Path to the  CSV file. File streams are supported.
- * - ids: Array of column names that uniquely identify each record.
- * - header_offset: (optional) The record to be used as the CSV header and the
- *   thereby each record's field name. Defaults to 0 and because records are
- *   zero indexed. Can be set to null to indicate no header record.
- * - fields: (optional) nested array of names and labels to use instead of a
- *   header record. Will overwrite values provided by header record. If used,
- *   name is required. If no label is provided, name is used instead for the
- *   field description.
- * - delimiter: (optional) The field delimiter (one character only). Defaults to
- *   a comma (,).
- * - enclosure: (optional) The field enclosure character (one character only).
- *   Defaults to double quote marks.
- * - escape: (optional) The field escape character (one character only).
- *   Defaults to a backslash (\).
- *
- * @codingStandardsIgnoreStart
- *
- * Example with minimal options:
- * @code
- * source:
- *   plugin: csv
- *   path: /tmp/countries.csv
- *   ids: [id]
- *
- * # countries.csv
- * id,country
- * 1,Nicaragua
- * 2,Spain
- * 3,United States
- * @endcode
- *
- * In this example above, the migration source will use a single-column id using the
- * value from the 'id' column of the CSV file.
- *
- * Example with most options configured:
- * @code
- * source:
- *   plugin: csv
- *   path: /tmp/countries.csv
- *   ids: [id]
- *   delimiter: '|'
- *   enclosure: "'"
- *   escape: '`'
- *   header_offset: null
- *   fields:
- *     -
- *       name: id
- *       label: ID
- *     -
- *       name: country
- *       label: Country
- *
- * # countries.csv
- * 'really long string that makes this unique'|'United States'
- * 'even longer really long string that makes this unique'|'Nicaragua'
- * 'even more longer really long string that makes this unique'|'Spain'
- * 'escaped data'|'one`'s country'
- * @endcode
- *
- * In this example above, we override the default character controls for delimiter,
- * enclosure and escape. We also set a null header offset to indicate no header.
- *
- * @codingStandardsIgnoreEnd
- *
- * @see http://php.net/manual/en/splfileobject.setcsvcontrol.php
+ * If the CSV file contains non-ASCII characters, make sure it includes a
+ * UTF BOM (Byte Order Marker) so they are interpreted correctly.
  *
  * @MigrateSource(
- *   id = "csv",
- *   source_module = "migrate_source_csv"
+ *   id = "csv"
  * )
  */
-class CSV extends SourcePluginBase implements ConfigurableInterface {
+class CSV extends SourcePluginBase implements ConfigurablePluginInterface {
+
+  /**
+   * List of available source fields.
+   *
+   * Keys are the field machine names as used in field mappings, values are
+   * descriptions.
+   *
+   * @var array
+   */
+  protected $fields = [];
+
+  /**
+   * List of key fields, as indexes.
+   *
+   * @var array
+   */
+  protected $keys = [];
+
+  /**
+   * The file class to read the file.
+   *
+   * @var string
+   */
+  protected $fileClass = '';
+
+  /**
+   * The file object that reads the CSV file.
+   *
+   * @var \SplFileObject
+   */
+  protected $file = NULL;
 
   /**
    * {@inheritdoc}
-   *
-   * @throws \InvalidArgumentException
-   * @throws \Drupal\migrate\MigrateException
    */
   public function __construct(array $configuration, $plugin_id, $plugin_definition, MigrationInterface $migration) {
     parent::__construct($configuration, $plugin_id, $plugin_definition, $migration);
     $this->setConfiguration($configuration);
 
     // Path is required.
-    if (empty($this->configuration['path'])) {
-      throw new \InvalidArgumentException('You must declare the "path" to the source CSV file in your source settings.');
+    if (empty($this->getConfiguration()['path'])) {
+      throw new MigrateException('You must declare the "path" to the source CSV file in your source settings.');
     }
-    // IDs are required.
-    if (empty($this->configuration['ids']) || !is_array($this->configuration['ids'])) {
-      throw new \InvalidArgumentException('You must declare "ids" as a unique array of fields in your source settings.');
+
+    // Key field(s) are required.
+    if (empty($this->getConfiguration()['keys'])) {
+      throw new MigrateException('You must declare "keys" as a unique array of fields in your source settings.');
     }
-    // IDs must be an array of strings.
-    if ($this->configuration['ids'] !== array_unique(array_filter($this->configuration['ids'], 'is_string'))) {
-      throw new \InvalidArgumentException('The ids must a flat array with unique string values.');
-    }
-    // CSV character control characters must be exactly 1 character.
-    foreach (['delimiter', 'enclosure', 'escape'] as $character) {
-      if (1 !== strlen($this->configuration[$character])) {
-        throw new \InvalidArgumentException(sprintf('%s must be a single character; %s given', $character, $this->configuration[$character]));
-      }
-    }
-    // The configuration "header_offset" must be null or an integer.
-    if (!(NULL === $this->configuration['header_offset'] || is_int($this->configuration['header_offset']))) {
-      throw new \InvalidArgumentException('The configuration "header_offset" must be null or an integer.');
-    }
-    // The configuration "header_offset" must be greater or equal to 0.
-    if (NULL !== $this->configuration['header_offset'] && 0 > $this->configuration['header_offset']) {
-      throw new \InvalidArgumentException('The configuration "header_offset" must be greater or equal to 0.');
-    }
-    // If set, all fields must have a least a defined "name" property.
-    if ($this->configuration['fields']) {
-      foreach ($this->configuration['fields'] as $delta => $field) {
-        if (!isset($field['name'])) {
-          throw new \InvalidArgumentException(sprintf('The "name" configuration for "fields" in index position %s is not defined.', $delta));
-        }
-      }
-    }
+
+    $this->fileClass = $this->getConfiguration()['file_class'];
+  }
+
+  /**
+   * Return a string representing the source file path.
+   *
+   * @return string
+   *   The file path.
+   */
+  public function __toString() {
+    return $this->getConfiguration()['path'];
   }
 
   /**
    * {@inheritdoc}
    */
-  public function defaultConfiguration() {
-    return [
-      'path' => '',
-      'ids' => [],
-      'header_offset' => 0,
-      'fields' => [],
-      'delimiter' => ",",
-      'enclosure' => "\"",
-      'escape' => "\\",
-    ];
+  public function initializeIterator() {
+    if (!file_exists($this->getConfiguration()['path'])) {
+      throw new InvalidPluginDefinitionException($this->getPluginId(), sprintf('File path (%s) does not exist.', $this->getConfiguration()['path']));
+    }
+    // File handler using header-rows-respecting extension of SPLFileObject.
+    $this->file = new $this->fileClass($this->getConfiguration()['path']);
+    return $this->setupFile();
+  }
+
+  /**
+   * Setup the file.
+   *
+   * @return \SplFileObject
+   *   Returns the file object.
+   */
+  protected function setupFile() {
+    // Set basics of CSV behavior based on configuration.
+    $delimiter = $this->getConfiguration()['delimiter'];
+    $enclosure = $this->getConfiguration()['enclosure'];
+    $escape = $this->getConfiguration()['escape'];
+    $this->file->setCsvControl($delimiter, $enclosure, $escape);
+    $this->file->setFlags($this->getConfiguration()['file_flags']);
+
+    // Figure out what CSV column(s) to use. Use either the header row(s) or
+    // explicitly provided column name(s).
+    if ($this->getConfiguration()['header_row_count']) {
+      $this->file->setHeaderRowCount($this->getConfiguration()['header_row_count']);
+
+      // Find the last header line.
+      $this->file->rewind();
+      $this->file->seek($this->file->getHeaderRowCount() - 1);
+
+      $row = $this->file->current();
+      foreach ($row as $header) {
+        $header = trim($header);
+        $column_names[] = [$header => $header];
+      }
+      $this->file->setColumnNames($column_names);
+    }
+    // An explicit list of column name(s) will override any header row(s).
+    if ($this->getConfiguration()['column_names']) {
+      $this->file->setColumnNames($this->getConfiguration()['column_names']);
+    }
+
+    return $this->file;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getIds() {
+    $ids = [];
+    foreach ($this->getConfiguration()['keys'] as $delta => $value) {
+      if (is_array($value)) {
+        $ids[$delta] = $value;
+      }
+      else {
+        $ids[$value]['type'] = 'string';
+      }
+    }
+    return $ids;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function fields() {
+    $fields = [];
+    if (!$this->file) {
+      $this->initializeIterator();
+    }
+    foreach ($this->file->getColumnNames() as $column) {
+      $fields[key($column)] = reset($column);
+    }
+
+    // Any caller-specified fields with the same names as extracted fields will
+    // override them; any others will be added.
+    $fields = $this->getConfiguration()['fields'] + $fields;
+
+    return $fields;
   }
 
   /**
@@ -152,6 +172,16 @@ class CSV extends SourcePluginBase implements ConfigurableInterface {
    */
   public function getConfiguration() {
     return $this->configuration;
+  }
+
+  /**
+   * Gets the file object.
+   *
+   * @return \SplFileObject
+   *   The file object.
+   */
+  public function getFile() {
+    return $this->file;
   }
 
   /**
@@ -163,103 +193,28 @@ class CSV extends SourcePluginBase implements ConfigurableInterface {
   }
 
   /**
-   * Return a string representing the source file path.
-   *
-   * @return string
-   *   The file path.
-   */
-  public function __toString() {
-    return $this->configuration['path'];
-  }
-
-  /**
    * {@inheritdoc}
-   *
-   * @throws \Drupal\migrate\MigrateException
-   * @throws \League\Csv\Exception
    */
-  public function initializeIterator() {
-    $header = $this->getReader()->getHeader();
-    if ($this->configuration['fields']) {
-      // If there is no header record, we need to flip description and name so
-      // the name becomes the header record.
-      $header = array_flip($this->fields());
-    }
-    return $this->getGenerator($this->getReader()->getRecords($header));
+  public function defaultConfiguration() {
+    return [
+      'fields' => [],
+      'keys' => [],
+      'column_names' => [],
+      'header_row_count' => 0,
+      'file_flags' => \SplFileObject::READ_CSV | \SplFileObject::READ_AHEAD | \SplFileObject::DROP_NEW_LINE | \SplFileObject::SKIP_EMPTY,
+      'delimiter' => ',',
+      'enclosure' => '"',
+      'escape' => '\\',
+      'path' => '',
+      'file_class' => 'Drupal\migrate_source_csv\CSVFileObject',
+    ];
   }
 
   /**
    * {@inheritdoc}
    */
-  public function getIds() {
-    $ids = [];
-    foreach ($this->configuration['ids'] as $value) {
-      $ids[$value]['type'] = 'string';
-    }
-    return $ids;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function fields() {
-    // If fields are not defined, use the header record.
-    if (empty($this->configuration['fields'])) {
-      $header = $this->getReader()->getHeader();
-      return array_combine($header, $header);
-    }
-    $fields = [];
-    foreach ($this->configuration['fields'] as $field) {
-      $fields[$field['name']] = isset($field['label']) ? $field['label'] : $field['name'];
-    }
-    return $fields;
-  }
-
-  /**
-   * Get the generator.
-   *
-   * @param \Iterator $records
-   *   The CSV records.
-   *
-   * @codingStandardsIgnoreStart
-   *
-   * @return \Generator
-   *   The records generator.
-   *
-   * @codingStandardsIgnoreEnd
-   */
-  protected function getGenerator(\Iterator $records) {
-    foreach ($records as $record) {
-      yield $record;
-    }
-  }
-
-  /**
-   * Get the CSV reader.
-   *
-   * @return \League\Csv\Reader
-   *   The reader.
-   *
-   * @throws \Drupal\migrate\MigrateException
-   * @throws \League\Csv\Exception
-   */
-  protected function getReader() {
-    $reader = $this->createReader();
-    $reader->setDelimiter($this->configuration['delimiter']);
-    $reader->setEnclosure($this->configuration['enclosure']);
-    $reader->setEscape($this->configuration['escape']);
-    $reader->setHeaderOffset($this->configuration['header_offset']);
-    return $reader;
-  }
-
-  /**
-   * Construct a new CSV reader.
-   *
-   * @return \League\Csv\Reader
-   *   The reader.
-   */
-  protected function createReader() {
-    return Reader::createFromStream(fopen($this->configuration['path'], 'r'));
+  public function calculateDependencies() {
+    return [];
   }
 
 }
