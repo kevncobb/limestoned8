@@ -157,6 +157,14 @@ table .radio.form-no-label {
   background: none;
   margin: 1px;
 }
+.bar-header .bef-exposed-form .form--inline > .form-item {
+  padding: 14px 15px;
+  background-color: rgba(243, 243, 243, 0.88);
+  margin: 8px 3px 5px;
+}
+.bar-header .block-title {
+  font-size: 3rem;
+}
 .fibonacci-aside-left .bef-exposed-form .form--inline > .form-item {
   padding: 14px 15px;
   background-color: #f3f3f3;
@@ -167,6 +175,6 @@ table .radio.form-no-label {
   float: left;
 }
 .fibonacci-aside-left .form-actions button {
-  margin: 5px;
+  margin: 9px 3px;
   font-size: 3rem;
 }
