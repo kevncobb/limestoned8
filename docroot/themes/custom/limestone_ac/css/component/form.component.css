@@ -157,14 +157,14 @@ table .radio.form-no-label {
   background: none;
   margin: 1px;
 }
-.bar-header .bef-exposed-form .form--inline > .form-item {
+.fibonacci-aside-left .bar-header .bef-exposed-form .form--inline > .form-item {
   padding: 14px 15px;
   background-color: rgba(243, 243, 243, 0.88);
   margin: 8px 3px 5px;
   color: #333333;
   line-height: 3.5rem;
 }
-.bar-header .block-title {
+.fibonacci-aside-left .bar-header .block-title {
   font-size: 3rem;
   color: #ffffff;
 }
