@@ -157,29 +157,34 @@ table .radio.form-no-label {
   background: none;
   margin: 1px;
 }
-.fibonacci-aside-left .bar-header .bef-exposed-form .form--inline > .form-item {
+.fibonacci-aside-left .bar-header .bef-exposed-form .form--inline > .form-item,
+.fibonacci-aside .bar-header .bef-exposed-form .form--inline > .form-item {
   padding: 14px 15px;
   background-color: rgba(243, 243, 243, 0.88);
   margin: 8px 3px 5px;
   color: #444444;
   line-height: 3.5rem;
 }
-.fibonacci-aside-left .bar-header .block-title {
+.fibonacci-aside-left .bar-header .block-title,
+.fibonacci-aside .bar-header .block-title {
   font-size: 3rem;
   color: #ffffff;
 }
-.fibonacci-aside-left .bef-exposed-form .form--inline > .form-item {
+.fibonacci-aside-left .bef-exposed-form .form--inline > .form-item,
+.fibonacci-aside .bef-exposed-form .form--inline > .form-item {
   padding: 14px 15px;
   background-color: rgba(243, 243, 243, 0.88);
   margin: 8px 3px 5px;
   color: #444444;
   line-height: 3.5rem;
 }
-.fibonacci-aside-left .form-actions {
+.fibonacci-aside-left .form-actions,
+.fibonacci-aside .form-actions {
   clear: both;
   float: left;
 }
-.fibonacci-aside-left .form-actions button {
+.fibonacci-aside-left .form-actions button,
+.fibonacci-aside .form-actions button {
   margin: 9px 3px;
   font-size: 3rem;
 }
