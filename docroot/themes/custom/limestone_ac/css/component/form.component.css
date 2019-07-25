@@ -180,6 +180,12 @@ table .radio.form-no-label {
   padding: 10px;
   background-color: rgba(243, 243, 243, 0.88);
 }
+.fibonacci-aside-left .bef-exposed-form form .form-type-textfield .form-control,
+.fibonacci-aside .bef-exposed-form form .form-type-textfield .form-control,
+.fibonacci-aside-left .bef-exposed-form form .form-type-select .form-control,
+.fibonacci-aside .bef-exposed-form form .form-type-select .form-control {
+  max-width: 237px;
+}
 .fibonacci-aside-left .bef-exposed-form .form--inline > .form-item,
 .fibonacci-aside .bef-exposed-form .form--inline > .form-item {
   padding: 9px 10px;
