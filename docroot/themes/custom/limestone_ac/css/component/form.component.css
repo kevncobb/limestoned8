@@ -189,10 +189,12 @@ table .radio.form-no-label {
 .fibonacci-aside-left .form-actions,
 .fibonacci-aside .form-actions {
   clear: both;
-  float: left;
+  float: right;
 }
-.fibonacci-aside-left .form-actions button,
-.fibonacci-aside .form-actions button {
+.fibonacci-aside-left .form-actions button.btn-info,
+.fibonacci-aside .form-actions button.btn-info {
   margin: 9px 3px;
   font-size: 3rem;
+  background-color: #7b972f;
+  border-color: #6b8429;
 }
