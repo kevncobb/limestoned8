@@ -16,10 +16,5 @@
   padding: 14px 0 10px 0;
 }
 .footer-wrapper .footer ul.nav {
-  float: right;
   padding: 17px 0 17px 0;
-}
-.footer-wrapper .footer ul.nav li {
-  display: inline-block;
-  list-style: none;
 }
