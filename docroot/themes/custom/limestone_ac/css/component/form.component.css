@@ -199,8 +199,9 @@ table .radio.form-no-label {
 }
 .fibonacci-aside-left .form-actions,
 .fibonacci-aside .form-actions {
-  clear: both;
+  clear: none;
   float: right;
+  margin-top: 20px;
 }
 .fibonacci-aside-left .form-actions button.btn-info,
 .fibonacci-aside .form-actions button.btn-info {

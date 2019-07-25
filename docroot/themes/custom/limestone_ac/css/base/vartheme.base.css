@@ -49,6 +49,9 @@ html.js .autocomplete-throbber.throbbing {
   padding: 0;
   width: 1px;
 }
+.smaller {
+  font-size: 80%;
+}
 .navbar .logo {
   margin-right: -15px;
   padding-left: 15px;
