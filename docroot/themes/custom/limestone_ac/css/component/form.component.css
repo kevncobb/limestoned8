@@ -157,26 +157,34 @@ table .radio.form-no-label {
   background: none;
   margin: 1px;
 }
-.fibonacci-aside-left .bar-header .bef-exposed-form .form--inline > .form-item,
-.fibonacci-aside .bar-header .bef-exposed-form .form--inline > .form-item {
+.fibonacci-aside-left .filter-header .bef-exposed-form .form--inline > .form-item,
+.fibonacci-aside .filter-header .bef-exposed-form .form--inline > .form-item {
   padding: 14px 15px;
   background-color: rgba(243, 243, 243, 0.88);
   margin: 8px 3px 5px;
   color: #444444;
   line-height: 3.5rem;
 }
-.fibonacci-aside-left .bar-header .block-title,
-.fibonacci-aside .bar-header .block-title {
+.fibonacci-aside-left .filter-header .block-title,
+.fibonacci-aside .filter-header .block-title {
   font-size: 3rem;
-  color: #ffffff;
+  color: #0038a5;
+}
+.fibonacci-aside-left .bef-exposed-form form,
+.fibonacci-aside .bef-exposed-form form {
+  padding: 10px;
+  background-color: rgba(243, 243, 243, 0.88);
 }
 .fibonacci-aside-left .bef-exposed-form .form--inline > .form-item,
 .fibonacci-aside .bef-exposed-form .form--inline > .form-item {
-  padding: 14px 15px;
-  background-color: rgba(243, 243, 243, 0.88);
-  margin: 8px 3px 5px;
+  padding: 9px 10px;
+  margin: 0px 3px 0px;
   color: #444444;
-  line-height: 3.5rem;
+  line-height: 2.5rem;
+}
+.fibonacci-aside-left .bef-exposed-form .form--inline > .form-item label,
+.fibonacci-aside .bef-exposed-form .form--inline > .form-item label {
+  display: block;
 }
 .fibonacci-aside-left .form-actions,
 .fibonacci-aside .form-actions {
