@@ -168,7 +168,12 @@ table .radio.form-no-label {
 .fibonacci-aside-left .filter-header .block-title,
 .fibonacci-aside .filter-header .block-title {
   font-size: 3rem;
-  color: #0038a5;
+  color: white;
+  background: #0038a5;
+  text-transform: uppercase;
+  padding: 15px;
+  font-weight: 100;
+  margin: 3rem 0 0 !important;
 }
 .fibonacci-aside-left .bef-exposed-form form,
 .fibonacci-aside .bef-exposed-form form {

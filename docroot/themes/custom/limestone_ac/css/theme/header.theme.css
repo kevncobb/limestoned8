@@ -50,6 +50,9 @@
   font-weight: 100;
   margin: 3rem 0;
 }
+.bar-header.no-margin-bottom {
+  margin-bottom: 0;
+}
 .bar-header.gray {
   background: #8e8e8ec9;
 }
