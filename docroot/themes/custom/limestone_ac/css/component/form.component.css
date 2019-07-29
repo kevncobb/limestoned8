@@ -158,7 +158,8 @@ table .radio.form-no-label {
   margin: 1px;
 }
 .fibonacci-aside-left .filter-header .bef-exposed-form .form--inline > .form-item,
-.fibonacci-aside .filter-header .bef-exposed-form .form--inline > .form-item {
+.fibonacci-aside .filter-header .bef-exposed-form .form--inline > .form-item,
+.view-display-id-page_1 .filter-header .bef-exposed-form .form--inline > .form-item {
   padding: 14px 15px;
   background-color: rgba(243, 243, 243, 0.88);
   margin: 8px 3px 5px;
@@ -166,7 +167,8 @@ table .radio.form-no-label {
   line-height: 3.5rem;
 }
 .fibonacci-aside-left .filter-header .block-title,
-.fibonacci-aside .filter-header .block-title {
+.fibonacci-aside .filter-header .block-title,
+.view-display-id-page_1 .filter-header .block-title {
   font-size: 3rem;
   color: white;
   background: #0038a5;
@@ -176,20 +178,25 @@ table .radio.form-no-label {
   margin: 3rem 0 0 !important;
 }
 .fibonacci-aside-left .bef-exposed-form form,
-.fibonacci-aside .bef-exposed-form form {
+.fibonacci-aside .bef-exposed-form form,
+.view-display-id-page_1 .bef-exposed-form form {
   padding: 10px;
   background-color: rgba(243, 243, 243, 0.88);
 }
 .fibonacci-aside-left .bef-exposed-form form .form-type-textfield .form-control,
 .fibonacci-aside .bef-exposed-form form .form-type-textfield .form-control,
+.view-display-id-page_1 .bef-exposed-form form .form-type-textfield .form-control,
 .fibonacci-aside-left .bef-exposed-form form .form-type-select .form-control,
-.fibonacci-aside .bef-exposed-form form .form-type-select .form-control {
+.fibonacci-aside .bef-exposed-form form .form-type-select .form-control,
+.view-display-id-page_1 .bef-exposed-form form .form-type-select .form-control {
   max-width: 237px;
 }
 .fibonacci-aside-left .bef-exposed-form form .form-type-textfield input::placeholder,
 .fibonacci-aside .bef-exposed-form form .form-type-textfield input::placeholder,
+.view-display-id-page_1 .bef-exposed-form form .form-type-textfield input::placeholder,
 .fibonacci-aside-left .bef-exposed-form form .form-type-select input::placeholder,
-.fibonacci-aside .bef-exposed-form form .form-type-select input::placeholder {
+.fibonacci-aside .bef-exposed-form form .form-type-select input::placeholder,
+.view-display-id-page_1 .bef-exposed-form form .form-type-select input::placeholder {
   color: #a5a5a5;
   font-size: 80%;
 }
