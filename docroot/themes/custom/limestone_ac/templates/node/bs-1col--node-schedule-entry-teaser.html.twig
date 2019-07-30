@@ -21,8 +21,8 @@
   <{{ main.wrapper }}{{ main.attributes }}>
     {% set field_courses = content.field_courses|render %}
     {% if field_courses is empty %}
-      {{ label }}
+      {{ content.node_title }}
     {% endif %}
-    {{ main.content|without('label') }}
+    {{ main.content|without('node_title') }}
   </{{ main.wrapper }}>
 </{{ wrapper }}>
