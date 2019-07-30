@@ -19,9 +19,9 @@
 <{{ wrapper }}{{ attributes }}>
   {{ title_suffix.contextual_links }}
   <{{ main.wrapper }}{{ main.attributes }}>
-    {% if content.title and not content.field_courses %}
-      {{ content.title }}
+    {% if main.content.title and not main.content.field_courses %}
+      {{ main.content.title }}
     {% endif %}
-    {{ main.content }}
+    {{ main.content|without('main.content.title') }}
   </{{ main.wrapper }}>
 </{{ wrapper }}>
