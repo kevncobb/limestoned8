@@ -20,9 +20,9 @@
   {{ title_suffix.contextual_links }}
   <{{ main.wrapper }}{{ main.attributes }}>
     {% set field_courses = content.field_courses|render %}
-    {% if field_courses %}
-      <div class="field-courses-wrapper">{{ field_courses }}</div>
+    {% if field_courses is empty %}
+      {{ label }}
     {% endif %}
-    {{ main.content|without('content.title') }}
+    {{ main.content|without('label') }}
   </{{ main.wrapper }}>
 </{{ wrapper }}>
