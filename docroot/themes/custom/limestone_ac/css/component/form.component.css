@@ -208,7 +208,7 @@ table .radio.form-no-label {
 }
 .fibonacci-aside-left .bef-exposed-form .form--inline > .form-item,
 .fibonacci-aside .bef-exposed-form .form--inline > .form-item,
-.view-display-id-page_1 .bef-exposed-form .form--inline > .form-item {
+.view-course-schedule .bef-exposed-form .form--inline > .form-item {
   padding: 9px 10px;
   margin: 0px 3px 0px;
   color: #444444;
@@ -216,19 +216,19 @@ table .radio.form-no-label {
 }
 .fibonacci-aside-left .bef-exposed-form .form--inline > .form-item label,
 .fibonacci-aside .bef-exposed-form .form--inline > .form-item label,
-.view-display-id-page_1 .bef-exposed-form .form--inline > .form-item label {
+.view-course-schedule .bef-exposed-form .form--inline > .form-item label {
   display: block;
 }
 .fibonacci-aside-left .form-actions,
 .fibonacci-aside .form-actions,
-.view-display-id-page_1 .form-actions {
+.view-course-schedule .form-actions {
   clear: none;
   float: right;
   margin-top: 20px;
 }
 .fibonacci-aside-left .form-actions button.btn-info,
 .fibonacci-aside .form-actions button.btn-info,
-.view-display-id-page_1 .form-actions button.btn-info {
+.view-course-schedule .form-actions button.btn-info {
   margin: 9px 3px;
   font-size: 3rem;
   background-color: #7b972f;
