@@ -177,26 +177,26 @@ table .radio.form-no-label {
   font-weight: 100;
   margin: 3rem 0 0 !important;
 }
-.fibonacci-aside-left form.bef-exposed-form,
-.fibonacci-aside form.bef-exposed-form,
-.view-course-schedule form.bef-exposed-form {
+.fibonacci-aside-left form,
+.fibonacci-aside form,
+.view-course-schedule form {
   padding: 10px;
   background-color: rgba(243, 243, 243, 0.88);
 }
-.fibonacci-aside-left form.bef-exposed-form .form-type-textfield .form-control,
-.fibonacci-aside form.bef-exposed-form .form-type-textfield .form-control,
-.view-course-schedule form.bef-exposed-form .form-type-textfield .form-control,
-.fibonacci-aside-left form.bef-exposed-form .form-type-select .form-control,
-.fibonacci-aside form.bef-exposed-form .form-type-select .form-control,
-.view-course-schedule form.bef-exposed-form .form-type-select .form-control {
+.fibonacci-aside-left form .form-type-textfield .form-control,
+.fibonacci-aside form .form-type-textfield .form-control,
+.view-course-schedule form .form-type-textfield .form-control,
+.fibonacci-aside-left form .form-type-select .form-control,
+.fibonacci-aside form .form-type-select .form-control,
+.view-course-schedule form .form-type-select .form-control {
   max-width: 237px;
 }
-.fibonacci-aside-left form.bef-exposed-form .form-type-textfield input::placeholder,
-.fibonacci-aside form.bef-exposed-form .form-type-textfield input::placeholder,
-.view-course-schedule form.bef-exposed-form .form-type-textfield input::placeholder,
-.fibonacci-aside-left form.bef-exposed-form .form-type-select input::placeholder,
-.fibonacci-aside form.bef-exposed-form .form-type-select input::placeholder,
-.view-course-schedule form.bef-exposed-form .form-type-select input::placeholder {
+.fibonacci-aside-left form .form-type-textfield input::placeholder,
+.fibonacci-aside form .form-type-textfield input::placeholder,
+.view-course-schedule form .form-type-textfield input::placeholder,
+.fibonacci-aside-left form .form-type-select input::placeholder,
+.fibonacci-aside form .form-type-select input::placeholder,
+.view-course-schedule form .form-type-select input::placeholder {
   color: #a5a5a5;
   font-size: 80%;
 }
