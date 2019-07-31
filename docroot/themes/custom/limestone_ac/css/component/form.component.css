@@ -139,9 +139,9 @@ table .radio.form-no-label {
 }
 .view-course-listing.view-display-id-page_1 .bef-exposed-form .form--inline > .form-item {
   float: left;
-  padding: 7px 5px;
+  padding: 7px 4px;
   background-color: #f3f3f3;
-  margin: 8px 3px 5px;
+  margin: 8px 0px 5px;
 }
 .view-course-listing.view-display-id-page_1 .view-filters div.form-type-checkbox {
   float: right;
