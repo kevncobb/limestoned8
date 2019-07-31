@@ -2,7 +2,7 @@
 
 namespace Drupal\Tests\tamper\Unit\Plugin\Tamper;
 
-use \Drupal\tamper\Exception\SkipTamperItemException;
+use Drupal\tamper\Exception\SkipTamperItemException;
 use Drupal\tamper\Plugin\Tamper\Required;
 
 /**
@@ -148,7 +148,7 @@ class RequiredTest extends TamperPluginTestBase {
     $config = [
       Required::SETTING_INVERT => FALSE,
     ];
-    $plugin = new Required($config, 'required', []);
+    $plugin = new Required($config, 'required', [], $this->getMockSourceDefinition());
     return $plugin;
   }
 
@@ -162,7 +162,7 @@ class RequiredTest extends TamperPluginTestBase {
     $config = [
       Required::SETTING_INVERT => TRUE,
     ];
-    $plugin = new Required($config, 'required', []);
+    $plugin = new Required($config, 'required', [], $this->getMockSourceDefinition());
     return $plugin;
   }
 

@@ -5,7 +5,7 @@ namespace Drupal\Tests\tamper\Unit\Plugin\Tamper;
 use Drupal\tamper\Plugin\Tamper\FindReplaceRegex;
 
 /**
- * Tests the number format plugin.
+ * Tests the find and replace regex plugin.
  *
  * @coversDefaultClass \Drupal\tamper\Plugin\Tamper\FindReplaceRegex
  * @group tamper
@@ -16,7 +16,7 @@ class FindReplaceRegexTest extends TamperPluginTestBase {
    * {@inheritdoc}
    */
   protected function instantiatePlugin() {
-    return new FindReplaceRegex([], 'find_replace_regex', []);
+    return new FindReplaceRegex([], 'find_replace_regex', [], $this->getMockSourceDefinition());
   }
 
   /**
@@ -28,7 +28,7 @@ class FindReplaceRegexTest extends TamperPluginTestBase {
       FindReplaceRegex::SETTING_REPLACE => 'dog',
       FindReplaceRegex::SETTING_LIMIT => '',
     ];
-    $plugin = new FindReplaceRegex($config, 'find_replace_regex', []);
+    $plugin = new FindReplaceRegex($config, 'find_replace_regex', [], $this->getMockSourceDefinition());
     $this->assertEquals('The dog went to the park.', $plugin->tamper('The cat went to the park.'));
   }
 
@@ -41,7 +41,7 @@ class FindReplaceRegexTest extends TamperPluginTestBase {
       FindReplaceRegex::SETTING_REPLACE => 'dog',
       FindReplaceRegex::SETTING_LIMIT => '',
     ];
-    $plugin = new FindReplaceRegex($config, 'find_replace_regex', []);
+    $plugin = new FindReplaceRegex($config, 'find_replace_regex', [], $this->getMockSourceDefinition());
     $this->assertEquals('The dog went to the park.', $plugin->tamper('The Cat went to the park.'));
   }
 
@@ -54,7 +54,7 @@ class FindReplaceRegexTest extends TamperPluginTestBase {
       FindReplaceRegex::SETTING_REPLACE => 'dog',
       FindReplaceRegex::SETTING_LIMIT => '',
     ];
-    $plugin = new FindReplaceRegex($config, 'find_replace_regex', []);
+    $plugin = new FindReplaceRegex($config, 'find_replace_regex', [], $this->getMockSourceDefinition());
     $this->assertEquals('The Catwent to the park.', $plugin->tamper('The Catwent to the park.'));
   }
 
@@ -67,7 +67,7 @@ class FindReplaceRegexTest extends TamperPluginTestBase {
       FindReplaceRegex::SETTING_REPLACE => 'dog',
       FindReplaceRegex::SETTING_LIMIT => '',
     ];
-    $plugin = new FindReplaceRegex($config, 'find_replace_regex', []);
+    $plugin = new FindReplaceRegex($config, 'find_replace_regex', [], $this->getMockSourceDefinition());
     $this->assertEquals('The dog went to the park.', $plugin->tamper("The cat\n went to the park."));
 
     $config = [
@@ -75,7 +75,7 @@ class FindReplaceRegexTest extends TamperPluginTestBase {
       FindReplaceRegex::SETTING_REPLACE => 'dog',
       FindReplaceRegex::SETTING_LIMIT => '',
     ];
-    $plugin = new FindReplaceRegex($config, 'find_replace_regex', []);
+    $plugin = new FindReplaceRegex($config, 'find_replace_regex', [], $this->getMockSourceDefinition());
     $this->assertEquals('The dog went to the park.', $plugin->tamper("The cat\r\n went to the park."));
 
   }
@@ -89,7 +89,7 @@ class FindReplaceRegexTest extends TamperPluginTestBase {
       FindReplaceRegex::SETTING_REPLACE => 'dog',
       FindReplaceRegex::SETTING_LIMIT => '',
     ];
-    $plugin = new FindReplaceRegex($config, 'find_replace_regex', []);
+    $plugin = new FindReplaceRegex($config, 'find_replace_regex', [], $this->getMockSourceDefinition());
     $this->assertEquals('The dog went to the park.', $plugin->tamper("The cat\n went to the park."));
 
     $config = [
@@ -97,7 +97,7 @@ class FindReplaceRegexTest extends TamperPluginTestBase {
       FindReplaceRegex::SETTING_REPLACE => 'dog',
       FindReplaceRegex::SETTING_LIMIT => '',
     ];
-    $plugin = new FindReplaceRegex($config, 'find_replace_regex', []);
+    $plugin = new FindReplaceRegex($config, 'find_replace_regex', [], $this->getMockSourceDefinition());
     $this->assertEquals('The dog went to the park.', $plugin->tamper("The cat\t went to the park."));
   }
 

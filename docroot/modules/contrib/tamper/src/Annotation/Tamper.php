@@ -56,7 +56,7 @@ class Tamper extends Plugin {
    * Typically plugins that have handle_multiples as TRUE will expect an array
    * as input and iterate over it themselves, changing the whole array.
    *
-   * @var bool (optional)
+   * @var bool
    */
   public $handle_multiples = FALSE;
 

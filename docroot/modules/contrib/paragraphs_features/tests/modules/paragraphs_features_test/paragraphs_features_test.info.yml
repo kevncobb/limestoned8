@@ -6,8 +6,8 @@ package: Paragraphs
 dependencies:
   - paragraphs_features:paragraphs_features
 
-# Information added by Drupal.org packaging script on 2018-09-12
-version: '8.x-1.4'
+# Information added by Drupal.org packaging script on 2019-07-31
+version: '8.x-1.5'
 core: '8.x'
 project: 'paragraphs_features'
-datestamp: 1536759494
+datestamp: 1564570387

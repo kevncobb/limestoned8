@@ -4,6 +4,7 @@ namespace Drupal\Tests\tamper\Kernel;
 
 use Drupal\KernelTests\KernelTestBase;
 use Drupal\tamper\Exception\TamperException;
+use Drupal\tamper\SourceDefinitionInterface;
 
 /**
  * Tests chaining multiple tampers together.
@@ -42,6 +43,7 @@ class ChainedTamperTest extends KernelTestBase {
     $multiple = FALSE;
 
     foreach ($tampers as $plugin_data) {
+      $plugin_data['config']['source_definition'] = $this->getMock(SourceDefinitionInterface::class);
       $tamper = $manager->createInstance($plugin_data['plugin'], $plugin_data['config']);
 
       if (isset($plugin_data['expected_exception'])) {

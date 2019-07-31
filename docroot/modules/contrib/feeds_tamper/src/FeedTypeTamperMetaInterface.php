@@ -82,4 +82,12 @@ interface FeedTypeTamperMetaInterface extends ObjectWithPluginCollectionInterfac
    */
   public function getUniqueSourceList();
 
+  /**
+   * Returns a definition of sources.
+   *
+   * @return \Drupal\tamper\SourceDefinitionInterface
+   *   A source definition, which can be used by Tamper plugins.
+   */
+  public function getSourceDefinition();
+
 }

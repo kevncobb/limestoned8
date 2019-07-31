@@ -4,6 +4,7 @@ namespace Drupal\feeds_tamper;
 
 use Drupal\Component\Uuid\UuidInterface;
 use Drupal\feeds\FeedTypeInterface;
+use Drupal\tamper\SourceDefinition;
 use Drupal\tamper\TamperManagerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -89,7 +90,7 @@ class FeedTypeTamperMeta implements FeedTypeTamperMetaInterface {
     if (!isset($this->tamperCollection)) {
       $tampers = $this->feedType->getThirdPartySetting('feeds_tamper', 'tampers');
       $tampers = empty($tampers) ? [] : $tampers;
-      $this->tamperCollection = new TamperPluginCollection($this->tamperManager, $tampers);
+      $this->tamperCollection = new TamperPluginCollection($this->tamperManager, $this->getSourceDefinition(), $tampers);
       $this->tamperCollection->sort();
     }
     return $this->tamperCollection;
@@ -119,6 +120,7 @@ class FeedTypeTamperMeta implements FeedTypeTamperMetaInterface {
    */
   public function addTamper(array $configuration) {
     $configuration['uuid'] = $this->uuidGenerator->generate();
+    $configuration['source_definition'] = $this->getSourceDefinition();
     $this->getTampers()->addInstanceId($configuration['uuid'], $configuration);
     $this->updateFeedType();
     return $configuration['uuid'];
@@ -176,6 +178,18 @@ class FeedTypeTamperMeta implements FeedTypeTamperMetaInterface {
     }
 
     return $sources;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getSourceDefinition() {
+    $source_list = [];
+    foreach ($this->feedType->getMappingSources() as $key => $source) {
+      $source_list[$key] = $key;
+    }
+
+    return new SourceDefinition($source_list);
   }
 
   /**

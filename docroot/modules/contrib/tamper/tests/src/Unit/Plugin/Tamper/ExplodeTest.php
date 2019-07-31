@@ -63,7 +63,7 @@ class ExplodeTest extends TamperPluginTestBase {
    *   A explode tamper plugin instance.
    */
   protected function getPluginDefaultConfig() {
-    return new Explode([], 'explode', []);
+    return new Explode([], 'explode', [], $this->getMockSourceDefinition());
   }
 
   /**
@@ -76,7 +76,7 @@ class ExplodeTest extends TamperPluginTestBase {
     $config = [
       Explode::SETTING_LIMIT => 2,
     ];
-    return new Explode($config, 'explode', []);
+    return new Explode($config, 'explode', [], $this->getMockSourceDefinition());
   }
 
 }

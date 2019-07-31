@@ -42,12 +42,12 @@ class Required extends TamperBase {
    * {@inheritdoc}
    */
   public function buildConfigurationForm(array $form, FormStateInterface $form_state) {
-    $form[self::SETTING_INVERT] = array(
+    $form[self::SETTING_INVERT] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Invert filter'),
       '#default_value' => $this->getSetting(self::SETTING_INVERT),
       '#description' => $this->t('Inverting the filter will save items only if the field is empty.'),
-    );
+    ];
 
     return $form;
   }

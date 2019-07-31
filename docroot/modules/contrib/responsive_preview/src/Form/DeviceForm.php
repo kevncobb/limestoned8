@@ -102,10 +102,10 @@ class DeviceForm extends EntityForm {
     $status = $device->save();
 
     if ($status === SAVED_NEW) {
-      drupal_set_message($this->t('Device %label has been added.', ['%label' => $device->label()]));
+      $this->messenger()->addStatus($this->t('Device %label has been added.', ['%label' => $device->label()]));
     }
     else {
-      drupal_set_message($this->t('Device %label has been updated.', ['%label' => $device->label()]));
+      $this->messenger()->addStatus($this->t('Device %label has been updated.', ['%label' => $device->label()]));
     }
 
     $form_state->setRedirectUrl($device->toUrl('collection'));

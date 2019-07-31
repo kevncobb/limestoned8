@@ -17,7 +17,7 @@ class StrToTimeTest extends TamperPluginTestBase {
    * {@inheritdoc}
    */
   protected function instantiatePlugin() {
-    return new StrToTime([], 'strtotime', []);
+    return new StrToTime([], 'strtotime', [], $this->getMockSourceDefinition());
   }
 
   /**

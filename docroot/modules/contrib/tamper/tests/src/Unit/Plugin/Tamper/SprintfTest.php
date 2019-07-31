@@ -16,7 +16,7 @@ class SprintfTest extends TamperPluginTestBase {
    * {@inheritdoc}
    */
   protected function instantiatePlugin() {
-    return new Sprintf([], 'sprintf', []);
+    return new Sprintf([], 'sprintf', [], $this->getMockSourceDefinition());
   }
 
   /**
@@ -33,7 +33,7 @@ class SprintfTest extends TamperPluginTestBase {
     $config = [
       Sprintf::SETTING_TEXT_FORMAT => '%08d',
     ];
-    $plugin = new Sprintf($config, 'sprintf', []);
+    $plugin = new Sprintf($config, 'sprintf', [], $this->getMockSourceDefinition());
 
     $this->assertEquals('00000123', $plugin->tamper('0123'));
   }
@@ -45,7 +45,7 @@ class SprintfTest extends TamperPluginTestBase {
     $config = [
       Sprintf::SETTING_TEXT_FORMAT => '%c',
     ];
-    $plugin = new Sprintf($config, 'sprintf', []);
+    $plugin = new Sprintf($config, 'sprintf', [], $this->getMockSourceDefinition());
 
     $this->assertEquals('A', $plugin->tamper('65'));
   }

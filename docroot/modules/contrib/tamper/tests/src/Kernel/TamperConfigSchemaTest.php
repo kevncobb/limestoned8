@@ -3,9 +3,10 @@
 namespace Drupal\Tests\tamper\Kernel;
 
 use Drupal\entity_test\Entity\EntityTestBundle;
-use Drupal\Core\Plugin\DefaultLazyPluginCollection;
 use Drupal\KernelTests\KernelTestBase;
+use Drupal\tamper\SourceDefinition;
 use Drupal\tamper\TamperInterface;
+use Drupal\tamper\TamperPluginCollection;
 
 /**
  * Tests config schema of each tamper plugin.
@@ -49,7 +50,7 @@ class TamperConfigSchemaTest extends KernelTestBase {
    */
   public function testCreateInstance() {
     $tamper_manager = \Drupal::service('plugin.manager.tamper');
-    $plugin_collection = new DefaultLazyPluginCollection($tamper_manager, []);
+    $plugin_collection = new TamperPluginCollection($tamper_manager, new SourceDefinition([]), []);
     foreach ($tamper_manager->getDefinitions() as $plugin_id => $plugin_definition) {
       // Create instance. DefaultLazyPluginCollection uses 'id' as plugin key.
       $plugin_collection->addInstanceId($plugin_id, [

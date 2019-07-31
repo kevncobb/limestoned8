@@ -6,10 +6,9 @@ use Drupal\tamper\Exception\TamperException;
 use Drupal\tamper\Plugin\Tamper\StripTags;
 
 /**
- * Tests the convert case plugin.
+ * Tests the strip tags plugin.
  *
  * @coversDefaultClass \Drupal\tamper\Plugin\Tamper\StripTags
- *
  * @group tamper
  */
 class StripTagsTest extends TamperPluginTestBase {
@@ -18,7 +17,7 @@ class StripTagsTest extends TamperPluginTestBase {
    * {@inheritdoc}
    */
   protected function instantiatePlugin() {
-    return new StripTags([], 'strip_tags', []);
+    return new StripTags([], 'strip_tags', [], $this->getMockSourceDefinition());
   }
 
   /**

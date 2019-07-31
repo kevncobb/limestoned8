@@ -4,6 +4,7 @@ namespace Drupal\Tests\tamper\Unit\Plugin\Tamper;
 
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\StringTranslation\TranslationInterface;
+use Drupal\tamper\SourceDefinitionInterface;
 use Drupal\Tests\UnitTestCase;
 
 /**
@@ -35,6 +36,20 @@ abstract class TamperPluginTestBase extends UnitTestCase {
    *   A tamper plugin.
    */
   abstract protected function instantiatePlugin();
+
+  /**
+   * Returns a mocked source definition.
+   *
+   * @return \Drupal\tamper\SourceDefinitionInterface
+   *   A source definition.
+   */
+  protected function getMockSourceDefinition() {
+    $mock = $this->getMock(SourceDefinitionInterface::class);
+    $mock->expects($this->any())
+      ->method('getList')
+      ->willReturn(['foo', 'bar']);
+    return $mock;
+  }
 
   /**
    * @covers ::getPluginId

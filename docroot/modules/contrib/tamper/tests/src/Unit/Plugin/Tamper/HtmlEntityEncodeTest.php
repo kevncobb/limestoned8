@@ -6,7 +6,7 @@ use Drupal\tamper\Exception\TamperException;
 use Drupal\tamper\Plugin\Tamper\HtmlEntityEncode;
 
 /**
- * Tests the convert case plugin.
+ * Tests the html entity encode plugin.
  *
  * @coversDefaultClass \Drupal\tamper\Plugin\Tamper\HtmlEntityEncode
  * @group tamper
@@ -17,7 +17,7 @@ class HtmlEntityEncodeTest extends TamperPluginTestBase {
    * {@inheritdoc}
    */
   protected function instantiatePlugin() {
-    return new HtmlEntityEncode([], 'html_entity_encode', []);
+    return new HtmlEntityEncode([], 'html_entity_encode', [], $this->getMockSourceDefinition());
   }
 
   /**

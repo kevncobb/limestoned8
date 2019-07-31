@@ -16,7 +16,7 @@ class TruncateTextTest extends TamperPluginTestBase {
    * {@inheritdoc}
    */
   protected function instantiatePlugin() {
-    return new TruncateText([], 'truncate_text', []);
+    return new TruncateText([], 'truncate_text', [], $this->getMockSourceDefinition());
   }
 
   /**
@@ -28,7 +28,7 @@ class TruncateTextTest extends TamperPluginTestBase {
       TruncateText::SETTING_ELLIPSE => FALSE,
       TruncateText::SETTING_WORDSAFE => FALSE,
     ];
-    $plugin = new TruncateText($config, 'truncate_text', []);
+    $plugin = new TruncateText($config, 'truncate_text', [], $this->getMockSourceDefinition());
     $this->assertEquals('Hello', $plugin->tamper('Hello, how are you today?'));
   }
 
@@ -41,7 +41,7 @@ class TruncateTextTest extends TamperPluginTestBase {
       TruncateText::SETTING_ELLIPSE => TRUE,
       TruncateText::SETTING_WORDSAFE => TRUE,
     ];
-    $plugin = new TruncateText($config, 'truncate_text', []);
+    $plugin = new TruncateText($config, 'truncate_text', [], $this->getMockSourceDefinition());
     $this->assertEquals('Hell…', $plugin->tamper('Hello, how are you today?'));
     $this->assertEquals('Hello', $plugin->tamper('Hello'));
   }
@@ -55,7 +55,7 @@ class TruncateTextTest extends TamperPluginTestBase {
       TruncateText::SETTING_ELLIPSE => FALSE,
       TruncateText::SETTING_WORDSAFE => TRUE,
     ];
-    $plugin = new TruncateText($config, 'truncate_text', []);
+    $plugin = new TruncateText($config, 'truncate_text', [], $this->getMockSourceDefinition());
     $this->assertEquals('Hello, how', $plugin->tamper('Hello, how are you today?'));
   }
 

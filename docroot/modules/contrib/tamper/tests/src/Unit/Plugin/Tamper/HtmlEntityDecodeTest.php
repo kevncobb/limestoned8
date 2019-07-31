@@ -17,7 +17,7 @@ class HtmlEntityDecodeTest extends TamperPluginTestBase {
    * {@inheritdoc}
    */
   protected function instantiatePlugin() {
-    return new HtmlEntityDecode([], 'html_entity_decode', []);
+    return new HtmlEntityDecode([], 'html_entity_decode', [], $this->getMockSourceDefinition());
   }
 
   /**

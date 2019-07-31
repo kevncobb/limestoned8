@@ -80,7 +80,7 @@ class DeviceListBuilder extends DraggableListBuilder {
         }
       }
 
-      drupal_set_message($this->t('The device settings have been updated.'));
+      $this->messenger()->addStatus($this->t('The device settings have been updated.'));
     }
   }
 

@@ -16,7 +16,7 @@ class CastToIntTest extends TamperPluginTestBase {
    * {@inheritdoc}
    */
   protected function instantiatePlugin() {
-    return new CastToInt([], 'cast_to_int', []);
+    return new CastToInt([], 'cast_to_int', [], $this->getMockSourceDefinition());
   }
 
   /**

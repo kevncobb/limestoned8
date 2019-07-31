@@ -16,7 +16,7 @@ class NumberFormatTest extends TamperPluginTestBase {
    * {@inheritdoc}
    */
   protected function instantiatePlugin() {
-    return new NumberFormat([], 'number_format', []);
+    return new NumberFormat([], 'number_format', [], $this->getMockSourceDefinition());
   }
 
   /**
@@ -28,7 +28,7 @@ class NumberFormatTest extends TamperPluginTestBase {
       NumberFormat::SETTING_DEC_POINT => '.',
       NumberFormat::SETTING_THOUSANDS_SEP => ',',
     ];
-    $plugin = new NumberFormat($config, 'number_format', []);
+    $plugin = new NumberFormat($config, 'number_format', [], $this->getMockSourceDefinition());
 
     $this->assertEquals('1,235', $plugin->tamper('1234.56'));
 
@@ -43,7 +43,7 @@ class NumberFormatTest extends TamperPluginTestBase {
       NumberFormat::SETTING_DEC_POINT => ',',
       NumberFormat::SETTING_THOUSANDS_SEP => ' ',
     ];
-    $plugin = new NumberFormat($config, 'number_format', []);
+    $plugin = new NumberFormat($config, 'number_format', [], $this->getMockSourceDefinition());
 
     $this->assertEquals('1 234,56', $plugin->tamper('1234.56'));
 
@@ -58,7 +58,7 @@ class NumberFormatTest extends TamperPluginTestBase {
       NumberFormat::SETTING_DEC_POINT => '.',
       NumberFormat::SETTING_THOUSANDS_SEP => '',
     ];
-    $plugin = new NumberFormat($config, 'number_format', []);
+    $plugin = new NumberFormat($config, 'number_format', [], $this->getMockSourceDefinition());
 
     $this->assertEquals('1234.57', $plugin->tamper(1234.5678));
 
@@ -73,7 +73,7 @@ class NumberFormatTest extends TamperPluginTestBase {
       NumberFormat::SETTING_DEC_POINT => ',',
       NumberFormat::SETTING_THOUSANDS_SEP => ' ',
     ];
-    $plugin = new NumberFormat($config, 'number_format', []);
+    $plugin = new NumberFormat($config, 'number_format', [], $this->getMockSourceDefinition());
 
     $this->assertEquals('1 234,57', $plugin->tamper(1234.5678));
 

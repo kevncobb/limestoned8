@@ -17,7 +17,7 @@ class UniqueTest extends TamperPluginTestBase {
    * {@inheritdoc}
    */
   protected function instantiatePlugin() {
-    return new Unique([], 'unique', []);
+    return new Unique([], 'unique', [], $this->getMockSourceDefinition());
   }
 
   /**

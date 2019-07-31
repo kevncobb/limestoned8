@@ -54,26 +54,26 @@ class FindReplace extends TamperBase {
       '#default_value' => $this->getSetting(self::SETTING_REPLACE),
     ];
 
-    $form[self::SETTING_CASE_SENSITIVE] = array(
+    $form[self::SETTING_CASE_SENSITIVE] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Case sensitive'),
       '#default_value' => $this->getSetting(self::SETTING_CASE_SENSITIVE),
       '#description' => $this->t('If checked, "book" will match "book" but not "Book" or "BOOK".'),
-    );
+    ];
 
-    $form[self::SETTING_WORD_BOUNDARIES] = array(
+    $form[self::SETTING_WORD_BOUNDARIES] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Respect word boundaries'),
       '#default_value' => $this->getSetting(self::SETTING_WORD_BOUNDARIES),
       '#description' => $this->t('If checked, "book" will match "book" but not "bookcase".'),
-    );
+    ];
 
-    $form[self::SETTING_WHOLE] = array(
+    $form[self::SETTING_WHOLE] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Match whole word/phrase'),
       '#default_value' => $this->getSetting(self::SETTING_WHOLE),
       '#description' => $this->t('If checked, then the whole word or phrase will be matched, e.g. "book" will match "book" but not "the book". If this option is selected then "Respect word boundaries" above will be ignored.'),
-    );
+    ];
 
     return $form;
   }

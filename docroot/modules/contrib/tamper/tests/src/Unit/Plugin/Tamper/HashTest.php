@@ -18,7 +18,7 @@ class HashTest extends TamperPluginTestBase {
    * {@inheritdoc}
    */
   protected function instantiatePlugin() {
-    return new Hash([], 'hash', []);
+    return new Hash([], 'hash', [], $this->getMockSourceDefinition());
   }
 
   /**
@@ -56,7 +56,7 @@ class HashTest extends TamperPluginTestBase {
    * Test the hash functionality.
    */
   public function testHashWithOverride() {
-    $plugin = new Hash([Hash::SETTING_OVERRIDE => TRUE], 'hash', []);
+    $plugin = new Hash([Hash::SETTING_OVERRIDE => TRUE], 'hash', [], $this->getMockSourceDefinition());
     $hashed_values = md5(serialize([
       'title' => 'Yay title!',
       'body' => 'Yay body!',

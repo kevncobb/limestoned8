@@ -17,7 +17,7 @@ class ArrayFilterTest extends TamperPluginTestBase {
    * {@inheritdoc}
    */
   protected function instantiatePlugin() {
-    return new ArrayFilter([], 'array_filter', []);
+    return new ArrayFilter([], 'array_filter', [], $this->getMockSourceDefinition());
   }
 
   /**

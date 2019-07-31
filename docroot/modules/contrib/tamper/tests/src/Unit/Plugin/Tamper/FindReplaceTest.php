@@ -24,7 +24,7 @@ class FindReplaceTest extends TamperPluginTestBase {
       FindReplace::SETTING_WORD_BOUNDARIES => FALSE,
       FindReplace::SETTING_WHOLE => FALSE,
     ];
-    return new FindReplace($config, 'find_replace', []);
+    return new FindReplace($config, 'find_replace', [], $this->getMockSourceDefinition());
   }
 
   /**
@@ -38,7 +38,7 @@ class FindReplaceTest extends TamperPluginTestBase {
       FindReplace::SETTING_WORD_BOUNDARIES => FALSE,
       FindReplace::SETTING_WHOLE => FALSE,
     ];
-    $plugin = new FindReplace($config, 'find_replace', []);
+    $plugin = new FindReplace($config, 'find_replace', [], $this->getMockSourceDefinition());
     $this->assertEquals('The dog went to the park.', $plugin->tamper('The cat went to the park.'));
     $this->assertEquals('The dog went to the park.', $plugin->tamper('The Cat went to the park.'));
     $this->assertEquals('The dogwent to the park.', $plugin->tamper('The Catwent to the park.'));
@@ -55,7 +55,7 @@ class FindReplaceTest extends TamperPluginTestBase {
       FindReplace::SETTING_WORD_BOUNDARIES => FALSE,
       FindReplace::SETTING_WHOLE => FALSE,
     ];
-    $plugin = new FindReplace($config, 'find_replace', []);
+    $plugin = new FindReplace($config, 'find_replace', [], $this->getMockSourceDefinition());
     $this->assertEquals('The dog went to the park.', $plugin->tamper('The cat went to the park.'));
     $this->assertEquals('The Cat went to the park.', $plugin->tamper('The Cat went to the park.'));
     $this->assertEquals('The dogwent to the park.', $plugin->tamper('The catwent to the park.'));
@@ -72,7 +72,7 @@ class FindReplaceTest extends TamperPluginTestBase {
       FindReplace::SETTING_WORD_BOUNDARIES => TRUE,
       FindReplace::SETTING_WHOLE => FALSE,
     ];
-    $plugin = new FindReplace($config, 'find_replace', []);
+    $plugin = new FindReplace($config, 'find_replace', [], $this->getMockSourceDefinition());
     $this->assertEquals('The dog went to the park.', $plugin->tamper('The cat went to the park.'));
     $this->assertEquals('The dog went to the park.', $plugin->tamper('The Cat went to the park.'));
     $this->assertEquals('The catwent to the park.', $plugin->tamper('The catwent to the park.'));
@@ -89,7 +89,7 @@ class FindReplaceTest extends TamperPluginTestBase {
       FindReplace::SETTING_WORD_BOUNDARIES => FALSE,
       FindReplace::SETTING_WHOLE => TRUE,
     ];
-    $plugin = new FindReplace($config, 'find_replace', []);
+    $plugin = new FindReplace($config, 'find_replace', [], $this->getMockSourceDefinition());
     $this->assertEquals('The cat went to the park.', $plugin->tamper('The cat went to the park.'));
     $this->assertEquals('dog', $plugin->tamper('cat'));
     $this->assertEquals('dog', $plugin->tamper('Cat'));
@@ -99,7 +99,7 @@ class FindReplaceTest extends TamperPluginTestBase {
    * Test the plugin with a multiple values.
    */
   public function testMultipleValues() {
-    $plugin = new FindReplace([], 'find_replace', []);
+    $plugin = new FindReplace([], 'find_replace', [], $this->getMockSourceDefinition());
     $this->setExpectedException(TamperException::class, 'Input should be a string.');
     $plugin->tamper(['foo', 'bar', 'baz']);
   }

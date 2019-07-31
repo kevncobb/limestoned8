@@ -6,7 +6,7 @@ use Drupal\tamper\Exception\TamperException;
 use Drupal\tamper\Plugin\Tamper\Implode;
 
 /**
- * Test the implode plugin.
+ * Tests the implode plugin.
  *
  * @coversDefaultClass \Drupal\tamper\Plugin\Tamper\Implode
  * @group tamper
@@ -20,7 +20,7 @@ class ImplodeTest extends TamperPluginTestBase {
     $config = [
       Implode::SETTING_GLUE => ',',
     ];
-    return new Implode($config, 'implode', []);
+    return new Implode($config, 'implode', [], $this->getMockSourceDefinition());
   }
 
   /**

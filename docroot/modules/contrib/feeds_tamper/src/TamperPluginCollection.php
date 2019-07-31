@@ -2,12 +2,12 @@
 
 namespace Drupal\feeds_tamper;
 
-use Drupal\Core\Plugin\DefaultLazyPluginCollection;
+use Drupal\tamper\TamperPluginCollection as TamperPluginCollectionBase;
 
 /**
  * Collection of Tamper plugins for a specific Feeds importer.
  */
-class TamperPluginCollection extends DefaultLazyPluginCollection {
+class TamperPluginCollection extends TamperPluginCollectionBase {
 
   /**
    * The key within the plugin configuration that contains the plugin ID.
@@ -20,11 +20,11 @@ class TamperPluginCollection extends DefaultLazyPluginCollection {
    * Provides uasort() callback to sort plugins.
    */
   public function sortHelper($aID, $bID) {
-    $a = $this->get($aID);
-    $b = $this->get($bID);
+    $a = $this->get($aID)->getSetting('weight');
+    $b = $this->get($bID)->getSetting('weight');
 
-    if ($a->getSetting('weight') != $b->getSetting('weight')) {
-      return $a->getSetting('weight') < $b->getSetting('weight') ? -1 : 1;
+    if ($a != $b) {
+      return ($a < $b) ? -1 : 1;
     }
 
     return parent::sortHelper($aID, $bID);

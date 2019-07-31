@@ -2,6 +2,7 @@
 
 namespace Drupal\tamper;
 
+use Drupal\Component\Plugin\Factory\DefaultFactory;
 use Drupal\Core\Cache\CacheBackendInterface;
 use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Plugin\DefaultPluginManager;
@@ -32,6 +33,21 @@ class TamperManager extends DefaultPluginManager implements TamperManagerInterfa
     );
     $this->alterInfo('tamper_info');
     $this->setCacheBackend($cache_backend, 'tamper_info_plugins');
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function createInstance($plugin_id, array $configuration = []) {
+    $plugin_definition = $this->getDefinition($plugin_id);
+    $plugin_class = DefaultFactory::getPluginClass($plugin_id, $plugin_definition);
+
+    // If the plugin provides a factory method, pass the container to it.
+    if (is_subclass_of($plugin_class, 'Drupal\Core\Plugin\ContainerFactoryPluginInterface')) {
+      return $plugin_class::create(\Drupal::getContainer(), $configuration, $plugin_id, $plugin_definition);
+    }
+
+    return new $plugin_class($configuration, $plugin_id, $plugin_definition, $configuration['source_definition']);
   }
 
   /**

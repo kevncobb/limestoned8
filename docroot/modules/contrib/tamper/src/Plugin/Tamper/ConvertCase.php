@@ -76,11 +76,21 @@ class ConvertCase extends TamperBase {
       throw new TamperException('Input should be a string.');
     }
     $operation = $this->getSetting(self::SETTING_OPERATION);
-    if (!is_callable(['\Drupal\Component\Utility\Unicode', $operation])) {
-      throw new TamperException('Invalid operation ' . $operation);
-    }
 
-    return call_user_func(['\Drupal\Component\Utility\Unicode', $operation], $data);
+    switch ($operation) {
+      case 'strtoupper':
+        return mb_strtoupper($data);
+
+      case 'strtolower':
+        return mb_strtolower($data);
+
+      default:
+        if (!is_callable(['\Drupal\Component\Utility\Unicode', $operation])) {
+          throw new TamperException('Invalid operation ' . $operation);
+        }
+
+        return call_user_func(['\Drupal\Component\Utility\Unicode', $operation], $data);
+    }
   }
 
 }

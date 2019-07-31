@@ -20,7 +20,7 @@ class TrimTest extends TamperPluginTestBase {
       Trim::SETTING_CHARACTER => '',
       Trim::SETTING_SIDE => 'trim',
     ];
-    return new Trim($config, 'trim', []);
+    return new Trim($config, 'trim', [], $this->getMockSourceDefinition());
   }
 
   /**
@@ -31,7 +31,7 @@ class TrimTest extends TamperPluginTestBase {
       Trim::SETTING_CHARACTER => '',
       Trim::SETTING_SIDE => 'ltrim',
     ];
-    $plugin = new Trim($config, 'trim', []);
+    $plugin = new Trim($config, 'trim', [], $this->getMockSourceDefinition());
     $this->assertEquals('asdfasf  ', $plugin->tamper('  asdfasf  '));
   }
 
@@ -43,7 +43,7 @@ class TrimTest extends TamperPluginTestBase {
       Trim::SETTING_CHARACTER => '',
       Trim::SETTING_SIDE => 'rtrim',
     ];
-    $plugin = new Trim($config, 'trim', []);
+    $plugin = new Trim($config, 'trim', [], $this->getMockSourceDefinition());
     $this->assertEquals('  asdfasf', $plugin->tamper('  asdfasf  '));
   }
 
@@ -62,7 +62,7 @@ class TrimTest extends TamperPluginTestBase {
       Trim::SETTING_CHARACTER => '$',
       Trim::SETTING_SIDE => 'trim',
     ];
-    $plugin = new Trim($config, 'trim', []);
+    $plugin = new Trim($config, 'trim', [], $this->getMockSourceDefinition());
     $this->assertEquals('asdfasf', $plugin->tamper('$$asdfasf$$'));
   }
 

@@ -17,7 +17,7 @@ class StrPadTest extends TamperPluginTestBase {
    * {@inheritdoc}
    */
   protected function instantiatePlugin() {
-    return new StrPad([], 'StrPad', []);
+    return new StrPad([], 'StrPad', [], $this->getMockSourceDefinition());
   }
 
   /**
@@ -31,7 +31,7 @@ class StrPadTest extends TamperPluginTestBase {
       StrPad::SETTING_PAD_STRING => ' ',
       StrPad::SETTING_PAD_TYPE => STR_PAD_LEFT,
     ];
-    $plugin = new StrPad($config, 'StrPad', []);
+    $plugin = new StrPad($config, 'StrPad', [], $this->getMockSourceDefinition());
 
     $this->assertEquals('        hi', $plugin->tamper('hi'));
   }
@@ -47,7 +47,7 @@ class StrPadTest extends TamperPluginTestBase {
       StrPad::SETTING_PAD_STRING => ' ',
       StrPad::SETTING_PAD_TYPE => STR_PAD_RIGHT,
     ];
-    $plugin = new StrPad($config, 'StrPad', []);
+    $plugin = new StrPad($config, 'StrPad', [], $this->getMockSourceDefinition());
 
     $this->assertEquals('hi        ', $plugin->tamper('hi'));
   }
@@ -63,7 +63,7 @@ class StrPadTest extends TamperPluginTestBase {
       StrPad::SETTING_PAD_STRING => '0',
       StrPad::SETTING_PAD_TYPE => STR_PAD_RIGHT,
     ];
-    $plugin = new StrPad($config, 'StrPad', []);
+    $plugin = new StrPad($config, 'StrPad', [], $this->getMockSourceDefinition());
     // Can't use 1.0 since 1.0 == 1.000.
     $this->assertEquals('A.000', $plugin->tamper('A.0'));
   }

@@ -9,11 +9,7 @@ drupal.responsive-preview:
       css/responsive-preview.theme.css: {}
       css/responsive-preview.icons.css: {}
   dependencies:
-    - core/jquery
     - core/jquery.once
-    - core/drupal
-    - core/drupalSettings
-    - core/debounce
-    - core/displace
+    - core/drupal.displace
     - core/backbone
     - core/jquery.ui.position

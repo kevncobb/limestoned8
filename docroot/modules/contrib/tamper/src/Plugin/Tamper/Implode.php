@@ -8,7 +8,7 @@ use Drupal\tamper\TamperableItemInterface;
 use Drupal\tamper\TamperBase;
 
 /**
- * Plugin implementation of the explode plugin.
+ * Plugin implementation of the implode plugin.
  *
  * @Tamper(
  *   id = "implode",

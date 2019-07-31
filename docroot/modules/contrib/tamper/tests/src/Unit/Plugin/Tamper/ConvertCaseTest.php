@@ -17,7 +17,7 @@ class ConvertCaseTest extends TamperPluginTestBase {
    * {@inheritdoc}
    */
   protected function instantiatePlugin() {
-    return new ConvertCase([], 'convert_case', []);
+    return new ConvertCase([], 'convert_case', [], $this->getMockSourceDefinition());
   }
 
   /**
@@ -27,7 +27,7 @@ class ConvertCaseTest extends TamperPluginTestBase {
     $config = [
       ConvertCase::SETTING_OPERATION => 'strtoupper',
     ];
-    $plugin = new ConvertCase($config, 'convert_case', []);
+    $plugin = new ConvertCase($config, 'convert_case', [], $this->getMockSourceDefinition());
     $this->assertEquals('FOO BAR', $plugin->tamper('foo bar'));
   }
 
@@ -39,7 +39,7 @@ class ConvertCaseTest extends TamperPluginTestBase {
     $config = [
       ConvertCase::SETTING_OPERATION => 'strtoupper',
     ];
-    $plugin = new ConvertCase($config, 'convert_case', []);
+    $plugin = new ConvertCase($config, 'convert_case', [], $this->getMockSourceDefinition());
     $plugin->tamper(['foo', 'bar']);
   }
 
@@ -50,7 +50,7 @@ class ConvertCaseTest extends TamperPluginTestBase {
     $config = [
       ConvertCase::SETTING_OPERATION => 'strtolower',
     ];
-    $plugin = new ConvertCase($config, 'convert_case', []);
+    $plugin = new ConvertCase($config, 'convert_case', [], $this->getMockSourceDefinition());
     $this->assertEquals('foo bar', $plugin->tamper('fOo BAR'));
   }
 
@@ -62,7 +62,7 @@ class ConvertCaseTest extends TamperPluginTestBase {
     $config = [
       ConvertCase::SETTING_OPERATION => 'strtolower',
     ];
-    $plugin = new ConvertCase($config, 'convert_case', []);
+    $plugin = new ConvertCase($config, 'convert_case', [], $this->getMockSourceDefinition());
     $plugin->tamper(['fOo', 'BAR']);
   }
 
@@ -73,7 +73,7 @@ class ConvertCaseTest extends TamperPluginTestBase {
     $config = [
       ConvertCase::SETTING_OPERATION => 'ucfirst',
     ];
-    $plugin = new ConvertCase($config, 'convert_case', []);
+    $plugin = new ConvertCase($config, 'convert_case', [], $this->getMockSourceDefinition());
     $this->assertEquals('Foo bar', $plugin->tamper('foo bar'));
   }
 
@@ -85,7 +85,7 @@ class ConvertCaseTest extends TamperPluginTestBase {
     $config = [
       ConvertCase::SETTING_OPERATION => 'ucfirst',
     ];
-    $plugin = new ConvertCase($config, 'convert_case', []);
+    $plugin = new ConvertCase($config, 'convert_case', [], $this->getMockSourceDefinition());
     $plugin->tamper(['foo bar', 'baz zip']);
   }
 
@@ -96,7 +96,7 @@ class ConvertCaseTest extends TamperPluginTestBase {
     $config = [
       ConvertCase::SETTING_OPERATION => 'lcfirst',
     ];
-    $plugin = new ConvertCase($config, 'convert_case', []);
+    $plugin = new ConvertCase($config, 'convert_case', [], $this->getMockSourceDefinition());
     $this->assertEquals('fOO BAR', $plugin->tamper('FOO BAR'));
   }
 
@@ -108,7 +108,7 @@ class ConvertCaseTest extends TamperPluginTestBase {
     $config = [
       ConvertCase::SETTING_OPERATION => 'lcfirst',
     ];
-    $plugin = new ConvertCase($config, 'convert_case', []);
+    $plugin = new ConvertCase($config, 'convert_case', [], $this->getMockSourceDefinition());
     $plugin->tamper(['FOO', 'BAR']);
   }
 
@@ -119,7 +119,7 @@ class ConvertCaseTest extends TamperPluginTestBase {
     $config = [
       ConvertCase::SETTING_OPERATION => 'ucwords',
     ];
-    $plugin = new ConvertCase($config, 'convert_case', []);
+    $plugin = new ConvertCase($config, 'convert_case', [], $this->getMockSourceDefinition());
     $this->assertEquals('Foo Bar', $plugin->tamper('foo bar'));
   }
 
@@ -131,7 +131,7 @@ class ConvertCaseTest extends TamperPluginTestBase {
     $config = [
       ConvertCase::SETTING_OPERATION => 'ucwords',
     ];
-    $plugin = new ConvertCase($config, 'convert_case', []);
+    $plugin = new ConvertCase($config, 'convert_case', [], $this->getMockSourceDefinition());
     $plugin->tamper(['foo bar', 'bar foo']);
   }
 

@@ -2,9 +2,7 @@
 
 namespace Drupal\tamper\Plugin\Tamper;
 
-use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
-use Drupal\Component\Utility\Unicode;
 use Drupal\tamper\Exception\TamperException;
 use Drupal\tamper\TamperableItemInterface;
 use Drupal\tamper\TamperBase;
@@ -46,7 +44,7 @@ class CountryToCode extends TamperBase implements ContainerFactoryPluginInterfac
     if (empty($countries)) {
       $countries = $this->countryManager->getList();
       foreach ($countries as $country_code => $country_name) {
-        $countries[$country_code] = Unicode::strtolower((string) $country_name);
+        $countries[$country_code] = mb_strtolower((string) $country_name);
       }
       $countries = array_flip($countries);
     }
@@ -57,7 +55,7 @@ class CountryToCode extends TamperBase implements ContainerFactoryPluginInterfac
     }
 
     // Trim whitespace, set to lowercase.
-    $country = Unicode::strtolower(trim($data));
+    $country = mb_strtolower(trim($data));
     if (isset($countries[$country])) {
       return $countries[$country];
     }
@@ -70,7 +68,7 @@ class CountryToCode extends TamperBase implements ContainerFactoryPluginInterfac
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
-    $instance = new static($configuration, $plugin_id, $plugin_definition);
+    $instance = new static($configuration, $plugin_id, $plugin_definition, $configuration['source_definition']);
     $instance->setCountryManager($container->get('country_manager'));
     return $instance;
   }

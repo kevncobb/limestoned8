@@ -2,15 +2,13 @@
 
 namespace Drupal\Tests\tamper\Unit\Plugin\Tamper;
 
-use Drupal\tamper\Exception\TamperException;
+use Drupal\Core\Locale\CountryManagerInterface;
 use Drupal\tamper\Plugin\Tamper\CountryToCode;
-use Drupal\Tests\UnitTestCase;
 
 /**
  * Tests the country to code plugin.
  *
  * @coversDefaultClass \Drupal\tamper\Plugin\Tamper\CountryToCode
- *
  * @group tamper
  */
 class CountryToCodeTest extends TamperPluginTestBase {
@@ -26,7 +24,7 @@ class CountryToCodeTest extends TamperPluginTestBase {
    * {@inheritdoc}
    */
   protected function instantiatePlugin() {
-    return new CountryToCode([], 'country_to_code', []);
+    return new CountryToCode([], 'country_to_code', [], $this->getMockSourceDefinition());
   }
 
   /**
@@ -34,7 +32,7 @@ class CountryToCodeTest extends TamperPluginTestBase {
    */
   protected function setUp() {
     // Mock up Country Manager.
-    $this->countryManagerMock = $this->getMock(\Drupal\Core\Locale\CountryManagerInterface::class);
+    $this->countryManagerMock = $this->getMock(CountryManagerInterface::class);
     $this->countryManagerMock->expects($this->any())
       ->method('getList')
       ->will($this->returnValue([
@@ -68,4 +66,5 @@ class CountryToCodeTest extends TamperPluginTestBase {
   public function testCountryCodeLowerCaseCountry() {
     $this->assertEquals('AG', $this->plugin->tamper('antigua and barbuda'));
   }
+
 }

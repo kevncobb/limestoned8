@@ -597,7 +597,7 @@
 
           var $container = this.$el.find('#responsive-preview-frame-container');
           var $frame = $container.find('#responsive-preview-frame');
-          $frame.get(0).contentWindow.location = drupalSettings.responsive_preview.url;
+          $frame.get(0).contentWindow.location = Drupal.url(drupalSettings.responsive_preview.url);
 
           return this;
         },
