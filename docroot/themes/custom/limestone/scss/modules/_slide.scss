@@ -117,7 +117,7 @@
         text-shadow: none;
 
         @include breakpoint(smedium) {
-          color: $dark-gray;
+          color: black;
           background-color: rgba(255, 255, 255, 0.5);
         }
       }
@@ -170,7 +170,7 @@
       }
 
       &.dark {
-        color: $dark-gray;
+        color: $almost-black;
         text-shadow: none;
       }
 
