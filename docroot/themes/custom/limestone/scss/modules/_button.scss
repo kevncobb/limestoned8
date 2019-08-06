@@ -6,6 +6,9 @@
   text-decoration: none;
   font-size: 1.3em;
   color: white !important;
+  a {
+    color: white;
+  }
 
   [class^="icon-"], [class*=" icon-"] {
     position: relative;
@@ -39,6 +42,10 @@
 
   &.category {
     background-color: $category;
+  }
+
+  &.inverted {
+    background-color: transparent;
   }
 }
 
