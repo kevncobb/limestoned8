@@ -13,3 +13,10 @@
     text-transform: uppercase;
   }
 }
+
+#mainListBlock {
+  @extend .small-8;
+}
+#categoryLinksDIV {
+  @extend .small-4;
+}
