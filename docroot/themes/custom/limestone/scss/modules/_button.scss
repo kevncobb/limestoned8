@@ -19,7 +19,12 @@
     bottom: -0.2rem;
     font-size: 1.6rem;
   }
-
+  &.hollow {
+    &:focus, &:hover {
+      background-color: $button-background;
+      color: white;
+    }
+  }
   &.red {
     background-color: $red;
   }
