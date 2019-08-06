@@ -41,6 +41,18 @@
   }
 }
 
+.field-item-button {
+  a {
+    @extend .button;
+  }
+}
+.field-item-hollow-button {
+  a {
+    @extend .button;
+    @extend .hollow;
+  }
+}
+
 .fibonacci-aside .button {
   max-width: 300px;
 }
