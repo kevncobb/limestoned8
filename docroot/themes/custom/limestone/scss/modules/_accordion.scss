@@ -13,10 +13,14 @@
     text-transform: uppercase;
   }
 }
-
+#coursesForm {
+  @extend .grid-container;
+}
 #mainListBlock {
   @extend .small-8;
+  @extend .cell;
 }
 #categoryLinksDIV {
   @extend .small-4;
+  @extend .cell;
 }
