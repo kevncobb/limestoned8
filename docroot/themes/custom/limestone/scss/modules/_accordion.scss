@@ -15,6 +15,7 @@
 }
 #coursesForm {
   @extend .grid-container;
+  @extend .grid-margin-x;
 }
 #mainListBlock {
   @extend .small-8;
