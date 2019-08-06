@@ -6,9 +6,10 @@
   text-decoration: none;
   font-size: 1.3em;
   color: white !important;
-  
+
   a {
     color: white;
+    text-decoration: none;
   }
 
   [class^="icon-"], [class*=" icon-"] {
@@ -47,6 +48,25 @@
 
   &.inverted {
     background-color: transparent;
+    &.red {
+      color: $red;
+    }
+
+    &.green {
+      color: $success-color;
+    }
+
+    &.twitter-blue {
+      color: $twitter-blue;
+    }
+
+    &.orange {
+      color: $orange;
+    }
+
+    &.category {
+      color: $category;
+    }
   }
 }
 
