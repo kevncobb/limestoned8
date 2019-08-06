@@ -5,6 +5,7 @@
   font-weight: $header-font-weight;
   text-decoration: none;
   font-size: 1.3em;
+  color: white !important;
 
   [class^="icon-"], [class*=" icon-"] {
     position: relative;
@@ -47,7 +48,7 @@
 .bg-blue a.lc-btn::before {
   background-color: #1550c3;
 }
-a.lc-btn, .lc-btn > a {
+a.lc-btn, .lc-btn a:first-child {
   padding: 8px 17px;
   text-transform: uppercase;
   background-color: #f1f1f1;
