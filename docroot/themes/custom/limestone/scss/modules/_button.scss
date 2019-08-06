@@ -5,7 +5,6 @@
   font-weight: $header-font-weight;
   text-decoration: none;
   font-size: 1.3em;
-  color: white !important;
 
   a {
     color: white;
@@ -44,29 +43,6 @@
 
   &.category {
     background-color: $category;
-  }
-
-  &.inverted {
-    background-color: transparent;
-    &.red {
-      color: $red;
-    }
-
-    &.green {
-      color: $success-color;
-    }
-
-    &.twitter-blue {
-      color: $twitter-blue;
-    }
-
-    &.orange {
-      color: $orange;
-    }
-
-    &.category {
-      color: $category;
-    }
   }
 }
 
