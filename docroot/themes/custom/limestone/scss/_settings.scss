@@ -139,7 +139,7 @@ $breakpoint-classes: (small smedium medium large xlarge xxlarge);
 // -----------
 
 $grid-row-width: $global-width;
-//$grid-column-count: 12;
+$grid-column-count: 12;
 //column count at bottom
 $grid-column-gutter: (
   small: 20px,
