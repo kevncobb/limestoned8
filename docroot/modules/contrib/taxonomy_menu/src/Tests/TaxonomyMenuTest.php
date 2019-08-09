@@ -5,7 +5,13 @@ namespace Drupal\taxonomy_menu\Tests;
 use Drupal\simpletest\WebTestBase;
 
 /**
+ * Class TaxonomyMenuTest.
+ *
  * Provides automated tests for the taxonomy_menu module.
+ *
+ * @package Drupal\taxonomy_menu\Tests
+ *
+ * @group taxonomy_menu
  */
 class TaxonomyMenuTest extends WebTestBase {
 
@@ -18,13 +24,6 @@ class TaxonomyMenuTest extends WebTestBase {
       'description' => 'Test Unit for module taxonomy_menu and controller TaxonomyMenu.',
       'group' => 'Other',
     ];
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function setUp() {
-    parent::setUp();
   }
 
   /**
