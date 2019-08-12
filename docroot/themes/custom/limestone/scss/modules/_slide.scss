@@ -108,7 +108,8 @@
     p {
       text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.9);
       @include breakpoint(smedium) {
-        padding-right: 250px;
+        margin-right: 250px;
+        padding: 10px 5px;
         margin-bottom: 9px;
         font-size: 1.1rem;
       }
@@ -118,7 +119,7 @@
 
         @include breakpoint(smedium) {
           color: black;
-          background-color: rgba(255, 255, 255, 0.1);
+          background-color: rgba(255, 255, 255, 0.6);
         }
       }
     }
