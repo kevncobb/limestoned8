@@ -112,3 +112,12 @@ function limestone_theme_suggestions_field_alter(&$suggestions, $variables) {
     $variables['element']['#bundle'] . '__' .
     $variables['element']['#view_mode'];
 }
+
+/**
+ * Implements hook_theme_suggestions_HOOK_alter() for taxonomies.
+ *
+ * {@inheritdoc}
+ */
+function limestone_theme_suggestions_taxonomy_term_alter(&$suggestions, $vars, $hook) {
+  $suggestions[] = 'taxonomy_term__' . $vars['elements']['#view_mode'];
+}
