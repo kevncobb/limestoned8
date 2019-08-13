@@ -72,7 +72,7 @@
   {{ content.field_image }}
   {{ title_prefix }}
   {% if not page %}
-    <h3 class="node-title">
+    <h3{{ title_attributes }}>
       <a href="{{ url }}" rel="bookmark">{{ label }}</a>
     </h3>
   {% endif %}
