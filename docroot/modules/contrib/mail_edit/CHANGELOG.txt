@@ -3,6 +3,8 @@ CHANGELOG.txt for Mail Editor for Drupal 8
 
 
 mail_edit 8.x-1.x-dev:
+  Enhancement:
+    - #3069183 by Mohammad Fayoumi: Fix Drupal 9 Deprecated Code Report.
   Porting to D8:
     - #2526518 by DamienMcKenna: Port of some limited functionality.
     - Open new 8.x-1.x branch.

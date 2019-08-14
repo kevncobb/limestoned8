@@ -25,7 +25,11 @@ Issue #2893892: Fixed Warning Invalid argument supplied for foreach() in Drupal
 Source: https://www.drupal.org/files/issues/2018-12-10/core--getDerivatives-Invalid-argument-foreach--2893892-11-d8.patch
 
 
-Issue #3060550: oembed link does not pass the URL parameter to the provider
-Source: https://www.drupal.org/files/issues/2019-06-10/3060550-oembed-link-does-not-pass-url-parameter-to-provider-1.patch
+Issue #3044656: Add a helper method to strip subdirectories from URL paths
+Source: https://www.drupal.org/files/issues/2019-03-31/3044656-2.patch
+
+
+Issue #2646744: Drupal Core Url does not accept root-relative (file) URLs, making it impossible to let LinkGenerator create root-relative file URL links
+Source: https://www.drupal.org/files/issues/2018-12-15/2646744-34.patch
 
 

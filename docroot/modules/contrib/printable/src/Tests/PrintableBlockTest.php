@@ -1,12 +1,6 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\printable\Tests\PrintableBlockTest.
- */
-
 namespace Drupal\printable\Tests;
-
 
 use Drupal\node\Tests\NodeTestBase;
 use Drupal\block\Entity\Block;
@@ -30,7 +24,7 @@ class PrintableBlockTest extends NodeTestBase {
    *
    * @var array
    */
-  public static $modules = array('printable', 'block', 'views');
+  public static $modules = ['printable', 'block', 'views'];
 
   /**
    * Perform any initial set up tasks that run before every test method.
@@ -39,12 +33,16 @@ class PrintableBlockTest extends NodeTestBase {
     parent::setUp();
 
     // Create users and test node.
-    $this->adminUser = $this->drupalCreateUser(array('administer content types',
+    $this->adminUser = $this->drupalCreateUser([
+      'administer content types',
       'administer nodes',
       'administer blocks',
       'access content overview',
-    ));
-    $this->webUser = $this->drupalCreateUser(array('access content', 'create article content'));
+    ]);
+    $this->webUser = $this->drupalCreateUser([
+      'access content',
+      'create article content',
+    ]);
   }
 
   /**
@@ -68,9 +66,9 @@ class PrintableBlockTest extends NodeTestBase {
     // Test deleting the block from the edit form.
     $this->drupalGet('admin/structure/block/manage/' . $edit['id']);
     $this->clickLink(t('Delete'));
-    $this->assertRaw(t('Are you sure you want to delete the block %name?', array('%name' => $edit['settings[label]'])));
-    $this->drupalPostForm(NULL, array(), t('Delete'));
-    $this->assertRaw(t('The block %name has been deleted.', array('%name' => $edit['settings[label]'])));
+    $this->assertRaw(t('Are you sure you want to delete the block %name?', ['%name' => $edit['settings[label]']]));
+    $this->drupalPostForm(NULL, [], t('Delete'));
+    $this->assertRaw(t('The block %name has been deleted.', ['%name' => $edit['settings[label]']]));
   }
 
 }

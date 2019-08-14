@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\printable\PrintableLinkBuilderInterface.
- */
-
 namespace Drupal\printable;
 
 use Drupal\Core\Entity\EntityInterface;
@@ -17,7 +12,7 @@ interface PrintableLinkBuilderInterface {
   /**
    * Build a render array of the printable links for a given entity.
    *
-   * @param EntityInterface $entity
+   * @param Drupal\Core\Entity\EntityInterface $entity
    *   The entity to build the printable links for.
    *
    * @return array

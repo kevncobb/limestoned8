@@ -18,3 +18,5 @@ printable_print_link_locations:
   - node
 printable_pdf_link_locations:
   - ''
+print_pdf_use_xvfb_run: FALSE
+path_to_xvfb_run: ''

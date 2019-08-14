@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\printable\Tests\PrintablePdfFormTest.
- */
-
 namespace Drupal\printable\Tests;
 
 use Drupal\simpletest\WebTestBase;
@@ -21,10 +16,12 @@ class PrintablePdfFormTest extends WebTestBase {
    *
    * @var array
    */
-  public static $modules = array('printable');
+  public static $modules = ['printable'];
 
   /**
    * A simple user with 'administer printable' permission.
+   *
+   * @var \Drupal\user\Entity\User
    */
   private $user;
 
@@ -33,7 +30,7 @@ class PrintablePdfFormTest extends WebTestBase {
    */
   public function setUp() {
     parent::setUp();
-    $this->user = $this->drupalCreateUser(array('administer printable'));
+    $this->user = $this->drupalCreateUser(['administer printable']);
     $this->drupalLogin($this->user);
   }
 
@@ -52,13 +49,13 @@ class PrintablePdfFormTest extends WebTestBase {
     $this->assertFieldByName('print_pdf_page_orientation', $config->get('printable.page_orientation'), 'The field was found with the correct value.');
     $this->assertFieldByName('print_pdf_filename', $config->get('printable.pdf_location'), 'The field was found with the correct value.');
 
-    $this->drupalPostForm(NULL, array(
+    $this->drupalPostForm(NULL, [
       'print_pdf_pdf_tool' => 'wkhtmltopdf',
       'print_pdf_content_disposition' => 1,
       'print_pdf_paper_size' => 'A10',
       'print_pdf_page_orientation' => 'landscape',
       'print_pdf_filename' => 'test_pdf',
-    ), t('Submit'));
+    ], t('Submit'));
     $this->drupalGet('admin/config/user-interface/printable/pdf');
     $this->assertResponse(200);
     $this->assertFieldByName('print_pdf_pdf_tool', 'wkhtmltopdf', 'The field was found with the correct value.');

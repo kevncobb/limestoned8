@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains Drupal\Tests\printable\Unit\PrintableCssIncludeTest.
- */
-
 namespace Drupal\Tests\printable\Unit;
 
 use Drupal\Tests\UnitTestCase;
@@ -21,11 +16,11 @@ class PrintableCssIncludeTest extends UnitTestCase {
    * {@inheritdoc}
    */
   public static function getInfo() {
-    return array(
+    return [
       'name' => 'Printable CSS Include',
       'descriptions' => 'Tests the printable CSS include class.',
       'group' => 'Printable',
-    );
+    ];
   }
 
   /**
@@ -36,11 +31,11 @@ class PrintableCssIncludeTest extends UnitTestCase {
    * @dataProvider providerTestGetCssIncludePath
    */
   public function testGetCssIncludePath($include, $expected) {
-    $config = $this->getConfigFactoryStub(array('printable.settings' => array('css_include' => $include)));
+    $config = $this->getConfigFactoryStub(['printable.settings' => ['css_include' => $include]]);
 
-    $theme_info = array(
+    $theme_info = [
       'bartik' => new \stdClass(),
-    );
+    ];
     $theme_info['bartik']->uri = 'core/themes/bartik/bartik.info.yml';
     $theme_handler = $this->getMockBuilder('Drupal\Core\Extension\ThemeHandlerInterface')
       ->disableOriginalConstructor()
@@ -58,11 +53,11 @@ class PrintableCssIncludeTest extends UnitTestCase {
    * Data provider for testGetCssIncludePath().
    */
   public function providerTestGetCssIncludePath() {
-    return array(
-      array('[theme:bartik]/css/test.css', 'core/themes/bartik/css/test.css'),
-      array('[theme:foobar]/css/test.css', '/css/test.css'),
-      array('foo/bar/css/test.css', 'foo/bar/css/test.css'),
-    );
+    return [
+      ['[theme:bartik]/css/test.css', 'core/themes/bartik/css/test.css'],
+      ['[theme:foobar]/css/test.css', '/css/test.css'],
+      ['foo/bar/css/test.css', 'foo/bar/css/test.css'],
+    ];
   }
 
 }

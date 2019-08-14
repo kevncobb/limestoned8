@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\printable\PrintableFormatPluginManager.
- */
-
 namespace Drupal\printable;
 
 use Drupal\Core\Config\ConfigFactory;
@@ -42,8 +37,9 @@ class PrintableFormatPluginManager extends DefaultPluginManager {
   /**
    * {@inheritdoc}
    */
-  public function createInstance($plugin_id, array $configuration = array()) {
-    $configuration += (array) $this->config->get('printable.format')->get($plugin_id);
+  public function createInstance($plugin_id, array $configuration = []) {
+    $configuration += (array) $this->config->get('printable.format')
+      ->get($plugin_id);
     return parent::createInstance($plugin_id, $configuration);
   }
 

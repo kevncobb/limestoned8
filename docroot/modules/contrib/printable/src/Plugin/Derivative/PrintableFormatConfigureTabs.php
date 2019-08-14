@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\printable\Plugin\Derivative\PrintableFormatConfigureTabs.
- */
-
 namespace Drupal\printable\Plugin\Derivative;
 
 use Drupal\Component\Plugin\Derivative\DeriverBase;
@@ -20,7 +15,7 @@ class PrintableFormatConfigureTabs extends DeriverBase implements ContainerDeriv
   /**
    * The printable format plugin manager.
    *
-   * @var \Drupal\printable\PrintableFormatPluginManager.
+   * @var \Drupal\printable\PrintableFormatPluginManager
    */
   protected $printableFormatManager;
 
@@ -50,7 +45,6 @@ class PrintableFormatConfigureTabs extends DeriverBase implements ContainerDeriv
     foreach ($this->printableFormatManager->getDefinitions() as $key => $definition) {
       $this->derivatives[$key] = $base_plugin_definition;
       $this->derivatives[$key]['title'] = $definition['title'];
-      $this->derivatives[$key]['route_parameters'] = array('printable_format' => $key);
       $this->derivatives[$key]['route_name'] = 'printable.format_configure_' . $key;
     }
     return $this->derivatives;

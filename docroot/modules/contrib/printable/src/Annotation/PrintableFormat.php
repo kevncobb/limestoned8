@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\printable\Annotation\PrintableFormat.
- */
-
 namespace Drupal\printable\Annotation;
 
 use Drupal\Component\Annotation\Plugin;
@@ -35,18 +30,18 @@ class PrintableFormat extends Plugin {
    *
    * This is used as an administrative summary of what the format does.
    *
-   * @ingroup plugin_translatable
-   *
    * @var \Drupal\Core\Annotation\Translation
+   *
+   * @ingroup plugin_translatable
    */
   public $title;
 
   /**
    * Additional administrative information about the format's behavior.
    *
-   * @ingroup plugin_translatable
+   * @var \Drupal\Core\Annotation\TranslationOptional
    *
-   * @var \Drupal\Core\Annotation\Translation (optional)
+   * @ingroup plugin_translatable
    */
   public $description = '';
 

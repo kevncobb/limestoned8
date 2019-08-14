@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\printable\PrintableCssIncludeInterface.
- */
-
 namespace Drupal\printable;
 
 /**

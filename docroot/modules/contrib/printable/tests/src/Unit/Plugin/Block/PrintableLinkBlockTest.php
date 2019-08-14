@@ -1,15 +1,9 @@
 <?php
 
-/**
- * @file
- * Contains Drupal\Tests\printable\Unit\Plugin\Block\PrintableLinkBlockTest.
- */
-
 namespace Drupal\Tests\printable\Unit\Plugin\Block;
 
 use Drupal\Tests\UnitTestCase;
 use Drupal\printable\Plugin\Block\PrintableLinksBlock;
-use Drupal\Core\Routing\CurrentRouteMatch;
 
 /**
  * Tests the printable links block plugin.
@@ -18,11 +12,11 @@ use Drupal\Core\Routing\CurrentRouteMatch;
  */
 class PrintableLinkBlockTest extends UnitTestCase {
 
-  protected $configuration = array();
+  protected $configuration = [];
 
   protected $pluginId;
 
-  protected $pluginDefinition = array();
+  protected $pluginDefinition = [];
 
   /**
    * {@inheritdoc}
@@ -38,11 +32,11 @@ class PrintableLinkBlockTest extends UnitTestCase {
    * {@inheritdoc}
    */
   public static function getInfo() {
-    return array(
+    return [
       'name' => 'Printable Block',
       'descriptions' => 'Tests the printable block plugin class.',
       'group' => 'Printable',
-    );
+    ];
   }
 
   /**
@@ -53,7 +47,7 @@ class PrintableLinkBlockTest extends UnitTestCase {
   public function testBuild() {
     $routematch = $this->getMockBuilder('Drupal\Core\Routing\CurrentRouteMatch')
       ->disableOriginalConstructor()
-      ->setMethods(array('getMasterRouteMatch', 'getParameter'))
+      ->setMethods(['getMasterRouteMatch', 'getParameter'])
       ->getMock();
     $routematch->expects($this->exactly(2))
       ->method('getMasterRouteMatch')
@@ -61,13 +55,13 @@ class PrintableLinkBlockTest extends UnitTestCase {
     $routematch->expects($this->exactly(2))
       ->method('getParameter')
       ->will($this->returnValue($this->getMock('Drupal\Core\Entity\EntityInterface')));
-    $links = array(
+    $links = [
       'title' => 'Print',
       'url' => '/foo/1/printable/print',
-      'attributes' => array(
+      'attributes' => [
         'target' => '_blank',
-      ),
-    );
+      ],
+    ];
     $links_builder = $this->getMockBuilder('Drupal\printable\PrintableLinkBuilderInterface')
       ->disableOriginalConstructor()
       ->getMock();
@@ -77,10 +71,10 @@ class PrintableLinkBlockTest extends UnitTestCase {
 
     $block = new PrintableLinksBlock($this->configuration, $this->pluginId, $this->pluginDefinition, $routematch, $links_builder);
 
-    $expected_build = array(
+    $expected_build = [
       '#theme' => 'links__entity__printable',
       '#links' => $links,
-    );
+    ];
     $this->assertEquals($expected_build, $block->build());
   }
 

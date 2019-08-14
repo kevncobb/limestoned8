@@ -1,21 +1,15 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\printable\Plugin\Block\PrintableLinksBlock.
- */
-
 namespace Drupal\printable\Plugin\Block;
 
 use Drupal\Core\Block\BlockBase;
-use Drupal\Core\Block\Annotation\Block;
-use Drupal\Core\Annotation\Translation;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\printable\PrintableLinkBuilderInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Drupal\Core\Datetime\DateFormatter;
+use Drupal\Core\Cache\Cache;
 
 /**
  * Provides a printable links block for each printable entity.
@@ -28,6 +22,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  * )
  */
 class PrintableLinksBlock extends BlockBase implements ContainerFactoryPluginInterface {
+
   /**
    * The route match.
    *
@@ -43,15 +38,33 @@ class PrintableLinksBlock extends BlockBase implements ContainerFactoryPluginInt
   protected $linkBuilder;
 
   /**
+   * The date formatter service.
+   *
+   * @var \Drupal\Core\Datetime\DateFormatter
+   */
+  protected $dateFormatter;
+
+  /**
    * {@inheritdoc}
    *
+   * @param array $configuration
+   *   The configuration array.
+   * @param string $plugin_id
+   *   The plugin ID.
+   * @param mixed $plugin_definition
+   *   The plugin definition.
+   * @param \Drupal\Core\Routing\RouteMatchInterface $routematch
+   *   The route match interface.
    * @param \Drupal\printable\PrintableLinkBuilderInterface $link_builder
    *   The printable link builder.
+   * @param \Drupal\Core\Datetime\DateFormatter $dateFormatter
+   *   Provides a service to handle various date related functionality.
    */
-  public function __construct(array $configuration, $plugin_id, $plugin_definition, RouteMatchInterface $routematch, PrintableLinkBuilderInterface $link_builder) {
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, RouteMatchInterface $routematch, PrintableLinkBuilderInterface $link_builder, DateFormatter $dateFormatter) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
     $this->routematch = $routematch;
     $this->linkBuilder = $link_builder;
+    $this->dateFormatter = $dateFormatter;
   }
 
   /**
@@ -63,7 +76,8 @@ class PrintableLinksBlock extends BlockBase implements ContainerFactoryPluginInt
       $plugin_id,
       $plugin_definition,
       $container->get('current_route_match'),
-      $container->get('printable.link_builder')
+      $container->get('printable.link_builder'),
+      $container->get('date.formatter')
     );
   }
 
@@ -73,23 +87,39 @@ class PrintableLinksBlock extends BlockBase implements ContainerFactoryPluginInt
   public function buildConfigurationForm(array $form, FormStateInterface $form_state) {
 
     $form += parent::buildConfigurationForm($form, $form_state);
-    $period = array(0, 60, 180, 300, 600, 900, 1800, 2700, 3600, 10800, 21600,
-      32400, 43200, 86400,
-    );
-    $period = array_map(array(\Drupal::service('date.formatter'), 'formatInterval'), array_combine($period, $period));
+    $period = [
+      0,
+      60,
+      180,
+      300,
+      600,
+      900,
+      1800,
+      2700,
+      3600,
+      10800,
+      21600,
+      32400,
+      43200,
+      86400,
+    ];
+    $period = array_map([
+      $this->dateFormatter,
+      'formatInterval',
+    ], array_combine($period, $period));
     $period[0] = '<' . $this->t('no caching') . '>';
-    $period[\Drupal\Core\Cache\Cache::PERMANENT] = $this->t('Forever');
-    $form['cache'] = array(
+    $period[Cache::PERMANENT] = $this->t('Forever');
+    $form['cache'] = [
       '#type' => 'details',
       '#title' => $this->t('Cache settings'),
-    );
-    $form['cache']['max_age'] = array(
+    ];
+    $form['cache']['max_age'] = [
       '#type' => 'select',
       '#title' => $this->t('Maximum age'),
       '#description' => $this->t('The maximum time this block may be cached.'),
       '#default_value' => $period[0],
       '#options' => $period,
-    );
+    ];
     return $form;
   }
 
@@ -99,10 +129,11 @@ class PrintableLinksBlock extends BlockBase implements ContainerFactoryPluginInt
   public function build() {
     $entity_type = $this->getDerivativeId();
     if ($this->routematch->getMasterRouteMatch()->getParameter($entity_type)) {
-      return array(
+      return [
         '#theme' => 'links__entity__printable',
-        '#links' => $this->linkBuilder->buildLinks($this->routematch->getMasterRouteMatch()->getParameter($entity_type)),
-      );
+        '#links' => $this->linkBuilder->buildLinks($this->routematch->getMasterRouteMatch()
+          ->getParameter($entity_type)),
+      ];
     }
   }
 

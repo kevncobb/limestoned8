@@ -1,23 +1,13 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\printable\Plugin\PrintableFormatBase.
- */
-
 namespace Drupal\printable\Plugin;
 
-use Drupal\Core\Config\ConfigFactory;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Plugin\PluginBase;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\printable\LinkExtractor\LinkExtractorInterface;
-use Drupal\Core\Render\Element\Html;
 use Drupal\printable\PrintableCssIncludeInterface;
 use Drupal\Core\Form\FormStateInterface;
-use Wa72\HtmlPageDom\HtmlPage;
-use Wa72\HtmlPageDom\HtmlPageCrawler;
-
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -36,14 +26,14 @@ abstract class PrintableFormatBase extends PluginBase implements PrintableFormat
   /**
    * A render array of the content to be output by the printable format.
    *
-   * @param array $content
+   * @var array
    */
   protected $content;
 
   /**
    * A string containing the list of links present in the page.
    *
-   * @param string $footerContent
+   * @var string
    */
   protected $footerContent;
 
@@ -64,10 +54,18 @@ abstract class PrintableFormatBase extends PluginBase implements PrintableFormat
   /**
    * {@inheritdoc}
    *
+   * @param array $configuration
+   *   The configuration array.
+   * @param string $plugin_id
+   *   The plugin ID.
+   * @param array $plugin_definition
+   *   The plugin definition.
    * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
    *   The config factory service.
    * @param \Drupal\printable\PrintableCssIncludeInterface $printable_css_include
    *   The printable CSS include manager.
+   * @param \Drupal\printable\LinkExtractor\LinkExtractorInterface $link_extractor
+   *   The link extractor.
    */
   public function __construct(array $configuration, $plugin_id, array $plugin_definition, ConfigFactoryInterface $config_factory, PrintableCssIncludeInterface $printable_css_include, LinkExtractorInterface $link_extractor) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
@@ -108,7 +106,7 @@ abstract class PrintableFormatBase extends PluginBase implements PrintableFormat
    * {@inheritdoc}
    */
   public function defaultConfiguration() {
-    return array();
+    return [];
   }
 
   /**
@@ -123,13 +121,16 @@ abstract class PrintableFormatBase extends PluginBase implements PrintableFormat
    */
   public function setConfiguration(array $configuration) {
     $this->configuration = $configuration;
-    $this->configFactory->getEditable('printable.format')->set($this->getPluginId(), $this->configuration)->save();
+    $this->configFactory->getEditable('printable.format')
+      ->set($this->getPluginId(), $this->configuration)
+      ->save();
   }
 
   /**
    * {@inheritdoc}
    */
-  public function validateConfigurationForm(array &$form, FormStateInterface $form_state) {}
+  public function validateConfigurationForm(array &$form, FormStateInterface $form_state) {
+  }
 
   /**
    * {@inheritdoc}
@@ -137,7 +138,8 @@ abstract class PrintableFormatBase extends PluginBase implements PrintableFormat
   public function setContent(array $content) {
     $this->content = $content;
     $this->footerContent = NULL;
-    if ($this->configFactory->get('printable.settings')->get('list_attribute')) {
+    if ($this->configFactory->get('printable.settings')
+      ->get('list_attribute')) {
       $this->footerContent = $this->linkExtractor->listAttribute((string) render($this->content));
     }
   }
@@ -156,18 +158,24 @@ abstract class PrintableFormatBase extends PluginBase implements PrintableFormat
    *   A render array representing the themed output of the content.
    */
   protected function buildContent() {
-    $build = array(
-      '#theme' => array('printable__' . $this->getPluginId(), 'printable'),
-      '#header' => array(
-        '#theme' => array('printable_header__' . $this->getPluginId(), 'printable_header'),
+    $build = [
+      '#theme' => ['printable__' . $this->getPluginId(), 'printable'],
+      '#header' => [
+        '#theme' => [
+          'printable_header__' . $this->getPluginId(),
+          'printable_header',
+        ],
         '#logo_url' => theme_get_setting('logo.url'),
-      ),
+      ],
       '#content' => $this->content,
-      '#footer' => array(
-        '#theme' => array('printable_footer__' . $this->getPluginId(), 'printable_footer'),
+      '#footer' => [
+        '#theme' => [
+          'printable_footer__' . $this->getPluginId(),
+          'printable_footer',
+        ],
         '#footer_content' => $this->footerContent,
-      ),
-    );
+      ],
+    ];
 
     if ($include_path = $this->printableCssInclude->getCssIncludePath()) {
       $build['#attached']['css'][] = $include_path;

@@ -40,7 +40,8 @@
     "vardot/varbase-updater": "~1.0",
     "drupal/pantheon_advanced_page_cache": "^1.0",
     "drupal/views_slideshow": "^4.6",
-    "drupal/migrate_source_csv": "^3.0"
+    "drupal/migrate_source_csv": "^3.0",
+    "drupal/entity_print": "2.x"
   },
   "replace": {
     "ajaxorg/ace-builds": "*"

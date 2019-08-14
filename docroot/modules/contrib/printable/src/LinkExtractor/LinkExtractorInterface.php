@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\printable\LinkExtractor\LinkExtractorInterface.
- */
-
 namespace Drupal\printable\LinkExtractor;
 
 /**

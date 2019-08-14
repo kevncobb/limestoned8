@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\printable\Tests\Plugin\PrintableFormat\PrintFormatTest.
- */
-
 namespace Drupal\Tests\printable\Unit\Plugin\PrintableFormat;
 
 use Drupal\Tests\UnitTestCase;
@@ -42,27 +37,27 @@ class PrintFormatTest extends UnitTestCase {
    * {@inheritdoc}
    */
   public function __construct() {
-    $this->pluginDefinition = array(
+    $this->pluginDefinition = [
       'description' => 'Print description.',
       'id' => 'print',
       'module' => 'printable',
       'title' => 'Print',
       'class' => 'Drupal\printable\Plugin\PrintableFormat\PrintFormat',
       'provider' => 'printable',
-    );
+    ];
     $this->pluginId = 'print';
-    $this->configuration = array();
+    $this->configuration = [];
   }
 
   /**
    * {@inheritdoc}
    */
   public static function getInfo() {
-    return array(
+    return [
       'name' => 'Printable Format Base',
       'descriptions' => 'Tests the printable format base class.',
       'group' => 'Printable',
-    );
+    ];
   }
 
   /**
@@ -92,7 +87,7 @@ class PrintFormatTest extends UnitTestCase {
    */
   public function testDefaultConfiguration() {
     $format = new PrintFormat($this->configuration, $this->pluginId, $this->pluginDefinition, $this->getConfigFactoryStub(), $this->getCssIncludeStub(), $this->getLinkExtractorIncludeStub());
-    $this->assertEquals(array('show_print_dialogue' => TRUE), $format->defaultConfiguration());
+    $this->assertEquals(['show_print_dialogue' => TRUE], $format->defaultConfiguration());
   }
 
   /**
@@ -102,7 +97,7 @@ class PrintFormatTest extends UnitTestCase {
    */
   public function testGetConfiguration() {
     $format = new PrintFormat($this->configuration, $this->pluginId, $this->pluginDefinition, $this->getConfigFactoryStub(), $this->getCssIncludeStub(), $this->getLinkExtractorIncludeStub(), $this->getLinkExtractorIncludeStub());
-    $this->assertEquals(array('show_print_dialogue' => TRUE), $format->getConfiguration());
+    $this->assertEquals(['show_print_dialogue' => TRUE], $format->getConfiguration());
   }
 
   /**
@@ -111,8 +106,8 @@ class PrintFormatTest extends UnitTestCase {
    * @covers PrintFormat::GetPassedInConfiguration
    */
   public function testGetPassedInConfiguration() {
-    $format = new PrintFormat(array('test_configuration_value' => TRUE), $this->pluginId, $this->pluginDefinition, $this->getConfigFactoryStub(), $this->getCssIncludeStub(), $this->getLinkExtractorIncludeStub());
-    $this->assertEquals(array('show_print_dialogue' => TRUE, 'test_configuration_value' => TRUE), $format->getConfiguration());
+    $format = new PrintFormat(['test_configuration_value' => TRUE], $this->pluginId, $this->pluginDefinition, $this->getConfigFactoryStub(), $this->getCssIncludeStub(), $this->getLinkExtractorIncludeStub());
+    $this->assertEquals(['show_print_dialogue' => TRUE, 'test_configuration_value' => TRUE], $format->getConfiguration());
   }
 
   /**
@@ -121,7 +116,7 @@ class PrintFormatTest extends UnitTestCase {
    * @covers PrintFormat::SetConfiguration
    */
   public function testSetConfiguration() {
-    $new_configuration = array('show_print_dialogue' => FALSE);
+    $new_configuration = ['show_print_dialogue' => FALSE];
 
     $config_mock = $this->getMockBuilder('\Drupal\Core\Config\Config')
       ->disableOriginalConstructor()

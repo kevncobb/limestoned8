@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\printable\Tests\Plugin\Derivative\PrintableLinksBlockTest.
- */
-
 namespace Drupal\Tests\printable\Unit\Plugin\Derivative;
 
 use Drupal\Tests\UnitTestCase;
@@ -21,11 +16,11 @@ class PrintableLinksBlockTest extends UnitTestCase {
    * {@inheritdoc}
    */
   public static function getInfo() {
-    return array(
+    return [
       'name' => 'Printable Block Derivative',
       'descriptions' => 'Tests the printable block plugin derivative class.',
       'group' => 'Printable',
-    );
+    ];
   }
 
   /**
@@ -43,10 +38,10 @@ class PrintableLinksBlockTest extends UnitTestCase {
       ->getMock();
     $printable_format_manager->expects($this->once())
       ->method('getPrintableEntities')
-      ->will($this->returnValue(array(
+      ->will($this->returnValue([
         'foo' => $entity_definition,
         'bar' => $entity_definition,
-      )));
+      ]));
 
     $entity_definition->expects($this->at(0))
       ->method('getLabel')
@@ -55,18 +50,18 @@ class PrintableLinksBlockTest extends UnitTestCase {
       ->method('getLabel')
       ->will($this->returnValue('Bar'));
     $derivative = new PrintableLinksBlock($printable_format_manager);
-    $base_plugin_definition = array(
+    $base_plugin_definition = [
       'admin_label' => 'Printable Links Block',
-    );
+    ];
 
-    $expected = array(
-      'foo' => array(
+    $expected = [
+      'foo' => [
         'admin_label' => 'Printable Links Block (Foo)',
-      ),
-      'bar' => array(
+      ],
+      'bar' => [
         'admin_label' => 'Printable Links Block (Bar)',
-      ),
-    );
+      ],
+    ];
     $this->assertEquals($expected, $derivative->getDerivativeDefinitions($base_plugin_definition));
   }
 

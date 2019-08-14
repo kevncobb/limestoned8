@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\printable\PrintableEntityManagerInterface.
- */
-
 namespace Drupal\printable;
 
 use Drupal\Core\Entity\EntityInterface;
@@ -17,7 +12,7 @@ interface PrintableEntityManagerInterface {
   /**
    * Gets the ID of the type of the entity.
    *
-   * @param EntityInterface $entity
+   * @param Drupal\Core\Entity\EntityInterface $entity
    *   The entity to check a printable version is available for.
    *
    * @return string
@@ -36,7 +31,7 @@ interface PrintableEntityManagerInterface {
   /**
    * Check if an entity has a printable version available for it.
    *
-   * @param EntityInterface $entity
+   * @param Drupal\Core\Entity\EntityInterface $entity
    *   The entity to check a printable version is available for.
    *
    * @return bool

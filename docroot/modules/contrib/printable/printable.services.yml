@@ -20,4 +20,4 @@ services:
     class: Wa72\HtmlPageDom\HtmlPageCrawler
   printable.link_extractor:
     class: Drupal\printable\LinkExtractor\InlineLinkExtractor
-    arguments: ['@printable.dom_crawler', '@url_generator']
+    arguments: ['@printable.dom_crawler', '@url_generator', '@path.alias_manager']

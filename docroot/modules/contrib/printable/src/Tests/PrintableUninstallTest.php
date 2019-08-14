@@ -1,13 +1,7 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\printable\Tests\PrintableUninstallTest.
- */
-
 namespace Drupal\printable\Tests;
 
-use Drupal\Core\Database\Database;
 use Drupal\node\Tests\NodeTestBase;
 
 /**
@@ -22,17 +16,18 @@ class PrintableUninstallTest extends NodeTestBase {
    *
    * @var array
    */
-  public static $modules = array('printable', 'node_test_exception', 'dblog');
+  public static $modules = ['printable', 'node_test_exception', 'dblog'];
 
   /**
    * Perform any initial set up tasks that run before every test method.
    */
   public function setUp() {
     parent::setUp();
-    $web_user = $this->drupalCreateUser(array('create page content',
+    $web_user = $this->drupalCreateUser([
+      'create page content',
       'edit own page content',
       'view printer friendly versions',
-      ));
+    ]);
     $this->drupalLogin($web_user);
   }
 
@@ -48,13 +43,16 @@ class PrintableUninstallTest extends NodeTestBase {
     $this->assertResponse(200);
     $this->assertUrl('node/add/page');
     // Create a node.
-    $edit = array();
+    $edit = [];
     $edit['title[0][value]'] = $this->randomMachineName(8);
     $edit['body[0][value]'] = $this->randomMachineName(16);
     $this->drupalPostForm('node/add/page', $edit, t('Save'));
 
     // Check that the Basic page has been created.
-    $this->assertRaw(t('!post %title has been created.', array('!post' => 'Basic page', '%title' => $edit['title[0][value]'])), 'Basic page created.');
+    $this->assertRaw(t('!post %title has been created.', [
+      '!post' => 'Basic page',
+      '%title' => $edit['title[0][value]'],
+    ]), 'Basic page created.');
 
     // Check that the node exists in the database.
     $node = $this->drupalGetNodeByTitle($edit['title[0][value]']);
@@ -68,7 +66,7 @@ class PrintableUninstallTest extends NodeTestBase {
     $this->assertResponse(200);
     // Uninstall the printable module and check the printable version of node
     // is also deleted.
-    \Drupal::service('module_installer')->uninstall(array('printable'));
+    \Drupal::service('module_installer')->uninstall(['printable']);
     $this->drupalGet('node/' . $node->id() . '/printable/print');
     $this->assertResponse(404);
   }

@@ -122,7 +122,7 @@ class MailEditTemplateForm extends FormBase {
     $configFactory->set($name . '.body', $form_state->getValue('body'));
     $configFactory->save();
 
-    drupal_set_message($this->t('Email "%mesg" has been updated.', ['%mesg' => $name]));
+    $this->messenger()->addMessage($this->t('Email "%mesg" has been updated.', ['%mesg' => $name]));
     $form_state->setRedirect('mail_edit.list');
   }
 

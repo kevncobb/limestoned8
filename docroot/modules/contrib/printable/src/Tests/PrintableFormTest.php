@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\printable\Tests\PrintableFormTest.
- */
-
 namespace Drupal\printable\Tests;
 
 use Drupal\simpletest\WebTestBase;
@@ -21,10 +16,12 @@ class PrintableFormTest extends WebTestBase {
    *
    * @var array
    */
-  public static $modules = array('printable');
+  public static $modules = ['printable'];
 
   /**
    * A simple user with 'administer printable' permission.
+   *
+   * @var \Drupal\user\Entity\User
    */
   private $user;
 
@@ -33,7 +30,7 @@ class PrintableFormTest extends WebTestBase {
    */
   public function setUp() {
     parent::setUp();
-    $this->user = $this->drupalCreateUser(array('administer printable'));
+    $this->user = $this->drupalCreateUser(['administer printable']);
     $this->drupalLogin($this->user);
   }
 
@@ -48,9 +45,9 @@ class PrintableFormTest extends WebTestBase {
     $config = $this->config('printable.settings');
     $this->assertFieldByName('print_html_sendtoprinter', $config->get('printable.send_to_printer'), 'The field was found with the correct value.');
 
-    $this->drupalPostForm(NULL, array(
+    $this->drupalPostForm(NULL, [
       'print_html_sendtoprinter' => 1,
-    ), t('Submit'));
+    ], t('Submit'));
     $this->drupalGet('admin/config/user-interface/printable/print');
     $this->assertResponse(200);
     $this->assertFieldByName('print_html_sendtoprinter', 1, 'The field was found with the correct value.');

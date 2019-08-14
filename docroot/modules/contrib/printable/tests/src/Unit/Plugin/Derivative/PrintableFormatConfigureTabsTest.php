@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains Drupal\Tests\printable\Unit\Plugin\Derivative\PrintableFormatConfigureTabsTest.
- */
-
 namespace Drupal\Tests\printable\Unit\Plugin\Derivative;
 
 use Drupal\Tests\UnitTestCase;
@@ -21,11 +16,11 @@ class PrintableFormatConfigureTabsTest extends UnitTestCase {
    * {@inheritdoc}
    */
   public static function getInfo() {
-    return array(
+    return [
       'name' => 'Printable Tabs Plugin Derivative',
       'descriptions' => 'Tests the printable tabs plugin derivative class.',
       'group' => 'Printable',
-    );
+    ];
   }
 
   /**
@@ -39,29 +34,29 @@ class PrintableFormatConfigureTabsTest extends UnitTestCase {
       ->getMock();
     $printable_format_manager->expects($this->once())
       ->method('getDefinitions')
-      ->will($this->returnValue(array(
-        'foo' => array(
+      ->will($this->returnValue([
+        'foo' => [
           'title' => 'Foo',
-        ),
-        'bar' => array(
+        ],
+        'bar' => [
           'title' => 'Bar',
-        ),
-      )));
+        ],
+      ]));
     $derivative = new PrintableFormatConfigureTabs($printable_format_manager);
 
-    $expected = array(
-      'foo' => array(
+    $expected = [
+      'foo' => [
         'title' => 'Foo',
-        'route_parameters' => array('printable_format' => 'foo'),
+        'route_parameters' => ['printable_format' => 'foo'],
         'route_name' => 'printable.format_configure_foo',
-      ),
-      'bar' => array(
+      ],
+      'bar' => [
         'title' => 'Bar',
-        'route_parameters' => array('printable_format' => 'bar'),
+        'route_parameters' => ['printable_format' => 'bar'],
         'route_name' => 'printable.format_configure_bar',
-      ),
-    );
-    $this->assertEquals($expected, $derivative->getDerivativeDefinitions(array()));
+      ],
+    ];
+    $this->assertEquals($expected, $derivative->getDerivativeDefinitions([]));
   }
 
 }

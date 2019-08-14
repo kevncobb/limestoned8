@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\printable\PrintableEntityManager.
- */
-
 namespace Drupal\printable;
 
 use Drupal\Core\Config\ConfigFactory;
@@ -36,7 +31,7 @@ class PrintableEntityManager implements PrintableEntityManagerInterface {
    *
    * @var array
    */
-  protected $compatibleEntities = array();
+  protected $compatibleEntities = [];
 
   /**
    * Constructs a new PrintableEntityManager object.
@@ -63,7 +58,7 @@ class PrintableEntityManager implements PrintableEntityManagerInterface {
    */
   public function getPrintableEntities() {
     $compatible_entities = $this->getCompatibleEntities();
-    $entities = array();
+    $entities = [];
     foreach ($this->configFactory->get('printable.settings')->get('printable_entities') as $entity_type) {
       if (isset($compatible_entities[$entity_type])) {
         $entities[$entity_type] = $compatible_entities[$entity_type];

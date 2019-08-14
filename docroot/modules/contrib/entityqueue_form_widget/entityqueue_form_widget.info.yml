@@ -8,8 +8,8 @@ package: Entityqueue
 dependencies:
   - entityqueue:entityqueue
 
-# Information added by Drupal.org packaging script on 2019-07-01
-version: '8.x-1.0-rc1'
+# Information added by Drupal.org packaging script on 2019-07-22
+version: '8.x-1.0'
 core: '8.x'
 project: 'entityqueue_form_widget'
-datestamp: 1561991294
+datestamp: 1563778692

@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\printable\Plugin\PrintableFormatInterface.
- */
-
 namespace Drupal\printable\Plugin;
 
 use Drupal\Component\Plugin\ConfigurablePluginInterface;

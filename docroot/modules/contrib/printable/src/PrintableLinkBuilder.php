@@ -1,14 +1,7 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\printable\PrintableLinkBuilder.
- */
-
 namespace Drupal\printable;
 
-use Drupal\printable\PrintableFormatPluginManager;
-use Drupal\Core\Config\ConfigFactory;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Url;
@@ -57,15 +50,18 @@ class PrintableLinkBuilder implements PrintableLinkBuilderInterface {
    */
   public function buildLinks(EntityInterface $entity = NULL) {
 
-    $links = array();
+    $links = [];
     $printable_settings = $this->configFactory->get('printable.settings');
 
     // Build the array of links to be added to the entity.
     foreach ($this->printableFormatManager->getDefinitions() as $key => $definition) {
-      $links[$key] = array(
+      $links[$key] = [
         'title' => $definition['title'],
-        'url' => Url::fromRoute('printable.show_format.' . $entity->getEntityTypeId(), array('printable_format' => $key, 'entity' => $entity->id())),
-      );
+        'url' => Url::fromRoute('printable.show_format.' . $entity->getEntityTypeId(), [
+          'printable_format' => $key,
+          'entity' => $entity->id(),
+        ]),
+      ];
       // Add target "blank" if the configuration option is set.
       if ($printable_settings->get('open_target_blank') && ($key == 'print' or !$printable_settings->get('save_pdf'))) {
         $links[$key]['attributes']['target'] = '_blank';

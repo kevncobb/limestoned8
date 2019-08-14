@@ -38,7 +38,7 @@ class MailListController extends ControllerBase {
         $config_label = t('Drupal core');
       }
       foreach ($templates as $name => $data) {
-        $body_length = Unicode::strlen($data['body']);
+        $body_length = mb_strlen($data['body']);
         if ($body_length === 0) {
           $body_length = $this->t('empty');
         }

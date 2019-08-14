@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains Drupal\Tests\printable\Unit\PrintableEntityManagerTest.
- */
-
 namespace Drupal\Tests\printable\Unit;
 
 use Drupal\Tests\UnitTestCase;
@@ -21,18 +16,11 @@ class PrintableEntityManagerTest extends UnitTestCase {
    * {@inheritdoc}
    */
   public static function getInfo() {
-    return array(
+    return [
       'name' => 'Printable Entity Manager',
       'descriptions' => 'Tests the printable entity manager class.',
       'group' => 'Printable',
-    );
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  protected function setUp() {
-    parent::setUp();
+    ];
   }
 
   /**
@@ -51,23 +39,23 @@ class PrintableEntityManagerTest extends UnitTestCase {
     $entity_manager = $this->getMock('Drupal\Core\Entity\EntityManagerInterface');
     $entity_manager->expects($this->once())
       ->method('getDefinitions')
-      ->will($this->returnValue(array(
+      ->will($this->returnValue([
         'node' => $entity_definition,
         'comment' => $entity_definition,
-        ))
+      ])
       );
-    $config = $this->getConfigFactoryStub(array(
-      'printable.settings' => array(
-        'printable_entities' => array('node', 'comment', 'bar'),
-      ),
-    ));
+    $config = $this->getConfigFactoryStub([
+      'printable.settings' => [
+        'printable_entities' => ['node', 'comment', 'bar'],
+      ],
+    ]);
     $printable_entity_manager = new PrintableEntityManager($entity_manager, $config);
 
     // Verify getting the printable entities.
-    $expected_entity_definitions = array(
+    $expected_entity_definitions = [
       'node' => $entity_definition,
       'comment' => $entity_definition,
-    );
+    ];
     $this->assertEquals($expected_entity_definitions, $printable_entity_manager->getPrintableEntities());
   }
 

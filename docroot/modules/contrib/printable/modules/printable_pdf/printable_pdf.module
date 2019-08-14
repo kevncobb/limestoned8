@@ -10,18 +10,18 @@
  */
 function printable_pdf_theme() {
   $module_path = drupal_get_path('module', 'printable_pdf');
-  return array(
-    'printable_pdf_footer' => array(
+  return [
+    'printable_pdf_footer' => [
       'template' => 'printable-footer',
       'pattern' => 'printable_footer__',
-      'variables' => array(),
+      'variables' => [],
       'path' => $module_path . '/templates',
-    ),
-    'printable_pdf_header' => array(
+    ],
+    'printable_pdf_header' => [
       'template' => 'printable-header',
       'pattern' => 'printable_header__',
-      'variables' => array(),
+      'variables' => [],
       'path' => $module_path . '/templates',
-    ),
-  );
+    ],
+  ];
 }

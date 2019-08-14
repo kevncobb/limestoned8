@@ -1,13 +1,7 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\printable\Tests\PrintableBlocPageTest.
- */
-
 namespace Drupal\printable\Tests;
 
-use Drupal\Core\Database\Database;
 use Drupal\node\Tests\NodeTestBase;
 
 /**
@@ -22,22 +16,24 @@ class PrintablePageTest extends NodeTestBase {
    *
    * @var array
    */
-  public static $modules = array('printable',
+  public static $modules = [
+    'printable',
     'node_test_exception',
     'dblog',
     'system',
-  );
+  ];
 
   /**
    * Perform any initial set up tasks that run before every test method.
    */
   public function setUp() {
     parent::setUp();
-    $web_user = $this->drupalCreateUser(array('create page content',
+    $web_user = $this->drupalCreateUser([
+      'create page content',
       'edit own page content',
       'view printer friendly versions',
       'administer printable',
-      ));
+    ]);
     $this->drupalLogin($web_user);
   }
 
@@ -54,14 +50,17 @@ class PrintablePageTest extends NodeTestBase {
     $this->assertResponse(200);
     $this->assertUrl('node/add/page');
     // Create a node.
-    $edit = array();
+    $edit = [];
     $edit['title[0][value]'] = $this->randomMachineName(8);
     $bodytext = $this->randomMachineName(16) . 'This is functional test which I am writing for printable module.';
     $edit['body[0][value]'] = $bodytext;
     $this->drupalPostForm('node/add/page', $edit, t('Save'));
 
     // Check that the Basic page has been created.
-    $this->assertRaw(t('!post %title has been created.', array('!post' => 'Basic page', '%title' => $edit['title[0][value]'])), 'Basic page created.');
+    $this->assertRaw(t('!post %title has been created.', [
+      '!post' => 'Basic page',
+      '%title' => $edit['title[0][value]'],
+    ]), 'Basic page created.');
 
     // Check that the node exists in the database.
     $node = $this->drupalGetNodeByTitle($edit['title[0][value]']);
@@ -83,14 +82,14 @@ class PrintablePageTest extends NodeTestBase {
     $this->verbose($base_url);
     // Enable the option of showing links present in the footer of page.
     $this->drupalGet('admin/config/user-interface/printable/print');
-    $this->drupalPostForm(NULL, array(
+    $this->drupalPostForm(NULL, [
       'print_html_display_sys_urllist' => 1,
-    ), t('Submit'));
+    ], t('Submit'));
 
     $this->drupalGet('node/' . $node->id() . '/printable/print');
     $this->assertResponse(200);
 
-    // Checks whether the URLs in the footer region are rendering properly. 
+    // Checks whether the URLs in the footer region are rendering properly.
     $this->assertRaw('List of links present in page', 'Main heading for displaying URLs discovered in the printable page');
     $this->assertRaw($base_url . '/node/' . $node->id(), 'First link discovered successfully');
     $this->assertRaw('/user/1', 'Second link discovered successfully');

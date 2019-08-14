@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\printable\Routing\RouteSubscriber.
- */
-
 namespace Drupal\printable\Routing;
 
 use Drupal\Core\Routing\RoutingEvents;
@@ -12,7 +7,6 @@ use Drupal\Core\Routing\RouteBuildEvent;
 use Drupal\printable\PrintableEntityManagerInterface;
 use Symfony\Component\Routing\Route;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-
 
 /**
  * Defines a route subscriber to generate print route for all content entities.
@@ -55,19 +49,19 @@ class RouteSubscriber implements EventSubscriberInterface {
     foreach ($this->printableEntityManager->getPrintableEntities() as $entity_type => $entity_definition) {
       $route = new Route(
         "$entity_type/{entity}/printable/{printable_format}",
-        array(
+        [
           '_controller' => 'Drupal\printable\Controller\PrintableController::showFormat',
           '_title' => 'Printable',
-        ),
-        array(
+        ],
+        [
           '_entity_access' => 'entity.view',
           '_permission' => 'view printer friendly versions',
-        ),
-        array(
-          'parameters' => array(
-            'entity' => array('type' => 'entity:' . $entity_type),
-          ),
-        )
+        ],
+        [
+          'parameters' => [
+            'entity' => ['type' => 'entity:' . $entity_type],
+          ],
+        ]
       );
       $collection->add('printable.show_format.' . $entity_type, $route);
     }

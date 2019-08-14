@@ -1,14 +1,7 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\printable\PrintableCssInclude.
- */
-
 namespace Drupal\printable;
 
-use Drupal\printable\PrintableCssIncludeInterface;
-use Drupal\Core\Config\ConfigFactory;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Extension\ThemeHandlerInterface;
 
@@ -64,7 +57,7 @@ class PrintableCssInclude implements PrintableCssIncludeInterface {
    *   An include path (optionally) with a taken to extract in the form:
    *   "[theme:theme_machine_name]".
    *
-   * @return string|NULL
+   * @return string|null
    *   The extracted token in the form "[theme:theme_machine_name]" or NULL if
    *   no token exists in the string.
    */
@@ -100,7 +93,7 @@ class PrintableCssInclude implements PrintableCssIncludeInterface {
     $info = $this->themeHandler->listInfo();
     $path = '';
     if (isset($info[$theme])) {
-      $path = dirname($info[$theme]->uri);
+      $path = $info[$theme]->getPath();
     }
     return $path;
   }

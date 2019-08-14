@@ -5,23 +5,21 @@ namespace Drupal\layout_builder_restrictions\Form;
 use Drupal\Core\Block\BlockManagerInterface;
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
 use Drupal\Core\DependencyInjection\DependencySerializationTrait;
-use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Layout\LayoutPluginManagerInterface;
 use Drupal\Core\Plugin\Context\ContextHandlerInterface;
-use Drupal\layout_builder\Context\LayoutBuilderContextTrait;
 use Drupal\layout_builder\Entity\LayoutEntityDisplayInterface;
 use Drupal\layout_builder\SectionStorage\SectionStorageManagerInterface;
+use Drupal\layout_builder_restrictions\Traits\PluginHelperTrait;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Drupal\Core\Plugin\Context\EntityContext;
 
 /**
  * Supplement form UI to add setting for which blocks & layouts are available.
  */
 class FormAlter implements ContainerInjectionInterface {
 
+  use PluginHelperTrait;
   use DependencySerializationTrait;
-  use LayoutBuilderContextTrait;
 
   /**
    * The section storage manager.
@@ -52,13 +50,6 @@ class FormAlter implements ContainerInjectionInterface {
   protected $contextHandler;
 
   /**
-   * Module handler service.
-   *
-   * @var \Drupal\Core\Extension\ModuleHandlerInterface
-   */
-  protected $moduleHandler;
-
-  /**
    * FormAlter constructor.
    *
    * @param \Drupal\layout_builder\SectionStorage\SectionStorageManagerInterface $section_storage_manager
@@ -69,15 +60,12 @@ class FormAlter implements ContainerInjectionInterface {
    *   The layout plugin manager.
    * @param \Drupal\Core\Plugin\Context\ContextHandlerInterface $context_handler
    *   The context handler.
-   * @param \Drupal\Core\Extension\ModuleHandlerInterface $module_handler
-   *   The module handler.
    */
-  public function __construct(SectionStorageManagerInterface $section_storage_manager, BlockManagerInterface $block_manager, LayoutPluginManagerInterface $layout_manager, ContextHandlerInterface $context_handler, ModuleHandlerInterface $module_handler) {
+  public function __construct(SectionStorageManagerInterface $section_storage_manager, BlockManagerInterface $block_manager, LayoutPluginManagerInterface $layout_manager, ContextHandlerInterface $context_handler) {
     $this->sectionStorageManager = $section_storage_manager;
     $this->blockManager = $block_manager;
     $this->layoutManager = $layout_manager;
     $this->contextHandler = $context_handler;
-    $this->moduleHandler = $module_handler;
   }
 
   /**
@@ -88,34 +76,8 @@ class FormAlter implements ContainerInjectionInterface {
       $container->get('plugin.manager.layout_builder.section_storage'),
       $container->get('plugin.manager.block'),
       $container->get('plugin.manager.core.layout'),
-      $container->get('context.handler'),
-      $container->get('module_handler')
+      $container->get('context.handler')
     );
-  }
-
-  /**
-   * Gets block definitions appropriate for an entity display.
-   *
-   * @param \Drupal\layout_builder\Entity\LayoutEntityDisplayInterface $display
-   *   The entity display being edited.
-   *
-   * @return array[]
-   *   Keys are category names, and values are arrays of which the keys are
-   *   plugin IDs and the values are plugin definitions.
-   */
-  protected function getBlockDefinitions(LayoutEntityDisplayInterface $display) {
-    // Check for 'load' method, which only exists in > 8.7.
-    if (method_exists($this->sectionStorageManager, 'load')) {
-      $section_storage = $this->sectionStorageManager->load('defaults', ['display' => EntityContext::fromEntity($display)]);
-    }
-    else {
-      // BC for < 8.7.
-      $section_storage = $this->sectionStorageManager->loadEmpty('defaults')->setSectionList($display);
-    }
-    // Do not use the plugin filterer here, but still filter by contexts.
-    $definitions = $this->blockManager->getDefinitions();
-    $definitions = $this->contextHandler->filterPluginDefinitionsByContexts($this->getAvailableContexts($section_storage), $definitions);
-    return $this->blockManager->getGroupedDefinitions($definitions);
   }
 
   /**
@@ -139,7 +101,8 @@ class FormAlter implements ContainerInjectionInterface {
           ],
         ],
       ];
-      $allowed_blocks = $display->getThirdPartySetting('layout_builder_restrictions', 'allowed_blocks', []);
+      $third_party_settings = $display->getThirdPartySetting('layout_builder_restrictions', 'entity_view_mode_restriction', []);
+      $allowed_blocks = (isset($third_party_settings['allowed_blocks'])) ? $third_party_settings['allowed_blocks'] : [];
       foreach ($this->getBlockDefinitions($display) as $category => $blocks) {
         $category_form = [
           '#type' => 'fieldset',
@@ -183,10 +146,22 @@ class FormAlter implements ContainerInjectionInterface {
             ],
           ];
         }
+        if ($category == 'Custom blocks' || $category == 'Custom block types') {
+          $category_form['description'] = [
+            '#type' => 'container',
+            '#children' => t('<p>In the event both <em>Custom Block Types</em> and <em>Custom Blocks</em> restrictions are enabled, <em>Custom Block Types</em> restrictions are disregarded.</p>'),
+            '#states' => [
+              'visible' => [
+                ':input[name="layout_builder_restrictions[allowed_blocks][' . $category . '][restriction]"]' => ['value' => "restricted"],
+              ],
+            ],
+          ];
+        }
         $form['layout']['layout_builder_restrictions']['allowed_blocks'][$category] = $category_form;
       }
       // Layout settings.
-      $allowed_layouts = $display->getThirdPartySetting('layout_builder_restrictions', 'allowed_layouts', []);
+      $third_party_settings = $display->getThirdPartySetting('layout_builder_restrictions', 'entity_view_mode_restriction', []);
+      $allowed_layouts = (isset($third_party_settings['allowed_layouts'])) ? $third_party_settings['allowed_layouts'] : [];
       $layout_form = [
         '#type' => 'details',
         '#title' => t('Layouts available for sections'),
@@ -208,7 +183,7 @@ class FormAlter implements ContainerInjectionInterface {
         ],
         '#default_value' => !empty($allowed_layouts) ? "restricted" : "all",
       ];
-      $definitions = $this->layoutManager->getFilteredDefinitions('layout_builder', []);
+      $definitions = $this->getLayoutDefinitions();
       foreach ($definitions as $plugin_id => $definition) {
         $enabled = FALSE;
         if (!empty($allowed_layouts) && in_array($plugin_id, $allowed_layouts)) {
@@ -258,7 +233,9 @@ class FormAlter implements ContainerInjectionInterface {
           }
         }
       }
-      $display->setThirdPartySetting('layout_builder_restrictions', 'allowed_blocks', $allowed_blocks);
+      $third_party_settings = $display->getThirdPartySetting('layout_builder_restrictions', 'entity_view_mode_restriction');
+      $third_party_settings['allowed_blocks'] = $allowed_blocks;
+      $display->setThirdPartySetting('layout_builder_restrictions', 'entity_view_mode_restriction', $third_party_settings);
     }
 
     // Set allowed layouts.
@@ -275,7 +252,9 @@ class FormAlter implements ContainerInjectionInterface {
         'layouts',
       ])));
     }
-    $display->setThirdPartySetting('layout_builder_restrictions', 'allowed_layouts', $allowed_layouts);
+    $third_party_settings = $display->getThirdPartySetting('layout_builder_restrictions', 'entity_view_mode_restriction');
+    $third_party_settings['allowed_layouts'] = $allowed_layouts;
+    $display->setThirdPartySetting('layout_builder_restrictions', 'entity_view_mode_restriction', $third_party_settings);
   }
 
 }

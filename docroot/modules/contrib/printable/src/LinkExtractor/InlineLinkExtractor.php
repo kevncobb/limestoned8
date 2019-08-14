@@ -1,15 +1,11 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\printable\LinkExtractor\InlineLinkExtractor.
- */
-
 namespace Drupal\printable\LinkExtractor;
 
-use Drupal\printable\LinkExtractor\LinkExtractorInterface;
 use wa72\htmlpagedom\HtmlPageCrawler;
 use Drupal\Core\Url;
+use Drupal\Core\Render\MetadataBubblingUrlGenerator;
+use Drupal\Core\Path\AliasManager;
 
 /**
  * Link extractor.
@@ -24,10 +20,26 @@ class InlineLinkExtractor implements LinkExtractorInterface {
   protected $crawler;
 
   /**
+   * The url generator service.
+   *
+   * @var \Drupal\Core\Render\MetadataBubblingUrlGenerator
+   */
+  protected $urlGenerator;
+
+  /**
+   * The alias manager service.
+   *
+   * @var \Drupal\Core\Path\AliasManager
+   */
+  protected $aliasMnager;
+
+  /**
    * Constructs a new InlineLinkExtractor object.
    */
-  public function __construct(HtmlPageCrawler $crawler) {
+  public function __construct(HtmlPageCrawler $crawler, MetadataBubblingUrlGenerator $urlGenerator, AliasManager $aliasMnager) {
     $this->crawler = $crawler;
+    $this->urlGenerator = $urlGenerator;
+    $this->aliasMnager = $aliasMnager;
   }
 
   /**
@@ -36,10 +48,12 @@ class InlineLinkExtractor implements LinkExtractorInterface {
   public function extract($string) {
     $this->crawler->addContent($string);
 
-    $this->crawler->filter('a')->each(function(HtmlPageCrawler $anchor, $uri) {
+    $this->crawler->filter('a')->each(function (HtmlPageCrawler $anchor, $uri) {
       $href = $anchor->attr('href');
-      $url = $this->urlFromHref($href);
-      $anchor->append(' (' . $url->toString() . ')');
+      if ($href) {
+        $url = $this->urlFromHref($href);
+        $anchor->append(' (' . $url->toString() . ')');
+      }
     });
 
     return (string) $this->crawler;
@@ -50,7 +64,7 @@ class InlineLinkExtractor implements LinkExtractorInterface {
    */
   public function removeAttribute($content, $attr) {
     $this->crawler->addContent($content);
-    $this->crawler->filter('a')->each(function(HtmlPageCrawler $anchor, $uri) {
+    $this->crawler->filter('a')->each(function (HtmlPageCrawler $anchor, $uri) {
       $anchor->removeAttribute('href');
     });
     return (string) $this->crawler;
@@ -61,14 +75,15 @@ class InlineLinkExtractor implements LinkExtractorInterface {
    */
   public function listAttribute($content) {
     $this->crawler->addContent($content);
-    $this->links = array();
-    $this->crawler->filter('a')->each(function(HtmlPageCrawler $anchor, $uri) {
+    $this->links = [];
+    $this->crawler->filter('a')->each(function (HtmlPageCrawler $anchor, $uri) {
       global $base_url;
 
       $href = $anchor->attr('href');
       try {
-        $this->links[] = $base_url . \Drupal::service('path.alias_manager')->getAliasByPath($href);
-      } catch (\Exception $e) {
+        $this->links[] = $base_url . $this->aliasMnager->getAliasByPath($href);
+      }
+      catch (\Exception $e) {
         $this->links[] = $this->urlFromHref($href)->toString();
       }
     });
@@ -90,10 +105,10 @@ class InlineLinkExtractor implements LinkExtractorInterface {
    */
   private function urlFromHref($href) {
     try {
-      $url = Url::fromUri($href, array('absolute' => TRUE));
+      $url = Url::fromUri($href, ['absolute' => TRUE]);
     }
     catch (\InvalidArgumentException $e) {
-      $url = Url::fromUserInput($href, array('absolute' => TRUE));
+      $url = Url::fromUserInput($href, ['absolute' => TRUE]);
     }
 
     return $url;

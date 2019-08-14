@@ -5,9 +5,7 @@
  * Module file for layout builder restrictions.
  */
 
-use Drupal\Core\Config\Entity\ThirdPartySettingsInterface;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\layout_builder\OverridesSectionStorageInterface;
 use Drupal\layout_builder_restrictions\Form\FormAlter;
 
 /**
@@ -16,7 +14,15 @@ use Drupal\layout_builder_restrictions\Form\FormAlter;
  * Curate the blocks available in the Layout Builder "Add Block" UI.
  */
 function layout_builder_restrictions_plugin_filter_block__layout_builder_alter(array &$definitions, array $extra) {
-  // Invoke deprecated API hook for restricting blocks. @todo: remove.
+  $layout_builder_restrictions_manager = \Drupal::service('plugin.manager.layout_builder_restriction');
+  $restriction_plugins = $layout_builder_restrictions_manager->getSortedPlugins();
+  foreach (array_keys($restriction_plugins) as $id) {
+    $plugin = $layout_builder_restrictions_manager->createInstance($id);
+    $definitions = $plugin->alterBlockDefinitions($definitions, $extra);
+  }
+
+  // Invoke deprecated API hook for restricting blocks.
+  // @todo: remove after 5 September 2019; see #3033213
   $keys = \Drupal::moduleHandler()->invokeAll('layout_builder_restrictions_allowed_block_keys');
   \Drupal::moduleHandler()->alter('layout_builder_restrictions_allowed_block_keys', $keys);
   if (!empty($keys)) {
@@ -31,28 +37,6 @@ function layout_builder_restrictions_plugin_filter_block__layout_builder_alter(a
   // Allow hook implementations to modify the allowed blocks.
   \Drupal::moduleHandler()->alter('layout_builder_restrictions_chooser_result', $definitions);
 
-  // Respect restrictions on allowed blocks specified by the section storage.
-  if (isset($extra['section_storage'])) {
-    $default = $extra['section_storage'] instanceof OverridesSectionStorageInterface ? $extra['section_storage']->getDefaultSectionStorage() : $extra['section_storage'];
-
-    $allowed_blocks = $default instanceof ThirdPartySettingsInterface
-      ? $default->getThirdPartySetting('layout_builder_restrictions', 'allowed_blocks', [])
-      : [];
-
-    // Filter blocks from entity-specific SectionStorage (i.e., UI).
-    if (!empty($allowed_blocks)) {
-      foreach ($definitions as $delta => $definition) {
-        $category = (string) $definition['category'];
-        if (in_array($category, array_keys($allowed_blocks))) {
-          // This category has restrictions.
-          if (!in_array($delta, $allowed_blocks[$category])) {
-            // The current block is not in the allowed list for this category.
-            unset($definitions[$delta]);
-          }
-        }
-      }
-    }
-  }
 }
 
 /**
@@ -61,7 +45,16 @@ function layout_builder_restrictions_plugin_filter_block__layout_builder_alter(a
  * Curate the layouts available in the Layout Builder "Add Section" UI.
  */
 function layout_builder_restrictions_plugin_filter_layout__layout_builder_alter(array &$definitions, array $extra) {
-  // Invoke deprecated API hook for restricting layouts. @todo: remove.
+  $layout_builder_restrictions_manager = \Drupal::service('plugin.manager.layout_builder_restriction');
+  $restriction_definitions = $layout_builder_restrictions_manager->getDefinitions();
+  $restriction_plugins = $layout_builder_restrictions_manager->getSortedPlugins();
+  foreach (array_keys($restriction_plugins) as $id) {
+    $plugin = $layout_builder_restrictions_manager->createInstance($id);
+    $definitions = $plugin->alterSectionDefinitions($definitions, $extra);
+  }
+
+  // Invoke deprecated API hook for restricting layouts.
+  // @todo: remove after 5 September 2019; see #3033213
   $keys = \Drupal::moduleHandler()->invokeAll('layout_builder_restrictions_allowed_layouts');
   \Drupal::moduleHandler()->alter('layout_builder_restrictions_allowed_layouts', $keys);
   if (!empty($keys)) {
@@ -76,23 +69,20 @@ function layout_builder_restrictions_plugin_filter_layout__layout_builder_alter(
   // Allow hook implementations to audit available layouts.
   \Drupal::moduleHandler()->alter('layout_builder_restrictions_allowed_layouts', $definitions);
 
-  // Respect restrictions on allowed layouts specified by section storage.
-  if (isset($extra['section_storage'])) {
-    $default = $extra['section_storage'] instanceof OverridesSectionStorageInterface ? $extra['section_storage']->getDefaultSectionStorage() : $extra['section_storage'];
-
-    if ($default instanceof ThirdPartySettingsInterface) {
-      $allowed_layouts = $default->getThirdPartySetting('layout_builder_restrictions', 'allowed_layouts', []);
-      // Filter blocks from entity-specific SectionStorage (i.e., UI).
-      if (!empty($allowed_layouts)) {
-        $definitions = array_intersect_key($definitions, array_flip($allowed_layouts));
-      }
-    }
-  }
 }
 
 /**
  * Implements hook_form_FORM_ID_alter() for the entity view display edit form.
  */
 function layout_builder_restrictions_form_entity_view_display_edit_form_alter(&$form, FormStateInterface $form_state, $form_id) {
-  \Drupal::classResolver(FormAlter::class)->alterEntityViewDisplayForm($form, $form_state, $form_id);
+  $entity_view_mode_restriction_active = TRUE;
+  if ($config = \Drupal::config('layout_builder_restrictions.plugins')->get('plugin_config')) {
+    // Provide the per view mode restriction UI *unless* the plugin is disabled.
+    if (isset($config['entity_view_mode_restriction']) && $config['entity_view_mode_restriction']['enabled'] == FALSE) {
+      $entity_view_mode_restriction_active = FALSE;
+    }
+  }
+  if ($entity_view_mode_restriction_active) {
+    \Drupal::classResolver(FormAlter::class)->alterEntityViewDisplayForm($form, $form_state, $form_id);
+  }
 }

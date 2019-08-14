@@ -26,9 +26,11 @@ class ComputedFileUrlTest extends KernelTestBase {
    * @covers ::getValue
    */
   public function testGetValue() {
+    $expected = base_path() . $this->siteDirectory . '/files/druplicon.txt';
+
     $entity = $this->prophesize(FileInterface::class);
-    $entity->getFileUri()
-      ->willReturn($this->testUrl);
+    $entity->createFileUrl()
+      ->willReturn($expected);
 
     $parent = $this->prophesize(FieldItemInterface::class);
     $parent->getEntity()
@@ -39,7 +41,6 @@ class ComputedFileUrlTest extends KernelTestBase {
 
     $typed_data = new ComputedFileUrl($definition->reveal(), $this->randomMachineName(), $parent->reveal());
 
-    $expected = base_path() . $this->siteDirectory . '/files/druplicon.txt';
 
     $this->assertSame($expected, $typed_data->getValue());
     // Do this a second time to confirm the same value is returned but the value
