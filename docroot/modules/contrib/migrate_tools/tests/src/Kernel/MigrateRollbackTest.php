@@ -20,6 +20,7 @@ class MigrateRollbackTest extends MigrateTestBase {
    */
   public static $modules = [
     'field',
+    'system',
     'taxonomy',
     'text',
     'user',
