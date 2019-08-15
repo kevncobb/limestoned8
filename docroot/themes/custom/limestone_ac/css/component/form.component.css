@@ -143,14 +143,14 @@ table .radio.form-no-label {
   background-color: #f3f3f3;
   margin: 8px 0px 5px;
 }
-.view-course-listing.view-display-id-page_1 .view-filters div.form-type-checkbox {
+.view-course-listing.view-display-id-page_1 .bef-exposed-form .form--inline > .form-item.form-type-checkbox {
   float: right;
 }
-.view-course-listing.view-display-id-page_1 .view-filters div.form-type-checkbox:last-child {
+.view-course-listing.view-display-id-page_1 .bef-exposed-form .form--inline > .form-item.form-type-checkbox:last-child {
   clear: both;
 }
-.view-course-listing.view-display-id-page_1 .view-filters div.form-type-checkbox.form-item-field-honors-indicator-value,
-.view-course-listing.view-display-id-page_1 .view-filters div.form-type-checkbox .form-item-field-may-be-offered-as-an-honor-value {
+.view-course-listing.view-display-id-page_1 .bef-exposed-form .form--inline > .form-item.form-type-checkbox.form-item-field-honors-indicator-value,
+.view-course-listing.view-display-id-page_1 .bef-exposed-form .form--inline > .form-item.form-type-checkbox .form-item-field-may-be-offered-as-an-honor-value {
   float: left;
 }
 .view-course-listing.view-display-id-page_1 .form-item-field-course-discipline-target-id {
