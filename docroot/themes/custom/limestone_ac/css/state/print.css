@@ -339,7 +339,8 @@ ul.menu--site-version > .active > a {
 .header-wrapper,
 .sub_menu,
 .page-header,
-.footer-wrapper {
+.footer-wrapper,
+.field--name-dynamic-block-fieldnode-print {
   display: none;
 }
 .print-hide,
