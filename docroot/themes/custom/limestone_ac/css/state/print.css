@@ -159,22 +159,22 @@ ul.styled-list-small .field--name-field-degrees-and-schools {
 ul.menu--site-version > .active > a {
   background-color: transparent !important;
 }
-.view-header h1 + .block-printfriendly {
+.view-header h1 + #block-customprintblock {
   position: relative;
   right: 0;
   top: 15px;
 }
-.view-header .block-printfriendly {
+.view-header #block-customprintblock {
   float: right;
   padding-right: 15px;
   display: none;
 }
 @media screen and (min-width: 768px) {
-  .view-header .block-printfriendly {
+  .view-header #block-customprintblock {
     display: block;
   }
 }
-.view-header .block-printfriendly .block-title {
+.view-header #block-customprintblock .block-title {
   font-size: 0px;
   position: absolute;
   left: 999999999em;
@@ -344,7 +344,7 @@ ul.menu--site-version > .active > a {
   display: none;
 }
 .print-hide,
-#block-printfriendly,
+#block-customprintblock,
 ol.breadcrumb {
   display: none;
 }
