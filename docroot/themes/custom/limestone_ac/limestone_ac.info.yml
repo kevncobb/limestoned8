@@ -26,19 +26,22 @@ libraries:
 # Bootstrap styles and scripts libraries.
   - limestone_ac/bootstrap-styles
   - limestone_ac/bootstrap-scripts
-  
+
 # limestone_ac custom Vartheme styles and scripts libraries.
   - limestone_ac/vartheme-styles
 
 # limestone_ac global styles and scripts libraries.
   - limestone_ac/global-styles
   - limestone_ac/global-scripts
-  
+
 # limestone_ac Varbase Bootstrap Paragraphs colors theme.
   - limestone_ac/vbp-colors
-  
+
 # limestone_ac Better Login theme.
   - limestone_ac/betterlogin
+
+# limestone_ac Print Styling.
+  - limestone_ac/print-styling
 
 # OPTIONALLY: You can choose to remove Vartheme base theme stylesheets and/or
 # Javascript files.
@@ -64,7 +67,7 @@ libraries-override:
   varbase_bootstrap_paragraphs/vbp-colors: limestone_ac/vbp-colors
   vartheme/vbp-colors: limestone_ac/vbp-colors
 #  vartheme/betterlogin: limestone_ac/betterlogin
-  
+
 # Uncomment lines to replace, exclude css and js files from vartheme.
 # You will need to copy less/css files from Vartheme to use theme for the
 # overriden library.
