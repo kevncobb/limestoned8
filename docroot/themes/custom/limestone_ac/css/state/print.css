@@ -336,6 +336,12 @@ ul.menu--site-version > .active > a {
   border-top: thin solid #a6a6a69c;
   padding-top: 5px;
 }
+.header-wrapper,
+.sub_menu,
+.page-header,
+.footer-wrapper {
+  display: none;
+}
 .print-hide,
 #block-printfriendly,
 ol.breadcrumb {
