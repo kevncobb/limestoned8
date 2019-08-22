@@ -442,7 +442,7 @@ body.section-trip {
 
 .lc-header,
 .viewsreference--view-title,
-.block-title:not(#-menu),
+.block-title:not(#-menu), .block-title:not(#block-globalexperience-menu),
 .lc-header-field .field-label,
 form#views-exposed-form-news-latest-news-block .form-item-search label {
   clear: left;
