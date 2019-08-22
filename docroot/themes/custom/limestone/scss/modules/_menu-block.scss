@@ -1,5 +1,5 @@
 // Side Menu
-.fibonacci-aside {
+.fibonacci-aside, .sidebar {
   width: xy-cell-size(12 of 12);
   @include breakpoint(large) {
     width: xy-cell-size(4 of 12);
