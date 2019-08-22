@@ -283,6 +283,7 @@ header.site-header {
   -ms-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
   font-size: 2rem;
+  z-index: 99;
   @include breakpoint(medium) {
     font-size: 3rem;
   }
@@ -310,6 +311,7 @@ body.section-trip {
   -ms-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
   font-size: 120%;
+  z-index: 99;
   @include breakpoint(medium) {
     font-size: 240%;
   }
