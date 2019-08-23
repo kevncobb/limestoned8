@@ -7,9 +7,11 @@
     padding-left: 1rem;
   }
 }
+
 .fibonacci-aside, .sidebar {
   nav {
     font-family: $header-font-family;
+    margin-top: 4rem;
     h2 {
       background-color: $limestone-blue;
       font-family: $header-font-family;
