@@ -155,11 +155,11 @@
                 <div class="grid-container">
                     <div class="grid-x grid-margin-x">
                         {% if page.sidebar_first %}
-                            <div id="sidebar-first" class="{{ sidebar_first_grid }} cell sidebar ">
+                            <div id="sidebar-first" class="{{ sidebar_first_grid }} cell fibonacci-aside">
                                 {{ page.sidebar_first }}
                             </div>
                         {% endif %}
-                        <main id="main" class="{{ main_grid }} cell" role="main">
+                        <main id="main" class="{{ main_grid }} cell auto" role="main">
                             {% if page.highlighted %}
                                 {% spaceless %}
                                     {{ page.highlighted }}
@@ -170,7 +170,7 @@
                                 {{ page.content }}
                             </section>
                         </main>
-                        <div id="sidebar-second" class="{{ sidebar_sec_grid }} cell sidebar">
+                        <div id="sidebar-second" class="{{ sidebar_sec_grid }} cell fibonacci-aside">
                             {{ page.sidebar_second }}
                         </div>
                     </div>
