@@ -186,20 +186,23 @@ class MenuBlock extends SystemMenuBlock {
       ['callable' => 'menu.default_tree_manipulators:generateIndexAndSort'],
     ];
     $tree = $this->menuTree->transform($tree, $manipulators);
-    $build = $this->menuTree->build($tree);
-
-    if (!empty($build['#theme'])) {
-      // Add the configuration for use in menu_block_theme_suggestions_menu().
-      $build['#menu_block_configuration'] = $this->configuration;
-      // Remove the menu name-based suggestion so we can control its precedence
-      // better in menu_block_theme_suggestions_menu().
-      $build['#theme'] = 'menu';
+    // Check if the manipulated tree contains links.
+    if (empty($tree)) {
+        return [];
     }
-
-    $build['#contextual_links']['menu'] = [
-      'route_parameters' => ['menu' => $menu_name],
-    ];
-
+    else {
+      $build = $this->menuTree->build($tree);
+      if (!empty($build['#theme'])) {
+         // Add the configuration for use in menu_block_theme_suggestions_menu().
+         $build['#menu_block_configuration'] = $this->configuration;
+         // Remove the menu name-based suggestion so we can control its precedence
+         // better in menu_block_theme_suggestions_menu().
+            $build['#theme'] = 'menu';
+      }
+      $build['#contextual_links']['menu'] = [
+          'route_parameters' => ['menu' => $menu_name],
+        ];
+    }
     return $build;
   }
 
