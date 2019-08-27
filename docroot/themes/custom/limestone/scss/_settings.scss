@@ -102,7 +102,7 @@ $primary-color: $limestone-blue;
 $primary-color-darker: #2e306d;
 $body-background: $white;
 $body-font-color: $black;
-$body-font-family: "adobe-caslon-pro", sans-serif;
+$body-font-family: canada-type-gibson, sans-serif;
 $body-antialiased: true;
 $global-margin: 1rem;
 $global-padding: 1rem;
@@ -153,8 +153,8 @@ $block-grid-max: 8;
 // 4. Base Typography
 // ------------------
 
-$interstate-font: 'interstate-boldregular', sans-serif;
-$header-font-family: 'mr-eaves-xl-modern-narrow', sans-serif;
+$interstate-font: interstate, sans-serif;
+$header-font-family: interstate-condensed, sans-serif;
 $site-header-font-family: 'mr-eaves-xl-sans', sans-serif;
 $header-font-weight: 700; // $global-weight-bold;
 $site-header-font-weight: 900; // $global-weight-bold;
