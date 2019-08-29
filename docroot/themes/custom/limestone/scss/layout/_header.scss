@@ -427,12 +427,12 @@ body.section-trip {
   @include breakpoint(phone) {
     left: 0;
   }
-  @include breakpoint(xlarge) {
+  @include breakpoint(xxlarge) {
     top: 0%;
     width: 100%;
     height: auto;
   }
-  @include breakpoint(xxlarge) {
+  @include breakpoint(xxxlarge) {
     top: -15%;
   }
 }
