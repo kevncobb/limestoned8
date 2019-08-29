@@ -452,8 +452,9 @@ a.to-top {
   }
 }
 .field-label {
-  font-weight: 600;
-  font-family: $interstate-font;
+  font-weight: 700;
+  font-family: $header-font-family;
+  font-size: 1.1rem;
 }
 .field-inline {
   display: inline;
