@@ -3,6 +3,7 @@
   font-family: $site-header-font-family;
   font-weight: normal;
   padding: 0;
+  font-size: 0.8rem;
   a {
     color: $white;
     &:focus, &:hover {
@@ -28,6 +29,6 @@
 
 @include breakpoint(smedium down) {
   .top-bar, .bottom-bar {
-    font-size: 18px; //for small screens
+    font-size: 17px; //for small screens
   }
 }
