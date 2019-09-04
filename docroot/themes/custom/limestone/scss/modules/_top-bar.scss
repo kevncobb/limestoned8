@@ -13,7 +13,7 @@
     }
   }
 }
-.top-bar ul.menu {
+.top-bar ul.dropdown.menu, .top-bar ul {
   background-color: $almost-black !important;
   li.is-active > a {
     color: $limestone-yellow;
