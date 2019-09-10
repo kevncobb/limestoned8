@@ -137,3 +137,8 @@ article.node--type-news {
 .field-paragraph--bp-view {
   @extend .fill;
 }
+.pull-left-negative-5 {
+  @include breakpoint(medium) {
+    margin-left: -5rem;
+  }
+}
