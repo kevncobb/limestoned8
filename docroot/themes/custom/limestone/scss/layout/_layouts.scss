@@ -142,3 +142,8 @@ article.node--type-news {
     margin-left: -5rem;
   }
 }
+.pull-right-negative-5 {
+  @include breakpoint(medium) {
+    margin-right: -5rem;
+  }
+}
