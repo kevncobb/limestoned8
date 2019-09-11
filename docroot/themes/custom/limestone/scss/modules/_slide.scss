@@ -101,6 +101,7 @@
     padding: 0 0 140px 0;
     img {
       max-height: 460px;
+      width: auto;
     }
     @include breakpoint(smedium) {
       width: 1180px;
@@ -196,4 +197,5 @@
 }
 .field_full_control_body {
   position: absolute;
+  top: 0px;
 }
