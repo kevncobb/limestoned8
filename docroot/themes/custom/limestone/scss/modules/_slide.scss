@@ -99,6 +99,9 @@
     z-index: 1;
     color: white;
     padding: 0 0 140px 0;
+    img {
+      max-height: 460px;
+    }
     @include breakpoint(smedium) {
       width: 1180px;
       padding: 40px 0 0;
