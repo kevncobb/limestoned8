@@ -24,7 +24,7 @@
     background-color: rgba(0,0,0,0.24);
     right: 34%;
     @include breakpoint(large) {
-      right: 0%;
+      right: 10%;
     }
     &::before {
       content: "";
