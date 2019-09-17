@@ -183,6 +183,11 @@ header.site-header {
     position: static;
   }
   &.taller {
+    .sub-header-title {
+      font-family: $interstate-font;
+      text-transform: uppercase;
+      letter-spacing: -0.05em;
+    }
     @include breakpoint(medium) {
       padding-top: 3rem;
       padding-bottom: 3rem;
@@ -196,11 +201,8 @@ header.site-header {
 .sub-header-title {
   font-size: 1.2em;
   line-height: 2em;
-  font-family: $interstate-font;
-  text-transform: uppercase;
   font-weight: 700;
   margin: 0 auto 0 auto;
-  letter-spacing: -0.05em;
   color: white;
   display: block;
   width: 100%;
