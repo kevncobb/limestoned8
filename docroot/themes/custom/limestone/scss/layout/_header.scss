@@ -182,6 +182,18 @@ header.site-header {
   .contextual-region {
     position: static;
   }
+  .taller {
+    .sub-header-title {
+      @include breakpoint(medium) {
+        padding-top: 3rem;
+        padding-bottom: 3rem;
+      }
+      @include breakpoint(large) {
+        padding-top: 6rem;
+        padding-bottom: 6rem;
+      }
+    }
+  }
 }
 .sub-header-title {
   font-size: 1.2em;
