@@ -229,6 +229,15 @@
 
     a {
       color: $limestone-blue;
+      &.menu-title {
+        color: $category;
+        &:before {
+          content: "\ea34";
+          color: $category;
+          font-size: 15px;
+          right: 0.5rem;
+        }
+      }
     }
 
     > ul.menu {
