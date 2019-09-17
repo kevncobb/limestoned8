@@ -182,7 +182,7 @@ header.site-header {
   .contextual-region {
     position: static;
   }
-  .taller {
+  &.taller {
     @include breakpoint(medium) {
       padding-top: 3rem;
       padding-bottom: 3rem;
