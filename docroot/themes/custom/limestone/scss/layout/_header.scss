@@ -17,7 +17,7 @@ header.site-header {
     position: relative;
     margin-right: 0;
     .button.search-button {
-      padding: 0.55rem 0.1rem;
+      padding: 0.6rem 0.55rem 0.55rem 0.95rem;
       span {
         border-radius: 50%;
         border: 2px solid white;
@@ -73,8 +73,8 @@ header.site-header {
     &.quicklink-button {
       width: 134px;
       color: transparent !important;
-      font-size: 19px;
-      line-height: 18px;
+      font-size: 17px;
+      line-height: 20px;
       text-align: left;
       font-weight: bold;
       position: relative;
@@ -117,6 +117,8 @@ header.site-header {
         background-size: 562px;
         width: 134px;
         height: 44px;
+        opacity: 0.4;
+        filter: grayscale(1);
         &:before {
           display: none;
         }
