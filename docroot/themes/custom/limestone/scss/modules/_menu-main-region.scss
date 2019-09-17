@@ -231,7 +231,9 @@
       color: $limestone-blue;
       &.menu-title {
         color: $category;
-        &:before {
+        &:after {
+          font-family: 'icomoon' !important;
+          speak: none;
           content: "\ea34";
           color: $category;
           font-size: 15px;
