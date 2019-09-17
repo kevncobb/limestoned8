@@ -157,6 +157,9 @@ header.site-header {
   background-image: url("/themes/custom/limestone/images/pano-front-quad.jpg");
   background-size: cover;
   background-position: 0px 49%;
+  -webkit-box-shadow: inset 0px 0px 300px 200px rgba(0,0,0,0.15);
+  -moz-box-shadow: inset 0px 0px 300px 200px rgba(0,0,0,0.15);
+  box-shadow: inset 0px 0px 300px 200px rgba(0,0,0,0.15);
   &:before {
     position: absolute;
     bottom: 0;
@@ -210,7 +213,7 @@ header.site-header {
   z-index: 2;
   cursor: pointer;
   -webkit-font-smoothing: antialiased;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+  text-shadow: 2px 2px 1px rgba(0,0,0,0.5);
   padding: 0.6rem 0 0.6rem 0;
 
   @include breakpoint(medium) {
