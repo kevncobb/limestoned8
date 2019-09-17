@@ -190,11 +190,11 @@ header.site-header {
     }
     @include breakpoint(medium) {
       padding-top: 3rem;
-      padding-bottom: 3rem;
+      padding-bottom: 0;
     }
     @include breakpoint(large) {
       padding-top: 6rem;
-      padding-bottom: 6rem;
+      padding-bottom: 0;
     }
   }
 }
