@@ -231,13 +231,16 @@
       color: $limestone-blue;
       &.menu-title {
         color: $category;
-        &:after {
+        padding-right: 0.5rem;
+      &:after {
           font-family: 'icomoon' !important;
           speak: none;
           content: "\ea34";
           color: $category;
           font-size: 15px;
-          right: 0.5rem;
+          left: 0.3rem;
+          bottom: 1px;
+          position: relative;
         }
       }
     }
