@@ -567,6 +567,80 @@
 .bg-orange .h6.is-active {
   color: #ffffff;
 }
+.bg-dark-khaki {
+  background-color: #e2b565;
+  color: #ffffff;
+  width: 100%;
+}
+.bg-dark-khaki a,
+.bg-dark-khaki h1,
+.bg-dark-khaki .h1,
+.bg-dark-khaki h2,
+.bg-dark-khaki .h2,
+.bg-dark-khaki h3,
+.bg-dark-khaki .h3,
+.bg-dark-khaki h4,
+.bg-dark-khaki .h4,
+.bg-dark-khaki h5,
+.bg-dark-khaki .h5,
+.bg-dark-khaki h6,
+.bg-dark-khaki .h6 {
+  color: #ffffff;
+}
+.bg-dark-khaki a:hover,
+.bg-dark-khaki h1:hover,
+.bg-dark-khaki .h1:hover,
+.bg-dark-khaki h2:hover,
+.bg-dark-khaki .h2:hover,
+.bg-dark-khaki h3:hover,
+.bg-dark-khaki .h3:hover,
+.bg-dark-khaki h4:hover,
+.bg-dark-khaki .h4:hover,
+.bg-dark-khaki h5:hover,
+.bg-dark-khaki .h5:hover,
+.bg-dark-khaki h6:hover,
+.bg-dark-khaki .h6:hover,
+.bg-dark-khaki a:focus,
+.bg-dark-khaki h1:focus,
+.bg-dark-khaki .h1:focus,
+.bg-dark-khaki h2:focus,
+.bg-dark-khaki .h2:focus,
+.bg-dark-khaki h3:focus,
+.bg-dark-khaki .h3:focus,
+.bg-dark-khaki h4:focus,
+.bg-dark-khaki .h4:focus,
+.bg-dark-khaki h5:focus,
+.bg-dark-khaki .h5:focus,
+.bg-dark-khaki h6:focus,
+.bg-dark-khaki .h6:focus,
+.bg-dark-khaki a:active,
+.bg-dark-khaki h1:active,
+.bg-dark-khaki .h1:active,
+.bg-dark-khaki h2:active,
+.bg-dark-khaki .h2:active,
+.bg-dark-khaki h3:active,
+.bg-dark-khaki .h3:active,
+.bg-dark-khaki h4:active,
+.bg-dark-khaki .h4:active,
+.bg-dark-khaki h5:active,
+.bg-dark-khaki .h5:active,
+.bg-dark-khaki h6:active,
+.bg-dark-khaki .h6:active,
+.bg-dark-khaki a.is-active,
+.bg-dark-khaki h1.is-active,
+.bg-dark-khaki .h1.is-active,
+.bg-dark-khaki h2.is-active,
+.bg-dark-khaki .h2.is-active,
+.bg-dark-khaki h3.is-active,
+.bg-dark-khaki .h3.is-active,
+.bg-dark-khaki h4.is-active,
+.bg-dark-khaki .h4.is-active,
+.bg-dark-khaki h5.is-active,
+.bg-dark-khaki .h5.is-active,
+.bg-dark-khaki h6.is-active,
+.bg-dark-khaki .h6.is-active {
+  color: #ffffff;
+}
 .bg-edge2edge.paragraph--type--bp-columns-two-uneven.container-white > .grid-container {
   background-color: rgba(255, 255, 255, 0.75);
   padding: 2rem 1.5rem 1.5rem;

@@ -37,6 +37,7 @@
 @bg-blue: #0038a5;
 @bg-yellow: #fbea65;
 @bg-orange: #ec8a22;
+@bg-dark-khaki: #e2b565;
 // Foreground colours:
 // -----------------------------------------------------------------------------
 // vbp_foreground_color_01: White for background vbp_color_01 color
@@ -164,6 +165,21 @@
 }
 .bg-orange {
   background-color: @bg-orange;
+  color: @vbp_foreground_color_05;
+  width: 100%;
+  a, h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6  {
+    color: @vbp_foreground_color_05;
+
+    &:hover,
+    &:focus,
+    &:active,
+    &.is-active {
+      color: @vbp_foreground_color_05;
+    }
+  }
+}
+.bg-dark-khaki {
+  background-color: @bg-dark-khaki;
   color: @vbp_foreground_color_05;
   width: 100%;
   a, h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6  {
