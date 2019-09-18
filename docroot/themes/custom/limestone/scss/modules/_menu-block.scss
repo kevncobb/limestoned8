@@ -9,6 +9,9 @@
 }
 
 .fibonacci-aside, .sidebar, .large-4 {
+  .field-wrapper.field-name-field-block {
+    width: 100%;
+  }
   nav {
     font-family: $header-font-family;
     h2 {
