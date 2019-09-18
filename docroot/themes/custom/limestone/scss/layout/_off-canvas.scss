@@ -61,7 +61,7 @@ div.apply-now-wrapper {
   overflow: hidden;
   z-index: 10;
   position: fixed;
-  top: 17%;
+  top: 34%;
   right: 0px;
   width: 53px;
   padding-left: 65px;
@@ -76,10 +76,10 @@ div.apply-now-wrapper {
     cursor: pointer;
     position: relative;
     display: block;
-    left: -106px;
-    top: 105px;
-    width: 160px;
-    height: 51px;
+    left: -96px;
+    top: 58px;
+    width: 142px;
+    height: 50px;
     padding-top: 16px;
     text-align: center;
     text-transform: uppercase;
@@ -110,6 +110,8 @@ div.apply-now-wrapper {
     background: rgba($alert-color, 0.9);
     margin: 0;
     border-left: thin solid darken($alert-color, 10);
+    top: -38px;
+    position: relative;
     li {
       list-style-type: none;
       a {
