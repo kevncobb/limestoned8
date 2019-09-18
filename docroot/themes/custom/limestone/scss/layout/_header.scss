@@ -192,11 +192,11 @@ header.site-header {
       letter-spacing: -0.05em;
     }
     @include breakpoint(medium) {
-      padding-top: 3rem;
+      padding-top: 1rem;
       padding-bottom: 0;
     }
     @include breakpoint(large) {
-      padding-top: 6rem;
+      padding-top: 2rem;
       padding-bottom: 0;
     }
   }
