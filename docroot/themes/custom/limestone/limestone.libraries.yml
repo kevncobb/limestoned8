@@ -6,6 +6,7 @@ global:
       fonts/icomoon.css: {}
   js:
     js/limestone.js: {}
+    js/menu.js: {}
     js/trunk8.min.js: {}
 
 lc-slider:
