@@ -121,7 +121,7 @@
 
         &:focus, &:hover {
           //background-color: #E7E7E7;
-          text-decoration: underline;
+          border-bottom: 3px solid $light-gray;
           color: $limestone-blue;
         }
       }
