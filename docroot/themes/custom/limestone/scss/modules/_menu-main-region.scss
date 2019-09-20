@@ -110,6 +110,7 @@
         text-transform: uppercase;
         padding-bottom: 4px;
         padding-left: 2px;
+        padding-right: 4px;
         padding-top: 8px;
         margin-left: 20px;
         margin-right: 0;
@@ -120,8 +121,8 @@
         display: inline;
         &:focus, &:hover {
           //background-color: #E7E7E7;
-          border-bottom: 3px solid $limestone-blue;
-          color: $limestone-blue;
+          border-bottom: 3px solid smart-scale($dark-gray, 5%, 40%);
+          color: smart-scale($dark-gray, 5%, 40%);
         }
       }
     }
