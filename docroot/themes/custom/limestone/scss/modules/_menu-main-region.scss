@@ -111,18 +111,20 @@
         padding-bottom: 4px;
         padding-left: 0;
         padding-right: 0;
-        padding-top: 8px;
+        padding-top: 6px;
         margin-left: 20px;
         margin-right: 0;
         margin-top: 0px;
         margin-bottom: 0px;
         font-size: 20px;
-        line-height: 50px;
-        display: inline;
+        line-height: 27px;
+        display: inline-block;
+        width: 100%;
         &:focus, &:hover {
           //background-color: #E7E7E7;
-          border-bottom: 2.5px solid $limestone-blue;
+          //border-bottom: 2px solid $limestone-blue;
           color: $limestone-blue;
+          text-decoration: underline;
           -webkit-transition: none;
           transition: none;
         }
