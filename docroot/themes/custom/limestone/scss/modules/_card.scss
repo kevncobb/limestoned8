@@ -108,11 +108,14 @@
   }
 
   h3 {
-    font-size: 1.25rem;
-    margin-bottom: 15px;
+    //font-size: 1.25rem;
+    margin-bottom: 5px;
     a {
       text-decoration: none;
       color: $limestone-blue;
+      &:focus, &:hover {
+        text-decoration: underline;
+      }
     }
   }
 
