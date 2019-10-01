@@ -27,3 +27,9 @@ lc-select:
       css/lc-select.css: {}
   js:
     js/lc-select.js: {}
+
+lc-parallax:
+  version: 1.x
+  js:
+    js/parallax.min.js: {}
+    js/lc-parallax: {}

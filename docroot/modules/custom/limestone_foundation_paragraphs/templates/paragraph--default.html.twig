@@ -76,6 +76,8 @@
 
 {% if VBP.background_image.url %}
     {% set attributes = attributes.addClass('background-style') %}
+    {% set attributes = attributes.addClass('hero') %}
+    {{ attach_library('limestone/lc-parallax') }}
 {% endif %}
 
 {# Merges Background color with classes. #}
