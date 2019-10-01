@@ -32,4 +32,4 @@ lc-parallax:
   version: 1.x
   js:
     js/parallax.min.js: {}
-    js/lc-parallax: {}
+    js/lc-parallax.js: {}
