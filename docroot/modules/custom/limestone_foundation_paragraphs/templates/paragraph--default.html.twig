@@ -77,6 +77,8 @@
 {% if VBP.background_image.url %}
     {% set attributes = attributes.addClass('background-style') %}
     {% set attributes = attributes.addClass('hero') %}
+    {% attributes.setAttribute('data-parallax', 'scroll') %}
+    {% attributes.setAttribute('data-bleed', '10') %}
     {{ attach_library('limestone/lc-parallax') }}
 {% endif %}
 
