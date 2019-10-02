@@ -68,6 +68,9 @@
  */
 #}
 <article id="node-{{ node.id }}" {{ attributes }}>
+  <div class="contextual-region">
+    {{ title_suffix }}
+  </div>
   {# We hide the comments and links now so that we can render them later. #}
   <div{{ content_attributes }}>
     {{ content|without('comment', 'links', 'field_tags') }}
