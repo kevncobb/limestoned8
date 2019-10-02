@@ -6,8 +6,8 @@ package: Field types
 dependencies:
   - drupal:field
 
-# Information added by Drupal.org packaging script on 2019-02-12
-version: '8.x-3.1'
+# Information added by Drupal.org packaging script on 2018-11-30
+version: '8.x-3.1-alpha2+3-dev'
 core: '8.x'
 project: 'weight'
-datestamp: 1549993084
+datestamp: 1543580287
