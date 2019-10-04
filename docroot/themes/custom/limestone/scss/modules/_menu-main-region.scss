@@ -437,3 +437,9 @@ $expander-toggle-margin: 1em;
     display: none;
   }
 }
+
+nav.menu--desktop-megamenu {
+  ul.dropdown {
+    min-width: 960px;
+  }
+}
