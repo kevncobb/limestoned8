@@ -93,39 +93,39 @@
     -moz-box-shadow: 1px 1px 8px rgba(0, 0, 0, .5);
     box-shadow: 1px 1px 8px rgba(0, 0, 0, .5);
     z-index: 100;
+    ul:not(.list-unstyled) {
+      > li {
+        width: 100%;
+        margin: 0;
+        //border-bottom: thin solid #eee;
+        float: left;
+        clear: left;
 
-    > li {
-      width: 100%;
-      margin: 0;
-      //border-bottom: thin solid #eee;
-      float: left;
-      clear: left;
+        &:last-child {
+          border-bottom: none;
+        }
+        a {
+          color: $dark-gray;
+          font-weight: 400;
+          padding-bottom: 4px;
+          padding-left: 21px;
+          padding-top: 8px;
+          margin-left: 0;
+          margin-right: 0;
+          margin-top: 4px;
+          margin-bottom: 4px;
+          font-size: 18px;
+          line-height: 24px;
 
-      &:last-child {
-        border-bottom: none;
-      }
-      a {
-        color: $dark-gray;
-        font-weight: 400;
-        padding-bottom: 4px;
-        padding-left: 21px;
-        padding-top: 8px;
-        margin-left: 0;
-        margin-right: 0;
-        margin-top: 4px;
-        margin-bottom: 4px;
-        font-size: 18px;
-        line-height: 24px;
-
-        &:focus, &:hover {
-          //background-color: #E7E7E7;
-          text-decoration: underline;
-          color: $limestone-blue;
+          &:focus, &:hover {
+            //background-color: #E7E7E7;
+            text-decoration: underline;
+            color: $limestone-blue;
+          }
         }
       }
     }
   }
-
 }
 
 // All Menus
