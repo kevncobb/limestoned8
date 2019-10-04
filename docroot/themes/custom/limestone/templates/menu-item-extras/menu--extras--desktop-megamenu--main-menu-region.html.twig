@@ -153,6 +153,7 @@
         %}
       {% endif %}
       <li{{ item.attributes.addClass(item_classes) }}>
+        {{ link(item.title, item.url) }}
         {% set rendered_content = item.content|without('') %}
         {% if rendered_content|render %}
           {{ rendered_content }}
