@@ -154,10 +154,6 @@
       {% endif %}
       <li{{ item.attributes.addClass(item_classes) }}>
         {{ link(item.title, item.url) }}
-        {% set rendered_content = item.content|without('') %}
-        {% if rendered_content|render %}
-          {{ rendered_content }}
-        {% endif %}
         {% if item.below %}
           {{ menus.menu_links(item.below, attributes, menu_level + 1, top_bar) }}
         {% endif %}
