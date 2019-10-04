@@ -5,7 +5,7 @@
  */
 #}
 
-<ul class="menu menu-level-{{ items|first.menu_level }}">
+<ul{{ attributes.addClass('menu', 'vertical', 'medium-horizontal', 'dropdown').setAttribute('data-responsive-menu', 'drilldown medium-dropdown') }} data-auto-height="true" data-animate-height="true" data-parent-link="true">
 {% for key, item in items if key|first != '#' %}
   {% set menu_item_classes = [
     'menu-item',
