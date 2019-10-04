@@ -130,7 +130,7 @@
 
 // All Menus
 @include breakpoint(smedium) {
-  nav.sub-menu-block {
+  nav.sub-menu-block, nav.menu--desktop-megamenu {
     > ul.menu {
       padding: 0;
       a {
@@ -228,7 +228,7 @@
   .expander-hidden + .expander-content {
     display: block;
   }
-  nav.sub-menu-block {
+  nav.sub-menu-block, nav.menu--desktop-megamenu {
     background-color: #fff;
     position: relative;
     z-index: 5;
@@ -316,7 +316,7 @@
   }
 }
 @include breakpoint(large) {
-  nav.sub-menu-block {
+  nav.sub-menu-block, nav.menu--desktop-megamenu {
     font-size: 1.3rem;
     > ul.menu {
       a {
@@ -439,7 +439,7 @@ $expander-toggle-margin: 1em;
 }
 
 nav.menu--desktop-megamenu {
-  ul.dropdown {
+  ul.submenu.is-dropdown-submenu {
     min-width: 960px;
   }
 }
