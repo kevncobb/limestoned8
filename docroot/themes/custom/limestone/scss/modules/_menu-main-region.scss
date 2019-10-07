@@ -159,17 +159,21 @@
           position: absolute;
           width: 100%;
           top: 107%;
-          padding-top: 2rem;
+          padding-top: 1rem;
           border-top: none;
           box-shadow: none;
           font-size: 17px;
           line-height: 20px;
-          a {
-            padding: 0.5rem 1rem 0.5rem 0.2rem;
-            color: $dark-gray;
-          }
+
           ul.list-unstyled {
             margin-bottom: 20px;
+            a {
+              padding: 0.5rem 1rem 0.5rem 0.2rem;
+              color: $dark-gray;
+              &:hover, &:focus {
+                color: $limestone-blue;
+              }
+            }
           }
         }
       }
