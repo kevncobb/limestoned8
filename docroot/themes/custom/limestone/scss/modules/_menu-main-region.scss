@@ -130,11 +130,46 @@
 
 // All Menus
 @include breakpoint(smedium) {
-  nav.sub-menu-block, nav.menu--desktop-megamenu {
+  ul.main_menu_region {
+
+  }
+  nav.menu--desktop-megamenu {
+    border-bottom: 3px solid #0038a5;
     > ul.menu {
       padding: 0;
+      position: static;
       a {
         //padding: 0.7rem 0.5rem;
+      }
+      > li {
+
+      }
+      > li.is-dropdown-submenu-parent {
+        position: static;
+        border-bottom: 3px solid $success;
+        margin-bottom: -3px;
+        li.is-submenu-item.is-dropdown-submenu-item {
+          > a {
+            display: none;
+          }
+        }
+        li.is-dropdown-submenu {
+          position: absolute;
+          width: 100%;
+          top: 107%;
+          padding-top: 2rem;
+          border-top: none;
+          box-shadow: none;
+          font-size: 17px;
+          line-height: 20px;
+          a {
+            padding: 0.5rem 1rem 0.5rem 0.2rem;
+            color: $grey-dark;
+          }
+          ul.list-unstyled {
+            margin-bottom: 20px;
+          }
+        }
       }
     }
   }
