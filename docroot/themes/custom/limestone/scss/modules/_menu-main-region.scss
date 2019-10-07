@@ -135,7 +135,7 @@
   }
   nav.menu--desktop-megamenu {
     border-bottom: 3px solid $limestone-blue;
-    > ul.menu {
+    > ul.menu.dropdown.menu.medium-horizontal {
       padding: 0;
       position: static;
       a {
@@ -146,8 +146,10 @@
       }
       > li.is-dropdown-submenu-parent {
         position: static;
-        border-bottom: 3px solid $success-color;
-        margin-bottom: -3px;
+        &.is-active {
+          border-bottom: 3px solid $success-color;
+          margin-bottom: -3px;
+        }
         li.is-submenu-item.is-dropdown-submenu-item {
           > a {
             display: none;
@@ -164,7 +166,7 @@
           line-height: 20px;
           a {
             padding: 0.5rem 1rem 0.5rem 0.2rem;
-            color: $medium-gray;
+            color: $dark-gray;
           }
           ul.list-unstyled {
             margin-bottom: 20px;
