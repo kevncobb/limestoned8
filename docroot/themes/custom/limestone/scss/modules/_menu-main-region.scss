@@ -135,7 +135,7 @@
   }
   nav.menu--desktop-megamenu {
     border-bottom: 3px solid $limestone-blue;
-    background-color: #efefef;
+
     > ul.menu.dropdown.menu.medium-horizontal {
       padding: 0;
       position: static;
@@ -165,7 +165,10 @@
           //box-shadow: none;
           font-size: 17px;
           line-height: 20px;
-
+          background-color: #efefef;
+          p {
+            font-family: $body-font-family;
+          }
           ul.list-unstyled {
             margin-bottom: 20px;
             a {
