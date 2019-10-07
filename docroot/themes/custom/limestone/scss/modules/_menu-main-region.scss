@@ -135,6 +135,7 @@
   }
   nav.menu--desktop-megamenu {
     border-bottom: 3px solid $limestone-blue;
+    background-color: #efefef;
     > ul.menu.dropdown.menu.medium-horizontal {
       padding: 0;
       position: static;
@@ -161,7 +162,7 @@
           top: 107%;
           padding-top: 1rem;
           border-top: none;
-          box-shadow: none;
+          //box-shadow: none;
           font-size: 17px;
           line-height: 20px;
 
@@ -172,6 +173,7 @@
               color: $dark-gray;
               &:hover, &:focus {
                 color: $limestone-blue;
+                text-decoration: underline;
               }
             }
           }
