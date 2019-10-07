@@ -134,7 +134,7 @@
 
   }
   nav.menu--desktop-megamenu {
-    border-bottom: 3px solid #0038a5;
+    border-bottom: 3px solid $limestone-blue;
     > ul.menu {
       padding: 0;
       position: static;
@@ -146,7 +146,7 @@
       }
       > li.is-dropdown-submenu-parent {
         position: static;
-        border-bottom: 3px solid $success;
+        border-bottom: 3px solid $success-color;
         margin-bottom: -3px;
         li.is-submenu-item.is-dropdown-submenu-item {
           > a {
@@ -164,7 +164,7 @@
           line-height: 20px;
           a {
             padding: 0.5rem 1rem 0.5rem 0.2rem;
-            color: $grey-dark;
+            color: $medium-gray;
           }
           ul.list-unstyled {
             margin-bottom: 20px;
