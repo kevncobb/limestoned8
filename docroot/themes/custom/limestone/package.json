@@ -25,5 +25,8 @@
     "watch": "gulp watch",
     "postinstall": "node_modules/.bin/rimraf node_modules/**/*.info"
   },
-  "private": true
+  "private": true,
+  "dependencies": {
+    "node-sass": "^4.12.0"
+  }
 }

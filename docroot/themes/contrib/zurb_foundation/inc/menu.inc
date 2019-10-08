@@ -98,7 +98,7 @@ function zurb_foundation_preprocess_menu__main(&$variables) {
     }
 
     if ($variables['top_bar'] == 2) {
-      $top_bar_attributes->addClass('show-for-small');
+      $top_bar_attributes->addClass('show-for-small-only');
     }
 
     $variables['top_bar_attributes'] = $top_bar_attributes;
