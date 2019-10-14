@@ -18,7 +18,7 @@
   width: 100%;
   height: 100%;
   transform-style: preserve-3d;
-  transition: all 1.0s linear;
+  transition: all 0.25s linear;
 }
 
 .face {
@@ -36,3 +36,34 @@
   text-align: center;
   background-color: #aaa;
 }
+
+
+$masonry-css-column-gap: $global-margin;
+
+.masonry-css {
+  column-count: 1;
+  column-gap: $masonry-css-column-gap;
+
+  @include breakpoint(400px) {
+    column-count: 2;
+  }
+
+  @include breakpoint(600px) {
+    column-count: 3;
+  }
+
+  @include breakpoint(800px) {
+    column-count: 4;
+  }
+
+  @include breakpoint(1100px) {
+    column-count: 5;
+  }
+}
+
+.masonry-css-item {
+  break-inside: avoid;
+  margin-bottom: $masonry-css-column-gap;
+}
+
+
