@@ -5,7 +5,7 @@
   height: 281px;
   z-index: 1;
   &:hover {
-    #f1_card {
+    .f1_card {
       transform: rotateY(180deg);
       box-shadow: -5px 5px 5px #aaa;
     }
