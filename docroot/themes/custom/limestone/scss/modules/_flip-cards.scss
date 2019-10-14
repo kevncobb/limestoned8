@@ -1,13 +1,12 @@
 .f1_container {
   position: relative;
   margin: 10px auto;
-  width: 450px;
+  //width: 450px;
   height: 281px;
   z-index: 1;
   &:hover {
     .f1_card {
       transform: rotateY(180deg);
-      box-shadow: -5px 5px 5px #aaa;
     }
   }
 }
@@ -32,9 +31,9 @@
   transform: rotateY(180deg);
   box-sizing: border-box;
   padding: 10px;
-  color: white;
+  //color: white;
   text-align: center;
-  background-color: #aaa;
+  //background-color: #aaa;
 }
 
 
@@ -65,5 +64,10 @@ $masonry-css-column-gap: $global-margin;
   break-inside: avoid;
   margin-bottom: $masonry-css-column-gap;
 }
+.masonry-css-item--width2 {
+  break-inside: avoid;
+  margin-bottom: $masonry-css-column-gap;
+}
+
 
 
