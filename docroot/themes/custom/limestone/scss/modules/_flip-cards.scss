@@ -37,77 +37,32 @@
 }
 
 
-$masonry-css-column-gap: $global-margin;
-
-.masonry-css {
-  column-count: 1;
-  column-gap: $masonry-css-column-gap;
-
-  @include breakpoint(400px) {
-    column-count: 2;
-  }
-
-  @include breakpoint(600px) {
-    column-count: 3;
-  }
-
-  @include breakpoint(800px) {
-    column-count: 4;
-  }
-
-  @include breakpoint(1100px) {
-    column-count: 5;
-  }
+.grid-layout {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  grid-gap: 10px;
+  grid-auto-rows: minmax(180px, auto);
+  grid-auto-flow: dense;
+  padding: 10px;
 }
-
-.masonry-css-item {
-  break-inside: avoid;
-  margin-bottom: $masonry-css-column-gap;
-}
-.masonry-css-item--width2 {
-  break-inside: avoid;
-  margin-bottom: $masonry-css-column-gap;
-}
-
-/* ---- grid ---- */
-
-.grid {
-  background: #EEE;
-  max-width: 1200px;
-}
-
-/* clearfix */
-.grid:after {
-  content: '';
-  display: block;
-  clear: both;
-}
-
-/* ---- grid-item ---- */
 
 .grid-item {
-  width: 160px;
-  float: left;
+  padding: 1rem;
+  font-size: 14px;
+  font-weight: bold;
+  text-transform: uppercase;
   border-radius: 5px;
+  &:nth-child(odd) {
+    background-color: #424242;
+  }
 }
 
-.grid-item--width2 { width:  320px; }
-.grid-item--width3 { width:  480px; }
-.grid-item--width4 { width:  720px; }
+.span-2 {
+  grid-column-end: span 2;
+  grid-row-end: span 2;
+}
 
-.grid-item--height2 { height: 200px; }
-.grid-item--height3 { height: 260px; }
-.grid-item--height4 { height: 360px; }
-
-/* ---- static-banner ---- */
-
-.static-banner {
-  position: absolute;
-  left: 10px;
-  top: 10px;
-  padding: 10px 30px;
-  color: white;
-  background: #A2C;
-  font-size: 22px;
-  z-index: 2; /* above items */
+.span-3 {
+  grid-column-end: span 3;
+  grid-row-end: span 4;
 }
