@@ -1,6 +1,6 @@
 .f1_container {
   position: relative;
-  margin: 10px auto;
+  margin: 0 auto;
   //width: 450px;
   height: 100%;
   z-index: 1;
@@ -30,7 +30,7 @@
   display: block;
   transform: rotateY(180deg);
   box-sizing: border-box;
-  padding: 10px;
+  padding: 15px;
   //color: white;
   text-align: center;
   //background-color: #aaa;
@@ -40,12 +40,12 @@
 .grid-item {
   float: left;
   width: 20%;
-  padding: 1.5%;
+  padding: 5px;
 }
 .grid-item--width2 { width: 40%; }
 .grid-item--width3 { width: 80%; }
 
 
-.grid-item--height { height: 150px; }
-.grid-item--height2 { height: 300px; }
-.grid-item--height3 { height: 450px; }
+.grid-item--height { height: 160px; }
+.grid-item--height2 { height: 320px; }
+.grid-item--height3 { height: 480px; }
