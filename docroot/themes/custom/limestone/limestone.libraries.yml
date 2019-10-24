@@ -33,3 +33,8 @@ lc-parallax:
   js:
     js/parallax.min.js: {}
     js/lc-parallax.js: {}
+
+masonry:
+  version: 1.x
+  js:
+    js/masonry.pkgd.min.js: {}
