@@ -37,16 +37,13 @@
 }
 
 .grid-sizer,
-.grid-item { width: 20%; }
-/* 2 columns */
-.grid-item--width2 { width: 40%; }
-.grid-item--width3 { width: 80%; }
 .grid-item {
   float: left;
-  width: 80px;
-  height: 60px;
-  border: 2px solid hsla(0, 0%, 0%, 0.5);
+  width: 20%;
 }
+.grid-item--width2 { width: 40%; }
+.grid-item--width3 { width: 80%; }
+
 
 .grid-item--height { height: 80px; }
 .grid-item--height2 { height: 160px; }
