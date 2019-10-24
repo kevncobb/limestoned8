@@ -40,11 +40,12 @@
 .grid-item {
   float: left;
   width: 20%;
+  padding: 1.5%;
 }
 .grid-item--width2 { width: 40%; }
 .grid-item--width3 { width: 80%; }
 
 
-.grid-item--height { height: 80px; }
-.grid-item--height2 { height: 160px; }
-.grid-item--height3 { height: 240px; }
+.grid-item--height { height: 150px; }
+.grid-item--height2 { height: 300px; }
+.grid-item--height3 { height: 450px; }
