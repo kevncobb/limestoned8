@@ -39,11 +39,11 @@
 .grid-sizer,
 .grid-item {
   float: left;
-  width: 20%;
-  padding: 5px;
+  width: 220px;
+  padding: 6px;
 }
-.grid-item--width2 { width: 40%; }
-.grid-item--width3 { width: 80%; }
+.grid-item--width2 { width: 400px; }
+.grid-item--width3 { width: 650px; }
 
 
 .grid-item--height { height: 160px; }
