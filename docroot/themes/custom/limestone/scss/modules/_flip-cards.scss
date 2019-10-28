@@ -41,11 +41,13 @@
   background-color: #aaa;
   padding: 15px;
 }
-
+.masonry-grid {
+  margin: 0 -27px;
+}
 .grid-sizer,
 .grid-item {
   float: left;
-  width: 230px;
+  width: 227px;
 }
 .grid-item--width2 { width: 400px; }
 .grid-item--width3 { width: 650px; }
