@@ -26,9 +26,12 @@
   height: 100%;
   padding: 10px;
   backface-visibility: hidden;
+  img {
+    margin: 0;
+  }
 }
 .face.front {
-  padding: 15px;
+  padding: 7px;
 }
 .face.back {
   display: block;
@@ -36,13 +39,13 @@
   box-sizing: border-box;
   text-align: center;
   background-color: #aaa;
+  padding: 15px;
 }
 
 .grid-sizer,
 .grid-item {
   float: left;
   width: 220px;
-  padding: 6px;
 }
 .grid-item--width2 { width: 400px; }
 .grid-item--width3 { width: 650px; }
