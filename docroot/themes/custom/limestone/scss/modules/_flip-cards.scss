@@ -42,17 +42,16 @@
   padding: 15px;
 }
 .masonry-grid {
-  margin: 0 -27px;
+  margin: 0 -20px;
 }
 .grid-sizer,
 .grid-item {
   float: left;
-  width: 229px;
+  width: 280px;
 }
-.grid-item--width2 { width: 400px; }
-.grid-item--width3 { width: 650px; }
+.grid-item--width2 { width: 560px; }
 
 
-.grid-item--height { height: 160px; }
+.grid-item--height { height: 210px; }
 .grid-item--height2 { height: 320px; }
 .grid-item--height3 { height: 480px; }
