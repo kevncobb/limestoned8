@@ -24,16 +24,18 @@
   position: absolute;
   width: 100%;
   height: 100%;
+  padding: 10px;
   backface-visibility: hidden;
+}
+.face.front {
+  padding: 15px;
 }
 .face.back {
   display: block;
   transform: rotateY(180deg);
   box-sizing: border-box;
-  padding: 15px;
-  //color: white;
   text-align: center;
-  //background-color: #aaa;
+  background-color: #aaa;
 }
 
 .grid-sizer,
