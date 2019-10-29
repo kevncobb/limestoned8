@@ -5,3 +5,30 @@
     border-bottom: 1px solid #ccc;
   }
 }
+ul.list-unstyled, ul.unstyled-list {
+  margin-left: 0;
+  li {
+    list-style-type: none;
+  }
+}
+ul.line-items {
+  padding: 0;
+  margin: 0;
+  li {
+    list-style-type: none;
+    width: 100%;
+    float: left;
+    //border-bottom: thin dotted black;
+    .right {
+      display: inline-block;
+      float: right;
+    }
+    &::after {
+      content: "";
+      width: 80%;
+      height: 1px;
+      margin: 0 auto;
+      background: url("/themes/custom/limestone/images/stripes-dark-tile.svg") repeat-x;
+    }
+  }
+}
