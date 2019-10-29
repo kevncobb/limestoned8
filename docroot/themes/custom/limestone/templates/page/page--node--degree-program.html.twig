@@ -104,9 +104,9 @@
       </div>
       {% if node.title.value %}
         <div class="splash-header stripes-dark-tile" role="heading">
-          {{ drupal_field('field_header_background_image', 'node') }}
+          {{ drupal_field('field_background_splash_image', 'node') }}
           {{ title_prefix }}
-          <h1 class="sub-header-title grid-container">{{ title }}</h1>
+          <h1 class="h1 max-1000 splash-header-subtitle">{{ title }}</h1>
           {{ title_suffix }}
         </div>
       {% endif %}
