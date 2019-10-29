@@ -184,7 +184,6 @@
           {% endif %}
           <a id="main-content"></a>
           <section class="grid-container">
-            {{ page.content|without('node.field_lp_paragraphs', 'field_background_splash_image', 'field_program_type_term') }}
             <div class="grid-x grid-margin-x">
               <div class="cell small-6">
                 {{ drupal_field('body', 'node') }}
