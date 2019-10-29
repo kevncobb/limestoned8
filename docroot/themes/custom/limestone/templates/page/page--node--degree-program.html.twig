@@ -106,8 +106,8 @@
         <div class="splash-header stripes-dark-tile" role="heading">
           {{ drupal_field('field_background_splash_image', 'node') }}
           {{ title_prefix }}
-          <h1 class="h1 mega-title max-1000 splash-header-subtitle">{{ title }}</h1>
-          <h2 class="h1 max-1000 splash-header-title">{{ drupal_field('field_program_type_term', 'node') }}</h2>
+          <h1 class="h1 max-1000 splash-header-title">{{ title }}</h1>
+          <h2 class="h1 max-1000 splash-header-subtitle">{{ drupal_field('field_program_type_term', 'node') }}</h2>
           {{ title_suffix }}
         </div>
       {% endif %}
@@ -186,7 +186,7 @@
           {% endif %}
           <a id="main-content"></a>
           <section class="grid-container">
-            {{ page.content|without('node.field_lp_paragraphs', 'field_background_splash_image', 'field_academic_school') }}
+            {{ page.content|without('node.field_lp_paragraphs', 'field_background_splash_image', 'field_program_type_term') }}
           </section>
           <section>
             {{ drupal_field('field_lp_paragraphs', 'node') }}
