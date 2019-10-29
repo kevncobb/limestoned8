@@ -107,8 +107,6 @@
           {{ drupal_field('field_background_splash_image', 'node') }}
           {{ title_prefix }}
           <h1 class="h1 max-1000 splash-header-title">{{ title }}</h1>
-          <!-- <h2 class="h1 max-1000 splash-header-subtitle">{{ drupal_field('field_program_type_term', 'node') }}</h2> -->
-          {{ title_suffix }}
         </div>
       {% endif %}
       {% if messages and not zurb_foundation_messages_modal %}
@@ -187,6 +185,14 @@
           <a id="main-content"></a>
           <section class="grid-container">
             {{ page.content|without('node.field_lp_paragraphs', 'field_background_splash_image', 'field_program_type_term') }}
+            <div class="grid-x grid-margin-x">
+              <div class="cell small-6">
+                {{ drupal_field('body', 'node') }}
+              </div>
+              <div class="cell small-6">
+                {{ drupal_field('field_fast_facts‎', 'node') }}
+              </div>
+            </div>
           </section>
           <section>
             {{ drupal_field('field_lp_paragraphs', 'node') }}
