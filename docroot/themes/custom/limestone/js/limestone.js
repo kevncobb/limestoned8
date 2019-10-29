@@ -96,7 +96,7 @@
     }
   };
 
-  Drupal.behaviors.masonry = {
+  Drupal.behaviors.masonry_grid = {
     attach: function (context, settings) {
       $(context).find('.masonry-grid').masonry({
         // set grid-itemSelector so .grid-sizer is not used in layout
