@@ -209,7 +209,7 @@
               </div>
             </div>
           </section>
-          {{ page.content|without('node.body', 'node.field_background_splash_image', 'node.field_program_type_term', 'node.field_fast_facts', 'node.field_course_discipline', 'node.field_academic_school', 'node.field_courses', 'node.field_required_courses', 'node.field_similar_majors', 'node.field_site_offered', 'node.field_4_year_degree_plan') }}
+          {{ drupal_block('limestone_local_tasks') }}
         </main>
       {% endif %}
 
