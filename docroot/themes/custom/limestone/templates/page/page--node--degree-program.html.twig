@@ -194,7 +194,7 @@
             </div>
           </section>
           <section class="bg-blue">
-            <h2 class="big-title text-align-center spacing-xs">Similar Majors</h2>
+            <h2 class="centered-header text-align-center spacing-sm">Similar Majors</h2>
             {{ drupal_field('field_similar_majors', 'node') }}
           </section>
           <section class="grid-container spacing-xs padding-sides-sm">
@@ -204,6 +204,7 @@
                 {{ drupal_field('field_courses', 'node') }}
               </div>
               <div class="cell medium-6">
+                {{ drupal_field('addtoany', 'node') }}
                 {{ drupal_field('field_4_year_degree_plan', 'node') }}
               </div>
             </div>
