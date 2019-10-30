@@ -192,7 +192,7 @@
                 {{ drupal_field('field_fast_facts', 'node') }}
               </div>
             </div>
-            {{ page.content|without('node.field_lp_paragraphs', 'field_background_splash_image', 'field_program_type_term') }}
+            {{ page.content|without('node.field_lp_paragraphs', 'node.field_background_splash_image', 'node.field_program_type_term', 'node.body', 'node.field_fast_facts') }}
           </section>
         </main>
       {% endif %}
