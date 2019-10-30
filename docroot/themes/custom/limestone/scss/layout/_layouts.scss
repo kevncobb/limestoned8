@@ -17,6 +17,16 @@ article.node--type-news {
 .bs-region .row {
   @extend .grid-container;
 }
+.bs-2col-stacked {
+  @extend .grid-container;
+  @extend .grid-x;
+}
+.bs-2col-stacked .bs-region--left {
+  @include xy-cell(6 of 12);
+}
+.bs-2col-stacked .bs-region--right {
+  @include xy-cell(6 of 12);
+}
 .col-sm-1 {
   @include xy-cell(1 of 12);
 }
