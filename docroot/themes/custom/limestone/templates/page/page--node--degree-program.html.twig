@@ -192,6 +192,13 @@
                 {{ drupal_field('field_fast_facts', 'node') }}
               </div>
             </div>
+          </section>
+          <section class="spacing-xs padding-sides-sm bg-blue">
+            <div class="grid-container">
+              {{ drupal_field('field_similar_majors', 'node') }}
+            </div>
+          </section>
+          <section class="grid-container spacing-xs padding-sides-sm">
             <div class="grid-x grid-margin-x">
               <div class="cell medium-6">
                 {{ drupal_field('field_required_courses', 'node') }}
@@ -201,8 +208,8 @@
                 {{ drupal_field('field_4_year_degree_plan', 'node') }}
               </div>
             </div>
-            {{ page.content|without('body', 'field_background_splash_image', 'field_program_type_term', 'field_fast_facts', 'field_course_discipline', 'field_academic_school', 'field_courses', 'field_required_courses', 'field_similar_majors', 'field_site_offered', 'field_4_year_degree_plan') }}
           </section>
+          {{ page.content|without('body', 'field_background_splash_image', 'field_program_type_term', 'field_fast_facts', 'field_course_discipline', 'field_academic_school', 'field_courses', 'field_required_courses', 'field_similar_majors', 'field_site_offered', 'field_4_year_degree_plan') }}
         </main>
       {% endif %}
 
