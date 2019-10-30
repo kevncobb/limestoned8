@@ -183,11 +183,16 @@
             {% endspaceless %}
           {% endif %}
           <a id="main-content"></a>
-          <section class="grid-container">
+          <section class="grid-container content-bump-up bg-white spacing-xs padding-sides-sm">
+            <div class="grid-x grid-margin-x">
+              <div class="cell medium-6">
+               {{ drupal_field('body', 'node') }}
+              </div>
+              <div class="cell medium-6">
+                {{ drupal_field('field_fast_facts', 'node') }}
+              </div>
+            </div>
             {{ page.content|without('node.field_lp_paragraphs', 'field_background_splash_image', 'field_program_type_term') }}
-          </section>
-          <section>
-            {{ drupal_field('field_lp_paragraphs', 'node') }}
           </section>
         </main>
       {% endif %}
