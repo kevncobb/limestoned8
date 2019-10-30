@@ -192,7 +192,15 @@
                 {{ drupal_field('field_fast_facts', 'node') }}
               </div>
             </div>
-            {{ page.content|without('node.field_lp_paragraphs', 'node.field_background_splash_image', 'node.field_program_type_term', 'node.body', 'node.field_fast_facts') }}
+            <div class="grid-x grid-margin-x">
+              <div class="cell medium-6">
+                {{ drupal_field('field_required_courses', 'node') }}
+                {{ drupal_field('field_courses', 'node') }}
+              </div>
+              <div class="cell medium-6">
+                {{ drupal_field('field_4_year_degree_plan', 'node') }}
+              </div>
+            </div>
           </section>
         </main>
       {% endif %}
