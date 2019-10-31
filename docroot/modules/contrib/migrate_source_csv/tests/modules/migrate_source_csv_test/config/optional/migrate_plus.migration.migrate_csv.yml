@@ -7,7 +7,7 @@ dependencies:
 id: migrate_csv
 migration_tags:
   - CSV
-migration_group: null
+migration_group: people
 label: 'CSV file migration'
 source:
   plugin: csv

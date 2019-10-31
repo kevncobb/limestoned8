@@ -2,14 +2,13 @@ type: module
 name: Migrate JSON Example
 description: 'Simple JSON Migration example'
 package: Examples
-# core: 8.x
+core: 8.x
 dependencies:
   - drupal:migrate
   - migrate_plus:migrate_plus
   - migrate_tools:migrate_tools
 
-# Information added by Drupal.org packaging script on 2019-04-19
-version: '8.x-4.2'
-core: '8.x'
+# Information added by Drupal.org packaging script on 2019-10-14
+version: '8.x-4.2+5-dev'
 project: 'migrate_plus'
-datestamp: 1555683500
+datestamp: 1571068987

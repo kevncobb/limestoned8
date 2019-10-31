@@ -362,11 +362,8 @@ class MigrateExecutable extends MigrateExecutableBase {
     // @see https://www.drupal.org/project/migrate_tools/issues/3008316
     if (!empty($this->idlist)) {
       $row = $event->getRow();
-      // TODO: replace for $source_id = $row->getSourceIdValues();
-      // when https://www.drupal.org/node/2698023 is fixed.
       $migration = $event->getMigration();
-      $source_id = array_merge(array_flip(array_keys($migration->getSourcePlugin()
-        ->getIds())), $row->getSourceIdValues());
+      $source_id = $source_id = $row->getSourceIdValues();
       $skip = TRUE;
       foreach ($this->idlist as $item) {
         if (array_values($source_id) == $item) {

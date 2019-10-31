@@ -66,10 +66,10 @@ class MigrateBatchExecutable extends MigrateExecutable {
   /**
    * Sets the current batch content so listeners can update the messages.
    *
-   * @param array $context
+   * @param array|\DrushBatchContext $context
    *   The batch context.
    */
-  public function setBatchContext(array &$context) {
+  public function setBatchContext(&$context) {
     $this->batchContext = &$context;
   }
 
@@ -141,11 +141,11 @@ class MigrateBatchExecutable extends MigrateExecutable {
           // For dependent migrations will need to be migrate all items.
           $dependent_options = $options;
           $dependent_options['limit'] = 0;
-          $operations += $this->batchOperations($required_migrations, $operation, [
+          $operations = array_merge($operations, $this->batchOperations($required_migrations, $operation, [
             'limit' => 0,
             'update' => $options['update'],
             'force' => $options['force'],
-          ]);
+          ]));
         }
       }
 
@@ -165,10 +165,10 @@ class MigrateBatchExecutable extends MigrateExecutable {
    *   The migration id.
    * @param array $options
    *   The batch executable options.
-   * @param array $context
+   * @param array|\DrushBatchContext $context
    *   The sandbox context.
    */
-  public static function batchProcessImport($migration_id, array $options, array &$context) {
+  public static function batchProcessImport($migration_id, array $options, &$context) {
     if (empty($context['sandbox'])) {
       $context['finished'] = 0;
       $context['sandbox'] = [];
@@ -288,13 +288,13 @@ class MigrateBatchExecutable extends MigrateExecutable {
   /**
    * Calculates how much a single batch iteration will handle.
    *
-   * @param array $context
+   * @param array|\DrushBatchContext $context
    *   The sandbox context.
    *
    * @return float
    *   The batch limit.
    */
-  public function calculateBatchLimit(array $context) {
+  public function calculateBatchLimit($context) {
     // TODO Maybe we need some other more sophisticated logic here?
     return ceil($context['sandbox']['total'] / 100);
   }

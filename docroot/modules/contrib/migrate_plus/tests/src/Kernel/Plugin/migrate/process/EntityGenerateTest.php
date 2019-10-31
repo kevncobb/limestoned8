@@ -552,6 +552,96 @@ class EntityGenerateTest extends KernelTestBase implements MigrateMessageInterfa
           ],
         ],
       ],
+      'provide multiple values' => [
+        'definition' => [
+          'source' => [
+            'plugin' => 'embedded_data',
+            'data_rows' => [
+              [
+                'id' => 1,
+                'title' => 'content item 1',
+                'term' => 'Apples',
+              ],
+              [
+                'id' => 2,
+                'title' => 'content item 2',
+                'term' => 'Bananas',
+              ],
+              [
+                'id' => 3,
+                'title' => 'content item 3',
+                'term' => 'Grapes',
+              ],
+            ],
+            'ids' => [
+              'id' => ['type' => 'integer'],
+            ],
+            'constants' => [
+              'foo' => 'bar',
+            ],
+          ],
+          'process' => [
+            'id' => 'id',
+            'type' => [
+              'plugin' => 'default_value',
+              'default_value' => $this->bundle,
+            ],
+            'title' => 'title',
+            'term_upper' => [
+              'plugin' => 'callback',
+              'source' => 'term',
+              'callable' => 'strtoupper',
+            ],
+            $this->fieldName => [
+              'plugin' => 'entity_generate',
+              'source' => 'term',
+              'values' => [
+                'name' => '@term_upper',
+                'description' => 'constants/foo',
+              ],
+            ],
+          ],
+          'destination' => [
+            'plugin' => 'entity:node',
+          ],
+        ],
+        'expected' => [
+          'row 1' => [
+            'id' => 1,
+            'title' => 'content item 1',
+            $this->fieldName => [
+              'tid' => 2,
+              'name' => 'APPLES',
+              'description' => 'bar',
+            ],
+          ],
+          'row 2' => [
+            'id' => 2,
+            'title' => 'content item 2',
+            $this->fieldName => [
+              'tid' => 3,
+              'name' => 'BANANAS',
+              'description' => 'bar',
+            ],
+          ],
+          'row 3' => [
+            'id' => 3,
+            'title' => 'content item 3',
+            $this->fieldName => [
+              'tid' => 1,
+              'name' => 'Grapes',
+              'description' => NULL,
+            ],
+          ],
+        ],
+        'pre seed' => [
+          'taxonomy_term' => [
+            'name' => 'Grapes',
+            'vid' => $this->vocabulary,
+            'langcode' => LanguageInterface::LANGCODE_NOT_SPECIFIED,
+          ],
+        ],
+      ],
       'lookup single existing term returns correct term' => [
         'definition' => [
           'source' => [

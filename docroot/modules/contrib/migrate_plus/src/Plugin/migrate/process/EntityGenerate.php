@@ -2,6 +2,7 @@
 
 namespace Drupal\migrate_plus\Plugin\migrate\process;
 
+use Drupal\Component\Utility\NestedArray;
 use Drupal\Core\Entity\EntityManagerInterface;
 use Drupal\Core\Entity\EntityReferenceSelection\SelectionPluginManagerInterface;
 use Drupal\migrate\MigrateExecutableInterface;
@@ -53,11 +54,11 @@ class EntityGenerate extends EntityLookup {
   protected $row;
 
   /**
-   * The MigrateExecutable instance.
+   * The MigratePluginManager instance.
    *
-   * @var \Drupal\migrate\MigrateExecutable
+   * @var \Drupal\migrate\Plugin\MigratePluginManagerInterface
    */
-  protected $migrateExecutable;
+  protected $processPluginManager;
 
   /**
    * The get process plugin instance.
@@ -81,14 +82,12 @@ class EntityGenerate extends EntityLookup {
    *   The $entityManager instance.
    * @param \Drupal\Core\Entity\EntityReferenceSelection\SelectionPluginManagerInterface $selectionPluginManager
    *   The $selectionPluginManager instance.
-   * @param \Drupal\migrate\Plugin\MigratePluginManager $migratePluginManager
+   * @param \Drupal\migrate\Plugin\MigratePluginManager $processPluginManager
    *   The MigratePluginManager instance.
    */
-  public function __construct(array $configuration, $pluginId, $pluginDefinition, MigrationInterface $migration, EntityManagerInterface $entityManager, SelectionPluginManagerInterface $selectionPluginManager, MigratePluginManager $migratePluginManager) {
+  public function __construct(array $configuration, $pluginId, $pluginDefinition, MigrationInterface $migration, EntityManagerInterface $entityManager, SelectionPluginManagerInterface $selectionPluginManager, MigratePluginManager $processPluginManager) {
     parent::__construct($configuration, $pluginId, $pluginDefinition, $migration, $entityManager, $selectionPluginManager);
-    if (isset($configuration['values'])) {
-      $this->getProcessPlugin = $migratePluginManager->createInstance('get', ['source' => $configuration['values']]);
-    }
+    $this->processPluginManager = $processPluginManager;
   }
 
   /**
@@ -168,8 +167,16 @@ class EntityGenerate extends EntityLookup {
     // Gather any additional properties/fields.
     if (isset($this->configuration['values']) && is_array($this->configuration['values'])) {
       foreach ($this->configuration['values'] as $key => $property) {
-        $source_value = $this->getProcessPlugin->transform(NULL, $this->migrateExecutable, $this->row, $property);
-        $entity_values[$key] = $source_value;
+        // TODO: Remove this logic once 8.6 is no longer supported.
+        // See https://www.drupal.org/project/migrate_plus/issues/3043199
+        if (version_compare(\Drupal::VERSION, '8.7', '>=')) {
+          $source_value = $this->row->get($property);
+        }
+        else {
+          $getProcessPlugin = $this->processPluginManager->createInstance('get', ['source' => $property]);
+          $source_value = $getProcessPlugin->transform(NULL, $this->migrateExecutable, $this->row, $property);
+        }
+        NestedArray::setValue($entity_values, explode(Row::PROPERTY_SEPARATOR, $key), $source_value, TRUE);
       }
     }
 
