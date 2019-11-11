@@ -98,16 +98,15 @@
 
   Drupal.behaviors.masonry_grid = {
     attach: function (context, settings) {
-      $(context).once('.masonry-grid').each(function() {
-
-        this.masonry({
+      if ($(".masonry-grid").length > 0 ) {
+        $(context).find('.masonry-grid').masonry({
           // set grid-itemSelector so .grid-sizer is not used in layout
           itemSelector: '.grid-item',
           // use element for option
           columnWidth: '.grid-sizer',
           percentPosition: true
         });
-      });
+      }
     }
   };
 })(jQuery, Drupal);
