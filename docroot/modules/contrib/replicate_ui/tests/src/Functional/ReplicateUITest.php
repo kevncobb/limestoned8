@@ -25,6 +25,7 @@ class ReplicateUITest extends BrowserTestBase {
     'replicate',
     'replicate_ui',
     'node',
+    'views',
     'block',
     'language',
     'content_translation',
@@ -55,6 +56,7 @@ class ReplicateUITest extends BrowserTestBase {
       'administer content translation',
       'create content translations',
       'translate any entity',
+      'access content overview',
     ]);
     $node_type = NodeType::create([
       'type' => 'page',
@@ -84,12 +86,32 @@ class ReplicateUITest extends BrowserTestBase {
   public function testFunctionality() {
     $this->drupalGet($this->node->toUrl());
     $this->assertSession()->pageTextNotContains('Replicate');
-
     $this->drupalLogin($this->user);
+
+    // Test the Replicate operation.
+    $test_node = Node::create([
+      'title' => 'Replicate operation',
+      'type' => 'page',
+    ]);
+    $test_node->save();
+    $this->drupalGet('admin/content');
+    $this->getSession()->getPage()->fillField('title', 'Replicate operation');
+    $this->getSession()->getPage()->pressButton('Filter');
+    $this->getSession()->getPage()->clickLink('Replicate');
+    $this->getSession()->getPage()->fillField('new_label_' . $test_node->language()->getId(), 'Replicate operation (Copy)');
+    $this->getSession()->getPage()->pressButton('Replicate');
+    $replicated_nodes = \Drupal::entityTypeManager()->getStorage('node')
+      ->loadByProperties(['title' => 'Replicate operation (Copy)']);
+    /** @var \Drupal\node\NodeInterface $replicated_node */
+    $replicated_node = reset($replicated_nodes);
+    $this->assertSession()->statusCodeEquals(200);
+    $this->assertSession()->responseContains('(<em class="placeholder">' . $test_node->id() . '</em>) has been replicated to id <em class="placeholder">' . $replicated_node->id() . '</em>!');
+    $this->assertUrl($replicated_node->toUrl());
+
     $this->drupalGet($this->node->toUrl());
     $this->assertSession()->pageTextContains('Replicate');
     $this->assertSession()->statusCodeEquals(200);
-
+    $this->drupalGet('admin/content', ['query' => ['title' => $this->node->getTitle()]]);
     $this->getSession()->getPage()->clickLink('Replicate');
     $this->assertSession()->statusCodeEquals(200);
 

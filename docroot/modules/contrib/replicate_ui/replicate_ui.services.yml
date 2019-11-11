@@ -10,7 +10,3 @@ services:
     arguments: ['@access_check.permission', '@access_check.entity']
     tags:
       - { name: access_check, applies_to: _replicate_access }
-
-  replicate_ui.hooks.entity_type_alter:
-    class: \Drupal\replicate_ui\Hooks\EntityTypeAlter
-    arguments: ['@config.factory']

@@ -55,8 +55,11 @@ class EntityReplicateActions extends DeriverBase implements ContainerDeriverInte
     foreach ($this->entityTypeManager->getDefinitions() as $entity_type_id => $entity_type) {
       if ($entity_type instanceof ContentEntityTypeInterface && in_array($entity_type_id, $config->get('entity_types')) && $entity_type->hasLinkTemplate('canonical')) {
         $replicate_route_name = "entity.$entity_type_id.replicate";
+        // Allow for exporting in things such as VBO by ensuring that the action
+        // names will pass validation in ConfigBase.
+        $safe_action_name = str_replace('.', '_', $replicate_route_name);
 
-        $this->derivatives[$replicate_route_name] = [
+        $this->derivatives[$safe_action_name] = [
           'label' => $this->t('Delete @entity_type', ['@entity_type' => $entity_type->getLabel()]),
           'type' => $entity_type_id,
           'config_form_route_name' => "entity.$entity_type_id.replicate",

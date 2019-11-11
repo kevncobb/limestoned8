@@ -4,7 +4,9 @@
  * Provide a user interface for the Replicate API.
  */
 
+use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\replicate_ui\Hooks\EntityTypeBuild;
 
 /**
  * Implements hook_help().
@@ -38,10 +40,37 @@ function replicate_ui_help($route_name, RouteMatchInterface $route_match) {
 }
 
 /**
- * Implements hook_entity_type_alter().
+ * Implements hook_entity_type_build().
  */
-function replicate_ui_entity_type_alter(array $entity_types) {
-  /** @var \Drupal\replicate_ui\Hooks\EntityTypeAlter $entity_type_alter */
-  $entity_type_alter = \Drupal::service('replicate_ui.hooks.entity_type_alter');
-  $entity_type_alter->alter($entity_types);
+function replicate_ui_entity_type_build(array &$entity_types) {
+  \Drupal::classResolver(EntityTypeBuild::class)->build($entity_types);
+}
+
+/**
+ * Implements hook_entity_operation().
+ */
+function replicate_ui_entity_operation(EntityInterface $entity) {
+  $operations = [];
+
+  $supports_replicate = in_array(
+    $entity->getEntityTypeId(),
+    (array) \Drupal::config('replicate_ui.settings')->get('entity_types')
+  );
+
+  if ($supports_replicate) {
+    $url = $entity->toUrl('replicate');
+
+    if ($url->access()) {
+      $operations['replicate'] = [
+        'title' => t('Replicate'),
+        'weight' => 45,
+        'url' => $url,
+        'query' => [
+          'destination' => NULL,
+        ],
+      ];
+    }
+  }
+
+  return $operations;
 }

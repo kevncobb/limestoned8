@@ -3,13 +3,10 @@
 namespace Drupal\replicate_ui\Form;
 
 use Drupal\Core\Entity\ContentEntityConfirmFormBase;
-use Drupal\Core\Entity\EntityManagerInterface;
-use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Entity\TranslatableInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\Url;
-use Drupal\replicate\Replicator;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class ReplicateConfirmForm extends ContentEntityConfirmFormBase {
@@ -25,26 +22,12 @@ class ReplicateConfirmForm extends ContentEntityConfirmFormBase {
   protected $replicator;
 
   /**
-   * Creates a new ReplicateConfirmForm instance.
-   *
-   * @param \Drupal\Core\Entity\EntityManagerInterface $entity_manager
-   *   The entity manager.
-   * @param \Drupal\replicate\Replicator $replicator
-   *   The replicator.
-   */
-  public function __construct(EntityManagerInterface $entity_manager, Replicator $replicator) {
-    parent::__construct($entity_manager);
-    $this->replicator = $replicator;
-  }
-
-  /**
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container) {
-    return new static(
-      $container->get('entity.manager'),
-      $container->get('replicate.replicator')
-    );
+    $form = parent::create($container);
+    $form->replicator = $container->get('replicate.replicator');
+    return $form;
   }
 
   /**

@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\chosen_field\Tests;
+namespace Drupal\Tests\chosen_field\Functional;
 
 use Drupal\Tests\field\Functional\FieldTestBase;
 use Drupal\Component\Render\FormattableMarkup;
