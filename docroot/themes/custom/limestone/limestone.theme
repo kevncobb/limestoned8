@@ -207,3 +207,11 @@ function limestone_theme_suggestions_field_alter(&$suggestions, $variables) {
 function limestone_theme_suggestions_taxonomy_term_alter(&$suggestions, $vars, $hook) {
   $suggestions[] = 'taxonomy_term__' . $vars['elements']['#view_mode'];
 }
+
+
+function limestone_theme_suggestions_menu_alter(array &$suggestions, array $variables) {
+  if (isset($variables['attributes']['block'])) {
+    $hook = str_replace(array('block-', '-'), array('', '_'), $variables['attributes']['block']);
+    $suggestions[] = $variables['theme_hook_original'] . '__' . $hook;
+  }
+}
