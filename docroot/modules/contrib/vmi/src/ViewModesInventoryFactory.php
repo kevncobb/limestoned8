@@ -3,17 +3,59 @@
 namespace Drupal\vmi;
 
 use Symfony\Component\Yaml\Yaml;
+use Drupal\Core\Config\ConfigFactoryInterface;
+use Drupal\Core\Extension\ModuleHandlerInterface;
+use Drupal\Core\StringTranslation\StringTranslationTrait;
+use Drupal\Core\StringTranslation\TranslationInterface;
+use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * View Modes Inventory Factory.
  */
-class ViewModesInventoryFactory {
+class ViewModesInventoryFactory implements ContainerInjectionInterface {
+
+  use StringTranslationTrait;
 
   /**
-   * Constructs a Drupal\vmi\ViewModesInventoryFactory object.
+   * The config factory service.
+   *
+   * @var \Drupal\Core\Config\ConfigFactoryInterface
    */
-  public function __construct() {
-    parent::__construct();
+  protected $configFactory;
+
+  /**
+   * The module handler service.
+   *
+   * @var \Drupal\Core\Extension\ModuleHandlerInterface
+   */
+  protected $moduleHandler;
+
+  /**
+   * Constructs the View Modes Inventory Factory object.
+   *
+   * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
+   *   The config factory service.
+   * @param \Drupal\Core\StringTranslation\TranslationInterface $translation
+   *   The translation service. for form alters.
+   * @param \Drupal\Core\Extension\ModuleHandlerInterface $module_handler
+   *   The module handler service.
+   */
+  public function __construct(ConfigFactoryInterface $config_factory, TranslationInterface $translation, ModuleHandlerInterface $module_handler) {
+    $this->configFactory = $config_factory;
+    $this->stringTranslation = $translation;
+    $this->moduleHandler = $module_handler;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container) {
+    return new static(
+      $container->get('config.factory'),
+      $container->get('string_translation'),
+      $container->get('module_handler')
+    );
   }
 
   /**
@@ -24,15 +66,17 @@ class ViewModesInventoryFactory {
    *
    * @throws Exception
    */
-  public static function getViewModesList() {
-    $vmi_filename = \Drupal::root() . '/' . drupal_get_path('module', 'vmi') . '/src/assets/view_modes.list.vmi.yml';
+  public function getViewModesList() {
+    $module_path = $this->moduleHandler->getModule('vmi')->getPath();
+    $vmi_filename = DRUPAL_ROOT . '/' . $module_path . '/src/assets/view_modes.list.vmi.yml';
 
     if (is_file($vmi_filename)) {
       $vmi_list = (array) Yaml::parse(file_get_contents($vmi_filename));
       return $vmi_list;
     }
     else {
-      throw new \Exception('View modes inventory layouts list file does not exist!');
+      $lookup_message = $this->t('View modes inventory layouts list file does not exist!');
+      throw new \Exception($lookup_message);
     }
   }
 
@@ -44,15 +88,17 @@ class ViewModesInventoryFactory {
    *
    * @throws Exception
    */
-  public static function getLayoutsMapping() {
-    $vmi_layout_filename = \Drupal::root() . '/' . drupal_get_path('module', 'vmi') . '/src/assets/layouts.mapping.vmi.yml';
+  public function getLayoutsMapping() {
+    $module_path = $this->moduleHandler->getModule('vmi')->getPath();
+    $vmi_layout_filename = DRUPAL_ROOT . '/' . $module_path . '/src/assets/layouts.mapping.vmi.yml';
 
     if (is_file($vmi_layout_filename)) {
       $vmi_layout_list = (array) Yaml::parse(file_get_contents($vmi_layout_filename));
       return $vmi_layout_list;
     }
     else {
-      throw new \Exception('View modes inventory layouts list file does not exist!');
+      $lookup_message = $this->t('View modes inventory layouts list file does not exist!');
+      throw new \Exception($lookup_message);
     }
   }
 
@@ -72,15 +118,16 @@ class ViewModesInventoryFactory {
    * @param string $config_name
    *   Config name to map to.
    */
-  public static function mapViewModeWithLayout($selected_view_mode, $default_mapped_layout, $entity_type, $bundle_name, $config_template_file, $config_name) {
+  public function mapViewModeWithLayout($selected_view_mode, $default_mapped_layout, $entity_type, $bundle_name, $config_template_file, $config_name) {
 
     // Replace CONTENT_TYPE_NAME with the bundle name for the config name.
     $real_config_name = str_replace('CONTENT_TYPE_NAME', $bundle_name, $config_name);
 
-    $view_mode_config = \Drupal::service('config.factory')->getEditable($real_config_name);
+    $view_mode_config = $this->configFactory->getEditable($real_config_name);
 
     // Load the config template.
-    $full_config_template_file = \Drupal::root() . '/' . drupal_get_path('module', 'vmi') . $config_template_file;
+    $module_path = $this->moduleHandler->getModule('vmi')->getPath();
+    $full_config_template_file = DRUPAL_ROOT . '/' . $module_path . $config_template_file;
     $config_template_content = file_get_contents($full_config_template_file);
 
     // Replace CONTENT_TYPE_NAME with the bundle name in the config template.

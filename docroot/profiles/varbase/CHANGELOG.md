@@ -1,3 +1,319 @@
+# 8.7.2
+
+### Highlighted important changes since Varbase 8.x-7.1:
+
+* Issue [#3085390](https://www.drupal.org/node/3085390):
+                 Updated [Drupal core] from 8.7.7 to 8.7.8 (~8.7.0 )
+                 and remove applied patches
+
+## Switched CSS management for all Varbase Components from LESS to SCSS with
+Gulp as the task manager and made use of the (RFS) Responsive Font Size SCSS
+library as we had shifted our responsive media breakpoints to the Bootstrap 4
+breakpoints
+
+## So it's the same number for the breakpoint but under the new name for the
+breakpoint.
+
+* Issue [#3077909](https://www.drupal.org/node/3077909):
+                 Switched CSS management for [Varbase Media Hero Slider]
+                 from LESS to SCSS with Gulp as the task manager and make use
+                 of the (RFS) Responsive Font Size SCSS library
+* Issue [#3080019](https://www.drupal.org/node/3080019):
+                 Switched CSS management for [Varbase Bootstrap Paragraphs]
+                 from LESS to SCSS with Gulp as the task manager and make use
+                 of the (RFS) Responsive Font Size SCSS library, which comes
+                 with Bootstrap 4
+
+### Added since Varbase 8.x-7.1:
+* Issue [#3085537](https://www.drupal.org/node/3085537):
+                 Added [Token Filter] module 8.1.1 ( ~1.0 )
+* Issue [#3085555](https://www.drupal.org/node/3085555):
+                 Had the [Replaces global and entity tokens with their values]
+                 filter only for HTML Editor (code filter) text format
+* Issue [#3085199](https://www.drupal.org/node/3085199):
+                 Added support for [drupal off canvas editor] and the
+                 [layout builder] settings try to [Vartheme BS4] theme with
+                 vbp_color and vbp_colors mixins
+* Issue [#3085292](https://www.drupal.org/node/3085292):
+                 Added support for [drupal off canvas editor] and the
+                 [layout builder] settings try to [Varbase Bootstrap Paragraphs]
+                 module with vbp_color and vbp_colors mixins
+* Issue [#3085141](https://www.drupal.org/node/3085141)
+                 by [Muath Khraisat](https://www.drupal.org/u/muath-khraisat)
+                 : Added the 3049311-9.patch for [Views Bootstrap] module to fix
+                 missing col-lg and col-xl in bootstrap grid format settings
+                 and grids should not be split into multiple rows
+* Issue [#3077926](https://www.drupal.org/node/3077926):
+                 Added an optional config update to [Varbase Update Helper]
+                 for the new Gallery media type, changes in the entity browsers,
+                 Displays and form Displays
+
+### Changed since Varbase 8.x-7.1:
+* Issue [#3086223](https://www.drupal.org/node/3086223):
+                 Changed [Varbase Blog] views for blog listing to work with
+                 the better logic for Bootstrap 4
+* Issue [#3086262](https://www.drupal.org/node/3086262):
+                 Changed [Vartheme BS4] theme hook to work with
+                 [Views Bootstrap] ~4.0 grid new better logic and template
+                 for Bootstrap 
+* Issue [#3076272](https://www.drupal.org/node/3076272)
+                 by [metalbote](https://www.drupal.org/u/metalbote)
+                , [RajabNatshah](https://www.drupal.org/u/rajabnatshah)
+                : Switched CSS management for [Vartheme Admin]
+                 from LESS to SCSS with Gulp as the task manager
+* Issue [#3080023](https://www.drupal.org/node/3080023):
+                 Switched CSS management for [Varbase Total Control Dashboard]
+                 from LESS to SCSS with Gulp as the task manager and make use
+                 of the (RFS) Responsive Font Size SCSS library
+* Issue [#3077911](https://www.drupal.org/node/3077911):
+                 Switched CSS management for [Varbase Media Header]
+                 from LESS to SCSS with Gulp as the task manager and make use
+                 of the (RFS) Responsive Font Size SCSS library
+* Issue [#3080020](https://www.drupal.org/node/3080020):
+                 Switched CSS management for [Varbase FAQs]
+                 from LESS to SCSS with Gulp as the task manager and make use
+                 of the (RFS) Responsive Font Size SCSS library
+* Issue [#3080022](https://www.drupal.org/node/3080022):
+                 Switched CSS management for [Varbase Styleguide] from LESS to SCSS with Gulp as the task manager and make use of the (RFS) Responsive Font Size SCSS library
+* Issue [#3085333](https://www.drupal.org/node/3085333)
+                 by [philltran](https://www.drupal.org/u/philltran)
+                : Removed [Drupal core] patch for issue 2885441 from
+                 drupal-org-core.make
+
+### Updates since Varbase 8.x-7.1:
+* Issue [#3085104](https://www.drupal.org/node/3085104):
+                  Varbase 8.7.2: Updated [CHANGELOG.md, README.md,
+                  drupal-org.make] files and filter the code for
+                  Drupal 8 Coding Standard
+* - Updated [Blazy] module from 8.2.0-rc3 to 8.2.0-rc5
+* - Updated [CAPTCHA] module from 8.1.0-beta1 to 1.0-beta3
+* - Updated [CKEditor Media Embed Plugin] module from 8.1.6 to 8.1.7
+* - Updated [DRD Agent] module from 8.3.8 to 8.3.9
+* - Updated [Entity Reference Revisions] module from 8.1.6 to 8.1.7
+* - Updated [Focal Point] module from 8.1.0 to 8.1.2
+* - Updated [Inline Entity Form] module from 8.1.0-rc1 to 8.1.0-rc2
+* - Updated [JSON:API Extras] module from 8.3.10 to 8.3.12
+* - Updated [Media entity Instagram] module from 8.2.0-alpha2 to 8.2.0
+* - Updated [Media entity Twitter] module from 8.2.0-alpha3 to 8.2.1
+* - Updated [Metatag] module from 8.1.9 to 8.1.10
+* - Updated [Slick Carousel] module from 8.2.0-rc3 to 8.2.0-rc4
+* - Updated [SMTP Authentication Support] module from 8.1.0-beta4 to 8.1.0-beta5
+* - Updated [Views Bulk Edit] module from 8.2.3 to 8.2.4
+* - Updated [Simple OAuth] from 8.3.16 to 8.4.2
+* - Updated [Simple XML sitemap from 8.3.3 to 8.3.4
+* - Updated [Maxlength] from 8.1.0-beta2 to 8.1.0-beta4
+* Issue [#3085506](https://www.drupal.org/node/3085506):
+                 Updated [ChromeDriver, standalone selenium server] for
+                 the travis-ci Automated Functional Acceptance Testing and
+                 updated emuse/behat-html-formatter to ^0.2.0
+* Issue [#3078550](https://www.drupal.org/node/3078550):
+                 Updated [Display Suite] module from 8.3.3 to 8.3.4 ( ~3.0 )
+                 and removed committed patches
+* Issue [#3080789](https://www.drupal.org/node/3080789):
+                 Updated [Focal Point] module from 1.0 to 1.1 ( ~1.0 )
+                 and removed committed patches
+* Issue [#3079468](https://www.drupal.org/node/3079468)
+                 by [jedgar1mx](https://www.drupal.org/u/jedgar1mx)
+                 , [RajabNatshah](https://www.drupal.org/u/rajabnatshah)
+                 : Updated [Simple OAuth]
+                 from ~3.0 to ~4.0
+
+### Fixes since Varbase 8.x-7.1:
+* Issue [#3082815](https://www.drupal.org/node/3082815)
+                 by [Firass Ziedan](https://www.drupal.org/u/firass-ziedan)
+                : Fixed the slider in [RTL] display half of the vimeo and
+                 youtube video in [Varbase Media Hero Slider].
+* Issue [#3080137](https://www.drupal.org/node/3080137)
+                 by [yasmeensalah](https://www.drupal.org/u/yasmeensalah)
+                : Fixed hook preprocess name for [Varbase Media Header]
+                 from [Varbase Media Hero Slider] module
+* Issue [#3084824](https://www.drupal.org/node/3084824)
+                 by [abedajam](https://www.drupal.org/u/abedajam)
+                : Fixed missing character in paragraphs previewer
+                 hook_field_widget_WIDGET_TYPE_form_alter in [Varbase Bootstrap
+                 Paragraphs] modules
+* Issue [#3081350](https://www.drupal.org/node/3081350)
+                 by [Odai Atieh](https://www.drupal.org/u/odai-atieh)
+                : Fixed [Varbase Theme (Bootstrap 4 - SASS)]
+                 theme sub-theme bash script generator on MAC OS X
+* Issue [#3081351](https://www.drupal.org/node/3081351)
+                 by [Odai Atieh](https://www.drupal.org/u/odai-atieh)
+                : Fixed [Vartheme BS3] theme sub-theme bash script generator
+                 on MAC OS X
+* Issue [#3081361](https://www.drupal.org/node/3081361)
+                 by [Odai Atieh](https://www.drupal.org/u/odai-atieh)
+                : Fixed [Vartheme BS4] theme sub-theme bash script generator
+                 on MAC OS X
+* Issue [#3078546](https://www.drupal.org/node/3078546)
+                 by [Firass Ziedan](https://www.drupal.org/u/firass-ziedan)
+                : Fixed Vartheme BS4 RTL generation script for a new
+                 sub-theme not create {theme}-rtl base file
+* Issue [#3078545](https://www.drupal.org/node/3078545)
+                 by [Firass Ziedan](https://www.drupal.org/u/firass-ziedan)
+                : Fixed RTL generation in create-new-vartheme-bs4 script not 
+                create {theme}-rtl base file
+* Issue [#3071221](https://www.drupal.org/node/3071221)
+                 by [marioangulo](https://www.drupal.org/u/marioangulo)
+                : Fixed Top Pages Panel Urls in [Varbase Total Control
+                 Dashboard] module
+* Issue [#3085671](https://www.drupal.org/node/3085671):
+                 Fixed the update process to uninstall the Simple Oauth Extras
+                 module as it was merged into Simple Oauth to make it work
+                 without conditions
+* Issue [#3086751](https://www.drupal.org/node/3086751)
+                 by [Firass Ziedan](https://www.drupal.org/u/firass-ziedan)
+                 : Fixed paragraphs styling regression issue by removing
+                 make-row() mixin call from scss base file
+
+--------------------------------------------------------------------------------
+
+# 8.7.1
+
+### Highlighted important changes since Varbase 8.x-7.0:
+* Issue [#3073370](https://www.drupal.org/node/3073370):
+                 Updated [Drupal core] from 8.7.4 to 8.7.6 ( ~8.7.0 ) by
+                 removing already applied or committed patches in drupal/core
+* Issue [#3075805](https://www.drupal.org/node/3075805):
+                 Updated [Metatag] module from 8.1.8 to 8.1.9
+* Issue [#3075628](https://www.drupal.org/node/3075628):
+                 Added [Gallery] media type
+
+### Added since Varbase 8.x-7.0:
+* Issue [#3075633](https://www.drupal.org/node/3075633):
+                 Added SASS/SCSS compile options in [Vartheme BS4] for output
+                 Style as expanded, indent Type as space, and indent Width
+                 of 2 spaces
+* Issue [#3011500](https://www.drupal.org/node/3011500)
+                 by
+                 [lexsoft](https://www.drupal.org/u/lexsoft)
+                , [RajabNatshah](https://www.drupal.org/u/rajabnatshah)
+                : Added Icons in [Varbase Media] for Entity Embed CKEditor
+                 Media Library and Gallery buttons
+
+### Changed since Varbase 8.x-7.0:
+* Issue [#3075624](https://www.drupal.org/node/3075624):
+                 Switched CSS management for [Varbase Media] from LESS
+                 to SCSS with gulp
+* Issue [#3075795](https://www.drupal.org/node/3075795):
+                 Changed configure widgets for Entity Browser Enhanced
+                 behaviors using the new schema format
+* Issue [#2998934](https://www.drupal.org/node/2998934)
+                 by
+                 [Pasqualle](https://www.drupal.org/u/pasqualle)
+                , [RajabNatshah](https://www.drupal.org/u/rajabnatshah)
+                , [Mohammed J. Razem](https://www.drupal.org/u/mohammed-j-razem)
+                : Split up config with schema refactor to have Enhancer for
+                 each given entity browser widget separately per entity browser
+* Issue [#3074888](https://www.drupal.org/node/3074888):
+                 Switched CSS management in the [VMI] module from LESS
+                 to SCSS with gulp and make use of the (RFS) Responsive
+                 Font Size SCSS library
+* Issue [#3075753](https://www.drupal.org/node/3075753):
+                 Removed CKEditor embed button style icon as we are using
+                 the Varbase Media Embed Button icons
+* Issue [#3076031](https://www.drupal.org/node/3076031):
+                 Changed [Varbase Admin] with a follow up issue to change
+                 after a new release of Responsive Theme Preview module
+                 with an update for list of devices to pass the Feature:
+                 Preview the site in a number of responsive devices
+* Issue [#3076057](https://www.drupal.org/node/3076057):
+                 Changed [Feature: Preview the site in a number of
+                 responsive devices] automated functional testing to
+                 follow with new updated list of devices in the
+                 Responsive Theme Preview module
+* Issue [#3077303](https://www.drupal.org/node/3077303):
+                 Switched all CKEditor Embed Media (Image, Video, Remote Video)
+                 view modes from Blazy to Responsive image styles
+                 [ Default, Original, Large (Full width),
+                 Medium (1/2 of width), Small (1/4 of width) ]
+
+### Updates since Varbase 8.x-7.0:
+* Issue [#3075851](https://www.drupal.org/node/3075851):
+                 Updated [Paragraphs] module from 8.1.8 to 8.1.9
+* Issue [#3067764](https://www.drupal.org/node/3067764):
+                 Updated [Layout Builder Restrictions] from ~1.0 to ~2.0
+* Issue [#3076079](https://www.drupal.org/node/3076079):
+                 Updated [OpenAPI] module from 8.1.0-beta4 to 8.1.0-beta6
+                 ( ~1.0 )
+* Issue [#3075801](https://www.drupal.org/node/3075801):
+                 Updated drupal-org.make files and filter the code for
+                 Drupal 8 Coding Standard
+* - Updated [Entity Browser Enhance(d|r)] module from 8.1.0-rc4 to 8.1.0-rc5
+* - Updated [Entityqueue Form Widget] module from 8.1.0-rc1 to 8.1.0
+* - Updated [JSON:API Extras] module from 8.3.8 to 8.3.10
+* - Updated [Link Attributes widget] module from 8.1.8 to 8.1.9
+* - Updated [Paragraphs] module from 8.1.8 to 8.1.9
+* - Updated [Paragraphs Features] module from 8.1.4 to 8.1.6
+* - Updated [Responsive Theme Preview] module from 8.1.0-alpha7 to 8.1.0-beta1
+* - Updated [Schema.org Metatag] module from 8.1.3 to 8.1.4
+* - Updated [Search API] module from 8.1.13 to 8.1.14
+* - Updated [Simple XML sitemap] module from 8.3.2 to 8.3.3
+* - Updated [Social API] module from 8.2.0-beta5 to 8.2.0-rc1
+* - Updated [Social Auth] module from 8.2.0-beta6 to 8.2.0-rc1
+* - Updated [View Modes Inventory - Bootstrap Ready] module from 8.2.2 to 8.2.3
+* - Updated [Webform] module from 8.5.2 to 8.5.4
+* - Updated [Charts] module from 8.3.0-beta3 to 8.3.0
+* - Updated [Image Magick] module from 8.2.5 to 8.2.6
+
+### Fixes since Varbase 8.x-7.0:
+* Issue [#3067853](https://www.drupal.org/node/3067853)
+                 by
+                 [Mohammed J. Razem](https://www.drupal.org/u/mohammed-j-razem)
+                : Fixed issue in a custom token used in two places in
+                 the metatag config
+* Issue [#3075638](https://www.drupal.org/node/3075638):
+                 Fixed [Vartheme BS4] Drupal coding standard and Drupal Practice
+* Issue [#3067836](https://www.drupal.org/node/3067836):
+                 Fixed [Varbase Email] uses of deprecated Drupal core APIs
+                 and standard Drupal Practice
+* Issue [#3067834](https://www.drupal.org/node/3067834):
+                 Fixed [Varbase API] uses of deprecated Drupal core APIs and
+                 standard Drupal Practice
+* Issue [#3067841](https://www.drupal.org/node/3067841)
+                 by [joy29](https://www.drupal.org/u/joy29)
+                , [RajabNatshah](https://www.drupal.org/u/rajabnatshah)
+                : Fixed [Varbase Bootstrap Paragraphs]
+                 uses of deprecated Drupal core APIs and standard Drupal Practice
+* Issue [#3067829](https://www.drupal.org/node/3067829)
+                 by [joy29](https://www.drupal.org/u/joy29)
+                , [RajabNatshah](https://www.drupal.org/u/rajabnatshah)
+                : Fixed [Varbase Media Hero Slider]
+                 uses of deprecated Drupal core APIs and standard Drupal Practice
+* Issue [#3067832](https://www.drupal.org/node/3067832)
+                 by [joy29](https://www.drupal.org/u/joy29)
+                , [RajabNatshah](https://www.drupal.org/u/rajabnatshah)
+                : Fixed [Varbase Editor] uses of
+                 deprecated Drupal core APIs and standard Drupal Practice
+* Issue [#3068329](https://www.drupal.org/node/3068329)
+                 by [a.qala](https://www.drupal.org/u/aqala)
+                : Fixed Hero slider content wrapper is affecting the
+                 administration menu
+* Issue [#3067840](https://www.drupal.org/node/3067840)
+                 by [joy29](https://www.drupal.org/u/joy29)
+                , [RajabNatshah](https://www.drupal.org/u/rajabnatshah)
+                : Fixed [Varbase Carousels] uses
+                 of deprecated Drupal core APIs and standard Drupal Practice
+* Issue [#3067828](https://www.drupal.org/node/3067828)
+                 by
+                 [Mohammad Fayoumi](https://www.drupal.org/u/mohammad-fayoumi)
+                , [RajabNatshah](https://www.drupal.org/u/rajabnatshah)
+                : Fixed [Varbase Media] uses
+                 of deprecated Drupal core APIs and standard Drupal Practice
+* Issue [#3067824](https://www.drupal.org/node/3067824):
+                 Fixed [Varbase Total Control Dashboard] uses of deprecated
+                 Drupal core APIs and standard Drupal Practice
+* Issue [#3076284](https://www.drupal.org/node/3076284):
+                 Fixed project: varbase_search in .info.yml for the Drupal
+                 project usage statistics report and update counter
+* Issue [#3067843](https://www.drupal.org/node/3067843):
+                 Fixed project: varbase_blog in .info.yml for the Drupal
+                 project usage statistics report and update counter
+* Issue [#3076291](https://www.drupal.org/node/3076291):
+                 Fixed project: varbase_auth in .info.yml for the Drupal
+                 project usage statistics report and update counter
+
+--------------------------------------------------------------------------------
+
 # 8.7.0
 
 

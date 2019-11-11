@@ -3,4 +3,3 @@ genpass:
   css:
     theme:
       css/genpass.css: {}
-

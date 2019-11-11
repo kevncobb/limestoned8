@@ -229,7 +229,7 @@ class ChartsBaseSettingsForm {
       $form['yaxis']['inherit_yaxis'] = [
         '#title' => $this->t('Add a secondary y-axis'),
         '#type' => 'checkbox',
-        '#default_value' => $options['inherit_yaxis'],
+        '#default_value' => $options['inherit_yaxis'] ?? 0,
         '#description' => $this->t('Only one additional (secondary) y-axis can be created.'),
         '#weight' => 14,
       ];
@@ -251,7 +251,7 @@ class ChartsBaseSettingsForm {
       $form['yaxis']['secondary_yaxis']['title'] = [
         '#title' => $this->t('Custom title'),
         '#type' => 'textfield',
-        '#default_value' => $options['secondary_yaxis']['yaxis_title'],
+        '#default_value' => $options['secondary_yaxis']['yaxis_title'] ?? '',
       ];
 
       $form['yaxis']['secondary_yaxis']['minmax'] = [
@@ -266,7 +266,6 @@ class ChartsBaseSettingsForm {
           'max' => 999999999,
           'placeholder' => $this->t('Minimum'),
         ],
-        '#default_value' => $options['secondary_yaxis']['yaxis_min'],
         '#size' => 12,
         '#suffix' => ' ',
         '#theme_wrappers' => [],
@@ -278,7 +277,6 @@ class ChartsBaseSettingsForm {
           'max' => 999999999,
           'placeholder' => $this->t('Maximum'),
         ],
-        '#default_value' => $options['secondary_yaxis']['yaxis_max'],
         '#size' => 12,
         '#theme_wrappers' => [],
       ];
@@ -286,14 +284,12 @@ class ChartsBaseSettingsForm {
       $form['yaxis']['secondary_yaxis']['prefix'] = [
         '#title' => $this->t('Value prefix'),
         '#type' => 'textfield',
-        '#default_value' => $options['secondary_yaxis']['yaxis_prefix'],
         '#size' => 12,
       ];
 
       $form['yaxis']['secondary_yaxis']['suffix'] = [
         '#title' => $this->t('Value suffix'),
         '#type' => 'textfield',
-        '#default_value' => $options['secondary_yaxis']['yaxis_suffix'],
         '#size' => 12,
       ];
 
@@ -307,7 +303,6 @@ class ChartsBaseSettingsForm {
           'max' => 20,
           'placeholder' => $this->t('auto'),
         ],
-        '#default_value' => $options['secondary_yaxis']['yaxis_decimal_count'],
         '#size' => 5,
         '#description' => $this->t('Enforce a certain number of decimal-place digits in displayed values.'),
       ];
@@ -324,7 +319,6 @@ class ChartsBaseSettingsForm {
         ],
         // This is only shown on inverted charts.
         '#attributes' => ['class' => ['axis-inverted-show']],
-        '#default_value' => $options['secondary_yaxis']['yaxis_labels_rotation'],
       ];
 
 
@@ -667,7 +661,9 @@ class ChartsBaseSettingsForm {
       '#type' => 'fieldset',
       '#collapsible' => FALSE,
       '#states' => [
-        'invisible' => [],
+        'visible' => [
+          ':input[class*=chart-type-radios]' => ['value' => 'gauge'],
+        ],
       ],
       '#parents' => array_merge($parents, ['gauge']),
       'max' => [

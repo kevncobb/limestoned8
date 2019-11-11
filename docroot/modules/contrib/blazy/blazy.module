@@ -106,7 +106,7 @@ function blazy_config_schema_info_alter(array &$definitions) {
 function blazy_library_info_alter(&$libraries, $extension) {
   if ($extension === 'blazy') {
     if (function_exists('libraries_get_path')) {
-      $libraries['blazy']['js'] = ['/' . libraries_get_path('blazy') . '/blazy.min.js' => ['weight' => -4]];
+      $libraries['blazy']['js'] = ['/' . libraries_get_path('blazy') . '/blazy.js' => ['weight' => -4]];
     }
 
     if (blazy()->configLoad('io.enabled') && blazy()->configLoad('io.unblazy')) {
@@ -175,7 +175,7 @@ function blazy_preprocess_media_oembed_iframe(array &$variables) {
  * Provides a shortcut to parse the markdown string for better hook_help().
  */
 function blazy_parse_markdown($string) {
-  return BlazyMarkdown::isApplicable() ? BlazyMarkdown::parse($string) : FALSE;
+  return BlazyMarkdown::parse($string);
 }
 
 /**

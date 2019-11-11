@@ -8,3 +8,4 @@ entity.taxonomy_menu.collection:
 taxonomy_menu.menu_link:
   class: Drupal\taxonomy_menu\Plugin\Menu\TaxonomyMenuMenuLink
   deriver: Drupal\taxonomy_menu\Plugin\Derivative\TaxonomyMenuMenuLink
+

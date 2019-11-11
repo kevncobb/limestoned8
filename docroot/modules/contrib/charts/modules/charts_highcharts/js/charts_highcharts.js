@@ -55,7 +55,9 @@
                 return prefix1 + this.axis.defaultLabelFormatter.call(this) + suffix1;
               }
             };
-            hc.series[1].yAxis = 1;
+            if (hc.series[1]) {
+              hc.series[1].yAxis = 1;
+            }
           }
 
           $(this).highcharts(hc);

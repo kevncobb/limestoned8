@@ -11,7 +11,7 @@ use Drupal\media\Plugin\Validation\Constraint\OEmbedResourceConstraint;
  * Input-matching version of the Varbase Media Remote Video media source.
  */
 class VarbaseMediaRemoteVideo extends DrupalCoreOEmbed implements InputMatchInterface {
-  
+
   /**
    * {@inheritdoc}
    */

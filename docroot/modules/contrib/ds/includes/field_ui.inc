@@ -19,6 +19,7 @@ use Drupal\ds\Plugin\DsField\DsFieldInterface;
 use Drupal\field\FieldConfigInterface;
 use Drupal\field_ui\FieldUI;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
+use Drupal\Core\Link;
 
 /**
  * Adds the Display Suite fields and layouts to the form.
@@ -68,7 +69,7 @@ function ds_field_ui_fields_layouts(&$form, FormStateInterface $form_state) {
   ];
   $form['ds_destination'] = [
     '#type' => 'hidden',
-    '#value' => drupal_get_destination(),
+    '#value' => \Drupal::destination()->getAsArray(),
   ];
   $form['ds_entity_type'] = [
     '#type' => 'hidden',
@@ -107,7 +108,7 @@ function ds_field_ui_create_vertical_tabs(&$form) {
     $form['modes']['#weight'] = -10;
     if ($view_mode_admin_access) {
       $url = Url::fromRoute('field_ui.display_mode');
-      $form['modes']['view_modes_custom']['#description'] = \Drupal::l(t('Manage display modes'), $url);
+      $form['modes']['view_modes_custom']['#description'] = Link::fromTextAndUrl(t('Manage display modes'), $url)->toString();
     }
   }
 }
@@ -766,7 +767,7 @@ function _ds_field_ui_table_layouts($entity_type, $bundle, $view_mode, array &$f
       $layout['fields'] = $display->getThirdPartySetting('ds', 'fields');
     }
     else {
-      drupal_set_message(t('The configured layout (@layout) is missing, please select a new one', ['@layout' => $layout_configuration['id']]), 'error');
+      \Drupal::messenger()->addMessage(t('The configured layout (@layout) is missing, please select a new one', ['@layout' => $layout_configuration['id']]), 'error');
     }
   }
 
@@ -912,7 +913,6 @@ function _ds_field_ui_table_layouts_preview(array &$form, FormStateInterface $fo
   }
 
   $suggestions_array = [];
-
   if (!empty($layout_string)) {
     if (isset($ds_layouts[$layout_string])) {
       /** @var \Drupal\Core\Layout\LayoutDefinition $chosen_layout */

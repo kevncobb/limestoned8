@@ -18,20 +18,21 @@ class TaxonomyMenu extends ControllerBase {
    *   Return Hello string.
    */
   public function renderTaxonomyLinks() {
+    $markup = '';
+
     // Load taxonomy menus.
-    $taxonomy_menus = $this->entityTypeManager()
-      ->getStorage('taxonomy_menu')
-      ->loadMultiple();
+    $storage = \Drupal::entityTypeManager()->getStorage('taxonomy_menu');
+    $taxonomy_menus = $storage->loadMultiple();
     $links = [];
 
     // Get taxonomy and create menu links from vocabularies.
     foreach ($taxonomy_menus as $taxonomy_menu) {
-      $links += $taxonomy_menu->generateTaxonomyLinks([]);
+      $links += $taxonomy_menu->getLinks([]);
     }
 
     return [
       '#type' => 'markup',
-      '#markup' => '',
+      '#markup' => $this->t($markup),
     ];
   }
 

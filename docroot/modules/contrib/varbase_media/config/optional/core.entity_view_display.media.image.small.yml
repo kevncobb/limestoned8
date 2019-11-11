@@ -8,8 +8,8 @@ dependencies:
     - media.type.image
     - responsive_image.styles.d03
   module:
-    - blazy
     - ds
+    - responsive_image
 id: media.image.small
 targetEntityType: media
 bundle: image
@@ -19,48 +19,8 @@ content:
     weight: 0
     label: hidden
     settings:
-      image_style: d03
       responsive_image_style: d03
-      media_switch: ''
-      thumbnail_style: ''
-      ratio: ''
-      sizes: ''
-      breakpoints:
-        xs:
-          image_style: ''
-          width: ''
-        sm:
-          image_style: ''
-          width: ''
-        md:
-          image_style: ''
-          width: ''
-        lg:
-          image_style: ''
-          width: ''
-        xl:
-          image_style: ''
-          width: ''
-      current_view_mode: small
-      background: false
-      caption:
-        title: '0'
-        alt: '0'
-      icon: ''
-      layout: ''
-      view_mode: ''
-      cache: 0
-      optionset: default
-      skin: ''
-      style: ''
-      box_caption: ''
-      box_caption_custom: ''
-      box_style: ''
-      box_media_style: ''
-      grid: 0
-      grid_header: ''
-      grid_medium: 0
-      grid_small: 0
+      image_link: ''
     third_party_settings:
       ds:
         ft:
@@ -69,7 +29,7 @@ content:
             lb: ''
             lb-col: false
             classes: {  }
-    type: blazy
+    type: responsive_image
     region: content
 hidden:
   created: true

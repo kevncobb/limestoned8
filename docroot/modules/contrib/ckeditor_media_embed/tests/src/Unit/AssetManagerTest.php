@@ -244,7 +244,7 @@ class AssetManagerTest extends UnitTestCase {
    */
   // @codingStandardsIgnoreLine
   public function testGetCKEditorDevFullPackageUrl() {
-    $this->assertSame('https://github.com/ckeditor/ckeditor-dev/archive/x.x.x.zip', AssetManager::getCKEditorDevFullPackageUrl('x.x.x'));
+    $this->assertSame('https://github.com/ckeditor/ckeditor4/archive/x.x.x.zip', AssetManager::getCKEditorDevFullPackageUrl('x.x.x'));
   }
 
   /**
@@ -252,7 +252,7 @@ class AssetManagerTest extends UnitTestCase {
    */
   // @codingStandardsIgnoreLine
   public function testGetCKEditorDevFullPackageName() {
-    $this->assertSame('ckeditor-dev-x.x.x', AssetManager::getCKEditorDevFullPackageName('x.x.x'));
+    $this->assertSame('ckeditor4-x.x.x', AssetManager::getCKEditorDevFullPackageName('x.x.x'));
   }
 
 }

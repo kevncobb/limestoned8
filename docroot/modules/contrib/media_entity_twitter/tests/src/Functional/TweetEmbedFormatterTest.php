@@ -107,7 +107,7 @@ class TweetEmbedFormatterTest extends MediaFunctionalTestBase {
     $this->drupalGet('media/add/' . $bundle->id());
 
     // Random image url from twitter.
-    $tweet_url = 'https://twitter.com/RamzyStinson/status/670650348319576064';
+    $tweet_url = 'https://twitter.com/DrupalConEur/status/1176518741208817664';
 
     // Random image from twitter.
     $tweet = '<blockquote class="twitter-tweet" lang="it"><p lang="en" dir="ltr">' .
@@ -130,7 +130,7 @@ class TweetEmbedFormatterTest extends MediaFunctionalTestBase {
 
     // Assert that the link url formatter exists on this page.
     $this->assertText('Tweet URL');
-    $this->assertRaw('<a href="https://twitter.com/RamzyStinson/statuses/670650348319576064">', 'Link in embedded Tweet found.');
+    $this->assertRaw('<a href="https://twitter.com/DrupalConEur/statuses/1176518741208817664">', 'Link in embedded Tweet found.');
 
     // Assert that the string_long code formatter exists on this page.
     $this->assertText('Embed code');

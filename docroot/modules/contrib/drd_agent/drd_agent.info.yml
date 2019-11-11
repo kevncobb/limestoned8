@@ -2,7 +2,7 @@ name: DRD Agent
 type: module
 description: Agent on remote Drupal sites for the main DRD module.
 package: Administration
-# core: 8.x
+core: 8.x
 # project: drd_agent
 configure: drd_agent.settings.form
 recommends:
@@ -10,8 +10,7 @@ recommends:
   - monitoring
   - security_review
 
-# Information added by Drupal.org packaging script on 2019-04-01
-version: '8.x-3.8'
-core: '8.x'
+# Information added by Drupal.org packaging script on 2019-09-05
+version: '8.x-3.9'
 project: 'drd_agent'
-datestamp: 1554113026
+datestamp: 1567702399

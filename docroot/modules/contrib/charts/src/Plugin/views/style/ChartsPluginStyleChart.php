@@ -103,9 +103,10 @@ class ChartsPluginStyleChart extends StylePluginBase implements ContainerFactory
     ];
 
     // Get the default chart values.
-    $defaults = $this->chartsDefaultSettings;
-    foreach ($defaults as $default_key => $default_value) {
-      $options[$default_key]['default'] = $default_value;
+    if ($defaults = $this->chartsDefaultSettings) {
+      foreach ($defaults as $default_key => $default_value) {
+        $options[$default_key]['default'] = $default_value;
+      }
     }
 
     // @todo: ensure that chart extensions inherit defaults from parent
@@ -167,23 +168,17 @@ class ChartsPluginStyleChart extends StylePluginBase implements ContainerFactory
     $errors = parent::validate();
     $dataFields = $this->options['data_fields'];
     $dataFieldsValueState = [];
-    $dataFieldsCounter = 0;
 
     // Avoid calling validation before arriving on the view edit page.
     if (\Drupal::routeMatch()->getRouteName() != 'views_ui.add') {
       if (isset($dataFields)) {
         foreach ($dataFields as $value) {
-          // Skip title field no need to validate it and if data field is set add to
-          // dataFieldsValueState array state 1 otherwise add to same array state 0.
-          if ($dataFieldsCounter > 0) {
-            if (empty($value)) {
-              array_push($dataFieldsValueState, 0);
-            }
-            else {
-              array_push($dataFieldsValueState, 1);
-            }
+          if (empty($value)) {
+            array_push($dataFieldsValueState, 0);
           }
-          $dataFieldsCounter++;
+          else {
+            array_push($dataFieldsValueState, 1);
+          }
         }
       }
 

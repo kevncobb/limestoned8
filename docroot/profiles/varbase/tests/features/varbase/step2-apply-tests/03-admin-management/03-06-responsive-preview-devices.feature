@@ -1,4 +1,4 @@
-Feature: Preview the site in a number of responsive devices.
+Feature: Preview the site in a number of responsive devices
 As a site admin user
 I want to be able to preview the look and feel of the site in a number of devices
 So that I can make sure that the site looks good in small devices too.
@@ -14,8 +14,6 @@ So that I can make sure that the site looks good in small devices too.
      When I press "Preview page layout"
      Then I should see "iPhone XS"
       And I should see "iPhone XS Max"
-      And I should see "iPhone 7"
-      And I should see "iPhone 7+"
-      And I should see "Galaxy S7"
-      And I should see "iPad Air 2"
-      And I should see "Galaxy Tab 2 10"
+      And I should see "Galaxy S9"
+      And I should see "iPad Pro"
+      And I should see "Galaxy Tab S4"

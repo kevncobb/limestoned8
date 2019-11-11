@@ -4,6 +4,7 @@ namespace Drupal\simple_oauth\Plugin;
 
 use Defuse\Crypto\Core;
 use Drupal\Component\Plugin\Exception\PluginNotFoundException;
+use Drupal\consumers\Entity\Consumer;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Config\ImmutableConfig;
 use Drupal\Core\Plugin\DefaultPluginManager;
@@ -12,6 +13,7 @@ use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Site\Settings;
 use League\OAuth2\Server\AuthorizationServer;
 use League\OAuth2\Server\Exception\OAuthServerException;
+use League\OAuth2\Server\Grant\AuthCodeGrant;
 use League\OAuth2\Server\Repositories\AccessTokenRepositoryInterface;
 use League\OAuth2\Server\Repositories\ClientRepositoryInterface;
 use League\OAuth2\Server\Repositories\RefreshTokenRepositoryInterface;
@@ -117,7 +119,7 @@ class Oauth2GrantManager extends DefaultPluginManager implements Oauth2GrantMana
   /**
    * {@inheritdoc}
    */
-  public function getAuthorizationServer($grant_type) {
+  public function getAuthorizationServer($grant_type, Consumer $client = NULL) {
     try {
       /** @var \Drupal\simple_oauth\Plugin\Oauth2GrantInterface $plugin */
       $plugin = $this->createInstance($grant_type);
@@ -142,11 +144,17 @@ class Oauth2GrantManager extends DefaultPluginManager implements Oauth2GrantMana
       Core::ourSubstr($salt, 0, 32),
       $this->responseType
     );
-    // Enable the password grant on the server with a token TTL of X hours.
-    $server->enableGrantType(
-      $plugin->getGrantType(),
-      $this->expiration
-    );
+    $grant = $plugin->getGrantType();
+    // Optionally enable PKCE.
+    if ($client && ($grant instanceof AuthCodeGrant)) {
+      $client_has_pkce_enabled = $client->hasField('pkce')
+        && $client->get('pkce')->first()->value;
+      if($client_has_pkce_enabled){
+        $grant->enableCodeExchangeProof();
+      }
+    }
+    // Enable the grant on the server with a token TTL of X hours.
+    $server->enableGrantType($grant, $this->expiration);
 
     return $server;
   }

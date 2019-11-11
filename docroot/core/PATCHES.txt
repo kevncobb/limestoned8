@@ -5,10 +5,6 @@ Issue #2869592: Disabled update module shouldn't produce a status report warning
 Source: https://www.drupal.org/files/issues/2869592-remove-update-warning-7.patch
 
 
-Issue #2885441: EntityReferenceAutocompleteWidget should define its size setting as an integer
-Source: https://www.drupal.org/files/issues/2885441-2.patch
-
-
 Issue #2815221: Add quickedit to the latest-revision route
 Source: https://www.drupal.org/files/issues/2019-03-05/2815221-116.patch
 

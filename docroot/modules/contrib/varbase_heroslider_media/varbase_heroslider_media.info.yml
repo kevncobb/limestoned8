@@ -3,7 +3,7 @@ description: 'This app will populate the universal implementation of a "Hero Sli
 type: module
 package: Varbase
 # version: 8.x-7.x-dev
-# core: 8.x
+core: 8.x
 # project: varbase_heroslider_media
 dependencies:
   - varbase_media:varbase_media (>= 6.6)
@@ -19,8 +19,7 @@ install:
   - advanced_text_formatter
   - maxlength
 
-# Information added by Drupal.org packaging script on 2019-07-04
-version: '8.x-7.0'
-core: '8.x'
+# Information added by Drupal.org packaging script on 2019-09-22
+version: '8.x-7.3'
 project: 'varbase_heroslider_media'
-datestamp: 1562244790
+datestamp: 1569152287

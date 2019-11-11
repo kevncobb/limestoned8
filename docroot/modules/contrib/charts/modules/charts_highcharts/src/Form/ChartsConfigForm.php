@@ -5,6 +5,7 @@ namespace Drupal\charts_highcharts\Form;
 
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Url;
 
 /**
  * Charts Config Form.
@@ -30,11 +31,21 @@ class ChartsConfigForm extends ConfigFormBase {
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
 
-   $config = $this->config('charts_highcharts.settings');
+    $config = $this->config('charts_highcharts.settings');
+
+    $form['placeholder'] = [
+      '#title' => $this->t('Placeholder'),
+      '#type' => 'fieldset',
+      '#description' => $this->t(
+        'This is a placeholder for Highcharts-specific library options. If you would like to help build this out, please work from <a href="@issue_link">this issue</a>.', [
+        '@issue_link' => Url::fromUri('https://www.drupal.org/project/charts/issues/3046981')
+          ->toString(),
+      ]),
+    ];
 
     $form['legend'] = [
       '#title' => $this->t('Legend Settings'),
-      '#type' => 'fieldset'
+      '#type' => 'fieldset',
     ];
 
     $form['legend']['legend_layout'] = [
@@ -83,7 +94,7 @@ class ChartsConfigForm extends ConfigFormBase {
 
     $form['legend']['item_style'] = [
       '#title' => $this->t('Item Style'),
-      '#type' => 'fieldset'
+      '#type' => 'fieldset',
     ];
 
     $form['legend']['item_style']['item_style_color'] = [
@@ -117,6 +128,7 @@ class ChartsConfigForm extends ConfigFormBase {
 
     $this->config('charts_highcharts.settings')
       // Set the submitted configuration setting
+      ->set('placeholder', $form_state->getValue('placeholder'))
       ->set('legend_layout', $form_state->getValue('legend_layout'))
       ->set('legend_background_color', $form_state->getValue('legend_background_color'))
       ->set('legend_border_width', $form_state->getValue('legend_border_width'))

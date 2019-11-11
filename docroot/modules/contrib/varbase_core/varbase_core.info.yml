@@ -1,7 +1,7 @@
 name: 'Varbase Core'
 description: 'Provides core components required by other features.'
 type: module
-# core: 8.x
+core: 8.x
 # version: 8.x-7.x-dev
 # project: varbase_core
 package: Varbase
@@ -55,6 +55,7 @@ install:
   - menu_ui
   - menu_link_content
   - filter
+  - token_filter
   - field_ui
   - help
   - page_cache
@@ -88,8 +89,7 @@ install:
   - login_destination
   - betterlogin
 
-# Information added by Drupal.org packaging script on 2019-08-07
-version: '8.x-7.1'
-core: '8.x'
+# Information added by Drupal.org packaging script on 2019-10-09
+version: '8.x-7.3'
 project: 'varbase_core'
-datestamp: 1565218088
+datestamp: 1570639527

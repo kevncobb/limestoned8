@@ -3,10 +3,12 @@
 namespace Drupal\media_entity_twitter\Plugin\media\Source;
 
 use Drupal\Core\Config\ConfigFactoryInterface;
+use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\Core\Entity\EntityFieldManagerInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Logger\LoggerChannelInterface;
+use Drupal\datetime\Plugin\Field\FieldType\DateTimeItemInterface;
 use Drupal\Core\Render\RendererInterface;
 use Drupal\media\MediaInterface;
 use Drupal\media\MediaSourceBase;
@@ -140,6 +142,8 @@ class Twitter extends MediaSourceBase implements MediaSourceFieldConstraintsInte
         'content' => $this->t('This tweet content'),
         'retweet_count' => $this->t('Retweet count for this tweet'),
         'profile_image_url_https' => $this->t('Link to profile image'),
+        'created_time' => $this->t('Date/time created'),
+        'user_name' => $this->t('User name'),
       ];
     }
 
@@ -231,8 +235,8 @@ class Twitter extends MediaSourceBase implements MediaSourceFieldConstraintsInte
           return NULL;
 
         case 'content':
-          if (isset($tweet['text'])) {
-            return $tweet['text'];
+          if (isset($tweet['full_text'])) {
+            return $tweet['full_text'];
           }
           return NULL;
 
@@ -245,6 +249,20 @@ class Twitter extends MediaSourceBase implements MediaSourceFieldConstraintsInte
         case 'profile_image_url_https':
           if (isset($tweet['user']['profile_image_url_https'])) {
             return $tweet['user']['profile_image_url_https'];
+          }
+          return NULL;
+
+        case 'created_time':
+          if (isset($tweet['created_at'])) {
+            if ($datetime = DrupalDateTime::createFromFormat('D M d H:i:s O Y', $tweet['created_at'])) {
+              return $datetime->format(DateTimeItemInterface::DATETIME_STORAGE_FORMAT);
+            }
+          }
+          return NULL;
+
+        case 'user_name':
+          if (isset($tweet['user']['name'])) {
+            return $tweet['user']['name'];
           }
           return NULL;
 

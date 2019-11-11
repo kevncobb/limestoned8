@@ -76,6 +76,20 @@ class Util {
   }
 
   /**
+   * @param $view
+   * @param $fieldValues
+   *
+   * @return array
+   */
+  public static function removeHiddenFields($view, $fieldValues) {
+    $fields = $view->display_handler->getOption('fields');
+    $visibleFields = array_filter($fields, function ($field) { return !empty($field['exclude']); });
+    $visibleFields = array_diff_key($fieldValues, $visibleFields);
+
+    return $visibleFields;
+  }
+
+  /**
    * Creates chart data to be used later by visualization frameworks.
    *
    * @param array $data

@@ -29,8 +29,8 @@ install:
   - yoast_seo
   - google_analytics
 
-# Information added by Drupal.org packaging script on 2019-07-04
-version: '8.x-6.4'
+# Information added by Drupal.org packaging script on 2019-08-19
+version: '8.x-6.5'
 core: '8.x'
 project: 'varbase_seo'
-datestamp: 1562248090
+datestamp: 1566224589

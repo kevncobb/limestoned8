@@ -3,6 +3,9 @@
   li {
     padding: 1.16667rem;
     border-bottom: 1px solid #ccc;
+    &:last-child {
+      border-bottom: none;
+    }
   }
 }
 ul.list-unstyled, ul.unstyled-list {

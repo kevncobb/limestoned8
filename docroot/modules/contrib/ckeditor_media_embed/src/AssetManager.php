@@ -12,7 +12,7 @@ use Drupal\Core\Config\ConfigFactory;
 class AssetManager {
 
   private static $libraryVersion = '4.5.x';
-  private static $packagePrefix = 'ckeditor-dev';
+  private static $packagePrefix = 'ckeditor4';
 
   /**
    * Retrieve a list of all plugins to install.

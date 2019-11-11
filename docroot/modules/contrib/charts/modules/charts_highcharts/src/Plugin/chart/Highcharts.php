@@ -183,6 +183,13 @@ class Highcharts extends AbstractChart {
         array_push($categories, $seriesData[$i]['name']);
       }
     }
+    if (!empty($options['reverse_series']) && $options['reverse_series'] == 1) {
+      unset($categories);
+      $categories = [];
+      for ($i = 0; $i < count($seriesData); $i++) {
+        array_push($categories, $seriesData[$i]['name']);
+      }
+    }
     $chartXaxis->setCategories($categories);
     if (isset($options['xaxis_tickmark_placement'])) {
       switch ($options['xaxis_tickmark_placement']) {
@@ -488,7 +495,6 @@ class Highcharts extends AbstractChart {
     array_push($yAxes, $chartYaxis);
     // Chart libraries tend to support only one secondary axis.
     if (!$noAttachmentDisplays && $attachmentDisplayOptions[0]['inherit_yaxis'] == 0) {
-
       $chartYaxisSecondary = $this->buildSecondaryYaxis($attachmentDisplayOptions);
       array_push($yAxes, $chartYaxisSecondary);
     }
@@ -540,10 +546,26 @@ class Highcharts extends AbstractChart {
       for ($i = 0; $i < count($categories); $i++) {
         $seriesData[$i]['name'] = $categories[$i];
         $seriesData[$i]['data'] = [$data[$i]];
+        // You may need additional colors for a scatter plot. This assumes a
+        // comma-separated list of colors.
+        if (!empty($options['scatter_colors'])) {
+          $colors = explode(",", $options['scatter_colors']);
+          $seriesData[$i]['color'] = $colors[$i];
+        }
         array_push($xAxisCategories['categories'], $data[$i][0]);
       }
       $xAxisOptions = $this->buildXaxis($options, $seriesData, $xAxisCategories);
       $highchart->setAxisX($xAxisOptions);
+      $highchart->setSeries($seriesData);
+    }
+    elseif (!empty($options['reverse_series']) && $options['reverse_series'] == 1) {
+      for ($i = 0; $i < count($categories); $i++) {
+        $seriesData[$i]['name'] = $categories[$i];
+        for ($j = 0; $j < count($seriesData); $j++) {
+          $seriesData[$i]['data'][$j] = $seriesData[$j]['data'][0];
+        }
+      }
+      $seriesData = array_slice($seriesData, 0, count($categories));
       $highchart->setSeries($seriesData);
     }
     else {

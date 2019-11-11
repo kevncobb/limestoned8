@@ -4,9 +4,8 @@ description: Embed a taxonomy tree into a menu
 # core: 8.x
 package: Menu
 configure: entity.taxonomy_menu.collection
-
-# Information added by Drupal.org packaging script on 2019-05-21
-version: '8.x-3.4+8-dev'
+# Information added by Drupal.org packaging script on 2018-12-22
+version: '8.x-3.4'
 core: '8.x'
 project: 'taxonomy_menu'
-datestamp: 1558447991
+datestamp: 1545492795

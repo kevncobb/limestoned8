@@ -1,3 +1,9 @@
+DRD Agent 8.x-3.9, 2019-09-05
+-----------------------------
+Disable route normalizers for drd agent
+Issue #3072250 by Dave.nb, jurgenhaas: Remote maintenance mode drops DRD support
+Issue #3044795 by jcnventura: DRD agent broken with migration to gitlab
+
 DRD Agent 8.x-3.8, 2019-04-01
 -----------------------------
 Issue #3044795 by jcnventura: DRD agent broken with migration to gitlab

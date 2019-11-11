@@ -1,6 +1,6 @@
 genpass.settings:
   type: config_object
-  label: Impostazioni
+  label: 'Generate Password Settings'
   mapping:
     genpass_length:
       type: integer

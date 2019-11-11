@@ -138,8 +138,15 @@ class Google extends AbstractChart {
       for ($j = 0; $j < $categoriesCount; $j++) {
         $rowDataTable = [];
         for ($i = 0; $i < $seriesCount; $i++) {
-          $rowDataTabletemp = $seriesData[$i]['data'][$j];
-          array_push($rowDataTable, $rowDataTabletemp);
+          if (isset($seriesData[$i]['data'][$j])) {
+            $rowDataTabletemp = $seriesData[$i]['data'][$j];
+            array_push($rowDataTable, $rowDataTabletemp);
+          }
+          else {
+            $rowDataTabletemp = 0;
+            array_push($rowDataTable, $rowDataTabletemp);
+          }
+
         }
         array_unshift($rowDataTable, $categories[$j]);
         array_push($dataTable, $rowDataTable);
@@ -433,8 +440,10 @@ class Google extends AbstractChart {
       else {
         for ($i = 0; $i < $categoriesCount; $i++) {
           // Use default colors if only one series.
-          $seriesColor = $options['colors'][$i];
-          array_push($seriesColors, $seriesColor);
+          if (isset($options['colors'][$i])) {
+            $seriesColor = $options['colors'][$i];
+            array_push($seriesColors, $seriesColor);
+          }
         }
       }
     }

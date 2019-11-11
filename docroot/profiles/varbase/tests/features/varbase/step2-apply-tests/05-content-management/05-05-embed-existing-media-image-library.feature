@@ -9,7 +9,7 @@ So that it will show up under that rich text field without having to upload the 
   # Create the Basic page and upload the file to the library before the test case.
   # ----------------------------------------------------------------------------
    @javascript @local @development @staging @production
-   Scenario: Create the "Test Basic page to embed existing files" content.
+   Scenario: Create the Test Basic page to embed existing files content
       When I go to "node/add/page"
        And I wait
        And I fill in "Test Basic page to embed existing files" for "Title"
@@ -19,7 +19,7 @@ So that it will show up under that rich text field without having to upload the 
       Then I should see "Basic page Test Basic page to embed existing files has been created."
 
    @local @development @staging @production
-   Scenario: Upload the "Embed Flag Earth" file.
+   Scenario: Upload the  Embed Flag Earth file
       When I go to "/media/add/image"
        And I wait
       Then I should see "Allowed types: png gif jpg jpeg."
@@ -37,7 +37,7 @@ So that it will show up under that rich text field without having to upload the 
   #-----------------------------------------------------------------------------
 
   @javascript @local @development @staging @production
-  Scenario: Check if we are able to embed existing files library in the rich text editor.
+  Scenario: Check if we are able to embed existing files library in the rich text editor
      When I go to "admin/content"
       And I wait
      Then I should see "Content"
@@ -65,7 +65,7 @@ So that it will show up under that rich text field without having to upload the 
       And I wait for AJAX to finish
       And wait max of 5s
       And I fill in "Embed Flag Earth custom Caption text" for "Caption"
-      And I fill in "Embed Flag Earth custom Alt text" for "Alternative text"
+      And I fill in "Embed Flag Earth custom Alt text" for "Alternate text"
      When I click "Embed" in the "button" element with the "class" attribute set to "js-form-submit form-submit"
       And I wait for AJAX to finish
      When I press "Save"

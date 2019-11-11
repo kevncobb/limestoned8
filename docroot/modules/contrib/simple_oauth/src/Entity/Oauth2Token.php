@@ -223,7 +223,7 @@ class Oauth2Token extends ContentEntityBase implements Oauth2TokenInterface {
   /**
    * {@inheritdoc}
    */
-  public function getCacheTags() {
+  public function getCacheTagsToInvalidate() {
     // It's feasible there are millions of OAuth2 tokens in rotation; they're
     // used only for authentication, not for computing output. Hence it does not
     // make sense for an OAuth2 token to be a cacheable dependency. Consequently
@@ -231,6 +231,14 @@ class Oauth2Token extends ContentEntityBase implements Oauth2TokenInterface {
     // avoided. Therefore a single cache tag is used for all OAuth2 token
     // entities, including for lists.
     return ['oauth2_token'];
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getCacheTags() {
+    // Same reasoning as in ::getCacheTagsToInvalidate().
+    return static::getCacheTagsToInvalidate();
   }
 
 }

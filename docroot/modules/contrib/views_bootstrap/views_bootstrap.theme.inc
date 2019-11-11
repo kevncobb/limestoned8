@@ -126,16 +126,16 @@ function template_preprocess_views_bootstrap_grid(array &$vars) {
   $vars['id'] = ViewsBootstrap::getUniqueId($view);
   $vars['attributes']['class'][] = 'grid';
   $options = $view->style_plugin->options;
-  $options['automatic_width'] = ['default' => TRUE];
-  $horizontal = ($options['alignment'] === 'horizontal');
 
-  foreach (['xs', 'sm', 'md', 'lg'] as $size) {
-    $vars["col_" . $size] = $options["col_" . $size];
-    // Get the value from the size sting.
-    $vars['sizes'][$size] = ViewsBootstrap::getColSize($options["col_" . $size]);
+  $vars['row_attributes'] = new Attribute();
+  foreach (ViewsBootstrap::getBreakpoints() as $breakpoint) {
+    if ($options["col_$breakpoint"] == 'none') {
+      continue;
+    }
+    $vars['row_attributes']->addClass($options["col_$breakpoint"]);
   }
-  $vars['options'] = $options;
 
+  $vars['options'] = $options;
 }
 
 /**

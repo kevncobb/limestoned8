@@ -1,6 +1,0 @@
-services:
-  init_subscriber:
-    class: Drupal\genpass\EventSubscriber\InitSubscriber
-    tags:
-      -
-        name: event_subscriber

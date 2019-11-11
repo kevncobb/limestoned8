@@ -13,20 +13,28 @@ drd_agent.default:
   path: '/drd-agent'
   defaults:
     _controller: '\Drupal\drd_agent\Controller\Agent::get'
+    _disable_route_normalizer: TRUE
   requirements:
     _access: 'TRUE'
+  options:
+    _maintenance_access: TRUE
 drd_agent.crypt:
   path: '/drd-agent-crypt'
   defaults:
     _controller: '\Drupal\drd_agent\Controller\Agent::getCryptMethods'
+    _disable_route_normalizer: TRUE
   requirements:
     _access: 'TRUE'
+  options:
+    _maintenance_access: TRUE
 drd_agent.authorize.secret:
   path: '/drd-agent-authorize-secret'
   defaults:
     _controller: '\Drupal\drd_agent\Controller\Agent::authorizeBySecret'
   requirements:
     _access: 'TRUE'
+  options:
+    _maintenance_access: TRUE
 drd_agent.authorize.form:
   path: '/drd-agent-authorize'
   defaults:

@@ -3,7 +3,7 @@ description: 'Editor profile and settings to be used in most websites.'
 type: module
 package: Varbase
 # version: 8.x-7.x-dev
-# core: 8.x
+core: 8.x
 # project: varbase_editor
 dependencies:
   - drupal:node
@@ -20,9 +20,10 @@ install:
   - linkit
   - anchor_link
   - pathologic
+  - token
+  - token_filter
 
-# Information added by Drupal.org packaging script on 2019-07-04
-version: '8.x-7.0'
-core: '8.x'
+# Information added by Drupal.org packaging script on 2019-10-03
+version: '8.x-7.2'
 project: 'varbase_editor'
-datestamp: 1562244187
+datestamp: 1570125788
