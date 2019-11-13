@@ -20,9 +20,12 @@ function revision_log_default_entity_presave(EntityInterface $entity) {
         $bundle = \Drupal::entityTypeManager()
           ->getStorage($bundle_type)
           ->load($entity->bundle());
-        $label = $bundle->label();
+        if ($bundle instanceof EntityInterface) {
+          $label = $bundle->label();
+        }
       }
-      else {
+      // Fall back to entity type label if not bundle-able or bundle is missing.
+      if (!isset($label)) {
         $label = $entity_type->getLabel();
       }
       // Use the current timestamp if the revision_timestamp is the same as its
@@ -54,10 +57,29 @@ function revision_log_default_entity_presave(EntityInterface $entity) {
         $ignore = ['changed', $entity_type->getKey('revision')];
         /** @var \Drupal\Core\Field\FieldItemListInterface $field_items */
         foreach ($entity as $field_name => $field_items) {
-          if (in_array($field_name, $ignore, TRUE) || strpos($field_name, 'revision') !== FALSE || ($field_name === 'path' && isset($entity->path->pathauto))) {
+          // Workaround for the weird empty comment always added to the list.
+          $is_comment = is_a($field_items, '\Drupal\comment\CommentFieldItemList');
+          if ($is_comment || in_array($field_name, $ignore, TRUE) || strpos($field_name, 'revision') !== FALSE || ($field_name === 'path' && isset($entity->path->pathauto))) {
             continue;
           }
-          if (!$original->hasField($field_name) || !$field_items->equals($original->get($field_name))) {
+          // If the original doesn't have the field, mark the change.
+          if (!$original->hasField($field_name)) {
+            $changed_fields[] = $field_items->getDataDefinition()->getLabel();
+            continue;
+          }
+          $original_field_items = $original->get($field_name);
+          // Workaround for path fields being funky.
+          if (is_a($field_items, '\Drupal\path\Plugin\Field\FieldType\PathFieldItemList')) {
+            // Paths are too complex for normal equals logic.
+            $original_path = isset($original_field_items->first()->getValue()['alias']) ? $original_field_items->first()->getValue()['alias'] : '';
+            $path = isset($field_items->first()->getValue()['alias']) ? $field_items->first()->getValue()['alias'] : '';
+            if ($original_path !== $path) {
+              $changed_fields[] = $field_items->getDataDefinition()->getLabel();
+            }
+            continue;
+          }
+          // This logic should, ideally, support all other field types.
+          if (!$field_items->equals($original_field_items)) {
             $changed_fields[] = $field_items->getDataDefinition()->getLabel();
           }
         }
