@@ -71,12 +71,16 @@ function revision_log_default_entity_presave(EntityInterface $entity) {
           // Workaround for path fields being funky.
           if (is_a($field_items, '\Drupal\path\Plugin\Field\FieldType\PathFieldItemList')) {
             // Paths are too complex for normal equals logic.
-            $original_path = isset($original_field_items->first()->getValue()['alias']) ? $original_field_items->first()->getValue()['alias'] : '';
-            $path = isset($field_items->first()->getValue()['alias']) ? $field_items->first()->getValue()['alias'] : '';
-            if ($original_path !== $path) {
-              $changed_fields[] = $field_items->getDataDefinition()->getLabel();
+            $first_original_field_item = $original_field_items->first();
+            $first_field_item = $field_items->first();
+            if ($first_original_field_item && $first_field_item) {
+              $original_path = isset($first_original_field_item->getValue()['alias']) ? $first_original_field_item->getValue()['alias'] : '';
+              $path = isset($first_field_item->getValue()['alias']) ? $first_field_item->getValue()['alias'] : '';
+              if ($original_path !== $path) {
+                  $changed_fields[] = $field_items->getDataDefinition()->getLabel();
+                }
+              continue;
             }
-            continue;
           }
           // This logic should, ideally, support all other field types.
           if (!$field_items->equals($original_field_items)) {
