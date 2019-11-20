@@ -242,6 +242,7 @@ a.lc-btn, .lc-btn a:first-child {
   display: inline-block;
   font-family: $header-font-family;
   $cta-button-color: $primary-color;
+  background: $cta-button-color;
   color: white;
   font-weight: bold;
   font-size: 2rem;
@@ -250,26 +251,33 @@ a.lc-btn, .lc-btn a:first-child {
   padding: 0.5em 2em;
   &.secondary {
     $cta-button-color: $secondary-color;
+    background: $cta-button-color;
   }
   &.success {
     $cta-button-color: $success-color;
+    background: $cta-button-color;
   }
   &.warning {
     $cta-button-color: $warning-color;
+    background: $cta-button-color;
   }
   &.alert {
     $cta-button-color: $alert-color;
+    background: $cta-button-color;
   }
   &.orange {
     $cta-button-color: $orange;
+    background: $cta-button-color;
   }
   &.twitter-blue {
     $cta-button-color: $twitter-blue;
+    background: $cta-button-color;
   }
   &.teal {
     $cta-button-color: $teal;
+    background: $cta-button-color;
   }
-  background: $cta-button-color;
+
   &:hover, &:focus {
     background: smart-scale($cta-button-color, 10%, 10%);
     color: white;
