@@ -6,6 +6,6 @@ api_version: 1
 web_docroot: true
 
 # Make sure Drush is version 8
-drush_version: 8
+drush_version: 9
 
 php_version: 7.1
