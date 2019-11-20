@@ -241,15 +241,25 @@ a.lc-btn, .lc-btn a:first-child {
 .cta-button, .cta-btn {
   display: inline-block;
   font-family: $header-font-family;
-  background: $success-color;
+  $cta-button-color: $success-color;
+  background: $cta-button-color;
   color: white;
   font-weight: bold;
   font-size: 2rem;
   text-decoration: none;
   margin: 0 1.5em 0.5em 0;
   padding: 0.5em 2em;
+  &.secondary {
+    $cta-button-color: $secondary-color;
+  }
+  &.warning {
+    $cta-button-color: $warning-color;
+  }
+  &.alert {
+    $cta-button-color: $alert-color;
+  }
   &:hover, &:focus {
-    background: smart-scale($success-color, 10%, 10%);
+    background: smart-scale($cta-button-color, 10%, 10%);
     color: white;
   }
 }
