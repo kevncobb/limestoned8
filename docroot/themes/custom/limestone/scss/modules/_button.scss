@@ -250,7 +250,7 @@ a.lc-btn, .lc-btn a:first-child {
   margin: 0 1.5em 0.5em 0;
   padding: 0.5em 2em;
   &:hover, &:focus {
-    background: smart-scale($cta-button-color, 10%, 10%);
+    background: smart-scale($cta-button-color, 15%, 15%);
     color: white;
   }
   &.secondary {
