@@ -241,7 +241,7 @@ a.lc-btn, .lc-btn a:first-child {
 .cta-button, .cta-btn {
   display: inline-block;
   font-family: $header-font-family;
-  $cta-button-color: $success-color;
+  $cta-button-color: $primary-color;
   background: $cta-button-color;
   color: white;
   font-weight: bold;
@@ -251,6 +251,9 @@ a.lc-btn, .lc-btn a:first-child {
   padding: 0.5em 2em;
   &.secondary {
     $cta-button-color: $secondary-color;
+  }
+  &.success {
+    $cta-button-color: $success-color;
   }
   &.warning {
     $cta-button-color: $warning-color;
