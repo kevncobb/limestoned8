@@ -1,9 +1,0 @@
-name: Views Zurb
-type: module
-description: Views Zurb v4
-package: Views
-# core: 8.x
-dependencies:
-  - drupal:views
-libraries:
-  - views_zurb/components
