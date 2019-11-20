@@ -242,7 +242,6 @@ a.lc-btn, .lc-btn a:first-child {
   display: inline-block;
   font-family: $header-font-family;
   $cta-button-color: $primary-color;
-  background: $cta-button-color;
   color: white;
   font-weight: bold;
   font-size: 2rem;
@@ -270,6 +269,7 @@ a.lc-btn, .lc-btn a:first-child {
   &.teal {
     $cta-button-color: $teal;
   }
+  background: $cta-button-color;
   &:hover, &:focus {
     background: smart-scale($cta-button-color, 10%, 10%);
     color: white;
