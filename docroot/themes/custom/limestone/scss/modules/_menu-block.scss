@@ -59,6 +59,8 @@
         width: 100%;
         font-size: 1.1rem;
         background-color: lighten($light-gray, 6%);
+        border: thin solid #ccc;
+        border-top: none;
         &:focus, &:hover {
           background-color: white;
         }
@@ -69,10 +71,18 @@
         width: 100%;
         background-color: lighten($light-gray, 6%);
         position: relative;
-
+        button.submenu-toggle {
+          background-color: #cccccc;
+          &::after {
+            border-color: #707070
+          }
+        }
         &:focus, &:hover {
           background-color: lighten($light-gray, 9%);
           transition: 100ms;
+          button.submenu-toggle {
+            background-color: #fff;
+          }
         }
 
         &.menu-item--active-trail {
