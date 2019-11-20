@@ -84,7 +84,6 @@
             background-color: #fff;
           }
         }
-
         &.menu-item--active-trail {
           > a {
             font-weight: 700;
@@ -148,7 +147,7 @@
     width: 100%;
     li > a {
       padding-left: 50px;
-
+      background-color: #fdfdfd;
        &::before {
          content: "- ";
          font-family: $header-font-family;
