@@ -258,6 +258,15 @@ a.lc-btn, .lc-btn a:first-child {
   &.alert {
     $cta-button-color: $alert-color;
   }
+  &.orange {
+    $cta-button-color: $orange;
+  }
+  &.twitter-blue {
+    $cta-button-color: $twitter-blue;
+  }
+  &.teal {
+    $cta-button-color: $teal;
+  }
   &:hover, &:focus {
     background: smart-scale($cta-button-color, 10%, 10%);
     color: white;
