@@ -17,7 +17,7 @@ header.site-header {
     position: relative;
     margin-right: 0;
     .button.search-button {
-      padding: 0.6rem 0.55rem 0.55rem 0.95rem;
+      padding: 0.6rem 0.25rem 0.55rem 0.25rem;
       span {
         border-radius: 50%;
         border: 2px solid white;
@@ -73,7 +73,7 @@ header.site-header {
     &.quicklink-button {
       width: 134px;
       color: transparent !important;
-      font-size: 17px;
+      font-size: 16px;
       line-height: 20px;
       text-align: left;
       font-weight: bold;
@@ -107,16 +107,19 @@ header.site-header {
         margin-top: 3px;
         padding: 0;
         bottom: 0;
-        font-size: 0.8rem;
+        right: 2px;
+        font-size: 13px;
         line-height: 0.7rem;
       }
       @include breakpoint(small) {
         margin-right: 0;
         color: $limestone-blue !important;
-        background: url(/themes/custom/limestone/images/lc-sprite.svg) no-repeat -370px -184px;
-        background-size: 562px;
-        width: 134px;
+        background: url(/themes/custom/limestone/images/lc-sprite.svg) no-repeat -332px -163px;
+        background-size: 501px;
+        width: 105px;
         height: 44px;
+        padding-right: 0;
+        margin-left: -3px;
         opacity: 0.4;
         filter: grayscale(1);
         &:before {
@@ -124,8 +127,10 @@ header.site-header {
         }
         &:focus, &:hover {
           color: $limestone-blue !important;
+          opacity: 1;
+          filter: grayscale(0);
           span {
-            right: -4px;
+            right: -1px;
             position: relative;
             transition: 300ms;
           }
