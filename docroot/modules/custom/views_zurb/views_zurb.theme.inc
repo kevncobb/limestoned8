@@ -11,7 +11,7 @@ use Drupal\Core\Template\Attribute;
 /**
  * Prepares variables for views accordion templates.
  *
- * Default template: views-bootstrap-accordion.html.twig.
+ * Default template: views-zurb-accordion.html.twig.
  *
  * @param array $vars
  *   An associative array containing:
@@ -47,7 +47,7 @@ function template_preprocess_views_zurb_accordion(array &$vars) {
 /**
  * Prepares variables for views cards templates.
  *
- * Default template: views-bootstrap-cards.html.twig.
+ * Default template: views-zurb-cards.html.twig.
  *
  * @param array $vars
  *   An associative array containing:
@@ -67,7 +67,7 @@ function template_preprocess_views_zurb_cards(array &$vars) {
 /**
  * Prepares variables for views carousel template.
  *
- * Default template: views-bootstrap-carousel.html.twig.
+ * Default template: views-zurb-carousel.html.twig.
  *
  * @param array $vars
  *   An associative array containing:
@@ -77,7 +77,7 @@ function template_preprocess_views_zurb_cards(array &$vars) {
 function template_preprocess_views_zurb_carousel(array &$vars) {
   $view = $vars['view'];
   $vars['id'] = ViewsZurb::getUniqueId($view);
-  $vars['attributes']['class'][] = 'views-bootstrap-media-object';
+  $vars['attributes']['class'][] = 'views-zurb-media-object';
   $vars['attributes']['class'][] = 'media-list';
 
   // Carousel options.
@@ -114,7 +114,7 @@ function template_preprocess_views_zurb_carousel(array &$vars) {
 /**
  * Prepares variables for views grid templates.
  *
- * Default template: views-bootstrap-grid.html.twig.
+ * Default template: views-zurb-grid.html.twig.
  *
  * @param array $vars
  *   An associative array containing:
@@ -141,7 +141,7 @@ function template_preprocess_views_zurb_grid(array &$vars) {
 /**
  * Prepares variables for views list group templates.
  *
- * Default template: views-bootstrap-list-group.html.twig.
+ * Default template: views-zurb-list-group.html.twig.
  *
  * @param array $vars
  *   An associative array containing:
@@ -152,7 +152,7 @@ function template_preprocess_views_zurb_list_group(array &$vars) {
   $view = $vars['view'];
   $options = $view->style_plugin->options;
   $vars['id'] = ViewsZurb::getUniqueId($view);
-  $vars['attributes']['class'][] = 'views-bootstrap-list-group';
+  $vars['attributes']['class'][] = 'views-zurb-list-group';
   foreach ($vars['rows'] as $id => $row) {
     $vars['rows'][$id] = [];
     $vars['rows'][$id]['content'] = $row;
@@ -164,7 +164,7 @@ function template_preprocess_views_zurb_list_group(array &$vars) {
 /**
  * Prepares variables for views media object templates.
  *
- * Default template: views-bootstrap-media-object.html.twig.
+ * Default template: views-zurb-media-object.html.twig.
  *
  * @param array $vars
  *   An associative array containing:
@@ -191,7 +191,7 @@ function template_preprocess_views_zurb_media_object(array &$vars) {
 /**
  * Prepares variables for views tab templates.
  *
- * Default template: views-bootstrap-tab.html.twig.
+ * Default template: views-zurb-tab.html.twig.
  *
  * @param array $vars
  *   An associative array containing:
@@ -235,7 +235,7 @@ function template_preprocess_views_zurb_tab(array &$vars) {
 /**
  * Prepares variables for views table templates.
  *
- * Default template: views-bootstrap-table.html.twig.
+ * Default template: views-zurb-table.html.twig.
  *
  * @param array $vars
  *   An associative array containing:
@@ -245,7 +245,7 @@ function template_preprocess_views_zurb_tab(array &$vars) {
 function template_preprocess_views_zurb_table(array &$vars) {
   $vars['responsive'] = $vars['view']->style_plugin->options['responsive'];
   $vars['attributes']['class'][] = 'table';
-  foreach (array_filter($vars['view']->style_plugin->options['bootstrap_styles']) as $style) {
+  foreach (array_filter($vars['view']->style_plugin->options['zurb_styles']) as $style) {
     $vars['attributes']['class'][] = 'table-' . $style;
   }
 }

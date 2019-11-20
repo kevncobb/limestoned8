@@ -102,7 +102,7 @@ class ViewsBootstrap {
    */
   public static function getUniqueId(ViewExecutable $view) {
     $id = $view->storage->id() . '-' . $view->current_display;
-    return Html::getUniqueId('views-bootstrap-' . $id);
+    return Html::getUniqueId('views-zurb-' . $id);
   }
 
   /**
