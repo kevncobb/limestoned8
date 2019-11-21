@@ -1,0 +1,40 @@
+<?php
+/**
+ * @file
+ * Custom functions for Views Zurb.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\views_zurb\ViewsZurb;
+
+/**
+ * Implements hook_help().
+ */
+function views_zurb_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    case 'help.page.views_zurb':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('The <a href="https://www.drupal.org/project/views_zurb">Views Zurb module</a> adds styles to Views to output the results of a view as several common <a href="http://getbootstrap.com/components/">Twitter Zurb</a> components.') . '</p>';
+      $output .= '<h3>' . t('Uses') . '</h3>';
+      $output .= '<p>' . t('<a href="/admin/structure/views/add">Create a view</a> using one of the following styles:') . '</p>';
+      $output .= '<ul>';
+      $output .= '<li>' . t('<a href="https://getbootstrap.com/docs/4.2/components/card/">Card</a>') . '</li>';
+      $output .= '<li>' . t('<a href="https://getbootstrap.com/docs/4.2/layout/grid/">Grid</a>') . '</li>';
+      $output .= '<li>' . t('<a href="https://getbootstrap.com/docs/4.2/content/tables/">Tables</a>') . '</li>';
+      $output .= '<li>' . t('<a href="https://getbootstrap.com/docs/4.2/components/media-object/">Media object</a>') . '</li>';
+      $output .= '<li>' . t('<a href="https://getbootstrap.com/docs/4.2/components/collapse/#accordion-example">Accordion</a>') . '</li>';
+      $output .= '<li>' . t('<a href="https://getbootstrap.com/docs/4.2/components/carousel/">Carousel</a>') . '</li>';
+      $output .= '<li>' . t('<a href="https://getbootstrap.com/docs/4.2/components/list-group/">List group</a>') . '</li>';
+      $output .= '<ul>';
+
+      return $output;
+  }
+}
+
+/**
+ * Implements hook_theme().
+ */
+function views_zurb_theme() {
+  return ViewsZurb::getThemeHooks();
+}

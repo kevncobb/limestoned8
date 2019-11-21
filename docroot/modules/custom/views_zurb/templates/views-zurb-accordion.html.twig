@@ -1,0 +1,16 @@
+{%
+  set classes = [
+  'accordion',
+]
+%}
+<ul id="{{ id }}" {{ attributes.addClass(classes) }} data-multi-expand="true" data-deep-link="true" data-update-history="true" data-deep-link-smudge="true" data-deep-link-smudge-delay="500" id="deeplinked-accordion">
+  {% for key, row in rows -%}
+      <div class="accordion-item">
+        <!-- Accordion tab title -->
+        <a href="#" class="accordion-title">{{ row.title }}</a>
+        <div id="{{ id }}-collapse-{{ key }}" class="accordion-content" aria-labelledby="heading{{ key }}" data-tab-content>
+              {{row.content}}
+        </div>
+      </div>
+  {%- endfor %}
+</ul>
