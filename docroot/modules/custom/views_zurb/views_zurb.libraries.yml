@@ -1,7 +1,0 @@
-components:
-  version: 1.x
-  js:
-    js/views-zurb.js: {}
-  dependencies:
-    - core/drupal
-    - core/jquery
