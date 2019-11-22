@@ -13,7 +13,7 @@
       // Using once() to apply the myCustomBehaviour effect when you want to do just run one function.
       $(context).find('div.trunk').trunk8({
         fill: '&hellip;',
-        lines: 4
+        lines: 6
       });
     }
   };
