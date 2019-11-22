@@ -114,6 +114,9 @@ div.apply-now-wrapper {
     position: relative;
     li {
       list-style-type: none;
+      &::before {
+        content: none;
+      }
       a {
         display: block;
         padding: 2px 8px;
