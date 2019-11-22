@@ -16,6 +16,11 @@
  * @see template_preprocess_views_view_list()
  */
 #}
+{%
+  set attributes = [
+  'data-accordion',
+]
+%}
 {% if attributes -%}
   <div{{ attributes }}>
 {% endif %}
@@ -23,7 +28,7 @@
     <h3>{{ title }}</h3>
   {% endif %}
 
-  <{{ list.type }}{{ list.attributes }}  data-accordion data-multi-expand="true">
+  <{{ list.type }}{{ list.attributes }}>
 
     {% for row in rows %}
       <li{{ row.attributes }} data-accordion-item>
