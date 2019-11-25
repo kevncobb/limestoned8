@@ -171,6 +171,12 @@ p {
 .content {
   @extend .padding-sides-md;
 }
+.light-text {
+  color: white;
+  h1, h2, h3, h4, h5, h6 {
+    color: white;
+  }
+}
 .background-blue, .bg-blue {
   background-color: $limestone-blue;
   width: 100%;
