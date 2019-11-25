@@ -354,6 +354,12 @@ body.section-trip {
     font-size: 3.8rem;
   }
 }
+.section-title {
+  font-family: $site-header-font-family;
+  @include breakpoint(smedium) {
+    font-size: 2.4rem;
+  }
+}
 .paragraph-section-title {
   font-family: $site-header-font-family;
   font-weight: $site-header-font-weight;
