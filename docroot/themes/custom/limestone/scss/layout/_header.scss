@@ -111,7 +111,7 @@ header.site-header {
         font-size: 13px;
         line-height: 0.7rem;
       }
-      @include breakpoint(small) {
+      @include breakpoint(phone) {
         margin-right: -5px;
         color: $limestone-blue !important;
         background: url(/themes/custom/limestone/images/lc-sprite.svg) no-repeat -332px -163px;
