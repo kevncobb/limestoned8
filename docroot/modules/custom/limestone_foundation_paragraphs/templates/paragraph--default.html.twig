@@ -110,7 +110,7 @@
 
 {# Prints div with classes, and content without Width and Background. #}
 <div{{ attributes.addClass(classes).setAttribute('id', paragraph_id) }} {% if VBP.background_image.url %} style="background-image:url({{- VBP.background_image.url -}});" {% endif %} data-overlay=""
-  {% if content.field_bp_overlay.value %} data-overlay="{{ content.field_bp_overlay.value }}" {% endif %}>
+  {% if VBP.field_overlay.value %} data-overlay="{{ VBP.field_overlay.value }}" {% endif %}>
     {% if add_container %}
     <div class="grid-container">{% endif %}
         <div>
@@ -121,7 +121,7 @@
                 {% endif %}
                 {% set attributes = attributes.removeClass('bg-edge2edge') %}
                 {{ title_suffix }}
-                {{ content|without('bp_title', 'bp_title_status', 'bp_width', 'bp_background', 'bp_image_field', 'bp_classes', 'bp_gutter') }}
+                {{ content|without('bp_title', 'bp_title_status', 'bp_width', 'bp_background', 'bp_image_field', 'bp_classes', 'bp_gutter', 'field_overlay') }}
             </div>
         </div>
         </div>

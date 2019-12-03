@@ -88,6 +88,12 @@ function limestone_foundation_paragraphs_preprocess_paragraph(&$variables) {
     $gutter_value = $variables['paragraph']->bp_gutter->value;
   }
 
+  $overlay_value = FALSE;
+  if (isset($variables['paragraph']->field_overlay)
+    && isset($variables['paragraph']->field_overlay->value)) {
+    $overlay_value = $variables['paragraph']->field_overlay->value;
+  }
+
   $title_status = FALSE;
   if (isset($variables['paragraph']->bp_title_status)
       && isset($variables['paragraph']->bp_title_status->value)) {
@@ -112,6 +118,10 @@ function limestone_foundation_paragraphs_preprocess_paragraph(&$variables) {
       'type' => 'bool',
       'value' => $gutter_value,
     ],
+    'field_overlay' => [
+      'type' => 'string',
+      'value' => $overlay_value,
+    ],
     'bp_title_status' => [
       'type' => 'bool',
       'value' => $title_status,
@@ -121,9 +131,9 @@ function limestone_foundation_paragraphs_preprocess_paragraph(&$variables) {
 
 /**
  * Implements hook_field_widget_WIDGET_TYPE_form_alter().
- * 
+ *
  * Widget : Paragraphs Classic : entity_reference_paragraphs
- * 
+ *
  */
 function limestone_foundation_paragraphs_field_widget_entity_reference_paragraphs_form_alter(&$element, &$form_state, $context) {
 
@@ -162,9 +172,9 @@ function limestone_foundation_paragraphs_field_widget_entity_reference_paragraph
 
 /**
  * Implements hook_field_widget_WIDGET_TYPE_form_alter().
- * 
- * Widget type : Paragraphs EXPERIMENTAL : paragraphs 
- * 
+ *
+ * Widget type : Paragraphs EXPERIMENTAL : paragraphs
+ *
  */
 function limestone_foundation_paragraphs_field_widget_paragraphs_form_alter(&$element, &$form_state, $context) {
   limestone_foundation_paragraphs_field_widget_entity_reference_paragraphs_form_alter($element, $form_state, $context);
@@ -172,9 +182,9 @@ function limestone_foundation_paragraphs_field_widget_paragraphs_form_alter(&$el
 
 /**
  * Implements hook_field_widget_WIDGET_TYPE_form_alter().
- * 
- * Widget : Paragraphs Classic Asymmetric : paragraphs_classic_asymmetric 
- * 
+ *
+ * Widget : Paragraphs Classic Asymmetric : paragraphs_classic_asymmetric
+ *
  */
 function limestone_foundation_paragraphs_field_widget_paragraphs_classic_asymmetric_form_alter(&$element, &$form_state, $context) {
   limestone_foundation_paragraphs_field_widget_entity_reference_paragraphs_form_alter($element, $form_state, $context);
@@ -182,9 +192,9 @@ function limestone_foundation_paragraphs_field_widget_paragraphs_classic_asymmet
 
 /**
  * Implements hook_field_widget_WIDGET_TYPE_form_alter().
- * 
- * Widget : Paragraphs Previewer & Paragraphs Classic : entity_reference_paragraphs_previewer 
- * 
+ *
+ * Widget : Paragraphs Previewer & Paragraphs Classic : entity_reference_paragraphs_previewer
+ *
  */
 function limestone_foundation_paragraphs_field_widget_entity_reference_paragraphs_previewer_form_alter(&$element, &$form_state, $context) {
   limestone_foundation_paragraphs_field_widget_entity_reference_paragraphs_form_alter($element, $form_state, $context);
@@ -192,9 +202,9 @@ function limestone_foundation_paragraphs_field_widget_entity_reference_paragraph
 
 /**
  * Implements hook_field_widget_WIDGET_TYPE_form_alter().
- * 
- * Widget : Paragraphs Previewer & Paragraphs EXPERIMENTAL : paragraphs_previwer 
- * 
+ *
+ * Widget : Paragraphs Previewer & Paragraphs EXPERIMENTAL : paragraphs_previwer
+ *
  */
 function limestone_foundation_paragraphs_field_widget_paragraphs_previwer_form_alter(&$element, &$form_state, $context) {
   limestone_foundation_paragraphs_field_widget_entity_reference_paragraphs_form_alter($element, $form_state, $context);
