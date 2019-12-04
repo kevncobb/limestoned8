@@ -6,10 +6,10 @@ header.site-header {
   $header-font-size: 1.2rem;
   font-size: $header-font-size;
   .block-limestone-branding {
-    max-width: 240px;
+    max-width: 220px;
     width: 100%;
     @include breakpoint(smedium) {
-      max-width: 344px;
+      max-width: 235px;
       width: 100%;
     }
   }
