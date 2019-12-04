@@ -290,6 +290,22 @@ header.site-header {
     height: 100%;
       box-shadow: inset 0px 0px 0px 111.11111rem rgba(0,0,0,0.3);
   }
+  .splash-header-title {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+  }
+  .splash-header-subtitle {
+    position: absolute;
+    top: 53%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+  }
 }
 .splash-header-title {
   color: white;
@@ -299,12 +315,6 @@ header.site-header {
   font-weight: bold;
   line-height: 1;
   text-shadow: rgba(0,0,0,0.8) 6px 6px 7px;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  -webkit-transform: translate(-50%, -50%);
-  -ms-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
   font-size: 2rem;
   z-index: 99;
   @include breakpoint(medium) {
@@ -327,12 +337,6 @@ body.section-trip {
   font-weight: bold;
   line-height: 1;
   text-shadow: rgba(0,0,0,0.8) 6px 6px 7px;
-  position: absolute;
-  top: 53%;
-  left: 50%;
-  -webkit-transform: translate(-50%, -50%);
-  -ms-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
   font-size: 120%;
   z-index: 99;
   @include breakpoint(medium) {
