@@ -325,19 +325,11 @@ a.lc-btn, .lc-btn a:first-child {
   @include breakpoint(large) {
     display: block;
   }
-  &.mobileStack {
-    max-width: 400px;
-    margin-left: auto;
-    margin-right: auto;
-    margin-bottom: 30px;
-    @include breakpoint(large) {
-      max-width: none;
-    }
-  }
   &.btn-group-justified {
     display: table;
     width: 100%;
-    margin: 10px 0 0 2%;
+    max-width: 1200px;
+    margin: 10px auto 0 auto;
     table-layout: fixed;
     border-collapse: separate;
     .btn-wrapper {
@@ -374,6 +366,15 @@ a.lc-btn, .lc-btn a:first-child {
           font-weight: bold;
         }
       }
+    }
+  }
+  &.mobileStack {
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 30px;
+    @include breakpoint(large) {
+      max-width: none;
     }
   }
 }
