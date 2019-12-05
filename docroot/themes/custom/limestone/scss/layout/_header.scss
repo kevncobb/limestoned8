@@ -142,7 +142,8 @@ header.site-header {
     margin-top: 1rem;
     float: right;
     .is-dropdown-submenu {
-      z-index: 6;
+      z-index: 999;
+      font-size: 0.9rem;
     }
   }
   button {
