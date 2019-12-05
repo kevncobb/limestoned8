@@ -310,6 +310,65 @@ a.lc-btn, .lc-btn a:first-child {
       color: white;
     }
   }
+}
 
+.btn-group, .btn-group-vertical {
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+}
 
+.btn-group {
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+  @include breakpoint(large) {
+    display: block;
+  }
+  &.mobileStack {
+    @include breakpoint(large) {
+      max-width: 400px;
+      margin-left: auto;
+      margin-right: auto;
+      margin-bottom: 30px;
+    }
+  }
+  &.btn-group-justified {
+    display: table;
+    width: 100%;
+    margin: 10px 0 0 2%;
+    table-layout: fixed;
+    border-collapse: separate;
+    .btn-wrapper {
+      display: table-cell;
+      vertical-align: top;
+      width: 100%;
+      margin: 10px 0 0 2%;
+      float: none;
+      margin-top: 20px;
+      &:first-child {
+        margin-top: 0;
+      }
+      @include breakpoint(large) {
+        &:first-child {
+          margin-top: 20px;
+        }
+      }
+      .btn-container {
+        display: table;
+        width: 100%;
+        a {
+          display: table-cell;
+          width: 100%;
+          vertical-align: middle;
+          white-space: normal;
+          padding: 0 10px !important;
+          height: 85px !important;
+          line-height: normal;
+          font-size: 18px;
+          font-weight: bold;
+        }
+      }
+    }
+  }
 }

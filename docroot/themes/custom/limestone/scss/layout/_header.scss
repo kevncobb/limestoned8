@@ -460,7 +460,7 @@ body.section-trip {
   @include breakpoint(phone) {
     left: 0;
   }
-  @include breakpoint(xxlarge) {
+  @include breakpoint(xlarge) {
     top: 0%;
     width: 100%;
     height: auto;
