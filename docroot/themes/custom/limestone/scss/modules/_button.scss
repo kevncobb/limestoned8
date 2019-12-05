@@ -374,7 +374,7 @@ a.lc-btn, .lc-btn a:first-child {
     margin-right: auto;
     margin-bottom: 30px;
     @include breakpoint(large) {
-      max-width: none;
+      max-width: 950px;
     }
   }
 }
