@@ -25,11 +25,15 @@
       color: white;
     }
   }
-  &.red {
+  &.red, &.alert {
     background-color: $red;
   }
 
-  &.green {
+  &.warning {
+    background-color: $warning-color;
+  }
+
+  &.green, &.success {
     background-color: $success-color;
   }
 
