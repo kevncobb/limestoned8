@@ -21,6 +21,9 @@ class Xaxis implements \JsonSerializable {
 
   private $tickInterval;
 
+  // Default is 1 per https://api.highcharts.com/highcharts/xAxis.lineWidth .
+  private $lineWidth = 1;
+
   /**
    * Get Categories.
    *
@@ -135,6 +138,20 @@ class Xaxis implements \JsonSerializable {
    */
   public function setTickInterval($tickInterval) {
     $this->tickInterval = $tickInterval;
+  }
+
+  /**
+   * @return int
+   */
+  public function getLineWidth() {
+    return $this->lineWidth;
+  }
+
+  /**
+   * @param int $lineWidth
+   */
+  public function setLineWidth($lineWidth) {
+    $this->lineWidth = $lineWidth;
   }
 
   /**

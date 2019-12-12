@@ -376,7 +376,12 @@ class Google extends AbstractChart {
 
     if(count($seriesData) != 0) {
       for ($i = 0; $i < count($seriesData); $i++) {
-        $seriesTypes[$i]['type'] = $this->processChartType($seriesData[$i]['type']);
+        if (isset($seriesData[$i]['type'])) {
+          $seriesTypes[$i]['type'] = $this->processChartType($seriesData[$i]['type']);
+        }
+        else {
+          $seriesTypes[$i]['type'] = '';
+        }
       }
     }
 
@@ -449,8 +454,14 @@ class Google extends AbstractChart {
     }
     else {
       for ($i = 0; $i < $seriesCount; $i++) {
-        $seriesColor = $seriesData[$i]['color'];
-        array_push($seriesColors, $seriesColor);
+        if (isset($seriesData[$i]['color'])) {
+          $seriesColor = $seriesData[$i]['color'];
+          array_push($seriesColors, $seriesColor);
+        }
+        else {
+          $seriesColor = '#000000';
+          array_push($seriesColors, $seriesColor);
+        }
       }
     }
     $googleOptions->setColors($seriesColors);
@@ -550,6 +561,14 @@ class Google extends AbstractChart {
       $googleOptions->setCurveType('function');
     }
 
+    // Set dataless region color option if geo.
+    if ($options['type'] == 'geo') {
+      if (empty($options['colorAxis'])) {
+        $options['colorAxis'] = array();
+      }
+      $googleOptions->setColorAxis($options['colorAxis']);
+      $googleOptions->setDatalessRegionColor($options['datalessRegionColor']);
+    }
     return $googleOptions;
   }
 

@@ -590,6 +590,40 @@ class GoogleOptions implements \JsonSerializable {
   }
 
   /**
+   * Gets the colorAxis properties.
+   *
+   * @return string
+   *   colorAxis.
+   */
+  public function getColorAxis() {
+    return $this->colorAxis;
+  }
+
+  /**
+    * @param string $colorAxis
+   */
+  public function setColorAxis(array $colorAxis = []) {
+    $this->colorAxis = $colorAxis;
+  }
+
+/**
+ * Gets the datalessRegionColor properties.
+ *
+ * @return string
+ *   datalessRegionColor.
+ */
+  public function getDatalessRegionColor() {
+    return $this->datalessRegionColor;
+  }
+
+  /**
+    * @param string $datalessRegionColor
+   */
+  public function setDatalessRegionColor($datalessRegionColor) {
+    $this->datalessRegionColor = $datalessRegionColor;
+  }
+
+  /**
    * @return int
    */
   public function getPointSize() {

@@ -7,7 +7,7 @@ hidden: true
 dependencies:
   - simple_oauth
 
-# Information added by Drupal.org packaging script on 2019-09-26
-version: '8.x-4.2'
+# Information added by Drupal.org packaging script on 2019-10-29
+version: '8.x-4.3'
 project: 'simple_oauth'
-datestamp: 1569530901
+datestamp: 1572343091

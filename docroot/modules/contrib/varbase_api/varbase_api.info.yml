@@ -16,7 +16,7 @@ install:
   - restui
   - jsonapi_extras
 
-# Information added by Drupal.org packaging script on 2019-10-03
-version: '8.x-7.6'
+# Information added by Drupal.org packaging script on 2019-11-24
+version: '8.x-7.7'
 project: 'varbase_api'
-datestamp: 1570135689
+datestamp: 1574604192

@@ -172,13 +172,8 @@ class RolesNegotiationFunctionalTest extends BrowserTestBase {
         ],
       ]
     );
-    $parsed_response = Json::decode((string) $response->getBody());
-    // The token was successfully removed. The negotiated user is the anonymous
-    // user.
-    $this->assertEquals(0, $parsed_response['id']);
-    $this->assertEquals(['anonymous'], $parsed_response['roles']);
-    $this->assertFalse($parsed_response['permissions']['view own simple_oauth entities']['access']);
-    $this->assertFalse($parsed_response['permissions']['administer simple_oauth entities']['access']);
+    // The token was successfully removed and we were denied access.
+    $this->assertEquals(401, $response->getStatusCode());
 
     // Request the access token again. This time the user doesn't have the role
     // requested at the time of generating the token.
@@ -237,12 +232,8 @@ class RolesNegotiationFunctionalTest extends BrowserTestBase {
         ],
       ]
     );
-    $parsed_response = Json::decode((string) $response->getBody());
-    // The token was successfully removed. The negotiated user is the anonymous
-    // user.
-    $this->assertEquals(0, $parsed_response['id']);
-    $this->assertEquals(['anonymous'], $parsed_response['roles']);
-    $this->assertFalse($parsed_response['permissions']['view own simple_oauth entities']['access']);
+    // The token was successfully removed and we were denied access.
+    $this->assertEquals(401, $response->getStatusCode());
 
     $access_token = $this->getAccessToken(['oof']);
     // Get detailed information about the authenticated user.

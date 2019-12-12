@@ -8,7 +8,7 @@ core: 8.x
 dependencies:
   - drupal:tour
 
-# Information added by Drupal.org packaging script on 2019-10-09
-version: '8.x-7.3'
+# Information added by Drupal.org packaging script on 2019-11-24
+version: '8.x-7.6'
 project: 'varbase_core'
-datestamp: 1570639527
+datestamp: 1574605090

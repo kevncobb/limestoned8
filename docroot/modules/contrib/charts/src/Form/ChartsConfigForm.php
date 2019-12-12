@@ -55,6 +55,11 @@ class ChartsConfigForm extends ConfigFormBase {
 
     $parents = ['charts_default_settings'];
     $default_config = $this->config->get('charts_default_settings');
+    if (!isset($default_config)) {
+      $defaultSettings = new ChartsDefaultSettings();
+      $default_config = $defaultSettings->getDefaults();
+    }
+
     $defaults = array_merge($this->defaults->getDefaults(), $default_config);
 
     $field_options = [];

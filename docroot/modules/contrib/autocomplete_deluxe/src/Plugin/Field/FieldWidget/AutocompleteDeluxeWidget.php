@@ -11,6 +11,8 @@ use Drupal\Core\Field\WidgetBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Site\Settings;
+use Drupal\Core\StringTranslation\StringTranslationTrait;
+use Drupal\Core\StringTranslation\TranslationInterface;
 use Drupal\Core\Url;
 use Drupal\user\EntityOwnerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -29,6 +31,8 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  */
 class AutocompleteDeluxeWidget extends WidgetBase implements ContainerFactoryPluginInterface {
 
+  use StringTranslationTrait;
+
   /**
    * The module handler.
    *
@@ -39,6 +43,16 @@ class AutocompleteDeluxeWidget extends WidgetBase implements ContainerFactoryPlu
   /**
    * {@inheritdoc}
    *
+   * @param string $plugin_id
+   *   The plugin_id for the plugin instance.
+   * @param mixed $plugin_definition
+   *   The plugin implementation definition.
+   * @param \Drupal\Core\Field\FieldDefinitionInterface $field_definition
+   *   The field definition for the operation.
+   * @param array $settings
+   *   The formatter settings.
+   * @param array $third_party_settings
+   *   Any third party settings.
    * @param \Drupal\Core\Extension\ModuleHandlerInterface $module_handler
    *   The module handler.
    */
@@ -69,7 +83,6 @@ class AutocompleteDeluxeWidget extends WidgetBase implements ContainerFactoryPlu
     return [
       'match_operator' => 'CONTAINS',
       'autocomplete_route_name' => 'autocomplete_deluxe.autocomplete',
-      'target_type' => 'taxonomy_term',
       'size' => 60,
       'selection_handler' => 'default',
       'limit' => 10,
@@ -78,6 +91,7 @@ class AutocompleteDeluxeWidget extends WidgetBase implements ContainerFactoryPlu
       'not_found_message_allow' => FALSE,
       'not_found_message' => "The term '@term' will be added",
       'new_terms' => FALSE,
+      'no_empty_message' => 'No terms could be found. Please type in order to add a new term.',
     ] + parent::defaultSettings();
   }
 
@@ -85,9 +99,6 @@ class AutocompleteDeluxeWidget extends WidgetBase implements ContainerFactoryPlu
    * {@inheritdoc}
    */
   public function settingsForm(array $form, FormStateInterface $form_state) {
-    $instance = $this->fieldDefinition;
-    $settings = $instance->getSettings();
-
     $element['limit'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Limit of the output.'),
@@ -105,7 +116,7 @@ class AutocompleteDeluxeWidget extends WidgetBase implements ContainerFactoryPlu
     $element['delimiter'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Delimiter.'),
-      '#description' => $this->t('A character which should be used beside the enter key, to seperate terms.'),
+      '#description' => $this->t('A character which should be used beside the enter key, to separate terms.'),
       '#default_value' => $this->getSetting('delimiter'),
       '#size' => 1,
     ];
@@ -113,7 +124,7 @@ class AutocompleteDeluxeWidget extends WidgetBase implements ContainerFactoryPlu
       '#type' => 'checkbox',
       '#title' => $this->t('Show Term not found message'),
       '#description' => $this->t('If this is enabled, a message will be displayed when the term is not found.'),
-      '#default_value' => $this->getSetting('new_terms'),
+      '#default_value' => $this->getSetting('not_found_message_allow'),
     ];
     $element['not_found_message'] = [
       '#type' => 'textfield',
@@ -126,6 +137,12 @@ class AutocompleteDeluxeWidget extends WidgetBase implements ContainerFactoryPlu
       '#title' => $this->t('Allow new terms'),
       '#description' => $this->t('Should it be allowed, that user enter new terms?'),
       '#default_value' => $this->getSetting('new_terms'),
+    ];
+    $element['no_empty_message'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Empty value message.'),
+      '#description' => $this->t('A text message that will be displayed when the field is focused and it does not contain values.'),
+      '#default_value' => $this->getSetting('no_empty_message'),
     ];
 
     return $element;
@@ -143,6 +160,7 @@ class AutocompleteDeluxeWidget extends WidgetBase implements ContainerFactoryPlu
     $summary[] = $this->t('Allow Not Found message: @not_found_message_allow', ['@not_found_message_allow' => $this->getSetting('not_found_message_allow') ? 'Yes' : 'No']);
     $summary[] = $this->t('Not Found message: @not_found_message', ['@not_found_message' => $this->getSetting('not_found_message')]);
     $summary[] = $this->t('Allow new terms: @new_terms', ['@new_terms' => $this->getSetting('new_terms') ? 'Yes' : 'No']);
+    $summary[] = $this->t('Empty value message: @no_empty_message', ['@no_empty_message' => $this->getSetting('no_empty_message')]);
 
     return $summary;
   }
@@ -154,6 +172,7 @@ class AutocompleteDeluxeWidget extends WidgetBase implements ContainerFactoryPlu
     $entity = $items->getEntity();
     $instance = $this->fieldDefinition;
     $cardinality = $instance->getFieldStorageDefinition()->getCardinality();
+    $target_type = $instance->getFieldStorageDefinition()->getSetting('target_type');
     $settings = $this->getSettings();
     $referenced_entities = $items->referencedEntities();
 
@@ -161,7 +180,7 @@ class AutocompleteDeluxeWidget extends WidgetBase implements ContainerFactoryPlu
 
     $new_terms = isset($settings['new_terms']) ? $settings['new_terms'] : FALSE;
     $allow_message = isset($settings['not_found_message_allow']) ? $settings['not_found_message_allow'] : FALSE;
-    $not_found_message = isset($element['not_found_message']) ? $element['not_found_message'] : "The term '@term' will be added.";
+    $not_found_message = isset($settings['not_found_message']) ? $settings['not_found_message'] : "The term '@term' will be added.";
     if (!$new_terms) {
       if ($allow_message) {
         $not_found_message = "Cannot add '@term' because 'Allow new terms' is disabled on the widget settings.";
@@ -174,7 +193,7 @@ class AutocompleteDeluxeWidget extends WidgetBase implements ContainerFactoryPlu
     $element += [
       '#type' => 'autocomplete_deluxe',
       '#title' => $this->fieldDefinition->getLabel(),
-      '#target_type' => $this->getFieldSetting('target_type'),
+      '#target_type' => $target_type,
       '#selection_handler' => $this->getFieldSetting('handler'),
       '#selection_settings' => $selection_settings,
       '#size' => 60,
@@ -182,8 +201,9 @@ class AutocompleteDeluxeWidget extends WidgetBase implements ContainerFactoryPlu
       '#min_length' => isset($settings['min_length']) ? $settings['min_length'] : 0,
       '#delimiter' => isset($settings['delimiter']) ? $settings['delimiter'] : '',
       '#not_found_message_allow' => $allow_message,
-      '#not_found_message' => $not_found_message,
+      '#not_found_message' => $this->t($not_found_message),
       '#new_terms' => isset($settings['new_terms']) ? $settings['new_terms'] : FALSE,
+      '#no_empty_message' => isset($settings['no_empty_message']) ? $this->t($settings['no_empty_message']) : '',
     ];
 
     $multiple = $cardinality > 1 || $cardinality == FieldStorageDefinitionInterface::CARDINALITY_UNLIMITED;
@@ -191,10 +211,10 @@ class AutocompleteDeluxeWidget extends WidgetBase implements ContainerFactoryPlu
     // If new terms are allowed to be created, set the bundle and the uid of the
     // term.
     if ($this->getSetting('new_terms') && $this->getSelectionHandlerSetting('auto_create') && ($bundle = $this->getAutocreateBundle())) {
-      $element['#autocreate'] = array(
+      $element['#autocreate'] = [
         'bundle' => $bundle,
         'uid' => ($entity instanceof EntityOwnerInterface) ? $entity->getOwnerId() : \Drupal::currentUser()->id(),
-      );
+      ];
     }
 
     $entities = [];
@@ -212,16 +232,16 @@ class AutocompleteDeluxeWidget extends WidgetBase implements ContainerFactoryPlu
     }
 
     $route_parameters = [
-      'target_type' => $settings['target_type'],
+      'target_type' => $target_type,
       'selection_handler' => $element['#selection_handler'],
       'selection_settings_key' => $selection_settings_key,
     ];
 
-    $element += array(
+    $element += [
       '#multiple' => $multiple,
-      '#autocomplete_deluxe_path' => Url::fromRoute('autocomplete_deluxe.autocomplete', $route_parameters, ['absolute' => TRUE])->toString(),
+      '#autocomplete_deluxe_path' => preg_replace('/^[^\\/]+/', '', Url::fromRoute('autocomplete_deluxe.autocomplete', $route_parameters, ['absolute' => TRUE])->toString()),
       '#default_value' => self::implodeEntities($entities),
-    );
+    ];
 
     return ['target_id' => $element];
   }
@@ -238,7 +258,7 @@ class AutocompleteDeluxeWidget extends WidgetBase implements ContainerFactoryPlu
    *   Imploded list of entity labels.
    */
   public static function implodeEntities(array $entities, $bundle = NULL) {
-    $typed_entities = array();
+    $typed_entities = [];
     foreach ($entities as $entity) {
       $label = $entity->label();
 
@@ -272,7 +292,7 @@ class AutocompleteDeluxeWidget extends WidgetBase implements ContainerFactoryPlu
   public static function validateInteger(&$element, FormStateInterface $form_state, &$complete_form) {
     $value = $element['#value'];
     if ($value !== '' && (!is_numeric($value) || intval($value) != $value)) {
-      $form_state->setError($element, t('%name must be an integer.', ['%name' => $element['#title']]));
+      $form_state->setError($element, $this->t('%name must be an integer.', ['%name' => $element['#title']]));
     }
   }
 
@@ -282,7 +302,7 @@ class AutocompleteDeluxeWidget extends WidgetBase implements ContainerFactoryPlu
   public static function validateIntegerPositive(&$element, FormStateInterface $form_state, &$complete_form) {
     $value = $element['#value'];
     if ($value !== '' && (!is_numeric($value) || intval($value) != $value || $value <= 0)) {
-      $form_state->setError($element, t('%name must be a positive integer.', ['%name' => $element['#title']]));
+      $form_state->setError($element, $this->t('%name must be a positive integer.', ['%name' => $element['#title']]));
     }
   }
 
@@ -337,8 +357,8 @@ class AutocompleteDeluxeWidget extends WidgetBase implements ContainerFactoryPlu
    */
   protected function getMatchOperatorOptions() {
     return [
-      'STARTS_WITH' => t('Starts with'),
-      'CONTAINS' => t('Contains'),
+      'STARTS_WITH' => $this->t('Starts with'),
+      'CONTAINS' => $this->t('Contains'),
     ];
   }
 

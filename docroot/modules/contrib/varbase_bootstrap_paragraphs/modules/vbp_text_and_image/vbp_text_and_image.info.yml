@@ -9,7 +9,7 @@ dependencies:
   - varbase_bootstrap_paragraphs:varbase_bootstrap_paragraphs
 install:
   - varbase_landing
-# Information added by Drupal.org packaging script on 2019-10-09
-version: '8.x-7.5'
+# Information added by Drupal.org packaging script on 2019-11-18
+version: '8.x-7.8'
 project: 'varbase_bootstrap_paragraphs'
-datestamp: 1570617487
+datestamp: 1574103186

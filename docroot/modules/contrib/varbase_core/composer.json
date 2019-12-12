@@ -64,14 +64,14 @@
     "drupal/betterlogin": "~1.0",
     "drupal/config_perms": "~2.0",
     "drupal/roleassign": "~1.0",
-    "drupal/admin_toolbar": "~1.0",
+    "drupal/admin_toolbar": "~2.0",
     "drupal/adminimal_admin_toolbar": "~1.0",
     "drupal/tour_ui": "~1.0",
     "drupal/tour_builder": "~1.0",
     "drupal/l10n_client": "*",
     "drupal/coffee": "1.0-beta2",
     "drupal/responsive_preview": "~1.0",
-    "drupal/views_bulk_operations": "~3.0",
+    "drupal/views_bulk_operations": "~3.3",
     "drupal/views_bulk_edit": "~2.0",
     "drupal/revision_log_default": "~1.0",
     "drupal/webform": "~5.0",
@@ -100,11 +100,12 @@
     "drupal/security_review": "*",
     "drupal/honeypot": "~1.0",
     "drupal/shield": "~1.0",
+    "drupal/flood_unblock": "~1.0",
     "drupal/captcha": "~1.0",
     "drupal/recaptcha": "~2.0",
     "drupal/mailsystem": "~4.0",
     "drupal/smtp": "~1.0",
-    "drupal/length_indicator": "1.0-rc3",
+    "drupal/length_indicator": "~1.0",
     "drupal/maxlength": "~1.0",
     "drupal/menu_position": "~1.0",
     "drupal/mail_edit": "*",
@@ -147,7 +148,9 @@
         "Issue #3044656: Add a helper method to strip subdirectories from URL paths":
         "https://www.drupal.org/files/issues/2019-03-31/3044656-2.patch",
         "Issue #2646744: Drupal Core Url does not accept root-relative (file) URLs, making it impossible to let LinkGenerator create root-relative file URL links":
-        "https://www.drupal.org/files/issues/2018-12-15/2646744-34.patch"
+        "https://www.drupal.org/files/issues/2018-12-15/2646744-34.patch",
+        "Issue #2820347: Fix Exposed filter reset redirects user to 404 page on AJAX view when placed as a block":
+        "https://www.drupal.org/files/issues/2019-07-22/2820347-129.patch"
       },
       "drupal/coffee": {
         "Issue #2815381: Coffee breaks whole page when using right to left (rtl) languages in drupal 8":
@@ -190,10 +193,6 @@
         "https://www.drupal.org/files/issues/2019-01-22/event-log-track-auth-3027463-2.patch",
         "Issue #3060838: Fix fatal error when we request password with non-existing users/emails  on the Events Log Track User Authentication":
         "https://www.drupal.org/files/issues/2019-06-11/3060838-4.patch"
-      },
-      "drupal/length_indicator": {
-        "Issue #3048286: Add cursor position direction support for RTL":
-        "https://www.drupal.org/files/issues/2019-04-15/3048286-3.patch"
       },
       "drupal/views_bootstrap": {
         "Issue #3049311: Grids should not be split into multiple rows":

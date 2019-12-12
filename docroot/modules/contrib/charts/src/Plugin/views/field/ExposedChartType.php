@@ -91,8 +91,7 @@ class ExposedChartType extends FieldPluginBase {
     $form['chart_types'] = [
       '#type' => 'checkboxes',
       '#title' => $this->t('Chart Type Options'),
-      '#description' => $this->t('Pick the chart type options to be 
-        exposed. You MUST disable your Views cache for this to work.'),
+      '#description' => $this->t('Pick the chart type options to be exposed. You may need to disable your Views cache.'),
       '#options' => $this->chartsTypes->getChartTypes(),
       '#default_value' => $this->options['chart_types'],
     ];

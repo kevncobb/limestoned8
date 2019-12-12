@@ -215,6 +215,10 @@ class Highcharts extends AbstractChart {
     if (!empty($options['xaxis_interval'])) {
       $chartXaxis->setTickInterval((int) $options['xaxis_interval']);
     }
+    // Set line width.
+    if (isset($options['xaxis_line_width']) && is_int($options['xaxis_line_width'])) {
+      $chartXaxis->setLineWidth($options['xaxis_line_width']);
+    }
 
     return $chartXaxis;
   }
@@ -311,6 +315,22 @@ class Highcharts extends AbstractChart {
           $chartYaxis->setTickmarkPlacement($options['yaxis_tickmark_placement']);
           break;
         default:
+      }
+    }
+    if (isset($options['yaxis_line_width']) && is_int($options['yaxis_line_width'])) {
+      $chartYaxis->setLineWidth($options['yaxis_line_width']);
+    }
+
+    // Polar options.
+    if (isset($options['polar'])) {
+      if (isset($options['yaxis_gridline_interpolation'])) {
+        switch ($options['yaxis_gridline_interpolation']) {
+          case 'circle':
+          case 'polygon':
+            $chartYaxis->setGridLineInterpolation($options['yaxis_gridline_interpolation']);
+            break;
+          default:
+        }
       }
     }
 

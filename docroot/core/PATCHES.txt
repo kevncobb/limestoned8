@@ -29,3 +29,7 @@ Issue #2646744: Drupal Core Url does not accept root-relative (file) URLs, makin
 Source: https://www.drupal.org/files/issues/2018-12-15/2646744-34.patch
 
 
+Issue #2820347: Fix Exposed filter reset redirects user to 404 page on AJAX view when placed as a block
+Source: https://www.drupal.org/files/issues/2019-07-22/2820347-129.patch
+
+

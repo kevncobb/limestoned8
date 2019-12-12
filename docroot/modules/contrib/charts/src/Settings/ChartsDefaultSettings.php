@@ -4,8 +4,6 @@
 namespace Drupal\charts\Settings;
 
 
-use Drupal\charts\Settings\ChartsDefaultColors;
-
 class ChartsDefaultSettings {
 
   protected $colors;

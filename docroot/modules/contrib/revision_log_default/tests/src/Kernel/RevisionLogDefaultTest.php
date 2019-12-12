@@ -6,7 +6,6 @@ use Drupal\KernelTests\Core\Entity\EntityKernelTestBase;
 use Drupal\language\Entity\ConfigurableLanguage;
 use Drupal\node\Entity\Node;
 use Drupal\node\Entity\NodeType;
-use Drupal\revision_log_entity_test\Entity\RevisionLogEntityTest;
 
 /**
  * Tests the revision_log_default module.
@@ -22,7 +21,6 @@ class RevisionLogDefaultTest extends EntityKernelTestBase {
     'node',
     'language',
     'revision_log_default',
-    'revision_log_entity_test',
   ];
 
   /**
@@ -42,9 +40,6 @@ class RevisionLogDefaultTest extends EntityKernelTestBase {
     node_add_body_field($type);
 
     ConfigurableLanguage::createFromLangcode('fr')->save();
-
-    $this->installEntitySchema('revision_log_default_test_entity');
-    $this->installEntitySchema('revision_log_default_test_bundle');
   }
 
   /**
@@ -78,17 +73,6 @@ class RevisionLogDefaultTest extends EntityKernelTestBase {
     $node->revision_log = '';
     $node->save();
     $this->assertEquals($node->revision_log->getString(), 'Updated the Title and Body fields');
-  }
-
-  /**
-   * Tests when a bundle is missing/deleted.
-   */
-  public function testRevisionLogBundleMissing() {
-    $entity = RevisionLogEntityTest::create(['type' => $this->randomMachineName()]);
-    $entity->save();
-
-    // If the bundle doesnt exist then fall back to entity type label.
-    $this->assertEquals('Created new Revision log entity test', $entity->getRevisionLogMessage());
   }
 
 }

@@ -3,7 +3,6 @@
 namespace Drupal\autocomplete_deluxe\Controller;
 
 use Drupal\Component\Utility\Crypt;
-use Drupal\Component\Utility\Html;
 use Drupal\Component\Utility\Tags;
 use Drupal\Core\Site\Settings;
 use Drupal\system\Controller\EntityAutocompleteController;
@@ -20,12 +19,16 @@ class AutocompleteDeluxeController extends EntityAutocompleteController {
    * {@inheritdoc}
    */
   public function handleAutocomplete(Request $request, $target_type, $selection_handler, $selection_settings_key) {
-    $matches = array();
+    $matches = [];
     // Get the typed string from the URL, if it exists.
-    if ($input = $request->query->get('q')) {
+    $input = trim($request->query->get('q'));
+    if (!empty($input)) {
       $typed_string = Tags::explode($input);
-
       $typed_string = array_pop($typed_string);
+    } else {
+            // Select without entering something.
+      $typed_string = '';
+    }
 
       // Selection settings are passed in as a hashed key of a serialized array
       // stored in the key/value store.
@@ -46,13 +49,12 @@ class AutocompleteDeluxeController extends EntityAutocompleteController {
 
       $matches = $this->matcher->getMatches($target_type, $selection_handler, $selection_settings, $typed_string);
 
-      $items = array();
+      $items = [];
       foreach ($matches as $item) {
-        $items[$item['value']] = Html::escape($item['label']);
+        $items[$item['value']] = $item['label'];
       }
 
       $matches = $items;
-    }
 
     return new JsonResponse($matches);
   }

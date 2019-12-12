@@ -25,7 +25,7 @@ class AutocompleteDeluxeElement extends FormElement {
     // Apply default form element properties.
     $info['#target_type'] = NULL;
     $info['#selection_handler'] = 'default';
-    $info['#selection_settings'] = array();
+    $info['#selection_settings'] = [];
     $info['#tags'] = TRUE;
     $info['#autocreate'] = NULL;
     // This should only be set to FALSE if proper validation by the selection
@@ -62,7 +62,7 @@ class AutocompleteDeluxeElement extends FormElement {
     $element['#multiple'] = isset($element['#multiple']) ? $element['#multiple'] : FALSE;
 
     // Add label_display and label variables to template.
-    $element['label'] = array('#theme' => 'form_element_label');
+    $element['label'] = ['#theme' => 'form_element_label'];
     $element['label'] += array_intersect_key(
       $element,
       array_flip(
@@ -85,9 +85,10 @@ class AutocompleteDeluxeElement extends FormElement {
       '#default_value' => '',
       '#prefix' => '<div class="autocomplete-deluxe-container">',
       '#suffix' => '</div>',
+      '#description' => isset($element['#description']) ? $element['#description'] : '',
     ];
 
-    $js_settings[$html_id] = array(
+    $js_settings[$html_id] = [
       'input_id' => $html_id,
       'multiple' => $element['#multiple'],
       'required' => $element['#required'],
@@ -98,7 +99,8 @@ class AutocompleteDeluxeElement extends FormElement {
       'not_found_message_allow' => isset($element['#not_found_message_allow']) ? $element['#not_found_message_allow'] : FALSE,
       'not_found_message' => isset($element['#not_found_message']) ? $element['#not_found_message'] : "The term '@term' will be added.",
       'new_terms' => isset($element['#new_terms']) ? $element['#new_terms'] : FALSE,
-    );
+      'no_empty_message' => isset($element['#no_empty_message']) ? $element['#no_empty_message'] : 'No terms could be found. Please type in order to add a new term.',
+    ];
 
     if (isset($element['#autocomplete_deluxe_path'])) {
       if (isset($element['#default_value'])) {
@@ -121,6 +123,7 @@ class AutocompleteDeluxeElement extends FormElement {
           '#default_value' => $default_value,
           '#prefix' => '<div class="autocomplete-deluxe-value-container">',
           '#suffix' => '</div>',
+          '#description' => isset($element['#description']) ? $element['#description'] : '',
         ];
         $element['textfield']['#attributes']['style'] = ['display: none'];
       }
@@ -168,10 +171,9 @@ class AutocompleteDeluxeElement extends FormElement {
 
     if (isset($element['value_field'])) {
       $element['#value'] = trim($element['#value']);
-      // Replace all double double quotes and space with a comma. This will
-      // allow us to keep entries in double quotes.
-      $element['#value'] = str_replace('"" ""', ',', $element['#value']);
-      $element['#value'] = str_replace('""  ""', ',', $element['#value']);
+      // Replace all cases of double double quotes and one or more spaces with a
+      // comma. This will allow us to keep entries in double quotes.
+      $element['#value'] = preg_replace('/"" +""/', ',', $element['#value']);
       // Remove the double quotes at the beginning and the end from the first
       // and the last term.
       $element['#value'] = substr($element['#value'], 2, strlen($element['#value']) - 4);

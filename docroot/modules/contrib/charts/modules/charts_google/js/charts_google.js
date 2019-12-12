@@ -78,6 +78,7 @@
     return function () {
       var data = google.visualization.arrayToDataTable(JSON.parse(dataTable));
       var options = JSON.parse(googleChartOptions);
+
       var googleChartTypeObject = JSON.parse(chartType);
       var googleChartTypeFormatted = googleChartTypeObject.type;
       var chart;
@@ -124,6 +125,15 @@
           }
         }
       }
+
+      // Rewrite the colorAxis item to include the colors: key
+      if (typeof options['colorAxis'] != 'undefined') {
+        var num_colors = options['colorAxis'].length;
+        var colors = options['colorAxis'];
+        options['colorAxis'] = options['colorAxis'].splice(num_colors);
+        options['colorAxis'] = {colors: colors};
+      }
+
       chart.draw(data, options);
     };
   };

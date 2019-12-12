@@ -31,6 +31,11 @@ class Yaxis implements \JsonSerializable {
 
   private $endOnTick;
 
+  private $gridLineInterpolation = 'circle';
+
+  // Default is 0 per https://api.highcharts.com/highcharts/yAxis.lineWidth .
+  private $lineWidth = 0;
+
   /**
    * Get Title.
    *
@@ -215,6 +220,34 @@ class Yaxis implements \JsonSerializable {
    */
   public function setEndOnTick($endOnTick) {
     $this->endOnTick = $endOnTick;
+  }
+
+  /**
+   * @return int
+   */
+  public function getLineWidth() {
+    return $this->lineWidth;
+  }
+
+  /**
+   * @param int $lineWidth
+   */
+  public function setLineWidth($lineWidth) {
+    $this->lineWidth = $lineWidth;
+  }
+
+  /**
+   * @return mixed
+   */
+  public function getGridLineInterpolation() {
+    return $this->gridLineInterpolation;
+  }
+
+  /**
+   * @param mixed $gridLineInterpolation
+   */
+  public function setGridLineInterpolation($gridLineInterpolation) {
+    $this->gridLineInterpolation = $gridLineInterpolation;
   }
 
   /**

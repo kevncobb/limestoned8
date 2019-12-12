@@ -137,9 +137,10 @@
     this.required = settings.required;
     this.limit = settings.limit;
     this.synonyms = typeof settings.use_synonyms == 'undefined' ? false : settings.use_synonyms;
-    this.not_found_message = typeof settings.use_synonyms == 'undefined' ? "The entity '@term' will be added." : settings.not_found_message;
+    this.not_found_message = typeof settings.use_synonyms == 'undefined' ? Drupal.t("The entity '@term' will be added.") : settings.not_found_message;
     this.not_found_message_allow = typeof settings.not_found_message_allow == 'undefined' ? false : settings.not_found_message_allow;
     this.new_terms = typeof settings.new_terms == 'undefined' ? false : settings.new_terms;
+    this.no_empty_message = typeof settings.no_empty_message == 'undefined' ? Drupal.t('No terms could be found. Please type in order to add a new term.') : settings.no_empty_message;
 
     this.wrapper = '""';
 
@@ -173,11 +174,19 @@
       // If there are no results and new terms OR not found message can be
       // displayed, push the result, so the menu can be shown.
       if ($.isEmptyObject(result) && (self.new_terms || self.not_found_message_allow)) {
-        result.push({
-          label: Drupal.t(self.not_found_message, {'@term' : term}),
-          value: term,
-          newTerm: true
-        });
+        if (term !== ' ') {
+          result.push({
+            label: Drupal.formatString(self.not_found_message, {'@term': term}),
+            value: term,
+            newTerm: true
+          });
+        }
+        else {
+          result.push({
+            label: self.no_empty_message,
+            noTerms: true
+          });
+        }
       }
       return result;
     };
@@ -199,7 +208,7 @@
         term = " ";
       }
       request.synonyms = self.synonyms;
-      var url = settings.uri + '?q=' + term;
+      var url = Drupal.url(settings.uri + '?q=' + term);
       lastXhr = $.getJSON(url, request, function(data, status, xhr) {
         cache[term] = data;
         if (xhr === lastXhr) {
@@ -224,9 +233,21 @@
       throbber.addClass('autocomplete-deluxe-open');
     });
 
-    this.jqObject.bind("autocompleteopen", function(event, ui) {
+    this.jqObject.bind("autocompleteresponse", function(event, ui) {
       throbber.addClass('autocomplete-deluxe-closed');
       throbber.removeClass('autocomplete-deluxe-open');
+      // If no results found, show a message and prevent selecting it as a tag.
+      if (!drupalSettings.autocomplete_deluxe[this.id].new_terms && typeof ui.item !== 'undefined' && ui.item.newTerm) {
+        var uiWidgetContent = $('.ui-widget-content');
+        uiWidgetContent.css('pointer-events', '');
+        if (!ui.content.length) {
+          ui.content[0] = {
+            'label': Drupal.t('No results found'),
+            'value': ''
+          };
+          uiWidgetContent.css('pointer-events', 'none');
+        }
+      }
     });
 
     // Monkey patch the _renderItem function jquery so we can highlight the
@@ -299,6 +320,9 @@
     if (item.newTerm === true) {
       item.label = item.value;
     }
+    else if (item.noTerms === true) {
+      return;
+    }
 
     this.value = item.value;
     this.element = $('<span class="autocomplete-deluxe-item">' + item.label + '</span>');
@@ -306,12 +330,17 @@
     this.item = item;
     var self = this;
 
+
     var close = $('<a class="autocomplete-deluxe-item-delete" href="javascript:void(0)"></a>').appendTo(this.element);
     // Use single quotes because of the double quote encoded stuff.
-    var input = $('<input type="hidden" value=\'' + this.value + '\'/>').appendTo(this.element);
+    // .. then to make this work for single quotes in names, like O'Brian, enocde '.
+    var encodedVal = this.value.replace("'", "&#039;");
+    var input = $('<input type="hidden" value=\'' + encodedVal + '\'/>').appendTo(this.element);
 
     close.mousedown(function() {
       self.remove(item);
+      var value_input = self.widget.jqObject.parents('.autocomplete-deluxe-container').next().find('input');
+      value_input.trigger('change');
     });
   };
 
@@ -341,6 +370,7 @@
       });
 
       value_input.val('""' + items.join('"" ""') + '""');
+      value_input.trigger('change');
     };
 
     parent.sortable({
@@ -348,7 +378,7 @@
       containment: 'parent',
       tolerance: 'pointer',
     });
-    
+
     // Override the resize function, so that the suggestion list doesn't resizes
     // all the time.
     var autocompleteDataKey = typeof(this.jqObject.data('autocomplete')) === 'object' ? 'autocomplete' : 'ui-autocomplete';
@@ -363,7 +393,7 @@
     var default_values = value_input.val();
     default_values = $.trim(default_values);
     default_values = default_values.substr(2, default_values.length-4);
-    default_values = default_values.split('"" ""');
+    default_values = default_values.split(/"" +""/);
 
     for (var index in default_values) {
       var value = default_values[index];
@@ -372,7 +402,7 @@
         // no double quotes.
         var label = value.match(/["][\w|\s|\D|]*["]/gi) !== null ? value.substr(1, value.length-2) : value;
         var item = {
-          label : label,
+          label : Drupal.checkPlain(label),
           value : value
         };
         var item = new Drupal.autocomplete_deluxe.MultipleWidget.Item(self, item);
@@ -478,7 +508,7 @@
     });
 
 
-    jqObject.keyup(function (event) {
+    jqObject.keyup(function () {
       if (clear) {
         // Trigger the search, so it display the values for an empty string.
         jqObject.autocomplete('search', '');
