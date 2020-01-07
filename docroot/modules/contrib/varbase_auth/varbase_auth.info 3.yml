@@ -1,0 +1,16 @@
+name: 'Varbase Social Single Sign-On'
+type: module
+description: 'Adds single sign-on using existing information from a social networking service such as Facebook, Twitter or Google+'
+core: 8.x
+# version: 8.x-6.x-dev
+package: Varbase
+# project: varbase_auth
+dependencies:
+  - drupal:system
+  - drupal:block
+  - social_auth:social_auth
+
+# Information added by Drupal.org packaging script on 2019-11-24
+version: '8.x-6.6'
+project: 'varbase_auth'
+datestamp: 1574584387

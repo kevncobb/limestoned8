@@ -1,0 +1,12 @@
+<?php
+
+/**
+ * @file
+ * Install and update hooks for update_helper_checklist module.
+ */
+
+/**
+ * Installation hoot for update helper checklist module.
+ *
+ * TODO: Check already executed update hooks and mark them in the checklist.
+ */
