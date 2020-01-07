@@ -1,0 +1,9 @@
+drupal.lb_ux:
+  version: VERSION
+  css:
+    theme:
+      css/layout-builder-ux.css: {}
+  js:
+    js/lb_ux.js: {}
+  dependencies:
+    - core/jquery

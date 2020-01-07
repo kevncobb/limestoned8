@@ -7,16 +7,16 @@ use Drupal\update_helper\Utility\CommandHelper;
 use Psr\Log\LoggerInterface;
 
 /**
- * Class ApplyConfigurationUpdateCommand
+ * Class ApplyConfigurationUpdateCommand.
  *
- * define drush commands for update_helper module
+ * Define drush commands for update_helper module.
  *
  * @package Drupal\update_helper\Command
  */
 class ApplyConfigurationUpdateCommands extends DrushCommands {
 
   /**
-   * command helper object (inspired by search API module)
+   * Command helper object (inspired by search API module)
    *
    * @var \Drupal\update_helper\Utility\CommandHelper
    */
@@ -38,19 +38,21 @@ class ApplyConfigurationUpdateCommands extends DrushCommands {
   }
 
   /**
-   * applying an update hook (function) from module install file
+   * Applying an update hook (function) from module install file
    * Apply updates by invoking the related update hooks.
    *
    * @param string $module
    * @param string $update_hook
    * @param array $options
+   *
    * @option force
    *
    * @command update_helper:apply-update
    * @aliases uhau
    */
-  public function apply_update ($module = '', $update_hook = '', $options = ['force' => FALSE]) {
+  public function apply_update($module = '', $update_hook = '', $options = ['force' => FALSE]) {
     $force = $options['force'];
     $this->commandHelper->apply_update($module, $update_hook, $force);
   }
+
 }

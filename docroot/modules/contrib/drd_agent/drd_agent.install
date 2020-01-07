@@ -1,11 +1,6 @@
 <?php
 
-/**
- * @file
- * Install file for DRD Agent module for initial installation and later udates.
- */
-
-use Drupal\drd\Agent\Remote\V8\Requirements;
+use Drupal\drd_agent\Agent\Remote\Requirements;
 
 /**
  * Implements hook_requirements().
@@ -14,9 +9,8 @@ use Drupal\drd\Agent\Remote\V8\Requirements;
  */
 function drd_agent_requirements($phase) {
   $requirements = [];
-  if (!empty($_SERVER['HTTP_X_DRD_VERSION'])) {
-    \Drupal::service('drd_agent.library')->load();
-    $requirements = Requirements::collect($phase);
+  if (!empty($_SERVER['HTTP_X_DRD_VERSION']) && $phase === 'runtime') {
+    $requirements = Requirements::create(Drupal::getContainer())->collect();
   }
   return $requirements;
 }

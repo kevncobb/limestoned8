@@ -27,7 +27,7 @@ interface UpdateDefinitionInterface {
    * Global condition key for expected modules.
    */
   const GLOBAL_CONDITION_EXPECTED_MODULES = 'expected_modules';
-  
+
   /**
    * Global action key for installing modules.
    */

@@ -30,23 +30,24 @@
     "composer/installers": "~1.0",
     "oomphinc/composer-installers-extender": "~1.0",
     "cweagans/composer-patches": "~1.0",
-    "drupal-composer/drupal-scaffold": "~2.0",
+    "drupal/core-composer-scaffold": "^8.8.0",
     "drupal/drupal-library-installer-plugin": "^0.3",
-    "drupal/varbase_core": "~7.0",
+    "drupal/varbase_core": "~8.0",
     "drupal/varbase_api": "~7.0",
     "drupal/varbase_media": "~7.0",
     "drupal/varbase_bootstrap_paragraphs": "~7.0",
     "drupal/varbase_editor": "~7.0",
     "drupal/varbase_landing": "~7.0",
+    "drupal/varbase_layout_builder": "~1.0",
     "drupal/varbase_heroslider_media": "~7.0",
     "drupal/varbase_carousels": "~7.0",
-    "drupal/varbase_blog": "~7.0",
+    "drupal/varbase_blog": "~8.0",
     "drupal/varbase_search": "~6.0",
     "drupal/varbase_seo": "~6.0",
     "drupal/varbase_auth": "~6.0",
     "drupal/varbase_total_control": "~6.0",
     "drupal/varbase_styleguide": "~6.0",
-    "drupal/varbase_email": "~6.0",
+    "drupal/varbase_email": "~6.1",
     "drupal/vartheme": "~6.0",
     "drupal/vartheme_bs4": "~6.0",
     "drupal/vartheme_admin": "~6.0"
@@ -79,13 +80,11 @@
     }
   },
   "scripts": {
-    "drupal-scaffold": "DrupalComposer\\DrupalScaffold\\Plugin::scaffold",
     "pre-install-cmd": ["Varbase\\composer\\ScriptHandler::checkComposerVersion"],
     "pre-update-cmd": ["Varbase\\composer\\ScriptHandler::checkComposerVersion"],
     "post-install-cmd": [
       "Varbase\\composer\\ScriptHandler::createRequiredFiles",
       "Varbase\\composer\\ScriptHandler::removeGitDirectories",
-      "@composer drupal-scaffold",
       "./bin/phing push"
     ],
     "post-update-cmd": [
@@ -97,8 +96,13 @@
     "create-new-vartheme": "scripts/create-new-vartheme.sh"
   },
   "extra": {
+    "drupal-scaffold": {
+      "locations": {
+        "web-root": "docroot/"
+      }
+    },
     "branch-alias": {
-      "dev-8.x-7.x": "8.7.x-dev"
+      "dev-8.x-8.x": "8.8.x-dev"
     },
     "installer-types": [
       "bower-asset",

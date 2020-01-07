@@ -115,7 +115,7 @@ class FilterImageResize extends FilterBase implements ContainerFactoryPluginInte
         $resize_threshold = 10;
         $flood = \Drupal::flood();
         if (!$flood->isAllowed('image_resize_filter_resize', $resize_threshold, 120)) {
-          drupal_set_message(t('Image resize threshold of @count per minute reached. Some images have not been resized. Resave the content to resize remaining images.', ['@count' => floor($resize_threshold / 2)]), 'error', FALSE);
+          $this->messenger->addMessage(t('Image resize threshold of @count per minute reached. Some images have not been resized. Resave the content to resize remaining images.', ['@count' => floor($resize_threshold / 2)]), 'error', FALSE);
           continue;
         }
         $flood->register('image_resize_filter_resize', 120);
@@ -132,7 +132,7 @@ class FilterImageResize extends FilterBase implements ContainerFactoryPluginInte
         }
         // Resize the local image if the sizes don't match.
         elseif ($image['resize']) {
-          $copy = file_unmanaged_copy($image['local_path'], $image['destination'], FILE_EXISTS_RENAME);
+          $copy = file_unmanaged_copy($image['local_path'], $image['destination']);
           $res = $this->imageFactory->get($copy);
           if ($res) {
             // Image loaded successfully; resize.

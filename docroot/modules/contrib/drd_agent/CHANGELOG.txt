@@ -1,3 +1,13 @@
+DRD Agent 8.x-3.11, 2019-12-23
+------------------------------
+Remove phar library and include agent code directly in module
+Update code style
+Workaround to handle class loader usage in settings.php
+Loosen return type for decrypt function
+Issue #3098760 by jurgenhaas: Get ready for Drupal 9
+Issue #3066415 by Mohammad Fayoumi, jurgenhaas: Declare the 8.3.x core as a dependency inside drd_agent's info file
+Issue #3003240 by chipway: Namespace Dependencies in .info.yml
+
 DRD Agent 8.x-3.9, 2019-09-05
 -----------------------------
 Disable route normalizers for drd agent

@@ -10,6 +10,8 @@
   <div id="middle_part">
     <h2 class="title">{{ title }}</h2>
 
+    {{ page.highlighted }}
+
     {{ messages }}
 
     {{ page.content }}
@@ -20,9 +22,11 @@
       <a href="{{ path('user.pass') }}">{{ 'Forgot your password?'|t }}</a>
     </div>
 
-    <div class="register_link">
-      <a href="{{ path('user.register') }}">{{ 'Register a new account'|t }}</a>
-    </div>
+    {% if register_url %}
+      <div class="register_link">
+        <a href="{{ register_url }}">{{ 'Register a new account'|t }}</a>
+      </div>
+    {% endif %}
 
     <div class="back_link">
       <a href="{{ url('<front>') }}">&larr; {{ 'Back'|t }} {{ site_name }}</a>

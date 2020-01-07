@@ -117,9 +117,14 @@ class GenerateConfigurationUpdateCommand extends Command {
       ->addOption(
         'include-modules',
         NULL,
-        InputOption::VALUE_OPTIONAL,
-        $this->trans('commands.generate.configuration.update.options.include-modules'),
-        ''
+        InputOption::VALUE_REQUIRED,
+        $this->trans('commands.generate.configuration.update.options.include-modules')
+      )
+      ->addOption(
+        'from-active',
+        NULL,
+        InputOption::VALUE_NONE,
+        $this->trans('commands.generate.configuration.update.options.from-active')
       )
       ->setAliases(['gcu']);
 
@@ -134,8 +139,8 @@ class GenerateConfigurationUpdateCommand extends Command {
   protected function execute(InputInterface $input, OutputInterface $output) {
     $io = new DrupalStyle($input, $output);
 
-    // @see use Drupal\Console\Command\Shared\ConfirmationTrait::confirmGeneration
-    if (!$this->confirmGeneration($io)) {
+    // @see use Drupal\Console\Command\Shared\ConfirmationTrait::confirmOperation
+    if (!$this->confirmOperation()) {
       return 1;
     }
 
@@ -153,8 +158,11 @@ class GenerateConfigurationUpdateCommand extends Command {
       );
     }
 
+    // Flag if export should be from active config to Yml files.
+    $from_active = $input->getOption('from-active');
+
     // Execute configuration update generation.
-    $successful = $this->generator->generate($module, $update_number, $include_modules);
+    $successful = $this->generator->generate($module, $update_number, $include_modules, $from_active);
 
     // Get additional options provided by other modules.
     $event = new CommandExecuteEvent($this, $module, $update_number, $input->getOptions(), $successful);

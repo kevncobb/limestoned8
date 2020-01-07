@@ -1,0 +1,11 @@
+name: 'Media Library Form Element'
+type: module
+description: 'A Form API element to select / add new media item.'
+core: 8.x
+dependencies:
+  - drupal:media_library
+
+# Information added by Drupal.org packaging script on 2019-12-20
+version: '8.x-1.0-alpha4'
+project: 'media_library_form_element'
+datestamp: 1576831695

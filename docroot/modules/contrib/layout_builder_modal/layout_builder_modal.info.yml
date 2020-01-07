@@ -1,0 +1,15 @@
+name: 'Layout Builder Modal'
+type: module
+description: 'Open blocks in a modal in the Layout Builder UI.'
+# core: 8.x
+configure: layout_builder_modal.config
+package: 'Custom'
+dependencies:
+  - drupal:system (>=8.7.0)
+  - drupal:layout_builder
+
+# Information added by Drupal.org packaging script on 2019-07-31
+version: '8.x-1.0-alpha2'
+core: '8.x'
+project: 'layout_builder_modal'
+datestamp: 1564581797

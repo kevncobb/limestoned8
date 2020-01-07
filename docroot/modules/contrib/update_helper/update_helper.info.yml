@@ -1,13 +1,12 @@
 name: 'Update Helper'
 description: 'Helper tool for generation and applying of configuration updates.'
 type: module
-# core: 8.x
+core: 8.x
 dependencies:
   - config_update:config_update
 package: Configuration
 
-# Information added by Drupal.org packaging script on 2019-03-11
-version: '8.x-1.0'
-core: '8.x'
+# Information added by Drupal.org packaging script on 2019-11-26
+version: '8.x-1.1'
 project: 'update_helper'
-datestamp: 1552297610
+datestamp: 1574762287

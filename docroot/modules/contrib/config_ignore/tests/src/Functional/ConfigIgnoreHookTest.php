@@ -18,12 +18,7 @@ class ConfigIgnoreHookTest extends ConfigIgnoreBrowserTestBase {
    *
    * @var array
    */
-  public static $modules = [
-    'config_ignore',
-    'config',
-    'config_filter',
-    'config_ignore_hook_test'
-  ];
+  public static $modules = ['config_ignore', 'config', 'config_filter', 'config_ignore_hook_test'];
 
   /**
    * Test hook implementation of another module.

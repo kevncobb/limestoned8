@@ -1,172 +1,169 @@
-# 8.7.3
+# 8.8.1
 
-### Highlighted important changes since Varbase 8.x-7.2:
-* Issue [#3085114](https://www.drupal.org/node/3085114):
-                 Added [Google Tag Manager] module to Varbase SEO component
-* Issue [#3094353](https://www.drupal.org/node/3094353):
-                 Added [Script Manager] module to [Varbase SEO] - not optional
-                 but can be uninstalled
-* Issue [#3094918](https://www.drupal.org/node/3094918):
-                 Added option (on install) to Enable [Google Tag Manager]
-                 and [Google Analytics] modules
+### Highlighted important changes since Varbase 8.x-8.0:
+* Issue [#3103717](https://www.drupal.org/node/3103717):
+                  Fixed replace drupal-composer/drupal-scaffold with
+                  drupal/core-composer-scaffold and remove post install cmd scripts
+* [Vardot/varbase-project](https://github.com/Vardot/varbase-project)
+                  template : Fixed replace
+                  drupal-composer/drupal-scaffold with
+                  drupal/core-composer-scaffold
+                  [#70](https://github.com/Vardot/varbase-project/issues/70)
+* [Vardot/varbase-updater](https://github.com/Vardot/varbase-updater)
+                  : Changed the update config rules for 8.7.* to 8.8.1 and
+                  from 8.8.* to 8.8.* latest
+                  [#24](https://github.com/Vardot/varbase-updater/issues/24)
 
-### Added since Varbase 8.x-7.2:
-* Issue [#3095334](https://www.drupal.org/node/3095334):
-                 Added [Flood Unblock] module 8.1.5 ( ~1.0 )
-* Issue [#3094401](https://www.drupal.org/node/3094401)
-                 by
-                 [Mohammed J. Razem](https://www.drupal.org/u/mohammed-j-razem)
-                : Added an optional update entry from Update Helper to enable
-                 the script manager modul
-* Issue [#3094382](https://www.drupal.org/node/3094382):
-                 Added administer scripts permission to [Site Admin,
-                 Super Admin] user roles. so that they could access the
-                 Script Manager configuration options
-* Issue [#3091267](https://www.drupal.org/node/3091267)
-                 by
-                 [qusai taha](https://www.drupal.org/u/qusai-taha)
-                : Added li tags for menu item(ul) in menu--acount.html.twig
-* Issue [#3090679](https://www.drupal.org/node/3090679)
-                 by
-                 [Firass Ziedan](https://www.drupal.org/u/firass-ziedan)
-                : Added the patch to fix ajax issue in bootstrap_barrio
-                 base theme
-* Issue [#3096425](https://www.drupal.org/node/3096425)
-                 by
-                 [mahseri](https://www.drupal.org/u/mahseri)
-                : Added config template for search result [Search result
-                 highlighting input] view mode
-* Issue [#3093426](https://www.drupal.org/node/3093426)
-                 by
-                 [Mohammad Fayoumi](https://www.drupal.org/u/mohammad-fayoumi)
-                : Added configuration link for the [Varbase Bootstrap
-                 Paragraphs settings] page
-* Issue [#3093428](https://www.drupal.org/node/3093428):
-                 Added the 3089444-21.patch for the [JSON:API Extras] module
-                 to fix Compatibility with Drupal 8.8.x and Drupal 8.7.x
+### Added since Varbase 8.x-8.0:
+* No new features. Have a look at Varbase 8.x-8.0
 
-### Changed since Varbase 8.x-7.2:
-* Issue [#3089579](https://www.drupal.org/node/3089579)
-                 by
-                 [Omar Alahmed](https://www.drupal.org/u/omar-alahmed)
-                : Changed view reference paragraph title in [Vartheme BS4]
-                 to add h2
-* Issue [#3093000](https://www.drupal.org/node/3093000)
-                 by
-                 [YousefAnbar](https://www.drupal.org/u/yousefanbar)
-                : Changed horizontal media teaser templates in [VarthemeBS4]
-                 to have full support for bootstrap 4 and remove legacy
-                 from bootstrap 3
-* Issue [#3095189](https://www.drupal.org/node/3095189):
-                 Removed all paragraphs templates from [Vartheme BS4] as they
-                 are synced with templates from Varbase Bootstrap
-                 Paragraphs 8.x-7.8
-* Issue [#3094081](https://www.drupal.org/node/3094081)
-                 by
-                 [RajabNatshah](https://www.drupal.org/u/rajabnatshah)
-                , [sreher](https://www.drupal.org/u/sreher)
-                : Changed README file with better info which are related
-                 to Varbase Auth
-* Issue [#3094921](https://www.drupal.org/node/3094921):
-                 Moved [Google Analytics config settings] from optional
-                 to managed config. so that when Google Analytics module
-                 enabled the custom GA settings will be loaded to the
-                 active config
-* Issue [#3090903](https://www.drupal.org/node/3090903)
-                 by
-                 [YousefAnbar](https://www.drupal.org/u/yousefanbar)
-                 : Changed Varbase Bootstrap Paragraphs description for the 
-                 settings on how to customize the styles to fit the project
-                 brand with custom theme
-* Issue [#3092737](https://www.drupal.org/node/3092737)
-                 by
-                 [Mohammad Fayoumi](https://www.drupal.org/u/mohammad-fayoumi)
-                : Changed the order for rendering the
-                 X button icon and the modal's field title
+### Changed since Varbase 8.x-8.0:
+* No changes. Have a look at Varbase 8.x-8.0
+
+### Updates since Varbase 8.x-8.0:
+* Issue [#3103730](https://www.drupal.org/node/3103730):
+                  Varbase 8.8.1: Update [CHANGELOG.md, README.md,
+                  drupal-org.make] files and filter the code for
+                  Drupal 8 Coding Standard
+* - Updated [Token] module from 8.1.5 to 8.1.6
+* - Updated [Varbase Layout Builder] module from 8.1.0-alpha2 to 8.1.0-alpha3
+* - Updated [Varbase Media] module from 8.7.9 to 8.7.10
+* - Updated [Varbase Media Hero Slider] module from 8.7.5 to 8.7.6
+* - Updated [Varbase Media Header] module from 8.7.3 to 8.7.4
+
+### Fixes since Varbase 8.x-8.0:
+* Issue [#3103229](https://www.drupal.org/node/3103229)
+                by [RajabNatshah](https://www.drupal.org/u/rajabnatshah)
+                , [jedgar1mx](https://www.drupal.org/u/jedgar1mx)
+                : Fixed [Embed buttons] icons for the CKEditor after the change
+                of Embed API as they had dropped icon_uuid and change of config
+                schema in case for optional updates or buttons were deleted
+* Issue [#3102935](https://www.drupal.org/node/3102935)
+                by [mhawwari](https://www.drupal.org/u/mhawwari)
+                : Fixed console error. Vimeo player fires twice for [Varbase
+                Media Hero Slider]
+* Issue [#3103554](https://www.drupal.org/node/3103554)
+                by [Abdelrahman_Amer](https://www.drupal.org/u/abdelrahman_amer)
+                : Fixed notice for [Varbase Media] oembed iframe on an
+                Undefined index: render element in
+                drupal_find_theme_templates()
+* Issue [#3103566](https://www.drupal.org/node/3103566)
+                by [Abdelrahman_Amer](https://www.drupal.org/u/abdelrahman_amer)
+                : Fixed notice for [Varbase Media Hero Slider] oembed iframe
+                on an Undefined index: render element in
+                drupal_find_theme_templates()
+* Issue [#3103565](https://www.drupal.org/node/3103565)
+                by [Abdelrahman_Amer](https://www.drupal.org/u/abdelrahman_amer)
+                : Fixed notice for [Varbase Media Header] oembed iframe on
+                an Undefined index: render element in
+                drupal_find_theme_templates()
+* Issue [#3103564](https://www.drupal.org/node/3103564)
+                by [Abdelrahman_Amer](https://www.drupal.org/u/abdelrahman_amer)
+                : Fixed notice for [Varbase Layout Builder] oembed iframe on
+                an Undefined index: render element in
+                drupal_find_theme_templates()
+
+--------------------------------------------------------------------------------
+
+# 8.8.0
+
+### Highlighted important changes since Varbase 8.x-7.4:
+* Updated [Drupal] core from ~8.7.0 to ~8.8.0
+* Issue [#3093406](https://www.drupal.org/node/3093406):
+                  Started an 8.x-8.x new branch for [Varbase] version:
+                  8.x-8.x-dev and extra branch-alias with
+                  dev-8.x-8.x to 8.8.x-dev
+* Issue [#3100016](https://www.drupal.org/node/3100016):
+                  Switched from drupal/core ~8.8.0 to drupal/core-recommended
+                  ~8.8.0 in Varbase Core 8.8.0
+* Issue [#3099991](https://www.drupal.org/node/3099991):
+                  Switched from drupal-composer/drupal-scaffold ~2.0
+                  to drupal/core-composer-scaffold ^8.8.0
+* Issue [#3082049](https://www.drupal.org/node/3082049):
+                  Initialized [Varbase Layout Builder] with a starter set
+                  of layouts and styling options for sections
+
+### Added since Varbase 8.x-7.4:
+* Issue [#3099007](https://www.drupal.org/node/3099007):
+                  Added [Varbase Layout Builder] component module
+* Issue [#3102723](https://www.drupal.org/node/3102723):
+                  Added the 3101791-8.patch for [Layout Builder Modal] module
+                  to fix an integration issue with [Layout Builder UX]
+                  to configure shortcut link to open with modal
+* Issue [#3102559](https://www.drupal.org/node/3102559):
+                 Added the 3102555-3.patch for [Better Login] module to fix
+                 the remove all blocks in content region
+* Issue [#3102065](https://www.drupal.org/node/3102065):
+                 Added a necessary initialization for the entire system to
+                 account for changed config by the end of the installation 
+
+### Changed since Varbase 8.x-7.4:
+* Issue [#3093405](https://www.drupal.org/node/3093405):
+                  Started an 8.x-8.x branch for [Varbase Core] module
+* Issue [#3093424](https://www.drupal.org/node/3093424):
+                  Started an 8.x-8.x branch for [Varbase Blog] module
 * Issue [#3095593](https://www.drupal.org/node/3095593):
-                 Changed Feature: User Management - Standard User Management
-                 - Admins can create users and assign a role to them -
-                 to work with Drupal 8.7.10 and Drupal 8.8.x and Fix Entity
-                 settings in the Scenario: Add Entity Queue Test Queue and
-                 use Test Content type
-* Issue [#3093009](https://www.drupal.org/node/3093009)
-                 by
-                 [YousefAnbar](https://www.drupal.org/u/yousefanbar)
-                : Replaced View Modes Inventory [VMI] bootstrap 3 grid
-                 classes with bootstrap 4
+                  Changed Feature: User Management - Standard User Management
+                  - Admins can create users and assign a role to them - to work
+                  with Drupal 8.7.10 and Drupal 8.8.x
+* Issue [#3102415](https://www.drupal.org/node/3102415)
+                  by [jedgar1mx](https://www.drupal.org/u/jedgar1mx)
+                 : Removed the 3034353-2.patch for [Social Auth Google] as it
+                  was committed in 8.x-2.0 stable
+* Issue [#3098737](https://www.drupal.org/node/3098737):
+                   Remove the 3096956-17 patch for [Views Reference Field] as
+                   it was committed and 8.x-2.0-alpha6 was released
 
-### Updates since Varbase 8.x-7.2:
-* Issue [#3093435](https://www.drupal.org/node/3093435):
-                 Updated [Paragraphs] module from 8.1.9 to 8.1.10
-* Issue [#3093429](https://www.drupal.org/node/3093429):
-                 Updated [Admin Toolbar] module from ( ~1.0 ) to ( ~2.0 )
-* Issue [#3095120](https://www.drupal.org/node/3095120):
-                 Updated [Length Indicator] module from 1.0-rc3 to ( ~1.0 )
-* Issue [#3095305](https://www.drupal.org/node/3095305):
-                 Varbase 8.7.3: Updated [CHANGELOG.md, README.md,
-                 drupal-org.make] files and filter the code for
-                 Drupal 8 Coding Standard
-* - Updated [View Modes Inventory - Bootstrap Ready] module from 8.2.3 to 8.2.4
-* - Updated [Adminimal Admin Toolbar] module from 8.1.9 to 8.1.10
-* - Updated [Autocomplete Deluxe] module from 8.1.0-beta1 to 8.1.0-beta2
-* - Updated [CAPTCHA] module from 8.1.0-beta3 to 8.1.0-beta4
-* - Updated [Charts] module from 8.3.0 to 8.3.1
-* - Updated [Config Filter] module from 8.1.4 to 8.1.5
-* - Updated [Consumers] module from 8.1.9 to 8.1.10
-* - Updated [Field Group] module from 8.3.0-rc1 to 8.3.0-rc2
-* - Updated [Length Indicator] module from 8.1.0-rc3 to 8.1.0
-* - Updated [Mail System] module from 8.4.1 to 8.4.2
+### Updates since Varbase 8.x-7.4:
+* Updated [Drupal] core from 8.7.11 ( ~8.7.0 ) to 8.8.1 ( ~8.8.0 )
+* Issue [#3101570](https://www.drupal.org/node/3101257):
+                  Update [Update helper] module from 8.1.0 to 8.1.1 and update
+                  the [PATCH] Enhancements
+* Issue [#3101257](https://www.drupal.org/node/3101257):
+                  Updated [Config Filter] from ~1.0 to ~2.0
+* Issue [#3101261](https://www.drupal.org/node/3101261):
+                  Updated [Content locking (anti-concurrent editing)]
+                  module from ~1.0 to ~2.0
+* Issue [#3102032](https://www.drupal.org/node/3102032):
+                  Updated [Devel] module from * ( ~2.0 ) to  ~3.0
+* Issue [#3095576](https://www.drupal.org/node/3095576):
+                  Varbase 8.8.0: Update [CHANGELOG.md, README.md,
+                  drupal-org.make] files and filter the code for Drupal
+                  8 Coding Standard
+* - Updated [Drupal] core from 8.7.11 ( ~8.7.0 ) to 8.8.1 ( ~8.8.0 )
+* - Updated [DRD Agent] module from 8.1.10 to 8.1.12
+* - Updated [Metatag] module from 8.1.10 to 8.1.11
 * - Updated [Paragraphs] module from 8.1.9 to 8.1.10
-* - Updated [Pathauto] module from 8.1.4 to 8.1.5
-* - Updated [Search API] module from 8.1.14 to 8.1.15
-* - Updated [Simple OAuth] module from 8.4.2 to 8.4.3
-* - Updated [SMTP Authentication Support] module from 8.1.0-beta5 to 8.1.0-beta6
-* - Updated [Webform] module from 8.5.4 to 8.5.5
-* - Updated [Bootstrap] theme from 8.3.20 to 8.3.21
-* Issue [#3093410](https://www.drupal.org/node/3093410):
-                 Updated the default travis-ci PHP testing version from
-                 PHP7.2 to PHP7.3 for Automated Functional Acceptance
-                 Testing groups
+* - Updated [Social API] module from 8.2.0-rc1 to 8.2.0-rc2
+* - Updated [Social Auth] module from 8.2.0-rc1 to 8.2.0-rc2
+* - Updated [Social Auth Google] module from 8.2.0-beta4 to 8.2.0
+* - Updated [Blazy] module from 8.2.0-rc5 to 8.2.0-rc6
+* - Updated [Social Auth Facebook] module from 8.2.0-beta4 to 8.2.0
 
-### Fixes since Varbase 8.x-7.2:
-* Issue [#3089664](https://www.drupal.org/node/3089664)
-                 by
-                 [YousefAnbar](https://www.drupal.org/u/yousefanbar)
-                 : Fixed redundant order-1 when aligning
-                 the image to the right
-* Issue [#3090355](https://www.drupal.org/node/3090355)
-                 by
-                 [YousefAnbar](https://www.drupal.org/u/yousefanbar)
-                 : Fixed paragraph title location for text and image paragraph
-                 to be above the row
-* Issue [#3090100](https://www.drupal.org/node/3090100)
-                 by 
-                 [qusai taha](https://www.drupal.org/u/qusai-taha)
-                 : Fixed static active class on (li) html tag and move to
-                 anchor tag
-* Issue [#3087746](https://www.drupal.org/node/3087746)
-                 by 
-                 [mhawwari](https://www.drupal.org/u/mhawwari)
-                 : Fixed [Varbase Email] validation for loaded logo file from
-                 email upload before creating its url
-* Issue [#3089800](https://www.drupal.org/node/3089800)
-                 by 
-                 [qusai taha](https://www.drupal.org/u/qusai-taha)
-                 : Fixed coma (,) after h3 in SCSS
-* Issue [#3090319](https://www.drupal.org/node/3090319)
-                 by 
-                 [qusai taha](https://www.drupal.org/u/qusai-taha)
-                 , [RajabNatshah](https://www.drupal.org/u/rajabnatshah)
-                 : Fixed font size value in breadcrumb.component.scss
-* Issue [#3095029](https://www.drupal.org/node/3095029)
-                 by 
-                 [Abdelrahman_Amer](https://www.drupal.org/u/abdelrahman_amer)
-                 : Fixed fetal error after translation accordion paragraph
-* Issue [#3095111](https://www.drupal.org/node/3095111)
-                 by 
-                 [arawashdeh](https://www.drupal.org/u/arawashdeh)
-                 : Fixed the ampersand character "&" in the paragraph title
-                 not to appear as encoded "&amp; "
+### Fixes since Varbase 8.x-7.4:
+* Issue [#3098789](https://www.drupal.org/node/3098789):
+                  Fixed [Media Library] and the [Media Grid and
+                  Media Table] admin pages
+* Issue [#3098750](https://www.drupal.org/node/3098750):
+                  Fixed the Automated Functional Acceptance Testing group:
+                  03 admin management for [Media Library] and the
+                  [Media Grid and Media Table] admin pages
+* Issue [#3101234](https://www.drupal.org/node/3101234):
+                  Fixed Drupal core multilingual site's layout edit
+                  context issue
+* Issue [#3101310](https://www.drupal.org/node/3101310):
+                  Fixed argument 2 passed to Drupal jsonapi Routing closure
+                  must be an instance of ResourceType, NULL given
+* Issue [#3096606](https://www.drupal.org/node/3096606):
+                  Fixed drag and drop of blocks incompatible issue for
+                  [Bootstrap Layouts] with [Layout Builder]
+* Issue [#3096607](https://www.drupal.org/node/3096607):
+                  Fixed unsupported operand types for [Bootstrap Layouts]
+                  in set configuration
+* Issue [#3103229](https://www.drupal.org/node/3103229):
+                  Fixed [Embed buttons] icons for the CKEditor after the
+                  change of Embed API as they had dropped icon_uuid and
+                  change of config schema
 
 --------------------------------------------------------------------------------
 

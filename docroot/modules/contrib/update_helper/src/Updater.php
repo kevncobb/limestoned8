@@ -143,15 +143,14 @@ class Updater implements UpdaterInterface {
     $update_definitions = $this->configHandler->loadUpdate($module, $update_definition_name);
 
     if (isset($update_definitions[UpdateDefinitionInterface::GLOBAL_CONDITIONS])) {
-      if(isset($update_definitions[UpdateDefinitionInterface::GLOBAL_CONDITIONS][UpdateDefinitionInterface::GLOBAL_CONDITION_EXPECTED_MODULES])){
+      if (isset($update_definitions[UpdateDefinitionInterface::GLOBAL_CONDITIONS][UpdateDefinitionInterface::GLOBAL_CONDITION_EXPECTED_MODULES])) {
         $result = $this->checkExpectedModulesArray($update_definitions[UpdateDefinitionInterface::GLOBAL_CONDITIONS][UpdateDefinitionInterface::GLOBAL_CONDITION_EXPECTED_MODULES]);
-        if(!empty($result)){
+        if (!empty($result)) {
           return $this->logWarning($this->t('The following module(s) "@neededModules" are required for update @updateName.', ['@neededModules' => implode(", ", $result), '@updateName' => $update_definition_name]));
         }
       }
       unset($update_definitions[UpdateDefinitionInterface::GLOBAL_CONDITIONS]);
     }
-
 
     if (isset($update_definitions[UpdateDefinitionInterface::GLOBAL_ACTIONS])) {
       $this->executeGlobalActions($update_definitions[UpdateDefinitionInterface::GLOBAL_ACTIONS]);
@@ -188,9 +187,9 @@ class Updater implements UpdaterInterface {
     $update_definitions = $this->configHandler->loadUpdate($module, $update_definition_name);
 
     if (isset($update_definitions[UpdateDefinitionInterface::GLOBAL_CONDITIONS])) {
-      if(isset($update_definitions[UpdateDefinitionInterface::GLOBAL_CONDITIONS][UpdateDefinitionInterface::GLOBAL_CONDITION_EXPECTED_MODULES])){
+      if (isset($update_definitions[UpdateDefinitionInterface::GLOBAL_CONDITIONS][UpdateDefinitionInterface::GLOBAL_CONDITION_EXPECTED_MODULES])) {
         $result = $this->checkExpectedModulesArray($update_definitions[UpdateDefinitionInterface::GLOBAL_CONDITIONS][UpdateDefinitionInterface::GLOBAL_CONDITION_EXPECTED_MODULES]);
-        if(!empty($result)){
+        if (!empty($result)) {
           return Updater::MODULES_NOT_FOUND;
         }
       }
@@ -201,7 +200,9 @@ class Updater implements UpdaterInterface {
       if (isset($update_definitions[UpdateDefinitionInterface::GLOBAL_ACTIONS][UpdateDefinitionInterface::GLOBAL_ACTION_INSTALL_MODULES])) {
         $modules = $update_definitions[UpdateDefinitionInterface::GLOBAL_ACTIONS][UpdateDefinitionInterface::GLOBAL_ACTION_INSTALL_MODULES];
         foreach ($modules as $module) {
-          if (!$moduleHandler->moduleExists($module)) return Updater::MODULES_NOT_FOUND;
+          if (!$moduleHandler->moduleExists($module)) {
+            return Updater::MODULES_NOT_FOUND;
+          }
           $modulesInstalled[] = $module;
         }
       }
@@ -253,7 +254,7 @@ class Updater implements UpdaterInterface {
   public function checkExpectedModules($module, $update_definition_name) {
     $update_definitions = $this->configHandler->loadUpdate($module, $update_definition_name);
     if (isset($update_definitions[UpdateDefinitionInterface::GLOBAL_CONDITIONS])) {
-      if(isset($update_definitions[UpdateDefinitionInterface::GLOBAL_CONDITIONS][UpdateDefinitionInterface::GLOBAL_CONDITION_EXPECTED_MODULES])){
+      if (isset($update_definitions[UpdateDefinitionInterface::GLOBAL_CONDITIONS][UpdateDefinitionInterface::GLOBAL_CONDITION_EXPECTED_MODULES])) {
         return $this->checkExpectedModulesArray($update_definitions[UpdateDefinitionInterface::GLOBAL_CONDITIONS][UpdateDefinitionInterface::GLOBAL_CONDITION_EXPECTED_MODULES]);
       }
     }
@@ -273,7 +274,9 @@ class Updater implements UpdaterInterface {
     $needed_modules = [];
     $moduleHandler = \Drupal::service('module_handler');
     foreach ($expected_modules as $expected_module) {
-      if (!$moduleHandler->moduleExists($expected_module)) $needed_modules[] = $expected_module;
+      if (!$moduleHandler->moduleExists($expected_module)) {
+        $needed_modules[] = $expected_module;
+      }
     }
     return $needed_modules;
   }
@@ -483,7 +486,7 @@ class Updater implements UpdaterInterface {
 
     if (empty($expected_configuration) || !DiffArray::diffAssocRecursive($expected_configuration, $config_data)) {
       // Delete configuration keys from config.
-      if($checkOnly){
+      if ($checkOnly) {
         return Updater::CONFIG_APPLIED_SUCCESSFULLY;
       }
 
@@ -497,8 +500,10 @@ class Updater implements UpdaterInterface {
       $config->save();
 
       return Updater::CONFIG_APPLIED_SUCCESSFULLY;
-    }else{
+    }
+    else {
       return Updater::CONFIG_NOT_EXPECTED;
     }
   }
+
 }

@@ -5,6 +5,8 @@ namespace Drupal\drd_agent\Form;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Routing\TrustedRedirectResponse;
+use Drupal\drd_agent\Setup;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Authorize a new dashboard for this drd-agent.
@@ -12,9 +14,32 @@ use Drupal\Core\Routing\TrustedRedirectResponse;
 class Authorize extends FormBase {
 
   /**
+   * @var \Drupal\drd_agent\Setup
+   */
+  protected $setupService;
+
+  /**
+   * Authorize constructor.
+   *
+   * @param \Drupal\drd_agent\Setup $setup_service
+   */
+  public function __construct(Setup $setup_service) {
+    $this->setupService = $setup_service;
+  }
+
+  /**
    * {@inheritdoc}
    */
-  public function getFormId() {
+  public static function create(ContainerInterface $container) {
+    return new static(
+      $container->get('drd_agent.setup')
+    );
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getFormId(): string {
     return 'drd_agent_authorize_form';
   }
 
@@ -23,15 +48,11 @@ class Authorize extends FormBase {
    *
    * @param array $form
    *   The form array.
-   * @param \Drupal\Core\Form\FormStateInterface $form_state
-   *   The form state object.
    *
    * @return array
    *   The form.
    */
-  protected function buildFormToken(array $form, FormStateInterface $form_state) {
-    $form = [];
-
+  protected function buildFormToken(array $form): array {
     $form['token'] = [
       '#type' => 'textarea',
       '#title' => t('Authentication token'),
@@ -52,24 +73,18 @@ class Authorize extends FormBase {
    *
    * @param array $form
    *   The form array.
-   * @param \Drupal\Core\Form\FormStateInterface $form_state
-   *   The form state object.
    *
    * @return array
    *   The form.
    */
-  protected function buildFormConfirmation(array $form, FormStateInterface $form_state) {
-    /* @var \Drupal\drd_agent\Setup $service */
-    $service = \Drupal::service('drd_agent.setup');
-    $form = [];
-
+  protected function buildFormConfirmation(array $form): array {
     $form['attention'] = [
       '#markup' => t('You are about to grant admin access to the Drupal Remote Dashboard on the following domain:'),
       '#prefix' => '<div>',
       '#suffix' => '</div>',
     ];
     $form['domain'] = [
-      '#markup' => $service->getDomain(),
+      '#markup' => $this->setupService->getDomain(),
       '#prefix' => '<div class="domain">',
       '#suffix' => '</div>',
     ];
@@ -88,10 +103,10 @@ class Authorize extends FormBase {
   /**
    * {@inheritdoc}
    */
-  public function buildForm(array $form, FormStateInterface $form_state) {
+  public function buildForm(array $form, FormStateInterface $form_state): array {
     $form = empty($_SESSION['drd_agent_authorization_values']) ?
-      $this->buildFormToken($form, $form_state) :
-      $this->buildFormConfirmation($form, $form_state);
+      $this->buildFormToken($form) :
+      $this->buildFormConfirmation($form);
 
     $form['#attributes'] = [
       'class' => ['drd-agent-auth'],
@@ -109,9 +124,8 @@ class Authorize extends FormBase {
       $_SESSION['drd_agent_authorization_values'] = $form_state->getValue('token');
     }
     else {
-      if ($form_state->getValue('op') == $form['submit']['#value']) {
-        $service = \Drupal::service('drd_agent.setup');
-        $values = $service->execute();
+      if ($form_state->getValue('op') === $form['submit']['#value']) {
+        $values = $this->setupService->execute();
         $form_state->setResponse(TrustedRedirectResponse::create($values['redirect']));
       }
       unset($_SESSION['drd_agent_authorization_values']);

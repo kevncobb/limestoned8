@@ -3,14 +3,17 @@ type: module
 description: Agent on remote Drupal sites for the main DRD module.
 package: Administration
 core: 8.x
+core_version_requirement: ^8 || ^9
 # project: drd_agent
 configure: drd_agent.settings.form
+dependencies:
+  - 'drupal:system (>= 8.3)'
 recommends:
-  - hacked
-  - monitoring
-  - security_review
+  - hacked:hacked
+  - monitoring:monitoring
+  - security_review:security_review
 
-# Information added by Drupal.org packaging script on 2019-09-05
-version: '8.x-3.9'
+# Information added by Drupal.org packaging script on 2019-12-24
+version: '8.x-3.12'
 project: 'drd_agent'
-datestamp: 1567702399
+datestamp: 1577178191

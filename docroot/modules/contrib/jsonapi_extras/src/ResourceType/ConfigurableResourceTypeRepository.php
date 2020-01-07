@@ -9,11 +9,6 @@ use Drupal\jsonapi\ResourceType\ResourceTypeRepository;
 use Drupal\jsonapi_extras\Entity\JsonapiResourceConfig;
 use Drupal\jsonapi_extras\Plugin\ResourceFieldEnhancerManager;
 use Drupal\Core\Config\ConfigFactoryInterface;
-use Drupal\Core\Entity\EntityTypeManagerInterface;
-use Drupal\Core\Entity\EntityTypeBundleInfoInterface;
-use Drupal\Core\Entity\EntityFieldManagerInterface;
-use Drupal\Core\Cache\CacheBackendInterface;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 /**
  * Provides a repository of JSON:API configurable resource types.
@@ -84,22 +79,8 @@ class ConfigurableResourceTypeRepository extends ResourceTypeRepository {
   /**
    * {@inheritdoc}
    */
-  public function __construct(
-    EntityTypeManagerInterface $entity_type_manager,
-    EntityTypeBundleInfoInterface $entity_bundle_info,
-    EntityFieldManagerInterface $entity_field_manager,
-    CacheBackendInterface $cache,
-    EventDispatcherInterface $event_dispatcher = NULL
-  ) {
-
-    // This is needed, as the property is added in Drupal 8.8 and it is not
-    // yet present in 8.7 or the contrib version of JSON:API at the time.
-    if (property_exists($this, 'eventDispatcher')) {
-      parent::__construct($entity_type_manager, $entity_bundle_info, $entity_field_manager, $cache, $event_dispatcher);
-    }
-    else {
-      parent::__construct($entity_type_manager, $entity_bundle_info, $entity_field_manager, $cache);
-    }
+  public function __construct(...$arguments) {
+    parent::__construct(...$arguments);
 
     // This is needed, as the property is added in Drupal 8.8 and it is not
     // yet present in 8.7 or the contrib version of JSON:API at the time.

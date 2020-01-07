@@ -38,4 +38,3 @@ MAINTAINERS
 Current maintainers:
 
  * Tommy Lynge Jørgensen (TLyngeJ) - https://www.drupal.org/u/tlyngej
- * Fabian Bircher (bircher) - https://www.drupal.org/u/bircher

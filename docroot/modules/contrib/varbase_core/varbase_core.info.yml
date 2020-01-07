@@ -2,7 +2,7 @@ name: 'Varbase Core'
 description: 'Provides core components required by other features.'
 type: module
 core: 8.x
-# version: 8.x-7.x-dev
+# version: 8.x-8.x-dev
 # project: varbase_core
 package: Varbase
 components:
@@ -89,7 +89,7 @@ install:
   - login_destination
   - betterlogin
 
-# Information added by Drupal.org packaging script on 2019-11-24
-version: '8.x-7.6'
+# Information added by Drupal.org packaging script on 2019-12-26
+version: '8.x-8.0'
 project: 'varbase_core'
-datestamp: 1574605090
+datestamp: 1577376187

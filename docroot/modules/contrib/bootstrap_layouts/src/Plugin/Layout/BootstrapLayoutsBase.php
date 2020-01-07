@@ -204,12 +204,26 @@ class BootstrapLayoutsBase extends LayoutDefault implements PluginFormInterface 
   public function setConfiguration(array $configuration) {
     // Don't use NestedArray::mergeDeep here since this will merge both the
     // default classes and the classes stored in config.
-    $default = $this->defaultConfiguration();
+    $default = (array) $this->defaultConfiguration();
 
     // Ensure top level properties exist.
     $configuration += $default;
 
     // Ensure specific top level sub-properties exists.
+    if (isset($configuration['layout'])) {
+      $configuration['layout'] = (array) $configuration['layout'];
+    }
+    else {
+      $configuration['layout'] = array();
+    }
+
+    if (isset($configuration['regions'])) {
+      $configuration['regions'] = (array) $configuration['regions'];
+    }
+    else {
+      $configuration['regions'] = array();
+    }
+
     $configuration['layout'] += $default['layout'];
     $configuration['regions'] += $default['regions'];
 

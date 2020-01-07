@@ -22,5 +22,8 @@
         "drupal/hacked": "Validate each project if it got changed compared to the original code from drupal.org.",
         "drupal/monitoring": "Site monitoring module with sensors.",
         "drupal/security_review": "Site security and configuration review module."
+    },
+    "require": {
+        "php": ">=7.1"
     }
 }

@@ -31,16 +31,16 @@
     "oomphinc/composer-installers-extender": "~1.0",
     "cweagans/composer-patches": "~1.0",
     "drupal/drupal-library-installer-plugin": "^0.3",
-    "drupal/core": "~8.7.0",
+    "drupal/core-recommended": "~8.8.0",
     "drupal/config_update": "~1.0",
-    "drupal/config_filter": "~1.0",
+    "drupal/config_filter": "~2.0",
     "drupal/config_ignore": "~2.0",
     "drupal/ctools": "3.2",
     "drupal/token": "~1.0",
     "drupal/token_filter": "~1.0",
     "drupal/page_manager": "4.0-beta4",
     "drupal/panels": "~4.0",
-    "drupal/bootstrap_layouts": "~5.0",
+    "drupal/bootstrap_layouts": "5.1",
     "drupal/layout_builder_restrictions": "~2.0",
     "drupal/ds": "~3.0",
     "drupal/views_bootstrap": "4.1",
@@ -61,7 +61,7 @@
     "drupal/userprotect": "~1.0",
     "drupal/events_log_track": "1.1",
     "drupal/login_destination": "~1.0",
-    "drupal/betterlogin": "~1.0",
+    "drupal/betterlogin": "1.3",
     "drupal/config_perms": "~2.0",
     "drupal/roleassign": "~1.0",
     "drupal/admin_toolbar": "~2.0",
@@ -79,7 +79,7 @@
     "drupal/webform_views": "~5.0",
     "drupal/default_content": "1.0-alpha8",
     "drupal/better_normalizers": "~1.0",
-    "drupal/content_lock": "~1.0",
+    "drupal/content_lock": "~2.0",
     "drupal/node_edit_protection": "~1.0",
     "drupal/rabbit_hole": "~1.0",
     "drupal/yoast_seo": "~1.0",
@@ -90,8 +90,8 @@
     "drupal/menu_admin_per_menu": "~1.0",
     "drupal/drd_agent": "~3.0",
     "drupal/libraries_ui": "~1.0",
-    "drupal/devel": "*",
-    "drupal/update_helper": "1.0",
+    "drupal/devel": "~3.0",
+    "drupal/update_helper": "1.1",
     "drupal/checklistapi": "~1.0",
     "drupal/username_enumeration_prevention": "~1.0",
     "drupal/password_policy": "~3.0",
@@ -110,7 +110,7 @@
     "drupal/menu_position": "~1.0",
     "drupal/mail_edit": "*",
     "drupal/taxonomy_access_fix": "~2.0",
-    "drupal/better_exposed_filters": "~3.0",
+    "drupal/better_exposed_filters": "~4.0",
     "drupal/autocomplete_deluxe": "~1.0",
     "drupal/extlink": "~1.0",
     "drupal/link_attributes": "~1.0",
@@ -122,7 +122,7 @@
   },
   "extra": {
     "branch-alias": {
-      "dev-8.x-7.x": "8.7.x-dev"
+      "dev-8.x-8.x": "8.8.x-dev"
     },
     "installer-types": [
       "bower-asset",
@@ -138,9 +138,9 @@
         "Issue #2869592: Disabled update module shouldn't produce a status report warning":
         "https://www.drupal.org/files/issues/2869592-remove-update-warning-7.patch",
         "Issue #2815221: Add quickedit to the latest-revision route":
-        "https://www.drupal.org/files/issues/2019-03-05/2815221-116.patch",
+        "https://www.drupal.org/files/issues/2019-11-27/2815221-125.patch",
         "Issue #1356276: Allow profiles to define a base/parent profile and load them in the correct order":
-        "https://www.drupal.org/files/issues/2018-10-12/1356276-531.patch",
+        "https://www.drupal.org/files/issues/2019-11-05/1356276-531-8.8.x-4.patch",
         "Issue #2914389: Allow profiles to exclude dependencies of their parent":
         "https://www.drupal.org/files/issues/2018-07-09/2914389-8-do-not-test.patch",
         "Issue #2893892: Fixed Warning Invalid argument supplied for foreach() in Drupal":
@@ -149,8 +149,10 @@
         "https://www.drupal.org/files/issues/2019-03-31/3044656-2.patch",
         "Issue #2646744: Drupal Core Url does not accept root-relative (file) URLs, making it impossible to let LinkGenerator create root-relative file URL links":
         "https://www.drupal.org/files/issues/2018-12-15/2646744-34.patch",
-        "Issue #2820347: Fix Exposed filter reset redirects user to 404 page on AJAX view when placed as a block":
-        "https://www.drupal.org/files/issues/2019-07-22/2820347-129.patch"
+        "Issue #3101231: Fix multilingual site's layout edit context issue with TypeError: Argument 1 passed to UrlHelper::buildQuery() must be of the type array, null given":
+        "https://www.drupal.org/files/issues/2019-12-19/3101231-19.patch",
+        "Issue #2996114: Fix Argument 2 passed to Drupal jsonapi Routing closure must be an instance of ResourceType, NULL given":
+        "https://www.drupal.org/files/issues/2019-12-03/2996114-99.patch"
       },
       "drupal/coffee": {
         "Issue #2815381: Coffee breaks whole page when using right to left (rtl) languages in drupal 8":
@@ -178,7 +180,7 @@
       },
       "drupal/update_helper": {
         "Issue #3024165: [PATCH] Enhancements, Better messages for the unable to apply updates, drush command and removed the Mark all updates as successful on install":
-        "https://www.drupal.org/files/issues/2019-05-19/3024165-31.patch"
+        "https://www.drupal.org/files/issues/2019-12-17/3024165-33.patch"
       },
       "drupal/events_log_track": {
         "Issue #2934036: Events Log Track breaks Entity Browser":
@@ -197,6 +199,16 @@
       "drupal/views_bootstrap": {
         "Issue #3049311: Grids should not be split into multiple rows":
         "https://www.drupal.org/files/issues/2019-05-31/views-bootstrap-dont-split-grid-rows-3049311-9.patch"
+      },
+      "drupal/bootstrap_layouts": {
+        "Issue #3018633: Fix Incompatible with Layout builder drag and drop":
+        "https://www.drupal.org/files/issues/2019-04-24/bootstrap_layouts-3018633-6.patch",
+        "Issue #3092032: Fix Unsupported operand types in Set Configuration line 213":
+        "https://www.drupal.org/files/issues/2019-11-03/3092032-2.patch"
+      },
+      "drupal/betterlogin": {
+        "Issue #3102555: Fix remove all blocks in content region. Resulted on losing default integration with other modules":
+        "https://www.drupal.org/files/issues/2019-12-21/3102555-3.patch"
       }
     }
   }

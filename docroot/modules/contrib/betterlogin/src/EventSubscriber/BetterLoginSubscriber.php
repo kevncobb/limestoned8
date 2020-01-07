@@ -15,9 +15,9 @@ class BetterLoginSubscriber implements EventSubscriberInterface {
   /**
    * Function checkForRedirection.
    *
-   *   Redirection for anonymous users.
+   * Redirection for anonymous users.
    *
-   * @param GetResponseEvent $event
+   * @param \Symfony\Component\HttpKernel\Event\GetResponseEvent $event
    *   GetResponseEvent event.
    */
   public function checkForRedirection(GetResponseEvent $event) {
@@ -33,7 +33,7 @@ class BetterLoginSubscriber implements EventSubscriberInterface {
    * {@inheritdoc}
    */
   public static function getSubscribedEvents() {
-    $events[KernelEvents::REQUEST][] = array('checkForRedirection');
+    $events[KernelEvents::REQUEST][] = ['checkForRedirection'];
     return $events;
   }
 

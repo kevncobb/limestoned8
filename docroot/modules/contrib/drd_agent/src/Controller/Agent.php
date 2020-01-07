@@ -2,9 +2,11 @@
 
 namespace Drupal\drd_agent\Controller;
 
+use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Controller\ControllerBase;
-use Drupal\drd\Agent\Action\Base as ActionBase;
-use Drupal\drd\Crypt\Base as CryptBase;
+use Drupal\drd_agent\Agent\Action\Base as ActionBase;
+use Drupal\drd_agent\Crypt\Base as CryptBase;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -14,6 +16,11 @@ use Symfony\Component\HttpFoundation\Response;
  * @package Drupal\drd_agent\Controller
  */
 class Agent extends ControllerBase {
+
+  /**
+   * @var \Symfony\Component\DependencyInjection\ContainerInterface
+   */
+  protected $container;
 
   /**
    * The agent configuration.
@@ -28,7 +35,7 @@ class Agent extends ControllerBase {
    * @return array
    *   The array with headers.
    */
-  public static function responseHeader() {
+  public static function responseHeader(): array {
     return [
       'Content-Type' => 'text/plain; charset=utf-8',
       'X-DRD-Agent' => $_SERVER['HTTP_X_DRD_VERSION'],
@@ -36,21 +43,32 @@ class Agent extends ControllerBase {
   }
 
   /**
-   * {@inheritdoc}
+   * Agent constructor.
+   *
+   * @param \Symfony\Component\DependencyInjection\ContainerInterface $container
+   * @param \Drupal\Core\Config\ConfigFactoryInterface $configFactory
    */
-  public function __construct() {
-    $this->config = \Drupal::configFactory()->get('drd_agent.settings');
+  public function __construct(ContainerInterface $container, ConfigFactoryInterface $configFactory) {
+    $this->container = $container;
+    $this->config = $configFactory->get('drd_agent.settings');
+  }
+
+  public static function create(ContainerInterface $container) {
+    return new static(
+      $container,
+      $container->get('config.factory')
+    );
   }
 
   /**
-   * Route callback to execute an action and return their esult.
+   * Route callback to execute an action and return their result.
    *
    * @return \Symfony\Component\HttpFoundation\Response
    *   The response to DRD.
+   * @throws \Exception
    */
-  public function get() {
-    \Drupal::service('drd_agent.library')->load();
-    return $this->deliver(ActionBase::run(8, $this->config->get('debug_mode')));
+  public function get(): Response {
+    return $this->deliver(ActionBase::create($this->container)->run($this->config->get('debug_mode')));
   }
 
   /**
@@ -58,10 +76,10 @@ class Agent extends ControllerBase {
    *
    * @return \Symfony\Component\HttpFoundation\Response
    *   The response to DRD.
+   * @throws \Exception
    */
-  public function getCryptMethods() {
-    \Drupal::service('drd_agent.library')->load();
-    return $this->deliver(base64_encode(json_encode(CryptBase::getMethods())));
+  public function getCryptMethods(): Response {
+    return $this->deliver(base64_encode(json_encode(CryptBase::getMethods($this->container))));
   }
 
   /**
@@ -69,10 +87,10 @@ class Agent extends ControllerBase {
    *
    * @return \Symfony\Component\HttpFoundation\Response
    *   The response to DRD.
+   * @throws \Exception
    */
-  public function authorizeBySecret() {
-    \Drupal::service('drd_agent.library')->load();
-    return $this->deliver(ActionBase::authorizeBySecret(8, $this->config->get('debug_mode')));
+  public function authorizeBySecret(): Response {
+    return $this->deliver(ActionBase::create($this->container)->authorizeBySecret($this->config->get('debug_mode')));
   }
 
   /**
@@ -84,7 +102,7 @@ class Agent extends ControllerBase {
    * @return \Symfony\Component\HttpFoundation\Response
    *   The response to DRD.
    */
-  private function deliver($data) {
+  private function deliver($data): Response {
     return ($data instanceof Response) ? $data : new JsonResponse($data, 200, self::responseHeader());
   }
 

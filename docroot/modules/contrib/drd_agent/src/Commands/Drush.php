@@ -2,6 +2,7 @@
 
 namespace Drupal\drd_agent\Commands;
 
+use Drupal\drd_agent\Setup;
 use Drush\Commands\DrushCommands;
 
 /**
@@ -10,6 +11,21 @@ use Drush\Commands\DrushCommands;
  * @package Drupal\drd_agent
  */
 class Drush extends DrushCommands {
+
+  /**
+   * @var \Drupal\drd_agent\Setup
+   */
+  protected $setupService;
+
+  /**
+   * Drush constructor.
+   *
+   * @param \Drupal\drd_agent\Setup $setup_service
+   */
+  public function __construct(Setup $setup_service) {
+    parent::__construct();
+    $this->setupService = $setup_service;
+  }
 
   /**
    * Configure this domain for communication with a DRD instance.
@@ -23,8 +39,7 @@ class Drush extends DrushCommands {
    */
   public function setup($token) {
     $_SESSION['drd_agent_authorization_values'] = $token;
-    $service = \Drupal::service('drd_agent.setup');
-    $service->execute();
+    $this->setupService->execute();
     unset($_SESSION['drd_agent_authorization_values']);
   }
 
