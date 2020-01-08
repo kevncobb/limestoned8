@@ -7,7 +7,7 @@
  */
 function limestone_preprocess_block(&$variables) {
   if ($variables['elements']['#id'] == 'somethingforeveryonedirectionalhover') {
-    $variables['#attached']['library'][] = 'limestone/hover-dir';
+    $variables['#attached']['library'][] = 'limestone/da-thumbs';
   }
 }
 
