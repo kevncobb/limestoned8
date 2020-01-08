@@ -10,6 +10,9 @@ global:
 
 lc-slider:
   version: 1.x
+  css:
+    state:
+      css/lc-slider.css: {}
   js:
     js/lc-slider.js: {}
   dependencies:
@@ -23,7 +26,7 @@ lc-menu:
 da-thumbs:
   version: 1.x
   css:
-    base:
+    state:
       css/da-thumbs.css: {}
   js:
     js/lc-da-thumbs.js: {}
