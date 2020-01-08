@@ -60,13 +60,7 @@
       });
     }
   };
-  Drupal.behaviors.da_thumbs = {
-    attach: function (context, settings) {
-      $(' #da-thumbs > li ').each(function() {
-        $(this).hoverdir();
-      });
-    }
-  };
+
   Drupal.behaviors.to_top = {
     attach: function (context, settings) {
       // Execute code once the DOM is ready. $(document).ready() not required within Drupal.behaviors.

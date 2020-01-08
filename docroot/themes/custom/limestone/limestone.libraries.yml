@@ -20,6 +20,17 @@ lc-menu:
   js:
     js/menu.js: {}
 
+da-thumbs:
+  version: 1.x
+  css:
+    base:
+      css/da-thumbs.css: {}
+  js:
+    js/lc-da-thumbs.js: {}
+    js/jquery.hoverdir.js: {}
+  dependencies:
+    - core/jquery
+
 lc-select:
   version: 1.x
   css:

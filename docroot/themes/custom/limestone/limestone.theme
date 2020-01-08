@@ -6,6 +6,9 @@
  * Implements hook_preprocess_block()
  */
 function limestone_preprocess_block(&$variables) {
+  if ($variables['elements']['#id'] == 'somethingforeveryonedirectionalhover') {
+    $variables['#attached']['library'][] = 'limestone/hover-dir';
+  }
 }
 
 /**
