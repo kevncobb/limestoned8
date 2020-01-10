@@ -157,3 +157,25 @@ article.node--type-news {
     margin-right: -5rem;
   }
 }
+
+
+.bumpup-md-9 {
+  position: relative;
+  @include breakpoint(smedium) {
+    top: -9rem;
+    margin-bottom: -9rem;
+  }
+}
+.content-bump-up, .bumpup-xl-5 { //remove .content-bump-up
+  position: relative;
+  @include breakpoint(xlarge) {
+    top: -5rem;
+    margin-bottom: -5rem;
+  }
+}
+.content-cut-bottom {
+  position: relative;
+  z-index: -1;
+  bottom: -5rem;
+  margin-top: -5rem;
+}

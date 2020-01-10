@@ -53,6 +53,12 @@ html {
     column-count: 4;
   }
 }
+.max-300 {
+  max-width: 300px;
+}
+.max-400 {
+  max-width: 400px;
+}
 .max-500 {
   max-width: 500px;
 }
@@ -63,25 +69,15 @@ html {
 p {
 
 }
+.smaller {
+  font-size: 80%;
+}
 
 .fill {
   width: 100%;
   clear: both;
 }
 
-.content-bump-up {
-  position: relative;
-  @include breakpoint(xlarge) {
-    top: -5rem;
-    margin-bottom: -5rem;
-  }
-}
-.content-cut-bottom {
-  position: relative;
-  z-index: -1;
-  bottom: -5rem;
-  margin-top: -5rem;
-}
 .with-overlay {
   position: relative;
   &::after {
@@ -189,6 +185,20 @@ p {
   color: white;
   &.bg-faded {
     background-color: rgba($limestone-blue, 0.7);
+  }
+  h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6 {
+    color: white;
+  }
+  .separator-center::after {
+    border-bottom-color: white;
+  }
+}
+.background-darkblue, .bg-darkblue {
+  background-color: $dark-blue;
+  width: 100%;
+  color: white;
+  &.bg-faded {
+    background-color: rgba($dark-blue, 0.7);
   }
   h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6 {
     color: white;
