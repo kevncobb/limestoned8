@@ -148,12 +148,12 @@ article.node--type-news {
   @extend .fill;
 }
 .pull-left-negative-5 {
-  @include breakpoint(medium) {
+  @include breakpoint(large) {
     margin-left: -5rem;
   }
 }
 .pull-right-negative-5 {
-  @include breakpoint(medium) {
+  @include breakpoint(large) {
     margin-right: -5rem;
   }
 }
