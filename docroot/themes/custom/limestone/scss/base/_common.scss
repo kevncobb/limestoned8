@@ -197,6 +197,9 @@ p {
   background-color: $dark-blue;
   width: 100%;
   color: white;
+  a {
+    color: white;
+  }
   &.bg-faded {
     background-color: rgba($dark-blue, 0.7);
   }

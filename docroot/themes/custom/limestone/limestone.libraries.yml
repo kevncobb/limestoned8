@@ -33,7 +33,15 @@ da-thumbs:
     js/jquery.hoverdir.js: {}
   dependencies:
     - core/jquery
-
+ec-map:
+  version: 1.x
+  css:
+    state:
+      css/ec-map.css: {}
+  js:
+    js/ec-map.js: {}
+  dependencies:
+    - core/jquery
 lc-select:
   version: 1.x
   css:

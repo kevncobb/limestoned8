@@ -361,7 +361,7 @@ $vbp_foreground_color_05: #ffffff; // White
   height: 100%;
   top: 0;
   left: 0;
-  z-index: 1;
+  z-index: 0.98;
 }
 [data-overlay] *:not(.container):not(.background-image-holder) {
   z-index: 2;
