@@ -71,6 +71,11 @@ p {
 }
 .smaller {
   font-size: 80%;
+  line-height: 1rem;
+  &[class^="icon-"], &[class*=" icon-"] {
+    font-size: 80%;
+    line-height: 1rem;
+  }
 }
 
 .fill {
