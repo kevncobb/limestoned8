@@ -1,0 +1,96 @@
+diff --git a/revision_log_default.module b/revision_log_default.module
+index 13aaf7bc43e5..13564ef67659 100644
+--- a/revision_log_default.module
++++ b/revision_log_default.module
+@@ -16,29 +16,35 @@ function revision_log_default_entity_presave(EntityInterface $entity) {
+     if (empty($entity->getRevisionLogMessage())) {
+       $original = _revision_log_default_get_original($entity);
+       $entity_type = $entity->getEntityType();
++      $label = $entity_type->getLabel();
++
+       if ($bundle_type = $entity_type->getBundleEntityType()) {
+         $bundle = \Drupal::entityTypeManager()
+           ->getStorage($bundle_type)
+           ->load($entity->bundle());
+-        $label = $bundle->label();
+-      }
+-      else {
+-        $label = $entity_type->getLabel();
++
++        if ($bundle) {
++          $label = $bundle->label();
++        }
+       }
++
+       // Use the current timestamp if the revision_timestamp is the same as its
+       // original value (often happens with custom code, REST, and Quick Edit).
+       if (($original && $entity->getRevisionCreationTime() === $original->getRevisionCreationTime()) || empty($entity->getRevisionCreationTime())) {
+         $entity->setRevisionCreationTime(\Drupal::time()->getRequestTime());
+       }
++
+       // The revision UID is not always set correctly, in particular when using
+       // the command line or when running migrations.
+       $current_user_id = \Drupal::currentUser()->id();
++
+       if ($current_user_id === 0 && method_exists($entity, 'getOwnerId')) {
+         $entity->setRevisionUserId($entity->getOwnerId());
+       }
+       else {
+         $entity->setRevisionUserId($current_user_id);
+       }
++
+       if ($entity->isNew()) {
+         $entity->setRevisionLogMessage(t('Created new @label', [
+           '@label' => $label,
+@@ -52,15 +58,18 @@ function revision_log_default_entity_presave(EntityInterface $entity) {
+       else {
+         $changed_fields = [];
+         $ignore = ['changed', $entity_type->getKey('revision')];
++
+         /** @var \Drupal\Core\Field\FieldItemListInterface $field_items */
+         foreach ($entity as $field_name => $field_items) {
+           if (in_array($field_name, $ignore, TRUE) || strpos($field_name, 'revision') !== FALSE || ($field_name === 'path' && isset($entity->path->pathauto))) {
+             continue;
+           }
++
+           if (!$original->hasField($field_name) || !$field_items->equals($original->get($field_name))) {
+             $changed_fields[] = $field_items->getDataDefinition()->getLabel();
+           }
+         }
++
+         if (!empty($changed_fields)) {
+           if (count($changed_fields) <= 2) {
+             $entity->setRevisionLogMessage(\Drupal::translation()->formatPlural(count($changed_fields), 'Updated the @fields field', 'Updated the @fields fields', [
+@@ -80,6 +89,7 @@ function revision_log_default_entity_presave(EntityInterface $entity) {
+             '@label' => $label,
+           ]));
+         }
++
+       }
+     }
+   }
+@@ -100,6 +110,7 @@ function _revision_log_default_get_original(ContentEntityInterface $entity) {
+   // default revision or the last revision? It's complicated!
+   $handler = \Drupal::moduleHandler();
+   $is_moderated = FALSE;
++
+   if ($handler->moduleExists('content_moderation')) {
+     /** @var \Drupal\content_moderation\ModerationInformation $information */
+     $information = \Drupal::service('content_moderation.moderation_information');
+@@ -110,13 +121,16 @@ function _revision_log_default_get_original(ContentEntityInterface $entity) {
+     $information = \Drupal::service('workbench_moderation.moderation_information');
+     $is_moderated = $information->isModeratableEntity($entity);
+   }
++
+   if ($is_moderated) {
+     $latest = $information
+       ->getLatestRevision($entity->getEntityTypeId(), $entity->id());
+     $langcode = $entity->language()->getId();
++
+     if ($latest && $latest->hasTranslation($langcode)) {
+       return $latest->getTranslation($langcode);
+     }
+   }
++
+   return $entity->original;
+ }
