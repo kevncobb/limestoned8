@@ -103,10 +103,9 @@
   }
   .campus-name {
     color: $limestone-blue;
-    text-shadow: 1px 1px 2px #FFFFFF;
     display: inline-block;
     font-style: normal;
-    margin-bottom: 5px;
+    margin-bottom: 2px;
   }
   @include breakpoint(phone) {
     width: 420px;
@@ -151,12 +150,17 @@
         }
       }
       address {
-        bottom: 5%;
+        bottom: 1%;
         left: 0;
-        font-size: 0.9rem;
-        line-height: 1.1em;
+        font-size: 0.8rem;
+        line-height: 1.3em;
+        padding: 10px 10px 0 0;
         img {
           max-width: 150px;
+          margin-top: 5px;
+        }
+        a {
+          margin-bottom: 5px;
           margin-top: 5px;
         }
       }

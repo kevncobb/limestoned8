@@ -28,15 +28,15 @@
   &.red, &.alert {
     background-color: $red;
   }
-
   &.warning {
     background-color: $warning-color;
   }
-
   &.green, &.success {
     background-color: $success-color;
   }
-
+  &.teal {
+    background-color: $teal;
+  }
   &.twitter-blue {
     background-color: $twitter-blue;
   }
@@ -46,7 +46,6 @@
   &.orange {
     background-color: $orange;
   }
-
   &.category {
     background-color: $category;
   }
