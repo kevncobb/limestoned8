@@ -51,11 +51,11 @@
             $(".view-faq-view .cancel").click(this.hideForm);
             $(".view-faq-view .faq-cell").click(this.showCellDetails);
             $(".view-faq-view .close").click(this.hideCellDetails);
-            $(".view-faq-view .details .wrap").on('keyup', function(event){
+            $(".view-faq-view .faq-details .wrap").on('keyup', function(event){
               event.stopPropagation();
               event.preventDefault();
               if (event.keyCode == 27) {
-                $(".view-faq-view .details").fadeOut(300);
+                $(".view-faq-view .faq-details").fadeOut(300);
                 $(FAQfeature.currentNode).focus();
                 return false;
               }
@@ -69,25 +69,25 @@
             $(".view-faq-view .vote").click(this.submitVote);
             $(".feature_label .reset_feature").click(this.reset);
 
-            $(".view-faq-view .cell").on('keyup', function(event){
+            $(".view-faq-view .faq-cell").on('keyup', function(event){
               event.stopPropagation();
               event.preventDefault();
               var hasFocus = $('.view-faq-view .faq-cell').is(':focus');
-              var cell = $('.view-faq-view .cell');
+              var cell = $('.view-faq-view .faq-cell');
               if ( (hasFocus == true) && (event.keyCode == 13) ) {
                 cellClasses = $(this).attr("class");
                 color = $.trim(cellClasses).replace("cell-quarter", "").replace("cell-half", "").replace("cell-full", "").replace("cell", "");
                 question = $(this).find("blockquote").html();
                 answer = $(this).find("div.cell-answer").html();
                 FAQfeature.currentNode = $(document.activeElement);
-                details = $(this).parents('.view-faq-view').find('div.details');
-                var focusedAnswer = $(this).parents(".view-faq-view").find('.details .answer');
+                details = $(this).parents('.view-faq-view').find('div.faq-details');
+                var focusedAnswer = $(this).parents(".view-faq-view").find('.faq-details .answer');
 
                 //console.log('showCellDetails fired');
-                $(".view-faq-view .details h2").html(question);
-                $(".view-faq-view .details .answer").html(answer);
+                $(".view-faq-view .faq-details h2").html(question);
+                $(".view-faq-view .faq-details .answer").html(answer);
                 if (FAQfeature.currentColor) {
-                  $(".view-faq-view .details").removeClass(FAQfeature.currentColor);
+                  $(".view-faq-view .faq-details").removeClass(FAQfeature.currentColor);
                 }
                 details.addClass(color).fadeIn(300);
                 FAQfeature.currentColor = color;
@@ -158,13 +158,13 @@
             question = $(this).find("blockquote").html();
             answer = $(this).find("div.cell-answer").html();
             FAQfeature.currentNode = $(document.activeElement);
-            details = $(this).parents('.view-faq-view').find('div.details');
-            var focusableAnswer = $(this).parents(".view-faq-view").children('.details .answer');
+            details = $(this).parents('.view-faq-view').find('div.faq-details');
+            var focusableAnswer = $(this).parents(".view-faq-view").children('.faq-details .answer');
             console.log('showCellDetails fired');
-            $(".view-faq-view .details h2").html(question);
-            $(".view-faq-view .details .answer").html(answer);
+            $(".view-faq-view .faq-details h2").html(question);
+            $(".view-faq-view .faq-details .answer").html(answer);
             if (FAQfeature.currentColor) {
-              $(".view-faq-view .details").removeClass(FAQfeature.currentColor);
+              $(".view-faq-view .faq-details").removeClass(FAQfeature.currentColor);
             }
             $(".view-faq-view .thanks").html("").css({
               opacity: 0,
@@ -173,12 +173,12 @@
             $(".view-faq-view .voting").show();
             details.addClass(color).fadeIn(300);
             FAQfeature.currentColor = color;
-            var focusedAnswer = $(this).parents(".view-faq-view").find('.details .answer');
+            var focusedAnswer = $(this).parents(".view-faq-view").find('.faq-details .answer');
             $(focusedAnswer).focus();
             return false;
           },
           hideCellDetails: function() {
-            $(".view-faq-view .details").fadeOut(300);
+            $(".view-faq-view .faq-details").fadeOut(300);
             $(FAQfeature.currentNode).focus();
             return false;
           }
