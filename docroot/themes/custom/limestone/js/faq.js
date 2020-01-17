@@ -49,7 +49,7 @@
               }
             });
             $(".view-faq-view .cancel").click(this.hideForm);
-            $(".view-faq-view .cell").click(this.showCellDetails);
+            $(".view-faq-view .faq-cell").click(this.showCellDetails);
             $(".view-faq-view .close").click(this.hideCellDetails);
             $(".view-faq-view .details .wrap").on('keyup', function(event){
               event.stopPropagation();
@@ -72,7 +72,7 @@
             $(".view-faq-view .cell").on('keyup', function(event){
               event.stopPropagation();
               event.preventDefault();
-              var hasFocus = $('.view-faq-view .cell').is(':focus');
+              var hasFocus = $('.view-faq-view .faq-cell').is(':focus');
               var cell = $('.view-faq-view .cell');
               if ( (hasFocus == true) && (event.keyCode == 13) ) {
                 cellClasses = $(this).attr("class");
@@ -154,7 +154,7 @@
           },
           showCellDetails: function() {
             cellClasses = $(this).attr("class");
-            color = $.trim(cellClasses).replace("cell-quarter", "").replace("cell-half", "").replace("cell-full", "").replace("cell", "");
+            color = $.trim(cellClasses).replace("cell-quarter", "").replace("cell-half", "").replace("cell-full", "").replace("faq-cell", "");
             question = $(this).find("blockquote").html();
             answer = $(this).find("div.cell-answer").html();
             FAQfeature.currentNode = $(document.activeElement);
