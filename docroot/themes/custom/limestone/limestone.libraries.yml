@@ -7,7 +7,6 @@ global:
   js:
     js/limestone.js: {}
     js/trunk8.min.js: {}
-
 lc-slider:
   version: 1.x
   css:
@@ -17,12 +16,10 @@ lc-slider:
     js/lc-slider.js: {}
   dependencies:
     - core/jquery
-
 lc-menu:
   version: 1.x
   js:
     js/menu.js: {}
-
 da-thumbs:
   version: 1.x
   css:
@@ -49,14 +46,19 @@ lc-select:
       css/lc-select.css: {}
   js:
     js/lc-select.js: {}
-
 lc-parallax:
   version: 1.x
   js:
     js/parallax.min.js: {}
     js/lc-parallax.js: {}
-
 masonry:
   version: 1.x
   js:
     js/masonry.pkgd.min.js: {}
+faqs:
+  version: 1.x
+  css:
+    base:
+      css/faqs.css: {}
+  js:
+    js/faqs.js: {}
