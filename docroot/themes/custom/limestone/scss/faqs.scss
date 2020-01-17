@@ -97,7 +97,7 @@
     left: auto;
     right: 0%;
   }
-  .details {
+  .faq-details {
     h2 {
       color: #FFF;
       font-size: 29px;
@@ -401,37 +401,37 @@
   border-color: #503C69;
 }
 
-.details.cell-green {
+.faq-details.cell-green {
   background-color: #47670D;
 }
 
-.details.cell-blue {
+.faq-details.cell-blue {
   background-color: #375286;
 }
 
-.details.cell-red {
+.faq-details.cell-red {
   background-color: #822D18;
 }
 
-.details.cell-orange {
+.faq-details.cell-orange {
   background-color: #DE6E1C;
 }
 
-.details.cell-yellow {
+.faq-details.cell-yellow {
   background-color: #deb400;
 }
 
-.details.cell-gray {
+.faq-details.cell-gray {
   background-color: #555;
 }
 
-.details.cell-purple {
+.faq-details.cell-purple {
   background-color: #503C69;
 }
 
 @media screen and (max-width: 860px) {
   .view-faq-view {
-    .details {
+    .faq-details {
       .answer {
         padding: 0 0.7em;
       }
@@ -446,7 +446,7 @@
 
 @media screen and (max-width: 780px) {
   .view-faq-view {
-    .details {
+    .faq-details {
       h2 {
         font-size: 20px;
         padding-left: 1em;
@@ -469,7 +469,7 @@
 
 @media screen and (max-width: 400px) {
   .view-faq-view {
-    .details {
+    .faq-details {
       h2 {
         font-size: 16px;
         padding: 0 1em;
