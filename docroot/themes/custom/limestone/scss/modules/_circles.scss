@@ -12,6 +12,7 @@
       a {
         &:hover,
         &:focus {
+          color: $success-color;
           .circle {
             background: rgba($limestone-blue, 1);
             transition: background .15s ease-in-out;
@@ -75,6 +76,12 @@ $circle-size: 2em;
   [class^="icon-"], [class*=" icon-"] {
     margin: 0.5em 0 0 0.5em;
     display: inline-block;
+  }
+  .icon-graduate {
+    margin: 0.75em 0 0 0.6em;
+  }
+  .icon-dollar, .icon-dollar2 {
+    margin: 0.75em 0 0 0.7em;
   }
   img.icon-logo {
     width: 105px;
