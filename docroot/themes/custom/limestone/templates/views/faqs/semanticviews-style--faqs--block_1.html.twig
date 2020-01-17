@@ -7,6 +7,14 @@
  */
 #}
 {{ attach_library('limestone/faqs') }}
+
+<menu class="feature-previous" tabindex="0">
+  <span id="less-photos" class="icon-circleleft less-photos"></span>
+</menu>
+<menu class="feature-more" tabindex="0">
+  <span id="more-photos" class="icon-circleright more-photos"></span>
+</menu>
+
 {% if title %}
   <{{ group.element }}{{ group.attributes }}>
   {{ title }}

@@ -3,7 +3,6 @@
   Drupal.behaviors.faqs = {
     attach: function (context, settings) {
 
-      (function($, Drupal, window, document, undefined) {
         var FAQfeature = {
           currentColor: "",
           currentID: false,
@@ -205,7 +204,6 @@
           //INIT Functions
           FAQfeature.init();
         });
-      })(jQuery, Drupal, this, this.document);;
     }
   };
 })(jQuery, Drupal);
