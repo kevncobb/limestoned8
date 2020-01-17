@@ -142,7 +142,7 @@
   width: 385px;
 }
 
-.cell {
+.faq-cell {
   cursor: pointer;
   margin: 0 0 1px 0;
   overflow: hidden;
@@ -197,11 +197,11 @@
   }
 }
 
-.cell:focus span, .cell:hover span {
+.faq-cell:focus span, .faq-cell:hover span {
   bottom: 0;
 }
 
-.cell:hover blockquote {
+.faq-cell:hover blockquote {
   color: #FFF;
 }
 
