@@ -2,7 +2,7 @@
 
   Drupal.behaviors.faqs = {
     attach: function (context, settings) {
-
+      console.log('faq.js fired');
         var FAQfeature = {
           currentColor: "",
           currentID: false,
