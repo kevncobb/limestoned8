@@ -154,7 +154,7 @@
           showCellDetails: function() {
             cellClasses = $(this).attr("class");
             color = $.trim(cellClasses).replace("cell-quarter", "").replace("cell-half", "").replace("cell-full", "").replace("faq-cell", "");
-            question = $(this).find("blockquote").html();
+            question = $(this).find("blockquote.faq-question").html();
             answer = $(this).find("div.cell-answer").html();
             FAQfeature.currentNode = $(document.activeElement);
             details = $(this).parents('.view-faq-view').find('div.faq-details');
