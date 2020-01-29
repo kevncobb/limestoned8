@@ -7,46 +7,47 @@
  */
 #}
 {{ attach_library('limestone/faqs') }}
+<section class="view-faq-view">
+  <menu class="feature-previous" tabindex="0">
+    <span id="less-photos" class="icon-circleleft less-photos"></span>
+  </menu>
+  <menu class="feature-more" tabindex="0">
+    <span id="more-photos" class="icon-circleright more-photos"></span>
+  </menu>
 
-<menu class="feature-previous" tabindex="0">
-  <span id="less-photos" class="icon-circleleft less-photos"></span>
-</menu>
-<menu class="feature-more" tabindex="0">
-  <span id="more-photos" class="icon-circleright more-photos"></span>
-</menu>
-
-{% if title %}
-  <{{ group.element }}{{ group.attributes }}>
-  {{ title }}
-  </{{ group.element }}>
-{% endif %}
-
-{% if list.element %}
-  <{{ list.element }}{{ list.attributes }}>
-{% endif %}
-
-{% for id, row in rows %}
-
-  {% if row.element %}
-    <{{ row.element }} {{ row.attributes }}>
+  {% if title %}
+    <{{ group.element }}{{ group.attributes }}>
+    {{ title }}
+    </{{ group.element }}>
   {% endif %}
 
-  {{ row.content }}
-
-  {% if row.element %}
-    </{{ row.element }}>
+  {% if list.element %}
+    <{{ list.element }}{{ list.attributes }}>
   {% endif %}
 
-{% endfor %}
+  {% for id, row in rows %}
 
-{% if list.element %}
-  </{{ list.element }}>
-{% endif %}
-<div class="faq-details" style="display: none;">
-  <section class="wrap">
-    <a href="#" class="close"><span class="icon-cross"><span class="esc-to-close">ESC to close</span><span class="invisible">Close</span></span></a>
-    <h2>null</h2>
-    <hr class="white">
-    <div class="answer" tabindex="-1"></div>
-  </section>
-</div>
+    {% if row.element %}
+      <{{ row.element }} {{ row.attributes }}>
+    {% endif %}
+
+    {{ row.content }}
+
+    {% if row.element %}
+      </{{ row.element }}>
+    {% endif %}
+
+  {% endfor %}
+
+  {% if list.element %}
+    </{{ list.element }}>
+  {% endif %}
+  <div class="faq-details" style="display: none;">
+    <section class="wrap">
+      <a href="#" class="close"><span class="icon-cross"><span class="esc-to-close">ESC to close</span><span class="invisible">Close</span></span></a>
+      <h2>null</h2>
+      <hr class="white">
+      <div class="answer" tabindex="-1"></div>
+    </section>
+  </div>
+</section>
