@@ -15,7 +15,7 @@
 }
 
 @media screen and (min-width: 780px) {
-  .view-faq-view {
+  .faq-view {
     .smaller {
       font-size: 89%;
       line-height: 20px;
@@ -23,7 +23,7 @@
   }
 }
 
-.view-faq-view {
+.faq-view {
   min-height: 353px;
   margin-top: 80px;
   z-index: 10;
@@ -130,7 +130,7 @@
   padding-bottom: 0;
 }
 
-.view-faq-view
+.faq-view
 .cell-answer {
   display: none;
 }
@@ -429,7 +429,7 @@
 }
 
 @media screen and (max-width: 860px) {
-  .view-faq-view {
+  .faq-view {
     .faq-details {
       .answer {
         padding: 0 0.7em;
@@ -444,7 +444,7 @@
 }
 
 @media screen and (max-width: 780px) {
-  .view-faq-view {
+  .faq-view {
     .faq-details {
       h2 {
         font-size: 20px;
@@ -467,7 +467,7 @@
 }
 
 @media screen and (max-width: 400px) {
-  .view-faq-view {
+  .faq-view {
     .faq-details {
       h2 {
         font-size: 16px;
