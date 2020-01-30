@@ -183,29 +183,34 @@
         }
       };
 
-      /*
+
       $(document).ready(function($) {
         // WRAP NEEDED FAQ CELLS IN COLUMNS
-        var $cell = $(".faqs article.cell-quarter, .faqs article.cell-half"),
-          $full = $(".faqs article.cell-full");
-        for (var i = 0; i < $cell.length; i += 3) {
-          $cell.slice(i, i + 3).wrapAll('<div class="faq-column"></div>');
-        }
-        for (var i = 0; i < $full.length; i += 1) {
-          $full.slice(i, i + 1).wrapAll('<div class="faq-column"></div>');
-        }
-        var $columns = $(".faq-column");
+        $(window).bind("load resize", function() {
+          var ww = window.innerWidth;
+          if (ww >= 1600) {
+            var $cell = $(".faqs article.cell-quarter, .faqs article.cell-half"),
+              $full = $(".faqs article.cell-full");
+            for (var i = 0; i < $cell.length; i += 3) {
+              $cell.slice(i, i + 3).wrapAll('<div class="faq-column"></div>');
+            }
+            for (var i = 0; i < $full.length; i += 1) {
+              $full.slice(i, i + 1).wrapAll('<div class="faq-column"></div>');
+            }
+            var $columns = $(".faq-column");
 
-        if ($columns.parent().is("div")) {
-          $columns.unwrap();
-        }
+            if ($columns.parent().is("div")) {
+              $columns.unwrap();
+            }
+          }
+        });
+
 
         $('.faqs div:not([class])').remove();
 
         //INIT Functions
         FAQfeature.init();
       });
-      */
     }
   };
 })(jQuery, Drupal);
