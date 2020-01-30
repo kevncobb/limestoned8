@@ -40,7 +40,7 @@
   .feature-previous, .feature-more {
     display: none;
   }
-  @media screen and (max-width: 1450px) {
+  @media screen and (min-width: 1450px) {
     .feature-more {
       left: auto;
       right: 0%;
