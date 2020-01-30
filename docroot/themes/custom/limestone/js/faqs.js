@@ -75,7 +75,7 @@
             var cell = $('.faqs .faq-cell');
             if ( (hasFocus == true) && (event.keyCode == 13) ) {
               cellClasses = $(this).attr("class");
-              color = $.trim(cellClasses).replace("cell-quarter", "").replace("cell-half", "").replace("cell-full", "").replace("cell", "");
+              color = $.trim(cellClasses).replace("cell-quarter", "").replace("cell-half", "").replace("cell-full", "").replace("faq-cell", "");
               question = $(this).find("blockquote").html();
               answer = $(this).find("div.cell-answer").html();
               FAQfeature.currentNode = $(document.activeElement);
@@ -185,10 +185,12 @@
 
 
       $(document).ready(function($) {
+
         // WRAP NEEDED FAQ CELLS IN COLUMNS
+        /*
         $(window).bind("load resize", function() {
           var ww = window.innerWidth;
-          if (ww >= 1600) {
+          if (ww >= 1450) {
             var $cell = $(".faqs article.cell-quarter, .faqs article.cell-half"),
               $full = $(".faqs article.cell-full");
             for (var i = 0; i < $cell.length; i += 3) {
@@ -204,7 +206,7 @@
             }
           }
         });
-
+*/
 
         $('.faqs div:not([class])').remove();
 
