@@ -31,7 +31,7 @@
   background-color: #fff;
   .faq-frame {
     width: 100%;
-    @media screen and (max-width: 1450px) {
+    @media screen and (min-width: 1450px) {
       position: absolute;
       width: 10000px;
       height: 353px;
