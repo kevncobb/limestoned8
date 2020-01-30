@@ -6,11 +6,18 @@
  * @ingroup views_templates
  */
 #}
+{%
+  set classes = [
+  'view',
+  'view-' ~ id|clean_class,
+  'view-id-' ~ id,
+  'view-display-id-' ~ display_id,
+  dom_id ? 'js-view-dom-id-' ~ dom_id,
+]
+%}
+
 {{ attach_library('limestone/faqs') }}
-
-
-<div class="view-faq-view">
-
+<div{{ attributes.addClass(classes) }}>
   <menu class="feature-previous" tabindex="0">
     <span id="less-photos" class="icon-circleleft less-photos"></span>
   </menu>
