@@ -25,6 +25,8 @@
 
 .faqs {
   min-height: 353px;
+  height: 100%;
+  float: left;
   margin-top: 80px;
   z-index: 10;
   position: relative;
@@ -212,27 +214,7 @@
 
 
 
-@media screen and (max-width: 1600px) {
-  .faq-cell {
-    width: 25%
-  }
-  .cell-quarter {
-    height: 175px;
-  }
-  .cell-full {
-    height: 175px;
-  }
-}
-@media screen and (max-width: 1450px) {
-  .faq-cell {
-    width: 33.2%
-  }
-}
-@media screen and (max-width: 1100px) {
-  .faq-cell {
-    width: 50%
-  }
-}
+
 .faq-cell:focus span, .faq-cell:hover span {
   bottom: 0;
 }
@@ -270,10 +252,30 @@
 .cell-quarter p {
   padding: 0 15px 0 0;
 }
-
+@media screen and (max-width: 1600px) {
+  .faq-cell {
+    width: 25%
+  }
+  .cell-quarter {
+    height: 175px;
+  }
+  .cell-full {
+    height: 175px;
+  }
+}
+@media screen and (max-width: 1450px) {
+  .faq-cell {
+    width: 33.2%
+  }
+}
+@media screen and (max-width: 1100px) {
+  .faq-cell {
+    width: 50%
+  }
+}
 /*.cell-quarter span { margin: 54px 0 0 0; }*/
 .faq-details {
-  height: 352px;
+  height: 100%;
   padding: 13px 0;
   position: absolute;
   width: 100%;
@@ -284,7 +286,7 @@
     color: #fff;
   }
   .wrap {
-    height: 352px;
+    //height: 352px;
     margin: 0 auto;
     max-width: 840px;
     color: #fff;
@@ -308,6 +310,7 @@
     margin: 0;
     padding: 25px 0 20px 0;
     text-transform: none;
+    float: left;
   }
   div {
     overflow: hidden;
