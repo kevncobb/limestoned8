@@ -183,6 +183,7 @@
         }
       };
 
+      /*
       $(document).ready(function($) {
         // WRAP NEEDED FAQ CELLS IN COLUMNS
         var $cell = $(".faqs article.cell-quarter, .faqs article.cell-half"),
@@ -204,6 +205,7 @@
         //INIT Functions
         FAQfeature.init();
       });
+      */
     }
   };
 })(jQuery, Drupal);
