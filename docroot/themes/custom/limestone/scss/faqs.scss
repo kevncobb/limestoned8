@@ -30,72 +30,85 @@
   position: relative;
   background-color: #fff;
   .view-content {
-    height: 353px;
-    position: absolute;
-    width: 10000px;
-  }
-  .feature-more {
-    left: auto;
-    right: 0%;
-    span {
-      background: $limestone-yellow;
-      color: $limestone-blue;
-      cursor: pointer;
-      display: block;
-      font-size: 30px;
-      letter-spacing: 0.01em;
-      padding: 15px;
-      text-align: center;
-      text-transform: uppercase;
-      width: 45px;
+    width: 100%;
+    @media screen and (max-width: 1450px) {
+      position: absolute;
+      width: 10000px;
+      height: 353px;
     }
-    span:hover {
-      background: #fff;
-      text-decoration: none;
-    }
-  }
-  .feature-more span:before, .feature-previous span:before {
-    left: -6px;
-    position: relative;
-  }
-  .feature-previous {
-    span {
-      background: $limestone-yellow;
-      color: $limestone-blue;
-      cursor: pointer;
-      display: block;
-      font-size: 30px;
-      letter-spacing: 0.01em;
-      padding: 15px;
-      text-align: center;
-      text-transform: uppercase;
-      width: 45px;
-    }
-    span:before {
-      left: -6px;
-    }
-
   }
   .feature-previous, .feature-more {
-    position: absolute;
-    left: 0;
-    padding: 0;
-    top: -60px;
-    width: 45px;
-    z-index: 112;
-    &:focus, &:hover {
-      width: 120px;
+    display: none;
+  }
+  @media screen and (max-width: 1450px) {
+    .feature-more {
+      left: auto;
+      right: 0%;
+
       span {
-        width: 120px;
-        background: #fff !important;
+        background: $limestone-yellow;
+        color: $limestone-blue;
+        cursor: pointer;
+        display: block;
+        font-size: 30px;
+        letter-spacing: 0.01em;
+        padding: 15px;
+        text-align: center;
+        text-transform: uppercase;
+        width: 45px;
+      }
+
+      span:hover {
+        background: #fff;
         text-decoration: none;
-        transition: all 200ms;
       }
     }
-  }
-  .feature-more {
-    left: auto;
-    right: 0%;
+    .feature-more span:before, .feature-previous span:before {
+      left: -6px;
+      position: relative;
+    }
+    .feature-previous {
+      span {
+        background: $limestone-yellow;
+        color: $limestone-blue;
+        cursor: pointer;
+        display: block;
+        font-size: 30px;
+        letter-spacing: 0.01em;
+        padding: 15px;
+        text-align: center;
+        text-transform: uppercase;
+        width: 45px;
+      }
+
+      span:before {
+        left: -6px;
+      }
+
+    }
+    .feature-previous, .feature-more {
+      position: absolute;
+      left: 0;
+      padding: 0;
+      top: -60px;
+      width: 45px;
+      z-index: 112;
+
+      &:focus, &:hover {
+        width: 120px;
+
+        span {
+          width: 120px;
+          background: #fff !important;
+          text-decoration: none;
+          transition: all 200ms;
+        }
+      }
+    }
+    .feature-more {
+      left: auto;
+      right: 0%;
+    }
   }
   .faq-details {
     h2 {
@@ -171,6 +184,21 @@
     transition: bottom 0.3s ease-in-out;
     -moz-transition: bottom 0.3s ease-in-out;
     -webkit-transition: bottom 0.3s ease-in-out;
+  }
+  @media screen and (max-width: 1600px) {
+    .faq-cell {
+      width: 25%
+    }
+  }
+  @media screen and (max-width: 1450px) {
+    .faq-cell {
+      width: 33.2%
+    }
+  }
+  @media screen and (max-width: 1100px) {
+    .faq-cell {
+      width: 50%
+    }
   }
   div.cell-answer {
     display: none;
@@ -426,6 +454,8 @@
 .faq-details.cell-purple {
   background-color: #503C69;
 }
+
+
 
 @media screen and (max-width: 860px) {
   .faqs {
