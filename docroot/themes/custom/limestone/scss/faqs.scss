@@ -185,21 +185,7 @@
     -moz-transition: bottom 0.3s ease-in-out;
     -webkit-transition: bottom 0.3s ease-in-out;
   }
-  @media screen and (max-width: 1600px) {
-    .faq-cell {
-      width: 25%
-    }
-  }
-  @media screen and (max-width: 1450px) {
-    .faq-cell {
-      width: 33.2%
-    }
-  }
-  @media screen and (max-width: 1100px) {
-    .faq-cell {
-      width: 50%
-    }
-  }
+
   div.cell-answer {
     display: none;
   }
@@ -222,7 +208,21 @@
     text-align: right;
   }
 }
-
+@media screen and (max-width: 1600px) {
+  .faq-cell {
+    width: 25%
+  }
+}
+@media screen and (max-width: 1450px) {
+  .faq-cell {
+    width: 33.2%
+  }
+}
+@media screen and (max-width: 1100px) {
+  .faq-cell {
+    width: 50%
+  }
+}
 .faq-cell:focus span, .faq-cell:hover span {
   bottom: 0;
 }
