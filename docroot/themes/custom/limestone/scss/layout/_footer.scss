@@ -8,6 +8,13 @@ footer.site-footer {
   h2, h3, h4, h5, h6 {
     color: white;
   }
+  h2 {
+    font-size: 1.2rem;
+    margin-bottom: 0.1rem;
+    &.lc-header::after {
+      height: 3px;
+    }
+  }
   a {
     color: white;
     &:hover, &:focus {
