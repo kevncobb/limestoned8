@@ -550,10 +550,10 @@ form#views-exposed-form-news-latest-news-block .form-item-search label {
 
 
 .lc-news-header {
-  height: 110px;
+  //height: 110px;
   background-color: #dcdcdc;
   position: relative;
-  margin-bottom: 1rem;
+  //padding-bottom: 1rem;
   &::before {
     //position: absolute;
     //bottom: 0;
@@ -566,8 +566,8 @@ form#views-exposed-form-news-latest-news-block .form-item-search label {
   #lc-news-header {
     position: relative;
     //border-bottom: 1px solid $light-gray;
-    height: 95px;
-    margin-bottom: 10px;
+    //height: 95px;
+    //margin-bottom: 10px;
     .cell.auto {
       position: relative;
     }
@@ -594,8 +594,11 @@ form#views-exposed-form-news-latest-news-block .form-item-search label {
   }
   .news-category-page-title {
     @extend .paragraph-section-title;
-    line-height: 110px; // Height of lc-news-header
     text-transform: uppercase;
+    letter-spacing: -4px;
+    @include breakpoint(medium) {
+      line-height: 110px; // Height of lc-news-header
+    }
   }
 }
 
