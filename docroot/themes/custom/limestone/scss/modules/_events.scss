@@ -8,7 +8,7 @@
   .upcoming-events-block {
     .date-box {
       float: left;
-      padding: 10px 7px;
+      padding: 14px 7px;
       background-color: $limestone-yellow;
       color: $limestone-blue;
       margin-right: 10px;
@@ -41,7 +41,7 @@
       -moz-osx-font-smoothing: grayscale;
       font-weight: 900;
       line-height: 1.5;
-      margin-bottom: 0;
+      margin-bottom: -4px;
       color: #000;
       font-size: 15px;
     }
