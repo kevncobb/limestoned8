@@ -33,11 +33,6 @@
   background-color: #fff;
   .faq-frame {
     width: 100%;
-    @media screen and (min-width: 1450px) {
-      position: absolute;
-      width: 10000px;
-      height: 353px;
-    }
   }
   .feature-previous, .feature-more {
     display: none;
@@ -381,7 +376,10 @@
   background-color: #415A8C;
   border-color: #415A8C;
 }
-
+.cell-twitter-blue {
+  background-color: $twitter-blue;
+  border-color: $twitter-blue;
+}
 .cell-red {
   background-color: #A84026;
   border-color: #A84026;
