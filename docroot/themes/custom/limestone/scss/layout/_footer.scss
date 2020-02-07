@@ -10,9 +10,12 @@ footer.site-footer {
   }
   h2 {
     font-size: 1.2rem;
-    margin-bottom: 0.1rem;
+    margin-bottom: 15px;
     &.lc-header::after {
       height: 3px;
+      position: absolute;
+      left: 0;
+      bottom: 15px;
     }
   }
   a {
