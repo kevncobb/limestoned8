@@ -8,7 +8,7 @@
   .upcoming-events-block {
     .date-box {
       float: left;
-      padding: 10px 15px;
+      padding: 10px 7px;
       background-color: $limestone-yellow;
       color: $limestone-blue;
       margin-right: 10px;
@@ -17,7 +17,8 @@
         font-variant-numeric: lining-nums;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
-        font-size: 13px;
+        font-size: 12px;
+        line-height: 30px;
         text-transform: uppercase;
         text-align: center;
         display: block;
@@ -27,8 +28,8 @@
         font-variant-numeric: lining-nums;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
-        font-size: 30px;
-        line-height: 35px;
+        font-size: 27px;
+        line-height: 30px;
         text-align: center;
         display: block;
       }
@@ -40,13 +41,14 @@
       -moz-osx-font-smoothing: grayscale;
       font-weight: 900;
       line-height: 1.5;
-      margin-bottom: 5px;
+      margin-bottom: 0;
       color: #000;
       font-size: 15px;
     }
     .event-title {
       font-size: 14px;
       margin-bottom: 15px;
+      line-height: 23px;
     }
   }
 }
