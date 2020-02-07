@@ -35,3 +35,8 @@ ul.line-items {
     }
   }
 }
+.striped {
+  .even {
+    background-color: $lighter-gray;
+  }
+}
