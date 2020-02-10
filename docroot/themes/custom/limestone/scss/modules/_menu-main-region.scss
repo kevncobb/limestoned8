@@ -385,6 +385,11 @@
     }
   }
 }
+@include breakpoint(xxlarge) {
+  nav.sub-menu-block, nav.menu--desktop-megamenu {
+    font-size: 1.6rem;
+  }
+}
 $expander-arrow-width: 0.7em;
 $expander-toggle-size: 1em;
 $expander-toggle-arrow-size: $expander-toggle-size;

@@ -149,7 +149,7 @@ function limestone_foundation_paragraphs_field_widget_entity_reference_paragraph
       $lines = explode(PHP_EOL, $background_colors);
       foreach($lines as $line) {
         $line = explode('|', $line);
-        $background_colors_options[$line[0]] = $line[1];
+        $background_colors_options[$line[0]] = isset($line[1]) ? $line[1] : null;
       }
 
       // Updated the bp_background options with the list of vbp colors.
