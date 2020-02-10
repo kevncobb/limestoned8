@@ -64,7 +64,7 @@
 // 1. Global
 // ---------
 
-$global-font-size: rem-calc(19);
+$global-font-size: rem-calc(16);
 $global-width: rem-calc(1440);
 $global-lineheight: 1.4;
 
@@ -137,6 +137,10 @@ $breakpoints: (
 );
 $print-breakpoint: large;
 $breakpoint-classes: (small smedium medium large xlarge xxlarge);
+
+@include breakpoint(large) {
+  $global-font-size: rem-calc(19);
+}
 
 // 3. The Grid
 // -----------
