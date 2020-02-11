@@ -31,6 +31,9 @@
   &.warning {
     background-color: $warning-color;
   }
+  &.yellow {
+    background-color: $limestone-yellow;
+  }
   &.green, &.success {
     background-color: $success-color;
   }
