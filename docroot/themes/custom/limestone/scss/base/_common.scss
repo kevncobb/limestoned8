@@ -197,6 +197,13 @@ p {
   .separator-center::after {
     border-bottom-color: white;
   }
+  table tbody {
+    border: none;
+    background-color: transparent;
+    tr:nth-child(even) {
+      background-color: scale-color($limestone-blue, $lightness: -10%)
+    }
+  }
 }
 .background-darkblue, .bg-darkblue {
   background-color: $dark-blue;
