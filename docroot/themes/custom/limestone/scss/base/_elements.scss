@@ -409,3 +409,30 @@ label {
   max-width: 450px;
   background-color: rgba(255, 255, 255, 0.1);
 }
+.blue-frame {
+  position: relative;
+  padding: 1.5em;
+  &::before {
+    content: "";
+    background-image: url(/themes/custom/limestone/images/blue-frame.png);
+    background-repeat: no-repeat;
+    background-size: 100%;
+    width: calc(100% + 8px);
+    height: 39px;
+    position: absolute;
+    top: -20px;
+    left: 0px;
+  }
+  &::after {
+    content: "";
+    background-image: url(/themes/custom/limestone/images/blue-frame.png);
+    background-repeat: no-repeat;
+    background-size: 100%;
+    width: calc(100% + 8px);
+    height: 39px;
+    position: absolute;
+    bottom: -6px;
+    left: 5px;
+    transform: rotate(180deg);
+  }
+}

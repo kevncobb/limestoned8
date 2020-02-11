@@ -20,14 +20,14 @@
       background-color: $limestone-blue;
       font-family: $header-font-family;
       font-weight: bold;
-      font-size: 1.25rem;
+      font-size: 1.45rem;
       text-transform: uppercase;
       color: white;
       line-height: inherit;
-      padding: 0.3rem 1rem;
+      padding: 0.4rem 1rem;
       margin: 0;
       position: relative;
-      border-right: 60px solid $limestone-yellow;
+      //border-right: 60px solid $limestone-yellow;
       &:empty, &:only-child {
         padding: 5px 0 5px 30px;
       }
@@ -41,25 +41,25 @@
         display: none;
       }
       &::after {
-        content: "";
-        background: url(/themes/custom/limestone/images/lc-sprite.svg) no-repeat;
-        background-position: (-311px) -533px;
-        background-size: 770px;
-        height: 32px;
-        position: absolute;
-        right: -48px;
-        width: 35px;
-        top: 8px;
+        //content: "";
+        //background: url(/themes/custom/limestone/images/lc-sprite.svg) no-repeat;
+        //background-position: (-311px) -533px;
+        //background-size: 770px;
+        //height: 32px;
+        //position: absolute;
+        //right: -48px;
+        //width: 35px;
+        //top: 8px;
       }
     }
 
     ul.root-level, ul.menu-level-0 {
       a {
         color: $dark-gray;
-        padding: 9px 0 9px 40px;
+        padding: 9px 0 9px 28px;
         float: left;
         width: 100%;
-        font-size: 1rem;
+        //font-size: 1rem;
         background-color: lighten($light-gray, 6%);
         border: thin solid #ccc;
         border-top: none;
@@ -95,7 +95,7 @@
             //margin-left: -6px
             &.is-active {
               //background-color: rgba(251, 234, 101, 0.29)
-              border-left: 6px solid $limestone-yellow;
+              border-left: 7px solid $limestone-yellow;
             }
           }
 
