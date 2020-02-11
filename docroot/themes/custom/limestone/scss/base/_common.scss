@@ -231,6 +231,13 @@ p {
     border-bottom-color: white;
   }
 }
+.background-green, .bg-green {
+  background-color: $success-color;
+  width: 100%;
+  &.bg-faded {
+    background-color: rgba($success-color, 0.7);
+  }
+}
 .bg-l-gray {
   background-color: $light-gray;
   width: 100%;
