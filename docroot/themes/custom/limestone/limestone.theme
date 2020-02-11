@@ -201,6 +201,13 @@ function limestone_theme_suggestions_image_formatter_alter(array &$suggestions, 
   $field_name = $variables['item']->getParent()->getName();
   $suggestions[] = 'image_formatter__' . $entity->getEntityTypeId() . '__' . $entity->bundle() . '__' . $field_name;
 }
+function limestone_preprocess_media(&$variables) {
+  if ($variables['media']->bundle() == 'file' && !empty($variables['content']['field_media_file'])) {
+    foreach (Element::children($variables['content']['field_media_file']) as $delta) {
+      $variables['content']['field_media_file'][$delta]['#description'] = $variables['name'];
+    }
+  }
+}
 
 
 function limestone_theme_suggestions_field_alter(&$suggestions, $variables) {
