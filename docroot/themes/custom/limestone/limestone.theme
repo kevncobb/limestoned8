@@ -202,9 +202,14 @@ function limestone_theme_suggestions_image_formatter_alter(array &$suggestions, 
   $suggestions[] = 'image_formatter__' . $entity->getEntityTypeId() . '__' . $entity->bundle() . '__' . $field_name;
 }
 function limestone_preprocess_media(&$variables) {
-  if ($variables['media']->bundle() == 'file' && !empty($variables['content']['field_media_file'])) {
-    foreach (Element::children($variables['content']['field_media_file']) as $delta) {
-      $variables['content']['field_media_file'][$delta]['#description'] = $variables['name'];
+  $media = $variables['media'];
+  $name = $media->getName();
+  if (!empty($name)) {
+    $mediaArray = $media->toArray();
+    if (!empty($mediaArray['field_media_file'][0]['target_id'])) {
+      $fileId = $mediaArray['field_media_file'][0]['target_id'];
+      $file = \Drupal\file\Entity\File::load($fileId);
+      $file->setFilename($name);
     }
   }
 }
