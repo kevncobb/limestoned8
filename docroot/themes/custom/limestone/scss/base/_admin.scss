@@ -47,3 +47,9 @@ html.login-screen {
     width: 100%;
   }
 }
+a.tabledrag-handle .handle {
+  width: 14px;
+  height: 14px;
+  margin: 0.5em 0.5em 0 0.8em;
+  background: url(/core/themes/stable/images/core/icons/787878/move.svg) no-repeat 2px -1px;
+}
