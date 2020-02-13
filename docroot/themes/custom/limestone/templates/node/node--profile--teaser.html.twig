@@ -69,8 +69,11 @@
 #}
 <article id="node-{{ node.id }}" {{ attributes }}>
   <div class="contextual-region">
+    {{ title_prefix }}
     {{ title_suffix }}
+    {{ title_suffix.contextual_links }}
   </div>
+
   {# We hide the comments and links now so that we can render them later. #}
   <div{{ content_attributes }}>
     {{ content|without('comment', 'links', 'field_tags') }}
@@ -81,4 +84,5 @@
   {% endif %}
 
   {{ content.links }}
+
 </article>
