@@ -1,7 +1,7 @@
 .upcoming-events-row {
-  margin: 14px 0;
+  margin: 0;
   clear: both;
-  padding: 3px 0;
+  padding: 14px 0;
   &:first-child {
     padding-top: 0;
   }
@@ -12,6 +12,7 @@
       background-color: $limestone-yellow;
       color: $limestone-blue;
       margin-right: 10px;
+      min-width: 70px;
       .month {
         font-family: $interstate-font; //
         font-variant-numeric: lining-nums;
