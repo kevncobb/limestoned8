@@ -589,8 +589,10 @@ form#views-exposed-form-news-latest-news-block .form-item-search label {
     max-width: 260px;
   }
   .lc-news-image {
-    position: absolute;
-    bottom: 8px;
+    position: relative;
+    @include breakpoint(medium) {
+      bottom: -7px;
+    }
   }
   .news-category-page-title {
     @extend .paragraph-section-title;
