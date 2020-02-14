@@ -3,7 +3,7 @@
   line-height: 1.1rem;
   font-family: $header-font-family;
   font-weight: $header-font-weight;
-  text-decoration: none;
+  text-decoration: none !important;
   font-size: 1.3em;
 
   [class^="icon-"], [class*=" icon-"] {
