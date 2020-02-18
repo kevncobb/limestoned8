@@ -481,6 +481,9 @@ $expander-toggle-margin: 1em;
       max-width: none !important;
       height: auto !important;
     }
+    .is-drilldown-submenu {
+      border-top: none;
+    }
     .vertical.drilldown {
       height: auto;
     }
