@@ -278,20 +278,21 @@
 /*.cell-quarter span { margin: 54px 0 0 0; }*/
 .faq-details {
   height: 100%;
+  width: 100%;
   padding: 13px 0;
   position: fixed;
-  top: 80%;
+  top: 65%;
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 112;
   @media screen and (min-width: 767px) {
-    top: 880%;
+    //top: 70%;
   }
   @media screen and (min-width: 1450px) {
-    top: 92%;
+    //top: 75%;
   }
   @media screen and (min-width: 1600px) {
-    top: 100%;
+    top: 75%;
   }
   a {
     color: #fff;

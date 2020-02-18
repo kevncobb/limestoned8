@@ -232,10 +232,9 @@ function limestone_theme_suggestions_taxonomy_term_alter(&$suggestions, $vars, $
 }
 
 
-function limestone_theme_suggestions_menu_alter(array &$suggestions, array $variables) {
-  if (isset($variables['attributes']['block'])) {
-    $hook = str_replace(array('block-', '-'), array('', '_'), $variables['attributes']['block']);
-    $suggestions[] = $variables['theme_hook_original'] . '__' . $hook;
+function limestone_theme_suggestions_menu_alter(&$suggestions, array $variables) {
+  if (isset($variables['attributes']['region'])) {
+    $suggestions[] = 'menu__' . $variables['menu_name'] . '__' . $variables['attributes']['region'];
   }
 }
 
