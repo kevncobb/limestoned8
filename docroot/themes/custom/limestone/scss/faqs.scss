@@ -279,11 +279,20 @@
 .faq-details {
   height: 100%;
   padding: 13px 0;
-  position: absolute;
-  width: 100%;
-  top: 0;
-  left: 0;
+  position: fixed;
+  top: 80%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   z-index: 112;
+  @media screen and (min-width: 767px) {
+    top: 880%;
+  }
+  @media screen and (min-width: 1450px) {
+    top: 92%;
+  }
+  @media screen and (min-width: 1600px) {
+    top: 100%;
+  }
   a {
     color: #fff;
   }
@@ -493,10 +502,6 @@
 @media screen and (max-width: 780px) {
   .faqs {
     .faq-details {
-      position: fixed;
-      top: 100%;
-      left: 50%;
-      transform: translate(-50%, -50%);
       h2 {
         font-size: 20px;
         padding-left: 1em;
