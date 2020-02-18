@@ -1,0 +1,10 @@
+name: Twig Template Suggester
+type: module
+description: "Provides template suggestions for things Drupal doesn't."
+package: "Theme"
+core: 8.x
+
+# Information added by Drupal.org packaging script on 2019-11-14
+version: '8.x-1.0-alpha2+10-dev'
+project: 'twigsuggest'
+datestamp: 1573760887
