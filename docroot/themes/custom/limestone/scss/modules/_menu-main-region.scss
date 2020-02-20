@@ -20,8 +20,27 @@
       color: $success-color;
     }
   }
-
-  li.is-submenu-parent-item > a {
+  li.is-dropdown-submenu-parent ul.is-dropdown-submenu li a::before {
+    content: "\f078";
+    font-family: 'icomoon' !important;
+    speak: none;
+    color: $primary-color;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-size: 11px;
+    border: inset 0px;
+    position: absolute;
+    right: 0.6rem;
+    top: 0.95rem;
+    left: auto;
+    transform: rotate(-90deg);
+  }
+  li.is-submenu-parent-item > a, li.is-dropdown-submenu-parent > a {
     font-size: 1.2rem;
     font-weight: 700;
     text-transform: uppercase;

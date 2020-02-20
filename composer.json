@@ -38,7 +38,9 @@
     "webflo/drupal-finder": "~1.0",
     "webmozart/path-util": "~2.0",
     "vardot/varbase": "~8.8.0",
-    "vardot/varbase-updater": "~1.0"
+    "vardot/varbase-updater": "~1.0",
+    "drupal/menu_block": "1.x-dev",
+    "drupal/entity_browser": "2.x-dev"
   },
   "replace": {
     "ajaxorg/ace-builds": "*"
@@ -74,6 +76,19 @@
       ],
       "locations": {
         "web-root": "docroot/"
+      },
+      "patches": {
+        "drupal/menu_block": {
+        "[ #2809699-87] Add configuration options for dynamic block titles" : "https://www.drupal.org/files/issues/2019-10-06/2809699-87.menu_block-label_configuration.patch",
+        "[ #2950943-15] Add links to menu parent block title" : "https://www.drupal.org/files/issues/2019-10-06/2950943-15.menu_block-title_as_link.patch",
+        "[ #3007225-2] Hide menu block on pages not included in menu" : "https://www.drupal.org/files/issues/2018-10-17/menu_block-hide_on_inactive-3007225-2.patch"
+        },
+        "drupal/entity_browser": {
+        "[ #2930677-55] Validate widget entity type and bundles" : "https://www.drupal.org/files/issues/2019-05-05/entity-browser-widget-entity-validation-2930677-55.patch"
+        },
+        "drupal/core": {
+        "[ #3062863-3] Remove duplicate suggestions block--block-content.html.twig" : "https://www.drupal.org/files/issues/2019-06-19/3062863-3.patch"
+        }
       }
     },
     "drupal-core-project-message": {
