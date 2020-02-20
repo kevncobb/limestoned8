@@ -845,6 +845,7 @@
             var ww = window.innerWidth;
             if (ww >= 540) {
                 var navgateway = new Menubar('block-mainnavigation', false);
+                var navgateway = new Menubar('block-department-subpage-menu', false);
             }
             if (ww < 540) {
                 $('.expander-content ul.menubar li.menu-item.menu-item--expanded > a').bind('touchstart click', function(event) {
