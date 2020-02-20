@@ -2,7 +2,7 @@
   font-size: 1.1em !important;
   font-family: $header-font-family;
   font-weight: 600;
-  box-shadow: 0 0px 1px rgba(34, 25, 25, 0.3);
+  //box-shadow: 0 0px 1px rgba(34, 25, 25, 0.3);
   @include breakpoint(large) {
     font-size: 1.25em !important;
   }
@@ -50,12 +50,26 @@
       line-height: 1;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
-      font-size: 13px;
+      font-size: 11px;
       border: inset 0px;
       position: absolute;
       right: 0.6rem;
-      top: 0.9rem;
+      top: 0.95rem;
       left: auto;
+      @include breakpoint(smedium) {
+
+      }
+      @include breakpoint(medium) {
+        right: 0.65rem;
+        top: 0.85rem;
+      }
+      @include breakpoint(large) {
+        right: 0.6rem;
+        top: 0.95rem;
+      }
+      @include breakpoint(xxlarge) {
+
+      }
     }
 
     > a::after {
@@ -85,13 +99,13 @@
   .submenu {
     background-color: white;
     border: none;
-    border-top: 4px solid $limestone-blue;
+    //border-top: 4px solid $limestone-blue;
     min-width: 260px;
     padding: 10px 0;
     text-transform: none;
-    -webkit-box-shadow: 1px 1px 8px rgba(0, 0, 0, .5);
-    -moz-box-shadow: 1px 1px 8px rgba(0, 0, 0, .5);
-    box-shadow: 1px 1px 8px rgba(0, 0, 0, .5);
+    //-webkit-box-shadow: 1px 1px 8px rgba(0, 0, 0, .5);
+    //-moz-box-shadow: 1px 1px 8px rgba(0, 0, 0, .5);
+    //box-shadow: 1px 1px 8px rgba(0, 0, 0, .5);
     z-index: 100;
     ul:not(.list-unstyled) {
       > li {
@@ -134,7 +148,7 @@
 
   }
   nav.menu--desktop-megamenu {
-    border-bottom: 3px solid $limestone-blue;
+    //border-bottom: 3px solid $limestone-blue;
 
     > ul.menu.dropdown.menu.medium-horizontal {
       padding: 0;
@@ -390,12 +404,33 @@
     font-size: 1.6rem;
   }
 }
+
+// HIDE SHOW MAIN MENU REGIONS
+.main-menu-region {
+  .block-desktopmegamenu {
+    display: none;
+  }
+  .block-mainnavigation {
+    display: block;
+  }
+  @include breakpoint(smedium) {
+    .block-desktopmegamenu {
+      display: block;
+    }
+    .block-mainnavigation {
+      display: none;
+    }
+  }
+}
+
+
 $expander-arrow-width: 0.7em;
 $expander-toggle-size: 1em;
 $expander-toggle-arrow-size: $expander-toggle-size;
 $expander-toggle-margin: 1em;
 
 @include breakpoint(smedium down) {
+
   .title-bar {
     background: $white;
     color: $limestone-blue;
@@ -413,7 +448,7 @@ $expander-toggle-margin: 1em;
     z-index: 3;
     position: relative;
     background: white;
-    border-bottom: 2px solid $limestone-blue;
+    //border-bottom: 2px solid $limestone-blue;
   }
 
   .expander-trigger {
