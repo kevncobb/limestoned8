@@ -1,6 +1,6 @@
 /**
  * @file
- * Behaviors Varbase hero slider media general scripts.
+ * Behaviors Varbase Layout Builder general scripts.
  */
 
 (function ($, _, Drupal, drupalSettings) {
@@ -29,15 +29,6 @@
       $(".vlb_column_style_2 input:radio").each(function () {
         $(this).next('label').addClass($(this).val());
       });
-
-    }
-  };
-  
-  // Sync with Advanced section settings.
-  Drupal.behaviors.varbaseLayoutBuilderSyncWithAdvanced = {
-    attach: function (context) {
-
-
 
     }
   };

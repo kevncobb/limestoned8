@@ -2,15 +2,15 @@
 
 namespace Drupal\Tests\genpass\FunctionalJavascript;
 
-use Drupal\FunctionalJavascriptTests\WebDriverTestBase;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
+use Drupal\Tests\BrowserTestBase;
 
 /**
  * Tests Generate Password .
  *
  * @group Genpass
  */
-class GenpassTest extends WebDriverTestBase {
+class GenpassTest extends BrowserTestBase {
 
   use StringTranslationTrait;
 
@@ -26,6 +26,11 @@ class GenpassTest extends WebDriverTestBase {
   ];
 
   /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'stark';
+
+  /**
    * A user with "administer account settings" .
    *
    * And "administer users" permissions.
@@ -39,12 +44,6 @@ class GenpassTest extends WebDriverTestBase {
    */
   protected function setUp() {
     parent::setUp();
-
-    \Drupal::service('theme_installer')->install(['seven']);
-
-    \Drupal::service('config.factory')->getEditable('system.theme')
-      ->set('admin', 'seven')
-      ->save();
 
     $permissions = [
       'access toolbar',
@@ -68,7 +67,6 @@ class GenpassTest extends WebDriverTestBase {
     $this->assertSession()->pageTextContains($this->t('Account settings'));
     $this->assertSession()->pageTextContains($this->t('Password handling'));
     $this->assertSession()->pageTextContains($this->t('Generated password length'));
-    $this->assertSession()->pageTextContains($this->t('Generated password entropy'));
     $this->assertSession()->pageTextContains($this->t('Password generation algorithm'));
     $this->assertSession()->pageTextContains($this->t('Generated password display'));
 

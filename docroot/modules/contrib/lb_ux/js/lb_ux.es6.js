@@ -72,4 +72,47 @@
         });
     },
   };
+
+  /**
+   * Override Drupal.offCanvas.beforeCreate.
+   *
+   * @param {Object} settings
+   *   Settings related to the composition of the dialog.
+   *
+   * @return {undefined}
+   */
+  Drupal.offCanvas.beforeCreate = ({ settings, $element }) => {
+    Drupal.offCanvas.removeOffCanvasEvents($element);
+    $('body').addClass('js-off-canvas-dialog-open');
+
+    settings.position = {
+      my: 'left top',
+      at: `${Drupal.offCanvas.getEdge()} top`,
+      of: window
+    };
+
+    const setWidth = localStorage.getItem('Drupal.off-canvas.width');
+    const position = settings.drupalOffCanvasPosition;
+    const height = position === 'side' ? $(window).height() : settings.height;
+    const width = position === 'side' ? setWidth || settings.width : '100%';
+    settings.height = height;
+    settings.width = width;
+  };
+
+  /**
+   * Override Drupal.offCanvas.beforeClose().
+   *
+   * @return {undefined}
+   */
+  Drupal.offCanvas.beforeClose = ({ $element }) => {
+    $('body').removeClass('js-off-canvas-dialog-open');
+    // Remove all *.off-canvas events
+    Drupal.offCanvas.removeOffCanvasEvents($element);
+    Drupal.offCanvas.resetPadding();
+
+    // Save current width.
+    const container = Drupal.offCanvas.getContainer($element);
+    const width = container.attr(`data-offset-${Drupal.offCanvas.getEdge()}`);
+    localStorage.setItem('Drupal.off-canvas.width', width);
+  };
 })(jQuery, Drupal);

@@ -32,9 +32,16 @@ libraries:
   
   # Vartheme BS4 Varbase Bootstrap Paragraphs colors theme.
   - vartheme_bs4/vbp-colors
+  
+  # Vartheme BS4 Varbase Layout Builder colors theme.
+  - vartheme_bs4/vlb-colors
 
   # Vartheme BS4 Better Login theme.
   - vartheme_bs4/betterlogin
+  
+  # Vartheme BS4 Varbase Media Hero Slider style.
+  # Heroslider: Uncomment the following to use varbase heroslider styling.
+  #- vartheme_bs4/heroslider
 
   # Icons: Uncomment the following if you want to use icons.
   #- vartheme_bs4/material_design_icons
@@ -63,12 +70,11 @@ libraries-override:
 
   # Varbase module compnents overrides in Vartheme BS4.
   varbase_bootstrap_paragraphs/vbp-colors: vartheme_bs4/vbp-colors
+  varbase_layout_builder/vlb-colors: vartheme_bs4/vlb-colors
   betterlogin/betterlogin_css: vartheme_bs4/betterlogin
-  
-  varbase_heroslider_media/general-styling:
-    css:
-      theme:
-        css/theme/varbase-heroslider-media.theme.css: css/theme/varbase-heroslider-media.theme.css
+
+  # Heroslider: Uncomment the following to use varbase heroslider styling.
+  #  varbase_heroslider_media/general-styling: vartheme_bs4/heroslider
 
   vbp_text_and_image/vbp_text_and_image_default:
     css:
@@ -135,8 +141,9 @@ ckeditor_stylesheets:
   # Theme
   - css/theme/content.theme.css
   - css/theme/vbp-colors.theme.css
+  - css/theme/vlb-colors.theme.css
 
-# Information added by Drupal.org packaging script on 2019-12-18
-version: '8.x-6.5'
+# Information added by Drupal.org packaging script on 2020-01-23
+version: '8.x-6.7'
 project: 'vartheme_bs4'
-datestamp: 1576686815
+datestamp: 1579774986

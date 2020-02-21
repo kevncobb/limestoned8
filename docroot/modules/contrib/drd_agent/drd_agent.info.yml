@@ -13,7 +13,7 @@ recommends:
   - monitoring:monitoring
   - security_review:security_review
 
-# Information added by Drupal.org packaging script on 2019-12-24
-version: '8.x-3.12'
+# Information added by Drupal.org packaging script on 2020-01-31
+version: '8.x-3.13'
 project: 'drd_agent'
-datestamp: 1577178191
+datestamp: 1580463990

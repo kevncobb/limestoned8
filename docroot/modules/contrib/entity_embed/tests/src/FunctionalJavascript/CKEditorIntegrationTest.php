@@ -12,8 +12,6 @@ use Drupal\filter\Entity\FilterFormat;
  */
 class CKEditorIntegrationTest extends EntityEmbedTestBase {
 
-  use SortableTestTrait;
-
   /**
    * {@inheritdoc}
    */
@@ -157,12 +155,9 @@ class CKEditorIntegrationTest extends EntityEmbedTestBase {
     // Verify that after dragging the Entity Embed CKEditor plugin button into
     // the active toolbar, the <drupal-entity> tag is allowed, as well as some
     // attributes.
-    $item = 'li[data-drupal-ckeditor-button-name="' . $this->button->id() . '"]';
-    $from = "ul $item";
-    $target = 'ul.ckeditor-toolbar-group-buttons';
-
-    $this->assertSession()->waitForElementVisible('css', $target);
-    $this->sortableTo($item, $from, $target);
+    $target = $this->assertSession()->waitForElementVisible('css', 'ul.ckeditor-toolbar-group-buttons');
+    $buttonElement = $this->assertSession()->elementExists('xpath', '//li[@data-drupal-ckeditor-button-name="' . $this->button->id() . '"]');
+    $buttonElement->dragTo($target);
     $allowed_html_updated = $this->assertSession()
       ->fieldExists('filters[filter_html][settings][allowed_html]')
       ->getValue();

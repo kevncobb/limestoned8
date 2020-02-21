@@ -53,16 +53,12 @@ class ContentTranslationTest extends EntityEmbedTestBase {
    *   The text of the autocomplete suggestions.
    */
   protected function getAutocompleteSuggestions($search_string) {
-    $page = $this->getSession()->getPage();
-    $autocomplete_field = $field = $page->findField('entity_id');
-    $this->assertNotEmpty($autocomplete_field);
-    $autocomplete_field->setValue($search_string);
-    $this->getSession()->getDriver()->keyDown($autocomplete_field->getXpath(), ' ');
-    $this->assertSession()->waitOnAutocomplete();
-    $suggestions = $this->assertSession()
-      ->waitForElementVisible('css', '.ui-autocomplete');
-    $this->assertNotEmpty($suggestions);
-    return $suggestions->getText();
+    $this->assertSession()
+      ->fieldExists('entity_id')
+      ->setValue($search_string);
+    return $this->assertSession()
+      ->waitForElementVisible('css', '#drupal-modal .ui-widget-content.ui-autocomplete')
+      ->getText();
   }
 
   /**
@@ -128,8 +124,10 @@ class ContentTranslationTest extends EntityEmbedTestBase {
     $this->drupalLogin($this->translator);
     $this->drupalGet('node/' . $host->id() . '/edit');
     $this->waitForEditor();
-    $this->pressEditorButton('test_node');
-    $this->assertTrue($this->assertSession()->waitForElementVisible('css', '#entity-embed-dialog-form'));
+    $this->assertSession()
+      ->waitForElementVisible('css', 'a.cke_button__test_node')
+      ->click();
+    $this->assertSession()->waitForId('drupal-modal');
 
     // Assert autocomplete suggestions are in host entity language (en).
     $suggestions = $this->getAutocompleteSuggestions('clar');
@@ -187,8 +185,10 @@ class ContentTranslationTest extends EntityEmbedTestBase {
     // Get translation of host entity.
     $this->drupalGet('/fr/node/' . $host->id() . '/edit');
     $this->waitForEditor();
-    $this->pressEditorButton('test_node');
-    $this->assertTrue($this->assertSession()->waitForElementVisible('css', '#entity-embed-dialog-form'));
+    $this->assertSession()
+      ->waitForElementVisible('css', 'a.cke_button__test_node')
+      ->click();
+    $this->assertSession()->waitForId('drupal-modal');
 
     // Assert autocomplete suggestions are in host entity language (fr).
     $suggestions = $this->getAutocompleteSuggestions('super');

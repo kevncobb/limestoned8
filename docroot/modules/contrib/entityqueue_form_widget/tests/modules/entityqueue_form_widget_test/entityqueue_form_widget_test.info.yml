@@ -1,7 +1,7 @@
 name: 'Entityqueue Form Widget Test'
 description: 'Test content for Entityqueue Form Widget module.'
 type: module
-# core: 8.x
+core: 8.x
 dependencies:
   - drupal:field
   - drupal:node
@@ -12,8 +12,7 @@ dependencies:
   - entityqueue:entityqueue
   - entityqueue_form_widget:entityqueue_form_widget
 
-# Information added by Drupal.org packaging script on 2019-07-22
-version: '8.x-1.0'
-core: '8.x'
+# Information added by Drupal.org packaging script on 2020-02-17
+version: '8.x-1.1'
 project: 'entityqueue_form_widget'
-datestamp: 1563778692
+datestamp: 1581942089

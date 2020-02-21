@@ -3,8 +3,15 @@
  */
 (($, Drupal) => {
 
+  "use strict";
+
   /**
    * Allow users to edit media library items inside a modal.
+   *
+   * @type {Drupal~behavior}
+   *
+   * @prop {Drupal~behaviorAttach} attach
+   *   Attaches behavior to allow editing of a media library item.
    */
   Drupal.behaviors.MediaLibraryFormElementEditItem = {
     attach: function attach(context) {
@@ -53,4 +60,5 @@
         });
     },
   };
+
 })(jQuery, Drupal);

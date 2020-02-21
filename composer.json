@@ -87,7 +87,8 @@
         "[ #2930677-55] Validate widget entity type and bundles" : "https://www.drupal.org/files/issues/2019-05-05/entity-browser-widget-entity-validation-2930677-55.patch"
         },
         "drupal/core": {
-        "[ #3062863-3] Remove duplicate suggestions block--block-content.html.twig" : "https://www.drupal.org/files/issues/2019-06-19/3062863-3.patch"
+        "[ #3062863-3] Remove duplicate suggestions block--block-content.html.twig" : "https://www.drupal.org/files/issues/2019-06-19/3062863-3.patch",
+        "[ #2916876-70] Add visibility control conditions to blocks within Layout Builder" : "https://www.drupal.org/files/issues/2020-02-20/2916876-lb-conditions-70.patch"
         }
       }
     },

@@ -327,10 +327,7 @@ class MediaLibrary extends FormElement {
       $value = $input['media_library_selection'];
     }
     elseif ($input === FALSE) {
-      if ($form_state->isSubmitted()) {
-        $element['#default_value'] = NULL;
-      }
-      elseif (!empty($element['#default_value'])) {
+      if (!empty($element['#default_value'])) {
         $value = $element['#default_value'];
       }
     }
@@ -487,10 +484,7 @@ class MediaLibrary extends FormElement {
     $user_input = $form_state->getUserInput();
 
     // Account for special "widget" key.
-    if (isset($user_input_parents[1]) && $user_input_parents[1] === 'widget') {
-      unset($user_input_parents[1]);
-      $user_input_parents = array_values($user_input_parents);
-    }
+    $user_input_parents = array_values(array_diff($user_input_parents, ['widget']));
 
     NestedArray::unsetValue($user_input, $user_input_parents);
     $form_state->setUserInput($user_input);

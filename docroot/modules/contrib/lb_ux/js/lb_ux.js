@@ -44,4 +44,38 @@
       });
     }
   };
+
+  Drupal.offCanvas.beforeCreate = function (_ref) {
+    var settings = _ref.settings,
+        $element = _ref.$element;
+
+    Drupal.offCanvas.removeOffCanvasEvents($element);
+    $('body').addClass('js-off-canvas-dialog-open');
+
+    settings.position = {
+      my: 'left top',
+      at: Drupal.offCanvas.getEdge() + ' top',
+      of: window
+    };
+
+    var setWidth = localStorage.getItem('Drupal.off-canvas.width');
+    var position = settings.drupalOffCanvasPosition;
+    var height = position === 'side' ? $(window).height() : settings.height;
+    var width = position === 'side' ? setWidth || settings.width : '100%';
+    settings.height = height;
+    settings.width = width;
+  };
+
+  Drupal.offCanvas.beforeClose = function (_ref2) {
+    var $element = _ref2.$element;
+
+    $('body').removeClass('js-off-canvas-dialog-open');
+
+    Drupal.offCanvas.removeOffCanvasEvents($element);
+    Drupal.offCanvas.resetPadding();
+
+    var container = Drupal.offCanvas.getContainer($element);
+    var width = container.attr('data-offset-' + Drupal.offCanvas.getEdge());
+    localStorage.setItem('Drupal.off-canvas.width', width);
+  };
 })(jQuery, Drupal);

@@ -6,6 +6,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Drupal\Core\Url;
 
 /**
  * Better Login Subscriber class.
@@ -24,7 +25,8 @@ class BetterLoginSubscriber implements EventSubscriberInterface {
     if (\Drupal::currentUser()->isAnonymous()) {
       // Anonymous user.
       if ($event->getRequest()->query->get('user')) {
-        $event->setResponse(new RedirectResponse('user/login', ['destination' => 'user']));
+        $loginUrl = Url::fromRoute('user.login', ['destination' => 'user'])->toString();
+        $event->setResponse(new RedirectResponse($loginUrl));
       }
     }
   }

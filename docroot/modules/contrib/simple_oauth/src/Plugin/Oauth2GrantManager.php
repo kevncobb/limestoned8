@@ -66,6 +66,11 @@ class Oauth2GrantManager extends DefaultPluginManager implements Oauth2GrantMana
   protected $expiration;
 
   /**
+   * @var \League\OAuth2\Server\AuthorizationServer
+   */
+  protected $server;
+
+  /**
    * Constructor for Oauth2GrantManager objects.
    *
    * @param \Traversable $namespaces
@@ -136,14 +141,16 @@ class Oauth2GrantManager extends DefaultPluginManager implements Oauth2GrantMana
       throw OAuthServerException::serverError('Hash salt must be at least 32 characters long.');
     }
 
-    $server = new AuthorizationServer(
-      $this->clientRepository,
-      $this->accessTokenRepository,
-      $this->scopeRepository,
-      realpath($this->privateKeyPath),
-      Core::ourSubstr($salt, 0, 32),
-      $this->responseType
-    );
+    if (empty($this->server)) {
+      $this->server = new AuthorizationServer(
+        $this->clientRepository,
+        $this->accessTokenRepository,
+        $this->scopeRepository,
+        realpath($this->privateKeyPath),
+        Core::ourSubstr($salt, 0, 32),
+        $this->responseType
+      );
+    }
     $grant = $plugin->getGrantType();
     // Optionally enable PKCE.
     if ($client && ($grant instanceof AuthCodeGrant)) {
@@ -154,9 +161,9 @@ class Oauth2GrantManager extends DefaultPluginManager implements Oauth2GrantMana
       }
     }
     // Enable the grant on the server with a token TTL of X hours.
-    $server->enableGrantType($grant, $this->expiration);
+    $this->server->enableGrantType($grant, $this->expiration);
 
-    return $server;
+    return $this->server;
   }
 
   /**

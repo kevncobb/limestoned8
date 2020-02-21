@@ -80,7 +80,7 @@ abstract class Base implements BaseInterface {
    */
   final public function validateUuid($uuid): bool {
     $config = $this->configFactory->get('drd_agent.settings');
-    $authorised = $config->get('authorised');
+    $authorised = $config->get('authorised') ?? [];
     if (empty($authorised[$uuid])) {
       return FALSE;
     }

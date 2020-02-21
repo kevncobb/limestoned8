@@ -35,7 +35,7 @@ use vardot\Composer\Helpers\VersionHelper;
 /**
  * Refactor composer command.
  */
-class RefactorComposerCommand extends BaseCommand{
+class RefactorComposerCommand extends BaseCommand {
 
   /**
    * Configure.
@@ -150,7 +150,7 @@ class RefactorComposerCommand extends BaseCommand{
    * @param type $drupalPath
    * @return type
    */
-  public function array_merge_recursive_distinct(array &$array1, array &$array2, $drupalPath){
+  public function array_merge_recursive_distinct(array &$array1, array &$array2, $drupalPath) {
     $merged = $array1;
     foreach ($array2 as $key => &$value) {
       $newKey = preg_replace('/{\$drupalPath}/', $drupalPath, $key);
@@ -261,46 +261,6 @@ class RefactorComposerCommand extends BaseCommand{
 
     foreach ($updateConfig as $key => $conf) {
 
-      if (isset($conf["composer-project-json-url"])) {
-        if ($conf["composer-project-json-url"] == 'latest') {
-
-          // Get the latest release for Varbase project.
-          $varbaseProjectTargetRelease = [];
-          $varbaseProjectTargetJsonUrl = "https://api.github.com/repos/vardot/varbase-project/releases/latest";
-          $varbaseProjectTargetFilename = uniqid(sys_get_temp_dir().'/') . ".json";
-          get_file($varbaseProjectTargetJsonUrl, $varbaseProjectTargetFilename, $varbaseProjectTargetFilename);
-
-          if (file_exists($varbaseProjectTargetFilename)) {
-            $varbaseProjectTargetRelease = JsonFile::parseJson(file_get_contents($varbaseProjectTargetFilename), $varbaseProjectTargetFilename);
-          }
-
-          // Varbase Project Latest release tag name.
-          $tagName = $varbaseProjectTargetRelease['tag_name'];
-
-          $composerProjectJsonUrl = "https://raw.githubusercontent.com/vardot/varbase-project/" . $tagName . "/composer.json";
-        }
-        else {
-          $composerProjectJsonUrl = "https://raw.githubusercontent.com/vardot/varbase-project/" . $conf["composer-project-json-url"] . "/composer.json";
-        }
-      }
-      elseif (isset($conf['to'])) {
-        $tagNameInTo = str_replace("*","0", $conf['to']);
-        $composerProjectJsonUrl = "https://raw.githubusercontent.com/vardot/varbase-project/" . $tagNameInTo . "/composer.json";
-      }
-
-      $filename = uniqid(sys_get_temp_dir().'/') . ".json";
-      $hostname = parse_url($composerProjectJsonUrl, PHP_URL_HOST);
-      $downloader->copy($hostname, $composerProjectJsonUrl, $filename, FALSE);
-
-      if (file_exists($filename)) {
-        $latestProjectJsonConfig = JsonFile::parseJson(file_get_contents($filename), $filename);
-        $config = new Config();
-        $config->merge($latestProjectJsonConfig);
-        $rootLoader = new RootPackageLoader($repositoryManager, $config);
-        $latestProjectJsonPackage = $rootLoader->load($latestProjectJsonConfig);
-      }
-
-
       if (isset($conf["from"]) && isset($conf["to"])) {
         $conf["from"] = preg_replace("/\*/", ".*", $conf["from"]);
         $conf["to"] = preg_replace("/\*/", ".*", $conf["to"]);
@@ -317,6 +277,46 @@ class RefactorComposerCommand extends BaseCommand{
         }
 
         if (preg_match('/' . $conf["from"] . '/', $profileVersion)) {
+          
+          if (isset($conf["composer-project-json-url"])) {
+
+            if ($conf["composer-project-json-url"] == 'latest') {
+
+              // Get the latest release for Varbase project.
+              $varbaseProjectTargetRelease = [];
+              $varbaseProjectTargetJsonUrl = "https://api.github.com/repos/Vardot/varbase-project/tags";
+              $varbaseProjectTargetFilename = tempnam(sys_get_temp_dir(), 'json');
+              $this->getFileFromURL($varbaseProjectTargetJsonUrl, $varbaseProjectTargetFilename);
+
+              if (file_exists($varbaseProjectTargetFilename)) {
+                $varbaseProjectTargetRelease = JsonFile::parseJson(file_get_contents($varbaseProjectTargetFilename), $varbaseProjectTargetFilename);
+              }
+
+              // Varbase Project Latest release tag name.
+              $tagName = $varbaseProjectTargetRelease[0]['name'];
+
+              $composerProjectJsonUrl = "https://raw.githubusercontent.com/vardot/varbase-project/" . $tagName . "/composer.json";
+            }
+            else {
+              $composerProjectJsonUrl = "https://raw.githubusercontent.com/vardot/varbase-project/" . $conf["composer-project-json-url"] . "/composer.json";
+            }
+          }
+          elseif (isset($conf['to'])) {
+            $tagNameInTo = str_replace("*","0", $conf['to']);
+            $composerProjectJsonUrl = "https://raw.githubusercontent.com/vardot/varbase-project/" . $tagNameInTo . "/composer.json";
+          }
+
+          $filename = uniqid(sys_get_temp_dir().'/') . ".json";
+          $hostname = parse_url($composerProjectJsonUrl, PHP_URL_HOST);
+          $downloader->copy($hostname, $composerProjectJsonUrl, $filename, FALSE);
+
+          if (file_exists($filename)) {
+            $latestProjectJsonConfig = JsonFile::parseJson(file_get_contents($filename), $filename);
+            $config = new Config();
+            $config->merge($latestProjectJsonConfig);
+            $rootLoader = new RootPackageLoader($repositoryManager, $config);
+            $latestProjectJsonPackage = $rootLoader->load($latestProjectJsonConfig);
+          }
           
           $profileLinkConstraint = new Constraint(">=", $conf["to"]);
           $profileLinkConstraint->setPrettyString("~" . $conf["to"]);
@@ -623,5 +623,36 @@ class RefactorComposerCommand extends BaseCommand{
       $latestProjectConfig = JsonFile::encode($json);
       file_put_contents($savePath, $latestProjectConfig);
     }
+  }
+  
+  /**
+   * Get file from URL
+   *
+   * @param type $url
+   * @param type $newfilename
+   */
+  public function getFileFromURL($url, $newfilename) {
+    $err_msg = '';
+    echo "Downloading $url";
+    echo "\n";
+    $out = fopen($newfilename, "wrxb");
+    if ($out == FALSE){
+      print "File not opened.<br>";
+      exit;
+    }
+
+    $ch = curl_init();
+
+    curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (compatible; Vardot/varbase-updater/1.0; +https://github.com/Vardot/varbase-updater)');
+    curl_setopt($ch, CURLOPT_FILE, $out);
+    curl_setopt($ch, CURLOPT_HEADER, 0);
+    curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+    curl_setopt($ch, CURLOPT_URL, $url);
+
+    curl_exec($ch);
+
+    curl_close($ch);
+    //fclose($handle);
+
   }
 }

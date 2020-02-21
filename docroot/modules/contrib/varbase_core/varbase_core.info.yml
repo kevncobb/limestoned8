@@ -26,7 +26,6 @@ dependencies:
   - drupal:block_content
   - drupal:config
   - drupal:config_update
-  - config_filter:config_filter
   - config_ignore:config_ignore
   - drupal:datetime
   - drupal:file
@@ -89,7 +88,7 @@ install:
   - login_destination
   - betterlogin
 
-# Information added by Drupal.org packaging script on 2019-12-26
-version: '8.x-8.0'
+# Information added by Drupal.org packaging script on 2020-02-04
+version: '8.x-8.4'
 project: 'varbase_core'
-datestamp: 1577376187
+datestamp: 1580838794

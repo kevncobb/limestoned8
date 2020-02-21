@@ -2,7 +2,6 @@
 
 namespace Drupal\Tests\simple_oauth\Functional;
 
-use Drupal\Component\Utility\Crypt;
 use Drupal\Core\Url;
 use Drupal\user\Entity\Role;
 use Drupal\user\RoleInterface;
@@ -13,6 +12,11 @@ use Drupal\user\RoleInterface;
  * @group simple_oauth
  */
 class AuthCodeFunctionalTest extends TokenBearerFunctionalTestBase {
+
+  /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'stark';
 
   /**
    * The authorize URL.
@@ -244,7 +248,7 @@ class AuthCodeFunctionalTest extends TokenBearerFunctionalTestBase {
 
     // For PKCE flow we need a code verifier and a code challenge.
     // @see https://tools.ietf.org/html/rfc7636 for details.
-    $code_verifier = self::base64urlencode(Crypt::randomBytes(64));
+    $code_verifier = self::base64urlencode(random_bytes(64));
     $code_challenge = self::base64urlencode(hash('sha256', $code_verifier, TRUE));
 
     $valid_params = [

@@ -23,6 +23,7 @@ function template_preprocess_views_bootstrap_accordion(array &$vars) {
   $vars['id'] = ViewsBootstrap::getUniqueId($view);
   $panel_title_field = $view->style_plugin->options['panel_title_field'];
   $vars['attributes']['class'][] = 'panel-group';
+  $vars['options'] = $view->style_plugin->options;
   if ($panel_title_field) {
     foreach ($vars['rows'] as $id => $row) {
       $vars['rows'][$id] = [];
@@ -32,12 +33,12 @@ function template_preprocess_views_bootstrap_accordion(array &$vars) {
   }
   else {
     // @TODO: This would be better as valdiation errors on the style plugin options form.
-    drupal_set_message(t('@style style will not display without the "@field" setting.',
+    \Drupal::messenger()->addWarning(t('@style style will not display without the "@field" setting.',
       [
         '@style' => $view->style_plugin->definition['title'],
         '@field' => 'Panel title',
       ]
-    ), 'warning');
+    ));
   }
   // @TODO: Make sure that $vars['rows'] is rendered array.
   // @SEE: Have a look template_preprocess_views_view_unformatted()
@@ -57,10 +58,17 @@ function template_preprocess_views_bootstrap_accordion(array &$vars) {
 function template_preprocess_views_bootstrap_cards(array &$vars) {
   $view = $vars['view'];
   $vars['id'] = ViewsBootstrap::getUniqueId($view);
+
+  // card rows.
+  $image = $view->style_plugin->options['card_image_field'];
+  $title = $view->style_plugin->options['card_title_field'];
+  $content = $view->style_plugin->options['card_content_field'];
+
   foreach ($vars['rows'] as $id => $row) {
     $vars['rows'][$id] = [];
-    $vars['rows'][$id]['content'] = $row;
-    $vars['rows'][$id]['title'] = $vars['view']->style_plugin->getField($id, $options['title_field']);
+    $vars['rows'][$id]['image'] = $view->style_plugin->getField($id, $image);
+    $vars['rows'][$id]['title'] = $view->style_plugin->getField($id, $title);
+    $vars['rows'][$id]['content'] = $view->style_plugin->getField($id, $content);
   }
 }
 
@@ -223,12 +231,12 @@ function template_preprocess_views_bootstrap_tab(array &$vars) {
   }
   else {
     // @TODO: This would be better as valdiation errors on the style plugin options form.
-    drupal_set_message(t('@style style will not display without the "@field" setting.',
+    \Drupal::messenger()->addWarning(t('@style style will not display without the "@field" setting.',
       [
         '@style' => $view->style_plugin->definition['title'],
         '@field' => 'Tab title',
       ]
-    ), 'warning');
+    ));
   }
 }
 

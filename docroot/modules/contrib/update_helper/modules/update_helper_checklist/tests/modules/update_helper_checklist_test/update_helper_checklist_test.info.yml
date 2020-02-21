@@ -3,7 +3,7 @@ description: 'Helper module to test Update Helper Checklist.'
 type: module
 core: 8.x
 
-# Information added by Drupal.org packaging script on 2019-11-26
-version: '8.x-1.1'
+# Information added by Drupal.org packaging script on 2020-01-28
+version: '8.x-1.2'
 project: 'update_helper'
-datestamp: 1574762287
+datestamp: 1580202515

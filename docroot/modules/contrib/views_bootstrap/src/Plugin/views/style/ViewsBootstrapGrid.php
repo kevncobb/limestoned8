@@ -65,7 +65,6 @@ class ViewsBootstrapGrid extends StylePluginBase {
    * {@inheritdoc}
    */
   public function buildOptionsForm(&$form, FormStateInterface $form_state) {
-    \Drupal::messenger()->addMessage(t('See <strong>Bootstrap Grid</strong> for how classes work: <a href="https://getbootstrap.com/docs/4.2/layout/grid/">https://getbootstrap.com/docs/4.2/layout/grid/</a>'),'warning');
     parent::buildOptionsForm($form, $form_state);
 
     foreach (ViewsBootstrap::getBreakpoints() as $breakpoint) {

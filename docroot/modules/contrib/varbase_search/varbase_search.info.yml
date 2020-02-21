@@ -5,12 +5,13 @@ core: 8.x
 # version: 8.x-6.x-dev
 package: Varbase
 # project: varbase_search
+core_version_requirement: ^8 || ^9
 dependencies: []
 install:
   - search_api
   - search_api_db
 
-# Information added by Drupal.org packaging script on 2019-11-24
-version: '8.x-6.4'
+# Information added by Drupal.org packaging script on 2020-02-20
+version: '8.x-6.5'
 project: 'varbase_search'
-datestamp: 1574602088
+datestamp: 1582207733

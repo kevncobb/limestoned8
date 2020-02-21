@@ -413,7 +413,7 @@ class Base implements BaseInterface, ContainerInjectionInterface {
    */
   public function getCryptInstance($uuid) {
     $config = $this->configFactory->get('drd_agent.settings');
-    $authorised = $config->get('authorised');
+    $authorised = $config->get('authorised') ?? [];
     if (empty($authorised[$uuid])) {
       return FALSE;
     }

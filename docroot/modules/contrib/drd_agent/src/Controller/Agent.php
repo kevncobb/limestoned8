@@ -68,7 +68,7 @@ class Agent extends ControllerBase {
    * @throws \Exception
    */
   public function get(): Response {
-    return $this->deliver(ActionBase::create($this->container)->run($this->config->get('debug_mode')));
+    return $this->deliver(ActionBase::create($this->container)->run((bool) $this->config->get('debug_mode')));
   }
 
   /**
@@ -90,7 +90,7 @@ class Agent extends ControllerBase {
    * @throws \Exception
    */
   public function authorizeBySecret(): Response {
-    return $this->deliver(ActionBase::create($this->container)->authorizeBySecret($this->config->get('debug_mode')));
+    return $this->deliver(ActionBase::create($this->container)->authorizeBySecret((bool) $this->config->get('debug_mode')));
   }
 
   /**

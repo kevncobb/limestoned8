@@ -74,7 +74,7 @@ class Setup {
     $this->checkForRemoteSetupToken();
     $config = $this->configFactory->getEditable('drd_agent.settings');
 
-    $authorised = $config->get('authorised');
+    $authorised = $config->get('authorised') ?? [];
 
     $this->values['timestamp'] = $this->time->getRequestTime();
     $this->values['ip'] = $this->request->getClientIp();

@@ -13,8 +13,6 @@ use Drupal\filter\Entity\FilterFormat;
  */
 class ImageFieldFormatterTest extends WebDriverTestBase {
 
-  use SortableTestTrait;
-
   /**
    * {@inheritdoc}
    */
@@ -154,13 +152,9 @@ class ImageFieldFormatterTest extends WebDriverTestBase {
     $this->assertSession()->buttonExists('Add group')->press();
     $this->assertSession()->waitForElementVisible('css', '[name="group-name"]')->setValue('Embeds');
     $this->assertSession()->buttonExists('Apply')->press();
-
-    $item = 'li[data-drupal-ckeditor-button-name="' . $this->button->id() . '"]';
-    $from = "ul $item";
-    $target = 'ul.ckeditor-toolbar-group-buttons';
-
-    $this->assertSession()->waitForElementVisible('css', $target);
-    $this->sortableTo($item, $from, $target);
+    $target = $this->assertSession()->waitForElementVisible('css', 'ul.ckeditor-toolbar-group-buttons');
+    $imageButton = $this->assertSession()->elementExists('xpath', '//li[@data-drupal-ckeditor-button-name="' . $this->button->id() . '"]');
+    $imageButton->dragTo($target);
 
     // Verify filter checkbox exists, then check it.
     $page = $this->getSession()->getPage();

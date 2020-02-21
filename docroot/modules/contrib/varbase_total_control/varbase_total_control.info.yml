@@ -5,6 +5,7 @@ core: 8.x
 # version: 8.x-6.x-dev
 package: Varbase
 # project: varbase_total_control
+core_version_requirement: ^8 || ^9
 dependencies:
   - total_control:total_control
 install:
@@ -13,7 +14,7 @@ install:
   - charts
   - charts_c3
 
-# Information added by Drupal.org packaging script on 2019-09-19
-version: '8.x-6.9'
+# Information added by Drupal.org packaging script on 2020-02-19
+version: '8.x-6.10'
 project: 'varbase_total_control'
-datestamp: 1568933584
+datestamp: 1582119748

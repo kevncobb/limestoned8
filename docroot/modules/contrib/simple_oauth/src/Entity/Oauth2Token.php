@@ -7,6 +7,7 @@ use Drupal\Core\Entity\ContentEntityBase;
 use Drupal\Core\Entity\EntityChangedTrait;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Field\FieldStorageDefinitionInterface;
+use Drupal\user\EntityOwnerTrait;
 
 /**
  * Defines the Oauth2 Token entity.
@@ -42,7 +43,7 @@ use Drupal\Core\Field\FieldStorageDefinitionInterface;
  */
 class Oauth2Token extends ContentEntityBase implements Oauth2TokenInterface {
 
-  use EntityChangedTrait;
+  use EntityChangedTrait, EntityOwnerTrait;
 
   /**
    * {@inheritdoc}
@@ -78,7 +79,7 @@ class Oauth2Token extends ContentEntityBase implements Oauth2TokenInterface {
       ->setRevisionable(TRUE)
       ->setSetting('target_type', 'user')
       ->setSetting('handler', 'default')
-      ->setDefaultValueCallback('Drupal\node\Entity\Node::getCurrentUserId')
+      ->setDefaultValueCallback(static::class . '::getDefaultEntityOwner')
       ->setTranslatable(FALSE)
       ->setDisplayOptions('view', [
         'label' => 'inline',

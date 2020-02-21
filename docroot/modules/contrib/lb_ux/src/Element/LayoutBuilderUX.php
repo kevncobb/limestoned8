@@ -21,6 +21,7 @@ class LayoutBuilderUX extends LayoutBuilder {
     $section_label = $build['#attributes']['aria-label'];
 
     $build['configure']['#title'] = $this->t('<span class="visually-hidden">Configure @section</span>', ['@section' => $section_label]);
+    $build['configure']['#url'] = Url::fromRoute('layout_builder.configure_section_form', $build['configure']['#url']->getRouteParameters());
 
     $build['remove']['#title'] = $this->t('<span class="visually-hidden">Remove @section</span>', ['@section' => $section_label]);
 
@@ -57,7 +58,6 @@ class LayoutBuilderUX extends LayoutBuilder {
 
         // Remove default contextual links.
         unset($build['layout-builder__section'][$region][$uuid]['#contextual_links']['layout_builder_block']);
-
 
         // Ensure the 'content' key is present, as set by
         // \Drupal\layout_builder\EventSubscriber\BlockComponentRenderArray.
@@ -138,6 +138,7 @@ class LayoutBuilderUX extends LayoutBuilder {
   protected function layout(SectionStorageInterface $section_storage) {
     $build = parent::layout($section_storage);
     $build['#attached']['library'][] = 'lb_ux/drupal.lb_ux';
+    $build['#attached']['library'][] = 'lb_ux/drupal.lb_ux_message';
     return $build;
   }
 

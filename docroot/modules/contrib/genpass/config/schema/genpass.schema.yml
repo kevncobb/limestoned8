@@ -6,8 +6,6 @@ genpass.settings:
       type: integer
     genpass_algorithm:
       type: string
-    genpass_entropy:
-      type: string
     genpass_mode:
       type: integer
     genpass_display:

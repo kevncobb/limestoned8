@@ -3,10 +3,9 @@
 namespace Drupal\entity_embed\EntityEmbedDisplay;
 
 use Drupal\Component\Plugin\PluginInspectionInterface;
+use Drupal\Component\Plugin\ConfigurablePluginInterface;
 use Drupal\Core\Plugin\PluginFormInterface;
 use Drupal\Core\Session\AccountInterface;
-use Drupal\Component\Plugin\ConfigurableInterface;
-use Drupal\Component\Plugin\DependentPluginInterface;
 
 /**
  * Defines the interface for Entity Embed Display plugins.
@@ -42,7 +41,7 @@ use Drupal\Component\Plugin\DependentPluginInterface;
  *
  * @ingroup entity_embed_api
  */
-interface EntityEmbedDisplayInterface extends ConfigurableInterface, DependentPluginInterface, PluginFormInterface, PluginInspectionInterface {
+interface EntityEmbedDisplayInterface extends ConfigurablePluginInterface, PluginFormInterface, PluginInspectionInterface {
 
   /**
    * Indicates whether this Entity Embed display can be used.

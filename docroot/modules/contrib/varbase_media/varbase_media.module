@@ -20,6 +20,7 @@ use Drupal\Core\Entity\Entity\EntityViewDisplay;
 use Drupal\Core\Url;
 use Drupal\file\Entity\File;
 use Drupal\responsive_image\Entity\ResponsiveImageStyle;
+use Drupal\media\OEmbed\Provider;
 
 /**
  * Implements hook_preprocess_field().
@@ -668,5 +669,19 @@ function varbase_media_preprocess_image(&$variables) {
         unset($variables['attributes']['uri']);
       }
     }
+  }
+}
+
+/**
+ * Implements hook_oembed_resource_url_alter()
+ */
+function varbase_media_oembed_resource_url_alter(array &$parsed_url, Provider $provider) {
+  // Process arguments for vimeo videos to be included in oEmbed.
+  if ($provider->getName() == 'Vimeo') {
+    $url = $parsed_url['query']['url'];
+    // Use '/&' as a seporator between arguments.
+    $url = str_replace('&', '/&', $url);
+    $url = str_replace('?', '/&', $url);
+    $parsed_url['query']['url'] = $url;
   }
 }

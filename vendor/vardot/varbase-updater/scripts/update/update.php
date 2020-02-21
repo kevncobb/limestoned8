@@ -1,10 +1,10 @@
 <?php
 
-function get_file($url, $local_path, $newfilename) {
+function get_file($url, $newfilename) {
   $err_msg = '';
   echo "Downloading $url";
   echo "\n";
-  $out = fopen($local_path.$newfilename, "wrxb");
+  $out = fopen($newfilename, "wrxb");
   if ($out == FALSE){
     print "File not opened.<br>";
     exit;
@@ -12,6 +12,7 @@ function get_file($url, $local_path, $newfilename) {
 
   $ch = curl_init();
 
+  curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (compatible; Vardot/varbase-updater/1.0; +https://github.com/Vardot/varbase-updater)');
   curl_setopt($ch, CURLOPT_FILE, $out);
   curl_setopt($ch, CURLOPT_HEADER, 0);
   curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
@@ -116,30 +117,30 @@ function get_file($url, $local_path, $newfilename) {
 
   // Get the latest release for Varbase Updater.
   $varbaseUpdaterLatestRelease = [];
-  $varbaseUpdaterJsonUrl = "https://api.github.com/repos/vardot/varbase-updater/releases/latest";
-  $varbaseUpdaterFilename = uniqid(sys_get_temp_dir().'/') . ".json";
-  get_file($varbaseUpdaterJsonUrl, $varbaseUpdaterFilename, $varbaseUpdaterFilename);
+  $varbaseUpdaterJsonUrl = "https://api.github.com/repos/vardot/varbase-updater/tags";
+  $varbaseUpdaterFilename = tempnam(sys_get_temp_dir(), 'json');
+  get_file($varbaseUpdaterJsonUrl, $varbaseUpdaterFilename);
 
   if (file_exists($varbaseUpdaterFilename)) {
     $varbaseUpdaterLatestRelease = JsonFile::parseJson(file_get_contents($varbaseUpdaterFilename), $varbaseUpdaterFilename);
   }
 
   // Varbase Updater Latest release tag name.
-  $tagName = $varbaseUpdaterLatestRelease['tag_name'];
+  $tagName = $varbaseUpdaterLatestRelease[0]['name'];
 
   $base_path = "https://raw.githubusercontent.com/vardot/varbase-updater/" . $tagName . "/";
-  get_file($base_path . "scripts/composer/VarbaseUpdate.php", getcwd().'/scripts/composer/', 'VarbaseUpdate.php');
-  get_file($base_path . "scripts/update/update-varbase.sh", getcwd().'/scripts/update/', 'update-varbase.sh');
-  get_file($base_path . "scripts/update/version-check.php", getcwd().'/scripts/update/', 'version-check.php');
-  get_file($base_path . "scripts/update/update-config.json", getcwd().'/scripts/update/', 'update-config.json');
+  get_file($base_path . "scripts/composer/VarbaseUpdate.php", getcwd().'/scripts/composer/VarbaseUpdate.php');
+  get_file($base_path . "scripts/update/update-varbase.sh", getcwd().'/scripts/update/update-varbase.sh');
+  get_file($base_path . "scripts/update/version-check.php", getcwd().'/scripts/update/version-check.php');
+  get_file($base_path . "scripts/update/update-config.json", getcwd().'/scripts/update/update-config.json');
 
   // Only download them if they don't exist.
   if (!file_exists(getcwd().'/drush/policy.drush.inc')) {
-    get_file($base_path . "drush/policy.drush.inc", getcwd().'/drush/', 'policy.drush.inc');
+    get_file($base_path . "drush/policy.drush.inc", getcwd().'/drush/policy.drush.inc');
   }
 
   if (!file_exists(getcwd().'/drush/README.md')) {
-    get_file($base_path . "drush/README.md", getcwd().'/drush/', 'README.md');
+    get_file($base_path . "drush/README.md", getcwd().'/drush/README.md');
   }
 
   chmod(getcwd().'/scripts/update/update-varbase.sh', 0755);

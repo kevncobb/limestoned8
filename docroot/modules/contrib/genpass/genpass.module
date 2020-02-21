@@ -9,6 +9,7 @@ use Drupal\Component\Utility\Crypt;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Render\BubbleableMetadata;
 use Drupal\genpass\GenpassInterface;
+use Drupal\genpass\InvalidCharacterSetsException;
 
 /**
  * Implements hook_page_attachments().
@@ -24,39 +25,78 @@ function genpass_page_attachments(array &$attachments) {
  *   A fresh password.
  */
 function genpass_generate() {
-  return \Drupal::moduleHandler()->invoke(genpass_algorithm_module(), 'password');
+  // Length parameter for the password.
+  $length = \Drupal::config('genpass.settings')->get('genpass_length');
+
+  return \Drupal::moduleHandler()->invoke(
+    genpass_algorithm_module(),
+    'password',
+    [$length]
+  );
 }
 
 /**
  * Generate a new password using genpass's internal generation algorithm.
  *
+ * @param int $length
+ *   Length of the password to generate. Minimum length is 4.
+ *
  * @return string
- *   A fresh password according to the settings made in /admin/user/settings.
+ *   A random password.
+ *
+ * @throws Drupal\genpass\InvalidCharacterSetsException
+ *   After allowing other modules to alter the character sets, an error is
+ *   thrown if they are no longer viable for random passwords in a very
+ *   simplistic way & check.
  *
  * @see genpass_form_alter()
+ * @see user_password()
  */
-function genpass_password() {
-  $pass = '';
-  $length = \Drupal::config('genpass.settings')->get('genpass_length');
+function genpass_password($length = 16) {
 
-  $allowable_characters = \Drupal::config('genpass.settings')->get('genpass_entropy');
+  // This array contains the list of allowable characters for the password.
+  // Note that the number 0 and the letter 'O' have been removed to avoid
+  // confusion between the two. The same is true of 'I', 1, and 'l'. The
+  // symbols ` and | are likewise excluded.
+  $character_sets = array(
+    'lower_letters' => 'abcdefghijkmnopqrstuvwxyz',
+    'upper_letters' => 'ABCDEFGHJKLMNPQRSTUVWXYZ',
+    'digits' => '23456789',
+    'special' => '!"#$%&\'()*+,-./:;<=>?@[\]^_{}~',
+  );
 
-  // Zero-based count of characters in the allowable list:
-  $len = strlen($allowable_characters) - 1;
-
-  // Loop the number of times specified by $length.
-  for ($i = 0; $i < $length; $i++) {
-    do {
-      // Find a secure random number within the range needed.
-      $index = ord(Crypt::randomBytes(1));
-    } while ($index > $len);
-
-    // Each iteration, pick a random character from the
-    // allowable string and append it to the password:
-    $pass .= $allowable_characters[$index];
+  // Allow another module to alter the character sets before they are used to
+  // generate a password. Do sanity checks on the altered characters sets.
+  \Drupal::moduleHandler()->alter('genpass_character_sets', $character_sets);
+  if (!is_array($character_sets)) {
+    throw new InvalidCharacterSetsException('Characters sets altered to longer be a keyed array of character sets.');
+  }
+  $character_sets_combined = implode('', $character_sets);
+  if (strlen($character_sets_combined) < $length) {
+    throw new InvalidCharacterSetsException('Not enough source characters to generate a password.');
   }
 
-  return $pass;
+  // Always include at least 1 character of each class to ensure generated
+  // passwords meet simplistic password strength rules.
+  $password = [];
+  foreach ($character_sets as $character_set) {
+    $max = strlen($character_set) - 1;
+    $password[] = $character_set[random_int(0, $max)];
+  }
+
+  // Add remaining length as characters from any set.
+  $max = strlen($character_sets_combined) - 1;
+
+  for ($c = count($password); $c < $length; $c++) {
+    $password[] = $character_sets_combined[random_int(0, $max)];
+  }
+
+  // Shuffle the characters around to avoid the first 4 chars always being the
+  // same four character sets in order. Using shuffle() will suffice as the
+  // contents of the array are already random.
+  shuffle($password);
+
+  return implode('', $password);
 }
 
 /**
@@ -83,10 +123,21 @@ function genpass_form_alter(&$form, FormStateInterface $form_state, $form_id) {
 
     // User admin settings form at admin/config/people/accounts.
     case 'user_admin_settings':
-      $form['registration_cancellation']['genpass_mode'] = [
+      $form['genpass_config'] = [
+        '#type' => 'details',
+        '#title' => t('Generate Password'),
+        '#open' => TRUE,
+        '#weight' => 5,
+      ];
+      // Place genpass configuration details above the system emails accordion.
+      $form['email']['#weight'] = 10;
+
+      $settings = \Drupal::config('genpass.settings')->get();
+
+      $form['genpass_config']['genpass_mode'] = [
         '#type' => 'radios',
         '#title' => t('Password handling'),
-        '#default_value' => \Drupal::config('genpass.settings')->get('genpass_mode'),
+        '#default_value' => $settings['genpass_mode'],
         '#options' => [
           GenpassInterface::PASSWORD_REQUIRED => t('Users <strong>must</strong> enter a password on registration. This is disabled if e-mail verification is enabled above.'),
           GenpassInterface::PASSWORD_OPTIONAL => t('Users <strong>may</strong> enter a password on registration. If left empty, a random password will be generated. This always applies when an administer is creating the account.'),
@@ -95,37 +146,30 @@ function genpass_form_alter(&$form, FormStateInterface $form_state, $form_id) {
         '#description' => t('Choose a password handling mode for new users.'),
       ];
 
-      $form['registration_cancellation']['genpass_length'] = [
+      $form['genpass_config']['genpass_length'] = [
         '#type' => 'textfield',
         '#title' => t('Generated password length'),
-        '#default_value' => \Drupal::config('genpass.settings')->get('genpass_length'),
+        '#default_value' => $settings['genpass_length'],
         '#size' => 2,
         '#maxlength' => 2,
         '#description' => t('Set the length of generated passwords here. Allowed range: 5 to 32.'),
       ];
 
-      $form['registration_cancellation']['genpass_entropy'] = [
-        '#type' => 'textfield',
-        '#title' => t('Generated password entropy'),
-        '#size' => 100,
-        '#default_value' => \Drupal::config('genpass.settings')->get('genpass_entropy'),
-        '#description' => t('Give a list of possible characters for a generated password. Note that the list must contain at least X different characters where X is defined by the length you have given above.'),
-      ];
       // Provide a selection mechanism to choose the preferred algorithm for
       // generating passwords. Any module which implements hook_password() is
       // displayed here.
-      $form['registration_cancellation']['genpass_algorithm'] = [
+      $form['genpass_config']['genpass_algorithm'] = [
         '#type' => 'radios',
         '#title' => t('Password generation algorithm'),
         '#default_value' => genpass_algorithm_module(),
-        '#options' => genpass_add_samples(genpass_algorithm_modules()),
-        '#description' => t('If third party modules define a password generation algorithm, you can select which one to use. Note that algorithms other than genpass will ignore the preferred entropy and password length. The currently selected algorithm produced the password @pw.', ['@pw' => genpass_generate()]),
+        '#options' => genpass_add_samples(genpass_algorithm_modules(), $settings['genpass_length']),
+        '#description' => t('If third party modules define a password generation algorithm, you can select which one this module will use.'),
       ];
 
-      $form['registration_cancellation']['genpass_display'] = [
+      $form['genpass_config']['genpass_display'] = [
         '#type' => 'radios',
         '#title' => t('Generated password display'),
-        '#default_value' => \Drupal::config('genpass.settings')->get('genpass_display'),
+        '#default_value' => $settings['genpass_display'],
         '#options' => [
           GenpassInterface::PASSWORD_DISPLAY_NONE => t('Do not display.'),
           GenpassInterface::PASSWORD_DISPLAY_ADMIN => t('Display when site administrators create new user accounts.'),
@@ -136,8 +180,6 @@ function genpass_form_alter(&$form, FormStateInterface $form_state, $form_id) {
       ];
 
       $form['#validate'][] = 'genpass_user_admin_settings_validate';
-      // Move the "When cancelling a user account" field down.
-      $form['registration_cancellation']['user_cancel_method']['#weight'] = 1;
 
       $form['#submit'][] = 'genpass_user_admin_settings_submit';
       break;
@@ -192,7 +234,6 @@ function genpass_user_admin_settings_submit($form, FormStateInterface $form_stat
     ->set('genpass_length', $form_state->getValue('genpass_length'))
     ->set('genpass_mode', $form_state->getValue('genpass_mode'))
     ->set('genpass_display', $form_state->getValue('genpass_display'))
-    ->set('genpass_entropy', $form_state->getValue('genpass_entropy'))
     ->set('genpass_algorithm', $form_state->getValue('genpass_algorithm'))
     ->save();
 }
@@ -208,13 +249,6 @@ function genpass_user_admin_settings_validate($form, FormStateInterface &$form_s
     return;
   }
 
-  $entropy = $form_state->getValue('genpass_entropy');
-  // Validate allowed characters.
-  $chars = array_unique(preg_split('//', $entropy, -1, PREG_SPLIT_NO_EMPTY));
-  if (count($chars) < $length) {
-    $form_state->setErrorByName('genpass_entropy', t('The list of possible characters is not long or unique enough.'));
-    return;
-  }
   return $form;
 }
 
@@ -316,11 +350,16 @@ function genpass_algorithm_module() {
 /**
  * Adds some sample passwords to each module in an array.
  */
-function genpass_add_samples($array) {
+function genpass_add_samples($array, $length) {
   $return = [];
   foreach ($array as $module => $name) {
-    $examples_text = t('examples');
-    $return[$module] = $module . ' (' . $examples_text . ': <strong>' . htmlentities(Drupal::moduleHandler()->invoke($module, 'password')) . '</strong>, <strong>' . htmlentities(Drupal::moduleHandler()->invoke($module, 'password')) . '</strong>)';
+    $return[$module] = t(
+      '@module_machine_name (examples: <em>@password_eg1</em>, <em>@password_eg2</em>)', [
+        '@module_machine_name' => $module,
+        '@password_eg1' => Drupal::moduleHandler()->invoke($module, 'password', [$length]),
+        '@password_eg2' => Drupal::moduleHandler()->invoke($module, 'password', [$length]),
+      ]
+    );
   }
   return $return;
 }
