@@ -20,7 +20,7 @@
       color: $success-color;
     }
   }
-  li.is-dropdown-submenu-parent ul.is-dropdown-submenu li a::before {
+  nav.block-mainnavigation li.is-dropdown-submenu-parent ul.is-dropdown-submenu li a::before {
     content: "\f078";
     font-family: 'icomoon' !important;
     speak: none;
@@ -192,7 +192,7 @@
         ul.is-dropdown-submenu {
           position: absolute;
           width: 100%;
-          top: 107%;
+          top: 100%;
           padding-top: 1rem;
           border-top: none;
           font-size: 17px;
