@@ -426,17 +426,17 @@
 
 // HIDE SHOW MAIN MENU REGIONS
 .main-menu-region {
-  .block-desktopmegamenu {
+  nav.block-desktopmegamenu {
     display: none !important;
   }
-  .block-mainnavigation {
+  nav.block-mainnavigation {
     display: block !important;
   }
   @include breakpoint(smedium) {
-    .block-desktopmegamenu {
+    nav.block-desktopmegamenu {
       display: block !important;
     }
-    .block-mainnavigation {
+    nav.block-mainnavigation {
       display: none !important;
     }
   }
