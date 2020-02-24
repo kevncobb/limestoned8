@@ -16,6 +16,7 @@
     font-family: $header-font-family;
     z-index: 1;
     position: relative;
+    padding-bottom: 2rem;
     h2 {
       background-color: $limestone-blue;
       font-family: $header-font-family;
@@ -141,6 +142,11 @@
               }
             }
           }
+        }
+      }
+      li.menu-item--expanded.menu-item--active-trail.is-accordion-submenu-parent.has-submenu-toggle {
+        ul.is-accordion-submenu.is-active {
+          display: block !important;
         }
       }
     }
