@@ -78,18 +78,28 @@ p.lc-callout, blockquote.lc-callout {
 }
 
 .info-box {
-  width: 310px;
+  width: 100%;
   float: left;
   margin-right: 50px;
   margin-bottom: 50px;
   margin-top: 20px;
-  margin-left: -150px;
+  margin-left: 0;
   padding: 30px 30px 30px;
   -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.2);
   box-shadow: 0 1px 2px rgba(0,0,0,.2);
-  border-top: 6px solid $limestone-yellow;
+  border-top: 6px solid #1b4baa9e;
   position: relative;
-  background: url("/themes/custom/limestone/images/stripes-dark-tile.svg") repeat-x 0 -88px transparent;
+  @include breakpoint(smedium) {
+    margin-left: 0px;
+  }
+  @include breakpoint(large) {
+    margin-left: -50px;
+    width: 310px;
+  }
+  @include breakpoint(xlarge) {
+    margin-left: -150px;
+
+  }
 }
 
 $pull-quote-maxwidth: 50%;

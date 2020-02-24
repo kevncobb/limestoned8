@@ -105,19 +105,3 @@ function menu_block_theme_suggestions_menu(array $variables) {
 
   return $suggestions;
 }
-
-/**
- * Implements hook_preprocess_hook() for "block".
- *
- * Set the block label with the #menu_block_configuration label if it exists.
- */
-function menu_block_preprocess_block(&$variables) {
-  if (isset($variables['content']['#menu_block_configuration']['label'])) {
-    $config_label = $variables['content']['#menu_block_configuration']['label'];
-    // Some block twig templates (especially classy + bartik from core) use
-    // `{{ configuration.label }}` to print the label. Others just use
-    // `{{ label }}`. Therefore, we have to set both template variables for
-    // this to work consistently.
-    $variables['configuration']['label'] = $variables['label'] = $config_label;
-  }
-}
