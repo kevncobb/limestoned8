@@ -12,18 +12,7 @@
   .field-wrapper.field-name-field-block {
     width: 100%;
   }
-  a[target=_blank]::after {
-    content: "\ea7e";
-    font-family: 'icomoon' !important;
-    speak: none;
-    font-style: normal;
-    font-weight: normal;
-    font-variant: normal;
-    text-transform: none;
-    line-height: 1;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
+
   nav {
     font-family: $header-font-family;
     z-index: 1;
