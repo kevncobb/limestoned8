@@ -144,8 +144,9 @@
           }
         }
       }
+      // Expands the active menu
       li.menu-item--expanded.menu-item--active-trail.is-accordion-submenu-parent.has-submenu-toggle {
-        ul.is-accordion-submenu.is-active {
+        ul.is-accordion-submenu {
           display: block !important;
         }
       }
