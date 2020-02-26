@@ -72,6 +72,13 @@
                 {{ menus.menu_links(item.below, attributes, menu_level + 1) }}
               {% endif %}
             </li>
+          {% elseif menu_level == 3 %}
+            <li{{ item.attributes.setAttribute('tabindex', '-1').addClass(classes) }} role="menuitem">
+              {{ link(item.title, item.url) }}
+              {% if item.below %}
+                {{ menus.menu_links(item.below, attributes, menu_level + 1) }}
+              {% endif %}
+            </li>
           {% endif %}
       {% endfor %}
     </ul>
