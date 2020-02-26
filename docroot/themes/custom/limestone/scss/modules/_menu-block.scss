@@ -58,7 +58,7 @@
     ul.root-level, ul.menu-level-0 {
       a {
         color: $dark-gray;
-        padding: 9px 0 9px 28px;
+        padding: 9px 0 9px 26px;
         float: left;
         width: 100%;
         //font-size: 1rem;
@@ -145,7 +145,7 @@
         }
       }
       // Expands the active menu
-      li.menu-item--expanded.menu-item--active-trail.is-accordion-submenu-parent.has-submenu-toggle {
+      li.menu-item--expanded.menu-item--active-trail.is-accordion-submenu-parent.has-submenu-toggle[tabindex="0"] {
         ul.is-accordion-submenu {
           display: block !important;
         }
@@ -157,7 +157,7 @@
     margin-left: 0;
     width: 100%;
     li > a {
-      padding-left: 42px;
+      padding-left: 38px;
       background-color: #fdfdfd;
        &::before {
          content: "- ";
@@ -165,8 +165,20 @@
       }
     }
     .menu.nested {
+      float: left;
+      margin-left: 0;
+      width: 100%;
       li > a {
-        padding-left: 52px;
+        padding-left: 48px;
+        background-color: #ffffff;
+      }
+    }
+    .menu.nested {
+      float: left;
+      margin-left: 0;
+      width: 100%;
+      li > a {
+        padding-left: 58px;
         background-color: #ffffff;
       }
     }
