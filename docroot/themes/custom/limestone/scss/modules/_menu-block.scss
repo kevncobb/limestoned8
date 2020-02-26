@@ -69,7 +69,6 @@
           background-color: #fffce2;
         }
       }
-
       li.menu-item {
         float: left;
         width: 100%;
@@ -158,11 +157,17 @@
     margin-left: 0;
     width: 100%;
     li > a {
-      padding-left: 50px;
+      padding-left: 42px;
       background-color: #fdfdfd;
        &::before {
          content: "- ";
          font-family: $header-font-family;
+      }
+    }
+    .menu.nested .menu.nested {
+      li > a {
+        padding-left: 52px;
+        background-color: #ffffff;
       }
     }
   }
