@@ -33,6 +33,8 @@
 <ul{{ attributes.addClass('root-level vertical menu side-submenu accordion-menu') }} role="menubar" data-accordion-menu data-submenu-toggle="true">
     {% elseif menu_level == 1 %}
   <ul class="menu vertical nested" role="menu">
+    {% elseif item.is_expanded == TRUE %}
+    <ul class="menu vertical nested">
       {% else %}
     <ul>
       {% endif %}
