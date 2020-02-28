@@ -152,9 +152,11 @@
       }
     }
   }
+  ul {
+    margin-left: 0;
+  }
   .menu.nested {
     float: left;
-    margin-left: 0;
     width: 100%;
     li > a {
       padding-left: 38px;
