@@ -8,8 +8,6 @@ use Drupal\Composer\Plugin\Scaffold\ScaffoldOptions;
 
 /**
  * Interface for scaffold operation objects.
- *
- * @internal
  */
 interface OperationInterface {
 

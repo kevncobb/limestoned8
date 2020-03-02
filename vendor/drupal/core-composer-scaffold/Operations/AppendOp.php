@@ -8,8 +8,6 @@ use Drupal\Composer\Plugin\Scaffold\ScaffoldOptions;
 
 /**
  * Scaffold operation to add to the beginning and/or end of a scaffold file.
- *
- * @internal
  */
 class AppendOp extends AbstractOperation {
 

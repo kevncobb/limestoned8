@@ -7,6 +7,7 @@ use Composer\EventDispatcher\EventDispatcher;
 use Composer\Installer\PackageEvent;
 use Composer\IO\IOInterface;
 use Composer\Package\PackageInterface;
+use Composer\Plugin\CommandEvent;
 use Composer\Util\Filesystem;
 use Drupal\Composer\Plugin\Scaffold\Operations\OperationData;
 use Drupal\Composer\Plugin\Scaffold\Operations\OperationFactory;
@@ -17,8 +18,6 @@ use Drupal\Composer\Plugin\Scaffold\Operations\ScaffoldFileCollection;
  *
  * Contains the primary logic which determines the files to be fetched and
  * processed.
- *
- * @internal
  */
 class Handler {
 
@@ -83,9 +82,14 @@ class Handler {
   }
 
   /**
-   * Registers post-package events if the 'require' command was called.
+   * Registers post-package events before any 'require' event runs.
+   *
+   * This method is called by composer prior to doing a 'require' command.
+   *
+   * @param \Composer\Plugin\CommandEvent $event
+   *   The Composer Command event.
    */
-  public function requireWasCalled() {
+  public function beforeRequire(CommandEvent $event) {
     // In order to differentiate between post-package events called after
     // 'composer require' vs. the same events called at other times, we will
     // only install our handler when a 'require' event is detected.

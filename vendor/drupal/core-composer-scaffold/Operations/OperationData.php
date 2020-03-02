@@ -4,8 +4,6 @@ namespace Drupal\Composer\Plugin\Scaffold\Operations;
 
 /**
  * Holds parameter data for operation objects during operation creation only.
- *
- * @internal
  */
 class OperationData {
 

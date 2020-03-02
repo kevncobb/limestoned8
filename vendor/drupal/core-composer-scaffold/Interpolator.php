@@ -4,8 +4,6 @@ namespace Drupal\Composer\Plugin\Scaffold;
 
 /**
  * Injects config values from an associative array into a string.
- *
- * @internal
  */
 class Interpolator {
 

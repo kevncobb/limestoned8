@@ -10,8 +10,6 @@ use Drupal\Composer\Plugin\Scaffold\ScaffoldOptions;
 
 /**
  * Collection of scaffold files.
- *
- * @internal
  */
 class ScaffoldFileCollection implements \IteratorAggregate {
 

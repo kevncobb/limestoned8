@@ -7,8 +7,6 @@ use Composer\Util\ProcessExecutor;
 
 /**
  * Provide some Git utility operations
- *
- * @internal
  */
 class Git {
 

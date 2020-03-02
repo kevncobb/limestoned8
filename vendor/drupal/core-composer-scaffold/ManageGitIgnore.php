@@ -6,8 +6,6 @@ use Composer\IO\IOInterface;
 
 /**
  * Manage the .gitignore file.
- *
- * @internal
  */
 class ManageGitIgnore {
 

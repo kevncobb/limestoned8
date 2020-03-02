@@ -6,8 +6,6 @@ use Composer\Package\RootPackageInterface;
 
 /**
  * Determine configuration.
- *
- * @internal
  */
 class Message {
 

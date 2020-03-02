@@ -8,8 +8,6 @@ use Drupal\Composer\Plugin\Scaffold\ScaffoldOptions;
 
 /**
  * Scaffold operation to skip a scaffold file (do nothing).
- *
- * @internal
  */
 class SkipOp extends AbstractOperation {
 
