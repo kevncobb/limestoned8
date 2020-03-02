@@ -8,9 +8,6 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Link;
 use Drupal\Core\State\StateInterface;
 use Drupal\Core\Url;
-use Drupal\update\UpdateFetcherInterface;
-use Drupal\update\UpdateManagerInterface;
-use Drupal\update\ModuleVersion;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -106,7 +103,7 @@ class UpdateManagerUpdate extends FormBase {
     $project_data = update_calculate_project_data($available);
     foreach ($project_data as $name => $project) {
       // Filter out projects which are up to date already.
-      if ($project['status'] == UpdateManagerInterface::CURRENT) {
+      if ($project['status'] == UPDATE_CURRENT) {
         continue;
       }
       // The project name to display can vary based on the info we have.
@@ -136,8 +133,7 @@ class UpdateManagerUpdate extends FormBase {
 
       $recommended_release = $project['releases'][$project['recommended']];
       $recommended_version = '{{ release_version }} (<a href="{{ release_link }}" title="{{ project_title }}">{{ release_notes }}</a>)';
-      $recommended_version_parser = ModuleVersion::createFromVersionString($recommended_release['version']);
-      if ($recommended_version_parser->getMajorVersion() != $project['existing_major']) {
+      if ($recommended_release['version_major'] != $project['existing_major']) {
         $recommended_version .= '<div title="{{ major_update_warning_title }}" class="update-major-version-warning">{{ major_update_warning_text }}</div>';
       }
 
@@ -162,23 +158,23 @@ class UpdateManagerUpdate extends FormBase {
       ];
 
       switch ($project['status']) {
-        case UpdateManagerInterface::NOT_SECURE:
-        case UpdateManagerInterface::REVOKED:
+        case UPDATE_NOT_SECURE:
+        case UPDATE_REVOKED:
           $entry['title'] .= ' ' . $this->t('(Security update)');
           $entry['#weight'] = -2;
           $type = 'security';
           break;
 
-        case UpdateManagerInterface::NOT_SUPPORTED:
+        case UPDATE_NOT_SUPPORTED:
           $type = 'unsupported';
           $entry['title'] .= ' ' . $this->t('(Unsupported)');
           $entry['#weight'] = -1;
           break;
 
-        case UpdateFetcherInterface::UNKNOWN:
-        case UpdateFetcherInterface::NOT_FETCHED:
-        case UpdateFetcherInterface::NOT_CHECKED:
-        case UpdateManagerInterface::NOT_CURRENT:
+        case UPDATE_UNKNOWN:
+        case UPDATE_NOT_FETCHED:
+        case UPDATE_NOT_CHECKED:
+        case UPDATE_NOT_CURRENT:
           $type = 'recommended';
           break;
 

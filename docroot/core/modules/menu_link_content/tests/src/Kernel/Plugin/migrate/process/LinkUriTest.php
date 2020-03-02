@@ -85,10 +85,6 @@ class LinkUriTest extends KernelTestBase {
     $expected = 'internal:/';
     $tests['front'] = [$value, $expected];
 
-    $value = '<nolink>';
-    $expected = 'route:<nolink>';
-    $tests['nolink'] = [$value, $expected];
-
     return $tests;
   }
 

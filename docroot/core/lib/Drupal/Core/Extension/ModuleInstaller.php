@@ -320,7 +320,7 @@ class ModuleInstaller implements ModuleInstallerInterface {
         \Drupal::service('theme_handler')->refreshInfo();
 
         // Allow the module to perform install tasks.
-        $this->moduleHandler->invoke($module, 'install', [$sync_status]);
+        $this->moduleHandler->invoke($module, 'install');
 
         // Record the fact that it was installed.
         \Drupal::logger('system')->info('%module module installed.', ['%module' => $module]);
@@ -342,7 +342,7 @@ class ModuleInstaller implements ModuleInstallerInterface {
         \Drupal::service('router.builder')->rebuild();
       }
 
-      $this->moduleHandler->invokeAll('modules_installed', [$modules_installed, $sync_status]);
+      $this->moduleHandler->invokeAll('modules_installed', [$modules_installed]);
     }
 
     return TRUE;
@@ -354,7 +354,6 @@ class ModuleInstaller implements ModuleInstallerInterface {
   public function uninstall(array $module_list, $uninstall_dependents = TRUE) {
     // Get all module data so we can find dependencies and sort.
     $module_data = \Drupal::service('extension.list.module')->getList();
-    $sync_status = \Drupal::service('config.installer')->isSyncing();
     $module_list = $module_list ? array_combine($module_list, $module_list) : [];
     if (array_diff_key($module_list, $module_data)) {
       // One or more of the given modules doesn't exist.
@@ -378,7 +377,7 @@ class ModuleInstaller implements ModuleInstallerInterface {
             return FALSE;
           }
 
-          // Skip already uninstalled modules.
+          // Skip already uninstalled modules and dependencies of profiles.
           if (isset($installed_modules[$dependent]) && !isset($module_list[$dependent])) {
             $module_list[$dependent] = $dependent;
           }
@@ -426,7 +425,7 @@ class ModuleInstaller implements ModuleInstallerInterface {
 
       // Uninstall the module.
       module_load_install($module);
-      $this->moduleHandler->invoke($module, 'uninstall', [$sync_status]);
+      $this->moduleHandler->invoke($module, 'uninstall');
 
       // Remove all configuration belonging to the module.
       \Drupal::service('config.manager')->uninstall('module', $module);
@@ -512,7 +511,7 @@ class ModuleInstaller implements ModuleInstallerInterface {
     drupal_get_installed_schema_version(NULL, TRUE);
 
     // Let other modules react.
-    $this->moduleHandler->invokeAll('modules_uninstalled', [$module_list, $sync_status]);
+    $this->moduleHandler->invokeAll('modules_uninstalled', [$module_list]);
 
     // Flush all persistent caches.
     // Any cache entry might implicitly depend on the uninstalled modules,

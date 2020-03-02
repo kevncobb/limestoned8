@@ -3,9 +3,4 @@ type: module
 description: 'Support module for Dialog Renderer tests.'
 core: 8.x
 package: Testing
-# version: VERSION
-
-# Information added by Drupal.org packaging script on 2020-03-02
-version: '8.9.x-dev'
-project: 'drupal'
-datestamp: 1583152365
+version: VERSION

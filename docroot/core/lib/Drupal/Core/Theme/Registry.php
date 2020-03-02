@@ -135,13 +135,6 @@ class Registry implements DestructableInterface {
   protected $themeHandler;
 
   /**
-   * The theme initialization.
-   *
-   * @var \Drupal\Core\Theme\ThemeInitializationInterface
-   */
-  protected $themeInitialization;
-
-  /**
    * The theme manager.
    *
    * @var \Drupal\Core\Theme\ThemeManagerInterface

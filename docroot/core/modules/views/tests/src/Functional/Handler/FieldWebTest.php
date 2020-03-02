@@ -84,14 +84,10 @@ class FieldWebTest extends ViewTestBase {
 
     // Clicking a click sort should change the order.
     $this->clickLink(t('ID'));
-    $href = Url::fromRoute('<none>', [], ['query' => ['order' => 'id', 'sort' => 'desc']])->toString();
-    $this->assertLinkByHref($href);
+    $this->assertLinkByHref(Url::fromRoute('<none>', [], ['query' => ['order' => 'id', 'sort' => 'desc']])->toString());
     // Check that the output has the expected order (asc).
     $ids = $this->clickSortLoadIdsFromOutput();
     $this->assertEqual($ids, range(1, 5));
-    // Check that the rel attribute has the correct value.
-    $result = $this->xpath('//a[@href="' . $href . '"]');
-    $this->assertEquals('nofollow', $result[0]->getAttribute('rel'));
 
     $this->clickLink(t('ID Sort descending'));
     // Check that the output has the expected order (desc).

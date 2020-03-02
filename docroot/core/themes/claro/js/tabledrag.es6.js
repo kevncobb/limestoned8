@@ -146,9 +146,9 @@
     /**
      * Used to determine up or down direction from last mouse move.
      *
-     * @type {?number}
+     * @type {number}
      */
-    this.oldY = null;
+    this.oldY = 0;
 
     /**
      * Whether anything in the entire table has changed.
@@ -856,10 +856,6 @@
       if (self.oldRowElement) {
         $(self.oldRowElement).removeClass('drag-previous');
       }
-
-      // Set the initial y coordinate so the direction can be calculated in
-      // dragRow().
-      self.oldY = self.pointerCoords(event).y;
     },
 
     /**

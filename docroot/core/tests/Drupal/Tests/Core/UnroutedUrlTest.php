@@ -83,6 +83,8 @@ class UnroutedUrlTest extends UnitTestCase {
       ['https://www.drupal.org', TRUE],
       // A protocol-relative URL.
       ['//www.drupal.org', TRUE],
+      // A root-relative URL.
+      ['/robots.txt', FALSE, 'base:robots.txt'],
       // An internal, unrouted, base-relative URI.
       ['base:robots.txt', FALSE],
       // Base-relative URIs with special characters.
@@ -114,7 +116,6 @@ class UnroutedUrlTest extends UnitTestCase {
     return [
       // Schemeless paths.
       ['test'],
-      ['/test'],
       // Schemeless path with a query string.
       ['foo?bar'],
       // Only a query string.
@@ -166,9 +167,9 @@ class UnroutedUrlTest extends UnitTestCase {
    *
    * @covers ::toString
    */
-  public function testToString($uri) {
+  public function testToString($uri, $is_external, $expected_uri) {
     $url = Url::fromUri($uri);
-    $this->assertSame($uri, $url->toString());
+    $this->assertSame(isset($expected_uri) ? $expected_uri : $uri, $url->toString());
   }
 
   /**

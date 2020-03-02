@@ -242,17 +242,9 @@ class BrowserTestBaseTest extends BrowserTestBase {
     $sanitized = Html::escape($dangerous);
     $this->assertNoText($dangerous);
     $this->assertText($sanitized);
-  }
 
-  /**
-   * Tests legacy getRawContent().
-   *
-   * @group legacy
-   * @expectedDeprecation AssertLegacyTrait::getRawContent() is deprecated in drupal:8.2.0 and is removed from drupal:10.0.0. Use $this->getSession()->getPage()->getContent() instead. See http://drupal.org/node/2735045
-   */
-  public function testGetRawContent() {
-    $this->drupalGet('test-encoded');
-    $this->assertSame($this->getSession()->getPage()->getContent(), $this->getRawContent());
+    // Test getRawContent().
+    $this->assertSame($this->getSession()->getPage()->getContent(), $this->getSession()->getPage()->getContent());
   }
 
   /**

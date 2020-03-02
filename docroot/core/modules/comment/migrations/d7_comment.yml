@@ -40,11 +40,7 @@ process:
     -
       plugin: skip_on_empty
       method: row
-  # Comments migrated from Drupal 6 to Drupal 7 may not have a language.
-  langcode:
-    plugin: default_value
-    source: language
-    default_value: und
+  langcode: language
   field_name: '@comment_type'
   subject: subject
   uid: uid

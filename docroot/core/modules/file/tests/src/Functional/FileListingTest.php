@@ -112,7 +112,7 @@ class FileListingTest extends FileFieldTestBase {
     foreach ($nodes as $node) {
       $file = File::load($node->file->target_id);
       $this->assertText($file->getFilename());
-      $this->assertLinkByHref(file_create_url($file->getFileUri()));
+      $this->assertLinkByHref($file->createFileUrl());
       $this->assertLinkByHref('admin/content/files/usage/' . $file->id());
     }
     $this->assertSession()->elementTextNotContains('css', 'table.views-table', 'Temporary');

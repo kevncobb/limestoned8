@@ -7,8 +7,3 @@ features:
   - node_user_picture
   - comment_user_picture
   - comment_user_verification
-
-# Information added by Drupal.org packaging script on 2020-03-02
-version: '8.9.x-dev'
-project: 'drupal'
-datestamp: 1583152365

@@ -346,6 +346,18 @@ class UrlTest extends UnitTestCase {
   }
 
   /**
+   * Tests the getUri() method for root-relative URLs.
+   *
+   * @covers ::getUri
+   * @covers ::isExternal
+   */
+  public function testGetUriForRootRelativeUrl() {
+    $url = Url::fromUri('/example/test');
+    $this->assertEquals('base:example/test', $url->getUri());
+    $this->assertFalse($url->isExternal());
+  }
+
+  /**
    * Tests the getInternalPath method().
    *
    * @param \Drupal\Core\Url[] $urls

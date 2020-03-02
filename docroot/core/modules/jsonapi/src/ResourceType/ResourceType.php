@@ -397,11 +397,12 @@ class ResourceType {
    */
   public function getRelatableResourceTypes() {
     if (!isset($this->relatableResourceTypesByField)) {
-      $this->relatableResourceTypesByField = array_reduce(array_map(function (ResourceTypeRelationship $field) {
-        return [$field->getPublicName() => $field->getRelatableResourceTypes()];
-      }, array_filter($this->fields, function (ResourceTypeField $field) {
-        return $field instanceof ResourceTypeRelationship;
-      })), 'array_merge', []);
+      $this->relatableResourceTypesByField = [];
+      foreach ($this->fields as $field) {
+        if ($field instanceof ResourceTypeRelationship) {
+          $this->relatableResourceTypesByField[$field->getPublicName()] = $field->getRelatableResourceTypes();
+        }
+      }
     }
     return $this->relatableResourceTypesByField;
   }
