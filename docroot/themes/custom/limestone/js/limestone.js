@@ -114,7 +114,7 @@
     attach: function (context, settings) {
       $(context).find('a.accordion-title').bind('touchstart click', function (event) {
         console.log('in accordion_focus_tab behavior');
-        $(this).animate({
+        $(this).delay(400).animate({
           scrollTop: ($(this).offset().top)
         },200);
       });
