@@ -3,4 +3,9 @@ type: module
 description: 'Support module for Database layer tests that need to monitor executed database statements.'
 core: 8.x
 package: Testing
-version: VERSION
+# version: VERSION
+
+# Information added by Drupal.org packaging script on 2020-03-02
+version: '8.9.x-dev'
+project: 'drupal'
+datestamp: 1583152365

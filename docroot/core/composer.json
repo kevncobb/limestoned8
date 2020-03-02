@@ -46,7 +46,8 @@
         "zendframework/zend-diactoros": "^1.8",
         "composer/semver": "^1.0",
         "asm89/stack-cors": "^1.1",
-        "pear/archive_tar": "^1.4.9"
+        "pear/archive_tar": "^1.4.9",
+        "psr/log": "^1.0"
     },
     "conflict": {
         "drupal/pathauto": "<1.6",
@@ -71,6 +72,7 @@
         "drupal/color": "self.version",
         "drupal/comment": "self.version",
         "drupal/config": "self.version",
+        "drupal/config_environment": "self.version",
         "drupal/config_translation": "self.version",
         "drupal/contact": "self.version",
         "drupal/content_moderation": "self.version",

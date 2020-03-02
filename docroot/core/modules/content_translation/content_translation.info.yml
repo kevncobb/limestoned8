@@ -1,9 +1,14 @@
 name: 'Content Translation'
 type: module
-description: 'Allows users to translate content entities.'
+description: 'Allows users to translate content.'
 dependencies:
   - drupal:language
 package: Multilingual
-version: VERSION
+# version: VERSION
 core: 8.x
 configure: language.content_settings_page
+
+# Information added by Drupal.org packaging script on 2020-03-02
+version: '8.9.x-dev'
+project: 'drupal'
+datestamp: 1583152365

@@ -51,7 +51,10 @@ class FileUriFormatter extends BaseFieldFileFormatterBase {
   protected function viewValue(FieldItemInterface $item) {
     $value = $item->value;
     if ($this->getSetting('file_download_path')) {
-      $value = file_url_transform_relative(file_create_url($value));
+      // @todo Wrap in file_url_transform_relative(). This is currently
+      // impossible. See BaseFieldFileFormatterBase::viewElements(). Fix in
+      // https://www.drupal.org/node/2646744.
+      $value = file_create_url($value);
     }
     return $value;
   }

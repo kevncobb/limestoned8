@@ -3,3 +3,8 @@ type: module
 description: 'Provides custom access related code to test JSON:API filter security.'
 package: Testing
 core: 8.x
+
+# Information added by Drupal.org packaging script on 2020-03-02
+version: '8.9.x-dev'
+project: 'drupal'
+datestamp: 1583152365

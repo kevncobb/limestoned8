@@ -1,5 +1,10 @@
 name: 'Config install double dependency test'
 type: module
 package: Testing
-version: VERSION
+# version: VERSION
 core: 8.x
+
+# Information added by Drupal.org packaging script on 2020-03-02
+version: '8.9.x-dev'
+project: 'drupal'
+datestamp: 1583152365
