@@ -133,7 +133,7 @@ regions:
 regions_hidden:
   - sidebar_first
 
-# Information added by Drupal.org packaging script on 2019-09-25
-version: '8.x-3.0+4-dev'
+# Information added by Drupal.org packaging script on 2019-10-25
+version: '8.x-3.1'
 project: 'thunder_admin'
-datestamp: 1569399491
+datestamp: 1572003489
