@@ -112,9 +112,9 @@
   };
   Drupal.behaviors.accordion_focus_tab = {
     attach: function (context, settings) {
-      $(context).find('ul.accordion li.accordion-item a').bind('touchstart click', function (event) {
-        $(this).next('div.accordion-content').focus().animate({
-          scrollTop: ($('div.accordion-content').offset().top)
+      $(context).find('a.accordion-title').bind('touchstart click', function (event) {
+        $(this).next('div.accordion-content').animate({
+          scrollTop: ($(this).offset().top)
         },200);
       });
     }
