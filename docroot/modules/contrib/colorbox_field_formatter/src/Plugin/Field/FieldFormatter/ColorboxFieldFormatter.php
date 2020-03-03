@@ -4,12 +4,17 @@ namespace Drupal\colorbox_field_formatter\Plugin\Field\FieldFormatter;
 
 use Drupal\colorbox\ColorboxAttachment;
 use Drupal\Component\Utility\Html;
+use Drupal\Core\Extension\ModuleHandlerInterface;
+use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Field\FieldItemInterface;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\FormatterBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Link;
+use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Url;
+use Drupal\Core\Utility\Token;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Plugin implementation of the 'colorbox_field_formatter' formatter.
@@ -23,15 +28,68 @@ use Drupal\Core\Url;
  *   }
  * )
  */
-class ColorboxFieldFormatter extends FormatterBase {
+class ColorboxFieldFormatter extends FormatterBase implements ContainerFactoryPluginInterface {
 
   /**
-   * @inheritdoc
+   * @var \Drupal\Core\Extension\ModuleHandlerInterface
+   */
+  protected $moduleHandler;
+
+  /**
+   * @var \Drupal\colorbox\ColorboxAttachment
+   */
+  protected $colorboxAttachment;
+
+  /**
+   * @var \Drupal\Core\Utility\Token
+   */
+  protected $token;
+
+  /**
+   * ColorboxFieldFormatter constructor.
+   *
+   * @param $plugin_id
+   * @param $plugin_definition
+   * @param \Drupal\Core\Field\FieldDefinitionInterface $field_definition
+   * @param array $settings
+   * @param $label
+   * @param $view_mode
+   * @param array $third_party_settings
+   * @param \Drupal\Core\Extension\ModuleHandlerInterface $module_handler
+   * @param \Drupal\colorbox\ColorboxAttachment $colorbox_attachment
+   * @param \Drupal\Core\Utility\Token $token
+   */
+  public function __construct($plugin_id, $plugin_definition, FieldDefinitionInterface $field_definition, array $settings, $label, $view_mode, array $third_party_settings, ModuleHandlerInterface $module_handler, ColorboxAttachment $colorbox_attachment, Token $token) {
+    parent::__construct($plugin_id, $plugin_definition, $field_definition, $settings, $label, $view_mode, $third_party_settings);
+    $this->moduleHandler = $module_handler;
+    $this->colorboxAttachment = $colorbox_attachment;
+    $this->token = $token;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
+    return new static(
+      $plugin_id,
+      $plugin_definition,
+      $configuration['field_definition'],
+      $configuration['settings'],
+      $configuration['label'],
+      $configuration['view_mode'],
+      $configuration['third_party_settings'],
+      $container->get('module_handler'),
+      $container->get('colorbox.attachment'),
+      $container->get('token')
+    );
+  }
+
+  /**
+   * {@inheritdoc}
    */
   public static function defaultSettings() {
-    $config = \Drupal::config('colorbox.settings');
     return [
-      'style' => $config->get('custom.style'),
+      'style' => 'default',
       'link_type' => 'content',
       'link' => '',
       'width' => '500',
@@ -45,10 +103,10 @@ class ColorboxFieldFormatter extends FormatterBase {
   }
 
   /**
-   * @inheritdoc
+   * {@inheritdoc}
    */
   public function settingsForm(array $form, FormStateInterface $form_state) {
-    $form += parent::settingsForm($form, $form_state);
+    $form = parent::settingsForm($form, $form_state);
 
     $form['style'] = [
       '#title' => $this->t('Style of colorbox'),
@@ -60,15 +118,7 @@ class ColorboxFieldFormatter extends FormatterBase {
       ],
     ];
 
-    $form['link_wrapper'] = [
-      '#type' => 'container',
-      '#states' => [
-        'visible' => [
-          'select.colorbox-field-formatter-style' => ['value' => 'default'],
-        ],
-      ],
-    ];
-    $form['link_wrapper']['link_type'] = [
+    $form['link_type'] = [
       '#title' => $this->t('Link colorbox to'),
       '#type' => 'select',
       '#default_value' => $this->getSetting('link_type'),
@@ -76,27 +126,34 @@ class ColorboxFieldFormatter extends FormatterBase {
       '#attributes' => [
         'class' => ['colorbox-field-formatter-link-type'],
       ],
+      '#states' => [
+        'visible' => [
+          'select.colorbox-field-formatter-style' => ['value' => 'default'],
+        ],
+      ],
     ];
-    $form['link_wrapper']['link'] = [
+    $form['link'] = [
       '#title' => $this->t('URI'),
       '#type' => 'textfield',
       '#default_value' => $this->getSetting('link'),
       '#states' => [
         'visible' => [
+          'select.colorbox-field-formatter-style' => ['value' => 'default'],
           'select.colorbox-field-formatter-link-type' => ['value' => 'manual'],
         ],
       ],
     ];
-    if (\Drupal::moduleHandler()->moduleExists('token') && isset($form['#entity_type'])) {
-      $form['link_wrapper']['token_help_wrapper'] = [
+    if (isset($form['#entity_type']) &&$this->moduleHandler->moduleExists('token')) {
+      $form['token_help_wrapper'] = [
         '#type' => 'container',
         '#states' => [
           'visible' => [
+            'select.colorbox-field-formatter-style' => ['value' => 'default'],
             'select.colorbox-field-formatter-link-type' => ['value' => 'manual'],
           ],
         ],
       ];
-      $form['link_wrapper']['token_help_wrapper']['token_help'] = [
+      $form['token_help_wrapper']['token_help'] = [
         '#theme' => 'token_tree',
         '#token_types' => ['entity' => $form['#entity_type']],
         '#global_types' => FALSE,
@@ -149,7 +206,7 @@ class ColorboxFieldFormatter extends FormatterBase {
   }
 
   /**
-   * @inheritdoc
+   * {@inheritdoc}
    */
   public function settingsSummary() {
     $summary = [];
@@ -157,20 +214,17 @@ class ColorboxFieldFormatter extends FormatterBase {
     $styles = $this->getStyles();
     $summary[] = $this->t('Style: @style', ['@style' => $styles[$this->getSetting('style')],]);
 
-    if ($this->getSetting('style') == 'default') {
+    if ($this->getSetting('style') === 'default') {
       $types = $this->getLinkTypes();
-      switch ($this->getSetting('link_type')) {
-        case 'manual':
-          $summary[] = $this->t('Link to @link', ['@link' => $this->getSetting('link'),]);
-          break;
-
-        default:
-          $summary[] = $this->t('Link to @link', ['@link' => $types[$this->getSetting('link_type')],]);
-          break;
+      if ($this->getSetting('link_type') === 'manual') {
+        $summary[] = $this->t('Link to @link', ['@link' => $this->getSetting('link'),]);
+      }
+      else {
+        $summary[] = $this->t('Link to @link', ['@link' => $types[$this->getSetting('link_type')],]);
       }
     }
 
-    if ($this->getSetting('style') == 'colorbox-inline') {
+    if ($this->getSetting('style') === 'colorbox-inline') {
       $summary[] = $this->t('Inline selector: @selector', ['@selector' => $this->getSetting('inline_selector'),]);
     }
     $summary[] = $this->t('Width: @width', ['@width' => $this->getSetting('width'),]);
@@ -190,9 +244,10 @@ class ColorboxFieldFormatter extends FormatterBase {
   }
 
   /**
-   * @inheritdoc
+   * {@inheritdoc}
+   * @throws \Drupal\Core\Entity\EntityMalformedException
    */
-  public function viewElements(FieldItemListInterface $items, $langcode) {
+  public function viewElements(FieldItemListInterface $items, $langcode): array {
     $element = [];
 
     foreach ($items as $delta => $item) {
@@ -220,7 +275,7 @@ class ColorboxFieldFormatter extends FormatterBase {
       if (!empty($this->getSetting('rel'))) {
         $options['attributes']['rel'] = $this->getSetting('rel');
       }
-      if ($this->getSetting('style') == 'colorbox-inline') {
+      if ($this->getSetting('style') === 'colorbox-inline') {
         $options['attributes']['data-colorbox-inline'] = $this->getSetting('inline_selector');
       }
 
@@ -229,12 +284,9 @@ class ColorboxFieldFormatter extends FormatterBase {
       $element[$delta] = $link->toRenderable();
     }
 
-    /** @var ColorboxAttachment $attachment */
-    $attachment = \Drupal::getContainer()->get('colorbox.attachment');
-
     // Attach the Colorbox JS and CSS.
-    if ($attachment->isApplicable()) {
-      $attachment->attach($element);
+    if ($this->colorboxAttachment->isApplicable()) {
+      $this->colorboxAttachment->attach($element);
     }
 
     return $element;
@@ -246,12 +298,13 @@ class ColorboxFieldFormatter extends FormatterBase {
    * @param \Drupal\Core\Field\FieldItemInterface $item
    *   One field item.
    *
-   * @return string
+   * @return string|array
    *   The textual output generated.
    */
   protected function viewValue(FieldItemInterface $item) {
     // The text value has no text format assigned to it, so the user input
     // should equal the output, including newlines.
+    /** @noinspection PhpUndefinedFieldInspection */
     return nl2br(Html::escape($item->value));
   }
 
@@ -260,19 +313,19 @@ class ColorboxFieldFormatter extends FormatterBase {
    *   One field item.
    *
    * @return \Drupal\Core\Url
+   * @throws \Drupal\Core\Entity\EntityMalformedException
    */
-  protected function getUrl(FieldItemInterface $item) {
+  protected function getUrl(FieldItemInterface $item): Url {
     $entity = $item->getEntity();
-    if ($this->getSetting('link_type') == 'content') {
+    if ($this->getSetting('link_type') === 'content') {
       return $entity->toUrl();
     }
 
     $link = $this->getSetting('link');
-    if (\Drupal::moduleHandler()->moduleExists('token')) {
-      $token_service = \Drupal::token();
-      $link = $token_service->replace($this->getSetting('link'), [$entity->bundle() => $entity], ['clear' => TRUE]);
+    if ($this->moduleHandler->moduleExists('token')) {
+      $link = $this->token->replace($this->getSetting('link'), [$entity->bundle() => $entity], ['clear' => TRUE]);
     }
-    return Url::fromUri($link);
+    return Url::fromUserInput($link);
   }
 
   /**
@@ -281,14 +334,14 @@ class ColorboxFieldFormatter extends FormatterBase {
    *
    * @return array
    */
-  private function getStyles() {
+  private function getStyles(): array {
     $styles = [
       'default' => $this->t('Default'),
     ];
-    if (\Drupal::moduleHandler()->moduleExists('colorbox_inline')) {
+    if ($this->moduleHandler->moduleExists('colorbox_inline')) {
       $styles['colorbox-inline'] = $this->t('Colorbox inline');
     }
-    if (\Drupal::moduleHandler()->moduleExists('colorbox_node')) {
+    if ($this->moduleHandler->moduleExists('colorbox_node')) {
       $styles['colorbox-node'] = $this->t('Colorbox node');
     }
 
@@ -300,7 +353,7 @@ class ColorboxFieldFormatter extends FormatterBase {
    *
    * @return array
    */
-  private function getLinkTypes() {
+  private function getLinkTypes(): array {
     return [
       'content' => $this->t('Content'),
       'manual' => $this->t('Manually provide a link'),

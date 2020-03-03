@@ -17,8 +17,9 @@ use Drupal\Core\Form\FormStateInterface;
  * )
  */
 class ColorboxFieldFormatterImage extends ColorboxFieldFormatter {
+
   /**
-   * @inheritdoc
+   * {@inheritdoc}
    */
   public static function defaultSettings() {
     return [
@@ -27,11 +28,12 @@ class ColorboxFieldFormatterImage extends ColorboxFieldFormatter {
   }
 
   /**
-   * @inheritdoc
+   * {@inheritdoc}
    */
   public function settingsForm(array $form, FormStateInterface $form_state) {
+    $form = parent::settingsForm($form, $form_state);
     $image_styles = image_style_options(FALSE);
-    $image_styles['hide'] = t('Hide (do not display image)');
+    $image_styles['hide'] = $this->t('Hide (do not display image)');
     $form['image_style'] = [
       '#title' => $this->t('Content image style'),
       '#type' => 'select',
@@ -40,12 +42,11 @@ class ColorboxFieldFormatterImage extends ColorboxFieldFormatter {
       '#options' => $image_styles,
       '#description' => $this->t('Image style to use in the content.'),
     ];
-
-    return parent::settingsForm($form, $form_state);
+    return $form;
   }
 
   /**
-   * @inheritdoc
+   * {@inheritdoc}
    */
   public function settingsSummary() {
     $image_style = $this->getSetting('image_style');
@@ -54,7 +55,7 @@ class ColorboxFieldFormatterImage extends ColorboxFieldFormatter {
     if (isset($image_styles[$image_style])) {
       $style = $image_styles[$image_style];
     }
-    elseif ($image_style == 'hide') {
+    elseif ($image_style === 'hide') {
       $style = $this->t('Hide');
     }
     else {
@@ -66,7 +67,7 @@ class ColorboxFieldFormatterImage extends ColorboxFieldFormatter {
   }
 
   /**
-   * @inheritdoc
+   * {@inheritdoc}
    */
   protected function viewValue(FieldItemInterface $item) {
     return $item->view(['settings' => ['image_style' => $this->getSetting('image_style')],]);

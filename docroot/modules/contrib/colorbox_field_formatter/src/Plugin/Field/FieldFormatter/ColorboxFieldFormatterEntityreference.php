@@ -4,6 +4,7 @@ namespace Drupal\colorbox_field_formatter\Plugin\Field\FieldFormatter;
 
 use Drupal\Core\Field\FieldItemInterface;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Url;
 
 /**
  * Plugin implementation of the 'colorbox_field_formatter' formatter for entityreferences.
@@ -19,7 +20,7 @@ use Drupal\Core\Form\FormStateInterface;
 class ColorboxFieldFormatterEntityreference extends ColorboxFieldFormatter {
 
   /**
-   * @inheritdoc
+   * {@inheritdoc}
    */
   public function settingsForm(array $form, FormStateInterface $form_state) {
     $form = parent::settingsForm($form, $form_state);
@@ -29,16 +30,18 @@ class ColorboxFieldFormatterEntityreference extends ColorboxFieldFormatter {
   }
 
   /**
-   * @inheritdoc
+   * {@inheritdoc}
    */
   protected function viewValue(FieldItemInterface $item) {
+    /** @noinspection PhpUndefinedFieldInspection */
     return $item->entity->label();
   }
 
   /**
-   * @inheritdoc
+   * {@inheritdoc}
    */
-  protected function getUrl(FieldItemInterface $item) {
+  protected function getUrl(FieldItemInterface $item): Url {
+    /** @noinspection PhpUndefinedFieldInspection */
     return $item->entity->toUrl();
   }
 

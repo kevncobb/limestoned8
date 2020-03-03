@@ -12,10 +12,12 @@
   .field-wrapper.field-name-field-block {
     width: 100%;
   }
+
   nav {
     font-family: $header-font-family;
     z-index: 1;
     position: relative;
+    padding-bottom: 2rem;
     h2 {
       background-color: $limestone-blue;
       font-family: $header-font-family;
@@ -56,7 +58,7 @@
     ul.root-level, ul.menu-level-0 {
       a {
         color: $dark-gray;
-        padding: 9px 0 9px 28px;
+        padding: 9px 0 9px 26px;
         float: left;
         width: 100%;
         //font-size: 1rem;
@@ -67,7 +69,6 @@
           background-color: #fffce2;
         }
       }
-
       li.menu-item {
         float: left;
         width: 100%;
@@ -85,7 +86,7 @@
         }
         &.is-submenu-item.is-accordion-submenu-parent {
           button.submenu-toggle {
-            display: none;
+            //display: none;
           }
         }
         &.menu-item--active-trail {
@@ -143,18 +144,45 @@
           }
         }
       }
+      // Expands the active menu
+      li.menu-item--expanded.menu-item--active-trail.is-accordion-submenu-parent.has-submenu-toggle[tabindex="0"] {
+        ul.is-accordion-submenu {
+          display: block !important;
+        }
+      }
     }
+  }
+  ul {
+    margin-left: 0;
   }
   .menu.nested {
     float: left;
-    margin-left: 0;
     width: 100%;
+    margin-left: 0;
     li > a {
-      padding-left: 50px;
+      padding-left: 38px;
       background-color: #fdfdfd;
        &::before {
          content: "- ";
          font-family: $header-font-family;
+      }
+    }
+    .menu.nested {
+      float: left;
+      margin-left: 0;
+      width: 100%;
+      li > a {
+        padding-left: 48px;
+        background-color: #ffffff;
+      }
+    }
+    .menu.nested {
+      float: left;
+      margin-left: 0;
+      width: 100%;
+      li > a {
+        padding-left: 58px;
+        background-color: #ffffff;
       }
     }
   }

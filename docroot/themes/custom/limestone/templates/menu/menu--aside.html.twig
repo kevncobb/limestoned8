@@ -32,9 +32,13 @@
     {% if menu_level == 0 %}
 <ul{{ attributes.addClass('root-level vertical menu side-submenu accordion-menu') }} role="menubar" data-accordion-menu data-submenu-toggle="true">
     {% elseif menu_level == 1 %}
-  <ul class="menu vertical nested" role="menu">
-      {% else %}
+  <ul class="menu vertical nested submenu is-accordion-submenu" role="menu" data-submenu>
+      {% elseif menu_level == 1 %}%}
     <ul>
+      {% elseif menu_level == 2 %}
+      <ul class="menu vertical nested submenu is-accordion-submenu" role="menu" data-submenu>
+        {% else %}
+        <ul>
       {% endif %}
       {% for item in items %}
 
@@ -60,6 +64,20 @@
                 {% if item.below %}
                     {{ menus.menu_links(item.below, attributes, menu_level + 1) }}
                 {% endif %}
+            </li>
+          {% elseif menu_level == 2 %}
+            <li{{ item.attributes.setAttribute('tabindex', '-1').addClass(classes) }} role="menuitem">
+              {{ link(item.title, item.url) }}
+              {% if item.below %}
+                {{ menus.menu_links(item.below, attributes, menu_level + 1) }}
+              {% endif %}
+            </li>
+          {% elseif menu_level == 3 %}
+            <li{{ item.attributes.setAttribute('tabindex', '-1').addClass(classes) }} role="menuitem">
+              {{ link(item.title, item.url) }}
+              {% if item.below %}
+                {{ menus.menu_links(item.below, attributes, menu_level + 1) }}
+              {% endif %}
             </li>
           {% endif %}
       {% endfor %}

@@ -1,0 +1,71 @@
+diff --git a/src/Plugin/Block/MenuBlock.php b/src/Plugin/Block/MenuBlock.php
+index 44a37ca..49fbb60 100644
+--- a/src/Plugin/Block/MenuBlock.php
++++ b/src/Plugin/Block/MenuBlock.php
+@@ -5,9 +5,11 @@ namespace Drupal\menu_block\Plugin\Block;
+ use Drupal\Core\Access\AccessResult;
+ use Drupal\Core\Entity\EntityTypeManagerInterface;
+ use Drupal\Core\Form\FormStateInterface;
++use Drupal\Core\Link;
+ use Drupal\Core\Menu\MenuActiveTrailInterface;
+ use Drupal\Core\Menu\MenuLinkTreeInterface;
+ use Drupal\Core\Menu\MenuTreeParameters;
++use Drupal\Core\Render\Markup;
+ use Drupal\Core\Session\AccountInterface;
+ use Drupal\system\Entity\Menu;
+ use Drupal\system\Plugin\Block\SystemMenuBlock;
+@@ -131,6 +133,23 @@ class MenuBlock extends SystemMenuBlock {
+       ],
+     ];
+ 
++    $form['advanced']['label_link'] = [
++      '#type' => 'checkbox',
++      '#title' => $this->t('Link the title?'),
++      '#default_value' => $config['label_link'],
++      '#states' => [
++        'visible' => [
++          ':input[name="settings[label_type]"]' => [
++            ['value' => self::LABEL_ACTIVE_ITEM],
++            ['value' => self::LABEL_PARENT],
++            ['value' => self::LABEL_ROOT],
++            ['value' => self::LABEL_FIXED_PARENT ],
++            ['value' => 'initial_menu_item'],
++          ],
++        ],
++      ],
++    ];
++
+     $form['style'] = [
+       '#type' => 'details',
+       '#title' => $this->t('HTML and style options'),
+@@ -207,6 +226,7 @@ class MenuBlock extends SystemMenuBlock {
+     $this->configuration['parent'] = $form_state->getValue('parent');
+     $this->configuration['suggestion'] = $form_state->getValue('suggestion');
+     $this->configuration['label_type'] = $form_state->getValue('label_type');
++    $this->configuration['label_link'] = $form_state->getValue('label_link');
+   }
+ 
+   /**
+@@ -363,6 +383,7 @@ class MenuBlock extends SystemMenuBlock {
+       'parent' => $this->getDerivativeId() . ':',
+       'suggestion' => strtr($this->getDerivativeId(), '-', '_'),
+       'label_type' => self::LABEL_BLOCK,
++      'label_link' => 0,
+     ];
+   }
+ 
+@@ -509,7 +530,13 @@ class MenuBlock extends SystemMenuBlock {
+     $menu = $this->menuTree->load($this->getDerivativeId(), $parameters);
+     $link = $this->findLinkInTree($menu, $link_id);
+     if ($link) {
+-      return $link->link->getTitle();
++      if ($this->configuration['label_link']) {
++        $block_link = Link::fromTextAndUrl($link->link->getTitle(), $link->link->getUrlObject())->toString();
++        return Markup::create($block_link);
++      }
++      else {
++        return $link->link->getTitle();
++      }
+     }
+   }
+ 

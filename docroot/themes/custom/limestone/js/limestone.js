@@ -110,6 +110,18 @@
       }
     }
   };
+  Drupal.behaviors.accordion_focus_tab = {
+    attach: function (context, settings) {
+      $(context).find('a.accordion-title').bind('touchstart click', function (event) {
+        event.stopPropagation();
+        event.preventDefault();
+        $(this).delay(500).animate({
+          scrollTop: ($(this).offset().top)
+        },200);
+        return false;
+      });
+    }
+  };
 })(jQuery, Drupal);
 
 
