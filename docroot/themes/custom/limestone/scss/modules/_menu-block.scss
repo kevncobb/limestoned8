@@ -187,3 +187,9 @@
     }
   }
 }
+
+.menu-align-right {
+  ul:first-child {
+    @extend .align-right;
+  }
+}
