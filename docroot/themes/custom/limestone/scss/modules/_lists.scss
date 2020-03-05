@@ -8,6 +8,11 @@
     }
   }
 }
+.image-buttons {
+  a[target=_blank]::after {
+    display: none;
+  }
+}
 ul.list-unstyled, ul.unstyled-list {
   margin-left: 0;
   li {
