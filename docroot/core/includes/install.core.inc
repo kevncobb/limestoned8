@@ -467,12 +467,6 @@ function install_begin_request($class_loader, &$install_state) {
     if (isset($install_state['profile_info']['distribution']['install']['theme'])) {
       $install_state['theme'] = $install_state['profile_info']['distribution']['install']['theme'];
     }
-    // Ensure all profile directories are registered.
-    $profiles = \Drupal::service('extension.list.profile')->getAncestors($profile);
-    $profile_directories = array_map(function($extension) {
-      return $extension->getPath();
-    }, $profiles);
-    $listing->setProfileDirectories($profile_directories);
   }
 
   // Before having installed the system module and being able to do a module
@@ -1268,9 +1262,7 @@ function install_select_profile(&$install_state) {
  *   - For interactive installations via request query parameters.
  *   - For non-interactive installations via install_drupal() settings.
  * - One of the available profiles is a distribution. If multiple profiles are
- *   distributions, then the first discovered profile will be selected. If an
- *   inherited profile is detected that is a distribution, it will be chosen
- *   over its base profile.
+ *   distributions, then the first discovered profile will be selected.
  * - Only one visible profile is available.
  *
  * @param array $install_state
@@ -1295,9 +1287,12 @@ function _install_select_profile(&$install_state) {
       return $profile;
     }
   }
-  // Check for a distribution profile.
-  if ($distribution = \Drupal::service('extension.list.profile')->selectDistribution(array_keys($install_state['profiles']))) {
-    return $distribution;
+  // If any of the profiles are distribution profiles, return the first one.
+  foreach ($install_state['profiles'] as $profile) {
+    $profile_info = install_profile_info($profile->getName());
+    if (!empty($profile_info['distribution'])) {
+      return $profile->getName();
+    }
   }
   // Get all visible (not hidden) profiles.
   $visible_profiles = array_filter($install_state['profiles'], function ($profile) {
@@ -1646,9 +1641,7 @@ function install_profile_themes(&$install_state) {
  *   An array of information about the current installation state.
  */
 function install_install_profile(&$install_state) {
-  // Install all the profiles.
-  $profiles = \Drupal::service('extension.list.profile')->getAncestors();
-  \Drupal::service('module_installer')->install(array_keys($profiles), FALSE);
+  \Drupal::service('module_installer')->install([$install_state['parameters']['profile']], FALSE);
   // Install all available optional config. During installation the module order
   // is determined by dependencies. If there are no dependencies between modules
   // then the order in which they are installed is dependent on random factors
@@ -2329,7 +2322,13 @@ function install_config_import_batch() {
   // Match up the site UUIDs, the install_base_system install task will have
   // installed the system module and created a new UUID.
   $system_site = $sync->read('system.site');
-  \Drupal::configFactory()->getEditable('system.site')->set('uuid', $system_site['uuid'])->save();
+  // When installing from configuration it is possible that system.site
+  // configuration is not present. If this occurs a ConfigImporterException will
+  // by thrown when $config_importer->initialize() is called below and the error
+  // will be reported to the user.
+  if ($system_site !== FALSE) {
+    \Drupal::configFactory()->getEditable('system.site')->set('uuid', $system_site['uuid'])->save();
+  }
 
   // Create the storage comparer and the config importer.
   $storage_comparer = new StorageComparer($sync, \Drupal::service('config.storage'));
