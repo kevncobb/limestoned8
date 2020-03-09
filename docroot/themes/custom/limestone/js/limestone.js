@@ -125,7 +125,7 @@
   // Hack to prevent duplicate links on embedded images with links in CKeditor
   Drupal.behaviors.hide_empty_button_links = {
     attach: function (context, settings) {
-      $(context).find('.image-buttons a:empty').hide();
+      $(context).find('.image-buttons a:empty').remove();
     }
   };
 })(jQuery, Drupal);
