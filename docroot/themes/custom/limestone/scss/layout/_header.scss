@@ -450,6 +450,9 @@ body.section-trip {
       //margin-top: 17rem;
     }
   }
+  .ratio-16-9 {
+    @include aspect-ratio(16, 9);
+  }
 }
 .fullscreen-bg__video {
   position: absolute;
@@ -473,6 +476,7 @@ body.section-trip {
     top: -15%;
   }
 }
+
 
 
 
