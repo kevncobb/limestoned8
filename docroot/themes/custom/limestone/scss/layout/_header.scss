@@ -428,6 +428,9 @@ body.section-trip {
   height: 100%;
   box-shadow: inset 0px 0px 0px 111.11111rem rgba(0, 0, 0, 0.4);
 }
+.ratio-16-9 {
+  @include aspect-ratio(16, 9);
+}
 .fullscreen-bg {
   position: relative;
   width: 100%;
@@ -449,9 +452,6 @@ body.section-trip {
     @include breakpoint(large) {
       //margin-top: 17rem;
     }
-  }
-  &.ratio-16-9 {
-    @include aspect-ratio(16, 9);
   }
 }
 .fullscreen-bg__video {
