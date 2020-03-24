@@ -234,6 +234,12 @@ p {
   .h6 {
     @extend .color-twitter-blue;
   }
+  &.shield-right {
+    background-image: url("/themes/custom/limestone/images/lu-shield-inverted-transparent.png");
+    background-position-x: -30%;
+    background-position-y: -30%;
+    background-size: 30%;
+  }
 }
 .background-darkblue, .bg-darkblue {
   background-color: $dark-blue;
@@ -297,9 +303,9 @@ p {
   }
   color: $limestone-blue-body;
   h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6 {
-    color: $limestone-blue-body;
+    color: $limestone-blue;
     > h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6 {
-      color: $limestone-blue-body;
+      color: $limestone-blue;
     }
   }
 }
