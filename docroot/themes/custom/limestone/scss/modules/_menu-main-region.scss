@@ -427,17 +427,17 @@
 // HIDE SHOW MAIN MENU REGIONS
 .main-menu-region {
   nav.show-for-desktop-menu {
-    display: none;
+    display: none !important;
   }
   nav.show-for-mobile-menu {
-    display: block;
+    display: block !important;
   }
   @include breakpoint(smedium) {
     nav.show-for-desktop-menu {
-      display: block;
+      display: block !important;
     }
     nav.show-for-mobile-menu {
-      display: none;
+      display: none !important;
     }
   }
 }

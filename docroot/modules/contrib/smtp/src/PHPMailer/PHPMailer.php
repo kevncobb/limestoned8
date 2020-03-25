@@ -781,12 +781,10 @@ class PHPMailer {
 
   /**
    * Initiates a connection to an SMTP server.
-   * Returns TRUE if the operation succeeded, otherwise throws an exception.
+   * Returns FALSE if the operation failed.
    * @uses SMTP
    * @access public
    * @return bool
-   *   TRUE if the operation succeeded.
-   * @throws \Drupal\smtp\Exception\PHPMailerException
    */
   public function SmtpConnect() {
     if (is_null($this->smtp)) {
