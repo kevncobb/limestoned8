@@ -425,22 +425,22 @@
 }
 
 // HIDE SHOW MAIN MENU REGIONS
-//.main-menu-region {
-//  nav.block-desktopmegamenu {
-//    display: none;
-//  }
-//  nav.block-mainnavigation {
-///    display: block;
-//  }
-//  @include breakpoint(smedium) {
-//    nav.block-desktopmegamenu {
-//      display: block;
-//    }
-//    nav.block-mainnavigation {
-///      display: none;
-//    }
-//  }
-// }
+.main-menu-region {
+  nav.show-for-desktop-menu {
+    display: none;
+  }
+  nav.show-for-mobile-menu {
+    display: block;
+  }
+  @include breakpoint(smedium) {
+    nav.show-for-desktop-menu {
+      display: block;
+    }
+    nav.show-for-mobile-menu {
+      display: none;
+    }
+  }
+}
 
 
 $expander-arrow-width: 0.7em;
