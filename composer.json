@@ -41,7 +41,8 @@
     "vardot/varbase-updater": "~1.0",
     "drupal/menu_block": "1.x-dev",
     "drupal/entity_browser": "2.x-dev",
-    "drupal/sendgrid_integration": "^1.2"
+    "drupal/sendgrid_integration": "^1.2",
+    "drupal/echo": "^1.9"
   },
   "replace": {
     "ajaxorg/ace-builds": "*"
