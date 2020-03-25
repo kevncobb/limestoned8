@@ -235,11 +235,11 @@ p {
     @extend .color-twitter-blue;
   }
   &.shield-right {
-    background-image: url("/themes/custom/limestone/images/lu-shield-inverted-transparent.png");    background-position-x: 90%;
-    background-position-y: -35%;
+    background-image: url("/themes/custom/limestone/images/lu-shield-inverted-transparent.png");
+    background-position-y: 20%;
     background-position-x: 90%;
     background-repeat: no-repeat;
-    background-size: 26%;
+    background-size: 420px;
   }
 }
 .background-darkblue, .bg-darkblue {
