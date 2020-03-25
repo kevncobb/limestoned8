@@ -6,7 +6,9 @@
 .hide-for-medium {
   @include show-for(medium);
 }
-
+.show-for-all {
+  display: block !important;
+}
 article.node--type-news {
   @extend .grid-container;
 }
