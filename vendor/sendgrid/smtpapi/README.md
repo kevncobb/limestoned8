@@ -1,4 +1,4 @@
-![SendGrid Logo](https://uiux.s3.amazonaws.com/2016-logos/email-logo%402x.png)
+![Twilio SendGrid Logo](https://github.com/sendgrid/sendgrid-python/raw/master/twilio_sendgrid_logo.png)
 
 [![BuildStatus](https://api.travis-ci.org/sendgrid/smtpapi-php.png?branch=master)](https://travis-ci.org/sendgrid/smtpapi-php)
 [![Latest Stable Version](https://poser.pugx.org/sendgrid/smtpapi/version.png)](https://packagist.org/packages/sendgrid/smtpapi)
@@ -8,9 +8,9 @@
 [![GitHub contributors](https://img.shields.io/github/contributors/sendgrid/smtpapi-php.svg)](https://github.com/sendgrid/smtpapi-php/graphs/contributors)
 [![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE.md)
 
-**This module helps build SendGrid's SMTP API headers.**
+**This module helps build Twilio SendGrid's SMTP API headers.**
 
-Learn more about the SMTP API at [SendGrid's documentation](https://sendgrid.com/docs/API_Reference/SMTP_API/index.html).
+Learn more about the SMTP API at [Twilio SendGrid's documentation](https://sendgrid.com/docs/API_Reference/SMTP_API/index.html).
 
 <a name="announcements"></a>
 # Announcements
@@ -33,19 +33,19 @@ All updates to this module is documented in our [CHANGELOG](https://github.com/s
 
 ## Prerequisites
 
-- PHP version 5.6 or 7.0
-- The SendGrid service, starting at the [free level](https://sendgrid.com/free?source=smtpapi-php)
+- PHP version 5.6, 7.0, 7.1, 7.2, 7.3, or 7.4
+- The Twilio SendGrid service, starting at the [free level](https://sendgrid.com/free?source=smtpapi-php)
 
 ## Install with Composer
 
-The following recommended installation requires [http://getcomposer.org](composer).
+The following recommended installation requires [composer](http://getcomposer.org).
 
 Add the following to your `composer.json` file.
 
 ```json
 {
     "require": {
-        "sendgrid/smtpapi": "^0.6.3"
+        "sendgrid/smtpapi": "^0.6.5"
     }
 }
 ```
@@ -58,9 +58,9 @@ require 'vendor/autoload.php';
 
 #### Alternative: Install package from zip
 
-If you are not using Composer, simply download and install the **[latest packaged release of the library as a zip](https://github.com/sendgrid/smtpapi-php/releases/download/0.6.3/smtpapi-php.zip)**.
+If you are not using Composer, simply download and install the **[latest packaged release of the library as a zip](https://github.com/sendgrid/smtpapi-php/releases/download/0.6.5/smtpapi-php.zip)**.
 
-[**⬇︎ Download Packaged Library ⬇︎**](https://github.com/sendgrid/smtpapi-php/releases/download/0.6.3/smtpapi-php.zip)
+[**⬇︎ Download Packaged Library ⬇︎**](https://github.com/sendgrid/smtpapi-php/releases/download/0.6.5/smtpapi-php.zip)
 
 Then require the library from package:
 
@@ -95,7 +95,7 @@ print $header->jsonString();
 <a name="usage"></a>
 # Usage
 
-- [SendGrid Docs](https://sendgrid.com/docs/API_Reference/SMTP_API/index.html)
+- [Twilio SendGrid Docs](https://sendgrid.com/docs/API_Reference/SMTP_API/index.html)
 - [Example Code](https://github.com/sendgrid/smtpapi-php/tree/master/examples)
 
 <a name="roadmap"></a>
@@ -119,9 +119,9 @@ Quick links:
 <a name="about"></a>
 # About
 
-smtpapi-php is guided and supported by the SendGrid [Developer Experience Team](mailto:dx@sendgrid.com).
+smtpapi-php is guided and supported by the Twilio [Developer Experience Team](mailto:dx@sendgrid.com).
 
-smtpapi-php is maintained and funded by SendGrid, Inc. The names and logos for smtpapi-php are trademarks of SendGrid, Inc.
+smtpapi-php is maintained and funded by Twilio SendGrid, Inc. The names and logos for smtpapi-php are trademarks of Twilio SendGrid, Inc.
 
 <a name="license"></a>
 # License

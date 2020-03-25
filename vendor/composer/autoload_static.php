@@ -93,6 +93,7 @@ class ComposerStaticInitf3b894432efe9a6b54a8199479ad8a50
             'Symfony\\Bridge\\PsrHttpMessage\\' => 30,
             'Shaper\\Tests\\' => 13,
             'Shaper\\' => 7,
+            'SendGrid\\' => 9,
         ),
         'P' => 
         array (
@@ -314,6 +315,10 @@ class ComposerStaticInitf3b894432efe9a6b54a8199479ad8a50
         array (
             0 => __DIR__ . '/..' . '/e0ipso/shaper/src',
         ),
+        'SendGrid\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/fastglass/sendgrid/src',
+        ),
         'Psr\\Log\\' => 
         array (
             0 => __DIR__ . '/..' . '/psr/log/Psr/Log',
@@ -465,6 +470,10 @@ class ComposerStaticInitf3b894432efe9a6b54a8199479ad8a50
             'Stack' => 
             array (
                 0 => __DIR__ . '/..' . '/stack/builder/src',
+            ),
+            'Smtpapi' => 
+            array (
+                0 => __DIR__ . '/..' . '/sendgrid/smtpapi/lib',
             ),
         ),
         'P' => 
@@ -1955,7 +1964,6 @@ class ComposerStaticInitf3b894432efe9a6b54a8199479ad8a50
         'Drupal\\Core\\Installer\\Form\\SiteSettingsForm' => __DIR__ . '/../..' . '/docroot/core/lib/Drupal/Core/Installer/Form/SiteSettingsForm.php',
         'Drupal\\Core\\Installer\\InstallerKernel' => __DIR__ . '/../..' . '/docroot/core/lib/Drupal/Core/Installer/InstallerKernel.php',
         'Drupal\\Core\\Installer\\InstallerModuleExtensionList' => __DIR__ . '/../..' . '/docroot/core/lib/Drupal/Core/Installer/InstallerModuleExtensionList.php',
-        'Drupal\\Core\\Installer\\InstallerProfileExtensionList' => __DIR__ . '/../..' . '/docroot/core/lib/Drupal/Core/Installer/InstallerProfileExtensionList.php',
         'Drupal\\Core\\Installer\\InstallerRedirectTrait' => __DIR__ . '/../..' . '/docroot/core/lib/Drupal/Core/Installer/InstallerRedirectTrait.php',
         'Drupal\\Core\\Installer\\InstallerRouteBuilder' => __DIR__ . '/../..' . '/docroot/core/lib/Drupal/Core/Installer/InstallerRouteBuilder.php',
         'Drupal\\Core\\Installer\\InstallerServiceProvider' => __DIR__ . '/../..' . '/docroot/core/lib/Drupal/Core/Installer/InstallerServiceProvider.php',
@@ -2406,6 +2414,7 @@ class ComposerStaticInitf3b894432efe9a6b54a8199479ad8a50
         'Drupal\\Core\\Template\\Attribute' => __DIR__ . '/../..' . '/docroot/core/lib/Drupal/Core/Template/Attribute.php',
         'Drupal\\Core\\Template\\AttributeArray' => __DIR__ . '/../..' . '/docroot/core/lib/Drupal/Core/Template/AttributeArray.php',
         'Drupal\\Core\\Template\\AttributeBoolean' => __DIR__ . '/../..' . '/docroot/core/lib/Drupal/Core/Template/AttributeBoolean.php',
+        'Drupal\\Core\\Template\\AttributeHelper' => __DIR__ . '/../..' . '/docroot/core/lib/Drupal/Core/Template/AttributeHelper.php',
         'Drupal\\Core\\Template\\AttributeString' => __DIR__ . '/../..' . '/docroot/core/lib/Drupal/Core/Template/AttributeString.php',
         'Drupal\\Core\\Template\\AttributeValueBase' => __DIR__ . '/../..' . '/docroot/core/lib/Drupal/Core/Template/AttributeValueBase.php',
         'Drupal\\Core\\Template\\Loader\\FilesystemLoader' => __DIR__ . '/../..' . '/docroot/core/lib/Drupal/Core/Template/Loader/FilesystemLoader.php',
@@ -3277,6 +3286,11 @@ class ComposerStaticInitf3b894432efe9a6b54a8199479ad8a50
         'Psr\\Log\\Test\\DummyTest' => __DIR__ . '/..' . '/psr/log/Psr/Log/Test/LoggerInterfaceTest.php',
         'Psr\\Log\\Test\\LoggerInterfaceTest' => __DIR__ . '/..' . '/psr/log/Psr/Log/Test/LoggerInterfaceTest.php',
         'Psr\\Log\\Test\\TestLogger' => __DIR__ . '/..' . '/psr/log/Psr/Log/Test/TestLogger.php',
+        'SendGrid\\API' => __DIR__ . '/..' . '/fastglass/sendgrid/src/API.php',
+        'SendGrid\\Client' => __DIR__ . '/..' . '/fastglass/sendgrid/src/Client.php',
+        'SendGrid\\Email' => __DIR__ . '/..' . '/fastglass/sendgrid/src/Email.php',
+        'SendGrid\\Exception' => __DIR__ . '/..' . '/fastglass/sendgrid/src/Exception.php',
+        'SendGrid\\Response' => __DIR__ . '/..' . '/fastglass/sendgrid/src/Response.php',
         'SessionUpdateTimestampHandlerInterface' => __DIR__ . '/..' . '/symfony/polyfill-php70/Resources/stubs/SessionUpdateTimestampHandlerInterface.php',
         'Shaper\\DataAdaptor\\DataAdaptorBase' => __DIR__ . '/..' . '/e0ipso/shaper/src/DataAdaptor/DataAdaptorBase.php',
         'Shaper\\DataAdaptor\\DataAdaptorTransformerTrait' => __DIR__ . '/..' . '/e0ipso/shaper/src/DataAdaptor/DataAdaptorTransformerTrait.php',
@@ -3314,6 +3328,8 @@ class ComposerStaticInitf3b894432efe9a6b54a8199479ad8a50
         'Shaper\\Validator\\RegexpValidator' => __DIR__ . '/..' . '/e0ipso/shaper/src/Validator/RegexpValidator.php',
         'Shaper\\Validator\\ValidateableBase' => __DIR__ . '/..' . '/e0ipso/shaper/src/Validator/ValidateableBase.php',
         'Shaper\\Validator\\ValidateableInterface' => __DIR__ . '/..' . '/e0ipso/shaper/src/Validator/ValidateableInterface.php',
+        'Smtpapi' => __DIR__ . '/..' . '/sendgrid/smtpapi/lib/Smtpapi.php',
+        'Smtpapi\\Header' => __DIR__ . '/..' . '/sendgrid/smtpapi/lib/Smtpapi/Header.php',
         'Stack\\Builder' => __DIR__ . '/..' . '/stack/builder/src/Stack/Builder.php',
         'Stack\\StackedHttpKernel' => __DIR__ . '/..' . '/stack/builder/src/Stack/StackedHttpKernel.php',
         'Symfony\\Bridge\\PsrHttpMessage\\Factory\\DiactorosFactory' => __DIR__ . '/..' . '/symfony/psr-http-message-bridge/Factory/DiactorosFactory.php',

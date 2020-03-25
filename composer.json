@@ -40,7 +40,8 @@
     "vardot/varbase": "~8.8.0",
     "vardot/varbase-updater": "~1.0",
     "drupal/menu_block": "1.x-dev",
-    "drupal/entity_browser": "2.x-dev"
+    "drupal/entity_browser": "2.x-dev",
+    "drupal/sendgrid_integration": "^1.2"
   },
   "replace": {
     "ajaxorg/ace-builds": "*"
