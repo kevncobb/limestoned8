@@ -3,6 +3,10 @@
 
 }
 
+.hide-for-medium {
+  @include show-for(medium);
+}
+
 article.node--type-news {
   @extend .grid-container;
 }
