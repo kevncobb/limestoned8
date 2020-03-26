@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1a130a3989e782d2f9f8020b8aab396d",
+    "content-hash": "971629fa5b2e1c7e98c3d9c53420586e",
     "packages": [
         {
             "name": "abraham/twitteroauth",
@@ -117,12 +117,12 @@
             "version": "v0.4.24",
             "source": {
                 "type": "git",
-                "url": "git@github.com:masayuki0812/c3.git",
+                "url": "https://github.com/c3js/c3.git",
                 "reference": "2b7f8d96f8215f949061ba14253904b0881f0ebb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/masayuki0812/c3/zipball/2b7f8d96f8215f949061ba14253904b0881f0ebb",
+                "url": "https://api.github.com/repos/c3js/c3/zipball/2b7f8d96f8215f949061ba14253904b0881f0ebb",
                 "reference": "2b7f8d96f8215f949061ba14253904b0881f0ebb"
             },
             "require": {
@@ -8093,6 +8093,53 @@
             "support": {
                 "source": "http://cgit.drupalcode.org/openapi_ui_swagger",
                 "issues": "http://drupal.org/project/issues/openapi_ui_swagger"
+            }
+        },
+        {
+            "name": "drupal/organigrams",
+            "version": "1.0.0-beta1",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/organigrams.git",
+                "reference": "8.x-1.0-beta1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/organigrams-8.x-1.0-beta1.zip",
+                "reference": "8.x-1.0-beta1",
+                "shasum": "5fc0ef5339ae5a74ac60591f60904203b0b03dd6"
+            },
+            "require": {
+                "drupal/core": "~8.0"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "branch-alias": {
+                    "dev-1.x": "1.x-dev"
+                },
+                "drupal": {
+                    "version": "8.x-1.0-beta1",
+                    "datestamp": "1578999487",
+                    "security-coverage": {
+                        "status": "not-covered",
+                        "message": "Beta releases are not covered by Drupal security advisories."
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "PatrickScheffer",
+                    "homepage": "https://www.drupal.org/user/2874857"
+                }
+            ],
+            "description": "Create and manage organigrams.",
+            "homepage": "https://www.drupal.org/project/organigrams",
+            "support": {
+                "source": "https://git.drupalcode.org/project/organigrams"
             }
         },
         {
@@ -18265,7 +18312,8 @@
     "minimum-stability": "dev",
     "stability-flags": {
         "drupal/menu_block": 20,
-        "drupal/entity_browser": 20
+        "drupal/entity_browser": 20,
+        "drupal/organigrams": 10
     },
     "prefer-stable": true,
     "prefer-lowest": false,
