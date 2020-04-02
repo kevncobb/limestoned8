@@ -212,7 +212,7 @@ header.site-header {
   }
 }
 .sub-header-title {
-  font-size: 1.2em;
+  font-size: 2em;
   line-height: 2em;
   font-weight: 700;
   margin: 0 auto 0 auto;
@@ -224,7 +224,7 @@ header.site-header {
   cursor: pointer;
   -webkit-font-smoothing: antialiased;
   text-shadow: 2px 2px 1px rgba(0,0,0,0.5);
-  padding: 0.6rem 0 0.6rem 0;
+  padding: 0.6rem 0 0.6rem 1rem;
 
   @include breakpoint(medium) {
     font-size: 2.5em;
@@ -232,7 +232,7 @@ header.site-header {
     padding-top: 1rem;
     padding-bottom: 2.5rem;
     padding-right: .85227rem;
-    padding-left: 0;
+    padding-left: 1rem;
 
     &::after {
       content: "";

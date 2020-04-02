@@ -193,6 +193,7 @@
           position: absolute;
           width: 100%;
           top: 100%;
+          left: 0;
           padding-top: 1rem;
           border-top: none;
           font-size: 17px;
@@ -428,9 +429,6 @@
 .main-menu-region {
   nav.show-for-desktop-menu {
     display: none !important;
-  }
-  nav.show-for-mobile-menu {
-    display: block !important;
   }
   @include breakpoint(smedium) {
     nav.show-for-desktop-menu {
