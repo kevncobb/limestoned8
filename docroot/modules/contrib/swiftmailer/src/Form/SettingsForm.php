@@ -64,6 +64,7 @@ class SettingsForm extends ConfigFormBase {
       '#options' => [
         SWIFTMAILER_TRANSPORT_SMTP => $this->t('SMTP'),
         SWIFTMAILER_TRANSPORT_SENDMAIL => $this->t('Sendmail'),
+        SWIFTMAILER_TRANSPORT_NATIVE => $this->t('PHP'),
         SWIFTMAILER_TRANSPORT_SPOOL => $this->t('Spool'),
       ],
       '#default_value' => $transport,
@@ -122,20 +123,20 @@ class SettingsForm extends ConfigFormBase {
       '#default_value' => $config->get('smtp_encryption'),
     ];
 
-    $form['transport']['configuration'][SWIFTMAILER_TRANSPORT_SMTP]['credential_provider'] = [
+    $form['transport']['configuration'][SWIFTMAILER_TRANSPORT_SMTP]['credential_provider'] = array(
       '#type' => 'select',
       '#title' => $this->t('Credential provider'),
       '#options' => [
         'swiftmailer' => 'Swift Mailer',
       ],
       '#default_value' => $config->get('smtp_credential_provider'),
-      '#ajax' => [
-        'callback' => [$this, 'ajaxCallback'],
+      '#ajax' => array(
+        'callback' => array($this, 'ajaxCallback'),
         'wrapper' => 'transport_configuration',
         'method' => 'replace',
         'effect' => 'fade',
-      ],
-    ];
+      ),
+    );
 
     $smtp_credential_provider = $form_state->getValue(['transport', 'configuration', SWIFTMAILER_TRANSPORT_SMTP, 'credential_provider'], $config->get('smtp_credential_provider'));
 
@@ -150,37 +151,37 @@ class SettingsForm extends ConfigFormBase {
     }
 
     if ($smtp_credential_provider === 'swiftmailer') {
-      $form['transport']['configuration'][SWIFTMAILER_TRANSPORT_SMTP]['credentials']['swiftmailer']['username'] = [
+      $form['transport']['configuration'][SWIFTMAILER_TRANSPORT_SMTP]['credentials']['swiftmailer']['username'] = array(
         '#type' => 'textfield',
         '#title' => $this->t('Username'),
         '#description' => $this->t('A username required by the SMTP server (leave blank if not required)'),
         '#default_value' => $config->get('smtp_credentials.swiftmailer.username'),
-        '#attributes' => [
+        '#attributes' => array(
           'autocomplete' => 'off',
-        ],
-      ];
+        ),
+      );
 
-      $form['transport']['configuration'][SWIFTMAILER_TRANSPORT_SMTP]['credentials']['swiftmailer']['password'] = [
+      $form['transport']['configuration'][SWIFTMAILER_TRANSPORT_SMTP]['credentials']['swiftmailer']['password'] = array(
         '#type' => 'password',
         '#title' => $this->t('Password'),
         '#description' => $this->t('A password required by the SMTP server (leave blank if not required)'),
         '#default_value' => $config->get('smtp_credentials.swiftmailer.password'),
-        '#attributes' => [
+        '#attributes' => array(
           'autocomplete' => 'off',
-        ],
-      ];
+        ),
+      );
 
       $current_password = $config->get('smtp_credentials.swiftmailer.password');
       if (!empty($current_password)) {
         $form['transport']['configuration'][SWIFTMAILER_TRANSPORT_SMTP]['credentials']['swiftmailer']['password']['#description'] = $this->t('A password required by the SMTP server. <em>The currently set password is hidden for security reasons</em>.');
       }
-      $form['transport']['configuration'][SWIFTMAILER_TRANSPORT_SMTP]['credentials']['swiftmailer']['delete_password'] = [
+      $form['transport']['configuration'][SWIFTMAILER_TRANSPORT_SMTP]['credentials']['swiftmailer']['delete_password'] = array(
         '#type' => 'checkbox',
         '#title' => $this->t('Delete the stored password'),
-      ];
+      );
     }
     elseif ($smtp_credential_provider === 'key') {
-      $form['transport']['configuration'][SWIFTMAILER_TRANSPORT_SMTP]['credentials']['key']['username'] = [
+      $form['transport']['configuration'][SWIFTMAILER_TRANSPORT_SMTP]['credentials']['key']['username'] = array(
         '#type' => 'key_select',
         '#title' => $this->t('Username'),
         '#description' => $this->t('A username required by the SMTP server.'),
@@ -188,8 +189,8 @@ class SettingsForm extends ConfigFormBase {
         '#empty_option' => $this->t('- Please select -'),
         '#key_filters' => ['type' => 'authentication'],
         '#required' => TRUE,
-      ];
-      $form['transport']['configuration'][SWIFTMAILER_TRANSPORT_SMTP]['credentials']['key']['password'] = [
+      );
+      $form['transport']['configuration'][SWIFTMAILER_TRANSPORT_SMTP]['credentials']['key']['password'] = array(
         '#type' => 'key_select',
         '#title' => $this->t('Password'),
         '#description' => $this->t('A password required by the SMTP server.'),
@@ -197,10 +198,10 @@ class SettingsForm extends ConfigFormBase {
         '#empty_option' => $this->t('- Please select -'),
         '#key_filters' => ['type' => 'authentication'],
         '#required' => TRUE,
-      ];
+      );
     }
     elseif ($smtp_credential_provider === 'multikey') {
-      $form['transport']['configuration'][SWIFTMAILER_TRANSPORT_SMTP]['credentials']['multikey']['user_password'] = [
+      $form['transport']['configuration'][SWIFTMAILER_TRANSPORT_SMTP]['credentials']['multikey']['user_password'] = array(
         '#type' => 'key_select',
         '#title' => $this->t('User/password'),
         '#description' => $this->t('A username + password required by the SMTP server.'),
@@ -208,7 +209,7 @@ class SettingsForm extends ConfigFormBase {
         '#empty_option' => $this->t('- Please select -'),
         '#key_filters' => ['type' => 'user_password'],
         '#required' => TRUE,
-      ];
+      );
     }
 
     $form['transport']['configuration'][SWIFTMAILER_TRANSPORT_SENDMAIL] = [
@@ -243,6 +244,24 @@ class SettingsForm extends ConfigFormBase {
       '#options' => ['bs' => 'bs', 't' => 't '],
       '#description' => $this->t('Not sure which option to choose? Go with <em>bs</em>. You can read more about the above two modes in the @documentation.', ['@documentation' => Link::fromTextAndUrl($this->t('Swift Mailer documentation'), Url::fromUri('https://swiftmailer.symfony.com/docs/sendmail-transport'))->toString()]),
       '#default_value' => $config->get('sendmail_mode'),
+    ];
+
+    $form['transport']['configuration'][SWIFTMAILER_TRANSPORT_NATIVE] = [
+      '#type' => 'item',
+      '#access' => $form['transport']['type']['#default_value'] == SWIFTMAILER_TRANSPORT_NATIVE,
+    ];
+
+    $form['transport']['configuration'][SWIFTMAILER_TRANSPORT_NATIVE]['title'] = [
+      '#markup' => '<h3>' . $this->t('PHP transport options') . '</h3>',
+    ];
+
+    $form['transport']['configuration'][SWIFTMAILER_TRANSPORT_NATIVE]['description'] = [
+      '#markup' => '<p>' . $this->t('This transport type will send all e-mails using the built-in
+      mail functionality of PHP. This transport type can not be
+      configured here. Please refer to the @documentation if you
+      would like to read more about how the built-in mail functionality
+      in PHP can be configured.',
+          ['@documentation' => Link::fromTextAndUrl($this->t('PHP documentation'), Url::fromUri('http://www.php.net/manual/en/mail.configuration.php'))->toString()]) . '</p>',
     ];
 
     $form['transport']['configuration'][SWIFTMAILER_TRANSPORT_SPOOL] = [
@@ -317,6 +336,11 @@ class SettingsForm extends ConfigFormBase {
           $config->set('sendmail_mode', $form_state->getValue(['transport', 'configuration', SWIFTMAILER_TRANSPORT_SENDMAIL, 'mode']));
           $config->save();
           $messenger->addStatus($this->t('Drupal has been configured to send all e-mails using the Sendmail transport type.'));
+          break;
+
+        case SWIFTMAILER_TRANSPORT_NATIVE:
+          $config->save();
+          $messenger->addStatus($this->t('Drupal has been configured to send all e-mails using the PHP transport type.'));
           break;
 
         case SWIFTMAILER_TRANSPORT_SPOOL:

@@ -10,11 +10,6 @@ use Drupal\Tests\BrowserTestBase;
  */
 class ExampleMailTest extends BrowserTestBase {
 
-  /**
-   * {@inheritdoc}
-   */
-  protected $defaultTheme = 'stark';
-
   public static $modules = ['swiftmailer', 'mailsystem'];
 
   /**
