@@ -42,7 +42,16 @@
     background-size: 650px;
   }
 }
-
+.flex-control-nav.flex-control-paging {
+  bottom: auto;
+  top: -45px;
+  right: 0;
+  width: auto;
+  li a {
+    width: 20px;
+    height: 20px;
+  }
+}
 //homepage ads
 section.block-block-contentfe8537ce-54d8-467c-ba0f-931c4b8e3ced {
   float: left;
