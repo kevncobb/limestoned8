@@ -78,6 +78,9 @@ ul.styled-list-small .field--name-field-degrees-and-schools {
   font-size: 16px !important;
   color: #555555;
 }
+.book-nav h2 {
+  display: none;
+}
 .logo img {
   width: 300px;
 }
