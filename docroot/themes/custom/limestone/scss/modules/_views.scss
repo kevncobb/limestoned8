@@ -9,6 +9,15 @@
     width: 100%;
   }
 }
+.views-title-center {
+  .viewsreference--view-title {
+    text-align: center;
+    @extend .h2;
+    &::before, &::after {
+      display:none;
+    }
+  }
+}
 
 .pager-no-list {
   .pager {
