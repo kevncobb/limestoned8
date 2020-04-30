@@ -655,3 +655,17 @@ form#views-exposed-form-news-latest-news-block .form-item-search label {
     width: 100%;
   }
 }
+
+.bio-label {
+  margin: 1rem 0;
+  .grid-x {
+    .cell.shrink {
+      background-color: black;
+      p {
+        color: white;
+        padding: 1rem;
+        margin: 0;
+      }
+    }
+  }
+}
