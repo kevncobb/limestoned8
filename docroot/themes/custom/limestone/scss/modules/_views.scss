@@ -9,3 +9,16 @@
     width: 100%;
   }
 }
+
+.pager-no-list {
+  .pager {
+    list-style-type: none;
+  }
+}
+.pager-center {
+  .pager {
+    text-align: center;
+    width: 100%;
+    margin: 0 10px;
+  }
+}
