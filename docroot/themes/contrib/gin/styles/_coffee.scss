@@ -1,0 +1,25 @@
+#coffee-form {
+  padding: 4px;
+  background: #000;
+  border-radius: 8px;
+
+  #coffee-q {
+    background: #fff;
+  }
+
+  .ui-autocomplete .ui-menu-item-wrapper {
+    padding: 16px;
+
+    &.ui-state-active {
+      background: var(--colorGinPrimary);
+
+      &, .description {
+        color: #fff;
+      }
+
+      .description {
+        opacity: .9;
+      }
+    }
+  }
+}

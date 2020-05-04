@@ -1,0 +1,23 @@
+.ajax-progress {
+  &__throbber {
+    border: 3px solid var(--colorGinPrimary);
+    border-right: 3px dotted transparent;
+  }
+
+  .ajax-progress__message {
+    color: var(--colorGinText);
+  }
+
+  &--fullscreen {
+    .gin--dark-mode & {
+      background-color: var(--colorGinPrimary);
+      border-color: transparent;
+      box-shadow: 0 2px 6px 0 var(--colorGinAppBackground);
+
+      .ajax-progress__throbber {
+        border: 3px solid var(--colorGinAppBackground);
+        border-right: 3px dotted transparent;
+      }
+    }
+  }
+}

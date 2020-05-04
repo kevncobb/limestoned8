@@ -1,0 +1,448 @@
+<?php
+
+/**
+ * @file
+ * gin.theme
+ */
+
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Render\Markup;
+use Drupal\user\Entity\User;
+
+/**
+ * Implements hook_preprocess_HOOK() for html.
+ */
+function gin_preprocess_html(&$variables) {
+  // Get theme darkmode config.
+  $darkmode = theme_get_setting('enable_darkmode', 'gin');
+  $classic_toolbar = theme_get_setting('classic_toolbar', 'gin');
+
+  // Check if darkmode is enabled.
+  if ($darkmode === TRUE) {
+    $variables['attributes']['class'][] = 'gin--dark-mode';
+  }
+
+  // Only add gin--classic-toolbar class if user has permission.
+  if (!\Drupal::currentUser()->hasPermission('access toolbar')) {
+    return;
+  }
+
+  // Check if classic_toolbar is active.
+  if ($classic_toolbar === TRUE) {
+    $variables['attributes']['class'][] = 'gin--classic-toolbar';
+  }
+
+  // Gin secondary toolbar.
+  if (!$classic_toolbar) {
+    $variables['page']['gin_secondary_toolbar'] = [
+      '#type' => 'toolbar',
+      '#access' => \Drupal::currentUser()->hasPermission('access toolbar'),
+      '#cache' => [
+        'keys' => ['toolbar_secondary'],
+        'contexts' => ['user.permissions'],
+      ],
+      '#attributes' => [
+        'id' => 'toolbar-administration-secondary',
+      ],
+    ];
+  }
+}
+
+/**
+ * Implements hook_preprocess_HOOK() for page.
+ */
+function gin_preprocess_page(&$variables) {
+  $path = \Drupal::service('path.current')->getPath();
+
+  // Check if we're directly on the node/add page
+  // or an delete/revision node page.
+  if (
+    $path === '/node/add' ||
+    strpos($path, '/delete') !== FALSE ||
+    strpos($path, '/revisions') !== FALSE
+   ) {
+    $variables['has_sidebar'] = 'false';
+  }
+
+  // Required for allowing subtheming Gin.
+  $activeThemeName = \Drupal::theme()->getActiveTheme()->getName();
+  $variables['active_admin_theme'] = $activeThemeName;
+}
+
+/**
+ * Implements hook_preprocess_HOOK() for page_attachments.
+ */
+function gin_page_attachments_alter(&$page) {
+  // Get theme configs.
+  $darkmode = theme_get_setting('enable_darkmode', 'gin');
+  $preset_accent_color = theme_get_setting('preset_accent_color', 'gin');
+  $accent_color = theme_get_setting('accent_color', 'gin');
+  $preset_focus_color = theme_get_setting('preset_focus_color', 'gin');
+  $focus_color = theme_get_setting('focus_color', 'gin');
+  $classic_toolbar = theme_get_setting('classic_toolbar', 'gin');
+
+  // Define darkmode class.
+  $darkmode_class = 'gin--dark-mode';
+
+  if ($classic_toolbar) {
+    // Attach the classic toolbar styles.
+    $page['#attached']['library'][] = 'gin/gin_classic_toolbar';
+  }
+  else {
+    // Attach toolbar styles.
+    $page['#attached']['library'][] = 'gin/gin_toolbar';
+  }
+
+  // Attach accent overrides CSS.
+  $page['#attached']['library'][] = 'gin/gin_accent';
+
+  // Expose settings to JS.
+  $page['#attached']['drupalSettings']['gin']['darkmode'] = $darkmode;
+  $page['#attached']['drupalSettings']['gin']['darkmode_class'] = $darkmode_class;
+  $page['#attached']['drupalSettings']['gin']['preset_accent_color'] = $preset_accent_color;
+  $page['#attached']['drupalSettings']['gin']['accent_color'] = $accent_color;
+  $page['#attached']['drupalSettings']['gin']['preset_focus_color'] = $preset_focus_color;
+  $page['#attached']['drupalSettings']['gin']['focus_color'] = $focus_color;
+}
+
+/**
+ * Implements hook_preprocess_HOOK() for links__dropbutton.
+ */
+function gin_preprocess_dropbutton_wrapper(&$variables) {
+  $children = (string) $variables['children'];
+
+  $pattern = '/(<ul\sclass\s*= *["\']?)([^"\']*)(.*)(<li)/i';
+  $lipattern = '/(<li class\s*= *["\']?)([^"\']*)/i';
+
+  $children = preg_replace($lipattern, '$1$2 dropbutton__item dropbutton__item--extrasmall', $children);
+  $children = preg_replace('/<li>/', '<li class="dropbutton__item dropbutton__item--extrasmall">', $children);
+  $children = preg_replace($pattern, '$1$2 dropbutton--multiple dropbutton--extrasmall $3$4', $children);
+
+  $variables['children'] = Markup::create($children);
+}
+
+/**
+ * Implements form_alter_HOOK() for some major form changes.
+ */
+function gin_form_alter(&$form, $form_state, $form_id) {
+  $path = \Drupal::service('path.current')->getPath();
+
+  // Okay this is the tricky part,
+  // choose the right node forms to alter the actions
+  // This needs refactoring later on.
+  if (
+    strpos($form_id, 'node_') === 0 &&
+    (strpos($path, '/edit') !== FALSE || strpos($path, '/add') !== FALSE)
+   ) {
+    // Submit change weight.
+    if (isset($form['actions']['submit'])) {
+      $form['actions']['submit']['#weight'] = '99';
+    }
+
+    if (isset($form['actions'])) {
+      // Create gin_sticky group.
+      $form['gin_sticky'] = [
+        '#type' => 'container',
+        '#attributes' => [
+          'class' => [
+            'gin-sticky',
+          ],
+        ],
+      ];
+      // Assign status to gin_sticky.
+      $form['status']['#group'] = 'gin_sticky';
+
+      // Create actions group.
+      $form['gin_sticky']['actions'] = [
+        '#type' => 'actions',
+        '#weight' => 130,
+      ];
+      // Add Submit to gin_sticky actions.
+      $form['gin_sticky']['actions']['submit'] = ($form['actions']['submit']) ?? [];
+      // Add Preview to gin_sticky actions.
+      $form['gin_sticky']['actions']['preview'] = ($form['actions']['preview']) ?? [];
+
+      // Create gin_sidebar group.
+      $form['gin_sidebar'] = [
+        '#group' => 'meta',
+        '#type' => 'container',
+        '#weight' => 99,
+        '#attributes' => [
+          'class' => [
+            'gin-sidebar',
+          ],
+        ],
+      ];
+      // Copy footer over.
+      $form['gin_sidebar']['footer'] = ($form['footer']) ?? [];
+      // Copy actions over.
+      $form['gin_sidebar']['actions'] = ($form['actions']) ?? [];
+      // Unset previous added preview & submit.
+      unset($form['gin_sidebar']['actions']['preview']);
+      unset($form['gin_sidebar']['actions']['submit']);
+    }
+  }
+
+  // User form (Login, Register or Forgot password).
+  if (strpos($form_id, 'user_login') !== FALSE || strpos($form_id, 'user_register') !== FALSE || strpos($form_id, 'user_pass') !== FALSE) {
+    $form['actions']['submit']['#attributes']['class'][] = 'button--primary';
+  }
+
+  // Bulk forms: update action & actions to small variants.
+  if (strpos($form_id, 'views_form') !== FALSE) {
+    if (isset($form['header'])) {
+      $bulk_form = current(preg_grep('/_bulk_form/', array_keys($form['header'])));
+
+      if ($form['header'][$bulk_form]) {
+        $form['header'][$bulk_form]['action']['#attributes']['class'][] = 'form-element--type-select--small';
+        $form['header'][$bulk_form]['actions']['submit']['#attributes']['class'][] = 'button--small';
+
+        // Remove double entry of submit button.
+        unset($form['actions']['submit']);
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_preprocess_menu().
+ */
+function gin_preprocess_menu(&$variables) {
+  if ($variables['menu_name'] == 'admin') {
+    $moduleHandler = \Drupal::service('module_handler');
+
+    // Check if the admin_toolbar module is installed.
+    foreach ($variables['items'] as $key => $item) {
+      $gin_id = str_replace('.', '-', $key);
+
+      $variables['items'][$key]['gin_id'] = $gin_id;
+
+      if ($moduleHandler->moduleExists('admin_toolbar')) {
+        $variables['items'][$key]['gin_admin_toolbar_module'] = TRUE;
+      }
+    }
+  }
+}
+
+/**
+ * Local actions preprocess.
+ */
+function gin_preprocess_menu_local_action(&$variables) {
+  $classes = &$variables['link']['#options']['attributes']['class'];
+  $classes = array_filter($classes, function ($e) {
+    return $e != 'button--primary';
+  });
+}
+
+/**
+ * Implements toolbar preprocess.
+ */
+function gin_preprocess_toolbar(&$variables) {
+  $classic_toolbar = theme_get_setting('classic_toolbar', 'gin');
+
+  // Only if Classic Toolbar is disabled.
+  if (!$classic_toolbar) {
+    $user_id = \Drupal::currentUser()->id();
+
+    // Check that the field exists and that it has a value.
+    if ($user_id) {
+      $user = User::load($user_id);
+
+      if (!empty($user->user_picture) && !empty($user->user_picture->entity)) {
+        $image = $user->user_picture->entity->getFileUri();
+        $style = \Drupal::entityTypeManager()->getStorage('image_style')->load('thumbnail');
+        $url = $style->buildUrl($image);
+
+        $variables['user_picture'] = $url;
+      }
+    }
+  }
+}
+
+/**
+ * Implements form_alter() for forms.
+ */
+function gin_theme_suggestions_form_alter(array &$suggestions, array $variables) {
+  $suggestions[] = 'form__' . str_replace('-', '_', $variables['element']['#id']);
+}
+
+/**
+ * Toolbar alter().
+ */
+function gin_theme_suggestions_toolbar_alter(array &$suggestions, array $variables) {
+  $classic_toolbar = theme_get_setting('classic_toolbar', 'gin');
+
+  // Only if Classic Toolbar is disabled.
+  if (!$classic_toolbar) {
+    $suggestions[] = 'toolbar__gin';
+
+    if ($variables['element']['#attributes']['id'] === 'toolbar-administration-secondary') {
+      $suggestions[] = 'toolbar__gin__secondary';
+    }
+  }
+}
+
+/**
+ * Toolbar menu alter().
+ */
+function gin_theme_suggestions_menu_alter(array &$suggestions, array $variables) {
+  $classic_toolbar = theme_get_setting('classic_toolbar', 'gin');
+
+  // Only if Classic Toolbar is disabled.
+  if (isset($variables['menu_name']) && $variables['menu_name'] === 'admin' && !$classic_toolbar) {
+    $suggestions[] = 'menu__toolbar__gin';
+  }
+}
+
+/**
+ * Set Gin CSS on top of all other CSS files.
+ */
+function gin_css_alter(&$css, $assets) {
+  // UPDATE THIS PATH TO YOUR MODULE'S CSS PATH.
+  $path = drupal_get_path('theme', 'gin') . '/dist/css/gin.css';
+
+  if (isset($css[$path])) {
+    // Use anything greater than 100 to have it load after the theme
+    // as CSS_AGGREGATE_THEME is set to 100.
+    // Let's be on the safe side and assign a high number to it.
+    $css[$path]['group'] = 200;
+  }
+}
+
+/**
+ * Implements hook_ckeditor_css_alter().
+ */
+function gin_ckeditor_css_alter(array &$css) {
+  // Get theme darkmode config.
+  $darkmode = theme_get_setting('enable_darkmode', 'gin');
+
+  if ($darkmode) {
+    $css[] = drupal_get_path('theme', 'gin') . '/dist/css/gin_ckeditor.css';
+  }
+}
+
+/**
+ * Custom theme settings.
+ */
+function gin_form_system_theme_settings_alter(&$form, FormStateInterface $form_state, $form_id = NULL) {
+  // Work-around for a core bug affecting admin themes. See issue #943212.
+  if (isset($form_id)) {
+    return;
+  }
+
+  // Custom settings details element.
+  $form['custom_settings'] = [
+    '#type' => 'details',
+    '#open' => TRUE,
+    '#title' => t('Custom Settings'),
+  ];
+
+  // Darkmode setting.
+  $form['custom_settings']['enable_darkmode'] = [
+    '#type' => 'checkbox',
+    '#title' => t('Enable Darkmode (EXPERIMENTAL)'),
+    '#description' => t("Enable Darkmode (Currently doesn't support a custom Accent color)."),
+    '#default_value' => theme_get_setting('enable_darkmode'),
+  ];
+
+  // Accent color setting.
+  $form['custom_settings']['preset_accent_color'] = [
+    '#type' => 'select',
+    '#title' => t('Accent color (EXPERIMENTAL)'),
+    '#default_value' => theme_get_setting('preset_accent_color'),
+    '#options' => [
+      'blue' => t('Claro Blue (Default)'),
+      'teal' => t('Teal'),
+      'dark_purple' => t('Dark Purple'),
+      'purple' => t('Purple'),
+      'green' => t('Green'),
+      'red' => t('Red'),
+      'orange' => t('Orange'),
+      'yellow' => t('Yellow'),
+      'pink' => t('Pink'),
+      'custom' => t('Custom'),
+    ],
+  ];
+
+  // Main Accent color setting.
+  $form['custom_settings']['accent_color'] = [
+    '#type' => 'color',
+    '#placeholder' => '#77777',
+    '#title' => t('Accent color (EXPERIMENTAL)'),
+    '#description' => t('Use with caution, values should meet a11y criterias.'),
+    '#default_value' => theme_get_setting('accent_color'),
+    '#min' => '7',
+    '#max' => '7',
+    '#size' => '7',
+    '#states' => [
+      // Show if met.
+      'visible' => [
+        'select[name="preset_accent_color"]' => ['value' => 'custom'],
+      ],
+    ],
+  ];
+
+  // Focus color setting.
+  $form['custom_settings']['preset_focus_color'] = [
+    '#type' => 'select',
+    '#title' => t('Focus color (EXPERIMENTAL)'),
+    '#default_value' => theme_get_setting('preset_focus_color'),
+    '#options' => [
+      'gin' => t('Orange (Default)'),
+      'claro' => t('Claro Green'),
+      'accent' => t('Same as Accent color'),
+      'custom' => t('Custom'),
+    ],
+  ];
+
+  // Custom Focus color setting.
+  $form['custom_settings']['focus_color'] = [
+    '#type' => 'color',
+    '#placeholder' => '#777777',
+    '#title' => t('Custom Focus color (EXPERIMENTAL)'),
+    '#description' => t('Use with caution, values should meet a11y criterias.'),
+    '#default_value' => theme_get_setting('focus_color'),
+    '#min' => '7',
+    '#max' => '7',
+    '#size' => '7',
+    '#states' => [
+      // Show if met.
+      'visible' => [
+        'select[name="preset_focus_color"]' => ['value' => 'custom'],
+      ],
+    ],
+  ];
+
+  // Classic toolbar setting.
+  $form['custom_settings']['classic_toolbar'] = [
+    '#type' => 'checkbox',
+    '#title' => t('Enable Classic Drupal Toolbar'),
+    '#description' => t('Enable Classic Legacy Drupal Toolbar (Horizontal Toolbar).'),
+    '#default_value' => theme_get_setting('classic_toolbar'),
+  ];
+
+  // Attach custom js.
+  $form['#attached']['library'][] = 'gin/gin_settings';
+}
+
+/**
+ * Increases or decreases the brightness of a color.
+ */
+function _gin_adjust_brightness($hexCode, $adjustPercent) {
+  $hexCode = ltrim($hexCode, '#');
+
+  if (strlen($hexCode) == 3) {
+    $hexCode = $hexCode[0] . $hexCode[0] . $hexCode[1] . $hexCode[1] . $hexCode[2] . $hexCode[2];
+  }
+
+  $hexCode = array_map('hexdec', str_split($hexCode, 2));
+
+  foreach ($hexCode as & $color) {
+    $adjustableLimit = $adjustPercent < 0 ? $color : 255 - $color;
+    $adjustAmount = ceil($adjustableLimit * $adjustPercent);
+
+    $color = str_pad(dechex($color + $adjustAmount), 2, '0', STR_PAD_LEFT);
+  }
+
+  return '#' . implode($hexCode);
+}
