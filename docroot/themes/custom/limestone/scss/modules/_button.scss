@@ -115,14 +115,14 @@ a.lc-btn, .lc-btn a:first-child {
   }
 
   &::after {
-    content: "\f078";
-    position: absolute;
+    content: "\f078" !important;
+    position: absolute !important;
     color: white;
-    transform: rotate(-90deg);
-    font-size: 16px;
-    top: 30%;
-    right: -31px;
-    margin-top: 0;
+    transform: rotate(-90deg) !important;
+    font-size: 16px !important;
+    top: 30% !important;
+    right: -31px !important;
+    margin-top: 0 !important;
     font-family: "icomoon" !important;
     speak: none;
     font-style: normal;
