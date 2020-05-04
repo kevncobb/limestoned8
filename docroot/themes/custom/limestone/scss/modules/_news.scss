@@ -91,6 +91,17 @@ section.block-block-contentfe8537ce-54d8-467c-ba0f-931c4b8e3ced {
     color: $limestone-blue;
   }
 }
+.category-overlay-from-top {
+  position: absolute;
+  margin: 0;
+  padding: 0px 6px;
+  background-color: #fde020;
+  text-decoration: none;
+  color: $primary-color;
+  a {
+    text-decoration: none;
+  }
+}
 .field-name-node-author {
   margin-bottom: 40px;
   position: relative;
