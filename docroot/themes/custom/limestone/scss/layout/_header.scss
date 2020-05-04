@@ -3,13 +3,13 @@ header.site-header {
   background-color: $primary-color-darker;
   font-family: $header-font-family;
   font-weight: bold;
-  $header-font-size: 1.2rem;
+  $header-font-size: 1.5rem;
   font-size: $header-font-size;
   .block-limestone-branding {
     max-width: 220px;
     width: 100%;
     @include breakpoint(smedium) {
-      max-width: 235px;
+      max-width: 295px;
       width: 100%;
     }
   }
