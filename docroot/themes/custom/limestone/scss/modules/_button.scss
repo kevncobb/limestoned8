@@ -115,7 +115,7 @@ a.lc-btn, .lc-btn a:first-child {
   }
 
   &::after {
-    content: "\f078";
+    content: "\f078" !important;
     position: absolute;
     color: white;
     transform: rotate(-90deg);
