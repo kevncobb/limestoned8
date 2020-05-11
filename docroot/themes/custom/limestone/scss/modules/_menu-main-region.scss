@@ -558,4 +558,14 @@ nav.menu--desktop-megamenu {
       padding: 0 0 0 0.2rem;
     }
   }
+  .megasubmenu {
+    ul > ul li a {
+      font-weight: bold;
+      font-size: 93%;
+      padding: 0 0 3px;
+      &:before {
+        content: "- ";
+      }
+    }
+  }
 }
