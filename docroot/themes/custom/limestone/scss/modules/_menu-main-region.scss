@@ -209,12 +209,17 @@
           ul.list-unstyled {
             margin-bottom: 20px;
             a {
-              padding: 0.4rem 1rem 0.5rem 0.2rem;
+              padding: 0.3rem 1rem 0.5rem 0.2rem;
               color: $dark-gray;
               &:hover, &:focus {
                 color: $limestone-blue;
                 text-decoration: underline;
               }
+            }
+            ul li a {
+              font-weight: bold;
+              font-size: 95%;
+              margin: -5px 0;
             }
           }
         }
