@@ -53,17 +53,23 @@ html {
     column-count: 4;
   }
 }
-.max-300 {
+.max-300, .mw-300 {
   max-width: 300px;
 }
-.max-400 {
+.max-400, .mw-400 {
   max-width: 400px;
 }
-.max-500 {
+.max-500, .mw-500 {
   max-width: 500px;
 }
-.max-800 {
+.max-800, .mw-800 {
   max-width: 800px;
+}
+.mh-600 {
+  max-height: 600px;
+}
+.mh-800 {
+  max-height: 800px;
 }
 //New Tab icon
 .block-limestone-breadcrumbs,
