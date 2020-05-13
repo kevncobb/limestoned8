@@ -7,9 +7,15 @@
 
 /**
  * Installation hoot for update helper checklist module.
- *
- * TODO: Check already executed update hooks and mark them in the checklist.
  */
+function update_helper_checklist_install() {
+  /** @var \Drupal\update_helper_checklist\UpdateChecklist $checkList */
+  $checkList = \Drupal::service('update_helper_checklist.update_checklist');
+
+  // Mark all updates as successful on install.
+  // TODO: Improve - Get information from executed update hooks, what to mark.
+  $checkList->markAllUpdates();
+}
 
 /**
  * The update helper checklist update dependencies.

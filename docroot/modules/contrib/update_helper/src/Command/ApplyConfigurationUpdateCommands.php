@@ -38,21 +38,25 @@ class ApplyConfigurationUpdateCommands extends DrushCommands {
   }
 
   /**
-   * Applying an update hook (function) from module install file
+   * Applying an update hook (function) from module install file.
+   *
    * Apply updates by invoking the related update hooks.
    *
    * @param string $module
+   *   The module.
    * @param string $update_hook
+   *   The update hook.
    * @param array $options
+   *   The options array.
    *
    * @option force
    *
    * @command update_helper:apply-update
    * @aliases uhau
    */
-  public function apply_update($module = '', $update_hook = '', $options = ['force' => FALSE]) {
+  public function applyUpdate($module = '', $update_hook = '', array $options = ['force' => FALSE]) {
     $force = $options['force'];
-    $this->commandHelper->apply_update($module, $update_hook, $force);
+    $this->commandHelper->applyUpdate($module, $update_hook, $force);
   }
 
 }

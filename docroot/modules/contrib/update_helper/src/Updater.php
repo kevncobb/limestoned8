@@ -146,7 +146,11 @@ class Updater implements UpdaterInterface {
       if (isset($update_definitions[UpdateDefinitionInterface::GLOBAL_CONDITIONS][UpdateDefinitionInterface::GLOBAL_CONDITION_EXPECTED_MODULES])) {
         $result = $this->checkExpectedModulesArray($update_definitions[UpdateDefinitionInterface::GLOBAL_CONDITIONS][UpdateDefinitionInterface::GLOBAL_CONDITION_EXPECTED_MODULES]);
         if (!empty($result)) {
-          return $this->logWarning($this->t('The following module(s) "@neededModules" are required for update @updateName.', ['@neededModules' => implode(", ", $result), '@updateName' => $update_definition_name]));
+          return $this->logWarning($this->t('The following module(s) "@neededModules" are required for update @updateName.',
+            [
+              '@neededModules' => implode(", ", $result),
+              '@updateName' => $update_definition_name,
+            ]));
         }
       }
       unset($update_definitions[UpdateDefinitionInterface::GLOBAL_CONDITIONS]);
@@ -264,7 +268,7 @@ class Updater implements UpdaterInterface {
   /**
    * Check if modules are enabled and installed.
    *
-   * @param array $global_actions
+   * @param array $expected_modules
    *   Array with list of expected modules.
    *
    * @return array
@@ -296,26 +300,7 @@ class Updater implements UpdaterInterface {
    */
   protected function executeConfigurationActions(array $update_definitions, $force = FALSE, $checkOnly = FALSE) {
     foreach ($update_definitions as $configName => $configChange) {
-      $update_actions = $configChange['update_actions'];
-
-      $delete_keys = [];
-      // Define configuration keys that should be deleted.
-      if (isset($update_actions['delete'])) {
-        $delete_keys = $this->getFlatKeys($update_actions['delete']);
-      }
-
-      $new_config = [];
-      // Add configuration that is changed.
-      if (isset($update_actions['change'])) {
-        $new_config = NestedArray::mergeDeep($new_config, $update_actions['change']);
-      }
-
-      // Add configuration that is added.
-      if (isset($update_actions['add'])) {
-        $new_config = NestedArray::mergeDeep($new_config, $update_actions['add']);
-      }
-
-      $result = $this->updateConfig($configName, $new_config, $configChange['expected_config'], $delete_keys, $force, $checkOnly);
+      $result = $this->updateConfig($configName, $configChange['update_actions'], $configChange['expected_config'], $force, $checkOnly);
 
       if ($checkOnly) {
         return $result;
@@ -339,6 +324,50 @@ class Updater implements UpdaterInterface {
           break;
       }
     }
+  }
+
+  /**
+   * Apply configuration changes on configuration array.
+   *
+   * Order is following:
+   * 1. Delete
+   *   - this options is first, in that way, it's possible to delete bigger
+   *     configuration block before adding new one.
+   * 2. Add
+   *   - add is seconds, in that way we can add whole block deleted before.
+   * 3. Change
+   *   - change is last, because we want to apply smaller modifications after
+   *     all bigger changes are done.
+   *
+   * @param array $base_config
+   *   The base configuration.
+   * @param array $update_actions
+   *   The configuration update actions.
+   *
+   * @return array
+   *   Returns modified configuration.
+   */
+  protected function applyConfigActions(array $base_config, array $update_actions): array {
+    // 1. Define configuration keys that should be deleted.
+    if (isset($update_actions['delete'])) {
+      $delete_keys = $this->getFlatKeys($update_actions['delete']);
+
+      foreach ($delete_keys as $key_path) {
+        NestedArray::unsetValue($base_config, $key_path);
+      }
+    }
+
+    // 2. Add configuration that is added.
+    if (isset($update_actions['add'])) {
+      $base_config = NestedArray::mergeDeep($base_config, $update_actions['add']);
+    }
+
+    // 3. Add configuration that is changed.
+    if (isset($update_actions['change'])) {
+      $base_config = NestedArray::mergeDeep($base_config, $update_actions['change']);
+    }
+
+    return $base_config;
   }
 
   /**
@@ -449,12 +478,10 @@ class Updater implements UpdaterInterface {
    *
    * @param string $config_name
    *   Configuration name that should be updated.
-   * @param array $configuration
-   *   Configuration array to update.
+   * @param array $update_actions
+   *   Configuration update actions.
    * @param array $expected_configuration
    *   Only if current config is same like old config we are updating.
-   * @param array $delete_keys
-   *   List of parent keys to remove. @see NestedArray::unsetValue()
    * @param bool $force
    *   Force the update.
    * @param bool $checkOnly
@@ -463,7 +490,7 @@ class Updater implements UpdaterInterface {
    * @return bool
    *   Returns TRUE if update of configuration was successful.
    */
-  protected function updateConfig($config_name, array $configuration, array $expected_configuration = [], array $delete_keys = [], $force = FALSE, $checkOnly = FALSE) {
+  protected function updateConfig($config_name, array $update_actions, array $expected_configuration = [], $force = FALSE, $checkOnly = FALSE) {
     $config = $this->configFactory->getEditable($config_name);
 
     $config_data = $config->get();
@@ -478,25 +505,22 @@ class Updater implements UpdaterInterface {
       return Updater::CONFIG_NOT_FOUND;
     }
 
+    // Apply configuration update actions.
+    $update_config_data = $this->applyConfigActions($config_data, $update_actions);
+
     // Check if configuration is already in new state.
-    $merged_data = NestedArray::mergeDeep($expected_configuration, $configuration);
-    if (!$force && empty(DiffArray::diffAssocRecursive($configuration, $config_data))) {
+    if (!$force
+      && empty(DiffArray::diffAssocRecursive($config_data, $update_config_data))
+      && empty(DiffArray::diffAssocRecursive($update_config_data, $config_data))) {
       return Updater::CONFIG_ALREADY_APPLIED;
     }
 
     if (empty($expected_configuration) || !DiffArray::diffAssocRecursive($expected_configuration, $config_data)) {
-      // Delete configuration keys from config.
       if ($checkOnly) {
         return Updater::CONFIG_APPLIED_SUCCESSFULLY;
       }
 
-      if (!empty($delete_keys)) {
-        foreach ($delete_keys as $key_path) {
-          NestedArray::unsetValue($config_data, $key_path);
-        }
-      }
-
-      $config->setData(NestedArray::mergeDeep($config_data, $configuration));
+      $config->setData($update_config_data);
       $config->save();
 
       return Updater::CONFIG_APPLIED_SUCCESSFULLY;

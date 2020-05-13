@@ -6,6 +6,7 @@ use Drupal\Core\Entity\Element\EntityAutocomplete;
 use Drupal\Core\Entity\EntityForm;
 use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\login_destination\Entity\LoginDestination;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -13,6 +14,8 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  * Base for controller for login destination add/edit forms.
  */
 class LoginDestinationRuleForm extends EntityForm {
+
+  use StringTranslationTrait;
 
   /**
    * The login destination entity storage.
@@ -84,7 +87,7 @@ class LoginDestinationRuleForm extends EntityForm {
       '#target_type' => 'node',
       '#placeholder' => '',
       '#attributes' => [
-        'data-autocomplete-first-character-blacklist' => '/#?',
+        'data-autocomplete-first-character-blacklist' => '/#?[',
       ],
       '#title' => $this->t('Redirect destination'),
       '#default_value' => $this->getUriAsDisplayableString($login_destination->getDestination()),
@@ -99,6 +102,14 @@ class LoginDestinationRuleForm extends EntityForm {
         '%url' => 'http://example.com',
       ]),
     ];
+
+    // Add the token tree UI.
+    $form['token_tree'] = array(
+      '#theme' => 'token_tree_link',
+      '#token_types' => array('user'),
+      '#show_restricted' => TRUE,
+      '#global_types' => TRUE,
+    );
 
     $form['pages_type'] = [
       '#type' => 'radios',
@@ -164,7 +175,7 @@ class LoginDestinationRuleForm extends EntityForm {
     $form_state->setValue('triggers', array_filter($form_state->getValue('triggers')));
 
     // Get entered by user destination path.
-    $destination = $form_state->getValue('destination_path');
+    // $destination = $form_state->getValue('destination_path');
     // @todo verify that selected role has access to entered path.
     // @todo verify entered paths to specific pages.
   }
@@ -177,12 +188,12 @@ class LoginDestinationRuleForm extends EntityForm {
     $login_destination = $this->entity;
 
     if ($login_destination->save()) {
-      drupal_set_message($this->t('Saved the %label login destination.', [
+      $this->messenger()->addMessage($this->t('Saved the %label login destination.', [
         '%label' => $login_destination->getLabel(),
       ]));
     }
     else {
-      drupal_set_message($this->t('The %label login destination was not saved.', [
+      $this->messenger()->addMessage($this->t('The %label login destination was not saved.', [
         '%label' => $login_destination->getLabel(),
       ]));
     }
@@ -210,13 +221,14 @@ class LoginDestinationRuleForm extends EntityForm {
           '/',
           '?',
           '#',
+          '[',
         ],
         TRUE
       )
       && substr($element['#value'], 0, 7) !== '<front>'
       && substr($element['#value'], 0, 9) !== '<current>'
     ) {
-      $form_state->setError($element, t('Manually entered paths should start with /, ? or #.'));
+      $form_state->setError($element, $this->t('Manually entered paths should start with /, [, ? or #.'));
       return;
     }
   }
@@ -308,6 +320,9 @@ class LoginDestinationRuleForm extends EntityForm {
       // - '<front>#foo' -> '/#foo'
       if (strpos($string, '<front>') === 0) {
         $string = '/' . substr($string, strlen('<front>'));
+      }
+      if (strpos($string, '[') === 0) {
+        $string = '/' . $string;
       }
       $uri = 'internal:' . $string;
     }

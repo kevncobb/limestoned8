@@ -28,7 +28,7 @@ libraries-override:
       theme:
         css/theme/install-page.css: css/install-page.css
 
-# Information added by Drupal.org packaging script on 2020-02-19
-version: '8.x-6.8'
+# Information added by Drupal.org packaging script on 2020-03-22
+version: '8.x-6.9'
 project: 'vartheme_admin'
-datestamp: 1582114568
+datestamp: 1584869645

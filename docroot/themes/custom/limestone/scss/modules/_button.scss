@@ -1,5 +1,5 @@
 
-.button {
+a.button {
   line-height: 1.1rem;
   font-family: $header-font-family;
   font-weight: $header-font-weight;
@@ -290,7 +290,7 @@ a.lc-btn, .lc-btn a:first-child {
   }
 }
 
-.cta-button, .cta-btn {
+a.cta-button, a.cta-btn {
   display: inline-block;
   font-family: $header-font-family;
   $cta-button-color: $primary-color;

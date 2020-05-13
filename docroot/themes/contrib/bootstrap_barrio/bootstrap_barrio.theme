@@ -57,6 +57,17 @@ function bootstrap_barrio_preprocess_html(&$variables) {
   if (isset($path_args[0]) && isset($path_args[1]) && ($path_args[0] == 'user')) {
     $variables['attributes']['class'][] = 'page-user-' . $path_args[1];
   }
+  if (isset($path_args[0]) && isset($path_args[1]) && isset($path_args[2]) && 
+    $path_args[0] == 'taxonomy' && $path_args[1] == 'term') {
+    $variables['attributes']['class'][] = 'page-taxonomy-term-' . $path_args[2];
+    $term = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->load($path_args[2]);
+    $vocabulary_id = $term->bundle();
+    $variables['attributes']['class'][] = 'page-vocabulary-' . Html::cleanCssIdentifier($vocabulary_id);
+  }
+  $view_id = \Drupal::routeMatch()->getParameter('view_id');
+  if ($view_id) {
+    $variables['attributes']['class'][] = 'page-view-' . Html::cleanCssIdentifier($view_id);
+  }
 
   // SEO Information
   $http_equiv = [
@@ -145,6 +156,14 @@ function bootstrap_barrio_preprocess_page(&$variables) {
     'class' => [ 'sidebar', $sidebar_second_width ],
 	  'id' => [ 'sidebar_second' ],
   ];
+
+  // Get custom Navbar classes from config and add them to Navbars
+  if (theme_get_setting('bootstrap_barrio_navbar_top_class') !== NULL) {
+    $variables['navbar_top_attributes']['class'][] = theme_get_setting('bootstrap_barrio_navbar_top_class');
+  }
+  if (theme_get_setting('bootstrap_barrio_navbar_class') !== NULL) {
+    $variables['navbar_attributes']['class'][] = theme_get_setting('bootstrap_barrio_navbar_class');
+  }
 
   // Affix
   $affix_navbar_top = theme_get_setting('bootstrap_barrio_navbar_top_affix');
@@ -471,8 +490,13 @@ function bootstrap_barrio_theme_suggestions_links_alter(array &$suggestions, arr
  * Implements hook_theme_suggestions_HOOK_alter() for status messages templates.
  */
 function bootstrap_barrio_theme_suggestions_status_messages_alter(array &$suggestions, array $variables) {
-  if ( theme_get_setting('bootstrap_barrio_messages_widget') == 'toasts' ) {
-    $suggestions[] = 'status_messages__toasts';
+  switch (theme_get_setting('bootstrap_barrio_messages_widget')) {
+    case 'toasts':
+      $suggestions[] = 'status_messages__toasts';
+      break;
+    case 'alerts':
+      $suggestions[] = 'status_messages__alerts';
+      break;
   }
 }
 
@@ -506,7 +530,7 @@ function bootstrap_barrio_form_alter(&$form, \Drupal\Core\Form\FormStateInterfac
     if (!isset($form[$key]['submit']['#attributes'])) {
       $form[$key]['submit']['#attributes'] = new Attribute();
     }
-    $outline = theme_get_setting('bootstrap_barrio_button_outline') ? 'btn-primary-outline' : 'btn-primary';
+    $outline = theme_get_setting('bootstrap_barrio_button_outline') ? 'btn-outline-primary' : 'btn-primary';
 // If use the $outline variable, HTML crashes. Even if use the value directly 
     $form[$key]['submit']['#attributes']->addClass(['btn', 'btn-primary', 'btn-sm']);
   }
@@ -533,7 +557,7 @@ function bootstrap_barrio_preprocess_input(&$variables) {
     if (is_object($variables['attributes']['class'])) {
       if (empty(array_intersect(['btn-primary', 'btn-secondary', 'btn-success', 'btn-warning', 'btn-danger', 'btn-link'], $variables['attributes']['class']->value()))) {
         if ( theme_get_setting('bootstrap_barrio_button_outline') ) {
-          $variables['attributes']['class']->addClass('btn-primary-outline');
+          $variables['attributes']['class']->addClass('btn-outline-primary');
         }
         else {
           $variables['attributes']['class']->addClass('btn-primary');
@@ -551,7 +575,7 @@ function bootstrap_barrio_preprocess_input(&$variables) {
 	else {
       $variables['attributes']['class'][] = 'btn';
       if ( theme_get_setting('bootstrap_barrio_button_outline') ) {
-        $variables['attributes']['class'][] = 'btn-primary-outline';
+        $variables['attributes']['class'][] = 'btn-outline-primary';
       }
       else {
         $variables['attributes']['class'][] = 'btn-primary';

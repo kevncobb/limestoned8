@@ -10,7 +10,6 @@ use Drupal\Core\Routing\MatchingRouteNotFoundException;
 use Drupal\Core\Url;
 use Drupal\redirect\Entity\Redirect;
 use Drupal\Core\Form\FormStateInterface;
-use Symfony\Component\Routing\Exception\ResourceNotFoundException;
 
 class RedirectForm extends ContentEntityForm {
 
@@ -143,30 +142,6 @@ class RedirectForm extends ContentEntityForm {
             '%source' => $source['path'],
             '@edit-page' => $redirect->toUrl('edit-form')->toString()]));
       }
-    }
-
-    // If creating new URL add checks.
-    if ($this->entity->isNew()) {
-      if ($source['path']) {
-        $source_path = trim($source['path']);
-
-        // Warning about creating a redirect from a valid path.
-        // @todo - Hmm... exception driven logic. Find a better way how to
-        //   determine if we have a valid path.
-        try {
-          \Drupal::service('router')->match('/' . $form_state->getValue(['redirect_source', 0, 'path']));
-          $form_state->setErrorByName('redirect_source', $this->t('The source path %path is likely a valid path. It is preferred to <a href="@url-alias">create URL aliases</a> for existing paths rather than redirects.',
-            ['%path' => $source_path, '@url-alias' => Url::fromRoute('path.admin_add')->toString()]));
-          }
-        catch (ResourceNotFoundException $e) {
-          // Do nothing, expected behaviour.
-          }
-      }
-
-      $element['path']['#ajax'] = [
-        'callback' => 'redirect_source_link_get_status_messages',
-        'wrapper' => 'redirect-link-status',
-      ];
     }
   }
 

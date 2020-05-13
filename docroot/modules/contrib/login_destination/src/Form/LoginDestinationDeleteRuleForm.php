@@ -43,7 +43,7 @@ class LoginDestinationDeleteRuleForm extends EntityConfirmFormBase {
     /** @var $login_destination \Drupal\login_destination\Entity\LoginDestination */
     $login_destination = $this->entity;
     $login_destination->delete();
-    drupal_set_message($this->t('The login destination %destination has been deleted.', [
+    $this->messenger()->addMessage($this->t('The login destination %destination has been deleted.', [
       '%destination' => $login_destination->getLabel(),
     ]));
     $form_state->setRedirectUrl($this->getCancelUrl());

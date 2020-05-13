@@ -171,8 +171,8 @@ class LoginDestinationManager implements LoginDestinationManagerInterface {
     }
 
     // Prepare destination path.
-    $path = $destination->getDestination();
-    // Check if rules refers to the current page.
+    $token_service = \Drupal::token();
+    $path = $token_service->replace($destination->getDestination());    // Check if rules refers to the current page.
     if ($destination->isDestinationCurrent()) {
       $request = $this->requestStack->getCurrentRequest();
       $query = $request->get('current');

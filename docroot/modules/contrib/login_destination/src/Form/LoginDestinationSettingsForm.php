@@ -4,11 +4,14 @@ namespace Drupal\login_destination\Form;
 
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\StringTranslation\StringTranslationTrait;
 
 /**
  * Provides form for managing module settings.
  */
 class LoginDestinationSettingsForm extends ConfigFormBase {
+
+  use StringTranslationTrait;
 
   /**
    * @inheritdoc
@@ -32,14 +35,14 @@ class LoginDestinationSettingsForm extends ConfigFormBase {
     $form['settings']['preserve_destination'] = [
       '#type' => 'checkbox',
       '#default_value' => $config->get('preserve_destination'),
-      '#title' => t('Preserve the destination parameter'),
-      '#description' => t("The 'destination' GET parameter will have priority over the settings of this module. With this setting enabled, redirect from the user login block will not work."),
+      '#title' => $this->t('Preserve the destination parameter'),
+      '#description' => $this->t("The 'destination' GET parameter will have priority over the settings of this module. With this setting enabled, redirect from the user login block will not work."),
     ];
     $form['settings']['immediate_redirect'] = [
       '#type' => 'checkbox',
       '#default_value' => $config->get('immediate_redirect'),
-      '#title' => t('Redirect immediately after using one-time login link'),
-      '#description' => t('User will be redirected before given the possibility to change their password.'),
+      '#title' => $this->t('Redirect immediately after using one-time login link'),
+      '#description' => $this->t('User will be redirected before given the possibility to change their password.'),
     ];
 
     return parent::buildForm($form, $form_state);

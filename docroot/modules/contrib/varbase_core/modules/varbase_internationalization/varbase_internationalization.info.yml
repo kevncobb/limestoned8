@@ -12,7 +12,7 @@ install:
   - config_translation
   - content_translation
 
-# Information added by Drupal.org packaging script on 2020-02-04
-version: '8.x-8.4'
+# Information added by Drupal.org packaging script on 2020-03-24
+version: '8.x-8.7'
 project: 'varbase_core'
-datestamp: 1580838794
+datestamp: 1585045433

@@ -1,8 +1,8 @@
 .circles {
-  min-height: 460px;
+  //min-height: 460px;
   z-index: 2;
   @include breakpoint(smedium) {
-    min-height: 320px;
+    //min-height: 320px;
   }
   ul {
     position: relative;

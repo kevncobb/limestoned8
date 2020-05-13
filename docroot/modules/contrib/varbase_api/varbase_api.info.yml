@@ -6,6 +6,7 @@ package: Varbase
 core: 8.x
 # project: varbase_api
 configure: varbase_api.settings
+core_version_requirement: ^8 || ^9
 dependencies:
   - drupal:jsonapi
   - openapi:openapi
@@ -16,7 +17,7 @@ install:
   - restui
   - jsonapi_extras
 
-# Information added by Drupal.org packaging script on 2019-12-18
-version: '8.x-7.8'
+# Information added by Drupal.org packaging script on 2020-02-25
+version: '8.x-7.9'
 project: 'varbase_api'
-datestamp: 1576696429
+datestamp: 1582648819

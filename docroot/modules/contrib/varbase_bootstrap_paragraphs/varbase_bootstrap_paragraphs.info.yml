@@ -2,6 +2,7 @@ name: 'Varbase Bootstrap Paragraphs'
 type: module
 description: 'A suite of Paragraph bundles to be used for Varbase distribution. Made with the Boostrap framework, based on a fork of Bootstrap Paragraph module (bootstrap_paragraphs).'
 core: 8.x
+core_version_requirement: ^8 || ^9
 # version: 8.x-7.x-dev
 package: Varbase
 # project: varbase_bootstrap_paragraphs
@@ -23,10 +24,11 @@ install:
   - viewsreference
   - entity_reference_revisions
   - paragraphs
+  - paragraphs_library
   - paragraphs_previewer
   - paragraphs_edit
 
-# Information added by Drupal.org packaging script on 2019-11-18
-version: '8.x-7.8'
+# Information added by Drupal.org packaging script on 2020-03-08
+version: '8.x-7.9'
 project: 'varbase_bootstrap_paragraphs'
-datestamp: 1574103186
+datestamp: 1583694768

@@ -36,8 +36,6 @@ $vbp-palette-color-silver-chalice:   #a4a4a4;
 $vbp-palette-color-alto:             #d3d3d3;
 $vbp-palette-color-persian-red:      #cc3c2d;
 $vbp-palette-color-anzac:            #E4B649;
-$vbp-palette-color-blue-zodiac:      #0C173d;
-
 
 // Associate background colors nemas to a function name.
 $vbp_color_01: $vbp-palette-color-boston-blue;       // Blue
@@ -45,7 +43,6 @@ $vbp_color_02: $vbp-palette-color-pickled-bluewood;  // Madison
 $vbp_color_03: $vbp-palette-color-silver-chalice;    // Dark Gray
 $vbp_color_04: $vbp-palette-color-alto;              // Light Gray
 $vbp_color_05: $vbp-palette-color-persian-red;       // Red
-$vbp_color_06: $vbp-palette-color-blue-zodiac;       // Blue Zodiac
 
 // Map of background colors by function.
 $vbp-colors: () !default;
@@ -55,8 +52,7 @@ $vbp-colors: map-merge(
     "vbp_color_02": $vbp_color_02,
     "vbp_color_03": $vbp_color_03,
     "vbp_color_04": $vbp_color_04,
-    "vbp_color_05": $vbp_color_05,
-    "vbp_color_06": $vbp_color_06
+    "vbp_color_05": $vbp_color_05
   ),
   $vbp-colors
 );
@@ -79,7 +75,6 @@ $vbp_foreground_color_02: $vbp-palette-color-white; // White
 $vbp_foreground_color_03: $vbp-palette-color-white; // White
 $vbp_foreground_color_04: $vbp-palette-color-black; // Black
 $vbp_foreground_color_05: $vbp-palette-color-white; // White
-$vbp_foreground_color_06: $vbp-palette-color-white; // White
 
 // Map of foreground colors by function.
 $vbp-foreground-colors: () !default;
@@ -89,8 +84,7 @@ $vbp-foreground-colors: map-merge(
     "vbp_color_02": $vbp_foreground_color_02,
     "vbp_color_03": $vbp_foreground_color_03,
     "vbp_color_04": $vbp_foreground_color_04,
-    "vbp_color_05": $vbp_foreground_color_05,
-    "vbp_color_06": $vbp_foreground_color_06
+    "vbp_color_05": $vbp_foreground_color_05
   ),
   $vbp-foreground-colors
 );

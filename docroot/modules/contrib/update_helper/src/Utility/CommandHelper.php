@@ -6,30 +6,23 @@ use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerAwareTrait;
 
 /**
- *
+ * Command helper for update helper.
  */
 class CommandHelper implements LoggerAwareInterface {
 
   use LoggerAwareTrait;
 
   /**
-   *
-   */
-  public function __construct() {
-
-  }
-
-  /**
    * Applying an (optional) update hook (function) from module install file.
    *
    * @param string $module
-   *   - drupal module name.
+   *   Drupal module name.
    * @param string $update_hook
-   *   - name of update_hook to apply.
+   *   Name of update_hook to apply.
    * @param bool $force
-   *   - force the update.
+   *   Force the update.
    */
-  public function apply_update($module = '', $update_hook = '', $force = FALSE) {
+  public function applyUpdate($module = '', $update_hook = '', $force = FALSE) {
     if (!$update_hook || !$module) {
       $this->logger->error(dt('Please provide a module name and an update hook. Example: drush uhau <module> <update_hook>'));
       return;

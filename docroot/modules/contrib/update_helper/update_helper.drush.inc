@@ -39,7 +39,7 @@ function update_helper_drush_command() {
 function drush_update_helper_apply_update($module = "", $update_hook = "") {
   $commandhelper = _update_helper_drush_command_helper();
   $force = drush_get_option('force', FALSE);
-  $commandhelper->apply_update($module, $update_hook, $force);
+  $commandhelper->applyUpdate($module, $update_hook, $force);
 }
 
 /**

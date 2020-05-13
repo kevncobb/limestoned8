@@ -1,12 +1,13 @@
-# core: 8.x
+core: 8.x
 type: theme
 base theme: bootstrap
 
 name: Vartheme
 description: 'Base theme for Vardot standard websites. Based on Bootstrap 3 and less css'
 package: 'Varbase'
+# project: vartheme
 # version: 8.x-6.x-dev
-
+core_version_requirement: ^8 || ^9
 regions:
   navigation: 'Navigation'
   navigation_collapsible: 'Navigation (Collapsible)'
@@ -90,8 +91,7 @@ ckeditor_stylesheets:
   - css/layout/edge2edge.layout.css
   - css/layout/spacing.layout.css
 
-# Information added by Drupal.org packaging script on 2019-04-25
-version: '8.x-6.6'
-core: '8.x'
+# Information added by Drupal.org packaging script on 2020-02-27
+version: '8.x-6.7'
 project: 'vartheme'
-datestamp: 1556199488
+datestamp: 1582797185

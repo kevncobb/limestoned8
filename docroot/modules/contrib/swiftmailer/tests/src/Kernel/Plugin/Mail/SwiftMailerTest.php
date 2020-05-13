@@ -4,6 +4,7 @@ namespace Drupal\Tests\swiftmailer\Kernel\Plugin\Mail;
 
 use Drupal\Core\Render\Markup;
 use Drupal\KernelTests\KernelTestBase;
+use Drupal\swiftmailer\Utility\Conversion;
 
 /**
  * @coversDefaultClass \Drupal\swiftmailer\Plugin\Mail\SwiftMailer

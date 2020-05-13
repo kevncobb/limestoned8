@@ -6,8 +6,8 @@ use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Link;
 use Drupal\Core\Url;
-use Drupal\key\Entity\Key;
 use Drupal\key\KeyInterface;
+use Drupal\key\Entity\Key;
 
 /**
  * Swift Mailer settings form.
@@ -74,7 +74,7 @@ class SettingsForm extends ConfigFormBase {
         'method' => 'replace',
         'effect' => 'fade',
       ],
-      '#description' => $this->t('Not sure which transport type to choose? The @documentation gives you a good overview of the various transport types.', ['@documentation' => Link::fromTextAndUrl((string) $this->t('Swift Mailer documentation'), Url::fromUri('https://swiftmailer.symfony.com/docs/sending.html#transport-types'))->toString()]),
+      '#description' => $this->t('Not sure which transport type to choose? The @documentation gives you a good overview of the various transport types.', ['@documentation' => Link::fromTextAndUrl((string) $this->t('Swift Mailer documentation'), Url::fromUri('http://swiftmailer.org/docs/sending.html#transport-types'))->toString()]),
     ];
 
     $form['transport']['configuration'] = [
@@ -96,7 +96,7 @@ class SettingsForm extends ConfigFormBase {
       server of your choice. You need to specify which SMTP server
       to use. Please refer to the @documentation for more details
       about this transport type.',
-          ['@documentation' => Link::fromTextAndUrl($this->t('Swift Mailer documentation'), Url::fromUri('https://swiftmailer.symfony.com/docs/sending.html#the-smtp-transport'))->toString()]) . '</p>',
+          ['@documentation' => Link::fromTextAndUrl($this->t('Swift Mailer documentation'), Url::fromUri('http://swiftmailer.org/docs/sending.html#the-smtp-transport'))->toString()]) . '</p>',
     ];
 
     $form['transport']['configuration'][SWIFTMAILER_TRANSPORT_SMTP]['server'] = [
@@ -228,7 +228,7 @@ class SettingsForm extends ConfigFormBase {
       MTA. If you do not provide any path then Swift Mailer
       defaults to /usr/sbin/sendmail. You can read more about
       this transport type in the @documentation.',
-          ['@documentation' => Link::fromTextAndUrl($this->t('Swift Mailer documentation'), Url::fromUri('https://swiftmailer.symfony.com/docs/sending.html#the-sendmail-transport'))->toString()]) . '</p>',
+          ['@documentation' => Link::fromTextAndUrl($this->t('Swift Mailer documentation'), Url::fromUri('http://swiftmailer.org/docs/sending.html#the-sendmail-transport'))->toString()]) . '</p>',
     ];
 
     $form['transport']['configuration'][SWIFTMAILER_TRANSPORT_SENDMAIL]['path'] = [
@@ -242,7 +242,7 @@ class SettingsForm extends ConfigFormBase {
       '#type' => 'radios',
       '#title' => $this->t('Mode'),
       '#options' => ['bs' => 'bs', 't' => 't '],
-      '#description' => $this->t('Not sure which option to choose? Go with <em>bs</em>. You can read more about the above two modes in the @documentation.', ['@documentation' => Link::fromTextAndUrl($this->t('Swift Mailer documentation'), Url::fromUri('https://swiftmailer.symfony.com/docs/sendmail-transport'))->toString()]),
+      '#description' => $this->t('Not sure which option to choose? Go with <em>bs</em>. You can read more about the above two modes in the @documentation.', ['@documentation' => Link::fromTextAndUrl($this->t('Swift Mailer documentation'), Url::fromUri('http://swiftmailer.org/docs/sendmail-transport'))->toString()]),
       '#default_value' => $config->get('sendmail_mode'),
     ];
 
@@ -316,7 +316,6 @@ class SettingsForm extends ConfigFormBase {
 
     if ($form_state->hasValue(['transport', 'type'])) {
       $config->set('transport', $form_state->getValue(['transport', 'type']));
-      $messenger = \Drupal::messenger();
 
       switch ($form_state->getValue(['transport', 'type'])) {
         case SWIFTMAILER_TRANSPORT_SMTP:
@@ -328,25 +327,25 @@ class SettingsForm extends ConfigFormBase {
             $config->get('smtp_credential_provider') => $form_state->getValue(['transport', 'configuration', SWIFTMAILER_TRANSPORT_SMTP, 'credentials', $config->get('smtp_credential_provider')])
           ]);
           $config->save();
-          $messenger->addStatus($this->t('Drupal has been configured to send all e-mails using the SMTP transport type.'));
+          drupal_set_message($this->t('Drupal has been configured to send all e-mails using the SMTP transport type.'), 'status');
           break;
 
         case SWIFTMAILER_TRANSPORT_SENDMAIL:
           $config->set('sendmail_path', $form_state->getValue(['transport', 'configuration', SWIFTMAILER_TRANSPORT_SENDMAIL, 'path']));
           $config->set('sendmail_mode', $form_state->getValue(['transport', 'configuration', SWIFTMAILER_TRANSPORT_SENDMAIL, 'mode']));
           $config->save();
-          $messenger->addStatus($this->t('Drupal has been configured to send all e-mails using the Sendmail transport type.'));
+          drupal_set_message($this->t('Drupal has been configured to send all e-mails using the Sendmail transport type.'), 'status');
           break;
 
         case SWIFTMAILER_TRANSPORT_NATIVE:
           $config->save();
-          $messenger->addStatus($this->t('Drupal has been configured to send all e-mails using the PHP transport type.'));
+          drupal_set_message($this->t('Drupal has been configured to send all e-mails using the PHP transport type.'), 'status');
           break;
 
         case SWIFTMAILER_TRANSPORT_SPOOL:
           $config->set('spool_directory', $form_state->getValue(['transport', 'configuration', SWIFTMAILER_TRANSPORT_SPOOL, 'directory']));
           $config->save();
-          $messenger->addStatus($this->t('Drupal has been configured to send all e-mails using the Spool transport type.'));
+          drupal_set_message($this->t('Drupal has been configured to send all e-mails using the Spool transport type.'), 'status');
           break;
       }
     }

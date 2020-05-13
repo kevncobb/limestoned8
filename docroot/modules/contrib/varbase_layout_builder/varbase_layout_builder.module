@@ -144,8 +144,8 @@ function varbase_layout_builder_preprocess_layout(&$variables) {
       }
 
       // Add custom Varbase Layout Builder classes.
-      if (isset($variables['settings']['vlb_section_config']['vlb_classes'])) {
-        $final_classes = explode(' ', $variables['settings']['vlb_section_config']['vlb_classes']);
+      if (isset($current_vlb_section_config) && $current_vlb_section_config_id == 'vlb_classes') {
+        $final_classes = explode(' ', $current_vlb_section_config);
 
         // Add the final list of css classes to the class attribute.
         if (!empty($final_classes)) {
@@ -330,6 +330,23 @@ function varbase_layout_builder_form_layout_builder_configure_section_alter(&$fo
               '#prefix' => '<hr />',
             ];
           }
+          elseif ($style_option['field_type'] == 'textarea') {
+            $default_value = '';
+            if (isset($vlb_section_config[$style_option_id])) {
+              $default_value = $vlb_section_config[$style_option_id];
+            }
+            elseif (isset($style_option['default_value'])) {
+              $default_value = $style_option['default_value'];
+            }
+            $form[$style_option['group']][$style_option_id] = [
+              '#type' => 'textarea',
+              '#title' => (isset($style_option['label']) ? $style_option['label'] : ''),
+              '#description' => (isset($style_option['description']) ? $style_option['description'] : NULL),
+              '#default_value' => $default_value,
+              '#required' => (isset($style_option['required']) ? $style_option['required'] : NULL),
+              '#prefix' => '<hr />',
+            ];
+          }
           elseif ($style_option['field_type'] == 'checkbox') {
 
             $default_value = '';
@@ -346,6 +363,60 @@ function varbase_layout_builder_form_layout_builder_configure_section_alter(&$fo
               '#description' => (isset($style_option['description']) ? $style_option['description'] : NULL),
               '#default_value' => $default_value,
               '#prefix' => '<hr />',
+            ];
+          }
+          elseif ($style_option['field_type'] == 'list_string') {
+
+            $default_value = '';
+            if (isset($vlb_section_config[$style_option_id])) {
+              $default_value = $vlb_section_config[$style_option_id];
+            }
+            elseif (isset($style_option['default_value'])) {
+              $default_value = $style_option['default_value'];
+            }
+
+            $options = [];
+
+            if (isset($style_option['options_source_config'])) {
+              $options_source_config = \Drupal::configFactory()->getEditable($style_option['options_source_config']);
+              if (isset($options_source_config)) {
+                $options_source_map = $options_source_config->get($style_option['options_source_map']);
+
+                $options_source_options = ['_none' => t('N/A')];
+                $lines = explode(PHP_EOL, $options_source_map);
+                foreach ($lines as $line) {
+                  $line = explode($style_option['options_source_schema'], $line);
+                  $options_source_options[$line[0]] = $line[1];
+                }
+
+                $options = $options_source_options;
+              }
+            }
+
+            if (isset($style_option['options'])
+              && count($style_option['options']) > 0) {
+
+              if (isset($style_option['options']['empty_option'])
+                && $style_option['options']['empty_option']) {
+                $options = ['_none' => t('N/A')];
+              }
+
+              foreach ($style_option['options'] as $option) {
+                if (isset($option['value']) && isset($option['label'])) {
+                  $options[$option['value']] = $option['label'];
+                }
+              }
+            }
+
+            $form[$style_option['group']][$style_option_id] = [
+              '#type' => 'select',
+              '#title' => (isset($style_option['label']) ? $style_option['label'] : ''),
+              '#description' => (isset($style_option['description']) ? $style_option['description'] : NULL),
+              '#multiple' => (isset($style_option['multiple']) ? $style_option['multiple'] : FALSE),
+              '#required' => (isset($style_option['required']) ? $style_option['required'] : FALSE),
+              '#prefix' => '<hr />',
+              '#options' => $options,
+              '#default_value' => $default_value,
             ];
           }
 
@@ -764,7 +835,7 @@ function varbase_layout_builder_form_node_form_alter(&$form, FormStateInterface 
 function _varbase_layout_builder_form_node_form_submit(array &$form, FormStateInterface $form_state) {
 
   $node = $form_state->getFormObject()->getEntity();
-  $node_type_display = entity_get_display('node', $node->bundle(), 'default');
+  $node_type_display = \Drupal::service('entity_display.repository')->getViewDisplay('node', $node->bundle(), 'default');
 
   // Only When submitted after a new creation of a node with which it's
   // content type has an enabled layout builder on it's default display.

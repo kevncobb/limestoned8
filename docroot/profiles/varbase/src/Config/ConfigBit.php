@@ -67,13 +67,17 @@ class ConfigBit {
    * Get a list of sub list of config.
    *
    * @param string $config_bit_file_name
-   *   Config bit file name in the root configbit folder.
+   *   The Config bit file name in the root configbit folder.
    * @param string $condition_name
-   *   Condition name in the config bit file.
+   *   The Condition name in the config bit file.
    * @param string|bool $condition_value
-   *   Condition value for the condition name in the config bit file.
+   *   The Condition value for the condition name in the config bit file.
    * @param string $sublist
-   *   Sub list item name to get a sub list of data. not all the list.
+   *   The Sub list item name to get a sub list of data. not all the list.
+   * @param string $type
+   *   The type of profile.
+   * @param string $project
+   *   The project.
    *
    * @return array
    *   Get List config as an array.
@@ -101,14 +105,18 @@ class ConfigBit {
   }
 
   /**
-   * Applay the action of archive files to the given config bit file.
+   * Apply the action of archive files to the given config bit file.
    *
    * @param string $config_bit_file_name
-   *   Config bit file name in the root configbit folder.
+   *   The Config bit file name in the root configbit folder.
    * @param string $condition_name
-   *   Condition name in the config bit file.
+   *   The Condition name in the config bit file.
    * @param string|bool $condition_value
-   *   Condition value for the condition name in the config bit file.
+   *   The Condition value for the condition name in the config bit file.
+   * @param string $type
+   *   The type of profile.
+   * @param string $project
+   *   The project.
    */
   public static function actionArchiveFiles($config_bit_file_name, $condition_name, $condition_value, $type = 'profile', $project = 'varbase') {
     $config_bit_data = ConfigBit::getConfigBit($config_bit_file_name, $type, $project);
@@ -126,14 +134,14 @@ class ConfigBit {
         $config_file = drupal_get_path($type, $project) . '/' . $language_config_file;
         if (file_exists($config_file)) {
           $config_file_backup = $config_file . $config_bit_data['action']['archive_files']['archive_extensiton'];
-          file_unmanaged_move($config_file, $config_file_backup);
+          \Drupal::service('file_system')->move($config_file, $config_file_backup);
         }
       }
     }
   }
 
   /**
-   * Applay the action of Un archive files to the given config bit file.
+   * Apply the action of Un archive files to the given config bit file.
    *
    * @param string $config_bit_file_name
    *   Config bit file name in the root configbit folder.
@@ -141,6 +149,10 @@ class ConfigBit {
    *   Condition name in the config bit file.
    * @param string|bool $condition_value
    *   Condition value for the condition name in the config bit file.
+   * @param string $type
+   *   The type of profile.
+   * @param string $project
+   *   The project.
    */
   public static function actionUnArchiveFiles($config_bit_file_name, $condition_name, $condition_value, $type = 'profile', $project = 'varbase') {
     $config_bit_data = ConfigBit::getConfigBit($config_bit_file_name, $type, $project);
@@ -157,23 +169,27 @@ class ConfigBit {
         $config_file = drupal_get_path($type, $project) . '/' . $language_config_file;
         $config_file_backup = $config_file . $config_bit_data['action']['unarchive_files']['archive_extensiton'];
         if (!file_exists($config_file) && file_exists($config_file_backup)) {
-          file_unmanaged_move($config_file_backup, $config_file);
+          \Drupal::service('file_system')->move($config_file_backup, $config_file);
         }
       }
     }
   }
 
   /**
-   * Applay the action of adding config bit in to the parent file.
+   * Apply the action of adding config bit in to the parent file.
    *
    * @param string $config_bit_file_name
-   *   Config bit file name in the root configbit folder.
+   *   The Config bit file name in the root configbit folder.
    * @param string $condition_name
-   *   Condition name in the config bit file.
+   *   The Condition name in the config bit file.
    * @param string|bool $condition_value
-   *   Condition value for the condition name in the config bit file.
+   *   The Condition value for the condition name in the config bit file.
    * @param string $target
-   *   Targent item in the parent config file.
+   *   The Target item in the parent config file.
+   * @param string $type
+   *   The type of profile.
+   * @param string $project
+   *   The project.
    */
   public static function actionAdd($config_bit_file_name, $condition_name, $condition_value, $target, $type = 'profile', $project = 'varbase') {
     $config_bit_data = ConfigBit::getConfigBit($config_bit_file_name, $type, $project);
@@ -211,16 +227,20 @@ class ConfigBit {
   }
 
   /**
-   * Applay the action of removing config bit from the parent file.
+   * Apply the action of removing config bit from the parent file.
    *
    * @param string $config_bit_file_name
-   *   Config bit file name in the root configbit folder.
+   *   The Config bit file name in the root configbit folder.
    * @param string $condition_name
-   *   Condition name in the config bit file.
+   *   The Condition name in the config bit file.
    * @param string|bool $condition_value
-   *   Condition value for the condition name in the config bit file.
+   *   The Condition value for the condition name in the config bit file.
    * @param string $target
-   *   Targent item in the parent config file.
+   *   The Target item in the parent config file.
+   * @param string $type
+   *   The type of profile.
+   * @param string $project
+   *   The project.
    */
   public static function actionRemove($config_bit_file_name, $condition_name, $condition_value, $target, $type = 'profile', $project = 'varbase') {
     $config_bit_data = ConfigBit::getConfigBit($config_bit_file_name, $type, $project);

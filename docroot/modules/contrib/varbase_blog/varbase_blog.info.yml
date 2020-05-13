@@ -5,19 +5,20 @@ core: 8.x
 # version: 8.x-8.x-dev
 package: Varbase
 # project: varbase_blog
+core_version_requirement: ^8 || ^9
 dependencies:
   - varbase_core:varbase_core
   - varbase_media:varbase_media
   - varbase_seo:varbase_seo
-  - drupal:statistics
   - vmi:vmi
   - taxonomy_menu:taxonomy_menu
 install:
+  - statistics
   - length_indicator
   - advanced_text_formatter
   - maxlength
 
-# Information added by Drupal.org packaging script on 2019-12-19
-version: '8.x-8.0'
+# Information added by Drupal.org packaging script on 2020-02-25
+version: '8.x-8.1'
 project: 'varbase_blog'
-datestamp: 1576794805
+datestamp: 1582639939
