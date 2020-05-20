@@ -1,3 +1,4 @@
+
 .block-limestone-breadcrumbs nav {
   margin: 0px 0 5px -30px;
   @include breakpoint(medium) {
@@ -57,4 +58,8 @@
       transform: rotate(-90deg);
     }
   }
+}
+
+.block-limestone-breadcrumbs.bg-l-gray nav {
+  background-color: $light-gray;
 }

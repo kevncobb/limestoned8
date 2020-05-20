@@ -111,7 +111,7 @@ view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class,
           {% if paragraph_title and paragraph_title_status %}<h2 class="text-center">{{- paragraph_title -}}</h2>{% endif %}
           {{ title_suffix }}
           {# Button trigger modal #}
-        <button type="button" class="btn btn-primary btn-lg btn-modal" data-toggle="modal" data-target="#{{ paragraph_id_modal }}">
+        <button type="button" class="btn btn-primary btn-lg btn-modal" data-open="{{ paragraph_id_modal }}">
             {{ content.bp_modal_button_text }}
         </button>
       </div>
@@ -120,11 +120,11 @@ view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class,
 </div>
 
 {# Modal markup with modal title, and loops for modal body and modal footer. #}
-<div class="modal fade" id="{{ paragraph_id_modal }}" tabindex="-1" role="dialog" aria-labelledby="{{ paragraph_id_modal }}-label" aria-hidden="true">
+<div class="large reveal" id="{{ paragraph_id_modal }}" tabindex="-1" role="dialog" aria-labelledby="{{ paragraph_id_modal }}-label" aria-hidden="true" data-reveal>
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <button class="close-button" data-close aria-label="Close modal" type="button">
           <span aria-hidden="true">&times;</span>
         </button>
           {% if content.bp_modal_title|render %}
