@@ -24,6 +24,12 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-clone:before {
+  content: "\f24d";
+}
+.icon-chevron-down:before {
+  content: "\f078";
+}
 .icon-instagram:before {
   content: "\e966";
   color: #e4405f;
@@ -480,7 +486,4 @@
 }
 .icon-stack:before {
   content: "\e965";
-}
-.icon-chevron-down:before {
-  content: "\f078";
 }
