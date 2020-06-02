@@ -177,13 +177,15 @@
           background-color: #ffffff;
         }
       }
-      ul.submenu > li > ul.submenu {
-        float: left;
-        margin-left: 0;
-        width: 100%;
-        li > a {
-          padding-left: 58px;
-          background-color: #ffffff;
+      ul.submenu > li {
+        > ul.submenu {
+          float: left;
+          margin-left: 0;
+          width: 100%;
+          li > a {
+            padding-left: 58px;
+            background-color: #ffffff;
+          }
         }
       }
     }
