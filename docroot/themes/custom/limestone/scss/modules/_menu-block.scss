@@ -168,6 +168,15 @@
           font-family: $header-font-family;
         }
       }
+      ul.submenu  {
+        float: left;
+        margin-left: 0;
+        width: 100%;
+        li > a {
+          padding-left: 58px;
+          background-color: #ffffff;
+        }
+      }
       .submenu.nested {
         float: left;
         margin-left: 0;
@@ -175,17 +184,6 @@
         li > a {
           padding-left: 48px;
           background-color: #ffffff;
-        }
-      }
-      ul.submenu > li {
-        > ul.submenu {
-          float: left;
-          margin-left: 0;
-          width: 100%;
-          li > a {
-            padding-left: 58px;
-            background-color: #ffffff;
-          }
         }
       }
     }
