@@ -159,30 +159,32 @@
     float: left;
     width: 100%;
     margin-left: 0;
-    li > a {
-      padding-left: 38px;
-      background-color: #fdfdfd;
-       &::before {
-         content: "- ";
-         font-family: $header-font-family;
+    > li {
+      > a {
+        padding-left: 38px;
+        background-color: #fdfdfd;
+        &::before {
+          content: "- ";
+          font-family: $header-font-family;
+        }
       }
-    }
-    .menu.nested {
-      float: left;
-      margin-left: 0;
-      width: 100%;
-      li > a {
-        padding-left: 48px;
-        background-color: #ffffff;
+      .submenu.nested {
+        float: left;
+        margin-left: 0;
+        width: 100%;
+        li > a {
+          padding-left: 48px;
+          background-color: #ffffff;
+        }
       }
-    }
-    .menu.nested {
-      float: left;
-      margin-left: 0;
-      width: 100%;
-      li > a {
-        padding-left: 58px;
-        background-color: #ffffff;
+      ul.submenu > li > ul.submenu {
+        float: left;
+        margin-left: 0;
+        width: 100%;
+        li > a {
+          padding-left: 58px;
+          background-color: #ffffff;
+        }
       }
     }
   }
