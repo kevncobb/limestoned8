@@ -43,7 +43,8 @@
     "drupal/entity_browser": "2.x-dev",
     "drupal/sendgrid_integration": "^1.2",
     "drupal/echo": "^1.9",
-    "drupal/organigrams": "^1.0@beta"
+    "drupal/organigrams": "^1.0@beta",
+    "drupal/search_api_solr": "^4.0"
   },
   "replace": {
     "ajaxorg/ace-builds": "*"
