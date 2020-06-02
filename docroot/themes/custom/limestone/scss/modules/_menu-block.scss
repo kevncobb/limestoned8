@@ -162,7 +162,7 @@
     > li {
       > a {
         padding-left: 38px;
-        background-color: #fdfdfd;
+        background-color: #fbfbfb;
         &::before {
           content: "- ";
           font-family: $header-font-family;
@@ -175,6 +175,10 @@
         li > a {
           padding-left: 58px;
           background-color: #ffffff;
+          &::before {
+            content: "- ";
+            font-family: $header-font-family;
+          }
         }
       }
       .submenu.nested {
