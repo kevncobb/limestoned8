@@ -147,7 +147,7 @@
       // Expands the active menu
       li.menu-item--expanded.menu-item--active-trail.is-accordion-submenu-parent.has-submenu-toggle[tabindex="0"] {
         ul.is-accordion-submenu {
-          display: block !important;
+          display: block;
         }
       }
     }
