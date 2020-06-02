@@ -44,7 +44,8 @@
     "drupal/sendgrid_integration": "^1.2",
     "drupal/echo": "^1.9",
     "drupal/organigrams": "^1.0@beta",
-    "drupal/search_api_solr": "^4.0"
+    "drupal/search_api_solr": "^4.0",
+    "drupal/search_api": "^1.17"
   },
   "replace": {
     "ajaxorg/ace-builds": "*"
