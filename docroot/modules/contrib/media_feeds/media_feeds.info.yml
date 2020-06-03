@@ -5,10 +5,10 @@ description: 'Allows mapping to Media fields.'
 package: Feeds
 dependencies:
   - feeds:feeds
-  - core:media
+  - drupal:media
 
-# Information added by Drupal.org packaging script on 2019-01-31
+# Information added by Drupal.org packaging script on 2019-05-18
 version: '8.x-1.x-dev'
 core: '8.x'
 project: 'media_feeds'
-datestamp: 1548965885
+datestamp: 1558178290
