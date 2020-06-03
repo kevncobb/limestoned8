@@ -121,8 +121,7 @@
         "dist": {
             "type": "zip",
             "url": "https://api.github.com/repos/masayuki0812/c3/zipball/2b7f8d96f8215f949061ba14253904b0881f0ebb",
-            "reference": "2b7f8d96f8215f949061ba14253904b0881f0ebb",
-            "shasum": null
+            "reference": "2b7f8d96f8215f949061ba14253904b0881f0ebb"
         },
         "require": {
             "bower-asset/d3": "~3.5.0"
@@ -145,8 +144,7 @@
         "dist": {
             "type": "zip",
             "url": "https://api.github.com/repos/nnnick/Chart.js/zipball/924a66bae23f7e938531024951f7251d46785473",
-            "reference": "924a66bae23f7e938531024951f7251d46785473",
-            "shasum": null
+            "reference": "924a66bae23f7e938531024951f7251d46785473"
         },
         "type": "bower-asset",
         "installation-source": "dist",
@@ -166,8 +164,7 @@
         "dist": {
             "type": "zip",
             "url": "https://api.github.com/repos/mbostock-bower/d3-bower/zipball/7a826d211d5067867debf9ce24a9987e0cb02b6e",
-            "reference": "7a826d211d5067867debf9ce24a9987e0cb02b6e",
-            "shasum": null
+            "reference": "7a826d211d5067867debf9ce24a9987e0cb02b6e"
         },
         "type": "bower-asset",
         "installation-source": "dist",
@@ -187,8 +184,7 @@
         "dist": {
             "type": "zip",
             "url": "https://api.github.com/repos/constancecchen/object-fit-polyfill/zipball/0a59e20c327c8b7984df3eaf852537656e3ada1c",
-            "reference": "0a59e20c327c8b7984df3eaf852537656e3ada1c",
-            "shasum": null
+            "reference": "0a59e20c327c8b7984df3eaf852537656e3ada1c"
         },
         "type": "bower-asset",
         "installation-source": "dist",
@@ -447,6 +443,207 @@
         ]
     },
     {
+        "name": "consolidation/annotated-command",
+        "version": "2.12.0",
+        "version_normalized": "2.12.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/consolidation/annotated-command.git",
+            "reference": "512a2e54c98f3af377589de76c43b24652bcb789"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/consolidation/annotated-command/zipball/512a2e54c98f3af377589de76c43b24652bcb789",
+            "reference": "512a2e54c98f3af377589de76c43b24652bcb789",
+            "shasum": ""
+        },
+        "require": {
+            "consolidation/output-formatters": "^3.4",
+            "php": ">=5.4.5",
+            "psr/log": "^1",
+            "symfony/console": "^2.8|^3|^4",
+            "symfony/event-dispatcher": "^2.5|^3|^4",
+            "symfony/finder": "^2.5|^3|^4"
+        },
+        "require-dev": {
+            "g1a/composer-test-scenarios": "^3",
+            "php-coveralls/php-coveralls": "^1",
+            "phpunit/phpunit": "^6",
+            "squizlabs/php_codesniffer": "^2.7"
+        },
+        "time": "2019-03-08T16:55:03+00:00",
+        "type": "library",
+        "extra": {
+            "scenarios": {
+                "symfony4": {
+                    "require": {
+                        "symfony/console": "^4.0"
+                    },
+                    "config": {
+                        "platform": {
+                            "php": "7.1.3"
+                        }
+                    }
+                },
+                "symfony2": {
+                    "require": {
+                        "symfony/console": "^2.8"
+                    },
+                    "require-dev": {
+                        "phpunit/phpunit": "^4.8.36"
+                    },
+                    "remove": [
+                        "php-coveralls/php-coveralls"
+                    ],
+                    "config": {
+                        "platform": {
+                            "php": "5.4.8"
+                        }
+                    },
+                    "scenario-options": {
+                        "create-lockfile": "false"
+                    }
+                },
+                "phpunit4": {
+                    "require-dev": {
+                        "phpunit/phpunit": "^4.8.36"
+                    },
+                    "remove": [
+                        "php-coveralls/php-coveralls"
+                    ],
+                    "config": {
+                        "platform": {
+                            "php": "5.4.8"
+                        }
+                    }
+                }
+            },
+            "branch-alias": {
+                "dev-master": "2.x-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Consolidation\\AnnotatedCommand\\": "src"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Greg Anderson",
+                "email": "greg.1.anderson@greenknowe.org"
+            }
+        ],
+        "description": "Initialize Symfony Console commands from annotated command class methods."
+    },
+    {
+        "name": "consolidation/output-formatters",
+        "version": "3.5.0",
+        "version_normalized": "3.5.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/consolidation/output-formatters.git",
+            "reference": "99ec998ffb697e0eada5aacf81feebfb13023605"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/consolidation/output-formatters/zipball/99ec998ffb697e0eada5aacf81feebfb13023605",
+            "reference": "99ec998ffb697e0eada5aacf81feebfb13023605",
+            "shasum": ""
+        },
+        "require": {
+            "dflydev/dot-access-data": "^1.1.0",
+            "php": ">=5.4.0",
+            "symfony/console": "^2.8|^3|^4",
+            "symfony/finder": "^2.5|^3|^4"
+        },
+        "require-dev": {
+            "g1a/composer-test-scenarios": "^3",
+            "php-coveralls/php-coveralls": "^1",
+            "phpunit/phpunit": "^5.7.27",
+            "squizlabs/php_codesniffer": "^2.7",
+            "symfony/var-dumper": "^2.8|^3|^4",
+            "victorjonsson/markdowndocs": "^1.3"
+        },
+        "suggest": {
+            "symfony/var-dumper": "For using the var_dump formatter"
+        },
+        "time": "2019-05-30T23:16:01+00:00",
+        "type": "library",
+        "extra": {
+            "scenarios": {
+                "symfony4": {
+                    "require": {
+                        "symfony/console": "^4.0"
+                    },
+                    "require-dev": {
+                        "phpunit/phpunit": "^6"
+                    },
+                    "config": {
+                        "platform": {
+                            "php": "7.1.3"
+                        }
+                    }
+                },
+                "symfony3": {
+                    "require": {
+                        "symfony/console": "^3.4",
+                        "symfony/finder": "^3.4",
+                        "symfony/var-dumper": "^3.4"
+                    },
+                    "config": {
+                        "platform": {
+                            "php": "5.6.32"
+                        }
+                    }
+                },
+                "symfony2": {
+                    "require": {
+                        "symfony/console": "^2.8"
+                    },
+                    "require-dev": {
+                        "phpunit/phpunit": "^4.8.36"
+                    },
+                    "remove": [
+                        "php-coveralls/php-coveralls"
+                    ],
+                    "config": {
+                        "platform": {
+                            "php": "5.4.8"
+                        }
+                    },
+                    "scenario-options": {
+                        "create-lockfile": "false"
+                    }
+                }
+            },
+            "branch-alias": {
+                "dev-master": "3.x-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Consolidation\\OutputFormatters\\": "src"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Greg Anderson",
+                "email": "greg.1.anderson@greenknowe.org"
+            }
+        ],
+        "description": "Format text by applying transformations provided by plug-in formatters."
+    },
+    {
         "name": "cweagans/composer-patches",
         "version": "1.7.4",
         "version_normalized": "1.7.4.0",
@@ -562,6 +759,67 @@
             "openssl",
             "security",
             "symmetric key cryptography"
+        ]
+    },
+    {
+        "name": "dflydev/dot-access-data",
+        "version": "v1.1.0",
+        "version_normalized": "1.1.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/dflydev/dflydev-dot-access-data.git",
+            "reference": "3fbd874921ab2c041e899d044585a2ab9795df8a"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/dflydev/dflydev-dot-access-data/zipball/3fbd874921ab2c041e899d044585a2ab9795df8a",
+            "reference": "3fbd874921ab2c041e899d044585a2ab9795df8a",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.3.2"
+        },
+        "time": "2017-01-20T21:14:22+00:00",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "1.0-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "Dflydev\\DotAccessData": "src"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Dragonfly Development Inc.",
+                "email": "info@dflydev.com",
+                "homepage": "http://dflydev.com"
+            },
+            {
+                "name": "Beau Simensen",
+                "email": "beau@dflydev.com",
+                "homepage": "http://beausimensen.com"
+            },
+            {
+                "name": "Carlos Frutos",
+                "email": "carlos@kiwing.it",
+                "homepage": "https://github.com/cfrutos"
+            }
+        ],
+        "description": "Given a deep data structure, access data by dot notation.",
+        "homepage": "https://github.com/dflydev/dflydev-dot-access-data",
+        "keywords": [
+            "access",
+            "data",
+            "dot",
+            "notation"
         ]
     },
     {
@@ -2361,34 +2619,34 @@
     },
     {
         "name": "drupal/captcha",
-        "version": "1.0.0",
-        "version_normalized": "1.0.0.0",
+        "version": "1.1.0",
+        "version_normalized": "1.1.0.0",
         "source": {
             "type": "git",
             "url": "https://git.drupalcode.org/project/captcha.git",
-            "reference": "8.x-1.0"
+            "reference": "8.x-1.1"
         },
         "dist": {
             "type": "zip",
-            "url": "https://ftp.drupal.org/files/projects/captcha-8.x-1.0.zip",
-            "reference": "8.x-1.0",
-            "shasum": "1707c67b97a17d701a194e6da86ad9b21631915b"
+            "url": "https://ftp.drupal.org/files/projects/captcha-8.x-1.1.zip",
+            "reference": "8.x-1.1",
+            "shasum": "2eaf6f00ea256652c09f785b26dc933cc5b3dd26"
         },
         "require": {
-            "drupal/core": "*"
+            "drupal/core": "^8.8 || ^9"
         },
         "type": "drupal-module",
         "extra": {
-            "branch-alias": {
-                "dev-1.x": "1.x-dev"
-            },
             "drupal": {
-                "version": "8.x-1.0",
-                "datestamp": "1582292983",
+                "version": "8.x-1.1",
+                "datestamp": "1591160977",
                 "security-coverage": {
                     "status": "covered",
                     "message": "Covered by Drupal's security advisory policy"
                 }
+            },
+            "branch-alias": {
+                "dev-8.x-1.x": "1.x-dev"
             }
         },
         "installation-source": "dist",
@@ -2404,6 +2662,10 @@
             {
                 "name": "elachlan",
                 "homepage": "https://www.drupal.org/user/1021502"
+            },
+            {
+                "name": "japerry",
+                "homepage": "https://www.drupal.org/user/45640"
             },
             {
                 "name": "naveenvalecha",
@@ -2425,7 +2687,8 @@
         "description": "The CAPTCHA module provides this feature to virtually any user facing web form on a Drupal site.",
         "homepage": "https://www.drupal.org/project/captcha",
         "support": {
-            "source": "https://git.drupalcode.org/project/captcha"
+            "source": "https://git.drupalcode.org/project/captcha",
+            "issues": "https://www.drupal.org/project/issues/captcha"
         }
     },
     {
@@ -4489,6 +4752,59 @@
         }
     },
     {
+        "name": "drupal/echo",
+        "version": "1.9.0",
+        "version_normalized": "1.9.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://git.drupalcode.org/project/echo.git",
+            "reference": "8.x-1.9"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://ftp.drupal.org/files/projects/echo-8.x-1.9.zip",
+            "reference": "8.x-1.9",
+            "shasum": "cce673ccef1511432ff2f395eb4a2963ad04465c"
+        },
+        "require": {
+            "drupal/core": "~8.0"
+        },
+        "type": "drupal-module",
+        "extra": {
+            "branch-alias": {
+                "dev-1.x": "1.x-dev"
+            },
+            "drupal": {
+                "version": "8.x-1.9",
+                "datestamp": "1331302548",
+                "security-coverage": {
+                    "status": "covered",
+                    "message": "Covered by Drupal's security advisory policy"
+                }
+            }
+        },
+        "installation-source": "dist",
+        "notification-url": "https://packages.drupal.org/8/downloads",
+        "license": [
+            "GPL-2.0-or-later"
+        ],
+        "authors": [
+            {
+                "name": "Nafes",
+                "homepage": "https://www.drupal.org/user/2489926"
+            },
+            {
+                "name": "pillarsdotnet",
+                "homepage": "https://www.drupal.org/user/36148"
+            }
+        ],
+        "description": "Wraps content in a themed webpage and returns it as text.",
+        "homepage": "https://www.drupal.org/project/echo",
+        "support": {
+            "source": "https://git.drupalcode.org/project/echo"
+        }
+    },
+    {
         "name": "drupal/embed",
         "version": "1.4.0",
         "version_normalized": "1.4.0.0",
@@ -4683,18 +4999,12 @@
     },
     {
         "name": "drupal/entity_browser",
-        "version": "2.5.0",
-        "version_normalized": "2.5.0.0",
+        "version": "dev-2.x",
+        "version_normalized": "dev-2.x",
         "source": {
             "type": "git",
             "url": "https://git.drupalcode.org/project/entity_browser.git",
-            "reference": "8.x-2.5"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://ftp.drupal.org/files/projects/entity_browser-8.x-2.5.zip",
-            "reference": "8.x-2.5",
-            "shasum": "29456b961f0f90ff064601ab8a382446a8143774"
+            "reference": "188662acac01e3f05f3860ae6abe2ba77d5e5082"
         },
         "require": {
             "drupal/core": "^8.8 || ^9"
@@ -4710,16 +5020,19 @@
         },
         "type": "drupal-module",
         "extra": {
+            "branch-alias": {
+                "dev-2.x": "2.x-dev"
+            },
             "drupal": {
-                "version": "8.x-2.5",
-                "datestamp": "1588015347",
+                "version": "8.x-2.4+5-dev",
+                "datestamp": "1588014788",
                 "security-coverage": {
-                    "status": "covered",
-                    "message": "Covered by Drupal's security advisory policy"
+                    "status": "not-covered",
+                    "message": "Dev releases are not covered by Drupal security advisories."
                 }
             }
         },
-        "installation-source": "dist",
+        "installation-source": "source",
         "notification-url": "https://packages.drupal.org/8/downloads",
         "license": [
             "GPL-2.0+"
@@ -4832,8 +5145,8 @@
     },
     {
         "name": "drupal/entity_browser_entity_form",
-        "version": "2.5.0",
-        "version_normalized": "2.5.0.0",
+        "version": "dev-2.x",
+        "version_normalized": "dev-2.x",
         "require": {
             "drupal/core": "^8.7.7 || ^9",
             "drupal/entity_browser": "self.version",
@@ -4841,12 +5154,15 @@
         },
         "type": "metapackage",
         "extra": {
+            "branch-alias": {
+                "dev-2.x": "2.x-dev"
+            },
             "drupal": {
-                "version": "8.x-2.5",
-                "datestamp": "1588015347",
+                "version": "8.x-2.4+5-dev",
+                "datestamp": "1588014788",
                 "security-coverage": {
-                    "status": "covered",
-                    "message": "Covered by Drupal's security advisory policy"
+                    "status": "not-covered",
+                    "message": "Dev releases are not covered by Drupal security advisories."
                 }
             }
         },
@@ -7694,30 +8010,27 @@
     },
     {
         "name": "drupal/media_entity_instagram",
-        "version": "2.0.0",
-        "version_normalized": "2.0.0.0",
+        "version": "2.1.0",
+        "version_normalized": "2.1.0.0",
         "source": {
             "type": "git",
             "url": "https://git.drupalcode.org/project/media_entity_instagram.git",
-            "reference": "8.x-2.0"
+            "reference": "8.x-2.1"
         },
         "dist": {
             "type": "zip",
-            "url": "https://ftp.drupal.org/files/projects/media_entity_instagram-8.x-2.0.zip",
-            "reference": "8.x-2.0",
-            "shasum": "3c2603a3bcb5e92a8af73893eaab51f302fb77c9"
+            "url": "https://ftp.drupal.org/files/projects/media_entity_instagram-8.x-2.1.zip",
+            "reference": "8.x-2.1",
+            "shasum": "e046e9e4df297a6ef065b826e3d8196cf35c3430"
         },
         "require": {
-            "drupal/core": "^8.4.0"
+            "drupal/core": "^8.8 || ^9"
         },
         "type": "drupal-module",
         "extra": {
-            "branch-alias": {
-                "dev-2.x": "2.x-dev"
-            },
             "drupal": {
-                "version": "8.x-2.0",
-                "datestamp": "1569420787",
+                "version": "8.x-2.1",
+                "datestamp": "1591181707",
                 "security-coverage": {
                     "status": "covered",
                     "message": "Covered by Drupal's security advisory policy"
@@ -7982,34 +8295,31 @@
     },
     {
         "name": "drupal/menu_block",
-        "version": "1.6.0",
-        "version_normalized": "1.6.0.0",
+        "version": "dev-1.x",
+        "version_normalized": "dev-1.x",
         "source": {
             "type": "git",
             "url": "https://git.drupalcode.org/project/menu_block.git",
-            "reference": "8.x-1.6"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://ftp.drupal.org/files/projects/menu_block-8.x-1.6.zip",
-            "reference": "8.x-1.6",
-            "shasum": "3da96af15c3a5f5f1966e28b6e87b74228617998"
+            "reference": "d2c71d46bd5ad8ea5e9227cf34aa9bdf9006275b"
         },
         "require": {
             "drupal/core": "^8 || ^9"
         },
         "type": "drupal-module",
         "extra": {
+            "branch-alias": {
+                "dev-1.x": "1.x-dev"
+            },
             "drupal": {
-                "version": "8.x-1.6",
-                "datestamp": "1587721600",
+                "version": "8.x-1.6+3-dev",
+                "datestamp": "1590127183",
                 "security-coverage": {
-                    "status": "covered",
-                    "message": "Covered by Drupal's security advisory policy"
+                    "status": "not-covered",
+                    "message": "Dev releases are not covered by Drupal security advisories."
                 }
             }
         },
-        "installation-source": "dist",
+        "installation-source": "source",
         "notification-url": "https://packages.drupal.org/8/downloads",
         "license": [
             "GPL-2.0-or-later"
@@ -8460,6 +8770,55 @@
         }
     },
     {
+        "name": "drupal/organigrams",
+        "version": "1.0.0-beta1",
+        "version_normalized": "1.0.0.0-beta1",
+        "source": {
+            "type": "git",
+            "url": "https://git.drupalcode.org/project/organigrams.git",
+            "reference": "8.x-1.0-beta1"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://ftp.drupal.org/files/projects/organigrams-8.x-1.0-beta1.zip",
+            "reference": "8.x-1.0-beta1",
+            "shasum": "5fc0ef5339ae5a74ac60591f60904203b0b03dd6"
+        },
+        "require": {
+            "drupal/core": "~8.0"
+        },
+        "type": "drupal-module",
+        "extra": {
+            "branch-alias": {
+                "dev-1.x": "1.x-dev"
+            },
+            "drupal": {
+                "version": "8.x-1.0-beta1",
+                "datestamp": "1578999487",
+                "security-coverage": {
+                    "status": "not-covered",
+                    "message": "Beta releases are not covered by Drupal security advisories."
+                }
+            }
+        },
+        "installation-source": "dist",
+        "notification-url": "https://packages.drupal.org/8/downloads",
+        "license": [
+            "GPL-2.0-or-later"
+        ],
+        "authors": [
+            {
+                "name": "PatrickScheffer",
+                "homepage": "https://www.drupal.org/user/2874857"
+            }
+        ],
+        "description": "Create and manage organigrams.",
+        "homepage": "https://www.drupal.org/project/organigrams",
+        "support": {
+            "source": "https://git.drupalcode.org/project/organigrams"
+        }
+    },
+    {
         "name": "drupal/page_manager",
         "version": "4.0.0-beta6",
         "version_normalized": "4.0.0.0-beta6",
@@ -8819,31 +9178,28 @@
     },
     {
         "name": "drupal/paragraphs_features",
-        "version": "1.8.0",
-        "version_normalized": "1.8.0.0",
+        "version": "1.9.0",
+        "version_normalized": "1.9.0.0",
         "source": {
             "type": "git",
             "url": "https://git.drupalcode.org/project/paragraphs_features.git",
-            "reference": "8.x-1.8"
+            "reference": "8.x-1.9"
         },
         "dist": {
             "type": "zip",
-            "url": "https://ftp.drupal.org/files/projects/paragraphs_features-8.x-1.8.zip",
-            "reference": "8.x-1.8",
-            "shasum": "f50588a3bd6fa8c2be4f8e227d9b9f5520857e9f"
+            "url": "https://ftp.drupal.org/files/projects/paragraphs_features-8.x-1.9.zip",
+            "reference": "8.x-1.9",
+            "shasum": "7768608d792d7c89a3168df21d9b99f9ad826f8c"
         },
         "require": {
-            "drupal/core": "^8.5",
-            "drupal/paragraphs": "^1.3"
+            "drupal/core": "^8.7.7 || ^9",
+            "drupal/paragraphs": "^1.12"
         },
         "type": "drupal-module",
         "extra": {
-            "branch-alias": {
-                "dev-1.x": "1.x-dev"
-            },
             "drupal": {
-                "version": "8.x-1.8",
-                "datestamp": "1582721047",
+                "version": "8.x-1.9",
+                "datestamp": "1591176630",
                 "security-coverage": {
                     "status": "covered",
                     "message": "Covered by Drupal's security advisory policy"
@@ -9945,6 +10301,107 @@
         }
     },
     {
+        "name": "drupal/search_api_solr",
+        "version": "4.0.1",
+        "version_normalized": "4.0.1.0",
+        "source": {
+            "type": "git",
+            "url": "https://git.drupalcode.org/project/search_api_solr.git",
+            "reference": "4.0.1"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://ftp.drupal.org/files/projects/search_api_solr-4.0.1.zip",
+            "reference": "4.0.1",
+            "shasum": "8c5b89633d15c0ec2e7f9e9b2f8df7281e36beed"
+        },
+        "require": {
+            "consolidation/annotated-command": "^2.12|^4.1",
+            "drupal/core": "^8.8 || ^9",
+            "drupal/search_api": "~1.15",
+            "ext-dom": "*",
+            "ext-json": "*",
+            "ext-simplexml": "*",
+            "laminas/laminas-stdlib": "^3.2",
+            "maennchen/zipstream-php": "^1.2|^2.0",
+            "php": "^7.1.3",
+            "solarium/solarium": "~5.0.3|~5.1.5|~5.2.0|~6.0.0"
+        },
+        "conflict": {
+            "drupal/search_api_solr_multilingual": "<3.0.0"
+        },
+        "require-dev": {
+            "drupal/devel": "3.x-dev",
+            "drupal/facets": "1.x-dev",
+            "drupal/geofield": "1.x-dev",
+            "drupal/search_api_autocomplete": "1.x-dev",
+            "drupal/search_api_location": "1.x-dev",
+            "drupal/search_api_spellcheck": "3.x-dev",
+            "monolog/monolog": "^1.25",
+            "phayes/geophp": "^1.2"
+        },
+        "suggest": {
+            "drupal/facets": "Provides facetted search.",
+            "drupal/search_api_autocomplete": "Provides auto complete for search boxes.",
+            "drupal/search_api_location": "Provides location searches.",
+            "drupal/search_api_spellcheck": "Provides spell checking and 'Did You Mean?'."
+        },
+        "type": "drupal-module",
+        "extra": {
+            "drupal": {
+                "version": "4.0.1",
+                "datestamp": "1589886627",
+                "security-coverage": {
+                    "status": "covered",
+                    "message": "Covered by Drupal's security advisory policy"
+                }
+            },
+            "drush": {
+                "services": {
+                    "drush.services.yml": "^9"
+                }
+            }
+        },
+        "installation-source": "dist",
+        "notification-url": "https://packages.drupal.org/8/downloads",
+        "license": [
+            "GPL-2.0-or-later"
+        ],
+        "authors": [
+            {
+                "name": "Markus Kalkbrenner",
+                "homepage": "https://www.drupal.org/u/mkalkbrenner"
+            },
+            {
+                "name": "Other contributors",
+                "homepage": "https://www.drupal.org/node/982682/committers"
+            },
+            {
+                "name": "amateescu",
+                "homepage": "https://www.drupal.org/user/729614"
+            },
+            {
+                "name": "cspitzlay",
+                "homepage": "https://www.drupal.org/user/419305"
+            },
+            {
+                "name": "drunken monkey",
+                "homepage": "https://www.drupal.org/user/205582"
+            },
+            {
+                "name": "mkalkbrenner",
+                "homepage": "https://www.drupal.org/user/124705"
+            }
+        ],
+        "description": "Offers an implementation of the Search API that uses an Apache Solr server for indexing content.",
+        "homepage": "https://www.drupal.org/project/search_api_solr",
+        "support": {
+            "source": "http://git.drupal.org/project/search_api_solr.git",
+            "issues": "https://www.drupal.org/project/issues/search_api_solr",
+            "chat": "https://drupalchat.me/channel/search"
+        }
+    },
+    {
         "name": "drupal/seckit",
         "version": "1.2.0",
         "version_normalized": "1.2.0.0",
@@ -10063,6 +10520,69 @@
         "homepage": "https://www.drupal.org/project/security_review",
         "support": {
             "source": "https://git.drupalcode.org/project/security_review"
+        }
+    },
+    {
+        "name": "drupal/sendgrid_integration",
+        "version": "1.2.0",
+        "version_normalized": "1.2.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://git.drupalcode.org/project/sendgrid_integration.git",
+            "reference": "8.x-1.2"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://ftp.drupal.org/files/projects/sendgrid_integration-8.x-1.2.zip",
+            "reference": "8.x-1.2",
+            "shasum": "a3d9baea4389a6f8804adc5f736c9920ae200131"
+        },
+        "require": {
+            "drupal/core": "~8.0",
+            "drupal/mailsystem": "^4",
+            "fastglass/sendgrid": ">=1.0.6",
+            "html2text/html2text": "~4.0.1"
+        },
+        "type": "drupal-module",
+        "extra": {
+            "drupal": {
+                "version": "8.x-1.2",
+                "datestamp": "1528941232",
+                "security-coverage": {
+                    "status": "covered",
+                    "message": "Covered by Drupal's security advisory policy"
+                }
+            }
+        },
+        "installation-source": "dist",
+        "notification-url": "https://packages.drupal.org/8/downloads",
+        "license": [
+            "GPL v2"
+        ],
+        "authors": [
+            {
+                "name": "Brady Owens (perignon)",
+                "homepage": "https://www.drupal.org/u/perignon",
+                "role": "Maintainer"
+            },
+            {
+                "name": "exlin",
+                "homepage": "https://www.drupal.org/user/695136"
+            }
+        ],
+        "description": "Drupal module for integrating with the SendGrid API.",
+        "homepage": "https://www.drupal.org/project/sendgrid_integration",
+        "keywords": [
+            "SendGrid",
+            "email",
+            "grid",
+            "php",
+            "send",
+            "sendgrid"
+        ],
+        "support": {
+            "source": "http://cgit.drupalcode.org/sendgrid_integration",
+            "issues": "https://drupal.org/project/issues/sendgrid_integration"
         }
     },
     {
@@ -14614,6 +15134,62 @@
         ]
     },
     {
+        "name": "fastglass/sendgrid",
+        "version": "1.0.11",
+        "version_normalized": "1.0.11.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/taz77/sendgrid-php-ng.git",
+            "reference": "95f16f748d609f8455b7c4be74fdd1a8febacaea"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/taz77/sendgrid-php-ng/zipball/95f16f748d609f8455b7c4be74fdd1a8febacaea",
+            "reference": "95f16f748d609f8455b7c4be74fdd1a8febacaea",
+            "shasum": ""
+        },
+        "require": {
+            "guzzlehttp/guzzle": ">=6.2.1",
+            "php": ">=5.5.0",
+            "sendgrid/smtpapi": "~0.5"
+        },
+        "replace": {
+            "sendgrid/sendgrid-php": "*"
+        },
+        "require-dev": {
+            "mockery/mockery": "~0.9",
+            "phpunit/phpunit": "~7.3",
+            "vlucas/phpdotenv": "~1.0"
+        },
+        "time": "2019-01-16T00:58:24+00:00",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "SendGrid\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Brady Owens",
+                "email": "brady@fastglass.net",
+                "homepage": "https://github.com/taz77"
+            }
+        ],
+        "description": "This library allows you to send emails through SendGrid using PHP and Guzzle 6.x.",
+        "homepage": "https://github.com/taz77/sendgrid-php-ng",
+        "keywords": [
+            "email",
+            "grid",
+            "send",
+            "sendgrid"
+        ]
+    },
+    {
         "name": "fileeye/mimemap",
         "version": "1.1.4",
         "version_normalized": "1.1.4.0",
@@ -14867,17 +15443,17 @@
     },
     {
         "name": "html2text/html2text",
-        "version": "4.3.1",
-        "version_normalized": "4.3.1.0",
+        "version": "4.0.1",
+        "version_normalized": "4.0.1.0",
         "source": {
             "type": "git",
             "url": "https://github.com/mtibben/html2text.git",
-            "reference": "61ad68e934066a6f8df29a3d23a6460536d0855c"
+            "reference": "f55104b7c9f99b0937f0e20fe051b19f9c0ecad1"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/mtibben/html2text/zipball/61ad68e934066a6f8df29a3d23a6460536d0855c",
-            "reference": "61ad68e934066a6f8df29a3d23a6460536d0855c",
+            "url": "https://api.github.com/repos/mtibben/html2text/zipball/f55104b7c9f99b0937f0e20fe051b19f9c0ecad1",
+            "reference": "f55104b7c9f99b0937f0e20fe051b19f9c0ecad1",
             "shasum": ""
         },
         "require-dev": {
@@ -14887,7 +15463,7 @@
             "ext-mbstring": "For best performance",
             "symfony/polyfill-mbstring": "If you can't install ext-mbstring"
         },
-        "time": "2020-04-16T23:44:31+00:00",
+        "time": "2016-03-16T23:24:34+00:00",
         "type": "library",
         "installation-source": "dist",
         "autoload": {
@@ -14900,7 +15476,7 @@
         },
         "notification-url": "https://packagist.org/downloads/",
         "license": [
-            "GPL-2.0-or-later"
+            "GPLv2"
         ],
         "description": "Converts HTML to formatted plain text"
     },
@@ -15070,6 +15646,118 @@
             "Simple",
             "dom",
             "html"
+        ]
+    },
+    {
+        "name": "laminas/laminas-stdlib",
+        "version": "3.2.1",
+        "version_normalized": "3.2.1.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/laminas/laminas-stdlib.git",
+            "reference": "2b18347625a2f06a1a485acfbc870f699dbe51c6"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/laminas/laminas-stdlib/zipball/2b18347625a2f06a1a485acfbc870f699dbe51c6",
+            "reference": "2b18347625a2f06a1a485acfbc870f699dbe51c6",
+            "shasum": ""
+        },
+        "require": {
+            "laminas/laminas-zendframework-bridge": "^1.0",
+            "php": "^5.6 || ^7.0"
+        },
+        "replace": {
+            "zendframework/zend-stdlib": "self.version"
+        },
+        "require-dev": {
+            "laminas/laminas-coding-standard": "~1.0.0",
+            "phpbench/phpbench": "^0.13",
+            "phpunit/phpunit": "^5.7.27 || ^6.5.8 || ^7.1.2"
+        },
+        "time": "2019-12-31T17:51:15+00:00",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "3.2.x-dev",
+                "dev-develop": "3.3.x-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Laminas\\Stdlib\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "BSD-3-Clause"
+        ],
+        "description": "SPL extensions, array utilities, error handlers, and more",
+        "homepage": "https://laminas.dev",
+        "keywords": [
+            "laminas",
+            "stdlib"
+        ]
+    },
+    {
+        "name": "laminas/laminas-zendframework-bridge",
+        "version": "1.0.4",
+        "version_normalized": "1.0.4.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/laminas/laminas-zendframework-bridge.git",
+            "reference": "fcd87520e4943d968557803919523772475e8ea3"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/laminas/laminas-zendframework-bridge/zipball/fcd87520e4943d968557803919523772475e8ea3",
+            "reference": "fcd87520e4943d968557803919523772475e8ea3",
+            "shasum": ""
+        },
+        "require": {
+            "php": "^5.6 || ^7.0"
+        },
+        "require-dev": {
+            "phpunit/phpunit": "^5.7 || ^6.5 || ^7.5 || ^8.1",
+            "squizlabs/php_codesniffer": "^3.5"
+        },
+        "time": "2020-05-20T16:45:56+00:00",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "1.0.x-dev",
+                "dev-develop": "1.1.x-dev"
+            },
+            "laminas": {
+                "module": "Laminas\\ZendFrameworkBridge"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "files": [
+                "src/autoload.php"
+            ],
+            "psr-4": {
+                "Laminas\\ZendFrameworkBridge\\": "src//"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "BSD-3-Clause"
+        ],
+        "description": "Alias legacy ZF class names to Laminas Project equivalents.",
+        "keywords": [
+            "ZendFramework",
+            "autoloading",
+            "laminas",
+            "zf"
+        ],
+        "funding": [
+            {
+                "url": "https://funding.communitybridge.org/projects/laminas-project",
+                "type": "community_bridge"
+            }
         ]
     },
     {
@@ -15551,6 +16239,75 @@
         ]
     },
     {
+        "name": "maennchen/zipstream-php",
+        "version": "2.1.0",
+        "version_normalized": "2.1.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/maennchen/ZipStream-PHP.git",
+            "reference": "c4c5803cc1f93df3d2448478ef79394a5981cc58"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/maennchen/ZipStream-PHP/zipball/c4c5803cc1f93df3d2448478ef79394a5981cc58",
+            "reference": "c4c5803cc1f93df3d2448478ef79394a5981cc58",
+            "shasum": ""
+        },
+        "require": {
+            "myclabs/php-enum": "^1.5",
+            "php": ">= 7.1",
+            "psr/http-message": "^1.0",
+            "symfony/polyfill-mbstring": "^1.0"
+        },
+        "require-dev": {
+            "ext-zip": "*",
+            "guzzlehttp/guzzle": ">= 6.3",
+            "mikey179/vfsstream": "^1.6",
+            "phpunit/phpunit": ">= 7.5"
+        },
+        "time": "2020-05-30T13:11:16+00:00",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "ZipStream\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Paul Duncan",
+                "email": "pabs@pablotron.org"
+            },
+            {
+                "name": "Jonatan Männchen",
+                "email": "jonatan@maennchen.ch"
+            },
+            {
+                "name": "Jesse Donat",
+                "email": "donatj@gmail.com"
+            },
+            {
+                "name": "András Kolesár",
+                "email": "kolesar@kolesar.hu"
+            }
+        ],
+        "description": "ZipStream is a library for dynamically streaming dynamic zip files from PHP without writing to the disk at all on the server.",
+        "keywords": [
+            "stream",
+            "zip"
+        ],
+        "funding": [
+            {
+                "url": "https://opencollective.com/zipstream",
+                "type": "open_collective"
+            }
+        ]
+    },
+    {
         "name": "masterminds/html5",
         "version": "2.7.0",
         "version_normalized": "2.7.0.0",
@@ -15659,14 +16416,60 @@
         ]
     },
     {
+        "name": "myclabs/php-enum",
+        "version": "1.7.6",
+        "version_normalized": "1.7.6.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/myclabs/php-enum.git",
+            "reference": "5f36467c7a87e20fbdc51e524fd8f9d1de80187c"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/myclabs/php-enum/zipball/5f36467c7a87e20fbdc51e524fd8f9d1de80187c",
+            "reference": "5f36467c7a87e20fbdc51e524fd8f9d1de80187c",
+            "shasum": ""
+        },
+        "require": {
+            "ext-json": "*",
+            "php": ">=7.1"
+        },
+        "require-dev": {
+            "phpunit/phpunit": "^7",
+            "squizlabs/php_codesniffer": "1.*",
+            "vimeo/psalm": "^3.8"
+        },
+        "time": "2020-02-14T08:15:52+00:00",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "MyCLabs\\Enum\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "PHP Enum contributors",
+                "homepage": "https://github.com/myclabs/php-enum/graphs/contributors"
+            }
+        ],
+        "description": "PHP Enum implementation",
+        "homepage": "http://github.com/myclabs/php-enum",
+        "keywords": [
+            "enum"
+        ]
+    },
+    {
         "name": "npm-asset/ace-builds",
         "version": "1.4.11",
         "version_normalized": "1.4.11.0",
         "dist": {
             "type": "tar",
-            "url": "https://registry.npmjs.org/ace-builds/-/ace-builds-1.4.11.tgz",
-            "reference": null,
-            "shasum": null
+            "url": "https://registry.npmjs.org/ace-builds/-/ace-builds-1.4.11.tgz"
         },
         "type": "npm-asset",
         "installation-source": "dist",
@@ -15680,9 +16483,7 @@
         "version_normalized": "1.8.2.0",
         "dist": {
             "type": "tar",
-            "url": "https://registry.npmjs.org/blazy/-/blazy-1.8.2.tgz",
-            "reference": null,
-            "shasum": null
+            "url": "https://registry.npmjs.org/blazy/-/blazy-1.8.2.tgz"
         },
         "type": "npm-asset",
         "installation-source": "dist",
@@ -15696,9 +16497,7 @@
         "version_normalized": "2.0.2.0",
         "dist": {
             "type": "tar",
-            "url": "https://registry.npmjs.org/desandro-matches-selector/-/desandro-matches-selector-2.0.2.tgz",
-            "reference": null,
-            "shasum": null
+            "url": "https://registry.npmjs.org/desandro-matches-selector/-/desandro-matches-selector-2.0.2.tgz"
         },
         "type": "npm-asset",
         "installation-source": "dist",
@@ -15712,9 +16511,7 @@
         "version_normalized": "4.3.0.0",
         "dist": {
             "type": "tar",
-            "url": "https://registry.npmjs.org/dropzone/-/dropzone-4.3.0.tgz",
-            "reference": null,
-            "shasum": null
+            "url": "https://registry.npmjs.org/dropzone/-/dropzone-4.3.0.tgz"
         },
         "type": "npm-asset",
         "installation-source": "dist"
@@ -15725,9 +16522,7 @@
         "version_normalized": "1.1.1.0",
         "dist": {
             "type": "tar",
-            "url": "https://registry.npmjs.org/ev-emitter/-/ev-emitter-1.1.1.tgz",
-            "reference": null,
-            "shasum": null
+            "url": "https://registry.npmjs.org/ev-emitter/-/ev-emitter-1.1.1.tgz"
         },
         "type": "npm-asset",
         "installation-source": "dist",
@@ -15741,9 +16536,7 @@
         "version_normalized": "2.0.7.0",
         "dist": {
             "type": "tar",
-            "url": "https://registry.npmjs.org/fizzy-ui-utils/-/fizzy-ui-utils-2.0.7.tgz",
-            "reference": null,
-            "shasum": null
+            "url": "https://registry.npmjs.org/fizzy-ui-utils/-/fizzy-ui-utils-2.0.7.tgz"
         },
         "require": {
             "npm-asset/desandro-matches-selector": ">=2.0.0,<3.0.0"
@@ -15760,9 +16553,7 @@
         "version_normalized": "2.0.3.0",
         "dist": {
             "type": "tar",
-            "url": "https://registry.npmjs.org/get-size/-/get-size-2.0.3.tgz",
-            "reference": null,
-            "shasum": null
+            "url": "https://registry.npmjs.org/get-size/-/get-size-2.0.3.tgz"
         },
         "type": "npm-asset",
         "installation-source": "dist",
@@ -15776,9 +16567,7 @@
         "version_normalized": "4.1.4.0",
         "dist": {
             "type": "tar",
-            "url": "https://registry.npmjs.org/imagesloaded/-/imagesloaded-4.1.4.tgz",
-            "reference": null,
-            "shasum": null
+            "url": "https://registry.npmjs.org/imagesloaded/-/imagesloaded-4.1.4.tgz"
         },
         "require": {
             "npm-asset/ev-emitter": ">=1.0.0,<2.0.0"
@@ -15795,9 +16584,7 @@
         "version_normalized": "4.2.2.0",
         "dist": {
             "type": "tar",
-            "url": "https://registry.npmjs.org/masonry-layout/-/masonry-layout-4.2.2.tgz",
-            "reference": null,
-            "shasum": null
+            "url": "https://registry.npmjs.org/masonry-layout/-/masonry-layout-4.2.2.tgz"
         },
         "require": {
             "npm-asset/get-size": ">=2.0.2,<3.0.0",
@@ -15815,9 +16602,7 @@
         "version_normalized": "2.1.1.0",
         "dist": {
             "type": "tar",
-            "url": "https://registry.npmjs.org/outlayer/-/outlayer-2.1.1.tgz",
-            "reference": null,
-            "shasum": null
+            "url": "https://registry.npmjs.org/outlayer/-/outlayer-2.1.1.tgz"
         },
         "require": {
             "npm-asset/ev-emitter": ">=1.0.0,<2.0.0",
@@ -15836,9 +16621,7 @@
         "version_normalized": "1.8.1.0",
         "dist": {
             "type": "tar",
-            "url": "https://registry.npmjs.org/slick-carousel/-/slick-carousel-1.8.1.tgz",
-            "reference": null,
-            "shasum": null
+            "url": "https://registry.npmjs.org/slick-carousel/-/slick-carousel-1.8.1.tgz"
         },
         "type": "npm-asset",
         "installation-source": "dist",
@@ -16261,6 +17044,54 @@
         "description": "PHPMailer is a full-featured email creation and transfer class for PHP"
     },
     {
+        "name": "psr/cache",
+        "version": "1.0.1",
+        "version_normalized": "1.0.1.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/php-fig/cache.git",
+            "reference": "d11b50ad223250cf17b86e38383413f5a6764bf8"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/php-fig/cache/zipball/d11b50ad223250cf17b86e38383413f5a6764bf8",
+            "reference": "d11b50ad223250cf17b86e38383413f5a6764bf8",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.3.0"
+        },
+        "time": "2016-08-06T20:24:11+00:00",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "1.0.x-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Psr\\Cache\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "PHP-FIG",
+                "homepage": "http://www.php-fig.org/"
+            }
+        ],
+        "description": "Common interface for caching libraries",
+        "keywords": [
+            "cache",
+            "psr",
+            "psr-6"
+        ]
+    },
+    {
         "name": "psr/container",
         "version": "1.0.0",
         "version_normalized": "1.0.0.0",
@@ -16453,6 +17284,122 @@
             }
         ],
         "description": "A polyfill for getallheaders."
+    },
+    {
+        "name": "sendgrid/smtpapi",
+        "version": "0.6.5",
+        "version_normalized": "0.6.5.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/sendgrid/smtpapi-php.git",
+            "reference": "76ea51b72f7efb832164cbafcffab915d46f81bf"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/sendgrid/smtpapi-php/zipball/76ea51b72f7efb832164cbafcffab915d46f81bf",
+            "reference": "76ea51b72f7efb832164cbafcffab915d46f81bf",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.6"
+        },
+        "replace": {
+            "sendgrid/smtpapi-php": "*"
+        },
+        "require-dev": {
+            "phpunit/phpunit": "5.7.* || 6.5.*"
+        },
+        "suggest": {
+            "swiftmailer/swiftmailer": "^5.4 - Needed to run the example scripts"
+        },
+        "time": "2020-03-04T22:03:55+00:00",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "Smtpapi": "lib/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "description": "Build SendGrid X-SMTPAPI headers in PHP.",
+        "homepage": "http://github.com/sendgrid/smtpapi-php",
+        "keywords": [
+            "X-SMTP",
+            "api",
+            "email",
+            "grid",
+            "send",
+            "sendgrid",
+            "smtp",
+            "smtpapi",
+            "twilio",
+            "xsmtp"
+        ]
+    },
+    {
+        "name": "solarium/solarium",
+        "version": "5.0.3",
+        "version_normalized": "5.0.3.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/solariumphp/solarium.git",
+            "reference": "fcec6d7fa9d6704e45afed0d050ff069f3e0e86f"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/solariumphp/solarium/zipball/fcec6d7fa9d6704e45afed0d050ff069f3e0e86f",
+            "reference": "fcec6d7fa9d6704e45afed0d050ff069f3e0e86f",
+            "shasum": ""
+        },
+        "require": {
+            "ext-json": "*",
+            "php": "^7.1",
+            "symfony/cache": "^3.1 || ^4.0",
+            "symfony/event-dispatcher": "^3.1 || ^4.0"
+        },
+        "require-dev": {
+            "guzzlehttp/guzzle": "^3.8 || ^6.2",
+            "php-coveralls/php-coveralls": "^2.1",
+            "phpunit/phpunit": "^8.0",
+            "squizlabs/php_codesniffer": "^3.4",
+            "zendframework/zend-http": "^2.8"
+        },
+        "suggest": {
+            "minimalcode/search": "Query builder compatible with Solarium, allows simplified solr-query handling"
+        },
+        "time": "2019-07-05T14:34:48+00:00",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "4.1.x-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Solarium\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "BSD-3-Clause"
+        ],
+        "authors": [
+            {
+                "name": "See GitHub contributors",
+                "homepage": "https://github.com/basdenooijer/solarium/contributors"
+            }
+        ],
+        "description": "PHP Solr client",
+        "homepage": "http://www.solarium-project.org",
+        "keywords": [
+            "php",
+            "search",
+            "solr"
+        ]
     },
     {
         "name": "stack/builder",
@@ -16688,6 +17635,146 @@
         "keywords": [
             "database",
             "routing"
+        ]
+    },
+    {
+        "name": "symfony/cache",
+        "version": "v4.3.11",
+        "version_normalized": "4.3.11.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/symfony/cache.git",
+            "reference": "8794ccf68ac341fc19311919d2287f7557bfccba"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/symfony/cache/zipball/8794ccf68ac341fc19311919d2287f7557bfccba",
+            "reference": "8794ccf68ac341fc19311919d2287f7557bfccba",
+            "shasum": ""
+        },
+        "require": {
+            "php": "^7.1.3",
+            "psr/cache": "~1.0",
+            "psr/log": "~1.0",
+            "symfony/cache-contracts": "^1.1",
+            "symfony/service-contracts": "^1.1",
+            "symfony/var-exporter": "^4.2"
+        },
+        "conflict": {
+            "doctrine/dbal": "<2.5",
+            "symfony/dependency-injection": "<3.4",
+            "symfony/var-dumper": "<3.4"
+        },
+        "provide": {
+            "psr/cache-implementation": "1.0",
+            "psr/simple-cache-implementation": "1.0",
+            "symfony/cache-implementation": "1.0"
+        },
+        "require-dev": {
+            "cache/integration-tests": "dev-master",
+            "doctrine/cache": "~1.6",
+            "doctrine/dbal": "~2.5",
+            "predis/predis": "~1.1",
+            "psr/simple-cache": "^1.0",
+            "symfony/config": "~4.2",
+            "symfony/dependency-injection": "~3.4|~4.1",
+            "symfony/var-dumper": "^4.1.1"
+        },
+        "time": "2020-01-27T09:15:09+00:00",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "4.3-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Symfony\\Component\\Cache\\": ""
+            },
+            "exclude-from-classmap": [
+                "/Tests/"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Nicolas Grekas",
+                "email": "p@tchwork.com"
+            },
+            {
+                "name": "Symfony Community",
+                "homepage": "https://symfony.com/contributors"
+            }
+        ],
+        "description": "Symfony Cache component with PSR-6, PSR-16, and tags",
+        "homepage": "https://symfony.com",
+        "keywords": [
+            "caching",
+            "psr6"
+        ]
+    },
+    {
+        "name": "symfony/cache-contracts",
+        "version": "v1.1.7",
+        "version_normalized": "1.1.7.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/symfony/cache-contracts.git",
+            "reference": "af50d14ada9e4e82cfabfabdc502d144f89be0a1"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/symfony/cache-contracts/zipball/af50d14ada9e4e82cfabfabdc502d144f89be0a1",
+            "reference": "af50d14ada9e4e82cfabfabdc502d144f89be0a1",
+            "shasum": ""
+        },
+        "require": {
+            "php": "^7.1.3",
+            "psr/cache": "^1.0"
+        },
+        "suggest": {
+            "symfony/cache-implementation": ""
+        },
+        "time": "2019-10-04T21:43:27+00:00",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "1.1-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Symfony\\Contracts\\Cache\\": ""
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Nicolas Grekas",
+                "email": "p@tchwork.com"
+            },
+            {
+                "name": "Symfony Community",
+                "homepage": "https://symfony.com/contributors"
+            }
+        ],
+        "description": "Generic abstractions related to caching",
+        "homepage": "https://symfony.com",
+        "keywords": [
+            "abstractions",
+            "contracts",
+            "decoupling",
+            "interfaces",
+            "interoperability",
+            "standards"
         ]
     },
     {
@@ -17073,6 +18160,71 @@
         ],
         "description": "Symfony EventDispatcher Component",
         "homepage": "https://symfony.com"
+    },
+    {
+        "name": "symfony/finder",
+        "version": "v4.4.9",
+        "version_normalized": "4.4.9.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/symfony/finder.git",
+            "reference": "5729f943f9854c5781984ed4907bbb817735776b"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/symfony/finder/zipball/5729f943f9854c5781984ed4907bbb817735776b",
+            "reference": "5729f943f9854c5781984ed4907bbb817735776b",
+            "shasum": ""
+        },
+        "require": {
+            "php": "^7.1.3"
+        },
+        "time": "2020-03-27T16:54:36+00:00",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "4.4-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Symfony\\Component\\Finder\\": ""
+            },
+            "exclude-from-classmap": [
+                "/Tests/"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Fabien Potencier",
+                "email": "fabien@symfony.com"
+            },
+            {
+                "name": "Symfony Community",
+                "homepage": "https://symfony.com/contributors"
+            }
+        ],
+        "description": "Symfony Finder Component",
+        "homepage": "https://symfony.com",
+        "funding": [
+            {
+                "url": "https://symfony.com/sponsor",
+                "type": "custom"
+            },
+            {
+                "url": "https://github.com/fabpot",
+                "type": "github"
+            },
+            {
+                "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                "type": "tidelift"
+            }
+        ]
     },
     {
         "name": "symfony/http-foundation",
@@ -18040,6 +19192,66 @@
         "homepage": "https://symfony.com"
     },
     {
+        "name": "symfony/service-contracts",
+        "version": "v1.1.8",
+        "version_normalized": "1.1.8.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/symfony/service-contracts.git",
+            "reference": "ffc7f5692092df31515df2a5ecf3b7302b3ddacf"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/symfony/service-contracts/zipball/ffc7f5692092df31515df2a5ecf3b7302b3ddacf",
+            "reference": "ffc7f5692092df31515df2a5ecf3b7302b3ddacf",
+            "shasum": ""
+        },
+        "require": {
+            "php": "^7.1.3",
+            "psr/container": "^1.0"
+        },
+        "suggest": {
+            "symfony/service-implementation": ""
+        },
+        "time": "2019-10-14T12:27:06+00:00",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "1.1-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Symfony\\Contracts\\Service\\": ""
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Nicolas Grekas",
+                "email": "p@tchwork.com"
+            },
+            {
+                "name": "Symfony Community",
+                "homepage": "https://symfony.com/contributors"
+            }
+        ],
+        "description": "Generic abstractions related to writing services",
+        "homepage": "https://symfony.com",
+        "keywords": [
+            "abstractions",
+            "contracts",
+            "decoupling",
+            "interfaces",
+            "interoperability",
+            "standards"
+        ]
+    },
+    {
         "name": "symfony/translation",
         "version": "v3.4.41",
         "version_normalized": "3.4.41.0",
@@ -18276,6 +19488,82 @@
         "keywords": [
             "debug",
             "dump"
+        ]
+    },
+    {
+        "name": "symfony/var-exporter",
+        "version": "v4.4.9",
+        "version_normalized": "4.4.9.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/symfony/var-exporter.git",
+            "reference": "52624517deddee019b796021e084f30df40a9124"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/symfony/var-exporter/zipball/52624517deddee019b796021e084f30df40a9124",
+            "reference": "52624517deddee019b796021e084f30df40a9124",
+            "shasum": ""
+        },
+        "require": {
+            "php": "^7.1.3"
+        },
+        "require-dev": {
+            "symfony/var-dumper": "^4.4.9|^5.0.9"
+        },
+        "time": "2020-05-16T10:04:25+00:00",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "4.4-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Symfony\\Component\\VarExporter\\": ""
+            },
+            "exclude-from-classmap": [
+                "/Tests/"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Nicolas Grekas",
+                "email": "p@tchwork.com"
+            },
+            {
+                "name": "Symfony Community",
+                "homepage": "https://symfony.com/contributors"
+            }
+        ],
+        "description": "A blend of var_export() + serialize() to turn any serializable data structure to plain PHP code",
+        "homepage": "https://symfony.com",
+        "keywords": [
+            "clone",
+            "construct",
+            "export",
+            "hydrate",
+            "instantiate",
+            "serialize"
+        ],
+        "funding": [
+            {
+                "url": "https://symfony.com/sponsor",
+                "type": "custom"
+            },
+            {
+                "url": "https://github.com/fabpot",
+                "type": "github"
+            },
+            {
+                "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                "type": "tidelift"
+            }
         ]
     },
     {
@@ -19119,54 +20407,5 @@
             "zf"
         ],
         "abandoned": "laminas/laminas-feed"
-    },
-    {
-        "name": "zendframework/zend-stdlib",
-        "version": "3.2.1",
-        "version_normalized": "3.2.1.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/zendframework/zend-stdlib.git",
-            "reference": "66536006722aff9e62d1b331025089b7ec71c065"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/zendframework/zend-stdlib/zipball/66536006722aff9e62d1b331025089b7ec71c065",
-            "reference": "66536006722aff9e62d1b331025089b7ec71c065",
-            "shasum": ""
-        },
-        "require": {
-            "php": "^5.6 || ^7.0"
-        },
-        "require-dev": {
-            "phpbench/phpbench": "^0.13",
-            "phpunit/phpunit": "^5.7.27 || ^6.5.8 || ^7.1.2",
-            "zendframework/zend-coding-standard": "~1.0.0"
-        },
-        "time": "2018-08-28T21:34:05+00:00",
-        "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "3.2.x-dev",
-                "dev-develop": "3.3.x-dev"
-            }
-        },
-        "installation-source": "dist",
-        "autoload": {
-            "psr-4": {
-                "Zend\\Stdlib\\": "src/"
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "BSD-3-Clause"
-        ],
-        "description": "SPL extensions, array utilities, error handlers, and more",
-        "keywords": [
-            "ZendFramework",
-            "stdlib",
-            "zf"
-        ],
-        "abandoned": "laminas/laminas-stdlib"
     }
 ]

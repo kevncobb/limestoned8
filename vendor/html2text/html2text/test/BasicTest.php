@@ -78,8 +78,7 @@ EOT
      */
     public function testBasic($html, $expected)
     {
-        $html2Text = new Html2Text($html);
-        $this->assertEquals($expected, $html2Text->getText());
-        $this->assertEquals($html, $html2Text->getHtml());
+        $html = new Html2Text($html);
+        $this->assertEquals($expected, $html->getText());
     }
 }

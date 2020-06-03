@@ -26,10 +26,6 @@ class SearchReplaceTest extends \PHPUnit_Framework_TestCase
                 'html'      => '<th>Hello, World!</th>',
                 'expected'  => "\t\tHELLO, WORLD!\n",
             ),
-            'Apostrophe' => array(
-                'html'      => 'L&#39;incubateur',
-                'expected'  => 'L\'incubateur'
-            ),
         );
     }
 
