@@ -28,7 +28,7 @@ class EntityGenerateTest extends KernelTestBase implements MigrateMessageInterfa
   /**
    * {@inheritdoc}
    */
-  public static $modules = [
+  protected static $modules = [
     'migrate_plus',
     'migrate',
     'user',
@@ -71,7 +71,7 @@ class EntityGenerateTest extends KernelTestBase implements MigrateMessageInterfa
   /**
    * {@inheritdoc}
    */
-  protected function setUp() {
+  protected function setUp(): void {
     parent::setUp();
     // Create article content type.
     $values = [
@@ -87,7 +87,7 @@ class EntityGenerateTest extends KernelTestBase implements MigrateMessageInterfa
     $this->installEntitySchema('user');
     $this->installSchema('system', ['sequences']);
     $this->installSchema('user', 'users_data');
-    $this->installConfig($this->modules);
+    $this->installConfig(self::$modules);
 
     // Create a vocabulary.
     $vocabulary = Vocabulary::create([
@@ -132,7 +132,7 @@ class EntityGenerateTest extends KernelTestBase implements MigrateMessageInterfa
    *
    * @covers ::transform
    */
-  public function testTransform(array $definition, array $expected, array $preSeed = []) {
+  public function testTransform(array $definition, array $expected, array $preSeed = []): void {
     // Pre seed some test data.
     foreach ($preSeed as $storageName => $values) {
       // If the first element of $values is a non-empty array, create multiple
@@ -149,8 +149,11 @@ class EntityGenerateTest extends KernelTestBase implements MigrateMessageInterfa
 
     /** @var \Drupal\migrate\Plugin\Migration $migration */
     $migration = $this->migrationPluginManager->createStubMigration($definition);
-    /** @var EntityStorageBase $storage */
-    $storage = $this->readAttribute($migration->getDestinationPlugin(), 'storage');
+    $reflector = new \ReflectionObject($migration->getDestinationPlugin());
+    $attribute = $reflector->getProperty('storage');
+    $attribute->setAccessible(true);
+    /** @var \Drupal\Core\Entity\EntityStorageBase $storage */
+    $storage = $attribute->getValue($migration->getDestinationPlugin());
     $migrationExecutable = (new MigrateExecutable($migration, $this));
     $migrationExecutable->import();
 
@@ -264,7 +267,7 @@ class EntityGenerateTest extends KernelTestBase implements MigrateMessageInterfa
     $migration = $this->migrationPluginManager->createStubMigration($definition);
     $migrationExecutable = (new MigrateExecutable($migration, $this));
     $migrationExecutable->import();
-    $this->assertEquals('Destination field type integer is not a recognized reference type.', $migration->getIdMap()->getMessageIterator()->fetch()->message);
+    $this->assertEquals('Destination field type integer is not a recognized reference type.', $migration->getIdMap()->getMessages()->fetch()->message);
     $this->assertSame(1, $migration->getIdMap()->messageCount());
 
     // Enough context is provided so this should work.

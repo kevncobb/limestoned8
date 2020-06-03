@@ -2,9 +2,9 @@
 
 namespace Drupal\migrate_plus\Plugin\migrate\process;
 
-use Drupal\migrate\ProcessPluginBase;
 use Drupal\migrate\MigrateException;
 use Drupal\migrate\MigrateExecutableInterface;
+use Drupal\migrate\ProcessPluginBase;
 use Drupal\migrate\Row;
 
 /**
@@ -33,7 +33,7 @@ use Drupal\migrate\Row;
  *    temp_images:
  *      plugin: iterator
  *      source: field_image
- *      process
+ *      process:
  *        target_id:
  *          plugin: migration_lookup
  *          migration: image_entities_to_paragraph

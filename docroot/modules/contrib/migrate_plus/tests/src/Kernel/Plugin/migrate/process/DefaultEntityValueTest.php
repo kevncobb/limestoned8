@@ -10,19 +10,19 @@ use Drupal\migrate\Row;
 use Drupal\Tests\user\Traits\UserCreationTrait;
 
 /**
- * Tests the entity_lookup plugin.
+ * Tests the default_entity_value plugin.
  *
- * @coversDefaultClass \Drupal\migrate_plus\Plugin\migrate\process\EntityLookup
+ * @coversDefaultClass \Drupal\migrate_plus\Plugin\migrate\process\DefaultEntityValue
  * @group migrate_plus
  */
-class EntityLookupTest extends KernelTestBase {
+class DefaultEntityValueTest extends KernelTestBase {
 
   use UserCreationTrait;
 
   /**
    * {@inheritdoc}
    */
-  protected static $modules = [
+  public static $modules = [
     'migrate_plus',
     'migrate',
     'user',
@@ -39,16 +39,14 @@ class EntityLookupTest extends KernelTestBase {
   }
 
   /**
-   * Lookup an entity without bundles on destination key.
-   *
-   * Using user entity as destination entity without bundles as example for
-   * testing.
+   * Tests the lookup when the value is empty.
    *
    * @covers ::transform
    */
-  public function testLookupEntityWithoutBundles(): void {
+  public function testDefaultEntityValue(): void {
     // Create a user.
-    $known_user = $this->createUser([], 'lucuma');
+    $editorial_user = $this->createUser([], 'editorial');
+    $journalist_user = $this->createUser([], 'journalist');
     // Setup test migration objects.
     $migration_prophecy = $this->prophesize(MigrationInterface::class);
     $migrate_destination_prophecy = $this->prophesize(MigrateDestinationInterface::class);
@@ -60,17 +58,19 @@ class EntityLookupTest extends KernelTestBase {
     $configuration = [
       'entity_type' => 'user',
       'value_key' => 'name',
+      'ignore_case' => TRUE,
+      'default_value' => 'editorial',
     ];
     $plugin = \Drupal::service('plugin.manager.migrate.process')
-      ->createInstance('entity_lookup', $configuration, $migration);
+      ->createInstance('default_entity_value', $configuration, $migration);
     $executable = $this->prophesize(MigrateExecutableInterface::class)->reveal();
     $row = new Row();
-    // Check the known user is found.
-    $value = $plugin->transform('lucuma', $executable, $row, 'name');
-    $this->assertSame($known_user->id(), $value);
-    // Check an unknown user is not found.
-    $value = $plugin->transform('orange', $executable, $row, 'name');
-    $this->assertNull($value);
+    // Check the case default value is not used.
+    $value = $plugin->transform($journalist_user->id(), $executable, $row, 'name');
+    $this->assertSame($journalist_user->id(), $value);
+    // Check the default value is found.
+    $value = $plugin->transform('', $executable, $row, 'name');
+    $this->assertSame($editorial_user->id(), $value);
   }
 
 }
