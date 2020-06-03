@@ -45,11 +45,11 @@ abstract class ParserTestBase extends UnitTestBase {
   public function setUp() {
     parent::setUp();
 
-    $this->feedType = $this->getMock('Drupal\feeds\FeedTypeInterface');
+    $this->feedType = $this->createMock('Drupal\feeds\FeedTypeInterface');
 
     $this->state = new State();
 
-    $this->feed = $this->getMock('Drupal\feeds\FeedInterface');
+    $this->feed = $this->createMock('Drupal\feeds\FeedInterface');
     $this->feed->expects($this->any())
       ->method('getType')
       ->will($this->returnValue($this->feedType));

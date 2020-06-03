@@ -2,7 +2,6 @@
 
 namespace Drupal\migrate_tools;
 
-use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\migrate\MigrateMessage;
 use Drupal\migrate\MigrateMessageInterface;
 use Drupal\migrate\Plugin\MigrationInterface;
@@ -11,7 +10,6 @@ use Drupal\migrate\Plugin\MigrationInterface;
  * Defines a migrate executable class for batch migrations through UI.
  */
 class MigrateBatchExecutable extends MigrateExecutable {
-  use StringTranslationTrait;
 
   /**
    * Representing a batch import operation.

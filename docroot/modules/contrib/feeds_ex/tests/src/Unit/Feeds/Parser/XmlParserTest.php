@@ -31,7 +31,12 @@ class XmlParserTest extends ParserTestBase {
    * Tests simple parsing.
    */
   public function testSimpleParsing() {
-    $fetcher_result = new RawFetcherResult(file_get_contents($this->moduleDir . '/tests/resources/test.xml'));
+    $contents = file_get_contents($this->moduleDir . '/tests/resources/test.xml');
+
+    // Implicitly test that invalid characters are ignored and null bytes are
+    // stripped.
+    $contents = str_replace('I am a description', chr(0) . 'I am a description' . chr(11), $contents);
+    $fetcher_result = new RawFetcherResult($contents, $this->fileSystem);
 
     $config = [
       'context' => [
@@ -63,7 +68,7 @@ class XmlParserTest extends ParserTestBase {
    * Tests raw parsing.
    */
   public function testRaw() {
-    $fetcher_result = new RawFetcherResult(file_get_contents($this->moduleDir . '/tests/resources/test.xml'));
+    $fetcher_result = new RawFetcherResult(file_get_contents($this->moduleDir . '/tests/resources/test.xml'), $this->fileSystem);
 
     $config = [
       'context' => [
@@ -96,7 +101,7 @@ class XmlParserTest extends ParserTestBase {
    * Tests simple parsing.
    */
   public function testInner() {
-    $fetcher_result = new RawFetcherResult(file_get_contents($this->moduleDir . '/tests/resources/test.xml'));
+    $fetcher_result = new RawFetcherResult(file_get_contents($this->moduleDir . '/tests/resources/test.xml'), $this->fileSystem);
 
     $config = [
       'context' => [
@@ -130,7 +135,7 @@ class XmlParserTest extends ParserTestBase {
    * Tests parsing a CP866 (Russian) encoded file.
    */
   public function testCp866Encoded() {
-    $fetcher_result = new RawFetcherResult(file_get_contents($this->moduleDir . '/tests/resources/test_ru.xml'));
+    $fetcher_result = new RawFetcherResult(file_get_contents($this->moduleDir . '/tests/resources/test_ru.xml'), $this->fileSystem);
 
     $config = [
       'context' => [
@@ -164,7 +169,7 @@ class XmlParserTest extends ParserTestBase {
    * This implicitly tests Base's encoding conversion.
    */
   public function testEucJpEncodedNoDeclaration() {
-    $fetcher_result = new RawFetcherResult(file_get_contents($this->moduleDir . '/tests/resources/test_jp.xml'));
+    $fetcher_result = new RawFetcherResult(file_get_contents($this->moduleDir . '/tests/resources/test_jp.xml'), $this->fileSystem);
 
     $config = [
       'context' => [
@@ -197,7 +202,7 @@ class XmlParserTest extends ParserTestBase {
    * Tests batching.
    */
   public function testBatching() {
-    $fetcher_result = new RawFetcherResult(file_get_contents($this->moduleDir . '/tests/resources/test.xml'));
+    $fetcher_result = new RawFetcherResult(file_get_contents($this->moduleDir . '/tests/resources/test.xml'), $this->fileSystem);
 
     $config = [
       'context' => [
@@ -244,7 +249,7 @@ class XmlParserTest extends ParserTestBase {
     $this->parser = $this->getParserInstance();
     $this->parser->setConfiguration(['context' => ['value' => '/beep']]);
 
-    $result = $this->parser->parse($this->feed, new RawFetcherResult('<?xml version="1.0" encoding="UTF-8"?><item></item>'));
+    $result = $this->parser->parse($this->feed, new RawFetcherResult('<?xml version="1.0" encoding="UTF-8"?><item></item>', $this->fileSystem));
     $this->assertSame($result->link, 'file fetcher source path');
   }
 
@@ -272,7 +277,7 @@ class XmlParserTest extends ParserTestBase {
    * Tests empty feed handling.
    */
   public function testEmptyFeed() {
-    $this->parser->parse($this->feed, new RawFetcherResult(' '), $this->state);
+    $this->parser->parse($this->feed, new RawFetcherResult(' ', $this->fileSystem), $this->state);
     $messages = $this->parser->getMessenger()->getMessages();
     $this->assertSame(1, count($messages), 'The expected number of messages.');
     $this->assertSame((string) $messages[0]['message'], 'The feed is empty.', 'Message text is correct.');

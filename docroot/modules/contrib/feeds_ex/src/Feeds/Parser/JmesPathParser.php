@@ -3,7 +3,7 @@
 namespace Drupal\feeds_ex\Feeds\Parser;
 
 use RuntimeException;
-use Drupal\Component\Utility\SafeMarkup;
+use Drupal\Component\Utility\Html;
 use Drupal\Core\Logger\RfcLogLevel;
 use Drupal\feeds\FeedInterface;
 use Drupal\feeds\Result\FetcherResultInterface;
@@ -20,8 +20,7 @@ use JmesPath\SyntaxErrorException;
  * @FeedsParser(
  *   id = "jmespath",
  *   title = @Translation("JSON JMESPath"),
- *   description = @Translation("Parse JSON with JMESPath."),
- *   arguments = {"@feeds_ex.json_utility"}
+ *   description = @Translation("Parse JSON with JMESPath.")
  * )
  */
 class JmesPathParser extends JsonParserBase {
@@ -149,7 +148,7 @@ class JmesPathParser extends JsonParserBase {
     }
     catch (SyntaxErrorException $e) {
       // Remove newlines after nl2br() to make testing easier.
-      return str_replace("\n", '', nl2br(SafeMarkup::checkPlain(trim($e->getMessage()))));
+      return str_replace("\n", '', nl2br(Html::escape(trim($e->getMessage()))));
     }
   }
 

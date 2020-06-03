@@ -54,3 +54,13 @@ function image_widget_crop_requirements($phase) {
   }
   return $requirements;
 }
+
+/**
+ * Set as default new settings to control IWC verbose.
+ */
+function image_widget_crop_update_8001() {
+  \Drupal::service('config.factory')->getEditable('image_widget_crop.settings')
+    ->set('settings.notify_update', TRUE)
+    ->set('settings.notify_apply', FALSE)
+    ->save();
+}

@@ -169,6 +169,16 @@ class ImceProfileForm extends EntityForm {
       '#description' => $this->t('Select the replace method for existing files during uploads.'),
       '#weight' => -5,
     ];
+    // Image thumbnails
+    if (function_exists('image_style_options')) {
+      $conf['thumbnail_style'] = [
+        '#type' => 'select',
+        '#title' => $this->t('Thumbnail style'),
+        '#options' => image_style_options(),
+        '#default_value' => $imce_profile->getConf('thumbnail_style'),
+        '#description' => $this->t('Select a thumbnail style from the list to make the file browser display inline image previews. Note that this could reduce the performance of the file browser drastically.'),
+      ];
+    }
     // Folders.
     $conf['folders'] = [
       '#type' => 'fieldset',
@@ -200,10 +210,13 @@ class ImceProfileForm extends EntityForm {
       '#type' => 'container',
       '#attributes' => ['class' => ['folder-container']],
     ];
+
+    $fieldPrefix = $this->t('root');
+    $slach = '/';
     $form['path'] = [
       '#type' => 'textfield',
       '#default_value' => $folder['path'],
-      '#field_prefix' => '&lt;' . $this->t('root') . '&gt;' . '/',
+      '#field_prefix' => '&lt;' . $fieldPrefix . '&gt;' . $slach,
     ];
     $form['permissions'] = [
       '#type' => 'fieldset',

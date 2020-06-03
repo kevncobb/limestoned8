@@ -5,9 +5,10 @@ namespace Drupal\feeds_ex\Feeds\Parser;
 use DOMNode;
 use DOMNodeList;
 use SimpleXMLElement;
-use Drupal\Component\Utility\SafeMarkup;
+use Drupal\Component\Utility\Html;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Logger\RfcLogLevel;
+use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\feeds\Component\XmlParserTrait;
 use Drupal\feeds\FeedInterface;
 use Drupal\feeds\Result\FetcherResultInterface;
@@ -15,6 +16,7 @@ use Drupal\feeds\Result\ParserResultInterface;
 use Drupal\feeds\StateInterface;
 use Drupal\feeds_ex\Utility\XmlUtility;
 use Drupal\feeds_ex\XpathDomXpath;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Defines a XML parser using XPath.
@@ -22,11 +24,11 @@ use Drupal\feeds_ex\XpathDomXpath;
  * @FeedsParser(
  *   id = "xml",
  *   title = @Translation("XML"),
- *   description = @Translation("Parse XML with XPath."),
- *   arguments = {"@feeds_ex.xml_utility"}
+ *   description = @Translation("Parse XML with XPath.")
  * )
  */
-class XmlParser extends ParserBase {
+class XmlParser extends ParserBase implements ContainerFactoryPluginInterface {
+
   use XmlParserTrait;
 
   /**
@@ -77,6 +79,18 @@ class XmlParser extends ParserBase {
   public function __construct(array $configuration, $plugin_id, array $plugin_definition, XmlUtility $utility) {
     $this->utility = $utility;
     parent::__construct($configuration, $plugin_id, $plugin_definition);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
+    return new static(
+      $configuration,
+      $plugin_id,
+      $plugin_definition,
+      $container->get('feeds_ex.xml_utility')
+    );
   }
 
   /**
@@ -161,6 +175,13 @@ class XmlParser extends ParserBase {
   /**
    * {@inheritdoc}
    */
+  public function hasConfigForm() {
+    return TRUE;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function buildConfigurationForm(array $form, FormStateInterface $form_state) {
     $form = parent::buildConfigurationForm($form, $form_state);
     if (extension_loaded('tidy')) {
@@ -193,7 +214,7 @@ class XmlParser extends ParserBase {
    * {@inheritdoc}
    */
   protected function configFormTableColumn(FormStateInterface $form_state, array $values, $column, $machine_name) {
-    $id = 'feeds-ex-xml-raw-' . SafeMarkup::checkPlain($machine_name);
+    $id = 'feeds-ex-xml-raw-' . Html::escape($machine_name);
 
     switch ($column) {
       case 'raw':
@@ -242,7 +263,7 @@ class XmlParser extends ParserBase {
       // Error code 1219 is an undefined namespace prefix.
       // Our sample doc doesn't have any namespaces.
       elseif ($error->code != 1219) {
-        $message = SafeMarkup::checkPlain(trim($error->message));
+        $message = Html::escape(trim($error->message));
       }
     }
 
@@ -284,6 +305,8 @@ class XmlParser extends ParserBase {
     if ($this->configuration['use_tidy'] && extension_loaded('tidy')) {
       $raw = tidy_repair_string($raw, $this->getTidyConfig(), 'utf8');
     }
+
+    $raw = $this->utility->decodeNamedHtmlEntities($raw);
     return $this->getDomDocument($raw);
   }
 
@@ -395,6 +418,8 @@ class XmlParser extends ParserBase {
   protected function getTidyConfig() {
     return [
       'input-xml' => TRUE,
+      'output-xml' => TRUE,
+      'add-xml-decl' => TRUE,
       'wrap' => 0,
       'tidy-mark' => FALSE,
     ];

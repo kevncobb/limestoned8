@@ -32,6 +32,11 @@ class ReplicateUITest extends BrowserTestBase {
   ];
 
   /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'stark';
+
+  /**
    * @var \Drupal\user\UserInterface
    */
   protected $user;

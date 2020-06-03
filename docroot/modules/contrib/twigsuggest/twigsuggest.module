@@ -25,10 +25,20 @@ function twigsuggest_theme_suggestions_block(array $variables) {
   // Prevent PHP notices if contrib modules create blocks without this ID.
   if (isset($variables['elements']['#id']) || !empty($variables['elements']['#id'])) {
 
-    $block = Block::load($variables['elements']['#id']);
-
-    $suggestions[] = 'block__' . $block->getRegion();
-    $suggestions[] = 'block__' . $block->getRegion() . '__' . $variables['elements']['#id'];
+    if ($block = Block::load($variables['elements']['#id'])) {
+      $suggestions[] = 'block__' . $block->getRegion();
+      $suggestions[] = 'block__' . $block->getRegion() . '__' . $variables['elements']['#id'];
+      if ($block->get('settings') && $provider = $block->get('settings')['provider']) {
+        $suggestions[] = 'block__' . $provider;
+        if ($variables['elements']['#base_plugin_id'] != $provider) {
+          $suggestions[] = 'block__' . $variables['elements']['#base_plugin_id'];
+        }
+        $suggestions[] = 'block__' . $provider . '__' . $block->getRegion();
+        if ($variables['elements']['#base_plugin_id'] != $provider) {
+          $suggestions[] = 'block__' . $variables['elements']['#base_plugin_id'] . '__' . $block->getRegion();
+        }
+      }
+    }
   }
 
   return $suggestions;

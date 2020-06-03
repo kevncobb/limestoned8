@@ -10,8 +10,8 @@ dependencies:
   - drupal:language
   - drupal:weight
 
-# Information added by Drupal.org packaging script on 2018-11-30
-version: '8.x-3.1-alpha2+3-dev'
+# Information added by Drupal.org packaging script on 2019-02-12
+version: '8.x-3.1'
 core: '8.x'
 project: 'weight'
-datestamp: 1543580287
+datestamp: 1549993084

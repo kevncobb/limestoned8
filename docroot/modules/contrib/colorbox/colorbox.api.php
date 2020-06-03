@@ -16,7 +16,9 @@
  *   The name of the active style plugin. If $style is 'none', no Colorbox
  *   theme will be loaded.
  *
- * @link http://colorpowered.com/colorbox/ Colorbox documentation @endlink
+ * @link
+ *    http://colorpowered.com/colorbox/ Colorbox documentation.
+ * @endlink
  *   for the full list of supported parameters.
  *
  * @codingStandardsIgnoreStart

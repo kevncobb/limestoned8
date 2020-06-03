@@ -11,6 +11,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Component\Utility\Html;
+use Drupal\Core\Pager\PagerManagerInterface;
 
 /**
  * Additional functions as services for Google CSE.
@@ -58,6 +59,13 @@ class GoogleCSEServices implements ContainerFactoryPluginInterface {
   private $moduleHandler;
 
   /**
+   * PagerManager service object.
+   *
+   * @var \Drupal\Core\Pager\PagerManagerInterface
+   */
+  private $pagerManager;
+
+  /**
    * GoogleCSEServices constructor.
    *
    * @param \Symfony\Component\HttpFoundation\RequestStack $requestStack
@@ -70,13 +78,16 @@ class GoogleCSEServices implements ContainerFactoryPluginInterface {
    *   Renderer service object.
    * @param \Drupal\Core\Extension\ModuleHandler $moduleHandler
    *   ModuleHandler service object.
+   * @param \Drupal\Core\Pager\PagerManagerInterface $pagerManager
+   *   PagerManger service object.
    */
-  public function __construct(RequestStack $requestStack, ConfigFactoryInterface $configFactory, LanguageManager $languageManager, Renderer $renderer, ModuleHandler $moduleHandler) {
+  public function __construct(RequestStack $requestStack, ConfigFactoryInterface $configFactory, LanguageManager $languageManager, Renderer $renderer, ModuleHandler $moduleHandler, PagerManagerInterface $pagerManager) {
     $this->requestStack = $requestStack;
     $this->CSEconfig = $configFactory->get('search.page.google_cse_search');
     $this->languageManager = $languageManager;
     $this->renderer = $renderer;
     $this->moduleHandler = $moduleHandler;
+    $this->pagerManager = $pagerManager;
   }
 
   /**
@@ -91,7 +102,8 @@ class GoogleCSEServices implements ContainerFactoryPluginInterface {
       $container->get('config.factory'),
       $container->get('language_manager'),
       $container->get('renderer'),
-      $container->get('module_handler')
+      $container->get('module_handler'),
+      $container->get('pager.manager')
     );
   }
 
@@ -364,7 +376,7 @@ class GoogleCSEServices implements ContainerFactoryPluginInterface {
       // No pager query was executed - we have to set the pager manually.
       // @TODO Confirm input in UI.
       $limit = $this->CSEconfig->get('configuration')['google_cse_adv_results_per_page'];
-      pager_default_initialize($total, $limit);
+      $this->pagerManager->createPager($total, $limit);
 
     }
 

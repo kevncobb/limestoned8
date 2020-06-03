@@ -22,6 +22,13 @@ class GoogleCSEConfigTest extends BrowserTestBase {
   ];
 
   /**
+   * Specify the theme to be used in testing.
+   *
+   * @var string
+   */
+  protected $defaultTheme = 'stable';
+
+  /**
    * A user for tests.
    *
    * @var \Drupal\user\UserInterface

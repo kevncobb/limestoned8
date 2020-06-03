@@ -36,7 +36,9 @@ class ImageCrop extends FormElement {
       '#show_default_crop' => TRUE,
       '#show_crop_area' => FALSE,
       '#attached' => [
-        'library' => 'image_widget_crop/cropper.integration',
+        'library' => [
+          'image_widget_crop/cropper.integration',
+        ],
       ],
       '#element_validate' => [[self::class, 'cropRequired']],
       '#tree' => TRUE,

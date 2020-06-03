@@ -2,10 +2,10 @@
 
 namespace Drupal\imce\Controller;
 
-use Symfony\Component\HttpFoundation\Request;
-use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Access\AccessResult;
+use Drupal\Core\Controller\ControllerBase;
 use Drupal\imce\Imce;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Controller routines for imce routes.

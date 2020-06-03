@@ -2,10 +2,11 @@
 
 namespace Drupal\feeds_ex;
 
-use RuntimeException;
 use Drupal\Component\Utility\Crypt;
+use Drupal\Core\File\FileSystemInterface;
 use JmesPath\AstRuntime;
 use JmesPath\CompilerRuntime;
+use RuntimeException;
 
 /**
  * Defines a factory for generating JMESPath runtime objects.
@@ -98,7 +99,7 @@ class JmesRuntimeFactory implements JmesRuntimeFactoryInterface {
       return FALSE;
     }
 
-    return file_prepare_directory($directory, FILE_CREATE_DIRECTORY | FILE_MODIFY_PERMISSIONS);
+    return \Drupal::service('file_system')->prepareDirectory($directory, FileSystemInterface::CREATE_DIRECTORY | FileSystemInterface::MODIFY_PERMISSIONS);
   }
 
 }

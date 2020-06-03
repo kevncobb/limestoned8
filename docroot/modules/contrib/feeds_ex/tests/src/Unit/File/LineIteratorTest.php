@@ -3,7 +3,7 @@
 namespace Drupal\Tests\feeds_ex\Unit\File;
 
 use Drupal\Component\Serialization\Json;
-use Drupal\Component\Utility\SafeMarkup;
+use Drupal\Component\Render\FormattableMarkup;
 use Drupal\Tests\feeds_ex\Unit\UnitTestBase;
 use Drupal\feeds_ex\File\LineIterator;
 
@@ -29,7 +29,7 @@ class LineIteratorTest extends UnitTestBase {
       $iterator = new LineIterator($this->moduleDir . '/tests/resources/test.jsonl');
       $iterator->setLineLimit($limit);
       $array = iterator_to_array($iterator);
-      $this->assertSame(count($array), $limit, SafeMarkup::format('@count lines read.', ['@count' => count($array)]));
+      $this->assertSame(count($array), $limit, new FormattableMarkup('@count lines read.', ['@count' => count($array)]));
     }
   }
 

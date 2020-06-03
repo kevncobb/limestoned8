@@ -1,7 +1,7 @@
 $maxWidth: 520px;
 
 .form-element {
-  max-width: $maxWidth;
+  // max-width: $maxWidth;
   border: 1px solid #8E929C;
   box-sizing: border-box;
   box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.15);
@@ -25,6 +25,14 @@ $maxWidth: 520px;
 .form-textarea-wrapper {
   box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.15);
   border-radius: 4px;
+
+  textarea {
+    max-width: 100%;
+  }
+}
+
+.form-element--editor-format {
+  width: auto;
 }
 
 .password-confirm {
@@ -206,6 +214,11 @@ $maxWidth: 520px;
   color: var(--colorGinText);
 }
 
+.form-item__label.has-error,
+.form-item__error-message {
+  color: var(--colorGinDanger);
+}
+
 .form-item__description,
 .fieldset__description {
   max-width: $maxWidth;
@@ -218,6 +231,11 @@ $maxWidth: 520px;
   color: var(--colorGinDanger);
   vertical-align: text-top;
   background: none;
+}
+
+.form-item__warning {
+  display: inline-block;
+  margin-top: .5rem;
 }
 
 .js .form-autocomplete {
@@ -238,4 +256,9 @@ $maxWidth: 520px;
     mask-position: center center;
     mask-size: 100% 100%;
   }
+}
+
+.views-exposed-form .form-datetime-wrapper {
+  margin-bottom: 0;
+  margin-right: .5rem;
 }

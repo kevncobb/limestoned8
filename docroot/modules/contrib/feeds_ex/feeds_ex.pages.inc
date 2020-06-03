@@ -5,7 +5,7 @@
  * Page callbacks for feeds_ex.
  */
 
-use Drupal\Component\Utility\SafeMarkup;
+use Drupal\Component\Utility\Html;
 use Drupal\Component\Utility\Unicode;
 
 /**
@@ -28,7 +28,7 @@ function feeds_ex_encoding_autocomplete($string = '') {
   $prefix = '';
   $encodings = [];
   foreach (mb_list_encodings() as $suggestion) {
-    if (in_array(Unicode::strtolower($suggestion), $lower_added)) {
+    if (in_array(mb_strtolower($suggestion), $lower_added)) {
       $prefix .= $suggestion . ', ';
       continue;
     }
@@ -40,7 +40,7 @@ function feeds_ex_encoding_autocomplete($string = '') {
     if (stripos($encoding, $string) !== 0) {
       continue;
     }
-    $matches[$prefix . $encoding] = SafeMarkup::checkPlain($encoding);
+    $matches[$prefix . $encoding] = Html::escape($encoding);
     // Remove matches so we don't search them again.
     unset($encodings[$delta]);
   }
@@ -48,7 +48,7 @@ function feeds_ex_encoding_autocomplete($string = '') {
   // Find contains next.
   foreach ($encodings as $encoding) {
     if (stripos($encoding, $string) !== FALSE) {
-      $matches[$prefix . $encoding] = SafeMarkup::checkPlain($encoding);
+      $matches[$prefix . $encoding] = Html::escape($encoding);
     }
   }
 

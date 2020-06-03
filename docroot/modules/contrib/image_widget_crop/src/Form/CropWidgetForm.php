@@ -192,6 +192,23 @@ class CropWidgetForm extends ConfigFormBase {
       '#weight' => 16,
     ];
 
+    $form['image_crop']['notify'] = [
+      '#type' => 'details',
+      '#title' => $this->t('Cropping Notifications'),
+    ];
+
+    $form['image_crop']['notify']['notify_apply'] = [
+      '#title' => $this->t('Crop apply'),
+      '#type' => 'checkbox',
+      '#default_value' => $this->settings->get('settings.notify_apply'),
+    ];
+
+    $form['image_crop']['notify']['notify_update'] = [
+      '#title' => $this->t('Crop update'),
+      '#type' => 'checkbox',
+      '#default_value' => $this->settings->get('settings.notify_update'),
+    ];
+
     return parent::buildForm($form, $form_state);
   }
 
@@ -262,7 +279,9 @@ class CropWidgetForm extends ConfigFormBase {
       ->set("settings.show_crop_area", $form_state->getValue('show_crop_area'))
       ->set("settings.warn_multiple_usages", $form_state->getValue('warn_multiple_usages'))
       ->set("settings.crop_list", $form_state->getValue('crop_list'))
-      ->set("settings.crop_types_required", $form_state->getValue('crop_types_required'));
+      ->set("settings.crop_types_required", $form_state->getValue('crop_types_required'))
+      ->set("settings.notify_apply", $form_state->getValue('notify_apply'))
+      ->set("settings.notify_update", $form_state->getValue('notify_update'));
     $this->settings->save();
   }
 

@@ -16,8 +16,7 @@ use QueryPath\DOMQuery;
  * @FeedsParser(
  *   id = "querypathhtml",
  *   title = @Translation("QueryPath HTML"),
- *   description = @Translation("Parse HTML with QueryPath."),
- *   arguments = {"@feeds_ex.xml_utility"}
+ *   description = @Translation("Parse HTML with QueryPath.")
  * )
  */
 class QueryPathHtmlParser extends QueryPathXmlParser {

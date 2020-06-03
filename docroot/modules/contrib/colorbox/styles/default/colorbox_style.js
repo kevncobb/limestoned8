@@ -1,5 +1,6 @@
 /**
  * @file
+ * Colorbox Style JS.
  */
 
 (function ($) {

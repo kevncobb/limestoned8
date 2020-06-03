@@ -18,12 +18,21 @@ abstract class UnitTestBase extends FeedsUnitTestCase {
   protected $moduleDir;
 
   /**
+   * A mocked file system.
+   *
+   * @var \Drupal\Core\File\FileSystemInterface
+   */
+  protected $fileSystem;
+
+  /**
    * {@inheritdoc}
    */
   public function setUp() {
     $this->moduleDir = dirname(dirname(dirname(dirname(__FILE__))));
 
     parent::setUp();
+
+    $this->fileSystem = $this->getMockFileSystem();
   }
 
   /**
@@ -53,9 +62,9 @@ abstract class UnitTestBase extends FeedsUnitTestCase {
    *   The list of error messages.
    */
   protected function assertEmptyFeedMessage(array $messages) {
-    $this->assertSame(1, count($messages), strtr('There is one message (actual: @actual).', array(
+    $this->assertSame(1, count($messages), strtr('There is one message (actual: @actual).', [
       '@actual' => count($messages),
-    )));
+    ]));
     $this->assertSame((string) $messages[0]['message'], 'The feed is empty.', 'Message text is correct.');
     $this->assertSame($messages[0]['type'], 'warning', 'Message type is warning.');
     $this->assertFalse($messages[0]['repeat'], 'Repeat is set to false.');

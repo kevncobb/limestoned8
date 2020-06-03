@@ -132,17 +132,13 @@ function google_cse_form_search_block_form_alter(&$form, &$form_state, $form_id)
     $plugin_definition = $type->getDefinition($default);
     \Drupal::service('google_cse.services')->siteSearchForm($form);
     $form['#attributes']['class'][] = 'google-cse';
-    $form['#attached']['library'] = [
-      'google_cse/googlecseWatermark',
-    ];
-    $form['#attached']['drupalSettings'] = [
-      'googleCSE' => [
-        'cx' => $config->get('configuration')['cx'],
-        'language' => google_cse_language(),
-        'resultsWidth' => intval($config->get('configuration')['results_width']),
-        'domain' => $config->get('configuration')['domain'],
-        'isDefault' => $plugin_definition['provider'] === "google_cse" ? TRUE : FALSE,
-      ],
+    $form['#attached']['library'][] = 'google_cse/googlecseWatermark';
+    $form['#attached']['drupalSettings']['googleCSE'] = [
+      'cx' => $config->get('configuration')['cx'],
+      'language' => google_cse_language(),
+      'resultsWidth' => intval($config->get('configuration')['results_width']),
+      'domain' => $config->get('configuration')['domain'],
+      'isDefault' => $plugin_definition['provider'] === "google_cse" ? TRUE : FALSE,
     ];
   }
 }

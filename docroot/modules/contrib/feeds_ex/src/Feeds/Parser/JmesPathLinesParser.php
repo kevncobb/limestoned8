@@ -16,8 +16,7 @@ use Drupal\feeds_ex\File\LineIterator;
  * @FeedsParser(
  *   id = "jmespathlines",
  *   title = @Translation("JSON Lines JMESPath"),
- *   description = @Translation("Parse JSON Lines with JMESPath."),
- *   arguments = {"@feeds_ex.json_utility"}
+ *   description = @Translation("Parse JSON Lines with JMESPath.")
  * )
  */
 class JmesPathLinesParser extends JmesPathParser {

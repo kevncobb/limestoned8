@@ -11,8 +11,8 @@ use Drupal\Core\Url;
  * Implements hook_install().
  */
 function colorbox_install() {
-  drupal_set_message(t('Thanks for installing Colorbox'));
-  drupal_set_message(t('You may configure Colorbox by visiting <a href="@url_settings">@url_settings</a>', [
+  \Drupal::messenger()->addMessage(t('Thanks for installing Colorbox'));
+  \Drupal::messenger()->addMessage(t('You may configure Colorbox by visiting <a href="@url_settings">@url_settings</a>', [
     '@url_settings' => Url::fromRoute('colorbox.admin_settings')->toString(),
   ]));
 }

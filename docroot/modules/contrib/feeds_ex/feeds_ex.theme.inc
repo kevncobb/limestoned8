@@ -19,7 +19,7 @@ function theme_feeds_ex_configuration_table(array $variables) {
   if (!empty($element['context'])) {
     $context_row = [];
     foreach (array_keys($element['#header']) as $column) {
-      $context_row[] = drupal_render($element['context'][$column]);
+      $context_row[] = \Drupal::service('renderer')->render($element['context'][$column]);
     }
     $rows[] = $context_row;
   }
@@ -29,7 +29,7 @@ function theme_feeds_ex_configuration_table(array $variables) {
     $source = $element['sources'][$source_key];
     $row = [];
     foreach (array_keys($element['#header']) as $column) {
-      $row[] = drupal_render($element['sources'][$source_key][$column]);
+      $row[] = \Drupal::service('renderer')->render($element['sources'][$source_key][$column]);
     }
     $rows[] = ['data' => $row, 'class' => ['draggable']];
   }
@@ -38,7 +38,7 @@ function theme_feeds_ex_configuration_table(array $variables) {
   $add_row = [];
   foreach (array_keys($element['#header']) as $column) {
     $add_row[] = [
-      'data' => drupal_render($element['add'][$column]),
+      'data' => \Drupal::service('renderer')->render($element['add'][$column]),
       'class' => ['feeds-ex-add-' . $column],
     ];
   }
@@ -50,7 +50,7 @@ function theme_feeds_ex_configuration_table(array $variables) {
     'rows' => $rows,
     'attributes' => ['id' => $element['sources']['#id']],
   ]);
-  $output .= drupal_render_children($element);
+  $output .= render($element);
 
   return $output;
 }

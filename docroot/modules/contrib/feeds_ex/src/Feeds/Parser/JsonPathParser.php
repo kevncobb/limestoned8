@@ -8,7 +8,7 @@ use Drupal\feeds\FeedInterface;
 use Drupal\feeds\Result\FetcherResultInterface;
 use Drupal\feeds\Result\ParserResultInterface;
 use Drupal\feeds\StateInterface;
-use Peekmo\JsonPath\JsonStore;
+use Flow\JSONPath\JSONPath;
 
 /**
  * Defines a JSON parser using JSONPath.
@@ -16,8 +16,7 @@ use Peekmo\JsonPath\JsonStore;
  * @FeedsParser(
  *   id = "jsonpath",
  *   title = @Translation("JsonPath"),
- *   description = @Translation("Parse JSON with JSONPath."),
- *   arguments = {"@feeds_ex.json_utility"}
+ *   description = @Translation("Parse JSON with JSONPath.")
  * )
  */
 class JsonPathParser extends JsonParserBase {
@@ -28,8 +27,7 @@ class JsonPathParser extends JsonParserBase {
   protected function executeContext(FeedInterface $feed, FetcherResultInterface $fetcher_result, StateInterface $state) {
     $raw = $this->prepareRaw($fetcher_result);
     $parsed = $this->utility->decodeJsonArray($raw);
-    $store = new JsonStore();
-    $parsed = $store->get($parsed, $this->configuration['context']['value']);
+    $parsed = $this->search($parsed, $this->configuration['context']['value']);
 
     if (!$state->total) {
       $state->total = count($parsed);
@@ -52,8 +50,7 @@ class JsonPathParser extends JsonParserBase {
    * {@inheritdoc}
    */
   protected function executeSourceExpression($machine_name, $expression, $row) {
-    $store = new JsonStore();
-    $result = $store->get($row, $expression);
+    $result = $this->search($row, $expression);
 
     if (is_scalar($result)) {
       return $result;
@@ -91,10 +88,26 @@ class JsonPathParser extends JsonParserBase {
   }
 
   /**
+   * Searches an array via JSONPath.
+   *
+   * @param array $data
+   *   The array to search.
+   * @param string $expression
+   *   The JSONPath expression.
+   *
+   * @return mixed
+   *   The search results.
+   */
+  protected function search(array $data, $expression) {
+    $json_path = new JSONPath($data);
+    return $json_path->find($expression)->data();
+  }
+
+  /**
    * {@inheritdoc}
    */
   protected function loadLibrary() {
-    if (!class_exists('Peekmo\JsonPath\JsonStore')) {
+    if (!class_exists('Flow\JSONPath\JSONPath')) {
       throw new RuntimeException($this->t('The JSONPath library is not installed.'));
     }
   }

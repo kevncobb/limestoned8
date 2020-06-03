@@ -51,6 +51,22 @@ class XmlUtility {
   }
 
   /**
+   * Converts named HTML entities to their UTF-8 equivalent.
+   *
+   * @param string $markup
+   *   The string.
+   *
+   * @return string
+   *   The converted string.
+   */
+  public function decodeNamedHtmlEntities($markup) {
+    $map = array_flip(get_html_translation_table(HTML_ENTITIES, ENT_NOQUOTES|ENT_HTML5, 'UTF-8'));
+    unset($map['&amp;'], $map['&lt;'], $map['&gt;']);
+
+    return strtr($markup, $map);
+  }
+
+  /**
    * Builds a DOMDocument setting some default values.
    *
    * @return \DOMDocument

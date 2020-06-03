@@ -4,7 +4,7 @@ namespace Drupal\feeds_ex\Feeds\Parser;
 
 use RuntimeException;
 use QueryPath;
-use Drupal\Component\Utility\SafeMarkup;
+use Drupal\Component\Render\HtmlEscapedText;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\feeds\FeedInterface;
 use Drupal\feeds\Result\FetcherResultInterface;
@@ -18,8 +18,7 @@ use QueryPath\CSS\ParseException;
  * @FeedsParser(
  *   id = "querypathxml",
  *   title = @Translation("QueryPath XML"),
- *   description = @Translation("Parse XML with QueryPath."),
- *   arguments = {"@feeds_ex.xml_utility"}
+ *   description = @Translation("Parse XML with QueryPath.")
  * )
  */
 class QueryPathXmlParser extends XmlParser {
@@ -112,6 +111,7 @@ class QueryPathXmlParser extends XmlParser {
    * {@inheritdoc}
    */
   protected function validateExpression(&$expression) {
+    $this->loadLibrary();
     $expression = trim($expression);
     if (!$expression) {
       return;
@@ -120,7 +120,7 @@ class QueryPathXmlParser extends XmlParser {
       $parser = QueryPath::with(NULL, $expression);
     }
     catch (ParseException $e) {
-      return SafeMarkup::checkPlain($e->getMessage());
+      return new HtmlEscapedText($e->getMessage());
     }
   }
 
@@ -157,6 +157,20 @@ class QueryPathXmlParser extends XmlParser {
    * {@inheritdoc}
    */
   protected function loadLibrary() {
+    if (!class_exists('QueryPath')) {
+      // Check if the querypath library is installed manually.
+      $ns = \Drupal::service('container.namespaces');
+      if (!empty($ns['QueryPath']) && is_dir($ns['QueryPath'])) {
+        // The querypath namespace is expected to point to
+        // feeds_ex/lib/querypath-QueryPath/v3.0.5/src/QueryPath. The file to
+        // require should be feeds_ex/lib/querypath-QueryPath/v3.0.5/src/qp.php.
+        $path = dirname($ns['QueryPath']) . '/qp.php';
+        if (is_file($path)) {
+          require_once $path;
+        }
+      }
+    }
+
     if (!class_exists('QueryPath')) {
       throw new RuntimeException($this->t('The QueryPath library is not installed.'));
     }

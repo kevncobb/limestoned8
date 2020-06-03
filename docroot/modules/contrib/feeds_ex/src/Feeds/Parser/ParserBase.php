@@ -4,7 +4,7 @@ namespace Drupal\feeds_ex\Feeds\Parser;
 
 use Exception;
 use RuntimeException;
-use Drupal\Component\Utility\SafeMarkup;
+use Drupal\Component\Utility\Html;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Logger\RfcLogLevel;
 use Drupal\Core\Messenger\MessengerInterface;
@@ -46,6 +46,24 @@ abstract class ParserBase extends ConfigurablePluginBase implements ParserInterf
    * @var \Drupal\feeds_ex\Encoder\EncoderInterface
    */
   protected $encoder;
+
+  /**
+   * Constructs a ParserBase object.
+   *
+   * @param array $configuration
+   *   The plugin configuration.
+   * @param string $plugin_id
+   *   The plugin id.
+   * @param array $plugin_definition
+   *   The plugin definition.
+   */
+  public function __construct(array $configuration, $plugin_id, array $plugin_definition) {
+    if (!$this->hasConfigForm()) {
+      unset($plugin_definition['form']['configuration']);
+    }
+
+    parent::__construct($configuration, $plugin_id, $plugin_definition);
+  }
 
   /**
    * Returns rows to be parsed.
@@ -373,9 +391,13 @@ abstract class ParserBase extends ConfigurablePluginBase implements ParserInterf
    *   The prepared raw string.
    */
   protected function prepareRaw(FetcherResultInterface $fetcher_result) {
-    $raw = trim($this->getEncoder()->convertEncoding($fetcher_result->getRaw()));
+    $raw = $this->getEncoder()->convertEncoding($fetcher_result->getRaw());
 
-    if (!strlen($raw)) {
+    // Strip null bytes.
+    $raw = trim(str_replace("\0", '', $raw));
+
+    // Check that the string has at least one character.
+    if (!isset($raw[0])) {
       throw new EmptyFeedException();
     }
 
@@ -399,7 +421,7 @@ abstract class ParserBase extends ConfigurablePluginBase implements ParserInterf
     $output = '<strong>' . $name . ':</strong>';
     $data = is_array($data) ? $data : [$data];
     foreach ($data as $key => $value) {
-      $data[$key] = SafeMarkup::checkPlain($value);
+      $data[$key] = Html::escape($value);
     }
     $output .= _theme('item_list', ['items' => $data]);
     $this->getMessenger()->addMessage($output);
@@ -486,23 +508,29 @@ abstract class ParserBase extends ConfigurablePluginBase implements ParserInterf
    * {@inheritdoc}
    */
   public function mappingFormValidate(array &$form, FormStateInterface $form_state) {
-    // Validate context.
-    if ($this->hasConfigurableContext()) {
-      if ($message = $this->validateExpression($form_state->getValue('context'))) {
-        $form_state->setErrorByName('context', $message);
+    try {
+      // Validate context.
+      if ($this->hasConfigurableContext()) {
+        if ($message = $this->validateExpression($form_state->getValue('context'))) {
+          $form_state->setErrorByName('context', $message);
+        }
       }
-    }
 
-    // Validate new sources.
-    $mappings = $form_state->getValue('mappings');
-    foreach ($mappings as $i => $mapping) {
-      foreach ($mapping['map'] as $subtarget => $map) {
-        if ($map['select'] == '__new' && isset($map['__new']['value'])) {
-          if ($message = $this->validateExpression($map['__new']['value'])) {
-            $form_state->setErrorByName("mappings][$i][map][$subtarget][__new][value", $message);
+      // Validate new sources.
+      $mappings = $form_state->getValue('mappings');
+      foreach ($mappings as $i => $mapping) {
+        foreach ($mapping['map'] as $subtarget => $map) {
+          if ($map['select'] == '__new' && isset($map['__new']['value'])) {
+            if ($message = $this->validateExpression($map['__new']['value'])) {
+              $form_state->setErrorByName("mappings][$i][map][$subtarget][__new][value", $message);
+            }
           }
         }
       }
+    }
+    catch (Exception $e) {
+      // Exceptions due to missing libraries could occur, so catch these.
+      $form_state->setError($form, $e->getMessage());
     }
   }
 
@@ -746,7 +774,7 @@ abstract class ParserBase extends ConfigurablePluginBase implements ParserInterf
    * {@inheritdoc}
    */
   public function hasConfigForm() {
-    return TRUE;
+    return FALSE;
   }
 
   /**

@@ -8,7 +8,6 @@ use Drupal\feeds\Result\FetcherResultInterface;
 use Drupal\feeds\Result\ParserResultInterface;
 use Drupal\feeds\StateInterface;
 use Drupal\feeds_ex\File\LineIterator;
-use Peekmo\JsonPath\JsonStore;
 
 /**
  * Defines a JSON Lines parser using JSONPath.
@@ -16,8 +15,7 @@ use Peekmo\JsonPath\JsonStore;
  * @FeedsParser(
  *   id = "jsonpathlines",
  *   title = @Translation("JSON Lines JSONPath"),
- *   description = @Translation("Parse JSON Lines with JSONPath."),
- *   arguments = {"@feeds_ex.json_utility"}
+ *   description = @Translation("Parse JSON Lines with JSONPath.")
  * )
  */
 class JsonPathLinesParser extends JsonPathParser {
@@ -90,8 +88,7 @@ class JsonPathLinesParser extends JsonPathParser {
    * {@inheritdoc}
    */
   protected function executeSourceExpression($machine_name, $expression, $row) {
-    $store = new JsonStore();
-    $result = $store->get($row, $expression);
+    $result = $this->search($row, $expression);
 
     if (is_scalar($result)) {
       return $result;

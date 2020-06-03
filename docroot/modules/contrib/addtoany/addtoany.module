@@ -192,7 +192,7 @@ function addtoany_page_attachments(&$page) {
  *   The array with url, title, additional_html that will be send to Twig.
  */
 function addtoany_create_entity_data($node, $config = NULL) {
-  $url = isset($node) ? $node->url('canonical', ['absolute' => TRUE]) : NULL;
+  $url = isset($node) ? $node->toUrl('canonical', ['absolute' => TRUE])->toString() : NULL;
   $title = isset($node) ? $node->label() : NULL;
   return addtoany_create_data($url, $title, $config);
 }

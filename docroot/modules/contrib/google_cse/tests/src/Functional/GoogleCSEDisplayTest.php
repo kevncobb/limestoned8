@@ -24,6 +24,13 @@ class GoogleCSEDisplayTest extends BrowserTestBase {
   ];
 
   /**
+   * Specify the theme to be used in testing.
+   *
+   * @var string
+   */
+  protected $defaultTheme = 'stable';
+
+  /**
    * A user for tests.
    *
    * @var \Drupal\user\UserInterface
@@ -70,7 +77,7 @@ class GoogleCSEDisplayTest extends BrowserTestBase {
     $this->drupalGet('admin/structure/block');
     $this->getSession()->getPage()->findLink('Place block')->click();
     $this->assertLinkByHref(
-        '/admin/structure/block/add/search_form_block/classy',
+        '/admin/structure/block/add/search_form_block/stable',
         0,
         'Did not find the search block in block candidate list.'
     );
@@ -102,9 +109,7 @@ class GoogleCSEDisplayTest extends BrowserTestBase {
 
     $this->assertEqual(
     $this->getUrl(),
-    \Drupal::url('search.view_' . $entity_id, [], ['query' => ['keys' => $terms['keys']], 'absolute' => TRUE]),
-    'Submitted to correct URL.'
-    );
+    Url::fromRoute('search.view_' . $entity_id, [], ['query' => ['keys' => $terms['keys']], 'absolute' => TRUE])->toString(), 'Submitted to correct URL.');
 
     $session->elementExists('css', "div#google-cse-results");
   }

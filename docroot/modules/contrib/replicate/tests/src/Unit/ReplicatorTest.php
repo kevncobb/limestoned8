@@ -13,6 +13,7 @@ use Drupal\replicate\Events\ReplicateEntityEvent;
 use Drupal\replicate\Events\ReplicateEntityFieldEvent;
 use Drupal\replicate\Events\ReplicatorEvents;
 use Drupal\replicate\Replicator;
+use Drupal\Tests\UnitTestCase;
 use Prophecy\Argument;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
@@ -20,7 +21,7 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
  * @coversDefaultClass \Drupal\replicate\Replicator
  * @group replicate
  */
-class ReplicatorTest extends \PHPUnit_Framework_TestCase {
+class ReplicatorTest extends UnitTestCase {
 
   /**
    * Tests the cloneEntity method.
@@ -55,7 +56,7 @@ class ReplicatorTest extends \PHPUnit_Framework_TestCase {
    * Tests the cloneEntity and cloneEntityFields methods.
    *
    * @covers ::cloneEntity
-   * @covers ::cloneEntityFields
+   * @covers ::dispatchEventCloneEntityFields
    */
   public function testCloneForFieldableEntity() {
     $entity = $this->prophesize(FieldableEntityInterface::class);

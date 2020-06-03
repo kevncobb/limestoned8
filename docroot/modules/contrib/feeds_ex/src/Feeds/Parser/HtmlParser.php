@@ -12,8 +12,7 @@ use Drupal\feeds\Result\FetcherResultInterface;
  * @FeedsParser(
  *   id = "html",
  *   title = @Translation("HTML"),
- *   description = @Translation("Parse HTML with XPath."),
- *   arguments = {"@feeds_ex.xml_utility"}
+ *   description = @Translation("Parse HTML with XPath.")
  * )
  */
 class HtmlParser extends XmlParser {
@@ -60,7 +59,6 @@ class HtmlParser extends XmlParser {
       'wrap' => 0,
       'tidy-mark' => FALSE,
       'escape-cdata' => TRUE,
-      'word-2000' => TRUE,
     ];
   }
 

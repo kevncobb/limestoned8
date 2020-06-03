@@ -12,7 +12,7 @@ window.__gcse = {
     if (query) {
       var gcse = google.search.cse.element.getElement('google_cse');
       if (gcse) {
-        gcse.execute(decodeURIComponent(query));
+        gcse.execute(decodeURIComponent(query.replace(/\+/g, '%20')));
       }
     }
   }

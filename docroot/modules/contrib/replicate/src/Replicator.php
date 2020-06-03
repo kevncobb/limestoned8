@@ -8,6 +8,7 @@ use Drupal\Core\Entity\FieldableEntityInterface;
 use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Field\FieldException;
 use Drupal\Core\Field\FieldItemListInterface;
+use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\replicate\Events\AfterSaveEvent;
 use Drupal\replicate\Events\ReplicateAlterEvent;
 use Drupal\replicate\Events\ReplicateEntityEvent;
@@ -21,6 +22,8 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
  * @package Drupal\replicate
  */
 class Replicator {
+
+  use StringTranslationTrait;
 
   /**
    * The entity type manager.

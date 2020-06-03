@@ -16,6 +16,11 @@ class ReplicateUISettingsTest extends BrowserTestBase {
    */
   public static $modules = ['replicate', 'replicate_ui', 'node'];
 
+  /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'stark';
+
   public function testSettings() {
     $this->drupalGet('/admin/config/content/replicate');
     $this->assertSession()->statusCodeEquals(403);

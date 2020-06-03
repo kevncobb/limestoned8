@@ -41,7 +41,7 @@ class JmesPathLinesParserTest extends JsonPathLinesParserTest {
     $this->parser->setConfiguration($config);
 
     // Set JMESPath runtime factory.
-    $factoryMock = $this->getMock('Drupal\feeds_ex\JmesRuntimeFactoryInterface');
+    $factoryMock = $this->createMock('Drupal\feeds_ex\JmesRuntimeFactoryInterface');
     $factoryMock->expects($this->any())
       ->method('createRuntime')
       ->will($this->returnCallback(

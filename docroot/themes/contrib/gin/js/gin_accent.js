@@ -45,7 +45,7 @@
         // Light theme colors.
         accentColors = {
           dark_purple: '#35009d',
-          purple: '#a43bcb',
+          purple: '#8140b7',
           teal: '#267c91',
           green: '#26a769',
           red: '#a55254',
@@ -160,10 +160,12 @@
 
   Drupal.behaviors.ginTableCheckbox = {
     attach: function (context) {
-      $("table td .checkbox-toggle", context).once().bind('click', function () {
-        var checkBoxes = $(this).siblings("input");
-        checkBoxes.prop("checked", !checkBoxes.prop("checked"));
-      });
+      if ( $("table td .checkbox-toggle", context).length > 0 ) {
+        $("table td .checkbox-toggle", context).once().bind('click', function () {
+          var checkBoxes = $(this).siblings("input");
+          checkBoxes.prop("checked", !checkBoxes.prop("checked"));
+        });
+      }
     }
   };
 })(jQuery, Drupal, drupalSettings);

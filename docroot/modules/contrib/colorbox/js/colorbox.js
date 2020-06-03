@@ -1,3 +1,8 @@
+/**
+ * @file
+ * Colorbox JS.
+ */
+
 (function ($, Drupal) {
 
   'use strict';

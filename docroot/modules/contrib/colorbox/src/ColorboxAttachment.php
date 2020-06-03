@@ -4,6 +4,7 @@ namespace Drupal\colorbox;
 
 use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Config\ConfigFactoryInterface;
+use Drupal\Core\Installer\InstallerKernel;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 
 /**
@@ -47,7 +48,7 @@ class ColorboxAttachment implements ElementAttachmentInterface {
    * {@inheritdoc}
    */
   public function isApplicable() {
-    return !drupal_installation_attempted() && $this->activation->isActive();
+    return !InstallerKernel::installationAttempted() && $this->activation->isActive();
   }
 
   /**
