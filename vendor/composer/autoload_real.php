@@ -34,7 +34,7 @@ class ComposerAutoloaderInit7fce16add82b7afce537c68c5365c4ea
         if ($useStaticLoader) {
             require_once __DIR__ . '/autoload_static.php';
 
-            call_user_func(\Composer\Autoload\ComposerStaticInitf3b894432efe9a6b54a8199479ad8a50::getInitializer($loader));
+            call_user_func(\Composer\Autoload\ComposerStaticInit7fce16add82b7afce537c68c5365c4ea::getInitializer($loader));
         } else {
             $map = require __DIR__ . '/autoload_namespaces.php';
             foreach ($map as $namespace => $path) {
