@@ -8,7 +8,7 @@ use Drupal\webform\Entity\WebformSubmission;
 /**
  * Tests for computed elements.
  *
- * @group Webform
+ * @group webform
  */
 class WebformElementComputedTest extends WebformElementBrowserTestBase {
 
@@ -33,7 +33,7 @@ class WebformElementComputedTest extends WebformElementBrowserTestBase {
   /**
    * {@inheritdoc}
    */
-  public function setUp() {
+  protected function setUp() {
     parent::setUp();
 
     // Create filters.
@@ -94,7 +94,7 @@ class WebformElementComputedTest extends WebformElementBrowserTestBase {
       ->condition('name', ['webform_computed_token_auto', 'webform_computed_token_html', 'webform_computed_token_text'], 'IN')
       ->execute()
       ->fetchAll();
-    $this->assert(empty($result));
+    $this->assertEmpty($result);
 
     /* Twig */
 

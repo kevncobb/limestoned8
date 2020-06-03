@@ -10,11 +10,9 @@ namespace Drupal\Tests\responsive_preview\Functional;
 class ResponsivePreviewBlockTest extends ResponsivePreviewTestBase {
 
   /**
-   * Modules to enable.
-   *
-   * @var array
+   * {@inheritdoc}
    */
-  public static $modules = ['block'];
+  protected static $modules = ['block'];
 
   /**
    * Tests responsive preview block.

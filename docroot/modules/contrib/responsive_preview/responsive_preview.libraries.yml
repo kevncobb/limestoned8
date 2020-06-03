@@ -12,4 +12,4 @@ drupal.responsive-preview:
     - core/jquery.once
     - core/drupal.displace
     - core/backbone
-    - core/jquery.ui.position
+    - core/popperjs

@@ -10,7 +10,6 @@ use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Form\FormBuilderInterface;
 use Drupal\Core\Link;
-use Drupal\Core\Url;
 use Drupal\Component\Serialization\Yaml;
 use Drupal\Core\StringTranslation\TranslationManager;
 use Drupal\Core\TypedData\TypedDataInterface;
@@ -163,11 +162,8 @@ class ConfigInspectorController extends ControllerBase {
           'list' => ['#markup' => $this->t('N/A')],
           'tree' => ['#markup' => $this->t('N/A')],
           'form' => ['#markup' => $this->t('N/A')],
-          'raw' => Link::createFromRoute($this->t('Raw data'), 'config_inspector.raw_page', ['name' => $name])
-            ->toRenderable(),
-          'download' => [
-            '#markup' => Link::createFromRoute($this->t('Download'), new Url('config_inspector.download', ['name' => $name])),
-          ],
+          'raw' => Link::createFromRoute($this->t('Raw data'), 'config_inspector.raw_page', ['name' => $name])->toRenderable(),
+          'download' => Link::createFromRoute($this->t('Download'), 'config_inspector.download', ['name' => $name])->toRenderable(),
         ];
       }
       else {

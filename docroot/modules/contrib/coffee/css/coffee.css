@@ -140,10 +140,11 @@
   border-radius: 0px;
 }
 
+#coffee-results .ui-widget-content .ui-state-active,
 #coffee-results a.ui-state-hover,
 #coffee-results a:focus,
 #coffee-results a:hover,
-#coffee-results .ui-state-focus {
+#coffee-results .ui-state-active {
   background: #d1d1d1;
   color: #000;
   margin: 0;

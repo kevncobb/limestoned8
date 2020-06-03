@@ -1,7 +1,7 @@
 # Schema for the configuration files of the Responsive preview module.
 
 responsive_preview.device.*:
-  type: mapping
+  type: config_entity
   label: 'Responsive preview device'
   mapping:
     id:

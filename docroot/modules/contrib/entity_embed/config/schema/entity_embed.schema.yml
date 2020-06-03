@@ -32,7 +32,7 @@ embed.embed_type_settings.entity:
     inline_entity_form:
       type: boolean
       label: 'Inline Entity Form'
-    inline_entity_form_settings_settings:
+    inline_entity_form_settings:
       type: mapping
       label: 'Inline Entity Form settings'
       mapping:

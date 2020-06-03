@@ -1,5 +1,5 @@
-Ace Editor Module for Drupal 8 ( https://drupal.org/project/ace_editor )
-==============================
+Ace Editor Module for Drupal 8/9 ( https://drupal.org/project/ace_editor )
+================================
 by boaloysius, https://www.drupal.org/u/boaloysius
 by interdruper, https://www.drupal.org/u/interdruper
 
@@ -21,38 +21,69 @@ an API to embed and show code snippets in your content.
 Non-core dependencies
 =====================
 
-None.
+    Contrib modules: none.
+
+    External libraries: Ace Editor https://github.com/ajaxorg/ace-builds/archive/master.zip
 
 Installation
 ============
 
 a) Using Composer:
-    
-    $ composer require 'drupal/ace_editor:^1.0' 
+
+    If you want Composer to automatically download the Ace Library
+    to the /libraries folder when installing the module, you must
+    update your root project composer.json in the following sections:
+
+      "extra" section: add the following:
+
+          "installer-types": [
+              "npm-asset"
+          ],
+          "installer-paths": {
+              "libraries/{$name}": [
+                  "type:drupal-library",
+                  "type:npm-asset"
+              ]
+          }
+
+      "repositories" section: add the following:
+
+          "assets": {
+              "type": "composer",
+              "url": "https://asset-packagist.org"
+          }
+
+    (see details: https://www.drupal.org/docs/develop/using-composer/using-composer-to-install-drupal-and-manage-dependencies)
+
+
+    After the previous updates, run:
+
+    $ composer require 'drupal/ace_editor:^1.0'
 
     or
 
     $ composer require 'drupal/ace_editor:1.x-dev'
 
-    The Ace library will be downloaded to /libraries folder
-    with '$ composer install/update'. Only one version 
-    (minified, noconflict...) is required. Other folders 
+    The Ace library will be downloaded to the /libraries folder
+    with '$ composer install/update'. Only one version
+    (minified, noconflict...) is required. Other folders
     (including /demo) can be removed.
 
 b) Manually:
+
     1. Download the latest version of the Ace Editor at
        https://github.com/ajaxorg/ace-builds/ or directly
        via https://github.com/ajaxorg/ace-builds/archive/master.zip
        Do not use a version < 1.4.0.
-    2. Extract and place the files tree contents of only one of the releases  
-       (minified, noconflict...) under /libraries/ace so that ace.js 
+    2. Extract and place the files tree contents of only one of the releases
+       (minified, noconflict...) under /libraries/ace so that ace.js
        is located at /libraries/ace/ace.js.
     3. Download, extract and copy the "Ace Editor" module to your
        /modules or /modules/contrib directory.
     4. Enable the "Ace Editor" module on your Drupal Extent page,
        under the Administration heading. An "Ace Editor" filter format
        is added. You can create a new Text format for use it, or
-       enable the Ace editor for other filter formats at 
+       enable the Ace editor for other filter formats at
        /admin/config/content/formats.
 
 Uninstallation
@@ -73,7 +104,8 @@ Edit HTML, PHP, YAML... in your entities and blocks like a pro
 
 Go to admin/config/content/formats, create/edit a Text format and select 'Ace'
 as the Text Editor. Afterwards, configura the Editor settings. Then head over to
-a block or entity containing a textarea with the correct text format and hack away!
+a block or entity containing a textarea with the correct text format and hack
+away!
 
 Autocompletion
 --------------

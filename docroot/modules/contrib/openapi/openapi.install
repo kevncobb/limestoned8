@@ -11,7 +11,7 @@
 function openapi_update_8100(&$sandbox) {
   $module_handler = \Drupal::service('module_handler');
   // get the available modules.
-  $available_modules = system_rebuild_module_data();
+  $available_modules = \Drupal::service('extension.list.module')->getList();
 
   // Verify the replacements that need to be made.
   $module_replacements = [

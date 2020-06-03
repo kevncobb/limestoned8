@@ -306,7 +306,7 @@ trait ViewsReferenceTrait {
    */
   protected function getViewDisplays($view_id) {
     $options = [];
-    $view_plugins = array_diff($this->getFieldSetting('plugin_types'), array('0'));
+    $view_plugins = array_diff($this->getFieldSetting('plugin_types'), ['0']);
     /** @var \Drupal\views\Entity\View $view */
     if ($view = \Drupal::service('entity.manager')->getStorage('view')->load($view_id)) {
       if ($displays = $view->get('display')) {

@@ -1,7 +1,6 @@
 build:
   assessment:
     validate_codebase:
-      phplint:
       container_composer:
         - 'config repositories.asset composer https://asset-packagist.org'
         - 'require oomphinc/composer-installers-extender:~1.0'
@@ -27,6 +26,7 @@ build:
           - 'sudo -u www-data composer require npm-asset/dropzone:~4.0 npm-asset/blazy:~1.0 npm-asset/slick-carousel:~1.0'
           - 'dir libraries'
           - 'sudo -u www-data composer require drupal/varbase_media:7.x-dev'
+      phplint:
       csslint:
         halt-on-fail: false
       eslint:
@@ -34,31 +34,8 @@ build:
       phpcs:
         sniff-all-files: false
         halt-on-fail: false
-        coder-version: ^8.2@stable
     testing:
-      run_tests.standard:
-        types: 'Simpletest,PHPUnit-Unit,PHPUnit-Kernel,PHPUnit-Functional'
-        testgroups: '--all'
-        color: true
-        die-on-fail: false
-        keep-results: true
-        keep-results-table: false
-        verbose: false
-        concurrency: 0
-        halt-on-fail: false
-        repeat: 1
-        suppress-deprecations: false
-      run_tests.js:
-        concurrency: 1
-        types: PHPUnit-FunctionalJavascript
-        testgroups: '--all'
-        color: true
-        die-on-fail: false
-        keep-results: true
-        keep-results-table: false
-        verbose: false
-        halt-on-fail: false
-        repeat: 1
-        suppress-deprecations: false
-      nightwatchjs: {  }
-
+      run_tests.functional:
+        types: 'PHPUnit-Functional'
+        testgroups: 'varbase_bootstrap_paragraphs'
+        suppress-deprecations: true

@@ -85,7 +85,7 @@ class PageManagerHelper {
     // object to avoid double escaping.
     // @todo: Simplify this when core provides an API for this in
     //   https://www.drupal.org/node/2580723.
-    $title = (string) $this->token->replace(new HtmlEscapedText($title), $this->getContextAsTokenData($contexts));
+    $title = (string) $this->token->replace($title, $this->getContextAsTokenData($contexts));
     return Markup::create($title);
   }
 
@@ -102,7 +102,7 @@ class PageManagerHelper {
     $fixed_contexts = [];
     foreach ($contexts as $context_name => $context) {
       $data_type = $context->getContextDefinition()->getDataType();
-      if (preg_match('/entity:(\w+)/', $data_type, $matches)) {
+      if (preg_match('/entity:(\w)/', $data_type, $matches)) {
         $entity_type = $matches[1];
         if (is_numeric($context->getContextValue())) {
           $storage = $this->entityManager->getStorage($entity_type);

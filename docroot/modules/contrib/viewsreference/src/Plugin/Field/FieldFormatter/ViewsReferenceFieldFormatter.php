@@ -60,7 +60,7 @@ class ViewsReferenceFieldFormatter extends FormatterBase {
         $allowed[] = $type;
       }
     }
-    $summary[] = t('Allowed plugins: @view', ['@view' => implode(', ', $allowed)]);
+    $summary[] = $this->t('Allowed plugins: @view', ['@view' => implode(', ', $allowed)]);
     return $summary;
   }
 

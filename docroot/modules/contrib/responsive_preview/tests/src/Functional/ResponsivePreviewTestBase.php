@@ -11,11 +11,14 @@ use Drupal\Tests\BrowserTestBase;
 abstract class ResponsivePreviewTestBase extends BrowserTestBase {
 
   /**
-   * Modules to enable.
-   *
-   * @var array
+   * {@inheritdoc}
    */
-  public static $modules = ['responsive_preview'];
+  protected static $modules = ['responsive_preview'];
+
+  /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'classy';
 
   /**
    * Return the default devices.

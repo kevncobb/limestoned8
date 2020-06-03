@@ -62,8 +62,9 @@ class MediaLibraryFormElementOpener implements MediaLibraryOpenerInterface {
     // button.
     $widget_id = $parameters['field_widget_id'];
     $ids = implode(',', $selected_ids);
+
     $response
-      ->addCommand(new InvokeCommand("[data-media-library-form-element-value=\"$widget_id\"]", 'val', [$ids]))
+      ->addCommand(new InvokeCommand(NULL, 'setMediaUploadFieldValue', [$ids, "[data-media-library-form-element-value=\"$widget_id\"]"]))
       ->addCommand(new InvokeCommand("[data-media-library-form-element-update=\"$widget_id\"]", 'trigger', ['mousedown']));
 
     return $response;

@@ -4,6 +4,6 @@ media_library_form_element:
     assets/js/media_library.form-element.js: {}
   dependencies:
     - core/drupal.dialog.ajax
-    - core/jquery.ui.sortable
+    - core/sortable
     - core/jquery.once
     - media_library/style

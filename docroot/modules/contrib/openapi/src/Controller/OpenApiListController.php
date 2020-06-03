@@ -163,7 +163,7 @@ class OpenApiListController extends ControllerBase {
       ];
       $no_plugins_message = '<strong>' . $this->t('No OpenApi generator plugins are currently available.') . '</strong> ';
       $no_plugins_message .= $this->t('You must enable a REST or API module which supports OpenApi Downloads, such as the <a href=":rest_link">Core Rest</a> and <a href=":jsonapi_link">Json API</a> modules.', $links);
-      drupal_set_message(['#markup' => $no_plugins_message], 'warning');
+      $this->messenger()->addWarning($no_plugins_message);
     }
 
     return $build;

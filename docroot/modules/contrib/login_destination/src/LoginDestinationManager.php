@@ -2,7 +2,6 @@
 
 namespace Drupal\login_destination;
 
-use Drupal\Component\Utility\Unicode;
 use Drupal\Component\Utility\UrlHelper;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
@@ -95,7 +94,7 @@ class LoginDestinationManager implements LoginDestinationManagerInterface {
     uasort($destinations, '\Drupal\login_destination\Entity\LoginDestination::sort');
 
     $path = $this->getCurrentPath();
-    $path_alias = Unicode::strtolower($this->aliasManager->getAliasByPath($path));
+    $path_alias = mb_strtolower($this->aliasManager->getAliasByPath($path));
 
     // Get user roles.
     $user_roles = $account->getRoles();
@@ -132,7 +131,7 @@ class LoginDestinationManager implements LoginDestinationManagerInterface {
       }
 
 
-      $pages = Unicode::strtolower($destination->getPages());
+      $pages = mb_strtolower($destination->getPages());
       if (!empty($pages)) {
         $type = $destination->getPagesType();
         $page_match = $this->pathMatcher->matchPath($path_alias, $pages) || $this->pathMatcher->matchPath($path, $pages);

@@ -3,7 +3,6 @@
 namespace Drupal\login_destination\Entity;
 
 use Drupal\Component\Utility\Html;
-use Drupal\Component\Utility\Unicode;
 use Drupal\Core\Config\Entity\ConfigEntityBase;
 use Drupal\Core\Url;
 use Drupal\login_destination\LoginDestinationInterface;
@@ -305,7 +304,7 @@ class LoginDestination extends ConfigEntityBase implements LoginDestinationInter
    *   TRUE or FALSE.
    */
   public function isDestinationCurrent() {
-    return Unicode::strpos($this->destination_path, '<current>') !== FALSE;
+    return mb_strpos($this->destination_path, '<current>') !== FALSE;
   }
 
   /**

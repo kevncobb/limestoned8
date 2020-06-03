@@ -2,13 +2,15 @@
 
 namespace Drupal\image_resize_filter\Plugin\Filter;
 
+use Drupal\Core\Config\Config;
+use Drupal\Core\File\FileSystemInterface;
 use Drupal\Core\Image\ImageFactory;
+use Drupal\Core\StreamWrapper\StreamWrapperManagerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\filter\FilterProcessResult;
 use Drupal\filter\Plugin\FilterBase;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\editor\Entity\Editor;
 
 /**
  * Provides a filter to resize images.
@@ -19,7 +21,10 @@ use Drupal\editor\Entity\Editor;
  *   description = @Translation("Analyze the &lt;img&gt; tags and compare the given height and width attributes to the actual file. If the file dimensions are different than those given in the &lt;img&gt; tag, the image will be copied and the src attribute will be updated to point to the resized image."),
  *   type = Drupal\filter\Plugin\FilterInterface::TYPE_TRANSFORM_REVERSIBLE,
  *   settings = {
- *     "image_locations" = {},
+ *     "image_locations" = {
+ *        "local" = 1,
+ *        "remote" = 0
+ *   },
  *   }
  * )
  */
@@ -33,6 +38,25 @@ class FilterImageResize extends FilterBase implements ContainerFactoryPluginInte
   protected $imageFactory;
 
   /**
+   * @var \Drupal\Core\Config\ImmutableConfig
+   */
+  protected $systemFileConfig;
+
+  /**
+   * The stream wrapper manager.
+   *
+   * @var \Drupal\Core\StreamWrapper\StreamWrapperManagerInterface
+   */
+  protected $streamWrapperManager;
+
+  /**
+   * The file system.
+   *
+   * @var \Drupal\Core\File\FileSystemInterface
+   */
+  protected $fileSystem;
+
+  /**
    * FilterImageResize constructor.
    * @param array $configuration
    * @param string $plugin_id
@@ -41,14 +65,26 @@ class FilterImageResize extends FilterBase implements ContainerFactoryPluginInte
    *   The entity Repository.
    * @param \Drupal\Core\Image\ImageFactory $image_factory
    *   Image Factory.
+   * @param \Drupal\Core\Config\Config $system_file_config
+   *   The system file configuration.
+   * @param \Drupal\Core\StreamWrapper\StreamWrapperManagerInterface $stream_wrapper_manager
+   *   The stream wrapper manager.
+   * @param \Drupal\Core\File\FileSystemInterface $file_system
+   *   The file system.
    */
   public function __construct(
     array $configuration,
     $plugin_id,
     $plugin_definition,
-    ImageFactory $image_factory) {
+    ImageFactory $image_factory,
+    Config $system_file_config,
+    StreamWrapperManagerInterface $stream_wrapper_manager,
+    FileSystemInterface $file_system) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
     $this->imageFactory = $image_factory;
+    $this->systemFileConfig = $system_file_config;
+    $this->streamWrapperManager = $stream_wrapper_manager;
+    $this->fileSystem = $file_system;
   }
 
   /**
@@ -59,7 +95,10 @@ class FilterImageResize extends FilterBase implements ContainerFactoryPluginInte
       $configuration,
       $plugin_id,
       $plugin_definition,
-      $container->get('image.factory')
+      $container->get('image.factory'),
+      $container->get('config.factory')->get('system.file'),
+      $container->get('stream_wrapper_manager'),
+      $container->get('file_system')
     );
   }
 
@@ -97,7 +136,13 @@ class FilterImageResize extends FilterBase implements ContainerFactoryPluginInte
       // Copy remote images locally.
       if ($image['location'] == 'remote') {
         $local_file_path = 'resize/remote/' . md5(file_get_contents($image['local_path'])) . '-' . $image['expected_size']['width'] . 'x' . $image['expected_size']['height'] . '.'. $image['extension'];
-        $image['destination'] = file_default_scheme() . '://' . $local_file_path;
+        // Once Drupal 8.7.x is unsupported remove this IF statement.
+        if (floatval(\Drupal::VERSION) >= 8.8) {
+          $image['destination'] = $this->systemFileConfig->get('default_scheme') . '://' . $local_file_path;
+        }
+        else {
+          $image['destination'] = file_default_scheme() . '://' . $local_file_path;
+        }
       }
       // Destination and local path are the same if we're just adding attributes.
       elseif (!$image['resize']) {
@@ -105,7 +150,13 @@ class FilterImageResize extends FilterBase implements ContainerFactoryPluginInte
       }
       else {
         $path_info = image_resize_filter_pathinfo($image['local_path']);
-        $local_file_dir = file_uri_target($path_info['dirname']);
+        // Once Drupal 8.7.x is unsupported remove this IF statement.
+        if (floatval(\Drupal::VERSION) >= 8.8) {
+          $local_file_dir = $this->streamWrapperManager->getTarget($path_info['dirname']);
+        }
+        else {
+          $local_file_dir = file_uri_target($path_info['dirname']);
+        }
         $local_file_path = 'resize/' . ($local_file_dir ? $local_file_dir . '/' : '') . $path_info['filename'] . '-' . $image['expected_size']['width'] . 'x' . $image['expected_size']['height'] . '.' . $path_info['extension'];
         $image['destination'] = $path_info['scheme'] . '://' . $local_file_path;
       }
@@ -122,7 +173,7 @@ class FilterImageResize extends FilterBase implements ContainerFactoryPluginInte
 
         // Create the resize directory.
         $directory = dirname($image['destination']);
-        file_prepare_directory($directory, FILE_CREATE_DIRECTORY);
+        $this->fileSystem->prepareDirectory($directory, FileSystemInterface::CREATE_DIRECTORY);
 
         // Move remote images into place if they are already the right size.
         if ($image['location'] == 'remote' && !$image['resize']) {
@@ -132,7 +183,7 @@ class FilterImageResize extends FilterBase implements ContainerFactoryPluginInte
         }
         // Resize the local image if the sizes don't match.
         elseif ($image['resize']) {
-          $copy = file_unmanaged_copy($image['local_path'], $image['destination']);
+          $copy = $this->fileSystem->copy($image['local_path'], $image['destination']);
           $res = $this->imageFactory->get($copy);
           if ($res) {
             // Image loaded successfully; resize.

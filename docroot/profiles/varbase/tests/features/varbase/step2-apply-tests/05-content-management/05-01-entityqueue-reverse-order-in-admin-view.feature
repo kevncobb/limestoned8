@@ -18,15 +18,24 @@ Scenario: Check that Reverse order in admin view is working
 
    When I go to "/admin/structure/entityqueue/test_queue#edit-queue-settings"
     And I wait
-   Then I should see "Edit Entity Queue"
-   When I click "Queue settings"
-    And I wait
-   Then I should see "Restrict this queue to a minimum of"
-    And I should see "Reverse order in admin view"
-   When I check the box "Reverse order in admin view"
+   Then I should see "Configure Test Queue"
+    And I should see "Restrict this queue to a minimum of"
+    And I should see "Reverse"
+   When I check the box "Reverse"
     And I press "Save"
     And I wait
    Then I should see "The entity queue Test Queue has been updated."
+   When I go to "/admin/structure/entityqueue"
+    And I wait
+   Then I should see "Test Queue"
+   When I click "Edit items" in the "Test Queue" row
+    And I wait
+   Then I should see "Edit subqueue Test Queue"
+   When I press "Reverse"
+    And I wait
+    And I press "Save"
+    And I wait
+   Then I should see "The entity subqueue Test Queue has been updated."
    When I go to "/admin/structure/entityqueue"
     And I wait
    Then I should see "Test Queue"

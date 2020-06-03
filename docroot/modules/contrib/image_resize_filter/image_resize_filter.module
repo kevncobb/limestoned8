@@ -108,10 +108,11 @@ function image_resize_filter_get_images(array $settings, $text) {
     // Determine if this is a local or remote file.
     $base_path = base_path();
     $location = 'unknown';
+    $host = \Drupal::request()->getHost();
     if (strpos($src, $base_path) === 0) {
       $location = 'local';
     }
-    elseif (preg_match('/http[s]?:\/\/' . preg_quote($_SERVER['HTTP_HOST'] . $base_path, '/') . '/', $src)) {
+    elseif (preg_match('/http[s]?:\/\/' . preg_quote($host . $base_path, '/') . '/', $src)) {
       $location = 'local';
     }
     elseif (strpos($src, 'http') === 0) {
@@ -285,7 +286,13 @@ function image_resize_filter_pathinfo($uri) {
   $info['extension'] = substr($uri, strrpos($uri, '.') + 1);
   $info['basename'] = basename($uri);
   $info['filename'] = basename($uri, '.' . $info['extension']);
-  $info['scheme'] = \Drupal::service('file_system')->uriScheme($uri);
+  // Once Drupal 8.7.x is unsupported remove this IF statement.
+  if (floatval(\Drupal::VERSION) >= 8.8) {
+    $info['scheme'] = \Drupal::service('stream_wrapper_manager')->getScheme($uri);
+  }
+  else {
+    $info['scheme'] = \Drupal::service('file_system')->uriScheme($uri);
+  }
 
   $stream_wrapper_manager = \Drupal::service('stream_wrapper_manager');
   $stream_wrappers = $stream_wrapper_manager->getWrappers();

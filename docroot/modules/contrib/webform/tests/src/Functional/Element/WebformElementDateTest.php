@@ -7,7 +7,7 @@ use Drupal\webform\Entity\Webform;
 /**
  * Tests for webform date element.
  *
- * @group Webform
+ * @group webform
  */
 class WebformElementDateTest extends WebformElementBrowserTestBase {
 
@@ -46,7 +46,7 @@ class WebformElementDateTest extends WebformElementBrowserTestBase {
 
     // Check 'datelist' and 'datetime' #default_value.
     $form = $webform->getSubmissionForm();
-    $this->assert(is_string($form['elements']['date_default']['#default_value']), 'date_default #default_value is a string.');
+    $this->assertIsString($form['elements']['date_default']['#default_value']);
 
     // Check date #max validation.
     $edit = ['date_min_max' => '2010-08-18'];

@@ -156,7 +156,10 @@ body .layout-builder-block {
   background-color: transparent;
 }
 
-.layout-builder__link.layout-builder__link--configure {
-  z-index: 20;
-  position: absolute;
+.toolbar-fixed .js-messages__wrapper {
+  top: 0 !important;
+}
+
+.toolbar-horizontal.toolbar-tray-open .js-messages__wrapper {
+  top: 0 !important;
 }

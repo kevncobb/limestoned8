@@ -5,6 +5,7 @@ namespace Drupal\media_library_form_element\Element;
 use Drupal\Component\Utility\NestedArray;
 use Drupal\Core\Ajax\AjaxResponse;
 use Drupal\Core\Ajax\OpenModalDialogCommand;
+use Drupal\Core\Field\FieldStorageDefinitionInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Render\Element\FormElement;
 use Drupal\media\Entity\Media;
@@ -26,42 +27,19 @@ use Drupal\media_library\MediaLibraryUiBuilder;
  *     '#title' => t('Upload your image'),
  *     '#default_value' => NULL|1,
  *     '#description' => t('Upload or select your profile image.'),
+ *     '#cardinality' => -1|1,
  *   ];
  */
 class MediaLibrary extends FormElement {
 
   /**
-   * {@inheritdoc}
-   */
-  public function getInfo() {
-    $class = get_class($this);
-    return [
-      '#input' => TRUE,
-      '#tree' => TRUE,
-      '#allowed_bundles' => [],
-      '#process' => [
-        [$class, 'processAjaxForm'],
-        [$class, 'processMediaLibrary'],
-        [$class, 'processGroup'],
-      ],
-      '#pre_render' => [
-        [$class, 'preRenderGroup'],
-      ],
-      '#element_validate' => [
-        [$class, 'elementValidateMediaLibrary'],
-      ],
-      '#theme' => 'media_library_element',
-    ];
-  }
-
-  /**
    * Expand the media_library_element into it's required sub-elements.
    *
-   * @param $element
+   * @param array $element
    *   The base form element render array.
    * @param \Drupal\Core\Form\FormStateInterface $form_state
    *   The form state object.
-   * @param $complete_form
+   * @param array $complete_form
    *   The complete form render array.
    *
    * @return array
@@ -70,25 +48,27 @@ class MediaLibrary extends FormElement {
    * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
    * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    */
-  public static function processMediaLibrary(&$element, FormStateInterface $form_state, &$complete_form) {
+  public static function processMediaLibrary(array &$element, FormStateInterface $form_state, array &$complete_form): array {
     $referenced_entity = NULL;
     $entity_id = NULL;
     $default_value = NULL;
+    $referenced_entities = [];
 
     if (!empty($element['#value'])) {
       $default_value = $element['#value'];
     }
 
     if (!empty($default_value['media_selection_id'])) {
-      $entity_id = $default_value['media_selection_id'];
+      $entity_ids = [$default_value['media_selection_id']];
     }
-    elseif (is_numeric($default_value)) {
-      $entity_id = $default_value;
+    else {
+      $entity_ids = array_filter(explode(',', $default_value));
     }
 
-    if (!empty($entity_id)) {
-      /** @var \Drupal\media\MediaInterface $media */
-      $referenced_entity = Media::load($entity_id);
+    if (!empty($entity_ids)) {
+      foreach ($entity_ids as $entity_id) {
+        $referenced_entities[] = \Drupal::entityTypeManager()->getStorage('media')->load($entity_id);
+      }
     }
 
     $view_builder = \Drupal::entityTypeManager()->getViewBuilder('media');
@@ -96,24 +76,32 @@ class MediaLibrary extends FormElement {
     $allowed_media_type_ids = $element['#allowed_bundles'];
     $parents = $element['#parents'];
     $field_name = array_pop($parents);
+    $attributes = $element['#attributes'] ?? [];
     // Create an ID suffix from the parents to make sure each widget is unique.
     $id_suffix = $parents ? '-' . implode('-', $parents) : '';
     $field_widget_id = implode('', array_filter([$field_name, $id_suffix]));
     $wrapper_id = $field_name . '-media-library-wrapper' . $id_suffix;
     $limit_validation_errors = [array_merge($parents, [$field_name])];
 
-    $element = array_merge($element, [
-      '#target_bundles' => !empty($allowed_media_type_ids) ? $allowed_media_type_ids : FALSE,
-      '#attributes' => [
-        'id' => $wrapper_id,
-        'class' => ['media-library-form-element'],
-      ],
-      '#attached' => [
-        'library' => ['media_library_form_element/media_library_form_element'],
-      ],
-    ]);
+    $element = array_merge(
+      $element,
+      [
+        '#target_bundles' => !empty($allowed_media_type_ids) ? $allowed_media_type_ids : FALSE,
+        '#cardinality' => $element['#cardinality'] ?? 1,
+        '#attributes' => [
+          'id' => $wrapper_id,
+          'class' => ['media-library-form-element'],
+        ],
+        '#attached' => [
+          'library' => [
+            'media_library_form_element/media_library_form_element',
+            'media_library/view',
+          ],
+        ],
+      ]
+    );
 
-    if (empty($referenced_entity)) {
+    if (empty($referenced_entities)) {
       $element['empty_selection'] = [
         '#type' => 'html_tag',
         '#tag' => 'p',
@@ -136,11 +124,8 @@ class MediaLibrary extends FormElement {
       ],
     ];
 
-    $remaining = 1;
-    if (!empty($referenced_entity)) {
-      $remaining = 0;
-
-      $element['selection'][0] = [
+    foreach ($referenced_entities as $delta => $referenced_entity) {
+      $element['selection'][$delta] = [
         '#type' => 'container',
         '#attributes' => [
           'class' => [
@@ -157,13 +142,13 @@ class MediaLibrary extends FormElement {
           // Add a data attribute containing the delta to allow us to easily
           // shift the focus to a specific media item.
           // @see ::updateFormElement()
-          'data-media-library-item-delta' => 0,
+          'data-media-library-item-delta' => $delta,
         ],
         'preview' => [
           '#type' => 'container',
           'remove_button' => [
             '#type' => 'submit',
-            '#name' => $field_name . '-' . 0 . '-media-library-remove-button' . $id_suffix,
+            '#name' => $field_name . '-' . $delta . '-media-library-remove-button' . $id_suffix,
             '#value' => t('Remove'),
             '#media_id' => $referenced_entity->id(),
             '#attributes' => [
@@ -171,45 +156,65 @@ class MediaLibrary extends FormElement {
               'aria-label' => t('Remove @label', ['@label' => $referenced_entity->label()]),
             ],
             '#ajax' => [
-              'callback' => [get_called_class(), 'updateFormElement'],
+              'callback' => [static::class, 'updateFormElement'],
               'wrapper' => $wrapper_id,
               'progress' => [
                 'type' => 'throbber',
                 'message' => t('Removing @label.', ['@label' => $referenced_entity->label()]),
               ],
             ],
-            '#submit' => [[get_called_class(), 'removeItem']],
+            '#submit' => [[static::class, 'removeItem']],
             // Prevent errors in other widgets from preventing removal.
             '#limit_validation_errors' => $limit_validation_errors,
           ],
           // @todo Make the view mode configurable in https://www.drupal.org/project/drupal/issues/2971209
           'rendered_entity' => $view_builder->view($referenced_entity, 'media_library'),
+          'target_id' => [
+            '#type' => 'hidden',
+            '#value' => $referenced_entity->id(),
+          ],
+        ],
+        'weight' => [
+          '#type' => 'number',
+          '#theme' => 'input__number__media_library_item_weight',
+          '#title' => \Drupal::translation()->translate('Weight'),
+          '#default_value' => $delta,
+          '#attributes' => [
+            'class' => [
+              'js-media-library-item-weight',
+            ],
+          ],
         ],
       ];
     }
 
-    // Inform the user of how many items are remaining.
-    if ($remaining) {
-      $cardinality_message = \Drupal::service('string_translation')->formatPlural($remaining, 'One media item remaining.', '@count media items remaining.');
-    }
-    else {
-      $cardinality_message = t('The maximum number of media items have been selected.');
-    }
+    $cardinality_unlimited = ($element['#cardinality'] === FieldStorageDefinitionInterface::CARDINALITY_UNLIMITED);
+    $remaining = $element['#cardinality'] - count($referenced_entities);
 
-    // Add a line break between the field message and the cardinality message.
-    if (!isset($element['#description'])) {
-      $element['#description'] = '';
+    // Inform the user of how many items are remaining.
+    if (!$cardinality_unlimited) {
+      if ($remaining) {
+        $cardinality_message = \Drupal::translation()->formatPlural($remaining, 'One media item remaining.', '@count media items remaining.');
+      }
+      else {
+        $cardinality_message = \Drupal::translation()->translate('The maximum number of media items have been selected.');
+      }
+
+      // Add a line break between the field message and the cardinality message.
+      if (!empty($element['#description'])) {
+        $element['#description'] .= '<br />' . $cardinality_message;
+      }
+      else {
+        $element['#description'] = $cardinality_message;
+      }
     }
-    if (!empty($element['#description'])) {
-      $element['#description'] .= '<br />';
-    }
-    $element['#description'] .= $cardinality_message;
 
     // Create a new media library URL with the correct state parameters.
     $selected_type_id = reset($allowed_media_type_ids);
     // This particular media library opener needs some extra metadata for its
     // \Drupal\media_library\MediaLibraryOpenerInterface::getSelectionResponse()
-    // to be able to target the element whose 'data-media-library-form-element-value'
+    // to be able to target the element
+    // whose 'data-media-library-form-element-value'
     // attribute is the same as $field_widget_id. The entity ID, entity type ID,
     // bundle, field name are used for access checking.
     $opener_parameters = [
@@ -234,7 +239,7 @@ class MediaLibrary extends FormElement {
       ],
       '#media_library_state' => $state,
       '#ajax' => [
-        'callback' => [get_called_class(), 'openMediaLibrary'],
+        'callback' => [static::class, 'openMediaLibrary'],
         'progress' => [
           'type' => 'throbber',
           'message' => t('Opening media library.'),
@@ -250,7 +255,7 @@ class MediaLibrary extends FormElement {
     // disabled elements, the focus is set back to the open button via
     // JavaScript by adding the 'data-disabled-focus' attribute.
     // @see Drupal.behaviors.MediaLibraryWidgetDisableButton
-    if ($remaining === 0) {
+    if (!$cardinality_unlimited && $remaining === 0) {
       $element['media_library_open_button']['#attributes']['data-disabled-focus'] = 'true';
       $element['media_library_open_button']['#attributes']['class'][] = 'visually-hidden';
     }
@@ -258,10 +263,7 @@ class MediaLibrary extends FormElement {
     // This hidden field and button are used to add new items to the widget.
     $element['media_library_selection'] = [
       '#type' => 'hidden',
-      '#attributes' => [
-        // This is used to pass the selection from the modal to the widget.
-        'data-media-library-form-element-value' => $field_widget_id,
-      ],
+      '#attributes' => array_merge(['data-media-library-form-element-value' => $field_widget_id], $attributes),
       '#default_value' => $element['#value'],
     ];
 
@@ -272,7 +274,7 @@ class MediaLibrary extends FormElement {
       '#value' => t('Update widget'),
       '#name' => $field_name . '-media-library-update' . $id_suffix,
       '#ajax' => [
-        'callback' => [get_called_class(), 'updateFormElement'],
+        'callback' => [static::class, 'updateFormElement'],
         'wrapper' => $wrapper_id,
         'progress' => [
           'type' => 'throbber',
@@ -283,8 +285,8 @@ class MediaLibrary extends FormElement {
         'data-media-library-form-element-update' => $field_widget_id,
         'class' => ['js-hide'],
       ],
-      '#validate' => [[get_called_class(), 'validateItem']],
-      '#submit' => [[get_called_class(), 'updateItem']],
+      '#validate' => [[static::class, 'validateItem']],
+      '#submit' => [[static::class, 'updateItem']],
       // Prevent errors in other widgets from preventing updates.
       // Exclude other validations in case there is no data yet.
       '#limit_validation_errors' => !empty($referenced_entity) ? $limit_validation_errors : [],
@@ -296,14 +298,14 @@ class MediaLibrary extends FormElement {
   /**
    * Extract the proper portion of our default_value.
    *
-   * @param $element
+   * @param array $element
    *   The render element.
    * @param \Drupal\Core\Form\FormStateInterface $form_state
    *   The form state object.
-   * @param $complete_form
+   * @param array $complete_form
    *   The complete form render array.
    */
-  public static function elementValidateMediaLibrary(&$element, FormStateInterface $form_state, &$complete_form) {
+  public static function elementValidateMediaLibrary(array &$element, FormStateInterface $form_state, array &$complete_form) {
     $value = NULL;
 
     if (!empty($element['#value'])) {
@@ -328,6 +330,10 @@ class MediaLibrary extends FormElement {
     }
     elseif ($input === FALSE) {
       if (!empty($element['#default_value'])) {
+        // Remove the default value propery in case of AJAX removal.
+        if ($form_state->isSubmitted() && end($form_state->getTriggeringElement()['#parents']) === 'remove_button') {
+          $element['#default_value'] = NULL;
+        }
         $value = $element['#default_value'];
       }
     }
@@ -352,10 +358,10 @@ class MediaLibrary extends FormElement {
    * @param \Drupal\Core\Form\FormStateInterface $form_state
    *   The form state.
    *
-   * @return \Drupal\Core\Ajax\AjaxResponse
+   * @return array
    *   An AJAX response to update the selection.
    */
-  public static function updateFormElement(array $form, FormStateInterface $form_state) {
+  public static function updateFormElement(array $form, FormStateInterface $form_state): array {
     $triggering_element = $form_state->getTriggeringElement();
 
     // This callback is either invoked from the remove button or the update
@@ -363,38 +369,14 @@ class MediaLibrary extends FormElement {
     $is_remove_button = end($triggering_element['#parents']) === 'remove_button';
     $length = $is_remove_button ? -4 : -1;
     if (count($triggering_element['#array_parents']) < abs($length)) {
-      throw new \LogicException('The element that triggered the form element update was at an unexpected depth. Triggering element parents were: ' . implode(',', $triggering_element['#array_parents']));
+      throw new \LogicException(
+        'The element that triggered the form element update was at an unexpected depth. Triggering element parents were: ' . implode(',', $triggering_element['#array_parents'])
+      );
     }
 
     $parents = array_slice($triggering_element['#array_parents'], 0, $length);
-    $element = NestedArray::getValue($form, $parents);
 
-    return $element;
-  }
-
-  /**
-   * Gets newly selected media item.
-   *
-   * @param array $element
-   *   The wrapping element for this widget.
-   * @param \Drupal\Core\Form\FormStateInterface $form_state
-   *   The current state of the form.
-   *
-   * @return \Drupal\media\MediaInterface
-   *   A selected media item.
-   */
-  protected static function getNewMediaItem(array $element, FormStateInterface $form_state) {
-    // Get the new media IDs passed to our hidden button.
-    $values = $form_state->getValues();
-    $path = $element['#parents'];
-    $value = NestedArray::getValue($values, $path);
-
-    if (!empty($value['media_library_selection'])) {
-      /** @var \Drupal\media\MediaInterface $media */
-      return Media::load($value['media_library_selection']);
-    }
-
-    return NULL;
+    return NestedArray::getValue($form, $parents);
   }
 
   /**
@@ -413,22 +395,61 @@ class MediaLibrary extends FormElement {
     $element = NestedArray::getValue($form, array_slice($button['#array_parents'], 0, -1));
 
     $media = static::getNewMediaItem($element, $form_state);
+
     if (empty($media)) {
       return;
     }
 
     // Validate that each selected media is of an allowed bundle.
     $all_bundles = \Drupal::service('entity_type.bundle.info')->getBundleInfo('media');
-    $bundle_labels = array_map(function ($bundle) use ($all_bundles) {
-      return $all_bundles[$bundle]['label'];
-    }, $element['#target_bundles']);
+    $bundle_labels = array_map(
+      static function ($bundle) use ($all_bundles) {
+        return $all_bundles[$bundle]['label'];
+      },
+      $element['#target_bundles']
+    );
 
     if ($element['#target_bundles'] && !in_array($media->bundle(), $element['#target_bundles'], TRUE)) {
-      $form_state->setError($element, t('The media item "@label" is not of an accepted type. Allowed types: @types', [
-        '@label' => $media->label(),
-        '@types' => implode(', ', $bundle_labels),
-      ]));
+      $form_state->setError(
+        $element,
+        t(
+          'The media item "@label" is not of an accepted type. Allowed types: @types',
+          [
+            '@label' => $media->label(),
+            '@types' => implode(', ', $bundle_labels),
+          ]
+        )
+      );
     }
+  }
+
+  /**
+   * Gets newly selected media item.
+   *
+   * @param array $element
+   *   The wrapping element for this widget.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   The current state of the form.
+   *
+   * @return array
+   *   An array selected media item.
+   */
+  protected static function getNewMediaItem(array $element, FormStateInterface $form_state) {
+    // Get the new media IDs passed to our hidden button.
+    $values = $form_state->getValues();
+    $path = $element['#parents'];
+    $value = NestedArray::getValue($values, $path);
+
+    if (!empty($value['media_library_selection'])) {
+      $ids = explode(',', $value['media_library_selection']);
+      $ids = array_filter($ids, 'is_numeric');
+      if (!empty($ids)) {
+        /** @var \Drupal\media\MediaInterface[] $media */
+        return Media::loadMultiple($ids);
+      }
+    }
+
+    return [];
   }
 
   /**
@@ -440,10 +461,6 @@ class MediaLibrary extends FormElement {
    *   The form state.
    */
   public static function updateItem(array $form, FormStateInterface $form_state) {
-    $button = $form_state->getTriggeringElement();
-    $element = NestedArray::getValue($form, array_slice($button['#array_parents'], 0, -1));
-
-    // Refresh the form element.
     $form_state->setRebuild();
   }
 
@@ -463,32 +480,52 @@ class MediaLibrary extends FormElement {
 
     // Get the parents required to find the top-level widget element.
     if (count($triggering_element['#array_parents']) < 4) {
-      throw new \LogicException('Expected the remove button to be more than four levels deep in the form. Triggering element parents were: ' . implode(',', $triggering_element['#array_parents']));
+      throw new \LogicException(
+        'Expected the remove button to be more than four levels deep in the form. Triggering element parents were: ' . implode(',', $triggering_element['#array_parents'])
+      );
     }
     $parents = array_slice($triggering_element['#array_parents'], 0, -4);
     $element = NestedArray::getValue($form, $parents);
-    $user_input_parents = $parents;
+    $user_input_parents = array_slice($triggering_element['#parents'], 0, -4);
 
-    // Remove our value.
-    $element['media_library_selection']['#value'] = NULL;
-    $element['media_library_selection']['#default_value'] = NULL;
+    $delta = array_slice($triggering_element['#array_parents'], -3, 1)[0];
 
-    $element['#value'] = NULL;
-    $element['#default_value'] = NULL;
-    unset($element['selection'][0]);
+    if (isset($element['selection'][$delta])) {
+      unset($element['selection'][$delta]);
+      $items = array_filter(
+        $element['selection'],
+        static function ($k) {
+          return is_numeric($k);
+        },
+        ARRAY_FILTER_USE_KEY
+      );
+      $remaining_items = [];
 
-    // Clear the formstate values.
-    $form_state->setValueForElement($element, NULL);
+      foreach ($items as $item) {
+        /** @var \Drupal\media\Entity\Media $media_item */
+        $media_item = $item['preview']['rendered_entity']['#media'];
+        if ($media_item instanceof Media) {
+          $remaining_items[] = $media_item->id();
+        }
+      }
 
-    // Clear formstate user input.
-    $user_input = $form_state->getUserInput();
+      $selection = implode(',', $remaining_items);
 
-    // Account for special "widget" key.
-    $user_input_parents = array_values(array_diff($user_input_parents, ['widget']));
+      // Remove our value.
+      $element['media_library_selection']['#value'] = $selection;
+      $element['media_library_selection']['#default_value'] = $selection;
+      $element['#value'] = $selection;
+      $element['#default_value'] = $selection;
 
-    NestedArray::unsetValue($user_input, $user_input_parents);
-    $form_state->setUserInput($user_input);
-    $form_state->setValue($user_input_parents, NULL);
+      // Clear the formstate values.
+      $form_state->setValueForElement($element, $selection);
+
+      // Clear formstate user input.
+      $user_input = $form_state->getUserInput();
+      NestedArray::setValue($user_input, $user_input_parents, $selection);
+      $form_state->setUserInput($user_input);
+      $form_state->setValue($user_input_parents, $selection);
+    }
 
     // Refresh the form element.
     $form_state->setRebuild();
@@ -509,8 +546,33 @@ class MediaLibrary extends FormElement {
     $triggering_element = $form_state->getTriggeringElement();
     $library_ui = \Drupal::service('media_library.ui_builder')->buildUi($triggering_element['#media_library_state']);
     $dialog_options = MediaLibraryUiBuilder::dialogOptions();
-    return (new AjaxResponse())
-      ->addCommand(new OpenModalDialogCommand($dialog_options['title'], $library_ui, $dialog_options));
+
+    return (new AjaxResponse())->addCommand(new OpenModalDialogCommand($dialog_options['title'], $library_ui, $dialog_options));
   }
 
+  /**
+   * {@inheritdoc}
+   */
+  public function getInfo() {
+    $class = get_class($this);
+
+    return [
+      '#input' => TRUE,
+      '#tree' => TRUE,
+      '#cardinality' => 1,
+      '#allowed_bundles' => [],
+      '#process' => [
+        [$class, 'processAjaxForm'],
+        [$class, 'processMediaLibrary'],
+        [$class, 'processGroup'],
+      ],
+      '#pre_render' => [
+        [$class, 'preRenderGroup'],
+      ],
+      '#element_validate' => [
+        [$class, 'elementValidateMediaLibrary'],
+      ],
+      '#theme' => 'media_library_element',
+    ];
+  }
 }

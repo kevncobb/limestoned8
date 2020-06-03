@@ -12,11 +12,9 @@ use Drupal\Core\Url;
 class ResponsivePreviewAdminTest extends ResponsivePreviewTestBase {
 
   /**
-   * Modules to enable.
-   *
-   * @var array
+   * {@inheritdoc}
    */
-  public static $modules = ['block'];
+  protected static $modules = ['block'];
 
   /**
    * Tests configuring devices.
@@ -43,7 +41,7 @@ class ResponsivePreviewAdminTest extends ResponsivePreviewTestBase {
 
     // Test for the table.
     $element = $this->xpath('//div[@class="layout-content"]//table');
-    $this->assertTrue($element, 'Device entity list table found.');
+    $this->assertNotEmpty($element, 'Device entity list table found.');
 
     // Test the table header.
     $elements = $this->xpath('//div[@class="layout-content"]//table/thead/tr/th');

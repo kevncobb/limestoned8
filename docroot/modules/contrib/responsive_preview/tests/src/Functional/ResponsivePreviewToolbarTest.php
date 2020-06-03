@@ -10,11 +10,9 @@ namespace Drupal\Tests\responsive_preview\Functional;
 class ResponsivePreviewToolbarTest extends ResponsivePreviewTestBase {
 
   /**
-   * Modules to enable.
-   *
-   * @var array
+   * {@inheritdoc}
    */
-  public static $modules = ['toolbar'];
+  protected static $modules = ['toolbar'];
 
   /**
    * The user for tests.

@@ -26,7 +26,7 @@ class ViewsReferencePager extends PluginBase implements ViewsReferenceSettingInt
   public function alterFormField(&$form_field) {
     $form_field['#type'] = 'select';
     $form_field['#options'] = [
-      '' =>  $this->t('Default settings'),
+      '' => $this->t('Default settings'),
       'full' => $this->t('Full pager'),
       'mini' => $this->t('Mini pager'),
       'some' => $this->t('Hide pager (display a fixed number of items)'),

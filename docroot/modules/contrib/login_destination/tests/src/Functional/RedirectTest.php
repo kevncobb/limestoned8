@@ -201,7 +201,7 @@ class RedirectTest extends BrowserTestBase {
     $this->drupalPostForm($url, NULL, 'Log in');
     $this->assertSession()->pageTextContains('You have just used your one-time login link. It is no longer necessary to use this link to log in. Please change your password.');
     $this->assertSession()->titleEquals(strtr('@name | @site', [
-      '@name' => $this->account->getUsername(),
+      '@name' => $this->account->getAccountName(),
       '@site' => $this->config('system.site')->get('name'),
     ]));
 
@@ -239,7 +239,7 @@ class RedirectTest extends BrowserTestBase {
     $this->drupalPostForm($url, NULL, 'Log in');
     $this->assertSession()->pageTextContains('You have just used your one-time login link. It is no longer necessary to use this link to log in. Please change your password.');
     $this->assertSession()->titleEquals(strtr('@name | @site', [
-      '@name' => $this->account->getUsername(),
+      '@name' => $this->account->getAccountName(),
       '@site' => $this->config('system.site')->get('name'),
     ]));
 

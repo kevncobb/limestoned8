@@ -89,21 +89,21 @@ class WebformHelpManager implements WebformHelpManagerInterface {
   protected $pathMatcher;
 
   /**
-   * The Webform add-ons manager.
+   * The webform add-ons manager.
    *
    * @var \Drupal\webform\WebformAddonsManagerInterface
    */
   protected $addOnsManager;
 
   /**
-   * The Webform libraries manager.
+   * The webform libraries manager.
    *
    * @var \Drupal\webform\WebformLibrariesManagerInterface
    */
   protected $librariesManager;
 
   /**
-   * Webform element manager.
+   * The webform element manager.
    *
    * @var \Drupal\webform\Plugin\WebformElementManagerInterface
    */
@@ -1371,7 +1371,7 @@ class WebformHelpManager implements WebformHelpManagerInterface {
             'title' => $this->t('Moving Forward with Webform in Drupal 8: Part II | WebWash'),
             'url' => 'https://www.webwash.net/moving-forward-webform-drupal-8/ ',
           ],
-        ]
+        ],
       ],
       'webwash_install' => [
         'title' => $this->t('Using Webform in Drupal 8, 1.1: Install Webform'),
@@ -1623,7 +1623,6 @@ class WebformHelpManager implements WebformHelpManagerInterface {
         'webform.addons',
       ],
     ];
-
 
     /**************************************************************************/
     // Help.
@@ -2215,7 +2214,6 @@ class WebformHelpManager implements WebformHelpManagerInterface {
     /**************************************************************************/
     // Modules.
     /**************************************************************************/
-
 
     // Webform Entity Print (PDF).
     $help['webform_entity_print'] = [

@@ -3,7 +3,7 @@
  * Provides a component that previews the page in various device dimensions.
  */
 
-(function ($, Backbone, Drupal, drupalSettings, undefined) {
+(function ($, Backbone, Drupal, drupalSettings, Popper, undefined) {
 
   "use strict";
 
@@ -447,15 +447,23 @@
         correctDeviceListEdgeCollision: function () {
           // The position of the dropdown depends on the language direction.
           var dir = this.envModel.get('dir');
-          var edge = (dir === 'rtl') ? 'left' : 'right';
-          this.$el
-            .find('.responsive-preview-item-list')
-            .position({
-              'my': edge + ' top',
-              'at': edge + ' bottom',
-              'of': this.$el,
-              'collision': 'flip fit'
+          var edge = (dir === 'rtl') ? 'start' : 'end';
+          var referenceElement = this.$el[0];
+          var popperElement = this.$el.find('.responsive-preview-item-list')[0];
+          if (typeof Popper.createPopper === 'function') {
+            Popper.createPopper(referenceElement, popperElement, {
+              placement: 'top-' + edge
             });
+          } else {
+            new Popper(referenceElement, popperElement, {
+              placement: 'top-' + edge,
+              modifiers: {
+                computeStyle: {
+                  gpuAcceleration: false
+                }
+              },
+            });
+          }
         }
       }),
 
@@ -1123,4 +1131,4 @@
     }
   });
 
-}(jQuery, Backbone, Drupal, drupalSettings));
+}(jQuery, Backbone, Drupal, drupalSettings, Popper));

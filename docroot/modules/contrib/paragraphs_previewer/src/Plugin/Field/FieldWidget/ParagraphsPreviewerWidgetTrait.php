@@ -46,6 +46,15 @@ trait ParagraphsPreviewerWidgetTrait {
 
   /**
    * {@inheritdoc}
+   */
+  public function formMultipleElements(FieldItemListInterface $items, array &$form, FormStateInterface $form_state) {
+    $elements = parent::formMultipleElements($items, $form, $form_state);
+    $elements['#attached']['library'][] = 'paragraphs_previewer/widget';
+    return $elements;
+  }
+
+  /**
+   * {@inheritdoc}
    *
    * @see \Drupal\content_translation\Controller\ContentTranslationController::prepareTranslation()
    *   Uses a similar approach to populate a new translation.
@@ -128,9 +137,7 @@ trait ParagraphsPreviewerWidgetTrait {
    *   The form state.
    */
   public static function submitPreviewerItem(array $form, FormStateInterface $form_state) {
-    if (!$form_state->isCached()) {
-      $form_state->setRebuild();
-    }
+    $form_state->setRebuild();
   }
 
   /**

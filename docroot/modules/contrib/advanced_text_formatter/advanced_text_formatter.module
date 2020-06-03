@@ -89,7 +89,7 @@ function _advanced_text_formatter_widget_textfield_alter(&$element, FormStateInt
   $description = trim($element['#description']);
 
   if (!empty($description)) {
-    if (Unicode::substr($description, -1) != '.') {
+    if (mb_substr($description, -1) != '.') {
       $description .= '. ';
     }
     else {
@@ -139,6 +139,7 @@ function _advanced_text_formatter_widget_text_format_alter(&$element, FormStateI
     $info = element_info('text_format');
     $element['#pre_render'] = empty($info['#pre_render']) ? array() : $info['#pre_render'];
   }
+	$element['#entity_type'] = $context['items']->getFieldDefinition()->getTargetEntityTypeId();
 
   $element['#pre_render'][] = '_advanced_text_formatter_field_add_token_tree';
 }
@@ -216,8 +217,8 @@ function advanced_text_formatter_trim_text($text, $options) {
     $options['html'] = TRUE;
   }
 
-  if (Unicode::strlen($text) > $options['max_length']) {
-    $text = Unicode::substr($text, 0, $options['max_length']);
+  if (mb_strlen($text) > $options['max_length']) {
+    $text = mb_substr($text, 0, $options['max_length']);
 
     if (!empty($options['word_boundary'])) {
       $regex = "(.*)\b.+";

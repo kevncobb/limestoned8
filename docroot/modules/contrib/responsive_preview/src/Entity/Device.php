@@ -35,6 +35,15 @@ use Drupal\responsive_preview\DeviceInterface;
  *     "add-form" = "/admin/config/user-interface/responsive-preview/add",
  *     "edit-form" = "/admin/config/user-interface/responsive-preview/{responsive_preview_device}/edit",
  *     "delete-form" = "/admin/config/user-interface/responsive-preview/{responsive_preview_device}/delete"
+ *   },
+ *   config_export = {
+ *     "id",
+ *     "label",
+ *     "weight",
+ *     "status",
+ *     "orientation",
+ *     "dimensions",
+ *     "langcode",
  *   }
  * )
  */

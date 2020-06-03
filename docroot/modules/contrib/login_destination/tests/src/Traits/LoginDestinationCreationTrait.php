@@ -2,7 +2,6 @@
 
 namespace Drupal\Tests\login_destination\Traits;
 
-use Drupal\Component\Utility\Unicode;
 use Drupal\login_destination\Entity\LoginDestination;
 
 /**
@@ -25,7 +24,7 @@ trait LoginDestinationCreationTrait {
    */
   protected function createLoginDestinationRule(array $settings = []) {
     $settings += [
-      'name' => Unicode::strtolower($this->randomMachineName()),
+      'name' => mb_strtolower($this->randomMachineName()),
       'label' => $this->randomMachineName(),
     ];
 

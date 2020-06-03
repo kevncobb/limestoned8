@@ -1,8 +1,8 @@
 name: Bootstrap Barrio Subtheme
 type: theme
 description: 'Basic structure for a Bootstrap Barrio SubTheme.'
-# version: VERSION
 core: 8.x
+core_version_requirement: ^8 || ^9
 base theme: bootstrap_barrio
 
 libraries:
@@ -33,7 +33,7 @@ regions:
   footer_fourth: 'Footer fourth'
   footer_fifth: 'Footer fifth'
 
-# Information added by Drupal.org packaging script on 2020-03-28
-version: '8.x-4.23'
+# Information added by Drupal.org packaging script on 2020-05-09
+version: '8.x-4.28'
 project: 'bootstrap_barrio'
-datestamp: 1585402737
+datestamp: 1589051364

@@ -89,7 +89,7 @@
     if (typeof settings == 'object' && ('dialogClass' in settings)) {
       dialogClass = settings.dialogClass;
     }
-    else if ($element.length && !!$element.dialog) {
+    else if ($element.length && !!$element.dialog && $element.hasClass('ui-dialog-content')) {
       dialogClass = $element.dialog('option', 'dialogClass');
     }
 
