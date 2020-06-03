@@ -24,7 +24,6 @@ use Drupal\feeds\Plugin\Type\Target\ConfigurableTargetInterface;
 use Drupal\feeds\Plugin\Type\Target\FieldTargetBase;
 use Drupal\field\FieldConfigInterface;
 use Drupal\media\Entity\Media;
-use Drupal\Core\Entity\Query\QueryFactory;
 
 /**
  * Defines a wrapper target around a paragraph bundle's target field.
@@ -96,8 +95,7 @@ class MediaTarget extends EntityReference implements ConfigurableTargetInterface
                               FeedsPluginManager $plugin_manager,
                               EntityFieldManagerInterface $entityFieldManager,
                               EntityTypeManagerInterface $entity_type_manager,
-                              EntityRepositoryInterface $entity_repository,
-                              QueryFactory $query_factory)
+                              EntityRepositoryInterface $entity_repository)
   {
     $this->messenger = $messenger;
     $this->plugin_manager = $plugin_manager;
@@ -118,12 +116,10 @@ class MediaTarget extends EntityReference implements ConfigurableTargetInterface
         $plugin_id,
         $plugin_definition,
         $entity_type_manager,
-        $query_factory,
         $entityFieldManager,
         $entity_repository);
     }
   }
-
 
   /**
    * {@inheritdoc}
