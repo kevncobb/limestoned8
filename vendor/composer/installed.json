@@ -3980,6 +3980,56 @@
         }
     },
     {
+        "name": "drupal/csv_serialization",
+        "version": "1.4.0",
+        "version_normalized": "1.4.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://git.drupalcode.org/project/csv_serialization.git",
+            "reference": "8.x-1.4"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://ftp.drupal.org/files/projects/csv_serialization-8.x-1.4.zip",
+            "reference": "8.x-1.4",
+            "shasum": "74cfc47c5c8a907f40112ec4819fe108f2775ef1"
+        },
+        "require": {
+            "drupal/core": "^8.0.4",
+            "league/csv": "^8.0"
+        },
+        "type": "drupal-module",
+        "extra": {
+            "branch-alias": {
+                "dev-1.x": "1.x-dev"
+            },
+            "drupal": {
+                "version": "8.x-1.4",
+                "datestamp": "1531841921",
+                "security-coverage": {
+                    "status": "covered",
+                    "message": "Covered by Drupal's security advisory policy"
+                }
+            }
+        },
+        "installation-source": "dist",
+        "notification-url": "https://packages.drupal.org/8/downloads",
+        "license": [
+            "GPL-2.0+"
+        ],
+        "authors": [
+            {
+                "name": "grasmash",
+                "homepage": "https://www.drupal.org/user/455714"
+            }
+        ],
+        "description": "Provides CSV as a serialization format.",
+        "homepage": "https://www.drupal.org/project/csv_serialization",
+        "support": {
+            "source": "https://git.drupalcode.org/project/csv_serialization"
+        }
+    },
+    {
         "name": "drupal/ctools",
         "version": "3.4.0",
         "version_normalized": "3.4.0.0",
@@ -14963,12 +15013,12 @@
         "version_normalized": "0.9.1.0",
         "source": {
             "type": "git",
-            "url": "https://github.com/njh/easyrdf.git",
+            "url": "https://github.com/easyrdf/easyrdf.git",
             "reference": "acd09dfe0555fbcfa254291e433c45fdd4652566"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/njh/easyrdf/zipball/acd09dfe0555fbcfa254291e433c45fdd4652566",
+            "url": "https://api.github.com/repos/easyrdf/easyrdf/zipball/acd09dfe0555fbcfa254291e433c45fdd4652566",
             "reference": "acd09dfe0555fbcfa254291e433c45fdd4652566",
             "shasum": ""
         },
@@ -15822,6 +15872,65 @@
                 "url": "https://www.patreon.com/lcobucci",
                 "type": "patreon"
             }
+        ]
+    },
+    {
+        "name": "league/csv",
+        "version": "8.2.3",
+        "version_normalized": "8.2.3.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/thephpleague/csv.git",
+            "reference": "d2aab1e7bde802582c3879acf03d92716577c76d"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/thephpleague/csv/zipball/d2aab1e7bde802582c3879acf03d92716577c76d",
+            "reference": "d2aab1e7bde802582c3879acf03d92716577c76d",
+            "shasum": ""
+        },
+        "require": {
+            "ext-mbstring": "*",
+            "php": ">=5.5.0"
+        },
+        "require-dev": {
+            "friendsofphp/php-cs-fixer": "^1.9",
+            "phpunit/phpunit": "^4.0"
+        },
+        "time": "2018-02-06T08:27:03+00:00",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "8.2-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "League\\Csv\\": "src"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Ignace Nyamagana Butera",
+                "email": "nyamsprod@gmail.com",
+                "homepage": "https://github.com/nyamsprod/",
+                "role": "Developer"
+            }
+        ],
+        "description": "Csv data manipulation made easy in PHP",
+        "homepage": "http://csv.thephpleague.com",
+        "keywords": [
+            "csv",
+            "export",
+            "filter",
+            "import",
+            "read",
+            "write"
         ]
     },
     {

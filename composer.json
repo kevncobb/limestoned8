@@ -42,7 +42,8 @@
     "drupal/entity_browser": "2.x-dev",
     "drupal/sendgrid_integration": "^1.2",
     "drupal/search_api_solr": "^4.0",
-    "drupal/search_api": "^1.17"
+    "drupal/search_api": "^1.17",
+    "drupal/csv_serialization": "^1.4"
   },
   "replace": {
     "ajaxorg/ace-builds": "*"

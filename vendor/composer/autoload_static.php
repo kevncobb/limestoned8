@@ -130,6 +130,7 @@ class ComposerStaticInit40e3064ec2c57d8f0b4bf47661a2cf5c
             'League\\OAuth2\\Server\\' => 21,
             'League\\OAuth2\\Client\\' => 21,
             'League\\Event\\' => 13,
+            'League\\Csv\\' => 11,
             'Lcobucci\\JWT\\' => 13,
             'Laminas\\ZendFrameworkBridge\\' => 28,
             'Laminas\\Stdlib\\' => 15,
@@ -428,6 +429,10 @@ class ComposerStaticInit40e3064ec2c57d8f0b4bf47661a2cf5c
         'League\\Event\\' => 
         array (
             0 => __DIR__ . '/..' . '/league/event/src',
+        ),
+        'League\\Csv\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/league/csv/src',
         ),
         'Lcobucci\\JWT\\' => 
         array (
@@ -3507,6 +3512,20 @@ class ComposerStaticInit40e3064ec2c57d8f0b4bf47661a2cf5c
         'Lcobucci\\JWT\\Signer\\Rsa\\Sha512' => __DIR__ . '/..' . '/lcobucci/jwt/src/Signer/Rsa/Sha512.php',
         'Lcobucci\\JWT\\Token' => __DIR__ . '/..' . '/lcobucci/jwt/src/Token.php',
         'Lcobucci\\JWT\\ValidationData' => __DIR__ . '/..' . '/lcobucci/jwt/src/ValidationData.php',
+        'League\\Csv\\AbstractCsv' => __DIR__ . '/..' . '/league/csv/src/AbstractCsv.php',
+        'League\\Csv\\Config\\Controls' => __DIR__ . '/..' . '/league/csv/src/Config/Controls.php',
+        'League\\Csv\\Config\\Output' => __DIR__ . '/..' . '/league/csv/src/Config/Output.php',
+        'League\\Csv\\Exception\\InvalidRowException' => __DIR__ . '/..' . '/league/csv/src/Exception/InvalidRowException.php',
+        'League\\Csv\\Modifier\\MapIterator' => __DIR__ . '/..' . '/league/csv/src/Modifier/MapIterator.php',
+        'League\\Csv\\Modifier\\QueryFilter' => __DIR__ . '/..' . '/league/csv/src/Modifier/QueryFilter.php',
+        'League\\Csv\\Modifier\\RowFilter' => __DIR__ . '/..' . '/league/csv/src/Modifier/RowFilter.php',
+        'League\\Csv\\Modifier\\StreamFilter' => __DIR__ . '/..' . '/league/csv/src/Modifier/StreamFilter.php',
+        'League\\Csv\\Modifier\\StreamIterator' => __DIR__ . '/..' . '/league/csv/src/Modifier/StreamIterator.php',
+        'League\\Csv\\Plugin\\ColumnConsistencyValidator' => __DIR__ . '/..' . '/league/csv/src/Plugin/ColumnConsistencyValidator.php',
+        'League\\Csv\\Plugin\\ForbiddenNullValuesValidator' => __DIR__ . '/..' . '/league/csv/src/Plugin/ForbiddenNullValuesValidator.php',
+        'League\\Csv\\Plugin\\SkipNullValuesFormatter' => __DIR__ . '/..' . '/league/csv/src/Plugin/SkipNullValuesFormatter.php',
+        'League\\Csv\\Reader' => __DIR__ . '/..' . '/league/csv/src/Reader.php',
+        'League\\Csv\\Writer' => __DIR__ . '/..' . '/league/csv/src/Writer.php',
         'League\\Event\\AbstractEvent' => __DIR__ . '/..' . '/league/event/src/AbstractEvent.php',
         'League\\Event\\AbstractListener' => __DIR__ . '/..' . '/league/event/src/AbstractListener.php',
         'League\\Event\\BufferedEmitter' => __DIR__ . '/..' . '/league/event/src/BufferedEmitter.php',
