@@ -1,5 +1,5 @@
 
-a.button {
+.button {
   line-height: 1.1rem;
   font-family: $header-font-family;
   font-weight: $header-font-weight;
@@ -93,6 +93,9 @@ a.button {
       background: smart-scale($category, 10%, 10%) !important;
     }
     color: white;
+  }
+  .icon-clone {
+    font-size: 14px;
   }
 }
 
@@ -428,4 +431,8 @@ a.cta-button, a.cta-btn {
       max-width: 950px;
     }
   }
+}
+
+.field-paragraph--bp-modal-button-text {
+  display: inherit;
 }
