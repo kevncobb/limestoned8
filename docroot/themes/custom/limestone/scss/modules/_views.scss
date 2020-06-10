@@ -31,3 +31,17 @@
     margin: 0 10px;
   }
 }
+.view-course-descriptions {
+  form.views-exposed-form {
+    min-height: 60px;
+    margin-top: 2.5rem;
+    margin-bottom: 2rem;
+    .js-form-item-field-course-discipline-target-id {
+      margin-top: -1.5rem;
+      width: 100%;
+      @include breakpoint(smedium) {
+        width: 320px;
+      }
+    }
+  }
+}
