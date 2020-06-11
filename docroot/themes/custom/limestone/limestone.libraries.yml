@@ -62,3 +62,14 @@ faqs:
       css/faqs.css: {}
   js:
     js/faqs.js: {}
+trunk8:
+  version: 1.x
+  js:
+    js/trunk8.min.js: {}
+readmore:
+  version: 1.x
+  css:
+    base:
+      css/readmore.css: {}
+  js:
+    js/readmore.js: {}
