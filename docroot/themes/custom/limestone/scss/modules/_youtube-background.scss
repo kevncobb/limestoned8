@@ -42,6 +42,8 @@
   }
 
   &__title {
-    @extend .splash-header-title;
+    position: relative;
+  }
+  &__buttons {
   }
 }
