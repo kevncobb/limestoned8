@@ -342,13 +342,13 @@ body.section-trip {
   font-weight: bold;
   line-height: 1;
   text-shadow: rgba(0,0,0,0.8) 6px 6px 7px;
-  font-size: 120%;
+  font-size: 1.3rem;
   z-index: 99;
   @include breakpoint(medium) {
-    font-size: 240%;
+    font-size: 2.2rem;
   }
   @include breakpoint(large) {
-    font-size: 320%;
+    font-size: 3.2rem;
   }
 }
 .splash-mega-title {
