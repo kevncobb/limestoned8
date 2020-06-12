@@ -15,7 +15,7 @@
         var lesstext = "Show less";
 
 
-        $('.readmore').once(function() {
+        $('.readmore').one(function() {
           var content = $(this).html();
 
           if(content.length > showChar) {
