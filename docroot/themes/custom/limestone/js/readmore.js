@@ -13,8 +13,8 @@
         var ellipsestext = "...";
         var moretext = "Show more >";
         var lesstext = "Show less";
-
-        $(context).find(".readmore").once(function() {
+        
+        $('.readmore').once('readmore').each(function() {
           var content = $(this).html();
 
           if(content.length > showChar) {
