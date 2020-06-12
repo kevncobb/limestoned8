@@ -1,0 +1,14 @@
+diff --git a/core/lib/Drupal/Core/Theme/ThemeManager.php b/core/lib/Drupal/Core/Theme/ThemeManager.php
+index c6a0e22..1c23038 100644
+--- a/core/lib/Drupal/Core/Theme/ThemeManager.php
++++ b/core/lib/Drupal/Core/Theme/ThemeManager.php
+@@ -244,6 +244,9 @@ public function render($hook, array $variables) {
+     $this->moduleHandler->alter($hooks, $suggestions, $variables, $base_theme_hook);
+     $this->alter($hooks, $suggestions, $variables, $base_theme_hook);
+ 
++    // Remove duplicate suggestions.
++    $suggestions = array_unique($suggestions);
++
+     // Check if each suggestion exists in the theme registry, and if so,
+     // use it instead of the base hook. For example, a function may use
+     // '#theme' => 'node', but a module can add 'node__article' as a suggestion
