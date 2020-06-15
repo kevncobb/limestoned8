@@ -44,13 +44,13 @@
     label_display == 'visually_hidden' ? 'sr-only',
   ]
 %}
-<div class="callout secondary">
+<div class="callout secondary space-xs">
   {% if label_hidden %}
     {% for item in items %}
       {{ item.content }}
     {% endfor %}
   {% else %}
-    <h4{{ title_attributes.addClass(title_classes) }}>{{ label }}</h4>
+    <h3{{ title_attributes.addClass(title_classes) }}>{{ label }}</h3>
     {% for item in items %}
       {{ item.content }}
     {% endfor %}
