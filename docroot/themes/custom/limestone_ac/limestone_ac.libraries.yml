@@ -284,4 +284,4 @@ print-styling:
   version: 1.x
   css:
     theme:
-      css/print.css: { media: "print" }
+      css/state/print.css: { media: "print" }
