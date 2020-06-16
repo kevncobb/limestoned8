@@ -1,0 +1,1 @@
+{"version":3,"sources":["print.scss"],"names":[],"mappings":"AAAA,sEACE,YAAc,CACf","file":"print.css","sourcesContent":["aside.off-canvas, .top-bar, .site-header, .main-menu-region, .site-footer {\n  display: none;\n}\n"]}

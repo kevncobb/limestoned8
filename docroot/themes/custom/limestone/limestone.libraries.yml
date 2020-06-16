@@ -66,3 +66,8 @@ trunk8:
   version: 1.x
   js:
     js/trunk8.min.js: {}
+print-styling:
+  version: 1.x
+  css:
+    theme:
+      css/state/print.css: { media: "print" }

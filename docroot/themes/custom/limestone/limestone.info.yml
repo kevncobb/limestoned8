@@ -11,7 +11,8 @@ base theme: zurb_foundation
 # need to add custom CSS or JS
 libraries:
  - limestone/global
-
+ # limestone Print Styling.
+ - limestone/print-styling
 # Regions are output in the page.html.twig
 
 regions:
