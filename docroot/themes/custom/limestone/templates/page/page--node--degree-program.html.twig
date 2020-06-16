@@ -90,12 +90,18 @@
         {{ page.main_menu_region }}
       </div>
       {% if node.title.value %}
-        <div class="splash-header stripes-dark-tile" role="heading">
+        <div class="splash-header degree-header stripes-dark-tile grid-x align-middle" role="heading">
           {{ drupal_field('field_background_splash_image', 'node') }}
-          {{ title_prefix }}
-          <h1 class="h1 max-1000 splash-header-title">{{ title }}</h1>
-          {{ drupal_field('field_program_type_term', 'node') }}
-
+          <table class="cell small-12">
+            <tbody><tr>
+              <td>
+                {{ title_prefix }}
+                <h1 class="h1 max-1000 splash-header-title align-center">{{ title }}</h1>
+              </td>
+            </tr>
+            <tr><td>{{ drupal_field('field_program_type_term', 'node') }}</td></tr>
+            </tbody>
+          </table>
         </div>
       {% endif %}
       {% if messages and not zurb_foundation_messages_modal %}
