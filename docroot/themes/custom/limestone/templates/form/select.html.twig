@@ -10,21 +10,15 @@
  * @see template_preprocess_select()
  */
 #}
-{%
-  set attribututes = [
-  'type' ~ 'text',
-  'list' ~ attribututes.name,
-]
-%}
-{%
-  set classes = [
-  'js-combobox',
-]
-%}
-{{ attach_library('limestone/lc-select') }}
 {% spaceless %}
-  <input{{ attributes }}>
-  <datalist id="{{ attributes.name }}">
+  {{ kint(attributes) }}
+
+  <label for="cb1-input">
+    {{ option.label }}
+  </label>
+
+
+  <select{{ attributes }}>
     {% for option in options %}
       {% if option.type == 'optgroup' %}
         <optgroup label="{{ option.label }}">
@@ -36,6 +30,5 @@
         <option value="{{ option.value }}"{{ option.selected ? ' selected="selected"' }}>{{ option.label }}</option>
       {% endif %}
     {% endfor %}
-  </datalist>
-  </input>
+  </select>
 {% endspaceless %}
