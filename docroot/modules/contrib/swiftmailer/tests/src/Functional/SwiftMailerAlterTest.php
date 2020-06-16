@@ -5,24 +5,11 @@ namespace Drupal\Tests\swiftmailer\Functional;
 use Drupal\Core\Render\Markup;
 use Drupal\swiftmailer\Plugin\Mail\SwiftMailer;
 use Drupal\swiftmailer_test\SwiftMailerDrupalStateLogger;
-use Drupal\Tests\BrowserTestBase;
 
 /**
  * @group swiftmailer
  */
-class SwiftMailerAlterTest extends BrowserTestBase {
-
-  /**
-   * {@inheritdoc}
-   */
-  protected $defaultTheme = 'stark';
-
-  public static $modules = ['swiftmailer_test', 'swiftmailer', 'mailsystem'];
-
-  /**
-   * @var \Drupal\swiftmailer_test\SwiftMailerDrupalStateLogger
-   */
-  protected $logger = NULL;
+class SwiftMailerAlterTest extends SwiftMailerTestBase {
 
   protected function setUp() {
     parent::setUp();
@@ -46,11 +33,6 @@ class SwiftMailerAlterTest extends BrowserTestBase {
 
   public function testTemplatePreprocess() {
     \Drupal::configFactory()
-      ->getEditable('swiftmailer.message')
-      ->set('respect_format', FALSE)
-      ->save();
-
-    \Drupal::configFactory()
       ->getEditable('system.theme')
       ->set('default', 'swiftmailer_test_theme')
       ->save();
@@ -63,7 +45,7 @@ class SwiftMailerAlterTest extends BrowserTestBase {
     \Drupal::service('theme_installer')->install(['swiftmailer_test_theme']);
 
     $params = [
-      'format' => SWIFTMAILER_FORMAT_HTML,
+      'content_type' => SWIFTMAILER_FORMAT_HTML,
     ];
 
     \Drupal::service('plugin.manager.mail')->mail('swiftmailer_test', 'test-2', 'test@example.com', \Drupal::languageManager()->getDefaultLanguage()->getId(), $params);
@@ -84,7 +66,7 @@ class SwiftMailerAlterTest extends BrowserTestBase {
         'Content-Type' => SWIFTMAILER_FORMAT_HTML,
       ],
       'params' => [
-        'convert' => TRUE,
+        'generate_plain' => TRUE,
       ],
       'subject' => 'Subject',
       'body' => [
@@ -94,7 +76,7 @@ class SwiftMailerAlterTest extends BrowserTestBase {
 
     $message = $plugin->format($message);
     $this->assertContains('<strong>Hello World</strong>', (string) $message['body']);
-    $this->assertContains('HELLO WORLD', $message['plain']);
+    $this->assertEquals('HELLO WORLD', $message['plain']);
   }
 
   /**
@@ -110,7 +92,7 @@ class SwiftMailerAlterTest extends BrowserTestBase {
         'Content-Type' => SWIFTMAILER_FORMAT_HTML,
       ],
       'params' => [
-        'convert' => FALSE,
+        'generate_plain' => FALSE,
       ],
       'subject' => 'Subject',
       'plain' => 'Original Plain Text Version',
@@ -121,13 +103,13 @@ class SwiftMailerAlterTest extends BrowserTestBase {
 
     $message = $plugin->format($message);
     $this->assertContains('<strong>Hello World</strong>', (string) $message['body']);
-    $this->assertContains('Original Plain Text Version', $message['plain']);
+    $this->assertEquals('Original Plain Text Version', $message['plain']);
   }
 
   public function testPlainTextConfigurationSetting() {
-    \Drupal::configFactory()
-      ->getEditable('swiftmailer.message')
-      ->set('convert_mode', TRUE)
+    $this->config('swiftmailer.message')
+      ->set('content_type', SWIFTMAILER_FORMAT_HTML)
+      ->set('generate_plain', TRUE)
       ->save();
 
     $plugin = SwiftMailer::create(\Drupal::getContainer(), [], NULL, NULL);
@@ -136,9 +118,6 @@ class SwiftMailerAlterTest extends BrowserTestBase {
     $message = [
       'module' => 'swiftmailer_test',
       'key' => 'swiftmailer_test_1',
-      'headers' => [
-        'Content-Type' => SWIFTMAILER_FORMAT_HTML,
-      ],
       'subject' => 'Subject',
       'body' => [
         Markup::create('<strong>Hello World</strong>')
@@ -147,15 +126,12 @@ class SwiftMailerAlterTest extends BrowserTestBase {
 
     $message = $plugin->format($message);
     $this->assertContains('<strong>Hello World</strong>', (string) $message['body']);
-    $this->assertContains('HELLO WORLD', $message['plain']);
+    $this->assertEquals('HELLO WORLD', $message['plain']);
 
     // Keep original plain text version.
     $message = [
       'module' => 'swiftmailer_test',
       'key' => 'swiftmailer_test_1',
-      'headers' => [
-        'Content-Type' => SWIFTMAILER_FORMAT_HTML,
-      ],
       'subject' => 'Subject',
       'plain' => 'Original Plain Text Version',
       'body' => [
@@ -165,8 +141,7 @@ class SwiftMailerAlterTest extends BrowserTestBase {
 
     $message = $plugin->format($message);
     $this->assertContains('<strong>Hello World</strong>', (string) $message['body']);
-    $this->assertContains('Original Plain Text Version', $message['plain']);
+    $this->assertEquals('Original Plain Text Version', $message['plain']);
   }
-
 
 }

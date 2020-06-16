@@ -67,7 +67,7 @@ class ColorFieldWidgetBox extends ColorFieldWidgetBase {
         if (!empty($colors)) {
           $colors .= ',';
         }
-        $colors .= strtoupper($color[0]);
+        $colors .= strtolower($color[0]);
       }
     }
     $form_state->setValue($element['#parents'], $colors);

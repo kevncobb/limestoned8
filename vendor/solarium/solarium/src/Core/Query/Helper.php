@@ -101,7 +101,8 @@ class Helper
      *
      * @see http://lucene.apache.org/solr/api/org/apache/solr/schema/DateField.html
      *
-     * @param int|string|\DateTimeInterface $input accepted formats: timestamp, date string or DateTime / DateTimeImmutable
+     * @param int|string|\DateTimeInterface $input accepted formats: timestamp, date string, DateTime or
+     *                                             DateTimeImmutable
      *
      * @return string|bool false is returned in case of invalid input
      */
@@ -142,7 +143,7 @@ class Helper
             $input = $input->setTimezone(new \DateTimeZone('UTC'));
             // Solr seems to require the format PHP erroneously declares as ISO8601.
             /** @noinspection DateTimeConstantsUsageInspection */
-            $iso8601 = $input->format(\DateTime::ISO8601);
+            $iso8601 = $input->format(\DateTimeInterface::ISO8601);
             $iso8601 = strstr($iso8601, '+', true); //strip timezone
             $iso8601 .= 'Z';
 
@@ -279,7 +280,6 @@ class Helper
     /**
      * Render a qparser plugin call.
      *
-     *
      * @param string $name
      * @param array  $params
      * @param bool   $dereferenced
@@ -293,9 +293,7 @@ class Helper
     {
         if ($dereferenced) {
             if (!$this->query) {
-                throw new InvalidArgumentException(
-                    'Dereferenced params can only be used in a Solarium query helper instance retrieved from the query '.'by using the getHelper() method, this instance was manually created'
-                );
+                throw new InvalidArgumentException('Dereferenced params can only be used in a Solarium query helper instance retrieved from the query by using the getHelper() method, this instance was manually created.');
             }
 
             foreach ($params as $paramKey => $paramValue) {
@@ -340,7 +338,7 @@ class Helper
             return $name.'()';
         }
 
-        return $name.'('.implode($params, ',').')';
+        return $name.'('.implode(',', $params).')';
     }
 
     /**
@@ -426,6 +424,8 @@ class Helper
      * @param float|null $cost
      *
      * @return string
+     *
+     * @deprecated Will be removed in Solarium 6. Use FilterQuery::setCache() and FilterQuery::setCost() instead.
      */
     public function cacheControl(bool $useCache, float $cost = null): string
     {
@@ -459,8 +459,25 @@ class Helper
     }
 
     /**
-     * Render placeholders in a querystring.
+     * Escape text for use as parsed character data content in an XML element.
      *
+     * This escapes characters that can't appear as character data using their
+     * corresponding entity references. Per the definition of XML, "&" and "<"
+     * MUST be escaped when used in character data, ">" MUST be escaped in the
+     * string "]]>" and MAY be otherwise, so we escape it to be safe.
+     *
+     * @param string $data
+     *
+     * @return string
+     */
+    public function escapeXMLCharacterData(string $data): string
+    {
+        // we don't use htmlspecialchars because it only supports a limited number of character sets
+        return str_replace(['&', '<', '>'], ['&amp;', '&lt;', '&gt;'], $data);
+    }
+
+    /**
+     * Render placeholders in a querystring.
      *
      * @param array $matches
      *

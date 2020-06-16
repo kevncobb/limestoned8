@@ -33,6 +33,7 @@ abstract class AbstractRequestBuilder implements RequestBuilderInterface
         $request->addParam('timeAllowed', $query->getTimeAllowed());
         $request->addParam('NOW', $query->getNow());
         $request->addParam('TZ', $query->getTimeZone());
+        $request->addParam('ie', $query->getInputEncoding());
         $request->addParams($query->getParams());
 
         $request->addParam('wt', $query->getResponseWriter());
@@ -68,7 +69,7 @@ abstract class AbstractRequestBuilder implements RequestBuilderInterface
             }
 
             if (is_array($paramValue)) {
-                $paramValue = implode($paramValue, ',');
+                $paramValue = implode(',', $paramValue);
             }
 
             $params .= $paramName.'='.$paramValue.' ';

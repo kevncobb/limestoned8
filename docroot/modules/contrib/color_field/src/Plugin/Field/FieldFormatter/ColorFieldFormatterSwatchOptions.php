@@ -40,8 +40,8 @@ class ColorFieldFormatterSwatchOptions extends ColorFieldFormatterSwatch {
         '#input_type' => $this->fieldDefinition->getFieldStorageDefinition()->isMultiple() ? 'checkbox' : 'radio',
         '#value' => $hex,
         '#shape' => $settings['shape'],
-        '#height' => $settings['height'],
-        '#width' => $settings['width'],
+        '#height' => is_numeric($settings['height']) ? "{$settings['height']}px" : $settings['height'],
+        '#width' => is_numeric($settings['width']) ? "{$settings['width']}px" : $settings['width'],
         '#color' => $this->viewValue($item),
       ];
     }

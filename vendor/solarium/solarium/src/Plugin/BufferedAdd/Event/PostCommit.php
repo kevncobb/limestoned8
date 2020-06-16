@@ -1,9 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Solarium\Plugin\BufferedAdd\Event;
 
 use Solarium\QueryType\Update\Result;
-use Symfony\Component\EventDispatcher\Event;
+use Symfony\Contracts\EventDispatcher\Event;
 
 /**
  * PostCommit event, see Events for details.

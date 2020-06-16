@@ -52,6 +52,9 @@ field.formatter.settings.color_field_formatter_swatch:
       type: label
       label: 'Display opacity'
 
+field.formatter.settings.color_field_formatter_swatch_options:
+  type: field.formatter.settings.color_field_formatter_swatch
+
 field.formatter.settings.color_field_formatter_css:
   type: mapping
   label: 'Color CSS declaration format settings'

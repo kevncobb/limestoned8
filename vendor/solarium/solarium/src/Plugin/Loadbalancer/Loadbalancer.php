@@ -6,16 +6,15 @@ use Solarium\Core\Client\Client;
 use Solarium\Core\Client\Endpoint;
 use Solarium\Core\Client\Request;
 use Solarium\Core\Client\Response;
-use Solarium\Core\Event\Events as CoreEvents;
-use Solarium\Core\Event\PreCreateRequest as PreCreateRequestEvent;
-use Solarium\Core\Event\PreExecuteRequest as PreExecuteRequestEvent;
+use Solarium\Core\Event\Events;
+use Solarium\Core\Event\PreCreateRequest;
+use Solarium\Core\Event\PreExecuteRequest;
 use Solarium\Core\Plugin\AbstractPlugin;
 use Solarium\Exception\HttpException;
 use Solarium\Exception\InvalidArgumentException;
 use Solarium\Exception\OutOfBoundsException;
 use Solarium\Exception\RuntimeException;
 use Solarium\Plugin\Loadbalancer\Event\EndpointFailure as EndpointFailureEvent;
-use Solarium\Plugin\Loadbalancer\Event\Events;
 
 /**
  * Loadbalancer plugin.
@@ -397,12 +396,14 @@ class Loadbalancer extends AbstractPlugin
     /**
      * Event hook to capture querytype.
      *
-     * @param PreCreateRequestEvent $event
+     * @param object $event
      *
      * @return self Provides fluent interface
      */
-    public function preCreateRequest(PreCreateRequestEvent $event): self
+    public function preCreateRequest($event): self
     {
+        // We need to accept event proxies or decoraters.
+        /* @var PreCreateRequest $event */
         $this->queryType = $event->getQuery()->getType();
         return $this;
     }
@@ -410,12 +411,14 @@ class Loadbalancer extends AbstractPlugin
     /**
      * Event hook to adjust client settings just before query execution.
      *
-     * @param PreExecuteRequestEvent $event
+     * @param object $event
      *
      * @return self Provides fluent interface
      */
-    public function preExecuteRequest(PreExecuteRequestEvent $event): self
+    public function preExecuteRequest($event): self
     {
+        // We need to accept event proxies or decoraters.
+        /* @var PreExecuteRequest $event */
         $adapter = $this->client->getAdapter();
 
         // save adapter presets (once) to allow the settings to be restored later
@@ -463,10 +466,8 @@ class Loadbalancer extends AbstractPlugin
                 } catch (HttpException $e) {
                     // ignore HTTP errors and try again
                     // but do issue an event for things like logging
-                    $this->client->getEventDispatcher()->dispatch(
-                        Events::ENDPOINT_FAILURE,
-                        new EndpointFailureEvent($endpoint, $e)
-                    );
+                    $event = new EndpointFailureEvent($endpoint, $e);
+                    $this->client->getEventDispatcher()->dispatch($event);
                 }
             }
 
@@ -544,7 +545,10 @@ class Loadbalancer extends AbstractPlugin
     protected function initPluginType()
     {
         $dispatcher = $this->client->getEventDispatcher();
-        $dispatcher->addListener(CoreEvents::PRE_EXECUTE_REQUEST, [$this, 'preExecuteRequest']);
-        $dispatcher->addListener(CoreEvents::PRE_CREATE_REQUEST, [$this, 'preCreateRequest']);
+        if (is_subclass_of($dispatcher, '\Symfony\Component\EventDispatcher\EventDispatcherInterface')) {
+            // The Loadbalancer plugin needs to be the last plugin executed on PRE_EXECUTE_REQUEST. Set Priority to 0.
+            $dispatcher->addListener(Events::PRE_EXECUTE_REQUEST, [$this, 'preExecuteRequest'], 0);
+            $dispatcher->addListener(Events::PRE_CREATE_REQUEST, [$this, 'preCreateRequest']);
+        }
     }
 }

@@ -2,10 +2,18 @@
 
 namespace Drupal\google_analytics_reports_api;
 
+use Drupal\Core\Routing\TrustedRedirectResponse;
 use Drupal\Core\Url;
-use Drupal\Core\Cache\CacheableRedirectResponse;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
+use Drupal\Core\StringTranslation\StringTranslationTrait;
+use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpFoundation\RequestStack;
+use Drupal\Core\Logger\LoggerChannelFactory;
+use Drupal\Core\Cache\CacheFactory;
+use Drupal\Component\Datetime\TimeInterface;
+use Drupal\Core\Extension\ModuleHandlerInterface;
 
 /**
  * Class GoogleAnalyticsReportsApiFeed.
@@ -13,48 +21,126 @@ use GuzzleHttp\Exception\ClientException;
  * GoogleAnalyticsReportsApiFeed class to authorize access to and request data
  * from the Google Analytics Core Reporting API.
  */
-class GoogleAnalyticsReportsApiFeed {
+class GoogleAnalyticsReportsApiFeed implements ContainerInjectionInterface {
+
+  use StringTranslationTrait;
 
   const OAUTH2_REVOKE_URI = 'https://accounts.google.com/o/oauth2/revoke';
   const OAUTH2_TOKEN_URI = 'https://accounts.google.com/o/oauth2/token';
   const OAUTH2_AUTH_URL = 'https://accounts.google.com/o/oauth2/auth';
   const SCOPE = 'https://www.googleapis.com/auth/analytics.readonly https://www.google.com/analytics/feeds/';
 
-  // Response object.
+  /**
+   * Response object.
+   *
+   * @var string
+   */
   public $response;
 
-  // Formatted array of request results.
+  /**
+   * Formatted array of request results.
+   *
+   * @var string
+   */
   public $results;
 
-  // URL to Google Analytics Core Reporting API.
+  /**
+   * URL to Google Analytics Core Reporting API.
+   *
+   * @var string
+   */
   public $queryPath;
 
-  // Translated error message.
+  /**
+   * Translated error message.
+   *
+   * @var string
+   */
   public $error;
 
-  // Boolean TRUE if data is from the cache tables.
+  /**
+   * Boolean TRUE if data is from the cache tables.
+   *
+   * @var bool
+   */
   public $fromCache = FALSE;
 
-  // OAuth access token.
+  /**
+   * OAuth access token.
+   *
+   * @var string
+   */
   public $accessToken;
 
-  // OAuth refresh token.
+  /**
+   * OAuth refresh token.
+   *
+   * @var string
+   */
   public $refreshToken;
 
-  // OAuth expiration time.
+  /**
+   * OAuth expiration time.
+   *
+   * @var time
+   */
   public $expiresAt;
 
-  // Host and endpoint of Google Analytics API.
+  /**
+   * Host and endpoint of Google Analytics API.
+   *
+   * @var string
+   */
   protected $host = 'www.googleapis.com/analytics/v3';
 
-  // Request header source.
+  /**
+   * Request header source.
+   *
+   * @var string
+   */
   protected $source = 'drupal';
 
-  // Google authorize callback verifier string.
+  /**
+   * Google authorize callback verifier string.
+   *
+   * @var string
+   */
   protected $verifier;
 
-  // OAuth host.
+  /**
+   * OAuth host.
+   *
+   * @var string
+   */
   protected $oAuthHost = 'www.google.com';
+
+  /**
+   * The module handler service.
+   *
+   * @var \Drupal\Core\Extension\ModuleHandlerInterface
+   */
+  protected $moduleHandler;
+
+  /**
+   * Logger Factory.
+   *
+   * @var \Drupal\Core\Logger\LoggerChannelFactory
+   */
+  protected $loggerFactory;
+
+  /**
+   * The RequestStack service.
+   *
+   * @var Symfony\Component\HttpFoundation\RequestStack
+   */
+  protected $requestStack;
+
+  /**
+   * The cache factory.
+   *
+   * @var \Drupal\Core\Cache\CacheFactory
+   */
+  protected $cacheFactory;
 
   /**
    * Check if object is authenticated with Google.
@@ -64,10 +150,62 @@ class GoogleAnalyticsReportsApiFeed {
   }
 
   /**
+   * Google Analytics Reports Api Feed constructor.
+   *
+   * @param string|null $token
+   *   The token.
+   * @param \Drupal\Core\Extension\ModuleHandlerInterface $module_handler
+   *   The module handler service.
+   * @param Drupal\Core\Logger\LoggerChannelFactory $logger_factory
+   *   The logger Factory.
+   * @param Drupal\Core\Cache\CacheFactory $cache_factory
+   *   The cache factory.
+   * @param Symfony\Component\HttpFoundation\RequestStack $request_stack
+   *   The request service.
+   * @param \Drupal\Component\Datetime\TimeInterface $time
+   *   The time service.
+   */
+  public function __construct($token = NULL, ModuleHandlerInterface $module_handler = NULL, LoggerChannelFactory $logger_factory = NULL, CacheFactory $cache_factory = NULL, RequestStack $request_stack = NULL, TimeInterface $time = NULL) {
+    $this->accessToken = $token;
+
+    if (is_null($module_handler)) {
+      $module_handler = \Drupal::service('module_handler');
+    }
+    $this->moduleHandler = $module_handler;
+
+    if (is_null($logger_factory)) {
+      $logger_factory = \Drupal::service('logger.factory');
+    }
+    $this->loggerFactory = $logger_factory->get('google_analytics_reports_api');
+
+    if (is_null($cache_factory)) {
+      $cache_factory = \Drupal::service('cache_factory');
+    }
+    $this->cacheFactory = $cache_factory;
+
+    if (is_null($request_stack)) {
+      $request_stack = \Drupal::service('request_stack');
+    }
+    $this->requestStack = $request_stack;
+
+    if (is_null($time)) {
+      $time = \Drupal::service('datetime.time');
+    }
+    $this->time = $time;
+  }
+
+  /**
    * {@inheritdoc}
    */
-  public function __construct($token = NULL) {
-    $this->accessToken = $token;
+  public static function create(ContainerInterface $container) {
+    return new static(
+      NULL,
+      $container->get('module_handler'),
+      $container->get('logger.factory')->get('google_analytics_reports_api'),
+      $container->get('cache_factory'),
+      $container->get('request_stack'),
+      $container->get('datetime.time')
+    );
   }
 
   /**
@@ -77,8 +215,8 @@ class GoogleAnalyticsReportsApiFeed {
    *   - current page url.
    */
   public static function currentUrl() {
-    $current_path = \Drupal::service('path.current')->getPath();
-    return Url::fromUri('base:/' . $current_path, ['absolute' => TRUE])->toString();
+    $current_path_uri = $this->requestStack->getCurrentRequest()->getUri();
+    return Url::fromUri($current_path_uri, ['absolute' => TRUE])->toString();
   }
 
   /**
@@ -118,7 +256,7 @@ class GoogleAnalyticsReportsApiFeed {
    * @param string $redirect_uri
    *   Redirect uri.
    * @param string $refresh_token
-   *   Referesh token.
+   *   Refresh token.
    */
   protected function fetchToken($client_id, $client_secret, $redirect_uri, $refresh_token = NULL) {
     if ($refresh_token) {
@@ -130,8 +268,9 @@ class GoogleAnalyticsReportsApiFeed {
       ];
     }
     else {
+      $current_request_code = $this->requestStack->getCurrentRequest()->query->get('code');
       $params = [
-        'code' => $_GET['code'],
+        'code' => $current_request_code,
         'grant_type' => 'authorization_code',
         'redirect_uri' => $redirect_uri,
         'client_id' => $client_id,
@@ -160,8 +299,8 @@ class GoogleAnalyticsReportsApiFeed {
           '@code' => $response->getStatusCode(),
           '@details' => print_r(json_decode($this->response), TRUE),
         ];
-        $this->error = t('<strong>Code</strong>: @code, <strong>Error</strong>: <pre>@details</pre>', $error_vars);
-        \Drupal::logger('google_analytics_reports_api')->error('<strong>Code</strong>: @code, <strong>Error</strong>: <pre>@details</pre>', $error_vars);
+        $this->error = $this->t('<strong>Code</strong>: @code, <strong>Error</strong>: <pre>@details</pre>', $error_vars);
+        $this->loggerFactory->error('<strong>Code</strong>: @code, <strong>Error</strong>: <pre>@details</pre>', $error_vars);
       }
     }
     catch (ClientException $e) {
@@ -173,8 +312,8 @@ class GoogleAnalyticsReportsApiFeed {
         '@message' => $e->getMessage(),
         '@details' => print_r(json_decode($this->response), TRUE),
       ];
-      $this->error = t('<strong>Code</strong>: @code, <strong>Error</strong>: @message, <strong>Message</strong>: <pre>@details</pre>', $error_vars);
-      \Drupal::logger('google_analytics_reports_api')->error('<strong>Code</strong>: @code, <strong>Error</strong>: <pre>@details</pre>', $error_vars);
+      $this->error = $this->t('<strong>Code</strong>: @code, <strong>Error</strong>: @message, <strong>Message</strong>: <pre>@details</pre>', $error_vars);
+      $this->loggerFactory->error('<strong>Code</strong>: @code, <strong>Error</strong>: <pre>@details</pre>', $error_vars);
     }
   }
 
@@ -188,6 +327,8 @@ class GoogleAnalyticsReportsApiFeed {
    *   Client id.
    * @param string $client_secret
    *   Client secret.
+   * @param string $redirect_uri
+   *   Redirect uri.
    */
   public function finishAuthentication($client_id, $client_secret, $redirect_uri) {
     $this->fetchToken($client_id, $client_secret, $redirect_uri);
@@ -202,10 +343,12 @@ class GoogleAnalyticsReportsApiFeed {
    *   Client id.
    * @param string $redirect_uri
    *   Redirect uri.
+   *
+   * @return \Drupal\Core\Routing\TrustedRedirectResponse
+   *   The trusted redirect response.
    */
   public function beginAuthentication($client_id, $redirect_uri) {
-    $response = new CacheableRedirectResponse($this->createAuthUrl($client_id, $redirect_uri));
-    $response->send();
+    return new TrustedRedirectResponse($this->createAuthUrl($client_id, $redirect_uri));
   }
 
   /**
@@ -229,7 +372,7 @@ class GoogleAnalyticsReportsApiFeed {
    * Revoke an OAuth2 access token or refresh token. This method will revoke
    * the current access token, if a token isn't provided.
    *
-   * @param string|NULL $token
+   * @param string|null $token
    *   The token (access token or a refresh token) that should be revoked.
    *
    * @return boll
@@ -264,8 +407,8 @@ class GoogleAnalyticsReportsApiFeed {
         '@message' => $e->getMessage(),
         '@details' => print_r(json_decode($this->response), TRUE),
       ];
-      $this->error = t('<strong>Code</strong>: @code, <strong>Error</strong>: @message, <strong>Message</strong>: <pre>@details</pre>', $error_vars);
-      \Drupal::logger('google_analytics_reports_api')->error('<strong>Code</strong>: @code, <strong>Error</strong>: <pre>@details</pre>', $error_vars);
+      $this->error = $this->t('<strong>Code</strong>: @code, <strong>Error</strong>: @message, <strong>Message</strong>: <pre>@details</pre>', $error_vars);
+      $this->loggerFactory->error('<strong>Code</strong>: @code, <strong>Error</strong>: <pre>@details</pre>', $error_vars);
     }
 
     return FALSE;
@@ -312,7 +455,7 @@ class GoogleAnalyticsReportsApiFeed {
   /**
    * Public query method for all Core Reporting API features.
    */
-  public function query($url, $params = [], $method = 'GET', $headers, $cache_options = []) {
+  public function query($url, $params = [], $method = 'GET', $headers = [], $cache_options = []) {
     $params_defaults = [
       'start-index' => 1,
       'max-results' => 1000,
@@ -333,9 +476,8 @@ class GoogleAnalyticsReportsApiFeed {
       $cache_options['cid'] = 'google_analytics_reports_data:' . md5(serialize(array_merge($params, [$url, $method])));
     }
 
-    $cache = \Drupal::cache($cache_options['bin'])->get($cache_options['cid']);
-
-    if (!$cache_options['refresh'] && isset($cache) && !empty($cache->data) && ($cache->expire > REQUEST_TIME)) {
+    $cache = $this->cacheFactory->get($cache_options['bin'])->get($cache_options['cid']);
+    if (!$cache_options['refresh'] && isset($cache) && !empty($cache->data) && ($cache->expire > $this->time->getRequestTime())) {
       $this->response = $cache->data;
       $this->results = json_decode($this->response);
       $this->fromCache = TRUE;
@@ -345,7 +487,7 @@ class GoogleAnalyticsReportsApiFeed {
     }
 
     if (empty($this->error)) {
-      \Drupal::cache($cache_options['bin'])->set($cache_options['cid'], $this->response, $cache_options['expire']);
+      $this->cacheFactory->get($cache_options['bin'])->set($cache_options['cid'], $this->response, $cache_options['expire']);
     }
 
     return (empty($this->error));
@@ -389,8 +531,8 @@ class GoogleAnalyticsReportsApiFeed {
           '@code' => $response->getStatusCode(),
           '@details' => print_r(json_decode($this->response), TRUE),
         ];
-        $this->error = t('<strong>Code</strong>: @code, <strong>Error</strong>: <pre>@details</pre>', $error_vars);
-        \Drupal::logger('google_analytics_reports_api')->error('<strong>Code</strong>: @code, <strong>Error</strong>: <pre>@details</pre>', $error_vars);
+        $this->error = $this->t('<strong>Code</strong>: @code, <strong>Error</strong>: <pre>@details</pre>', $error_vars);
+        $this->loggerFactory->error('<strong>Code</strong>: @code, <strong>Error</strong>: <pre>@details</pre>', $error_vars);
       }
     }
     catch (ClientException $e) {
@@ -402,8 +544,8 @@ class GoogleAnalyticsReportsApiFeed {
         '@message' => $e->getMessage(),
         '@details' => print_r(json_decode($this->response), TRUE),
       ];
-      $this->error = t('<strong>Code</strong>: @code, <strong>Error</strong>: @message, <strong>Message</strong>: <pre>@details</pre>', $error_vars);
-      \Drupal::logger('google_analytics_reports_api')->error('<strong>Code</strong>: @code, <strong>Error</strong>: <pre>@details</pre>', $error_vars);
+      $this->error = $this->t('<strong>Code</strong>: @code, <strong>Error</strong>: @message, <strong>Message</strong>: <pre>@details</pre>', $error_vars);
+      $this->loggerFactory->error('<strong>Code</strong>: @code, <strong>Error</strong>: <pre>@details</pre>', $error_vars);
     }
   }
 
@@ -560,7 +702,7 @@ class GoogleAnalyticsReportsApiFeed {
         $field_without_ga = str_replace('ga:', '', $this->results->columnHeaders[$item_key]->name);
 
         // Allow other modules to alter executed data before display.
-        \Drupal::moduleHandler()->alter('google_analytics_reports_api_reported_data', $field_without_ga, $item_value);
+        $this->moduleHandler->alter('google_analytics_reports_api_reported_data', $field_without_ga, $item_value);
 
         $this->results->rows[$row_key][$field_without_ga] = $item_value;
       }

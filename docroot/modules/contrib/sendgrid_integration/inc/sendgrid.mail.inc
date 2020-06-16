@@ -62,6 +62,11 @@ class SendGridMailSystem implements MailSystemInterface {
       $sendgrid_message->addFilter('bypass_list_management', 'enable', 1);
     }
 
+    // Bypass spam filters if requested by othe modules.
+    if (!empty($message['sendgrid']['bypass_list_management'])) {
+      $sendgrid_message->addFilter('bypass_list_management', 'enable', 1);
+    }
+
     if (isset($message['params']['account']->uid)) {
       $unique_args['uid'] = $message['params']['account']->uid;
     }
@@ -378,7 +383,7 @@ class SendGridMailSystem implements MailSystemInterface {
         if (!empty($filters = $sendgrid_message->smtpapi->getFilters())) {
           $record->body .= 'Filters:' . "\n";
           foreach ($filters as $item) {
-            $record->body .= print_r($item) . "\n";
+            $record->body .= print_r($item, TRUE) . "\n";
           }
           $record->body .= $divider;
           $record->body .= $divider;

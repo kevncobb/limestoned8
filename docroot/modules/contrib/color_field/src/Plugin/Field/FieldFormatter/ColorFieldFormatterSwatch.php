@@ -50,18 +50,18 @@ class ColorFieldFormatterSwatch extends FormatterBase {
       '#description' => '',
     ];
     $elements['width'] = [
-      '#type' => 'number',
+      '#type' => 'textfield',
       '#title' => $this->t('Width'),
       '#default_value' => $this->getSetting('width'),
       '#min' => 1,
-      '#description' => '',
+      $this->t('Defaults to pixels (px) if a number is entered, otherwise, you can enter any unit (ie %, em, vw)')
     ];
     $elements['height'] = [
-      '#type' => 'number',
+      '#type' => 'textfield',
       '#title' => $this->t('Height'),
       '#default_value' => $this->getSetting('height'),
       '#min' => 1,
-      '#description' => '',
+      '#description' => $this->t('Defaults to pixels (px) if a number is entered, otherwise, you can enter any unit (ie %, em, vh)'),
     ];
 
     if ($opacity) {
@@ -89,6 +89,7 @@ class ColorFieldFormatterSwatch extends FormatterBase {
     $formats['square'] = $this->t('Square');
     $formats['circle'] = $this->t('Circle');
     $formats['parallelogram'] = $this->t('Parallelogram');
+    $formats['triangle'] = $this->t('Triangle');
 
     if ($shape) {
       return $formats[$shape];
@@ -136,8 +137,8 @@ class ColorFieldFormatterSwatch extends FormatterBase {
         '#theme' => 'color_field_formatter_swatch',
         '#color' => $this->viewValue($item),
         '#shape' => $settings['shape'],
-        '#width' => $settings['width'],
-        '#height' => $settings['height'],
+        '#width' => is_numeric($settings['width']) ? "{$settings['width']}px" : $settings['width'],
+        '#height' => is_numeric($settings['height']) ? "{$settings['height']}px" : $settings['height'],
       ];
     }
 

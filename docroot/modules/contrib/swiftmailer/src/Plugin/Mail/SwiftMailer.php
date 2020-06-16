@@ -10,7 +10,6 @@ use Drupal\Core\Asset\AssetResolverInterface;
 use Drupal\Core\Asset\AttachedAssets;
 use Drupal\Core\Config\ImmutableConfig;
 use Drupal\Core\Extension\ModuleHandlerInterface;
-use Drupal\Core\Mail\MailFormatHelper;
 use Drupal\Core\Mail\MailInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Render\Markup;
@@ -156,49 +155,24 @@ class SwiftMailer implements MailInterface, ContainerFactoryPluginInterface {
    *   The message as it should be sent.
    */
   public function format(array $message) {
-    $message = $this->massageMessageBody($message);
+    // Get content type.
+    $is_html = ($this->getContentType($message) == SWIFTMAILER_FORMAT_HTML);
 
-    // Get applicable format.
-    $applicable_format = $this->getApplicableFormat($message);
+    // Determine if a plain text alternative is required. The message parameter
+    // takes priority over config. Support the alternate parameter 'convert'
+    // for back-compatibility.
+    $generate_plain = $message['params']['generate_plain'] ?? $message['params']['convert'] ?? $this->config['message']['generate_plain'];
 
-    // Theme message if format is set to be HTML.
-    if ($applicable_format == SWIFTMAILER_FORMAT_HTML) {
-      // Attempt to use the mail theme defined in MailSystem.
-      if ($this->mailManager instanceof MailsystemManager) {
-        $mail_theme = $this->mailManager->getMailTheme();
-      }
-      // Default to the active theme if MailsystemManager isn't used.
-      else {
-        $mail_theme = $this->themeManager->getActiveTheme()->getName();
-      }
-      $render = [
-        '#theme' => isset($message['params']['theme']) ? $message['params']['theme'] : 'swiftmailer',
-        '#message' => $message,
-        '#attached' => [
-          'library' => ["$mail_theme/swiftmailer"],
-        ],
-      ];
-
-      $message['body'] = $this->renderer->renderPlain($render);
-
-      if (empty($message['plain']) && $this->config['message']['convert_mode'] || !empty($message['params']['convert'])) {
-        $converter = new Html2Text($message['body']);
-        $message['plain'] = $converter->getText();
-      }
-
-      // Process CSS from libraries.
-      $assets = AttachedAssets::createFromRenderArray($render);
-      $css = '';
-      // Request optimization so that the CssOptimizer performs essential
-      // processing such as @include.
-      foreach ($this->assetResolver->getCssAssets($assets, TRUE) as $css_asset) {
-        $css .= file_get_contents($css_asset['data']);
-      }
-
-      if ($css) {
-        $message['body'] = (new CssToInlineStyles())->convert($message['body'], $css);
-      }
+    if ($generate_plain && empty($message['plain']) && $is_html) {
+      // Generate plain text alternative. This must be done first with the
+      // original message body, before overwriting it with the HTML version.
+      $saved_body = $message['body'];
+      $this->massageMessageBody($message, FALSE);
+      $message['plain'] = $message['body'];
+      $message['body'] = $saved_body;
     }
+
+    $this->massageMessageBody($message, $is_html);
 
     // We replace all 'image:foo' in the body with a unique magic string like
     // 'cid:[randomname]' and keep track of this. It will be replaced by the
@@ -252,10 +226,6 @@ class SwiftMailer implements MailInterface, ContainerFactoryPluginInterface {
       // do its work properly.
       $suppressable_headers = swiftmailer_get_supressable_headers();
 
-      // Keep track of whether we need to respect the provided e-mail
-      // format or not.
-      $respect_format = $this->config['message']['respect_format'];
-
       // Process headers provided by Drupal. We want to add all headers which
       // are provided by Drupal to be added to the message. For each header we
       // first have to find out what type of header it is, and then add it to
@@ -263,15 +233,14 @@ class SwiftMailer implements MailInterface, ContainerFactoryPluginInterface {
       if (!empty($message['headers']) && is_array($message['headers'])) {
         foreach ($message['headers'] as $header_key => $header_value) {
 
-          // Check wether the current header key is empty or represents
+          // Check whether the current header key is empty or represents
           // a header that should be suppressed. If yes, then skip header.
           if (empty($header_key) || in_array($header_key, $suppressable_headers)) {
             continue;
           }
 
-          // Skip 'Content-Type' header if the message to be sent will be a
-          // multipart message or the provided format is not to be respected.
-          if ($header_key == 'Content-Type' && (!$respect_format || swiftmailer_is_multipart($message))) {
+          // Skip 'Content-Type' header if the message is a multipart message.
+          if ($header_key == 'Content-Type' && swiftmailer_is_multipart($message)) {
             continue;
           }
 
@@ -313,18 +282,18 @@ class SwiftMailer implements MailInterface, ContainerFactoryPluginInterface {
       // MailManager::doMail). Replicate that behavior here.
       Conversion::swiftmailer_add_mailbox_header($m, 'To', $message['to']);
 
-      // Get applicable format.
-      $applicable_format = $this->getApplicableFormat($message);
+      // Get content type.
+      $content_type = $this->getContentType($message);
 
       // Get applicable character set.
       $applicable_charset = $this->getApplicableCharset($message);
 
       // Set body.
-      $m->setBody($message['body'], $applicable_format, $applicable_charset);
+      $m->setBody($message['body'], $content_type, $applicable_charset);
 
       // Add alternative plain text version if format is HTML and plain text
       // version is available.
-      if ($applicable_format == SWIFTMAILER_FORMAT_HTML && !empty($message['plain'])) {
+      if ($content_type == SWIFTMAILER_FORMAT_HTML && !empty($message['plain'])) {
         $m->addPart($message['plain'], SWIFTMAILER_FORMAT_PLAIN, $applicable_charset);
       }
 
@@ -402,13 +371,8 @@ class SwiftMailer implements MailInterface, ContainerFactoryPluginInterface {
           continue;
         }
 
-        // Get file data.
-        if (UrlHelper::isValid($file->uri, TRUE)) {
-          $content = file_get_contents($file->uri);
-        }
-        else {
-          $content = file_get_contents(\Drupal::service('file_system')->realpath($file->uri));
-        }
+        // Get file data from local file, stream, or remote (e.g. http(s)) uri.
+        $content = file_get_contents($file->uri);
 
         $filename = $file->filename;
         $filemime = $file->filemime;
@@ -509,7 +473,7 @@ class SwiftMailer implements MailInterface, ContainerFactoryPluginInterface {
   }
 
   /**
-   * Returns the applicable format.
+   * Returns the message content type.
    *
    * @param array $message
    *   The message for which the applicable format is to be determined.
@@ -519,35 +483,22 @@ class SwiftMailer implements MailInterface, ContainerFactoryPluginInterface {
    *
    * @internal
    */
-  protected function getApplicableFormat(array $message) {
-    // Get the configured default format.
-    $default_format = $this->config['message']['format'];
-
-    // Get whether the provided format is to be respected.
-    $respect_format = $this->config['message']['respect_format'];
-
-    // Check if a format has been provided particularly for this message. If
-    // that is the case, then apply that format instead of the default format.
-    $applicable_format = !empty($message['params']['format']) ? $message['params']['format'] : $default_format;
-
-    // Check if the provided format is to be respected, and if a format has been
-    // set through the header "Content-Type". If that is the case, the apply the
-    // format provided. This will override any format which may have been set
-    // through $message['params']['format'].
-    if ($respect_format && !empty($message['headers']['Content-Type'])) {
-      $format = $message['headers']['Content-Type'];
-
-      if (preg_match('/.*\;/U', $format, $matches)) {
-        $applicable_format = trim(substr($matches[0], 0, -1));
-      }
-      else {
-        $applicable_format = $message['headers']['Content-Type'];
-      }
-
+  protected function getContentType(array $message) {
+    // The message parameter takes priority over config. Support the alternate
+    // parameter 'format' for back-compatibility.
+    $content_type = $message['params']['content_type'] ?? $message['params']['format'] ?? $this->config['message']['content_type'];
+    // 1) check the message parameters.
+    if ($content_type) {
+      return $content_type;
     }
 
-    return $applicable_format;
+    // Then check the Content-Type header.
+    if (isset($message['headers']['Content-Type'])) {
+      return explode(';', $message['headers']['Content-Type'])[0];
+    }
 
+    // Drupal sets the header by default, but add a fallback just in case.
+    return 'text/plain';
   }
 
   /**
@@ -562,37 +513,9 @@ class SwiftMailer implements MailInterface, ContainerFactoryPluginInterface {
    * @internal
    */
   protected function getApplicableCharset(array $message) {
-
-    // Get the configured default format.
-    $default_charset = $this->config['message']['character_set'];
-
-    // Get whether the provided format is to be respected.
-    $respect_charset = $this->config['message']['respect_format'];
-
-    // Check if a format has been provided particularly for this message. If
+    // Check if a charset has been provided particularly for this message. If
     // that is the case, then apply that format instead of the default format.
-    $applicable_charset = !empty($message['params']['charset']) ? $message['params']['charset'] : $default_charset;
-
-    // Check if the provided format is to be respected, and if a format has been
-    // set through the header "Content-Type". If that is the case, the apply the
-    // format provided. This will override any format which may have been set
-    // through $message['params']['format'].
-    if ($respect_charset && !empty($message['headers']['Content-Type'])) {
-      $format = $message['headers']['Content-Type'];
-      $format = preg_match('/charset.*=.*\;/U', $format, $matches);
-
-      if ($format > 0) {
-        $applicable_charset = trim(substr($matches[0], 0, -1));
-        $applicable_charset = preg_replace('/charset=/', '', $applicable_charset);
-      }
-      else {
-        $applicable_charset = $default_charset;
-      }
-
-    }
-
-    return $applicable_charset;
-
+    return $message['params']['charset'] ?? $this->config['message']['character_set'];
   }
 
   /**
@@ -600,43 +523,77 @@ class SwiftMailer implements MailInterface, ContainerFactoryPluginInterface {
    *
    * @param array $message
    *   The message.
-   *
-   * @return array
-   *   The render array for message body.
+   * @param boolean $is_html
+   *   True if generating HTML output, false for plain text.
    *
    * @internal
    */
-  protected function massageMessageBody(array $message) {
-    $applicable_format = $this->getApplicableFormat($message);
-    $filter_format = $this->config['message']['filter_format'];
+  protected function massageMessageBody(array &$message, $is_html) {
+    $text_format = $message['params']['text_format'] ?? $this->config['message']['text_format'] ?: NULL;
+    $line_endings = Settings::get('mail_line_endings', PHP_EOL);
+    $body = [];
 
-    foreach ($message['body'] as &$body) {
-      $is_markup = ($body instanceof MarkupInterface);
-
-      if (!$is_markup && ($applicable_format == SWIFTMAILER_FORMAT_HTML)) {
-        // Convert to HTML.  The default 'plain_text' format escapes markup,
-        // converts new lines to <br> and converts URLs to links.
-        $build = [
-          '#type' => 'processed_text',
-          '#text' => $body,
-          '#format' => $filter_format,
-        ];
-        $body = $this->renderer->renderPlain($build);
+    foreach ($message['body'] as $part) {
+      if (!($part instanceof MarkupInterface)) {
+        if ($is_html) {
+          // Convert to HTML. The default 'plain_text' format escapes markup,
+          // converts new lines to <br> and converts URLs to links.
+          $body[] = check_markup($part, $text_format);
+        }
+        else {
+          // The body will be plain text. However we need to convert to HTML
+          // to render the template then convert back again. Use a fixed
+          // conversion because we don't want to convert URLs to links.
+          $body[] = preg_replace("|\n|", "<br />\n", HTML::escape($part)) . "<br />\n";
+        }
       }
-
-      if ($is_markup && ($applicable_format == SWIFTMAILER_FORMAT_PLAIN)) {
-        // Convert to plain text.
-        $body = MailFormatHelper::htmlToText($body);
+      else {
+        $body[] = $part . $line_endings;
       }
     }
 
-    // Merge all lines in the e-mail body separated by the mail line endings.
-    // Treat the result as safe markup even for plain text format to prevent
-    // Twig auto-escape.
-    $line_endings = Settings::get('mail_line_endings', PHP_EOL);
-    $message['body'] = Markup::create(implode($line_endings, $message['body']));
+    // Merge all lines in the e-mail body and treat the result as safe markup.
+    $message['body'] = Markup::create(implode('', $body));
 
-    return $message;
+    // Attempt to use the mail theme defined in MailSystem.
+    if ($this->mailManager instanceof MailsystemManager) {
+      $mail_theme = $this->mailManager->getMailTheme();
+    }
+    // Default to the active theme if MailsystemManager isn't used.
+    else {
+      $mail_theme = $this->themeManager->getActiveTheme()->getName();
+    }
+
+    $render = [
+      '#theme' => $message['params']['theme'] ?? 'swiftmailer',
+      '#message' => $message,
+      '#is_html' => $is_html,
+    ];
+
+    if ($is_html) {
+      $render['#attached']['library'] = ["$mail_theme/swiftmailer"];
+    }
+
+    $message['body'] = $this->renderer->renderPlain($render);
+
+    if ($is_html) {
+      // Process CSS from libraries.
+      $assets = AttachedAssets::createFromRenderArray($render);
+      $css = '';
+      // Request optimization so that the CssOptimizer performs essential
+      // processing such as @include.
+      foreach ($this->assetResolver->getCssAssets($assets, TRUE) as $css_asset) {
+        $css .= file_get_contents($css_asset['data']);
+      }
+
+      if ($css) {
+        $message['body'] = (new CssToInlineStyles())->convert($message['body'], $css);
+      }
+    }
+    else {
+      // Convert to plain text.
+      $message['body'] = (new Html2Text($message['body']))->getText();
+    }
   }
 
 }

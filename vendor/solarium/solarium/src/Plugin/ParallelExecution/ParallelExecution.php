@@ -6,10 +6,8 @@ use Solarium\Component\QueryInterface;
 use Solarium\Core\Client\Adapter\Curl;
 use Solarium\Core\Client\Endpoint;
 use Solarium\Core\Plugin\AbstractPlugin;
-use Solarium\Core\Query\AbstractQuery;
 use Solarium\Exception\HttpException;
 use Solarium\Exception\RuntimeException;
-use Solarium\Plugin\ParallelExecution\Event\Events;
 use Solarium\Plugin\ParallelExecution\Event\ExecuteEnd as ExecuteEndEvent;
 use Solarium\Plugin\ParallelExecution\Event\ExecuteStart as ExecuteStartEvent;
 
@@ -38,7 +36,7 @@ class ParallelExecution extends AbstractPlugin
     /**
      * Queries (and optionally clients) to execute.
      *
-     * @var AbstractQuery[]
+     * @var QueryInterface[]
      */
     protected $queries = [];
 
@@ -46,7 +44,7 @@ class ParallelExecution extends AbstractPlugin
      * Add a query to execute.
      *
      * @param string               $key
-     * @param AbstractQuery        $query
+     * @param QueryInterface       $query
      * @param null|string|Endpoint $endpoint
      *
      * @return self Provides fluent interface
@@ -118,7 +116,8 @@ class ParallelExecution extends AbstractPlugin
         }
 
         // executing multihandle (all requests)
-        $this->client->getEventDispatcher()->dispatch(Events::EXECUTE_START, new ExecuteStartEvent());
+        $event = new ExecuteStartEvent();
+        $this->client->getEventDispatcher()->dispatch($event);
 
         do {
             $mrc = curl_multi_exec($multiHandle, $active);
@@ -135,7 +134,8 @@ class ParallelExecution extends AbstractPlugin
             } while (CURLM_CALL_MULTI_PERFORM == $mrc);
         }
 
-        $this->client->getEventDispatcher()->dispatch(Events::EXECUTE_END, new ExecuteEndEvent());
+        $event = new ExecuteEndEvent();
+        $this->client->getEventDispatcher()->dispatch($event);
 
         // get the results
         $results = [];
@@ -163,6 +163,6 @@ class ParallelExecution extends AbstractPlugin
      */
     protected function initPluginType()
     {
-        $this->client->setAdapter('Solarium\Core\Client\Adapter\Curl');
+        $this->client->setAdapter(new Curl());
     }
 }

@@ -30,7 +30,7 @@
   },
   "require": {
     "composer/installers": "~1.0",
-    "oomphinc/composer-installers-extender": "~1.0",
+    "oomphinc/composer-installers-extender": "^1.1",
     "cweagans/composer-patches": "~1.0",
     "drupal/core-composer-scaffold": "^8.8.0",
     "drupal/core-project-message": "^8.8.0",
@@ -130,7 +130,8 @@
     },
     "installer-types": [
       "bower-asset",
-      "npm-asset"
+      "npm-asset",
+      "library"
     ],
     "installer-paths": {
       "docroot/core": ["type:drupal-core"],
@@ -143,7 +144,8 @@
       "docroot/libraries/{$name}": [
         "type:drupal-library",
         "type:bower-asset",
-        "type:npm-asset"
+        "type:npm-asset",
+        "harvesthq/chosen"
       ],
       "docroot/modules/custom/{$name}": ["type:drupal-custom-module"],
       "docroot/themes/custom/{$name}": ["type:drupal-custom-theme"],
