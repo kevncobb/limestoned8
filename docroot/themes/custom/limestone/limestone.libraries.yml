@@ -45,7 +45,7 @@ lc-select:
     base:
       css/lc-select.css: {}
   js:
-    js/lc-select.js: {}
+    js/jquery-accessible-autocomplete-list-aria.js: {}
 lc-parallax:
   version: 1.x
   js:

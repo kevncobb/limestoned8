@@ -10,9 +10,17 @@
  * @see template_preprocess_select()
  */
 #}
+{%
+  set attribututes = [
+  'type', ~ 'text',
+  'list' ~ attribututes.name,
+]
+%}
+
 {{ attach_library('limestone/lc-select') }}
 {% spaceless %}
-  <select{{ attributes }}>
+  <input{{ attributes }}>
+  <datalist id="{{ attributes.name }}">
     {% for option in options %}
       {% if option.type == 'optgroup' %}
         <optgroup label="{{ option.label }}">
@@ -24,5 +32,6 @@
         <option value="{{ option.value }}"{{ option.selected ? ' selected="selected"' }}>{{ option.label }}</option>
       {% endif %}
     {% endfor %}
-  </select>
+  </datalist>
+  </input>
 {% endspaceless %}
