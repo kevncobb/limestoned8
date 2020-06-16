@@ -94,6 +94,8 @@
           {{ drupal_field('field_background_splash_image', 'node') }}
           {{ title_prefix }}
           <h1 class="h1 max-1000 splash-header-title">{{ title }}</h1>
+          {{ drupal_field('field_program_type_term', 'node') }}
+
         </div>
       {% endif %}
       {% if messages and not zurb_foundation_messages_modal %}
