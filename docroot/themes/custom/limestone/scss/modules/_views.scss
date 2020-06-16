@@ -47,5 +47,13 @@
 }
 
 .degrees-table {
-
+  a.learn-more-link {
+    text-decoration: none;
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: 1rem;
+  }
+  th {
+    font-family: $header-font-family;
+  }
 }
