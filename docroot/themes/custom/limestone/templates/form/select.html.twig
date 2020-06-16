@@ -15,13 +15,13 @@
 {% spaceless %}
   {{ kint(attributes) }}
 
-  <label for="cb1-input">
-    {{ option.label }}
-  </label>
-
 
   <select{{ attributes }}>
     {% for option in options %}
+      <label for="cb1-input">
+        {{ option.label }}
+      </label>
+
       {% if option.type == 'optgroup' %}
         <optgroup label="{{ option.label }}">
           {% for sub_option in option.options %}
