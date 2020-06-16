@@ -15,5 +15,14 @@
       position: static;
       transform: initial;
     }
+    .splash-header-subtitle {
+      font-size: 1.2rem;
+      @include breakpoint(medium) {
+        font-size: 2rem;
+      }
+      @include breakpoint(large) {
+        font-size: 2.5rem;
+      }
+    }
   }
 }
