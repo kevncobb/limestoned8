@@ -11,5 +11,9 @@
         background-color: transparent;
       }
     }
+    .splash-header-title, .splash-header-subtitle {
+      position: static;
+      transform: initial;
+    }
   }
 }
