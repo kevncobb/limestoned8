@@ -1,0 +1,17 @@
+<div {{ attributes.setAttribute('id', settings.wrapper_id).addClass('grid-x', settings.wrapper_classes) }}>
+  {% if content.sidebar_left %}
+    <{{ settings.wrappers.sidebar_left }} {{ region_attributes.sidebar_left.addClass('cell', 'medium-3') }}>
+      {{ content.sidebar_left }}
+    </{{ settings.wrappers.sidebar_left }}>
+  {% endif %}
+  {% if content.main %}
+    <{{ settings.wrappers.main }} {{ region_attributes.main.addClass('cell', 'medium-6') }}>
+      {{ content.main }}
+    </{{ settings.wrappers.main }}>
+  {% endif %}
+  {% if content.sidebar_right %}
+    <{{ settings.wrappers.sidebar_right }} {{ region_attributes.sidebar_right.addClass('cell', 'medium-3') }}>
+      {{ content.sidebar_right }}
+    </{{ settings.wrappers.sidebar_right }}>
+  {% endif %}
+</div>

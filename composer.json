@@ -44,7 +44,8 @@
     "drupal/search_api_solr": "^4.0",
     "drupal/search_api": "^1.17",
     "drupal/csv_serialization": "^1.4",
-    "drupal/chosen": "^2.9"
+    "drupal/chosen": "^2.9",
+    "drupal/foundation_layouts": "6.x-dev"
   },
   "replace": {
     "ajaxorg/ace-builds": "*"
@@ -89,6 +90,9 @@
         },
         "drupal/entity_browser": {
         "[ #2930677-55] Validate widget entity type and bundles" : "https://www.drupal.org/files/issues/2019-05-05/entity-browser-widget-entity-validation-2930677-55.patch"
+        },
+        "drupal/foundation_layouts": {
+        "[ #2929021-8] Validate widget entity type and bundles" : "https://www.drupal.org/files/issues/2019-03-07/foundation_layout_X-Y_grid-2929021_0.patch"
         },
         "drupal/core": {
         "[ #3062863-3] Remove duplicate suggestions block--block-content.html.twig" : "https://www.drupal.org/files/issues/2019-06-19/3062863-3.patch",

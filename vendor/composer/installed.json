@@ -6369,6 +6369,57 @@
         }
     },
     {
+        "name": "drupal/foundation_layouts",
+        "version": "dev-6.x",
+        "version_normalized": "dev-6.x",
+        "source": {
+            "type": "git",
+            "url": "https://git.drupalcode.org/project/foundation_layouts.git",
+            "reference": "28189dc28e5596be7e6d15b2d4eea707338311fb"
+        },
+        "require": {
+            "drupal/core": "*"
+        },
+        "type": "drupal-module",
+        "extra": {
+            "branch-alias": {
+                "dev-6.x": "6.x-dev"
+            },
+            "drupal": {
+                "version": "8.x-6.0+1-dev",
+                "datestamp": "1551962288",
+                "security-coverage": {
+                    "status": "not-covered",
+                    "message": "Dev releases are not covered by Drupal security advisories."
+                }
+            }
+        },
+        "installation-source": "source",
+        "notification-url": "https://packages.drupal.org/8/downloads",
+        "license": [
+            "GPL-2.0-or-later"
+        ],
+        "authors": [
+            {
+                "name": "HongPong",
+                "homepage": "https://www.drupal.org/user/60005"
+            },
+            {
+                "name": "abu-zakham",
+                "homepage": "https://www.drupal.org/user/2836067"
+            },
+            {
+                "name": "josebc",
+                "homepage": "https://www.drupal.org/user/1376836"
+            }
+        ],
+        "description": "Provides ZURB Foundation grid system layouts.",
+        "homepage": "https://www.drupal.org/project/foundation_layouts",
+        "support": {
+            "source": "https://git.drupalcode.org/project/foundation_layouts"
+        }
+    },
+    {
         "name": "drupal/genpass",
         "version": "1.0.0",
         "version_normalized": "1.0.0.0",
@@ -9393,7 +9444,7 @@
                 "dev-8.x-4.x": "4.x-dev"
             },
             "patches_applied": {
-                "Issue #2665328: Variants take entity label not the variant title": "https://www.drupal.org/files/issues/2020-06-03/2665328-102.patch"
+                "Issue #2665328: Variants take entity label not the variant title": "https://www.drupal.org/files/issues/2020-06-09/2665328-106.patch"
             }
         },
         "installation-source": "dist",

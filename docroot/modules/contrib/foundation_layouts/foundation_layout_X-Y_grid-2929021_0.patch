@@ -1,0 +1,414 @@
+diff --git a/templates/foundation-1-11.html.twig b/templates/foundation-1-11.html.twig
+index 5c47cec..eb2581b 100755
+--- a/templates/foundation-1-11.html.twig
++++ b/templates/foundation-1-11.html.twig
+@@ -1,11 +1,11 @@
+-<div {{ attributes.setAttribute('id', settings.wrapper_id).addClass('row', settings.wrapper_classes) }}>
++<div {{ attributes.setAttribute('id', settings.wrapper_id).addClass('grid-x', settings.wrapper_classes) }}>
+   {% if content.sidebar_left %}
+-    <{{ settings.wrappers.sidebar_left }} class="columns medium-1">
++    <{{ settings.wrappers.sidebar_left }} {{ region_attributes.sidebar_left.addClass('cell', 'medium-1') }}>
+       {{ content.sidebar_left }}
+     </{{ settings.wrappers.sidebar_left }}>
+   {% endif %}
+   {% if content.sidebar_right %}
+-    <{{ settings.wrappers.sidebar_right }} class="columns medium-11">
++    <{{ settings.wrappers.sidebar_right }} {{ region_attributes.sidebar_right.addClass('cell', 'medium-11') }}>
+       {{ content.sidebar_right }}
+     </{{ settings.wrappers.sidebar_right }}>
+   {% endif %}
+diff --git a/templates/foundation-11-1.html.twig b/templates/foundation-11-1.html.twig
+index b23d636..6ef3829 100755
+--- a/templates/foundation-11-1.html.twig
++++ b/templates/foundation-11-1.html.twig
+@@ -1,11 +1,11 @@
+-<div {{ attributes.setAttribute('id', settings.wrapper_id).addClass('row', settings.wrapper_classes) }}>
++<div {{ attributes.setAttribute('id', settings.wrapper_id).addClass('grid-x', settings.wrapper_classes) }}>
+   {% if content.sidebar_left %}
+-    <{{ settings.wrappers.sidebar_left }} class="columns medium-11">
++    <{{ settings.wrappers.sidebar_left }} {{ region_attributes.sidebar_left.addClass('cell', 'medium-11') }}>
+       {{ content.sidebar_left }}
+     </{{ settings.wrappers.sidebar_left }}>
+   {% endif %}
+   {% if content.sidebar_right %}
+-    <{{ settings.wrappers.sidebar_right }} class="columns medium-1">
++    <{{ settings.wrappers.sidebar_right }} {{ region_attributes.sidebar_right.addClass('cell', 'medium-1') }}>
+       {{ content.sidebar_right }}
+     </{{ settings.wrappers.sidebar_right }}>
+   {% endif %}
+diff --git a/templates/foundation-12.html.twig b/templates/foundation-12.html.twig
+index 99668b1..fb04109 100755
+--- a/templates/foundation-12.html.twig
++++ b/templates/foundation-12.html.twig
+@@ -1,6 +1,6 @@
+-<div {{ attributes.setAttribute('id', settings.wrapper_id).addClass('row', settings.wrapper_classes) }}>
++<div {{ attributes.setAttribute('id', settings.wrapper_id).addClass('grid-x',  settings.wrapper_classes) }}>
+   {% if content.main %}
+-    <{{ settings.wrappers.main }} class="columns medium-12">
++    <{{ settings.wrappers.main }} {{ region_attributes.main.addClass('cell', 'medium-12') }}>
+       {{ content.main }}
+     </{{ settings.wrappers.main }}>
+   {% endif %}
+diff --git a/templates/foundation-2-10.html.twig b/templates/foundation-2-10.html.twig
+index 21ce2f7..891d666 100755
+--- a/templates/foundation-2-10.html.twig
++++ b/templates/foundation-2-10.html.twig
+@@ -1,11 +1,11 @@
+-<div {{ attributes.setAttribute('id', settings.wrapper_id).addClass('row', settings.wrapper_classes) }}>
++<div {{ attributes.setAttribute('id', settings.wrapper_id).addClass('grid-x', settings.wrapper_classes) }}>
+   {% if content.sidebar_left %}
+-    <{{ settings.wrappers.sidebar_left }} class="columns medium-2">
++    <{{ settings.wrappers.sidebar_left }} {{ region_attributes.sidebar_left.addClass('cell', 'medium-2') }}>
+       {{ content.sidebar_left }}
+     </{{ settings.wrappers.sidebar_left }}>
+   {% endif %}
+   {% if content.sidebar_right %}
+-    <{{ settings.wrappers.sidebar_right }} class="columns medium-10">
++    <{{ settings.wrappers.sidebar_right }} {{ region_attributes.sidebar_right.addClass('cell', 'medium-10') }}>
+       {{ content.sidebar_right }}
+     </{{ settings.wrappers.sidebar_right }}>
+   {% endif %}
+diff --git a/templates/foundation-2-8-2.html.twig b/templates/foundation-2-8-2.html.twig
+index a84d8c4..a215bb1 100755
+--- a/templates/foundation-2-8-2.html.twig
++++ b/templates/foundation-2-8-2.html.twig
+@@ -1,16 +1,16 @@
+-<div {{ attributes.setAttribute('id', settings.wrapper_id).addClass('row', settings.wrapper_classes) }}>
++<div {{ attributes.setAttribute('id', settings.wrapper_id).addClass('grid-x', settings.wrapper_classes) }}>
+   {% if content.sidebar_left %}
+-    <{{ settings.wrappers.sidebar_left }} class="columns medium-2">
++    <{{ settings.wrappers.sidebar_left }} {{ region_attributes.sidebar_left.addClass('cell', 'medium-2') }}>
+       {{ content.sidebar_left }}
+     </{{ settings.wrappers.sidebar_left }}>
+   {% endif %}
+   {% if content.main %}
+-    <{{ settings.wrappers.main }} class="columns medium-8">
++    <{{ settings.wrappers.main }} {{ region_attributes.main.addClass('cell', 'medium-8') }}>
+       {{ content.main }}
+     </{{ settings.wrappers.main }}>
+   {% endif %}
+   {% if content.sidebar_right %}
+-    <{{ settings.wrappers.sidebar_right }} class="columns medium-2">
++    <{{ settings.wrappers.sidebar_right }} {{ region_attributes.sidebar_right.addClass('cell', 'medium-2') }}>
+       {{ content.sidebar_right }}
+     </{{ settings.wrappers.sidebar_right }}>
+   {% endif %}
+diff --git a/templates/foundation-3-6-3.html.twig b/templates/foundation-3-6-3.html.twig
+index 11c5684..1921718 100755
+--- a/templates/foundation-3-6-3.html.twig
++++ b/templates/foundation-3-6-3.html.twig
+@@ -1,16 +1,16 @@
+-<div {{ attributes.setAttribute('id', settings.wrapper_id).addClass('row', settings.wrapper_classes) }}>
++<div {{ attributes.setAttribute('id', settings.wrapper_id).addClass('grid-x', settings.wrapper_classes) }}>
+   {% if content.sidebar_left %}
+-    <{{ settings.wrappers.sidebar_left }} class="columns medium-3">
++    <{{ settings.wrappers.sidebar_left }} {{ region_attributes.sidebar_left.addClass('cell', 'medium-3') }}>
+       {{ content.sidebar_left }}
+     </{{ settings.wrappers.sidebar_left }}>
+   {% endif %}
+   {% if content.main %}
+-    <{{ settings.wrappers.main }} class="columns medium-6">
++    <{{ settings.wrappers.main }} {{ region_attributes.main.addClass('cell', 'medium-6') }}>
+       {{ content.main }}
+     </{{ settings.wrappers.main }}>
+   {% endif %}
+   {% if content.sidebar_right %}
+-    <{{ settings.wrappers.sidebar_right }} class="columns medium-3">
++    <{{ settings.wrappers.sidebar_right }} {{ region_attributes.sidebar_right.addClass('cell', 'medium-3') }}>
+       {{ content.sidebar_right }}
+     </{{ settings.wrappers.sidebar_right }}>
+   {% endif %}
+diff --git a/templates/foundation-3-9.html.twig b/templates/foundation-3-9.html.twig
+index 7d844d8..cbdcab6 100755
+--- a/templates/foundation-3-9.html.twig
++++ b/templates/foundation-3-9.html.twig
+@@ -1,11 +1,11 @@
+-<div {{ attributes.setAttribute('id', settings.wrapper_id).addClass('row', settings.wrapper_classes) }}>
++<div {{ attributes.setAttribute('id', settings.wrapper_id).addClass('grid-x', settings.wrapper_classes) }}>
+   {% if content.sidebar_left %}
+-    <{{ settings.wrappers.sidebar_left }} class="columns medium-3">
++    <{{ settings.wrappers.sidebar_left }} {{ region_attributes.sidebar_left.addClass('cell', 'medium-3') }}>
+       {{ content.sidebar_left }}
+     </{{ settings.wrappers.sidebar_left }}>
+   {% endif %}
+   {% if content.sidebar_right %}
+-    <{{ settings.wrappers.sidebar_right }} class="columns medium-9">
++    <{{ settings.wrappers.sidebar_right }} {{ region_attributes.sidebar_right.addClass('cell', 'medium-9') }}>
+       {{ content.sidebar_right }}
+     </{{ settings.wrappers.sidebar_right }}>
+   {% endif %}
+diff --git a/templates/foundation-4-4-4.html.twig b/templates/foundation-4-4-4.html.twig
+index 61c5b7a..4fd1906 100755
+--- a/templates/foundation-4-4-4.html.twig
++++ b/templates/foundation-4-4-4.html.twig
+@@ -1,16 +1,16 @@
+-<div {{ attributes.setAttribute('id', settings.wrapper_id).addClass('row', settings.wrapper_classes) }}>
++<div {{ attributes.setAttribute('id', settings.wrapper_id).addClass('grid-x', settings.wrapper_classes) }}>
+   {% if content.sidebar_left %}
+-    <{{ settings.wrappers.sidebar_left }} class="columns medium-4">
++    <{{ settings.wrappers.sidebar_left }} {{ region_attributes.sidebar_right.addClass('cell', 'medium-4') }}>
+       {{ content.sidebar_left }}
+     </{{ settings.wrappers.sidebar_left }}>
+   {% endif %}
+   {% if content.main %}
+-    <{{ settings.wrappers.main }} class="columns medium-4">
++    <{{ settings.wrappers.main }} {{ region_attributes.sidebar_right.addClass('cell', 'medium-4') }}>
+       {{ content.main }}
+     </{{ settings.wrappers.main }}>
+   {% endif %}
+   {% if content.sidebar_right %}
+-    <{{ settings.wrappers.sidebar_right }} class="columns medium-4">
++    <{{ settings.wrappers.sidebar_right }} {{ region_attributes.sidebar_right.addClass('cell', 'medium-4') }}>
+       {{ content.sidebar_right }}
+     </{{ settings.wrappers.sidebar_right }}>
+   {% endif %}
+diff --git a/templates/foundation-4-8.html.twig b/templates/foundation-4-8.html.twig
+index ecf58be..0588e4a 100755
+--- a/templates/foundation-4-8.html.twig
++++ b/templates/foundation-4-8.html.twig
+@@ -1,11 +1,11 @@
+-<div {{ attributes.setAttribute('id', settings.wrapper_id).addClass('row', settings.wrapper_classes) }}>
++<div {{ attributes.setAttribute('id', settings.wrapper_id).addClass('grid-x', settings.wrapper_classes) }}>
+   {% if content.sidebar_left %}
+-    <{{ settings.wrappers.sidebar_left }} class="columns medium-4">
++    <{{ settings.wrappers.sidebar_left }} {{ region_attributes.sidebar_left.addClass('cell', 'medium-4') }}>
+       {{ content.sidebar_left }}
+     </{{ settings.wrappers.sidebar_left }}>
+   {% endif %}
+   {% if content.sidebar_right %}
+-    <{{ settings.wrappers.sidebar_right }} class="columns medium-8">
++    <{{ settings.wrappers.sidebar_right }} {{ region_attributes.sidebar_right.addClass('cell', 'medium-8') }}>
+       {{ content.sidebar_right }}
+     </{{ settings.wrappers.sidebar_right }}>
+   {% endif %}
+diff --git a/templates/foundation-5-5-2.html.twig b/templates/foundation-5-5-2.html.twig
+index d7620da..f97c60a 100755
+--- a/templates/foundation-5-5-2.html.twig
++++ b/templates/foundation-5-5-2.html.twig
+@@ -1,16 +1,16 @@
+-<div {{ attributes.setAttribute('id', settings.wrapper_id).addClass('row', settings.wrapper_classes) }}>
++<div {{ attributes.setAttribute('id', settings.wrapper_id).addClass('grid-x', settings.wrapper_classes) }}>
+   {% if content.sidebar_left %}
+-    <{{ settings.wrappers.sidebar_left }} class="columns medium-5">
++    <{{ settings.wrappers.sidebar_left }} {{ region_attributes.sidebar_left.addClass('cell', 'medium-5') }}>
+       {{ content.sidebar_left }}
+     </{{ settings.wrappers.sidebar_left }}>
+   {% endif %}
+   {% if content.main %}
+-    <{{ settings.wrappers.main }} class="columns medium-5">
++    <{{ settings.wrappers.main }} {{ region_attributes.main.addClass('cell', 'medium-5') }}>
+       {{ content.main }}
+     </{{ settings.wrappers.main }}>
+   {% endif %}
+   {% if content.sidebar_right %}
+-    <{{ settings.wrappers.sidebar_right }} class="columns medium-2">
++    <{{ settings.wrappers.sidebar_right }} {{ region_attributes.sidebar_right.addClass('cell', 'medium-2') }}>
+       {{ content.sidebar_right }}
+     </{{ settings.wrappers.sidebar_right }}>
+   {% endif %}
+diff --git a/templates/foundation-5-7-stacked.html.twig b/templates/foundation-5-7-stacked.html.twig
+index 1c72b59..c20da02 100644
+--- a/templates/foundation-5-7-stacked.html.twig
++++ b/templates/foundation-5-7-stacked.html.twig
+@@ -1,21 +1,21 @@
+-<div {{ attributes.setAttribute('id', settings.wrapper_id).addClass('row', settings.wrapper_classes) }}>
++<div {{ attributes.setAttribute('id', settings.wrapper_id).addClass('grid-x', settings.wrapper_classes) }}>
+   {% if content.top %}
+-    <{{ settings.wrappers.top }} class="columns medium-12">
++    <{{ settings.wrappers.top }} {{ region_attributes.top.addClass('cell', 'medium-12') }}>
+       {{ content.top }}
+     </{{ settings.wrappers.top }}>
+   {% endif %}
+   {% if content.sidebar_left %}
+-    <{{ settings.wrappers.sidebar_left }} class="columns medium-5">
++    <{{ settings.wrappers.sidebar_left }} {{ region_attributes.sidebar_left.addClass('cell', 'medium-5') }}>
+       {{ content.sidebar_left }}
+     </{{ settings.wrappers.sidebar_left }}>
+   {% endif %}
+   {% if content.sidebar_right %}
+-    <{{ settings.wrappers.sidebar_right }} class="columns medium-7">
++    <{{ settings.wrappers.sidebar_right }} {{ region_attributes.sidebar_right.addClass('cell', 'medium-7') }}>
+       {{ content.sidebar_right }}
+     </{{ settings.wrappers.sidebar_right }}>
+   {% endif %}
+   {% if content.bottom %}
+-    <{{ settings.wrappers.bottom }} class="columns medium-12">
++    <{{ settings.wrappers.bottom }} {{ region_attributes.bottom.addClass('cell', 'medium-12') }}>
+       {{ content.bottom }}
+     </{{ settings.wrappers.bottom }}>
+   {% endif %}
+diff --git a/templates/foundation-5-7.html.twig b/templates/foundation-5-7.html.twig
+index e04a4fd..25339fc 100755
+--- a/templates/foundation-5-7.html.twig
++++ b/templates/foundation-5-7.html.twig
+@@ -1,11 +1,11 @@
+-<div {{ attributes.setAttribute('id', settings.wrapper_id).addClass('row', settings.wrapper_classes) }}>
++<div {{ attributes.setAttribute('id', settings.wrapper_id).addClass('grid-x', settings.wrapper_classes) }}>
+   {% if content.sidebar_left %}
+-    <{{ settings.wrappers.sidebar_left }} class="columns medium-5">
++    <{{ settings.wrappers.sidebar_left }} {{ region_attributes.sidebar_left.addClass('cell', 'medium-5') }}>
+       {{ content.sidebar_left }}
+     </{{ settings.wrappers.sidebar_left }}>
+   {% endif %}
+   {% if content.sidebar_right %}
+-    <{{ settings.wrappers.sidebar_right }} class="columns medium-7">
++    <{{ settings.wrappers.sidebar_right }} {{ region_attributes.sidebar_right.addClass('cell', 'medium-7') }}>
+       {{ content.sidebar_right }}
+     </{{ settings.wrappers.sidebar_right }}>
+   {% endif %}
+diff --git a/templates/foundation-6-6-bricks.html.twig b/templates/foundation-6-6-bricks.html.twig
+index a92f40a..32d34e2 100755
+--- a/templates/foundation-6-6-bricks.html.twig
++++ b/templates/foundation-6-6-bricks.html.twig
+@@ -1,36 +1,36 @@
+-<div {{ attributes.setAttribute('id', settings.wrapper_id).addClass('row', settings.wrapper_classes) }}>
++<div {{ attributes.setAttribute('id', settings.wrapper_id).addClass('grid-x', settings.wrapper_classes) }}>
+   {% if content.top %}
+-    <{{ settings.wrappers.top }} class="columns medium-12">
++    <{{ settings.wrappers.top }} {{ region_attributes.top.addClass('cell', 'medium-12') }}>
+       {{ content.top }}
+     </{{ settings.wrappers.top }}>
+   {% endif %}
+   {% if content.upper_left %}
+-    <{{ settings.wrappers.upper_left }} class="columns medium-6">
++    <{{ settings.wrappers.upper_left }} {{ region_attributes.upper_left.addClass('cell', 'medium-6') }}>
+       {{ content.upper_left }}
+     </{{ settings.wrappers.upper_left }}>
+   {% endif %}
+   {% if content.upper_right %}
+-    <{{ settings.wrappers.upper_right }} class="columns medium-6">
++    <{{ settings.wrappers.upper_right }} {{ region_attributes.upper_right.addClass('cell', 'medium-6') }}>
+       {{ content.upper_right }}
+     </{{ settings.wrappers.upper_right }}>
+   {% endif %}
+   {% if content.middle %}
+-    <{{ settings.wrappers.middle }} class="columns medium-12">
++    <{{ settings.wrappers.middle }} {{ region_attributes.middle.addClass('cell', 'medium-12') }}>
+       {{ content.middle }}
+     </{{ settings.wrappers.middle }}>
+   {% endif %}
+   {% if content.lower_left %}
+-    <{{ settings.wrappers.lower_left }} class="columns medium-6">
++    <{{ settings.wrappers.lower_left }} {{ region_attributes.lower_left.addClass('cell', 'medium-6') }}>
+       {{ content.lower_left }}
+     </{{ settings.wrappers.lower_left }}>
+   {% endif %}
+   {% if content.lower_right %}
+-    <{{ settings.wrappers.lower_right }} class="columns medium-6">
++    <{{ settings.wrappers.lower_right }} {{ region_attributes.lower_right.addClass('cell', 'medium-6') }}>
+       {{ content.lower_right }}
+     </{{ settings.wrappers.lower_right }}>
+   {% endif %}
+   {% if content.bottom %}
+-    <{{ settings.wrappers.bottom }} class="columns medium-12">
++    <{{ settings.wrappers.bottom }} {{ region_attributes.bottom.addClass('cell', 'medium-12') }}>
+       {{ content.bottom }}
+     </{{ settings.wrappers.bottom }}>
+   {% endif %}
+diff --git a/templates/foundation-6-6-stacked.html.twig b/templates/foundation-6-6-stacked.html.twig
+index d83ca75..2b2d3fe 100755
+--- a/templates/foundation-6-6-stacked.html.twig
++++ b/templates/foundation-6-6-stacked.html.twig
+@@ -1,21 +1,21 @@
+-<div {{ attributes.setAttribute('id', settings.wrapper_id).addClass('row', settings.wrapper_classes) }}>
++<div {{ attributes.setAttribute('id', settings.wrapper_id).addClass('grid-x', settings.wrapper_classes) }}>
+   {% if content.top %}
+-    <{{ settings.wrappers.top }} class="columns medium-12">
++    <{{ settings.wrappers.top }}  {{ region_attributes.top.addClass('cell', 'medium-12') }}>
+       {{ content.top }}
+     </{{ settings.wrappers.top }}>
+   {% endif %}
+   {% if content.sidebar_left %}
+-    <{{ settings.wrappers.sidebar_left }} class="columns medium-6">
++    <{{ settings.wrappers.sidebar_left }}  {{ region_attributes.sidebar_left.addClass('cell', 'medium-6') }}>
+       {{ content.sidebar_left }}
+     </{{ settings.wrappers.sidebar_left }}>
+   {% endif %}
+   {% if content.sidebar_right %}
+-    <{{ settings.wrappers.sidebar_right }} class="columns medium-6">
++    <{{ settings.wrappers.sidebar_right }}  {{ region_attributes.sidebar_right.addClass('cell', 'medium-6') }}>
+       {{ content.sidebar_right }}
+     </{{ settings.wrappers.sidebar_right }}>
+   {% endif %}
+   {% if content.bottom %}
+-    <{{ settings.wrappers.bottom }} class="columns medium-12">
++    <{{ settings.wrappers.bottom }}  {{ region_attributes.bottom.addClass('cell', 'medium-12') }}>
+       {{ content.bottom }}
+     </{{ settings.wrappers.bottom }}>
+   {% endif %}
+diff --git a/templates/foundation-6-6.html.twig b/templates/foundation-6-6.html.twig
+index c12bffe..5ceaf50 100755
+--- a/templates/foundation-6-6.html.twig
++++ b/templates/foundation-6-6.html.twig
+@@ -1,11 +1,11 @@
+-<div {{ attributes.setAttribute('id', settings.wrapper_id).addClass('row', settings.wrapper_classes) }}>
++<div {{ attributes.setAttribute('id', settings.wrapper_id).addClass('grid-x', settings.wrapper_classes) }}>
+   {% if content.sidebar_left %}
+-    <{{ settings.wrappers.sidebar_left }} class="columns medium-6">
++    <{{ settings.wrappers.sidebar_left }} {{ region_attributes.sidebar_left.addClass('cell', 'medium-6') }}>
+       {{ content.sidebar_left }}
+     </{{ settings.wrappers.sidebar_left }}>
+   {% endif %}
+   {% if content.sidebar_right %}
+-    <{{ settings.wrappers.sidebar_right }} class="columns medium-6">
++    <{{ settings.wrappers.sidebar_right }} {{ region_attributes.sidebar_right.addClass('cell', 'medium-6') }}>
+       {{ content.sidebar_right }}
+     </{{ settings.wrappers.sidebar_right }}>
+   {% endif %}
+diff --git a/templates/foundation-7-5.html.twig b/templates/foundation-7-5.html.twig
+index 84e85f4..66ed1fa 100755
+--- a/templates/foundation-7-5.html.twig
++++ b/templates/foundation-7-5.html.twig
+@@ -1,11 +1,11 @@
+-<div {{ attributes.setAttribute('id', settings.wrapper_id).addClass('row', settings.wrapper_classes) }}>
++<div {{ attributes.setAttribute('id', settings.wrapper_id).addClass('grid-x', settings.wrapper_classes) }}>
+   {% if content.sidebar_left %}
+-    <{{ settings.wrappers.sidebar_left }} class="columns medium-7">
++    <{{ settings.wrappers.sidebar_left }} {{ region_attributes.sidebar_left.addClass('cell', 'medium-7') }}>
+       {{ content.sidebar_left }}
+     </{{ settings.wrappers.sidebar_left }}>
+   {% endif %}
+   {% if content.sidebar_right %}
+-    <{{ settings.wrappers.sidebar_right }} class="columns medium-5">
++    <{{ settings.wrappers.sidebar_right }} {{ region_attributes.sidebar_right.addClass('cell', 'medium-5') }}>
+       {{ content.sidebar_right }}
+     </{{ settings.wrappers.sidebar_right }}>
+   {% endif %}
+diff --git a/templates/foundation-8-4.html.twig b/templates/foundation-8-4.html.twig
+index 32c1c42..5f0cb30 100755
+--- a/templates/foundation-8-4.html.twig
++++ b/templates/foundation-8-4.html.twig
+@@ -1,11 +1,11 @@
+-<div {{ attributes.setAttribute('id', settings.wrapper_id).addClass('row', settings.wrapper_classes) }}>
++<div {{ attributes.setAttribute('id', settings.wrapper_id).addClass('grid-x', settings.wrapper_classes) }}>
+   {% if content.sidebar_left %}
+-    <{{ settings.wrappers.sidebar_left }} class="columns medium-8">
++    <{{ settings.wrappers.sidebar_left }} {{ region_attributes.sidebar_left.addClass('cell', 'medium-8') }}>
+       {{ content.sidebar_left }}
+     </{{ settings.wrappers.sidebar_left }}>
+   {% endif %}
+   {% if content.sidebar_right %}
+-    <{{ settings.wrappers.sidebar_right}} class="columns medium-4">
++    <{{ settings.wrappers.sidebar_right}} {{ region_attributes.sidebar_right.addClass('cell', 'medium-4') }}>
+       {{ content.sidebar_right}}
+     </{{ settings.wrappers.sidebar_right}}>
+   {% endif %}
+diff --git a/templates/foundation-9-3.html.twig b/templates/foundation-9-3.html.twig
+index 28a4a3a..90eecba 100755
+--- a/templates/foundation-9-3.html.twig
++++ b/templates/foundation-9-3.html.twig
+@@ -1,11 +1,11 @@
+-<div {{ attributes.setAttribute('id', settings.wrapper_id).addClass('row', settings.wrapper_classes) }}>
++<div {{ attributes.setAttribute('id', settings.wrapper_id).addClass('grid-x', settings.wrapper_classes) }}>
+   {% if content.sidebar_left %}
+-    <{{ settings.wrappers.sidebar_left }} class="columns medium-9">
++    <{{ settings.wrappers.sidebar_left }} {{ region_attributes.sidebar_left.addClass('cell', 'medium-9') }}>
+       {{ content.sidebar_left }}
+     </{{ settings.wrappers.sidebar_left }}>
+   {% endif %}
+   {% if content.sidebar_right %}
+-    <{{ settings.wrappers.sidebar_right }} class="columns medium-3">
++    <{{ settings.wrappers.sidebar_right }} {{ region_attributes.sidebar_right.addClass('cell', 'medium-3') }}>
+       {{ content.sidebar_right }}
+     </{{ settings.wrappers.sidebar_right }}>
+   {% endif %}
