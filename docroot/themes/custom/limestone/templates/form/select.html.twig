@@ -16,7 +16,11 @@
   'list' ~ attribututes.name,
 ]
 %}
-
+{%
+  set classes = [
+  'js-combobox',
+]
+%}
 {{ attach_library('limestone/lc-select') }}
 {% spaceless %}
   <input{{ attributes }}>
