@@ -39,13 +39,13 @@ ec-map:
     js/ec-map.js: {}
   dependencies:
     - core/jquery
-lc-select:
+combobox-autocomplete:
   version: 1.x
   css:
     base:
-      css/lc-select.css: {}
+      css/combobox-autocomplete.css: {}
   js:
-    js/jquery-accessible-autocomplete-list-aria.js: {}
+    js/combobox-autocomplete.js: {}
 lc-parallax:
   version: 1.x
   js:
