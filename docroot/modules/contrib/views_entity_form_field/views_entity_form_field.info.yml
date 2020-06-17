@@ -7,7 +7,7 @@ dependencies:
   - views
 
 # Information added by Drupal.org packaging script on 2018-08-18
-version: '8.x-1.0-beta7'
+version: '8.x-1.0-beta7+0-dev'
 core: '8.x'
 project: 'views_entity_form_field'
-datestamp: 1534602205
+datestamp: 1534602202
