@@ -60,4 +60,25 @@
     background-color: $limestone-blue;
     color: white;
   }
+  form.views-exposed-form {
+    background-color: #f1f1f1;
+    padding: 2rem 1rem;
+    border-radius: 10px 10px 0 0;
+    js-form-item-field-course-discipline-target-id {
+      margin-top: -15px;
+    }
+    .success.button {
+      font-size: 1.1rem;
+      margin: 36px 0 0 0;
+      padding: 9px 17px;
+    }
+    select {
+      height: 45px
+    }
+    label {
+      color: $almost-black;
+      text-transform: uppercase;
+      font-weight: bold;
+    }
+  }
 }
