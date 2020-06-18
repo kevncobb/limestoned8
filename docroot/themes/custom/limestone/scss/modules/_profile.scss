@@ -27,3 +27,14 @@
     position: static;
   }
 }
+
+.related-faculty-horizontal {
+  .field-item {
+    @extend .small-6;
+    @extend .large-4;
+    @extend .align-center;
+    .group-left, .group-right {
+      width: 100% !important;
+    }
+  }
+}

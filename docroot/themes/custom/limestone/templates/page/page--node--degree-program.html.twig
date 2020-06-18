@@ -186,9 +186,16 @@
               </div>
               <div class="cell medium-5">
                 {{ drupal_field('field_fast_facts', 'node') }}
-                {{ drupal_field('field_related_faculty', 'node') }}
+                {% if node.field_display_faculty_horizontal.value == '0' %}
+                  {{ drupal_field('field_related_faculty', 'node') }}
+                {% endif %}
               </div>
             </div>
+            {% if node.field_display_faculty_horizontal.value == '1' %}
+              <div class="grid-x grid-margin-x related-faculty-horizontal">
+                {{ drupal_field('field_related_faculty', 'node') }}
+              </div>
+            {% endif %}
           </section>
           <section class="bg-l-gray">
             <h2 class="centered-header text-align-center spacing-sm">Similar Majors</h2>
