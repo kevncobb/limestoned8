@@ -30,3 +30,12 @@
     }
   }
 }
+.degree-header.youtube-section {
+  height: 62vw;
+  max-height: 54vh;
+  table {
+    @include breakpoint(medium) {
+      margin-top: 6rem;
+    }
+  }
+}
