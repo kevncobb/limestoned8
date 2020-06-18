@@ -31,20 +31,22 @@
 .related-faculty-horizontal {
   .field-node--field-related-faculty {
     width: 100% !important;
+    > .field-items > .field-item {
+      @extend .small-4;
+      @extend .large-3;
+      @extend .align-center;
+    }
   }
   .field-item {
-    @extend .small-4;
-    @extend .large-3;
-    @extend .align-center;
     .group-left, .group-right {
       width: 100% !important;
     }
-    .group-left {
+    .group-left.degree-faculty {
       width: 100%;
       max-width: 165px;
       margin: 0 auto;
     }
-    .group-right {
+    .group-right.degree-faculty {
       .field-item {
         margin: 0 auto;
       }
