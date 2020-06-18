@@ -29,6 +29,12 @@
 }
 
 .related-faculty-horizontal {
+  .lc-header-field > .field-label {
+    text-align: center;
+    &::before, &::after {
+      display: none;
+    }
+  }
   .field-node--field-related-faculty {
     width: 100% !important;
     > .field-items > .field-item {
