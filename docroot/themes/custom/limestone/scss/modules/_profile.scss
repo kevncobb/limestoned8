@@ -29,12 +29,25 @@
 }
 
 .related-faculty-horizontal {
+  .field-node--field-related-faculty {
+    width: 100% !important;
+  }
   .field-item {
-    @extend .small-6;
-    @extend .large-4;
+    @extend .small-4;
+    @extend .large-3;
     @extend .align-center;
     .group-left, .group-right {
       width: 100% !important;
+    }
+    .group-left {
+      width: 100%;
+      max-width: 165px;
+      margin: 0 auto;
+    }
+    .group-right {
+      .field-item {
+        margin: 0 auto;
+      }
     }
   }
 }
