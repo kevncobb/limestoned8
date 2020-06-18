@@ -37,6 +37,7 @@
   }
   .field-node--field-related-faculty {
     width: 100% !important;
+    margin: 0;
     > .field-items > .field-item {
       @extend .small-4;
       @extend .large-3;
