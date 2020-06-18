@@ -19,6 +19,14 @@
     font-size: 1.5rem;
     line-height: 1rem;
   }
+  &.modal-button {
+    content: "\f24d";
+    position: relative;
+    padding-left: 5px;
+    bottom: 0.2rem;
+    font-size: 0.7rem;
+    line-height: 1rem;
+  }
   &.larger [class^="icon-"], &.larger [class*=" icon-"] {
     padding-right: 1rem;
     bottom: -0.2rem;
