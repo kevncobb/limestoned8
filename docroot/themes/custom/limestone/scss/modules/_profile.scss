@@ -35,6 +35,8 @@
       @extend .small-4;
       @extend .large-3;
       @extend .align-center;
+      display: inline-block;
+      margin: 0 -3px;
     }
   }
   .field-item {
