@@ -67,8 +67,9 @@
   }
   &.yellow {
     background-color: $limestone-yellow;
+    color: $limestone-blue !important;
     &:hover, &:focus {
-      color: white !important;
+      color: $limestone-blue !important;
       background: smart-scale($limestone-yellow, 10%, 10%) !important;
     }
   }
