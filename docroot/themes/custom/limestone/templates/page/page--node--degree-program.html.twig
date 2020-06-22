@@ -187,7 +187,7 @@
               </div>
               <div class="cell medium-5">
                 {{ drupal_field('field_fast_facts', 'node') }}
-                {% if node.field_display_faculty_horizontal.isEmpty() %}
+                {% if node.field_display_faculty_horizontal.value == '0' %}
                   {{ drupal_field('field_related_faculty', 'node') }}
                 {% endif %}
               </div>
