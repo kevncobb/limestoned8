@@ -32,6 +32,12 @@
       border-radius: 0.2rem 0.2rem 0 0;
       span {
         padding: 0.7rem 1rem;
+        display: block;
+        a {
+          &:hover, &:focus {
+            background-color: lighten($limestone-blue, 6%);
+          }
+        }
       }
       &:empty, &:only-child {
         padding: 5px 0 5px 30px;
