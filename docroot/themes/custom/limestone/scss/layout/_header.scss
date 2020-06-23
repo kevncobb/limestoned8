@@ -41,28 +41,9 @@ header.site-header {
       }
     }
   }
-  /*
-  .dropdown.menu {
-    a {
-      padding: 0.7rem 0.5rem;
-    }
-    > li.is-dropdown-submenu-parent > a::after {
-      margin-top: 14px;
-      right: 44%;
-    }
-    .is-dropdown-submenu.first-sub {
-      margin-top: 0;
-      z-index: 4;
-      right: auto;
-      left: 0;
-      font-size: 1rem;
-      a {
-        width: 100%;
-        padding: 0.5rem;
-      }
-    }
+  .dropdown.menu>li.is-dropdown-submenu-parent>a::after {
+    right: 0;
   }
- */
   a, button {
     color: white !important;
     span {

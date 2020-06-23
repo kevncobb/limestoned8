@@ -199,7 +199,7 @@
             {% endif %}
           </section>
 
-          <section class="spacing-xs padding-sides-sm" style="background-color: #f5f5f5;">
+          <section class="spacing-xs padding-sides-sm" style="background-color: #f9f9f9;border-top: thin solid #f2f2f2;">
             <div class="grid-container">
             <div class="grid-x grid-margin-x">
               <div class="cell medium-7">
@@ -214,18 +214,18 @@
                   ( node.field_display_grad_financial_aid.value == '1' ) %}
                   <div class="lc-header">Financial Aid Information</div>
                 {% endif %}
-                  {% if node.field_display_day_financial_aid_.value == '1' %}
-                    {{ drupal_block('daycampusfinancialaidinfomodalbutton') }}
-                  {% endif %}
+                {% if node.field_display_day_financial_aid_.value == '1' %}
+                  {{ drupal_block('daycampusfinancialaidinfomodalbutton') }}
+                {% endif %}
 
-                  {% if node.field_display_o_e_financial_aid_.value == '1' %}
-                    {{ drupal_block('oecampusfinancialaidinfomodalbutton') }}
-                  {% endif %}
+                {% if node.field_display_o_e_financial_aid_.value == '1' %}
+                  {{ drupal_block('oecampusfinancialaidinfomodalbutton') }}
+                {% endif %}
 
-                  {% if node.field_display_grad_financial_aid.value == '1' %}
-                    {{ drupal_block('gradfinancialaidinfomodalbutton') }}
-                  {% endif %}
-
+                {% if node.field_display_grad_financial_aid.value == '1' %}
+                  {{ drupal_block('gradfinancialaidinfomodalbutton') }}
+                {% endif %}
+                {{ drupal_view('news', 'block_5') }}
               </div>
             </div>
             </div>
