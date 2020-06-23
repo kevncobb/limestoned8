@@ -153,13 +153,14 @@
     height: 21px;
     width: 23px;
   }
-  .menu-icon-blackboard::before {
+  a.menu-icon-blackboard::before {
     background-position: -152px -245px;
     background-size: 494px;
+    width: 25px;
   }
-  .menu-icon-lc-portal::before {
-    background-size: 498px;
-    background-position: -121px -212px;
+  a.menu-icon-lc-portal::before {
+    background-size: 509px;
+    background-position: -126px -218px;
     top: -2px;
     left: -4px;
   }

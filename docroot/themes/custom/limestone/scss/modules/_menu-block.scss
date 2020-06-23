@@ -30,13 +30,15 @@
       margin: 0;
       position: relative;
       border-radius: 0.2rem 0.2rem 0 0;
-      //border-right: 60px solid $limestone-yellow;
+      span {
+        padding: 0.7rem 1rem;
+      }
       &:empty, &:only-child {
         padding: 5px 0 5px 30px;
       }
       a {
         display: block;
-        padding: 0.7rem 1rem;
+        //padding: 0.7rem 1rem;
         text-decoration: none;
         color: white;
       }
