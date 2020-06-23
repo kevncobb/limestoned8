@@ -1,9 +1,14 @@
-.top-bar, top-bar ul.menu {
+.top-bar, .top-bar ul.menu {
   background-color: $almost-black !important;
   font-family: $site-header-font-family;
   font-weight: normal;
   padding: 0;
   font-size: 0.8rem;
+  li:first-child {
+    a {
+      padding-left: 0;
+    }
+  }
   a {
     color: $white;
     &:focus, &:hover {
