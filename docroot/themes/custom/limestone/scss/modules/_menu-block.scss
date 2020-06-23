@@ -55,9 +55,7 @@
         //top: 8px;
       }
     }
-    a[class^="menu-icon-"]::before, a[class*=" menu-icon-"]::before {
-      filter: contrast(0);
-    }
+
     ul.root-level, ul.menu-level-0 {
       a {
         color: $dark-gray;
