@@ -33,7 +33,11 @@
       span {
         padding: 0.7rem 1rem;
         display: block;
+        &:has(> a) {
+          padding: 0;
+        }
         a {
+          padding: 0.7rem 1rem;
           &:hover, &:focus {
             background-color: lighten($limestone-blue, 6%);
           }
