@@ -476,3 +476,11 @@ table {
 .element-invisible {
 
 }
+
+.twitter-timeline {
+  overflow: scroll;
+  padding: 0.3rem;
+  background-color: rgba(126,126,126,18);
+  border-bottom: 5px solid rgba(126,126,126,0);
+  border-radius: 5px;
+}
