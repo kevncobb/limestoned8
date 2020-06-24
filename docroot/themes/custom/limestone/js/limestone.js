@@ -55,13 +55,13 @@
   // /setTimeout(function(){ currentNode.focus(); }, 200);
   Drupal.behaviors.choose_your_interest_focus = {
     attach: function (context, settings) {
-      $(context).find('form#views-exposed-form-degrees-block-4 select').change( function (event) {
+      $(context).find('form#views-exposed-form-degrees-block-4 select').change(function () {
         //event.stopPropagation();
         //event.preventDefault();
         setTimeout(function(){
           $('table.table tbody tr:first-child td a').focus();
         }, 2000);
-
+        
       });
     }
   };
