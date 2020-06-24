@@ -30,6 +30,14 @@
       $(context).find('#views_slideshow_cycle_main_hero_slider-block_1 .slideshow-controls .next-headline').prepend( "<span class='watermark'>&nbsp;</span>" );
     }
   };
+  Drupal.behaviors.add_class_to_empty_sidemenu_h2 = {
+    attach: function (context, settings) {
+      // Using once() to apply the myCustomBehaviour effect when you want to do just run one function.
+      //  .fibonacci-aside nav h2 span:has(a), .sidebar nav h2 span:has(a), .thirds-right nav h2 span:has(a), .large-4 nav h2 span:has(a)
+      // $("p:has(img)")
+      $(context).find('.sidebar nav h2 span:has(a)').addClass( "has-link" );
+    }
+  };
   Drupal.behaviors.customCKEditorConfig = {
     attach: function (context, settings) {
       if (typeof CKEDITOR !== "undefined") {
