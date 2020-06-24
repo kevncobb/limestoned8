@@ -36,6 +36,7 @@
       //  .fibonacci-aside nav h2 span:has(a), .sidebar nav h2 span:has(a), .thirds-right nav h2 span:has(a), .large-4 nav h2 span:has(a)
       // $("p:has(img)")
       $(context).find('.sidebar nav h2 span:has(a)').addClass( "has-link" );
+      $(context).find('.thirds-right nav h2 span:has(a)').addClass( "has-link" );
     }
   };
   Drupal.behaviors.customCKEditorConfig = {
