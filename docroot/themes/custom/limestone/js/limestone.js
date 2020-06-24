@@ -55,7 +55,7 @@
   // $select.bind("change click", function (event) { // do something   });
   Drupal.behaviors.choose_your_interest_focus = {
     attach: function (context, settings) {
-      $(context).find('#edit-field-course-discipline-target-id--5AW7KcdBaQY').bind('change click', function (event) {
+      $(context).find('form#views-exposed-form-degrees-block-4 select').bind('change click', function (event) {
         event.stopPropagation();
         event.preventDefault();
         $('table.table tbody tr:first-child td a').focus();
