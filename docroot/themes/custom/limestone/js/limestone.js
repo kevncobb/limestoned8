@@ -52,14 +52,14 @@
       });
     }
   };
-  // $('#select_id').change(function(){
+  // /setTimeout(function(){ currentNode.focus(); }, 200);
   Drupal.behaviors.choose_your_interest_focus = {
     attach: function (context, settings) {
-      $(context).find('form#views-exposed-form-degrees-block-4 select').change( function (event) {
+      $(context).find('form#views-exposed-form-degrees-block-4 select').change.settimeout( function (event) {
         //event.stopPropagation();
         //event.preventDefault();
         $('table.table tbody tr:first-child td a').focus();
-      });
+      }, 500);
     }
   };
   Drupal.behaviors.to_top = {
