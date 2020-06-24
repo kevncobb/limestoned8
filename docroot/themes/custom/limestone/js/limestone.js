@@ -61,7 +61,7 @@
         var focus = function(){
           $('table.table tbody tr:first-child td a').focus();
         };
-        setTimeout(focus, 1500);
+        setTimeout(focus, 2000);
       });
     }
   };
