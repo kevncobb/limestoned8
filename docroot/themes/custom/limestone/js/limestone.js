@@ -58,11 +58,10 @@
       $(context).find('form#views-exposed-form-degrees-block-4 select').change(function () {
         //event.stopPropagation();
         //event.preventDefault();
-        setTimeout(function(){
+        var focus = function(){
           $('table.table tbody tr:first-child td a').focus();
-          alert("Focus Changed!");
-        }, 2000);
-
+        };
+        setTimeout(focus, 2000);
       });
     }
   };
