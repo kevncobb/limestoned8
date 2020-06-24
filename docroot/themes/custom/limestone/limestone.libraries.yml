@@ -20,6 +20,10 @@ lc-menu:
   version: 1.x
   js:
     js/menu.js: {}
+error:
+  version: 1.x
+  js:
+    js/error.js: {}
 da-thumbs:
   version: 1.x
   css:
