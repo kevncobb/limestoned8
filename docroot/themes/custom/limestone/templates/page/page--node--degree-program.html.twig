@@ -190,6 +190,9 @@
                 {% if node.field_display_faculty_horizontal.value == '0' %}
                   {{ drupal_field('field_related_faculty', 'node') }}
                 {% endif %}
+                {% if node.field_display_related_news_below.value == '1' %}
+                  {{ drupal_view('news', 'block_5') }}
+                {% endif %}
               </div>
             </div>
             {% if node.field_display_faculty_horizontal.value == '1' %}
@@ -225,7 +228,9 @@
                 {% if node.field_display_grad_financial_aid.value == '1' %}
                   {{ drupal_block('gradfinancialaidinfomodalbutton') }}
                 {% endif %}
-                {{ drupal_view('news', 'block_5') }}
+                {% if node.field_display_related_news_below.value == '0' %}
+                  {{ drupal_view('news', 'block_5') }}
+                {% endif %}
               </div>
             </div>
             </div>
