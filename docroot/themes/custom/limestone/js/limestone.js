@@ -8,7 +8,7 @@
   /**
    * Use this behavior as a template for custom Javascript.
    */
-  
+
   Drupal.behaviors.callout = {
     attach: function (context, settings) {
       // Using once() to apply the myCustomBehaviour effect when you want to do just run one function.
@@ -52,7 +52,16 @@
       });
     }
   };
-
+  // $select.bind("change click", function (event) { // do something   });
+  Drupal.behaviors.choose_your_interest_focus = {
+    attach: function (context, settings) {
+      $(context).find('#edit-field-course-discipline-target-id--5AW7KcdBaQY').bind('change click', function (event) {
+        event.stopPropagation();
+        event.preventDefault();
+        $('table.table tbody tr:first-child td a').focus();
+      });
+    }
+  };
   Drupal.behaviors.to_top = {
     attach: function (context, settings) {
       // Execute code once the DOM is ready. $(document).ready() not required within Drupal.behaviors.

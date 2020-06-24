@@ -62,10 +62,18 @@
   }
   form.views-exposed-form {
     background-color: #f1f1f1;
-    padding: 2rem 1rem;
+    padding: 1rem 1rem 0;
     border-radius: 10px 10px 0 0;
+    float: left;
+    width: 100%;
     js-form-item-field-course-discipline-target-id {
       margin-top: -15px;
+      padding: 0.5rem 0.4rem;
+      width: 500px;
+      margin: 0 auto;
+      text-align: center;
+      position: relative;
+      z-index: 2;
     }
     .success.button {
       font-size: 1.1rem;

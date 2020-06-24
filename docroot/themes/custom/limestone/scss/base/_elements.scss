@@ -31,7 +31,6 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6 {
 
 .center, .align-center {
   text-align: center;
-  justify-content: center;
 }
 
 .centered, a.centered {
@@ -204,8 +203,8 @@ table {
 .form-item-field-faculty-department-target-id,
 .form-item-field-staff-department-target-id,
 .js-form-type-textfield.form-item-field-name-family {
-  padding: 0.5rem 0.4rem;
-  width: 320px;
+  padding: 1rem;
+  //width: 320px;
   float: left;
   position: relative;
   z-index: 2;
@@ -214,10 +213,10 @@ table {
       font-size: 1.25rem;
     }
     @include breakpoint(medium) {
-      font-size: 1.35rem;
+      font-size: 1.6rem;
     }
     @include breakpoint(large) {
-      font-size: 1.5rem;
+      font-size: 2rem;
     }
   }
 }
@@ -475,16 +474,4 @@ table {
 }
 .element-invisible {
 
-}
-
-.twitter-timeline-embed {
-  overflow: scroll;
-  padding: 0.3rem;
-  background-color: rgba(126,126,126,18);
-  border-bottom: 5px solid rgba(126,126,126,0);
-  border-radius: 5px;
-  height: 400px;
-}
-.reveal.large {
-  padding-top: 3rem;
 }
