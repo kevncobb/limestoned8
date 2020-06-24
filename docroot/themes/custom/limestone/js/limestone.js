@@ -52,14 +52,14 @@
       });
     }
   };
-  // /setTimeout(function(){ currentNode.focus(); }, 200);
+  // td:has(> a)
   Drupal.behaviors.choose_your_interest_focus = {
     attach: function (context, settings) {
       $(context).find('form#views-exposed-form-degrees-block-4 select').change(function () {
         //event.stopPropagation();
         //event.preventDefault();
         var focus = function(){
-          $('table.table tbody tr:first-child td a').focus();
+          $('table.table tbody tr:first-child td:has(> a)').focus();
         };
         setTimeout(focus, 1500);
       });
