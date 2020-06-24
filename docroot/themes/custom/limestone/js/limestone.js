@@ -59,7 +59,7 @@
         //event.stopPropagation();
         //event.preventDefault();
         var focus = function(){
-          $('table.table tbody tr:first-child td:has(> a)').focus();
+          $('table.table tbody tr:first-child td a').focus();
         };
         setTimeout(focus, 1500);
       });
