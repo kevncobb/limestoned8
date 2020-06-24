@@ -60,6 +60,12 @@
     border: thin solid #dacc59;
   }
 }
+.flex-direction-nav .flex-next {
+  right: -25px;
+}
+.flex-direction-nav .flex-prev {
+  right: -25px;
+}
 .flex-control-nav.flex-control-paging {
   bottom: auto;
   top: -52px;
@@ -68,12 +74,6 @@
   li a {
     width: 20px;
     height: 20px;
-  }
-  .flex-direction-nav .flex-next {
-    right: -25px;
-  }
-  .flex-direction-nav .flex-prev {
-    right: -25px;
   }
 }
 .flex-direction-nav {
