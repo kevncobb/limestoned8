@@ -60,8 +60,9 @@
         //event.preventDefault();
         setTimeout(function(){
           $('table.table tbody tr:first-child td a').focus();
+          alert("Focus Changed!");
         }, 2000);
-        
+
       });
     }
   };
