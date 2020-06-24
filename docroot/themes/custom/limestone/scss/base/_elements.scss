@@ -472,6 +472,13 @@ table {
     transform: rotate(180deg);
   }
 }
+.twitter-timeline-embed {
+  overflow: scroll;
+  padding: 0.3rem;
+  background-color: #7e7e7e;
+  border-bottom: 5px solid rgba(126,126,126,0);
+  border-radius: 5px
+}
 .element-invisible {
 
 }
