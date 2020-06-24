@@ -66,7 +66,7 @@
     border-radius: 10px 10px 0 0;
     float: left;
     width: 100%;
-    js-form-item-field-course-discipline-target-id {
+    .js-form-item-field-course-discipline-target-id {
       margin-top: -15px;
       padding: 0.5rem 0.4rem;
       width: 500px;
@@ -84,7 +84,7 @@
       height: 45px
     }
     label {
-      color: $almost-black;
+      color: $limestone-blue;
       text-transform: uppercase;
       font-weight: bold;
     }
