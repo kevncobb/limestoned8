@@ -52,12 +52,12 @@
       });
     }
   };
-  // $select.bind("change click", function (event) { // do something   });
+  // $('#select_id').change(function(){
   Drupal.behaviors.choose_your_interest_focus = {
     attach: function (context, settings) {
-      $(context).find('form#views-exposed-form-degrees-block-4 select').bind('change click', function (event) {
-        event.stopPropagation();
-        event.preventDefault();
+      $(context).find('form#views-exposed-form-degrees-block-4 select').change( function (event) {
+        //event.stopPropagation();
+        //event.preventDefault();
         $('table.table tbody tr:first-child td a').focus();
       });
     }
