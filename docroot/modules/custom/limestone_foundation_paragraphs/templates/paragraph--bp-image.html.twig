@@ -73,6 +73,8 @@ view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class
   {% set add_container = true %}
 {% endif %}
 
+{% set data_overlay = content.field_bp_overlay|render %}
+
 {# Sets Unique ID for paragraph from Paragraph ID. #}
 {% set paragraph_id = 'vbp-' ~ paragraph.id.value %}
 
@@ -96,7 +98,7 @@ view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class
 {% endif %}
 
 {# Prints div with classes, and content without Width and Background. #}
-<div{{ attributes.addClass(classes).addClass(layout_background_classes).setAttribute('id', paragraph_id) }}>
+<div{{ attributes.addClass(classes).addClass(layout_background_classes).setAttribute('id', paragraph_id) }} {% if VBP.field_overlay.value %} data-overlay="{{ VBP.field_overlay.value }}" {% endif %}>
   {% if add_container %}<div class="container">{% endif %}
         {% if attributes.hasClass('cover-image') %}
           <div class="cover-image-inner">
@@ -107,7 +109,7 @@ view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class
             {% if content.bp_link|render is not empty %}
               <a href="{{ content.bp_link.0['#url'] }}">
             {% endif %}
-            {{ content|without('bp_title', 'bp_title_status', 'bp_title_status', 'bp_width', 'bp_background', 'bp_link', 'bp_classes', 'bp_gutter') }}
+            {{ content|without('bp_title', 'bp_title_status', 'bp_title_status', 'bp_width', 'bp_background', 'bp_link', 'bp_classes', 'bp_gutter', 'field_overlay') }}
             {% if content.bp_link|render is not empty %}
               </a>
             {% endif %}
