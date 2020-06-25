@@ -167,17 +167,17 @@
                 <main id="main" class="{{ main_grid }} cell" role="main">
                   <div class="position-relative" style="z-index: 0; transition: all 0.25s ease-in">
                     <div class="position-absolute overflow-hidden fill" style="height: 370px;top: 0 !important;left: 0 !important;width: 100%;">
-                      <img alt="" class="js-plaxify position-absolute" data-invert="true" data-xrange="0" data-yrange="20" height="415" width="940" style="z-index: 1; width: 110%; height: 425px; top: -20px; left: -20px;" src="/themes/custom/limestone/images/page-not-found/horizon.jpg">
+                      <img alt="horizon" class="js-plaxify position-absolute" data-invert="true" data-xrange="0" data-yrange="20" height="415" width="940" style="z-index: 1; width: 110%; height: 425px; top: -20px; left: -20px;" src="/themes/custom/limestone/images/page-not-found/horizon.jpg">
                     </div>
                     <div class="grid-container position-relative d-block my-0 mx-auto overflow-hidden" style="width: 940px; height: 370px; clear: both">
                       <img alt="404 “This is not the web page you are looking for”" class="js-plaxify position-absolute" data-xrange="20" data-yrange="10" height="249" width="271" style="z-index: 10; top: 72px; left: 72px;" src="/themes/custom/limestone/images/page-not-found/404-message.png">
-                      <img alt="" class="js-plaxify position-absolute" data-xrange="10" data-yrange="10" height="230" width="188" style="z-index: 9; top: 94px; left: 356px;" src="/themes/custom/limestone/images/page-not-found/bernie-wan-base.png">
-                      <img alt="" class="js-plaxify position-absolute" data-invert="true" data-xrange="10" data-yrange="5" height="25" width="28" style="z-index: 9; top: 191px; left: 392px;" src="/themes/custom/limestone/images/page-not-found/bernie-wan-hand.png">
-                      <img alt="" class="js-plaxify position-absolute" data-xrange="10" data-yrange="10" height="156" width="440" style="z-index: 8; top: 150px; left: 432px;" src="/themes/custom/limestone/images/page-not-found/speeder.png">
-                      <img alt="" class="js-plaxify position-absolute" data-xrange="10" data-yrange="10" height="49" width="166" style="z-index: 7; top: 297px; left: 371px;" src="/themes/custom/limestone/images/page-not-found/bernie-shadow.png">
-                      <img alt="" class="js-plaxify position-absolute" data-xrange="10" data-yrange="10" height="75" width="430" style="z-index: 6; top: 263px; left: 442px;" src="/themes/custom/limestone/images/page-not-found/speeder-shadow.png">
-                      <img alt="" class="js-plaxify position-absolute" data-invert="true" data-xrange="50" data-yrange="20" height="123" width="304" style="z-index: 5; top: 73px; left: 467px;" src="/themes/custom/limestone/images/page-not-found/hut.png">
-                      <img alt="" class="js-plaxify position-absolute" data-invert="true" data-xrange="75" data-yrange="30" height="50" width="116" style="z-index: 4; top: 113px; left: 762px;" src="/themes/custom/limestone/images/page-not-found/far-hut.png">
+                      <img alt="Bernie-Wan" class="js-plaxify position-absolute" data-xrange="10" data-yrange="10" height="230" width="188" style="z-index: 9; top: 94px; left: 356px;" src="/themes/custom/limestone/images/page-not-found/bernie-wan-base.png">
+                      <img alt="Bernie-Wan hand" class="js-plaxify position-absolute" data-invert="true" data-xrange="10" data-yrange="5" height="25" width="28" style="z-index: 9; top: 191px; left: 392px;" src="/themes/custom/limestone/images/page-not-found/bernie-wan-hand.png">
+                      <img alt="speeder" class="js-plaxify position-absolute" data-xrange="10" data-yrange="10" height="156" width="440" style="z-index: 8; top: 150px; left: 432px;" src="/themes/custom/limestone/images/page-not-found/speeder.png">
+                      <img alt="Bernie Shadow" class="js-plaxify position-absolute" data-xrange="10" data-yrange="10" height="49" width="166" style="z-index: 7; top: 297px; left: 371px;" src="/themes/custom/limestone/images/page-not-found/bernie-shadow.png">
+                      <img alt="speeder shadow" class="js-plaxify position-absolute" data-xrange="10" data-yrange="10" height="75" width="430" style="z-index: 6; top: 263px; left: 442px;" src="/themes/custom/limestone/images/page-not-found/speeder-shadow.png">
+                      <img alt="hut" class="js-plaxify position-absolute" data-invert="true" data-xrange="50" data-yrange="20" height="123" width="304" style="z-index: 5; top: 73px; left: 467px;" src="/themes/custom/limestone/images/page-not-found/hut.png">
+                      <img alt="far away hut" class="js-plaxify position-absolute" data-invert="true" data-xrange="75" data-yrange="30" height="50" width="116" style="z-index: 4; top: 113px; left: 762px;" src="/themes/custom/limestone/images/page-not-found/far-hut.png">
                     </div>
                   </div>
                     {% if page.highlighted %}
@@ -187,6 +187,11 @@
                     {% endif %}
                     <a id="main-content"></a>
                     <section class="grid-container spacing-xs">
+                      <h4 class="text-align-center">Bernie-Wan has searched for your page below.</h4>
+                      <div class="callout smaller alert mw-800 centered">
+                        <h6>Special Note:</h6>
+                        <p>While this website is in beta, we are using the default Apache Solr search index. When we go live (and Google can crawl the site), the site search will migrate to a Custom Google Search.</p><p>
+                        </p></div>
                         {{ page.content|without('node.field_lp_paragraphs') }}
                     </section>
                     <section>
