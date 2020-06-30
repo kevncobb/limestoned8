@@ -223,6 +223,7 @@ a.lc-btn, .lc-btn a:first-child {
 
     &:focus, &:hover {
       color: #fff5a9 !important;
+      background-color: $limestone-blue;
       &::before {
         background-color: $limestone-blue;
       }
