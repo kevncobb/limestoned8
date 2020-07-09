@@ -8,4 +8,8 @@
   &.background-bottom {
     background-position: bottom;
   }
+  &.background-fixed {
+    background-attachment: fixed;
+    background-position: center center;
+  }
 }
