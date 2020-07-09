@@ -13,3 +13,8 @@
     background-position: center center;
   }
 }
+
+.paragraph-border-sm {
+  border-top: solid thin $limestone-blue;
+  border-bottom: solid thin $limestone-blue;
+}
