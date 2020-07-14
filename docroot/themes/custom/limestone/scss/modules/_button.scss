@@ -55,14 +55,14 @@
     background-color: $red;
     &:hover, &:focus {
       color: white !important;
-      background: smart-scale($red, 10%, 10%) !important;
+      background: smart-scale($red, 20%, 20%) !important;
     }
   }
   &.warning {
     background-color: $warning-color;
     &:hover, &:focus {
       color: white !important;
-      background: smart-scale($warning-color, 10%, 10%) !important;
+      background: smart-scale($warning-color, 20%, 20%) !important;
     }
   }
   &.yellow {
@@ -70,48 +70,48 @@
     color: $limestone-blue !important;
     &:hover, &:focus {
       color: $limestone-blue !important;
-      background: smart-scale($limestone-yellow, 10%, 10%) !important;
+      background: smart-scale($limestone-yellow, 20%, 20%) !important;
     }
   }
   &.green, &.success {
     background-color: $success-color;
     &:hover, &:focus {
       color: white !important;
-      background: smart-scale($success-color, 10%, 10%) !important;
+      background: smart-scale($success-color, 20%, 20%) !important;
     }
   }
   &.teal {
     background-color: $teal;
     &:hover, &:focus {
       color: white !important;
-      background: smart-scale($teal, 10%, 10%) !important;
+      background: smart-scale($teal, 20%, 20%) !important;
     }
   }
   &.twitter-blue {
     background-color: $twitter-blue;
     &:hover, &:focus {
       color: white !important;
-      background: smart-scale($twitter-blue, 10%, 10%) !important;
+      background: smart-scale($twitter-blue, 20%, 20%) !important;
     }
   }
   &.purple {
     background-color: $purple;
     &:hover, &:focus {
       color: white !important;
-      background: smart-scale($purple, 10%, 10%) !important;
+      background: smart-scale($purple, 20%, 20%) !important;
     }
   }
   &.orange {
     background-color: $orange;&:hover, &:focus {
     color: white !important;
-    background: smart-scale($orange, 10%, 10%) !important;
+    background: smart-scale($orange, 20%, 20%) !important;
   }
   }
   &.category {
     background-color: $category;
     &:hover, &:focus {
       color: white !important;
-      background: smart-scale($category, 10%, 10%) !important;
+      background: smart-scale($category, 20%, 20%) !important;
     }
     color: white;
   }

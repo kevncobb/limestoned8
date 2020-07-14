@@ -15,6 +15,9 @@
 }
 ul.list-unstyled, ul.unstyled-list {
   margin-left: 0;
+  &.centered {
+    margin-left: auto;
+  }
   li {
     list-style-type: none;
   }

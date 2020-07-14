@@ -52,12 +52,13 @@
   }
   .flex-control-paging li a {
     background: #fff;
-    box-shadow: inset 0 0 3px 1px  rgb(24, 40, 148);
+    //box-shadow: inset 0 0 3px 1px  rgb(24, 40, 148);
+    border: 2px solid $limestone-blue;
   }
   .flex-control-paging li a.flex-active {
     background: $limestone-blue;
-    box-shadow: inset 0 0 3px 1px rgb(254, 254, 254);
-    border: thin solid #dacc59;
+    //box-shadow: inset 0 0 3px 1px rgb(254, 254, 254);
+    border: 2px solid white;
   }
 }
 .flex-direction-nav .flex-next {

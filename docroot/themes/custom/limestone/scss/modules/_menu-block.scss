@@ -40,6 +40,7 @@
           padding: 0.7rem 1rem;
           &:hover, &:focus {
             background-color: lighten($limestone-blue, 6%);
+            transition: 50ms;
           }
         }
       }
@@ -92,7 +93,7 @@
         }
         &:focus, &:hover {
           background-color: lighten($light-gray, 9%);
-          transition: 100ms;
+          transition: 50ms;
           button.submenu-toggle {
             background-color: #fff;
           }
@@ -138,7 +139,7 @@
 
             &:focus, &:hover {
               background-color: lighten($light-gray, 15%);
-              transition: 100ms;
+              transition: 50ms;
             }
 
             a {
