@@ -3,7 +3,6 @@
 namespace Drupal\sendgrid_integration\Plugin\Mail;
 
 use Drupal\Component\Render\MarkupInterface;
-use Drupal\Component\Utility\Unicode;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
@@ -30,7 +29,10 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  */
 class SendGridMail implements MailInterface, ContainerFactoryPluginInterface {
 
-  const SENDGRID_INTEGRATION_EMAIL_REGEX = '/^\s*(.+?)\s*<\s*([^>]+)\s*>$/';
+  /**
+   * {@inheritdoc}
+   */
+  const SENDGRID_INTEGRATION_EMAIL_REGEX = '/^\s*"?(.+?)"?\s*<\s*([^>]+)\s*>$/';
 
   /**
    * The config factory service.
@@ -167,7 +169,10 @@ class SendGridMail implements MailInterface, ContainerFactoryPluginInterface {
     }
 
     // Allow other modules to modify unique arguments.
-    $args = $this->moduleHandler->invokeAll('sendgrid_integration_unique_args_alter', [$unique_args]);
+    $args = $this->moduleHandler->invokeAll('sendgrid_integration_unique_args_alter', [
+      $unique_args,
+      $message,
+    ]);
 
     // Check if we got any variable back.
     if (!empty($args)) {
@@ -175,10 +180,12 @@ class SendGridMail implements MailInterface, ContainerFactoryPluginInterface {
     }
 
     // Checking if 'from' email-address already exist.
-    if (isset($message['headers']['from']) || isset($message['headers']['From']) && $message['headers']['from'] == $message['headers']['From']) {
-      $fromaddrarray = $this->parseAddress($message['headers']['from']);
-      $data['from'] = $fromaddrarray[0];
-      $data['fromname'] = $fromaddrarray[1];
+    if (isset($message['headers']['from'])) {
+      if (isset($message['headers']['From']) && $message['headers']['from'] == $message['headers']['From']) {
+        $fromaddrarray = $this->parseAddress($message['headers']['from']);
+        $data['from'] = $fromaddrarray[0];
+        $data['fromname'] = $fromaddrarray[1];
+      }
     }
     else {
       $data['from'] = $site_config->get('mail');
@@ -225,7 +232,8 @@ class SendGridMail implements MailInterface, ContainerFactoryPluginInterface {
       $sendtosarry = explode(',', $message['to']);
       // Don't bother putting anything in "to" and "toName" for
       // multiple addresses. Only put multiple addresses in the Smtp header.
-      $sendgrid_message->setSmtpapiTos($sendtosarry);
+      // For multi addresses as per https://packagist.org/packages/fastglass/sendgrid
+      $sendgrid_message->addTo($sendtosarry);
     }
     else {
       $toaddrarray = $this->parseAddress($message['to']);
@@ -241,15 +249,15 @@ class SendGridMail implements MailInterface, ContainerFactoryPluginInterface {
 
     // Beginning of consolidated header parsing.
     foreach ($message['headers'] as $key => $value) {
-      switch (Unicode::strtolower($key)) {
+      switch (mb_strtolower($key)) {
         case 'content-type':
           // Parse several values on the Content-type header, storing them in an array like
           // key=value -> $vars['key']='value'.
           $vars = explode(';', $value);
           foreach ($vars as $i => $var) {
             if ($cut = strpos($var, '=')) {
-              $new_var = trim(Unicode::strtolower(Unicode::substr($var, $cut + 1)));
-              $new_key = trim(Unicode::substr($var, 0, $cut));
+              $new_var = trim(mb_strtolower(mb_substr($var, $cut + 1)));
+              $new_key = trim(mb_substr($var, 0, $cut));
               unset($vars[$i]);
               $vars[$new_key] = $new_var;
             }
@@ -343,7 +351,7 @@ class SendGridMail implements MailInterface, ContainerFactoryPluginInterface {
                       // Clean up the text.
                       $body_part2 = trim($this->removeHeaders(trim($body_part2)));
                       // Check whether the encoding is base64, and if so, decode it.
-                      if (Unicode::strtolower($body_part2_encoding) == 'base64') {
+                      if (mb_strtolower($body_part2_encoding) == 'base64') {
                         // Save the decoded HTML content.
                         $sendgrid_message->setHtml(base64_decode($body_part2));
                       }
@@ -377,7 +385,8 @@ class SendGridMail implements MailInterface, ContainerFactoryPluginInterface {
 
             default:
               // Everything else is unknown so we log and send the message as text.
-              drupal_set_message(t('The %header of your message is not supported by SendGrid and will be sent as text/plain instead.', ['%header' => "Content-Type: $value"]), 'error');
+              \Drupal::messenger()
+                ->addError(t('The %header of your message is not supported by SendGrid and will be sent as text/plain instead.', ['%header' => "Content-Type: $value"]));
               $this->logger->error("The Content-Type: $value of your message is not supported by PHPMailer and will be sent as text/plain instead.");
               // Force the email to be text.
               $sendgrid_message->setText(MailFormatHelper::wrapMail(MailFormatHelper::htmlToText($message['body'])));
@@ -385,18 +394,16 @@ class SendGridMail implements MailInterface, ContainerFactoryPluginInterface {
           break;
 
         case 'reply-to':
-          if (isset($message['headers']['reply-to']) || (isset($message['headers']['Reply-To']) && $message['headers']['reply-to'] = $message['headers']['Reply-To'])) {
-            $sendgrid_message->setReplyTo($message['headers']['Reply-To']);
-          }
+          $sendgrid_message->setReplyTo($message['headers'][$key]);
           break;
       }
 
       // Handle latter case issue for cc and bcc key.
-      if (in_array(Unicode::strtolower($key), $cc_bcc_keys)) {
+      if (in_array(mb_strtolower($key), $cc_bcc_keys)) {
         $mail_ids = explode(',', $value);
         foreach ($mail_ids as $mail_id) {
           list($mail_cc_address, $cc_name) = $this->parseAddress($mail_id);
-          $address_cc_bcc[Unicode::strtolower($key)][] = [
+          $address_cc_bcc[mb_strtolower($key)][] = [
             'mail' => $mail_cc_address,
             'name' => $cc_name,
           ];
@@ -432,7 +439,8 @@ class SendGridMail implements MailInterface, ContainerFactoryPluginInterface {
           $filepath = $attachment['filepath'];
         }
         elseif (isset($attachment['file']) && $attachment['file'] instanceof FileInterface) {
-          $filepath = \Drupal::service('file_system')->realpath($attachment['file']->getFileUri());
+          $filepath = \Drupal::service('file_system')
+            ->realpath($attachment['file']->getFileUri());
         }
         else {
           continue;
@@ -450,7 +458,6 @@ class SendGridMail implements MailInterface, ContainerFactoryPluginInterface {
         $attachments[$filename] = $filepath;
       }
     }
-
 
     // If we have attachments, add them.
     if (!empty($attachments)) {
@@ -471,10 +478,15 @@ class SendGridMail implements MailInterface, ContainerFactoryPluginInterface {
     try {
       $response = $client->send($sendgrid_message);
     }
-    catch (Exception $e) {
-      $this->logger->error('Sending emails to Sengrind service failed with error code ' . $e->getCode());
-      foreach ($e->getErrors() as $error_info) {
-        $this->logger->error('Sendgrid generated error ' . $error_info);
+    catch (\Exception $e) {
+      $this->logger->error('Sending emails to Sendgrid service failed with error code ' . $e->getCode());
+      if ($e instanceof Exception) {
+        foreach ($e->getErrors() as $error_info) {
+          $this->logger->error('Sendgrid generated error ' . $error_info);
+        }
+      }
+      else {
+        $this->logger->error($e->getMessage());
       }
       // Add message to queue if reason for failing was timeout or
       // another valid reason. This adds more error tolerance.
@@ -501,6 +513,8 @@ class SendGridMail implements MailInterface, ContainerFactoryPluginInterface {
       return TRUE;
     }
     // Default to low. Sending failed.
+    $this->logger->error('Sending emails to Sendgrid service failed with error message %message.',
+      ['%message'=> $response->getBody()->errors[0]]);
     return FALSE;
   }
 
@@ -529,11 +543,11 @@ class SendGridMail implements MailInterface, ContainerFactoryPluginInterface {
     $search_start = strpos($source, $target) + 1;
     $first_character = strpos($source, $beginning_character, $search_start) + 1;
     $second_character = strpos($source, $ending_character, $first_character) + 1;
-    $substring = Unicode::substr($source, $first_character, $second_character - $first_character);
-    $string_length = Unicode::strlen($substring) - 1;
+    $substring = mb_substr($source, $first_character, $second_character - $first_character);
+    $string_length = mb_strlen($substring) - 1;
 
     if ($substring[$string_length] == $ending_character) {
-      $substring = Unicode::substr($substring, 0, $string_length);
+      $substring = mb_substr($substring, 0, $string_length);
     }
 
     return $substring;
@@ -555,7 +569,7 @@ class SendGridMail implements MailInterface, ContainerFactoryPluginInterface {
    */
   protected function boundrySplit($input, $boundary) {
     $parts = [];
-    $bs_possible = Unicode::substr($boundary, 2, -2);
+    $bs_possible = mb_substr($boundary, 2, -2);
     $bs_check = '\"' . $bs_possible . '\"';
 
     if ($boundary == $bs_check) {

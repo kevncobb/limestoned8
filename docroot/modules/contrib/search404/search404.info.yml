@@ -8,6 +8,6 @@ package: Search
 configure: search404.settings
 
 # Information added by Drupal.org packaging script on 2020-06-03
-version: '2.x-dev'
+version: '2.0.0'
 project: 'search404'
-datestamp: 1591164874
+datestamp: 1591165029

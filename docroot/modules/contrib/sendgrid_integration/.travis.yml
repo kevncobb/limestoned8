@@ -11,21 +11,19 @@ language: php
 sudo: false
 
 php:
-  - 5.5
-  - 5.6
-  - 7
-  - hhvm
+  - 7.2
+  - 7.3
 
 matrix:
   fast_finish: true
-  allow_failures:
-    - php: hhvm
 
 env:
   global:
     # add composer's global bin directory to the path
     # see: https://github.com/drush-ops/drush#install---composer
     - PATH="$PATH:$HOME/.composer/vendor/bin"
+    # force composer 1.8+ to use a specific folder as home
+    - COMPOSER_HOME="$HOME/.composer/"
 
     # Configuration variables.
     - DRUPAL_TI_MODULE_NAME="sendgrid_integration"
@@ -38,9 +36,14 @@ env:
 
     # The environment to use, supported are: drupal-7, drupal-8
     - DRUPAL_TI_ENVIRONMENT="drupal-8"
+    # Drupal TI is defaulting to 8.1.x until PR is merged
+    - DRUPAL_TI_CORE_BRANCH="8.7.x"
 
     # The installation profile to use:
     #- DRUPAL_TI_INSTALL_PROFILE="testing"
+
+    # The drush version to use, by default: drush/drush:8.0.*
+    - DRUPAL_TI_DRUSH_VERSION="drush/drush:9.0.*"
 
     # Drupal specific variables.
     - DRUPAL_TI_DB="drupal_travis_db"
@@ -80,7 +83,7 @@ env:
     - DRUPAL_TI_COVERAGE_FILE="build/logs/clover.xml"
 
     # Debug options
-    #- DRUPAL_TI_DEBUG="-x -v"
+    - DRUPAL_TI_DEBUG="-x -v"
     # Set to "all" to output all files, set to e.g. "xvfb selenium" or "selenium",
     # etc. to only output those channels.
     #- DRUPAL_TI_DEBUG_FILE_OUTPUT="selenium xvfb webserver"
@@ -101,15 +104,18 @@ mysql:
 
 before_install:
   - composer self-update
+  - composer clearcache
   - cd ./tests
-  - composer global require "lionsad/drupal_ti:1.*"
+  - composer global require "lionsad/drupal_ti:dev-master"
   - drupal-ti before_install
 
 install:
   - drupal-ti install
+#  - composer run-script drupal-phpunit-upgrade
 
 before_script:
   - drupal-ti before_script
+  - composer update phpunit/phpunit phpspec/prophecy symfony/yaml --with-dependencies --no-progress
   #- drupal-ti before.sh
 
 script:
