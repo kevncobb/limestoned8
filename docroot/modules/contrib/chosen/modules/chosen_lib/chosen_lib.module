@@ -55,8 +55,8 @@ function _chosen_lib_get_chosen_path() {
   $searchdir[] = \Drupal::service('site.path') . '/libraries';
 
   foreach ($searchdir as $dir) {
-    if (file_exists($dir . '/chosen/chosen.jquery.min.js') || file_exists($dir . '/chosen/chosen.jquery.js')) {
-      return $dir . '/chosen';
+    if (file_exists($dir . '/chosen-js/chosen.jquery.min.js') || file_exists($dir . '/chosen-js/chosen.jquery.js')) {
+      return $dir . '/chosen-js';
     }
   }
 
