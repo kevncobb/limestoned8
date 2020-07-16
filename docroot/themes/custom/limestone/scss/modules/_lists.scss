@@ -51,7 +51,7 @@ ul.line-items {
   }
 }
 .striped {
-  .even {
+  &:nth-child(even) {
     background-color: $lighter-gray;
   }
 }
