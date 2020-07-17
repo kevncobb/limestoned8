@@ -14,18 +14,18 @@ function name_post_update_create_name_list_format() {
     if (!$default_list->locked) {
       $default_list->locked = TRUE;
       $default_list->save();
-      drupal_set_message(t('Default name list format was set to locked.'));
+      $message = t('Default name list format was set to locked.');
     }
     else {
-      drupal_set_message(t('Nothing required to action.'));
+      $message = t('Nothing required to action.');
     }
   }
   else {
     $default_list = entity_create('name_list_format', [
       'id' => 'default',
       'label' => 'Default',
-      'locked' => true,
-      'status' => true,
+      'locked' => TRUE,
+      'status' => TRUE,
       'delimiter' => ', ',
       'and' => 'text',
       'delimiter_precedes_last' => 'never',
@@ -33,8 +33,10 @@ function name_post_update_create_name_list_format() {
       'el_al_first' => 1,
     ]);
     $default_list->save();
-    drupal_set_message(t('Default name list format was added.'));
+    $message = t('Default name list format was added.');
   }
+
+  return $message;
 }
 
 /**
@@ -42,8 +44,8 @@ function name_post_update_create_name_list_format() {
  */
 function name_post_update_formatter_settings() {
   $field_storage_configs = \Drupal::entityTypeManager()
-      ->getStorage('field_storage_config')
-      ->loadByProperties(['type' => 'name']);
+    ->getStorage('field_storage_config')
+    ->loadByProperties(['type' => 'name']);
   $default_settings = [
     "format" => "default",
     "markup" => FALSE,
@@ -59,11 +61,11 @@ function name_post_update_formatter_settings() {
     foreach ($fields as $field) {
       $properties = [
         'targetEntityType' => $field->getTargetEntityTypeId(),
-        'bundle' => $field->getTargetBundle()
+        'bundle' => $field->getTargetBundle(),
       ];
       $view_displays = \Drupal::entityTypeManager()
-          ->getStorage('entity_view_display')
-          ->loadByProperties($properties);
+        ->getStorage('entity_view_display')
+        ->loadByProperties($properties);
       foreach ($view_displays as $view_display) {
         if ($component = $view_display->getComponent($field_name)) {
           $settings = (array) $component->settings;
@@ -71,19 +73,20 @@ function name_post_update_formatter_settings() {
           $settings = array_intersect_key($settings, $default_settings);
           $settings += $default_settings;
           $view_display->setComponent($field_name, [
-              'type' => 'name_default',
-              'settings' => $settings,
-            ] + $component)->save();
+            'type' => 'name_default',
+            'settings' => $settings,
+          ] + $component)->save();
         }
       }
     }
   }
 
-  drupal_set_message(t('New name list formatter settings are implemented. Please review any name display settings that used inline lists.'));
+  return t('New name list formatter settings are implemented. Please review any name display settings that used inline lists.');
 }
 
 /**
- * Updates the field formatter settings for new link and alternative data sources settings.
+ * Updates the field formatter settings for new link and alternative data
+ * sources settings.
  */
 function name_post_update_formatter_settings_link_and_external_sources() {
   $new_settings = [
@@ -107,11 +110,11 @@ function name_post_update_formatter_settings_link_and_external_sources() {
     foreach ($fields as $field) {
       $properties = [
         'targetEntityType' => $field->getTargetEntityTypeId(),
-        'bundle' => $field->getTargetBundle()
+        'bundle' => $field->getTargetBundle(),
       ];
       $view_displays = \Drupal::entityTypeManager()
-          ->getStorage('entity_view_display')
-          ->loadByProperties($properties);
+        ->getStorage('entity_view_display')
+        ->loadByProperties($properties);
       foreach ($view_displays as $view_display) {
         /* @var \Drupal\Core\Entity\Entity\EntityViewDisplay $view_display */
         if ($component = $view_display->getComponent($field_name)) {
@@ -124,9 +127,9 @@ function name_post_update_formatter_settings_link_and_external_sources() {
           }
           $settings += $new_settings;
           $view_display->setComponent($field_name, [
-              'type' => 'name_default',
-              'settings' => $settings,
-            ] + $component)->save();
+            'type' => 'name_default',
+            'settings' => $settings,
+          ] + $component)->save();
         }
       }
     }
@@ -199,8 +202,8 @@ function name_post_update_field_settings_remove_inline_css() {
   }
 
   \Drupal::service('config.factory')->getEditable('name.settings')
-      ->clear('element_wrapper')
-      ->clear('inline_styles')
-      ->clear('inline_styles_rtl')
-      ->save();
+    ->clear('element_wrapper')
+    ->clear('inline_styles')
+    ->clear('inline_styles_rtl')
+    ->save();
 }
