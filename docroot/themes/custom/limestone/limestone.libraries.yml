@@ -20,6 +20,10 @@ lc-menu:
   version: 1.x
   js:
     js/menu.js: {}
+lc-sticky:
+  version: 1.x
+  js:
+    js/jquery.stickybits.min.js: {}
 error:
   version: 1.x
   js:

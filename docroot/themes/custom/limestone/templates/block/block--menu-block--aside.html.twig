@@ -39,7 +39,7 @@
   'menu--' ~ derivative_plugin_id|clean_class,
 ]
 %}
-
+{{ attach_library('limestone/lc-sticky') }}
 {% set heading_id = attributes.id ~ '-menu'|clean_id %}
 <nav role="navigation" aria-labelledby="{{ heading_id }}"{{ attributes|without('role', 'aria-labelledby') }}>
   {# Label. If not displayed, we still provide it for screen readers. #}
