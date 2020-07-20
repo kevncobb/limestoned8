@@ -2,6 +2,8 @@
  * @prettier
  */
 
+import path from "path"
+
 import configBuilder from "./_config-builder"
 
 const result = configBuilder(

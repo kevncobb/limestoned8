@@ -18,9 +18,10 @@ INSTALLATION
    inside /modules directory. See
    https://www.drupal.org/docs/8/extending-drupal-8/installing-modules
    for details of other optional locations.
-3. From version 8.x-2.x there is no need to manually download the JavaScript BiDi
-   it is included with the module, inside its js directory.
-5. Enable "CKEditor BiDi Buttons" module in Admin "Extend" page (/admin/modules).
-6. Configure/Activate: Go to admin section of Drupal site /admin/config/content/formats
-   select text format to configure and activate BiDi buttons by dragging them into
-   active buttons area of WYSIWYG toolbar.
+3. From version 8.x-2.x there is no need to manually download the CKEditor
+   JavaScript BiDi plugin it is included with the module, inside its js
+    directory.
+4. Enable "CKEditor BiDi Buttons" module in Admin > Extend  (/admin/modules).
+5. Configure/Activate: Go to admin section /admin/config/content/formats
+   select text format to configure and activate BiDi buttons by dragging them
+   into active buttons area of WYSIWYG toolbar.

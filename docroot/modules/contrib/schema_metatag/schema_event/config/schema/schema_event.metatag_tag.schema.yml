@@ -32,7 +32,7 @@ metatag.metatag_tag.schema_event_start_date:
   type: text
   label: 'startDate'
 metatag.metatag_tag.schema_event_type:
-  type: text
+  type: string
   label: '@type'
 metatag.metatag_tag.schema_event_url:
   type: text

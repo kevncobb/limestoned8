@@ -467,7 +467,7 @@ class Utility {
     if ($custom_code = $solr_field_type->getCustomCode()) {
       $text_file_name .= '_' . $custom_code;
     }
-    return $text_file_name . '_' . $solr_field_type->getFieldTypeLanguageCode() . '.txt';
+    return $text_file_name . '_' . str_replace('-', '_', $solr_field_type->getFieldTypeLanguageCode()) . '.txt';
   }
 
   /**
@@ -1071,7 +1071,12 @@ class Utility {
     $version_number = '';
     $root = $document->documentElement;
     if (isset($root) && $root->hasAttribute('name')) {
-      $version_number = $root->getAttribute('name');
+      $parts = explode('-', $root->getAttribute('name'));
+      if (isset($parts[4])) {
+        // Remove jump-start config-set flag.
+        unset($parts[4]);
+      }
+      $version_number = implode('-', $parts);
       $root->removeAttribute('name');
     }
     $xpath = new \DOMXPath($document);

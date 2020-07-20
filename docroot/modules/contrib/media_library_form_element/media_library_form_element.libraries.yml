@@ -1,5 +1,5 @@
 media_library_form_element:
-  version: VERSION
+  version: 1.0
   js:
     assets/js/media_library.form-element.js: {}
   dependencies:

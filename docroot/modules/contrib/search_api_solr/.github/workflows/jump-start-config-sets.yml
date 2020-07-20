@@ -16,10 +16,12 @@ jobs:
 
         env:
           COMPOSER_MEMORY_LIMIT: -1
+          SEARCH_API_SOLR_JUMP_START_CONFIG_SET: 1
 
         steps:
             - name: Setup sqlite
               run: |
+                sudo apt-get update
                 sudo apt-get install sqlite3 libsqlite3-dev
 
             - name: Setup PHP
@@ -102,24 +104,34 @@ jobs:
               run: |
                 cd drupal
                 vendor/bin/drush -v solr-gsc solr config.zip 4.5
+                rm ../search_api_solr/jump-start/solr4/config-set/*
                 unzip -o -d ../search_api_solr/jump-start/solr4/config-set config.zip
                 vendor/bin/drush -v solr-gsc solr config.zip 5
+                rm ../search_api_solr/jump-start/solr5/config-set/*
                 unzip -o -d ../search_api_solr/jump-start/solr5/config-set config.zip
                 vendor/bin/drush -v solr-gsc solr config.zip 6
+                rm ../search_api_solr/jump-start/solr6/config-set/*
                 unzip -o -d ../search_api_solr/jump-start/solr6/config-set config.zip
                 vendor/bin/drush -v solr-gsc solr config.zip 7
+                rm ../search_api_solr/jump-start/solr7/config-set/*
                 unzip -o -d ../search_api_solr/jump-start/solr7/config-set config.zip
                 vendor/bin/drush -v solr-gsc solr config.zip 8
+                rm ../search_api_solr/jump-start/solr8/config-set/*
                 unzip -o -d ../search_api_solr/jump-start/solr8/config-set config.zip
                 vendor/bin/drush -v solr-gsc solr_cloud config.zip 4.5
+                rm ../search_api_solr/jump-start/solr4/cloud-config-set/*
                 unzip -o -d ../search_api_solr/jump-start/solr4/cloud-config-set config.zip
                 vendor/bin/drush -v solr-gsc solr_cloud config.zip 5
+                rm ../search_api_solr/jump-start/solr5/cloud-config-set/*
                 unzip -o -d ../search_api_solr/jump-start/solr5/cloud-config-set config.zip
                 vendor/bin/drush -v solr-gsc solr_cloud config.zip 6
+                rm ../search_api_solr/jump-start/solr6/cloud-config-set/*
                 unzip -o -d ../search_api_solr/jump-start/solr6/cloud-config-set config.zip
                 vendor/bin/drush -v solr-gsc solr_cloud config.zip 7
+                rm ../search_api_solr/jump-start/solr7/cloud-config-set/*
                 unzip -o -d ../search_api_solr/jump-start/solr7/cloud-config-set config.zip
                 vendor/bin/drush -v solr-gsc solr_cloud config.zip 8
+                rm ../search_api_solr/jump-start/solr8/cloud-config-set/*
                 unzip -o -d ../search_api_solr/jump-start/solr8/cloud-config-set config.zip
 
             - uses: actions/upload-artifact@v2
@@ -136,8 +148,9 @@ jobs:
             matrix:
                 drupal: ['8.9', '9.0']
                 solr: ['4', '5', '6', '7', '8']
+                php: ['7.3', '7.4']
 
-        name: Drupal ${{ matrix.drupal }} with Solr ${{ matrix.solr }}
+        name: Drupal ${{ matrix.drupal }}, Solr ${{ matrix.solr }}, PHP ${{ matrix.php }}
 
         env:
           COMPOSER_MEMORY_LIMIT: -1
@@ -152,7 +165,7 @@ jobs:
             - name: Setup PHP
               uses: shivammathur/setup-php@v2
               with:
-                php-version: 7.3
+                php-version: ${{ matrix.php }}
                 extensions: dom, curl, libxml, mbstring, zip, pdo, sqlite, pdo_sqlite, bcmath, intl, gd, iconv, json, simplexml
                 ini-values: memory_limit=256M,post_max_size=256M
                 coverage: none
@@ -190,7 +203,7 @@ jobs:
                 composer global require hirak/prestissimo
                 cd drupal
                 composer config repositories.search_api_solr '{"type": "vcs", "url": "../search_api_solr"}'
-                composer require solarium/solarium:"dev-master as 6.0.99" drupal/search_api_solr:4.99.0 drupal/search_api_autocomplete:1.x-dev drupal/facets:1.x-dev drupal/devel:3.x-dev drupal/geofield drush/drush monolog/monolog --ignore-platform-reqs --no-interaction --no-suggest
+                composer require solarium/solarium:"dev-master as 6.0.99" drupal/search_api_solr:4.99.0 drupal/search_api_autocomplete:1.x-dev drupal/search_api_spellcheck:3.x-dev drupal/facets:1.x-dev drupal/devel:3.x-dev drupal/geofield drush/drush monolog/monolog --ignore-platform-reqs --no-interaction --no-suggest
                 composer run-script drupal-phpunit-upgrade
 
             - name: Install search_api_location
@@ -218,6 +231,7 @@ jobs:
                 php -S localhost:8888 >& /dev/null &
                 vendor/bin/drush si minimal --db-url=sqlite://sites/default/files/db.sqlite --yes
                 vendor/bin/drush en search_api_solr_admin,search_api_solr_defaults,search_api_solr_devel,search_api_solr_legacy --yes
+                vendor/bin/drush en search_api_spellcheck,search_api_autocomplete,facets --yes
                 vendor/bin/phpunit -v -c core --group search_api_solr --exclude-group not_drupal${{ matrix.drupal }},not_solr${{ matrix.solr }} modules/contrib/search_api_solr
 
     push-config-sets:

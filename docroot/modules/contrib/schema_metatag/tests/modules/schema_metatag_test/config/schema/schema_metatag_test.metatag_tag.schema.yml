@@ -47,7 +47,7 @@ metatag.metatag_tag.schema_metatag_test_place:
   type: text
   label: 'place'
 metatag.metatag_tag.schema_metatag_test_type:
-  type: text
+  type: string
   label: '@type'
 metatag.metatag_tag.schema_metatag_test_thing:
   type: text

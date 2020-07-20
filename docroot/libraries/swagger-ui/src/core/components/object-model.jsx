@@ -5,6 +5,7 @@ import ImPropTypes from "react-immutable-proptypes"
 
 const braceOpen = "{"
 const braceClose = "}"
+const propStyle = { color: "#6b6b6b", fontStyle: "italic" }
 
 export default class ObjectModel extends Component {
   static propTypes = {
@@ -19,12 +20,14 @@ export default class ObjectModel extends Component {
     isRef: PropTypes.bool,
     expandDepth: PropTypes.number,
     depth: PropTypes.number,
-    specPath: ImPropTypes.list.isRequired
+    specPath: ImPropTypes.list.isRequired,
+    includeReadOnly: PropTypes.bool,
+    includeWriteOnly: PropTypes.bool,
   }
 
   render(){
     let { schema, name, displayName, isRef, getComponent, getConfigs, depth, onToggle, expanded, specPath, ...otherProps } = this.props
-    let { specSelectors,expandDepth } = otherProps
+    let { specSelectors,expandDepth, includeReadOnly, includeWriteOnly} = otherProps
     const { isOAS3 } = specSelectors
 
     if(!schema) {
@@ -38,11 +41,14 @@ export default class ObjectModel extends Component {
     let additionalProperties = schema.get("additionalProperties")
     let title = schema.get("title") || displayName || name
     let requiredProperties = schema.get("required")
+    let infoProperties = schema
+      .filter( ( v, key) => ["nullable"].indexOf(key) !== -1 )
 
     const JumpToPath = getComponent("JumpToPath", true)
     const Markdown = getComponent("Markdown", true)
     const Model = getComponent("Model")
     const ModelCollapse = getComponent("ModelCollapse")
+    const Property = getComponent("Property")
 
     const JumpToPathSection = () => {
       return <span className="model-jump-to-path"><JumpToPath specPath={specPath} /></span>
@@ -87,7 +93,12 @@ export default class ObjectModel extends Component {
                   </tr>
               }
               {
-                !(properties && properties.size) ? null : properties.entrySeq().map(
+                !(properties && properties.size) ? null : properties.entrySeq().filter(
+                    ([, value]) => {
+                      return (!value.get("readOnly") || includeReadOnly) &&
+                        (!value.get("writeOnly") || includeWriteOnly)
+                    }
+                ).map(
                     ([key, value]) => {
                       let isDeprecated = isOAS3() && value.get("deprecated")
                       let isRequired = List.isList(requiredProperties) && requiredProperties.contains(key)
@@ -210,6 +221,9 @@ export default class ObjectModel extends Component {
         </span>
         <span className="brace-close">{ braceClose }</span>
       </ModelCollapse>
+      {
+        infoProperties.size ? infoProperties.entrySeq().map( ( [ key, v ] ) => <Property key={`${key}-${v}`} propKey={ key } propVal={ v } propStyle={ propStyle } />) : null
+      }
     </span>
   }
 }

@@ -50,9 +50,7 @@ class VocabularyAccessTest extends TaxonomyTestBase {
     $this->users['administer'] = $this->drupalCreateUser(['administer taxonomy', 'create terms in ' . $this->vocabularies[0]->id()]);
     $this->users['overview'] = $this->drupalCreateUser(['access taxonomy overview']);
     $this->users['create_first_vocabulary'] = $this->drupalCreateUser(['create terms in ' . $this->vocabularies[0]->id()]);
-    $this->users['add_first_vocabulary'] = $this->drupalCreateUser(['add terms in ' . $this->vocabularies[0]->id()]);
     $this->users['overview_and_create_first_vocabulary'] = $this->drupalCreateUser(['access taxonomy overview', 'create terms in ' . $this->vocabularies[0]->id()]);
-    $this->users['overview_and_add_first_vocabulary'] = $this->drupalCreateUser(['access taxonomy overview', 'add terms in ' . $this->vocabularies[0]->id()]);
     $this->users['update_first_vocabulary'] = $this->drupalCreateUser(['edit terms in ' . $this->vocabularies[0]->id()]);
     $this->users['overview_and_update_first_vocabulary'] = $this->drupalCreateUser(['access taxonomy overview', 'edit terms in ' . $this->vocabularies[0]->id()]);
     $this->users['delete_first_vocabulary'] = $this->drupalCreateUser(['delete terms in ' . $this->vocabularies[0]->id()]);
@@ -90,7 +88,7 @@ class VocabularyAccessTest extends TaxonomyTestBase {
         'destination' => Url::fromRoute('entity.taxonomy_vocabulary.collection')->toString(),
       ])->toString());
       $add_terms_url = Url::fromRoute('entity.taxonomy_term.add_form', ['taxonomy_vocabulary' => $vocabulary->id()])->toString();
-      $this->assertNoLinkByEndOfHref($add_terms_url);
+      $this->assertLinkByEndOfHref($add_terms_url);
     }
 
     // Test the 'access taxonomy overview' permission.
@@ -143,29 +141,6 @@ class VocabularyAccessTest extends TaxonomyTestBase {
     $assert_session->statusCodeEquals(403);
 
     $this->drupalLogin($this->users['overview_and_create_first_vocabulary']);
-    $this->drupalGet('admin/structure/taxonomy');
-    $assert_session->statusCodeEquals(200);
-
-    $assert_session->pageTextNotContains(t('Add vocabulary'));
-    $this->assertNoLinkByEndOfHref(Url::fromRoute('entity.taxonomy_vocabulary.add_form')->toString());
-    $this->assertNoSortableTable(FALSE);
-    $assert_session->pageTextContains(t('No vocabularies available.'));
-
-    foreach ($this->vocabularies as $delta => $vocabulary) {
-      $assert_session->pageTextNotContains($vocabulary->label());
-      $assert_session->pageTextNotContains($vocabulary->getDescription());
-      $this->assertNoLinkByEndOfHref(Url::fromRoute('entity.taxonomy_vocabulary.overview_form', ['taxonomy_vocabulary' => $vocabulary->id()])->toString());
-      $this->assertNoLinkByEndOfHref(Url::fromRoute('entity.taxonomy_vocabulary.edit_form', ['taxonomy_vocabulary' => $vocabulary->id()])->setOption('query', [
-        'destination' => Url::fromRoute('entity.taxonomy_vocabulary.collection')->toString(),
-      ])->toString());
-      $this->assertNoLinkByEndOfHref(Url::fromRoute('entity.taxonomy_term.add_form', ['taxonomy_vocabulary' => $vocabulary->id()])->toString());
-    }
-
-    $this->drupalLogin($this->users['add_first_vocabulary']);
-    $this->drupalGet('admin/structure/taxonomy');
-    $assert_session->statusCodeEquals(403);
-
-    $this->drupalLogin($this->users['overview_and_add_first_vocabulary']);
     $this->drupalGet('admin/structure/taxonomy');
     $assert_session->statusCodeEquals(200);
 
@@ -362,7 +337,32 @@ class VocabularyAccessTest extends TaxonomyTestBase {
     $this->drupalLogin($this->users['overview_and_create_first_vocabulary']);
     foreach ($this->vocabularies as $delta => $vocabulary) {
       $this->drupalGet('admin/structure/taxonomy/manage/' . $vocabulary->id() . '/overview');
-      $assert_session->statusCodeEquals(403);
+      if ($delta === 0) {
+        $assert_session->statusCodeEquals(200);
+
+        $this->assertNoElementByCssSelector('#edit-reset-alphabetical');
+        $this->assertNoSortableTable();
+
+        $this->assertNoLinkByEndOfHref(Url::fromRoute('entity.taxonomy_term.edit_form', ['taxonomy_term' => $published_terms[$delta]->id()])->setOption('query', [
+          'destination' => Url::fromRoute('entity.taxonomy_vocabulary.overview_form', ['taxonomy_vocabulary' => $vocabulary->id()])->toString(),
+        ])->toString());
+        $this->assertNoLinkByEndOfHref(Url::fromRoute('entity.taxonomy_term.delete_form', ['taxonomy_term' => $published_terms[$delta]->id()])->setOption('query', [
+          'destination' => Url::fromRoute('entity.taxonomy_vocabulary.overview_form', ['taxonomy_vocabulary' => $vocabulary->id()])->toString(),
+        ])->toString());
+
+        $this->assertNoLinkByEndOfHref(Url::fromRoute('entity.taxonomy_term.edit_form', ['taxonomy_term' => $unpublished_terms[$delta]->id()])->setOption('query', [
+          'destination' => Url::fromRoute('entity.taxonomy_vocabulary.overview_form', ['taxonomy_vocabulary' => $vocabulary->id()])->toString(),
+        ])->toString());
+        $this->assertNoLinkByEndOfHref(Url::fromRoute('entity.taxonomy_term.delete_form', ['taxonomy_term' => $unpublished_terms[$delta]->id()])->setOption('query', [
+          'destination' => Url::fromRoute('entity.taxonomy_vocabulary.overview_form', ['taxonomy_vocabulary' => $vocabulary->id()])->toString(),
+        ])->toString());
+
+        $assert_session->pageTextContains(t('Add term'));
+        $this->assertLinkByEndOfHref(Url::fromRoute('entity.taxonomy_term.add_form', ['taxonomy_vocabulary' => $vocabulary->id()])->toString());
+      }
+      else {
+        $assert_session->statusCodeEquals(403);
+      }
 
       $this->drupalGet('admin/structure/taxonomy/manage/' . $vocabulary->id() . '/reset');
       $assert_session->statusCodeEquals(403);
@@ -463,12 +463,7 @@ class VocabularyAccessTest extends TaxonomyTestBase {
       $assert_session->statusCodeEquals(403);
 
       $this->drupalGet('admin/structure/taxonomy/manage/' . $vocabulary->id() . '/reset');
-      if ($delta === 0) {
-        $assert_session->statusCodeEquals(200);
-      }
-      else {
-        $assert_session->statusCodeEquals(403);
-      }
+      $assert_session->statusCodeEquals(403);
     }
 
     $this->drupalLogin($this->users['overview_and_reorder_first_vocabulary']);
@@ -504,12 +499,7 @@ class VocabularyAccessTest extends TaxonomyTestBase {
       }
 
       $this->drupalGet('admin/structure/taxonomy/manage/' . $vocabulary->id() . '/reset');
-      if ($delta === 0) {
-        $assert_session->statusCodeEquals(200);
-      }
-      else {
-        $assert_session->statusCodeEquals(403);
-      }
+      $assert_session->statusCodeEquals(403);
     }
 
     $this->drupalLogin($this->users['view_first_vocabulary']);
@@ -558,9 +548,9 @@ class VocabularyAccessTest extends TaxonomyTestBase {
     // Test the per vocabulary 'access taxonomy overview' permission.
     $this->drupalLogin($this->users['overview']);
     foreach ($this->vocabularies as $delta => $vocabulary) {
-      $this->assertVocabularyAccess($vocabulary, 'view', TRUE);
-      $this->assertVocabularyAccess($vocabulary, 'access taxonomy overview', TRUE);
-      $this->assertVocabularyAccess($vocabulary, 'reorder_terms', FALSE, "The 'administer taxonomy' permission is required.");
+      $this->assertVocabularyAccess($vocabulary, 'view', FALSE, "The 'access taxonomy overview' and one of the 'create terms in {$vocabulary->id()}', 'delete terms in {$vocabulary->id()}', 'edit terms in {$vocabulary->id()}', 'reorder terms in {$vocabulary->id()}' permissions OR the 'administer taxonomy' permission are required.");
+      $this->assertVocabularyAccess($vocabulary, 'access taxonomy overview', FALSE, "The 'access taxonomy overview' and one of the 'create terms in {$vocabulary->id()}', 'delete terms in {$vocabulary->id()}', 'edit terms in {$vocabulary->id()}', 'reorder terms in {$vocabulary->id()}' permissions OR the 'administer taxonomy' permission are required.");
+      $this->assertVocabularyAccess($vocabulary, 'reorder_terms', FALSE, "The 'reorder terms in {$vocabulary->id()}' OR the 'administer taxonomy' permission is required.");
       $this->assertVocabularyAccess($vocabulary, 'create', FALSE, "The 'administer taxonomy' permission is required.");
       $this->assertVocabularyAccess($vocabulary, 'update', FALSE, "The 'administer taxonomy' permission is required.");
       $this->assertVocabularyAccess($vocabulary, 'delete', FALSE, "The 'administer taxonomy' permission is required.");
@@ -569,19 +559,9 @@ class VocabularyAccessTest extends TaxonomyTestBase {
     // Test the per vocabulary 'create terms in' permission.
     $this->drupalLogin($this->users['create_first_vocabulary']);
     foreach ($this->vocabularies as $delta => $vocabulary) {
-      $this->assertVocabularyAccess($vocabulary, 'view', FALSE, "The following permissions are required: 'access taxonomy overview' OR 'administer taxonomy'.");
-      $this->assertVocabularyAccess($vocabulary, 'access taxonomy overview', FALSE, "The following permissions are required: 'access taxonomy overview' OR 'administer taxonomy'.");
-      $this->assertVocabularyAccess($vocabulary, 'reorder_terms', FALSE, "The 'administer taxonomy' permission is required.");
-      $this->assertVocabularyAccess($vocabulary, 'create', FALSE, "The 'administer taxonomy' permission is required.");
-      $this->assertVocabularyAccess($vocabulary, 'update', FALSE, "The 'administer taxonomy' permission is required.");
-      $this->assertVocabularyAccess($vocabulary, 'delete', FALSE, "The 'administer taxonomy' permission is required.");
-    }
-
-    $this->drupalLogin($this->users['overview_and_add_first_vocabulary']);
-    foreach ($this->vocabularies as $delta => $vocabulary) {
-      $this->assertVocabularyAccess($vocabulary, 'view', TRUE);
-      $this->assertVocabularyAccess($vocabulary, 'access taxonomy overview', TRUE);
-      $this->assertVocabularyAccess($vocabulary, 'reorder_terms', FALSE, "The 'administer taxonomy' permission is required.");
+      $this->assertVocabularyAccess($vocabulary, 'view', FALSE, "The 'access taxonomy overview' and one of the 'create terms in {$vocabulary->id()}', 'delete terms in {$vocabulary->id()}', 'edit terms in {$vocabulary->id()}', 'reorder terms in {$vocabulary->id()}' permissions OR the 'administer taxonomy' permission are required.");
+      $this->assertVocabularyAccess($vocabulary, 'access taxonomy overview', FALSE, "The 'access taxonomy overview' and one of the 'create terms in {$vocabulary->id()}', 'delete terms in {$vocabulary->id()}', 'edit terms in {$vocabulary->id()}', 'reorder terms in {$vocabulary->id()}' permissions OR the 'administer taxonomy' permission are required.");
+      $this->assertVocabularyAccess($vocabulary, 'reorder_terms', FALSE, "The 'reorder terms in {$vocabulary->id()}' OR the 'administer taxonomy' permission is required.");
       $this->assertVocabularyAccess($vocabulary, 'create', FALSE, "The 'administer taxonomy' permission is required.");
       $this->assertVocabularyAccess($vocabulary, 'update', FALSE, "The 'administer taxonomy' permission is required.");
       $this->assertVocabularyAccess($vocabulary, 'delete', FALSE, "The 'administer taxonomy' permission is required.");
@@ -589,9 +569,15 @@ class VocabularyAccessTest extends TaxonomyTestBase {
 
     $this->drupalLogin($this->users['overview_and_create_first_vocabulary']);
     foreach ($this->vocabularies as $delta => $vocabulary) {
-      $this->assertVocabularyAccess($vocabulary, 'view', TRUE);
-      $this->assertVocabularyAccess($vocabulary, 'access taxonomy overview', TRUE);
-      $this->assertVocabularyAccess($vocabulary, 'reorder_terms', FALSE, "The 'administer taxonomy' permission is required.");
+      if ($delta === 0) {
+        $this->assertVocabularyAccess($vocabulary, 'view', TRUE);
+        $this->assertVocabularyAccess($vocabulary, 'access taxonomy overview', TRUE);
+      }
+      else {
+        $this->assertVocabularyAccess($vocabulary, 'view', FALSE, "The 'access taxonomy overview' and one of the 'create terms in {$vocabulary->id()}', 'delete terms in {$vocabulary->id()}', 'edit terms in {$vocabulary->id()}', 'reorder terms in {$vocabulary->id()}' permissions OR the 'administer taxonomy' permission are required.");
+        $this->assertVocabularyAccess($vocabulary, 'access taxonomy overview', FALSE, "The 'access taxonomy overview' and one of the 'create terms in {$vocabulary->id()}', 'delete terms in {$vocabulary->id()}', 'edit terms in {$vocabulary->id()}', 'reorder terms in {$vocabulary->id()}' permissions OR the 'administer taxonomy' permission are required.");
+      }
+      $this->assertVocabularyAccess($vocabulary, 'reorder_terms', FALSE, "The 'reorder terms in {$vocabulary->id()}' OR the 'administer taxonomy' permission is required.");
       $this->assertVocabularyAccess($vocabulary, 'create', FALSE, "The 'administer taxonomy' permission is required.");
       $this->assertVocabularyAccess($vocabulary, 'update', FALSE, "The 'administer taxonomy' permission is required.");
       $this->assertVocabularyAccess($vocabulary, 'delete', FALSE, "The 'administer taxonomy' permission is required.");
@@ -600,18 +586,24 @@ class VocabularyAccessTest extends TaxonomyTestBase {
     // Test the per vocabulary 'update terms in' permission.
     $this->drupalLogin($this->users['update_first_vocabulary']);
     foreach ($this->vocabularies as $delta => $vocabulary) {
-      $this->assertVocabularyAccess($vocabulary, 'view', FALSE, "The following permissions are required: 'access taxonomy overview' OR 'administer taxonomy'.");
-      $this->assertVocabularyAccess($vocabulary, 'access taxonomy overview', FALSE, "The following permissions are required: 'access taxonomy overview' OR 'administer taxonomy'.");
-      $this->assertVocabularyAccess($vocabulary, 'reorder_terms', FALSE, "The 'administer taxonomy' permission is required.");
+      $this->assertVocabularyAccess($vocabulary, 'view', FALSE, "The 'access taxonomy overview' and one of the 'create terms in {$vocabulary->id()}', 'delete terms in {$vocabulary->id()}', 'edit terms in {$vocabulary->id()}', 'reorder terms in {$vocabulary->id()}' permissions OR the 'administer taxonomy' permission are required.");
+      $this->assertVocabularyAccess($vocabulary, 'access taxonomy overview', FALSE, "The 'access taxonomy overview' and one of the 'create terms in {$vocabulary->id()}', 'delete terms in {$vocabulary->id()}', 'edit terms in {$vocabulary->id()}', 'reorder terms in {$vocabulary->id()}' permissions OR the 'administer taxonomy' permission are required.");
+      $this->assertVocabularyAccess($vocabulary, 'reorder_terms', FALSE, "The 'reorder terms in {$vocabulary->id()}' OR the 'administer taxonomy' permission is required.");
       $this->assertVocabularyAccess($vocabulary, 'create', FALSE, "The 'administer taxonomy' permission is required.");
       $this->assertVocabularyAccess($vocabulary, 'update', FALSE, "The 'administer taxonomy' permission is required.");
       $this->assertVocabularyAccess($vocabulary, 'delete', FALSE, "The 'administer taxonomy' permission is required.");
     }
     $this->drupalLogin($this->users['overview_and_update_first_vocabulary']);
     foreach ($this->vocabularies as $delta => $vocabulary) {
-      $this->assertVocabularyAccess($vocabulary, 'view', TRUE);
-      $this->assertVocabularyAccess($vocabulary, 'access taxonomy overview', TRUE);
-      $this->assertVocabularyAccess($vocabulary, 'reorder_terms', FALSE, "The 'administer taxonomy' permission is required.");
+      if ($delta === 0) {
+        $this->assertVocabularyAccess($vocabulary, 'view', TRUE);
+        $this->assertVocabularyAccess($vocabulary, 'access taxonomy overview', TRUE);
+      }
+      else {
+        $this->assertVocabularyAccess($vocabulary, 'view', FALSE, "The 'access taxonomy overview' and one of the 'create terms in {$vocabulary->id()}', 'delete terms in {$vocabulary->id()}', 'edit terms in {$vocabulary->id()}', 'reorder terms in {$vocabulary->id()}' permissions OR the 'administer taxonomy' permission are required.");
+        $this->assertVocabularyAccess($vocabulary, 'access taxonomy overview', FALSE, "The 'access taxonomy overview' and one of the 'create terms in {$vocabulary->id()}', 'delete terms in {$vocabulary->id()}', 'edit terms in {$vocabulary->id()}', 'reorder terms in {$vocabulary->id()}' permissions OR the 'administer taxonomy' permission are required.");
+      }
+      $this->assertVocabularyAccess($vocabulary, 'reorder_terms', FALSE, "The 'reorder terms in {$vocabulary->id()}' OR the 'administer taxonomy' permission is required.");
       $this->assertVocabularyAccess($vocabulary, 'create', FALSE, "The 'administer taxonomy' permission is required.");
       $this->assertVocabularyAccess($vocabulary, 'update', FALSE, "The 'administer taxonomy' permission is required.");
       $this->assertVocabularyAccess($vocabulary, 'delete', FALSE, "The 'administer taxonomy' permission is required.");
@@ -620,18 +612,24 @@ class VocabularyAccessTest extends TaxonomyTestBase {
     // Test the per vocabulary 'delete terms in' permission.
     $this->drupalLogin($this->users['delete_first_vocabulary']);
     foreach ($this->vocabularies as $delta => $vocabulary) {
-      $this->assertVocabularyAccess($vocabulary, 'view', FALSE, "The following permissions are required: 'access taxonomy overview' OR 'administer taxonomy'.");
-      $this->assertVocabularyAccess($vocabulary, 'access taxonomy overview', FALSE, "The following permissions are required: 'access taxonomy overview' OR 'administer taxonomy'.");
-      $this->assertVocabularyAccess($vocabulary, 'reorder_terms', FALSE, "The 'administer taxonomy' permission is required.");
+      $this->assertVocabularyAccess($vocabulary, 'view', FALSE, "The 'access taxonomy overview' and one of the 'create terms in {$vocabulary->id()}', 'delete terms in {$vocabulary->id()}', 'edit terms in {$vocabulary->id()}', 'reorder terms in {$vocabulary->id()}' permissions OR the 'administer taxonomy' permission are required.");
+      $this->assertVocabularyAccess($vocabulary, 'access taxonomy overview', FALSE, "The 'access taxonomy overview' and one of the 'create terms in {$vocabulary->id()}', 'delete terms in {$vocabulary->id()}', 'edit terms in {$vocabulary->id()}', 'reorder terms in {$vocabulary->id()}' permissions OR the 'administer taxonomy' permission are required.");
+      $this->assertVocabularyAccess($vocabulary, 'reorder_terms', FALSE, "The 'reorder terms in {$vocabulary->id()}' OR the 'administer taxonomy' permission is required.");
       $this->assertVocabularyAccess($vocabulary, 'create', FALSE, "The 'administer taxonomy' permission is required.");
       $this->assertVocabularyAccess($vocabulary, 'update', FALSE, "The 'administer taxonomy' permission is required.");
       $this->assertVocabularyAccess($vocabulary, 'delete', FALSE, "The 'administer taxonomy' permission is required.");
     }
     $this->drupalLogin($this->users['overview_and_delete_first_vocabulary']);
     foreach ($this->vocabularies as $delta => $vocabulary) {
-      $this->assertVocabularyAccess($vocabulary, 'view', TRUE);
-      $this->assertVocabularyAccess($vocabulary, 'access taxonomy overview', TRUE);
-      $this->assertVocabularyAccess($vocabulary, 'reorder_terms', FALSE, "The 'administer taxonomy' permission is required.");
+      if ($delta === 0) {
+        $this->assertVocabularyAccess($vocabulary, 'view', TRUE);
+        $this->assertVocabularyAccess($vocabulary, 'access taxonomy overview', TRUE);
+      }
+      else {
+        $this->assertVocabularyAccess($vocabulary, 'view', FALSE, "The 'access taxonomy overview' and one of the 'create terms in {$vocabulary->id()}', 'delete terms in {$vocabulary->id()}', 'edit terms in {$vocabulary->id()}', 'reorder terms in {$vocabulary->id()}' permissions OR the 'administer taxonomy' permission are required.");
+        $this->assertVocabularyAccess($vocabulary, 'access taxonomy overview', FALSE, "The 'access taxonomy overview' and one of the 'create terms in {$vocabulary->id()}', 'delete terms in {$vocabulary->id()}', 'edit terms in {$vocabulary->id()}', 'reorder terms in {$vocabulary->id()}' permissions OR the 'administer taxonomy' permission are required.");
+      }
+      $this->assertVocabularyAccess($vocabulary, 'reorder_terms', FALSE, "The 'reorder terms in {$vocabulary->id()}' OR the 'administer taxonomy' permission is required.");
       $this->assertVocabularyAccess($vocabulary, 'create', FALSE, "The 'administer taxonomy' permission is required.");
       $this->assertVocabularyAccess($vocabulary, 'update', FALSE, "The 'administer taxonomy' permission is required.");
       $this->assertVocabularyAccess($vocabulary, 'delete', FALSE, "The 'administer taxonomy' permission is required.");
@@ -640,18 +638,18 @@ class VocabularyAccessTest extends TaxonomyTestBase {
     // Test the per vocabulary 'view terms in' permission.
     $this->drupalLogin($this->users['view_first_vocabulary']);
     foreach ($this->vocabularies as $delta => $vocabulary) {
-      $this->assertVocabularyAccess($vocabulary, 'view', FALSE, "The following permissions are required: 'access taxonomy overview' OR 'administer taxonomy'.");
-      $this->assertVocabularyAccess($vocabulary, 'access taxonomy overview', FALSE, "The following permissions are required: 'access taxonomy overview' OR 'administer taxonomy'.");
-      $this->assertVocabularyAccess($vocabulary, 'reorder_terms', FALSE, "The 'administer taxonomy' permission is required.");
+      $this->assertVocabularyAccess($vocabulary, 'view', FALSE, "The 'access taxonomy overview' and one of the 'create terms in {$vocabulary->id()}', 'delete terms in {$vocabulary->id()}', 'edit terms in {$vocabulary->id()}', 'reorder terms in {$vocabulary->id()}' permissions OR the 'administer taxonomy' permission are required.");
+      $this->assertVocabularyAccess($vocabulary, 'access taxonomy overview', FALSE, "The 'access taxonomy overview' and one of the 'create terms in {$vocabulary->id()}', 'delete terms in {$vocabulary->id()}', 'edit terms in {$vocabulary->id()}', 'reorder terms in {$vocabulary->id()}' permissions OR the 'administer taxonomy' permission are required.");
+      $this->assertVocabularyAccess($vocabulary, 'reorder_terms', FALSE, "The 'reorder terms in {$vocabulary->id()}' OR the 'administer taxonomy' permission is required.");
       $this->assertVocabularyAccess($vocabulary, 'create', FALSE, "The 'administer taxonomy' permission is required.");
       $this->assertVocabularyAccess($vocabulary, 'update', FALSE, "The 'administer taxonomy' permission is required.");
       $this->assertVocabularyAccess($vocabulary, 'delete', FALSE, "The 'administer taxonomy' permission is required.");
     }
     $this->drupalLogin($this->users['overview_and_view_first_vocabulary']);
     foreach ($this->vocabularies as $delta => $vocabulary) {
-      $this->assertVocabularyAccess($vocabulary, 'view', TRUE);
-      $this->assertVocabularyAccess($vocabulary, 'access taxonomy overview', TRUE);
-      $this->assertVocabularyAccess($vocabulary, 'reorder_terms', FALSE, "The 'administer taxonomy' permission is required.");
+      $this->assertVocabularyAccess($vocabulary, 'view', FALSE, "The 'access taxonomy overview' and one of the 'create terms in {$vocabulary->id()}', 'delete terms in {$vocabulary->id()}', 'edit terms in {$vocabulary->id()}', 'reorder terms in {$vocabulary->id()}' permissions OR the 'administer taxonomy' permission are required.");
+      $this->assertVocabularyAccess($vocabulary, 'access taxonomy overview', FALSE, "The 'access taxonomy overview' and one of the 'create terms in {$vocabulary->id()}', 'delete terms in {$vocabulary->id()}', 'edit terms in {$vocabulary->id()}', 'reorder terms in {$vocabulary->id()}' permissions OR the 'administer taxonomy' permission are required.");
+      $this->assertVocabularyAccess($vocabulary, 'reorder_terms', FALSE, "The 'reorder terms in {$vocabulary->id()}' OR the 'administer taxonomy' permission is required.");
       $this->assertVocabularyAccess($vocabulary, 'create', FALSE, "The 'administer taxonomy' permission is required.");
       $this->assertVocabularyAccess($vocabulary, 'update', FALSE, "The 'administer taxonomy' permission is required.");
       $this->assertVocabularyAccess($vocabulary, 'delete', FALSE, "The 'administer taxonomy' permission is required.");
@@ -660,18 +658,30 @@ class VocabularyAccessTest extends TaxonomyTestBase {
     // Test the per vocabulary 'reorder terms in' permission.
     $this->drupalLogin($this->users['reorder_first_vocabulary']);
     foreach ($this->vocabularies as $delta => $vocabulary) {
-      $this->assertVocabularyAccess($vocabulary, 'view', FALSE, "The following permissions are required: 'access taxonomy overview' OR 'administer taxonomy'.");
-      $this->assertVocabularyAccess($vocabulary, 'access taxonomy overview', FALSE, "The following permissions are required: 'access taxonomy overview' OR 'administer taxonomy'.");
-      $this->assertVocabularyAccess($vocabulary, 'reorder_terms', FALSE, "The 'administer taxonomy' permission is required.");
+      $this->assertVocabularyAccess($vocabulary, 'view', FALSE, "The 'access taxonomy overview' and one of the 'create terms in {$vocabulary->id()}', 'delete terms in {$vocabulary->id()}', 'edit terms in {$vocabulary->id()}', 'reorder terms in {$vocabulary->id()}' permissions OR the 'administer taxonomy' permission are required.");
+      $this->assertVocabularyAccess($vocabulary, 'access taxonomy overview', FALSE, "The 'access taxonomy overview' and one of the 'create terms in {$vocabulary->id()}', 'delete terms in {$vocabulary->id()}', 'edit terms in {$vocabulary->id()}', 'reorder terms in {$vocabulary->id()}' permissions OR the 'administer taxonomy' permission are required.");
+      if ($delta === 0) {
+        $this->assertVocabularyAccess($vocabulary, 'reorder_terms', TRUE);
+      }
+      else {
+        $this->assertVocabularyAccess($vocabulary, 'reorder_terms', FALSE, "The 'reorder terms in {$vocabulary->id()}' OR the 'administer taxonomy' permission is required.");
+      }
       $this->assertVocabularyAccess($vocabulary, 'create', FALSE, "The 'administer taxonomy' permission is required.");
       $this->assertVocabularyAccess($vocabulary, 'update', FALSE, "The 'administer taxonomy' permission is required.");
       $this->assertVocabularyAccess($vocabulary, 'delete', FALSE, "The 'administer taxonomy' permission is required.");
     }
     $this->drupalLogin($this->users['overview_and_reorder_first_vocabulary']);
     foreach ($this->vocabularies as $delta => $vocabulary) {
-      $this->assertVocabularyAccess($vocabulary, 'view', TRUE);
-      $this->assertVocabularyAccess($vocabulary, 'access taxonomy overview', TRUE);
-      $this->assertVocabularyAccess($vocabulary, 'reorder_terms', FALSE, "The 'administer taxonomy' permission is required.");
+      if ($delta === 0) {
+        $this->assertVocabularyAccess($vocabulary, 'view', TRUE);
+        $this->assertVocabularyAccess($vocabulary, 'access taxonomy overview', TRUE);
+        $this->assertVocabularyAccess($vocabulary, 'reorder_terms', TRUE);
+      }
+      else {
+        $this->assertVocabularyAccess($vocabulary, 'view', FALSE, "The 'access taxonomy overview' and one of the 'create terms in {$vocabulary->id()}', 'delete terms in {$vocabulary->id()}', 'edit terms in {$vocabulary->id()}', 'reorder terms in {$vocabulary->id()}' permissions OR the 'administer taxonomy' permission are required.");
+        $this->assertVocabularyAccess($vocabulary, 'access taxonomy overview', FALSE, "The 'access taxonomy overview' and one of the 'create terms in {$vocabulary->id()}', 'delete terms in {$vocabulary->id()}', 'edit terms in {$vocabulary->id()}', 'reorder terms in {$vocabulary->id()}' permissions OR the 'administer taxonomy' permission are required.");
+        $this->assertVocabularyAccess($vocabulary, 'reorder_terms', FALSE, "The 'reorder terms in {$vocabulary->id()}' OR the 'administer taxonomy' permission is required.");
+      }
       $this->assertVocabularyAccess($vocabulary, 'create', FALSE, "The 'administer taxonomy' permission is required.");
       $this->assertVocabularyAccess($vocabulary, 'update', FALSE, "The 'administer taxonomy' permission is required.");
       $this->assertVocabularyAccess($vocabulary, 'delete', FALSE, "The 'administer taxonomy' permission is required.");

@@ -6,7 +6,7 @@ core: 8.x
 core_version_requirement: ^8 || ^9
 configure: google_analytics_reports_api.settings
 
-# Information added by Drupal.org packaging script on 2020-06-10
-version: '8.x-3.0-rc2'
+# Information added by Drupal.org packaging script on 2020-07-16
+version: '8.x-3.0-rc3'
 project: 'google_analytics_reports'
-datestamp: 1591782208
+datestamp: 1594893537
