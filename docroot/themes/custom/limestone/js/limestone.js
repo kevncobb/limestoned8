@@ -16,36 +16,7 @@
       $(context).find('.lc-callout right').prepend( "<span class='watermark right'>&nbsp;</span>" );
     }
   };
-  Drupal.behaviors.lc_sticky = {
-    attach: function(context) {
-      // Open/close the menu on mobile. The slideToggle() styles are overriden
-      // in CSS for big devices.
-      $('.guide--menu-trigger', context).on('click', function(e) {
-        $('.guide--menu').toggleClass('open');
-        $('.guide--menu-content', context).slideToggle('fast');
-      });
 
-      // Initialize the Stickybits jQuery plugin.
-      $('.sidebar.sticky').stickybits({ stickyBitStickyOffset: 50 });
-
-      // Add smooth scrolling to all Guide menu links.
-      $('.side-submenu a.menu-item', context).on('click', function(e) {
-        // Make sure this.hash has a value before overriding default behavior.
-        if (this.hash !== "") {
-          e.preventDefault();
-          // Store hash
-          var hash = this.hash;
-          // Add smooth page scroll.
-          $('html, body').animate({
-            scrollTop: $(hash).offset().top
-          }, 800, function(){
-            // Add hash (#) to URL when done scrolling.
-            window.location.hash = hash;
-          });
-        }
-      });
-    }
-  };
   Drupal.behaviors.flyout = {
     attach: function (context, settings) {
       // Using once() to apply the myCustomBehaviour effect when you want to do just run one function.
