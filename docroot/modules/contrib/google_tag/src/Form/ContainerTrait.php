@@ -4,24 +4,7 @@ namespace Drupal\google_tag\Form;
 
 use Drupal\Core\Form\FormStateInterface;
 
-/**
- * Defines shared routines for the container and settings forms.
- */
 trait ContainerTrait {
-
-  /**
-   * The container entity.
-   *
-   * @var \Drupal\google_tag\Entity\Container
-   */
-  protected $container;
-
-  /**
-   * The property prefix that allows reuse by container and settings forms.
-   *
-   * @var string
-   */
-  protected $prefix;
 
   /**
    * Fieldset builder for the container settings form.
@@ -132,17 +115,17 @@ trait ContainerTrait {
   public function pathFieldset(FormStateInterface &$form_state) {
     $fieldset_title = $this->t('Request path');
     $fieldset_description = $this->t('On this and the following tabs, specify the conditions on which the GTM JavaScript snippet will either be inserted on or omitted from the page response, thereby enabling or disabling tracking and other analytics. All conditions must be satisfied for the snippet to be inserted. The snippet will be omitted if any condition is not met.');
-    $args = [
+    $args = array(
       '%node' => '/node',
       '%user-wildcard' => '/user/*',
       '%front' => '<front>',
-    ];
+    );
     $description = $this->t('Enter one relative path per line using the "*" character as a wildcard. Example paths are: "%node" for the node page, "%user-wildcard" for each individual user, and "%front" for the front page.', $args);
     $rows = 10;
     $singular = 'path';
     $plural = 'paths';
     $adjective = 'listed';
-    $config = compact(['fieldset_title', 'fieldset_description', 'singular', 'plural', 'adjective', 'description', 'rows']);
+    $config = compact(array('fieldset_title', 'fieldset_description', 'singular', 'plural', 'adjective', 'description', 'rows'));
     return $this->genericFieldset($config, $form_state);
   }
 
@@ -156,7 +139,7 @@ trait ContainerTrait {
     $options = array_map(function ($role) {
       return $role->label();
     }, user_roles());
-    $config = compact(['fieldset_title', 'singular', 'plural', 'options']);
+    $config = compact(array('fieldset_title', 'singular', 'plural', 'options'));
     return $this->genericFieldset($config, $form_state);
   }
 
@@ -170,7 +153,7 @@ trait ContainerTrait {
     $singular = 'status';
     $plural = 'statuses';
     $adjective = 'listed';
-    $config = compact(['fieldset_title', 'singular', 'plural', 'adjective', 'description', 'rows']);
+    $config = compact(array('fieldset_title', 'singular', 'plural', 'adjective', 'description', 'rows'));
     return $this->genericFieldset($config, $form_state);
   }
 
@@ -181,15 +164,15 @@ trait ContainerTrait {
     $container = $this->container;
 
     // Gather data.
-    $config += ['fieldset_description' => '', 'adjective' => 'selected'];
+    $config += array('fieldset_description' => '', 'adjective' => 'selected');
     extract($config);
     $toggle = "{$singular}_toggle";
     $list = "{$singular}_list";
-    $args = [
+    $args = array(
       '@adjective' => $adjective,
       '@uc_adjective' => ucfirst($adjective),
       '@plural' => $plural,
-    ];
+    );
 
     // Build form elements.
     $fieldset = [
@@ -266,7 +249,7 @@ trait ContainerTrait {
 
     // Specific to the settings form.
     $uri = $form_state->getValue('uri');
-    if (!is_null($uri) && $form['#form_id'] == 'google_tag_settings') {
+    if (!is_null($uri)) {
       $uri = trim($uri);
       $form_state->setValue('uri', $uri);
 
@@ -274,7 +257,7 @@ trait ContainerTrait {
       if (substr($directory, -3) == '://') {
         $args = ['%directory' => $directory];
         $message = 'The snippet parent uri %directory is invalid. Enter a single trailing slash to specify a plain stream wrapper.';
-        $form_state->setError($form['module']['uri'], $this->t($message, $args));
+        $form_state->setError($form['settings']['uri'], $this->t($message, $args));
       }
 
       // Allow for a plain stream wrapper with one trailing slash.
@@ -282,7 +265,7 @@ trait ContainerTrait {
       if (!is_dir($directory) || !_google_tag_is_writable($directory) || !_google_tag_is_executable($directory)) {
         $args = ['%directory' => $directory];
         $message = 'The snippet parent uri %directory is invalid, possibly due to file system permissions. The directory either does not exist, or is not writable or searchable.';
-        $form_state->setError($form['module']['uri'], $this->t($message, $args));
+        $form_state->setError($form['settings']['uri'], $this->t($message, $args));
       }
     }
 

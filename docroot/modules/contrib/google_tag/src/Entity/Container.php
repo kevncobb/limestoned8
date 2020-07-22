@@ -6,6 +6,7 @@ use Drupal\Component\Render\FormattableMarkup;
 use Drupal\Core\Condition\ConditionPluginCollection;
 use Drupal\Core\Config\Entity\ConfigEntityBase;
 use Drupal\Core\Config\Entity\ConfigEntityInterface;
+use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Entity\EntityWithPluginCollectionInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 
@@ -14,10 +15,7 @@ use Drupal\Core\StringTranslation\StringTranslationTrait;
  *
  * @ConfigEntityType(
  *   id = "google_tag_container",
- *   label = @Translation("Container"),
- *   label_singular = @Translation("container"),
- *   label_plural = @Translation("containers"),
- *   label_collection = @Translation("Containers"),
+ *   label = @Translation("Container configuration"),
  *   handlers = {
  *     "storage" = "Drupal\Core\Config\Entity\ConfigEntityStorage",
  *     "list_builder" = "Drupal\google_tag\ContainerListBuilder",
@@ -279,6 +277,13 @@ EOS;
     if ($compact) {
       $script = str_replace(["\n", '  '], '', $script);
     }
+/*
+    $script = <<<EOS
+<!-- Google Tag Manager -->
+$script
+<!-- End Google Tag Manager -->
+EOS;
+*/
     return $script;
   }
 
@@ -302,6 +307,13 @@ EOS;
     if ($compact) {
       $noscript = str_replace("\n", '', $noscript);
     }
+/*
+    $noscript = <<<EOS
+<!-- Google Tag Manager -->
+$noscript
+<!-- End Google Tag Manager -->
+EOS;
+*/
     return $noscript;
   }
 
@@ -444,7 +456,7 @@ EOS;
     else {
       $request = \Drupal::request();
       $current_path = \Drupal::service('path.current');
-      $alias_manager = \Drupal::service('path_alias.manager');
+      $alias_manager = \Drupal::service('path.alias_manager');
       $path_matcher = \Drupal::service('path.matcher');
       // @todo Are not some paths case sensitive???
       // Compare the lowercase path alias (if any) and internal path.

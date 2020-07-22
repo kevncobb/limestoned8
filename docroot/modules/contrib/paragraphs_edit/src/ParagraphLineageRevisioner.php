@@ -8,9 +8,6 @@ use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Entity\RevisionableEntityBundleInterface;
 use Drupal\paragraphs\ParagraphInterface;
 
-/**
- * ParagraphLineageRevisioner class.
- */
 class ParagraphLineageRevisioner {
 
   protected $lineageInspector;
@@ -26,9 +23,7 @@ class ParagraphLineageRevisioner {
    * Construct a new ParagraphLineageRevisioner object.
    *
    * @param \Drupal\paragraphs_edit\ParagraphLineageInspector $lineage_inspector
-   *   Provides paragraphs_edit.lineage.inspector service.
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
-   *   Provides  service.
    */
   public function __construct(ParagraphLineageInspector $lineage_inspector, EntityTypeManagerInterface $entity_type_manager) {
     $this->lineageInspector = $lineage_inspector;

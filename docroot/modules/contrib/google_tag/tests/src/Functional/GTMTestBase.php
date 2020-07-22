@@ -32,40 +32,11 @@ abstract class GTMTestBase extends BrowserTestBase {
   protected $types = ['script', 'noscript'];
 
   /**
-   * The snippet base URI.
-   *
-   * @var string
-   */
-  protected $basePath;
-
-  /**
-   * The admin user.
-   *
-   * @var \Drupal\user\Entity\User
-   */
-  protected $adminUser;
-
-  /**
-   * The non-admin user.
-   *
-   * @var \Drupal\user\Entity\User
-   */
-  protected $nonAdminUser;
-
-  /**
-   * The test variables.
-   *
-   * @var array
-   */
-  protected $variables = [];
-
-  /**
    * {@inheritdoc}
    */
   protected function setUp() {
-    $this->defaultTheme = 'stark';
     parent::setUp();
-    $this->basePath = $this->config('google_tag.settings')->get('uri');
+    $this->basePath = \Drupal::config('google_tag.settings')->get('uri');
   }
 
   /**
@@ -86,7 +57,7 @@ abstract class GTMTestBase extends BrowserTestBase {
       $this->checkSnippetFiles();
       $this->checkPageResponse();
     }
-    catch (\Exception $e) {
+    catch (Exception $e) {
       parent::assertTrue(TRUE, t('Inside CATCH block'));
       watchdog_exception('gtm_test', $e);
     }
@@ -101,7 +72,7 @@ abstract class GTMTestBase extends BrowserTestBase {
   protected function modifySettings() {
     // Modify default settings.
     // These should propagate to each container created in test.
-    $config = $this->config('google_tag.settings');
+    $config = \Drupal::service('config.factory')->getEditable('google_tag.settings');
     $settings = $config->get();
     unset($settings['_core']);
     $settings['flush_snippets'] = 1;
@@ -148,7 +119,7 @@ abstract class GTMTestBase extends BrowserTestBase {
       $container->save();
 
       // Create snippet files.
-      $manager = $this->container->get('google_tag.container_manager');
+      $manager = \Drupal::service('google_tag.container_manager');
       $manager->createAssets($container);
     }
   }
@@ -159,13 +130,13 @@ abstract class GTMTestBase extends BrowserTestBase {
   protected function deleteContainers() {
     // Delete containers.
     foreach ($this->variables as $key => $variables) {
-      // Also exposed as \Drupal::entityTypeManager().
-      $container = $this->container->get('entity_type.manager')->getStorage('google_tag_container')->load($key);
+      // also \Drupal::entityTypeManager()
+      $container = \Drupal::service('entity_type.manager')->getStorage('google_tag_container')->load($key);
       $container->delete();
     }
 
     // Confirm no containers.
-    $manager = $this->container->get('google_tag.container_manager');
+    $manager = \Drupal::service('google_tag.container_manager');
     $ids = $manager->loadContainerIDs();
     $message = 'No containers found after delete';
     parent::assertTrue(empty($ids), $message);
@@ -173,11 +144,11 @@ abstract class GTMTestBase extends BrowserTestBase {
     // @todo Next statement will not delete files as containers are gone.
     // $manager->createAllAssets();
     // Delete snippet files.
-    $directory = $this->config('google_tag.settings')->get('uri');
-    if ($this->config('google_tag.settings')->get('flush_snippets')) {
+    $directory = \Drupal::config('google_tag.settings')->get('uri');
+    if (\Drupal::config('google_tag.settings')->get('flush_snippets')) {
       if (!empty($directory)) {
         // Remove any stale files (e.g. module update or machine name change).
-        $this->container->get('file_system')->deleteRecursive($directory . '/google_tag');
+        \Drupal::service('file_system')->deleteRecursive($directory . '/google_tag');
       }
     }
 
@@ -197,14 +168,15 @@ abstract class GTMTestBase extends BrowserTestBase {
       $this->drupalPostForm('/admin/config/system/google-tag/add', $edit, 'Save');
 
       $text = 'Created @count snippet files for %container container based on configuration.';
-      $args = ['@count' => 3, '%container' => $variables->label];
+      $args = array('@count' => 3, '%container' => $variables->label);
       $text = t($text, $args);
-      $this->assertSession()->responseContains($text);
+      $message = 'Found snippet confirmation message in page response';
+      $this->assertRaw($text, $message);
 
       $text = 'Created @count snippet files for @container container based on configuration.';
-      $args = ['@count' => 3, '@container' => $variables->label];
+      $args = array('@count' => 3, '@container' => $variables->label);
       $text = t($text, $args);
-      $this->assertSession()->pageTextContains($text);
+      $this->assertText($text, $message);
     }
   }
 
@@ -265,7 +237,7 @@ abstract class GTMTestBase extends BrowserTestBase {
    * Verify the tag in page response.
    */
   protected function verifyScriptTag($realpath) {
-    $query_string = $this->container->get('state')->get('system.css_js_query_string') ?: '0';
+    $query_string = \Drupal::state()->get('system.css_js_query_string') ?: '0';
     $text = "src=\"$realpath?$query_string\"";
     $this->assertSession()->responseContains($text);
 

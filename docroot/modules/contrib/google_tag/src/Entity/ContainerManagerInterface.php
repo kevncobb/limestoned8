@@ -78,34 +78,4 @@ interface ContainerManagerInterface {
    */
   public function createAllAssets();
 
-  /**
-   * Deletes snippet files for all containers.
-   *
-   * @return bool
-   *   Whether the files were deleted.
-   */
-  public function deleteAllAssets();
-
-  /**
-   * Deletes snippet files for a container.
-   *
-   * @param Drupal\Core\Config\Entity\ConfigEntityInterface $container
-   *   The container configuration entity.
-   *
-   * @return bool
-   *   Whether the files were deleted.
-   */
-  public function deleteAssets(ConfigEntityInterface $container);
-
-  /**
-   * Finds snippet files for a container.
-   *
-   * @param Drupal\Core\Config\Entity\ConfigEntityInterface $container
-   *   The container configuration entity.
-   *
-   * @return bool
-   *   Whether the files were found.
-   */
-  public function findAssets(ConfigEntityInterface $container);
-
 }

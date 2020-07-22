@@ -17,11 +17,7 @@ use Drupal\Core\Config\Entity\ConfigEntityBundleBase;
  *     "id" = "id",
  *     "label" = "label",
  *     "uuid" = "uuid"
- *   },
- *   config_export = {
- *     "id",
- *     "label",
- *   },
+ *   }
  * )
  */
 class OpenApiTestEntityType extends ConfigEntityBundleBase implements OpenApiTestEntityTypeInterface {

@@ -6,12 +6,8 @@
  */
 
 /**
- * @addtogroup google_analytics_reports_api
+ * @addtogroup hooks
  * @{
- *
- *
- *
- * @}
  */
 
 /**
@@ -41,3 +37,7 @@ function hook_google_analytics_reports_api_reported_data_alter(&$name, &$value) 
       break;
   }
 }
+
+/**
+ * @} End of "addtogroup hooks".
+ */

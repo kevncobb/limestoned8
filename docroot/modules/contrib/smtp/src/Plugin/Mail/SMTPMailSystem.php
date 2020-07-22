@@ -13,9 +13,6 @@ use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use PHPMailer\PHPMailer\PHPMailer;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Drupal\Core\Config\ConfigFactoryInterface;
-use Drupal\Core\Session\AccountProxyInterface;
-use Symfony\Component\HttpFoundation\File\MimeType\MimeTypeGuesserInterface;
 
 /**
  * Modify the drupal mail system to use smtp when sending emails.
@@ -57,34 +54,6 @@ class SMTPMailSystem implements MailInterface, ContainerFactoryPluginInterface {
   protected $emailValidator;
 
   /**
-   * The config factory service.
-   *
-   * @var \Drupal\Core\Config\ConfigFactoryInterface
-   */
-  protected $configFactory;
-
-  /**
-   * The curent user service.
-   *
-   * @var \Drupal\Core\Session\AccountProxyInterface
-   */
-  protected $currentUser;
-
-  /**
-   * The File System service.
-   *
-   * @var \Drupal\Core\File\FileSystemInterface
-   */
-  protected $fileSystem;
-
-  /**
-   * The file mime type guesser service.
-   *
-   * @var \Symfony\Component\HttpFoundation\File\MimeType\MimeTypeGuesserInterface
-   */
-  protected $mimeTypeGuesser;
-
-  /**
    * Constructs a SMPTMailSystem object.
    *
    * @param array $configuration
@@ -99,29 +68,17 @@ class SMTPMailSystem implements MailInterface, ContainerFactoryPluginInterface {
    *   The messenger object.
    * @param \Drupal\Component\Utility\EmailValidatorInterface $emailValidator
    *   The messenger object.
-   * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
-   *   The config factory object.
-   * @param \Symfony\Component\HttpFoundation\File\MimeType\MimeTypeGuesserInterface $mime_type_guesser
-   *   The file mime type guesser service.
    */
   public function __construct(array $configuration,
                               $plugin_id,
                               $plugin_definition,
                               LoggerChannelFactoryInterface $logger,
                               Messenger $messenger,
-                              EmailValidatorInterface $emailValidator,
-                              ConfigFactoryInterface $config_factory,
-                              AccountProxyInterface $account,
-                              FileSystemInterface $file_system,
-                              MimeTypeGuesserInterface $mime_type_guesser) {
-    $this->smtpConfig = $config_factory->get('smtp.settings');
+                              EmailValidatorInterface $emailValidator) {
+    $this->smtpConfig = \Drupal::config('smtp.settings');
     $this->logger = $logger;
     $this->messenger = $messenger;
     $this->emailValidator = $emailValidator;
-    $this->configFactory = $config_factory;
-    $this->currentUser = $account;
-    $this->fileSystem = $file_system;
-    $this->mimeTypeGuesser = $mime_type_guesser;
   }
 
   /**
@@ -146,11 +103,7 @@ class SMTPMailSystem implements MailInterface, ContainerFactoryPluginInterface {
       $plugin_definition,
       $container->get('logger.factory'),
       $container->get('messenger'),
-      $container->get('email.validator'),
-      $container->get('config.factory'),
-      $container->get('current_user'),
-      $container->get('file_system'),
-      $container->get('file.mime_type.guesser')
+      $container->get('email.validator')
     );
   }
 
@@ -187,17 +140,12 @@ class SMTPMailSystem implements MailInterface, ContainerFactoryPluginInterface {
    * @return mixed
    *   TRUE if the mail was successfully accepted, otherwise FALSE.
    *
-   * @throws \PHPMailer\PHPMailer\Exception
+   * @throws \Drupal\smtp\Exception\PHPMailerException
    *
    * @see drupal_mail()
    */
   public function mail(array $message) {
     $logger = $this->logger->get('smtp');
-
-    if (!class_exists(PHPMailer::class)) {
-      $logger->error($this->t('Unable to send mail: PHPMailer class was not found.'));
-      return FALSE;
-    }
 
     $to = $message['to'];
     $from = $message['from'];
@@ -211,7 +159,7 @@ class SMTPMailSystem implements MailInterface, ContainerFactoryPluginInterface {
 
     // Turn on debugging, if requested.
     if ($this->smtpConfig->get('smtp_debugging')
-      && $this->currentUser->hasPermission('administer smtp module')) {
+      && \Drupal::currentUser()->hasPermission('administer smtp module')) {
       $mailer->SMTPDebug = TRUE;
     }
 
@@ -236,7 +184,7 @@ class SMTPMailSystem implements MailInterface, ContainerFactoryPluginInterface {
 
     if (empty($from_name)) {
       // If value is not defined in settings, use site_name.
-      $from_name = $this->configFactory->get('system.site')->get('name');
+      $from_name = \Drupal::config('system.site')->get('name');
     }
 
     // Set SMTP module email from.
@@ -560,9 +508,9 @@ class SMTPMailSystem implements MailInterface, ContainerFactoryPluginInterface {
                 $attachment = $body_part;
               }
 
-              $attachment_new_filename = $this->fileSystem->tempnam('temporary://', 'smtp');
+              $attachment_new_filename = \Drupal::service('file_system')->tempnam('temporary://', 'smtp');
               $file_path = file_save_data($attachment, $attachment_new_filename, FileSystemInterface::EXISTS_REPLACE);
-              $real_path = $this->fileSystem->realpath($file_path->uri);
+              $real_path = \Drupal::service('file_system')->realpath($file_path->uri);
 
               if (!$mailer->AddAttachment($real_path, $file_name)) {
                 $this->messenger->addMessage($this->t('Attachment could not be found or accessed.'));
@@ -585,7 +533,7 @@ class SMTPMailSystem implements MailInterface, ContainerFactoryPluginInterface {
         }
         if (isset($attachment['filepath'])) {
           $filename = isset($attachment['filename']) ? $attachment['filename'] : basename($attachment['filepath']);
-          $filemime = isset($attachment['filemime']) ? $attachment['filemime'] : $this->mimeTypeGuesser->guess($attachment['filepath']);
+          $filemime = isset($attachment['filemime']) ? $attachment['filemime'] : file_get_mimetype($attachment['filepath']);
           $mailer->AddAttachment($attachment['filepath'], $filename, 'base64', $filemime);
         }
       }

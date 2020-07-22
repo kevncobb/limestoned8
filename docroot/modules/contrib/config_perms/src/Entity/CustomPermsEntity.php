@@ -23,12 +23,6 @@ use Drupal\config_perms\CustomPermsEntityInterface;
  *     "label" = "label",
  *     "uuid" = "uuid"
  *   },
- *   config_export = {
- *     "id",
- *     "label",
- *     "route",
- *     "status"
- *   },
  *   links = {
  *     "delete-form" = "/admin/structure/custom_perms_entity/{custom_perms_entity}/delete",
  *   }

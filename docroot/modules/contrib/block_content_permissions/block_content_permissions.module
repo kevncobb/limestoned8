@@ -114,11 +114,9 @@ function block_content_permissions_views_query_alter(ViewExecutable $view, Query
       }
 
       // Restrict exposed "type" field options to allowed block content types.
-      if (!empty($view->exposed_widgets['type']['#options'])) {
-        foreach ($view->exposed_widgets['type']['#options'] as $key => $value) {
-          if ($key != 'All' && !in_array($key, $allowedBlockContentTypes)) {
-            unset($view->exposed_widgets['type']['#options'][$key]);
-          }
+      foreach ($view->exposed_widgets['type']['#options'] as $key => $value) {
+        if ($key != 'All' && !in_array($key, $allowedBlockContentTypes)) {
+          unset($view->exposed_widgets['type']['#options'][$key]);
         }
       }
     }

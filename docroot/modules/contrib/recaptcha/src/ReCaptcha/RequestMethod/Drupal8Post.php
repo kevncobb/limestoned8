@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\recaptcha\ReCaptcha\RequestMethod;
+namespace ReCaptcha\RequestMethod;
 
 use ReCaptcha\ReCaptcha;
 use ReCaptcha\RequestMethod;

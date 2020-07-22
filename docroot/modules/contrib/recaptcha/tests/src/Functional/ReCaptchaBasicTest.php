@@ -42,11 +42,6 @@ class ReCaptchaBasicTest extends BrowserTestBase {
   /**
    * {@inheritdoc}
    */
-  protected $defaultTheme = 'stark';
-
-  /**
-   * {@inheritdoc}
-   */
   protected function setUp() {
     parent::setUp();
     module_load_include('inc', 'captcha');

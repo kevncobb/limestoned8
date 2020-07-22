@@ -20,20 +20,19 @@ class MenuAdminPerMenuAccess implements MenuAdminPerMenuAccessInterface {
   public function getPerMenuPermissions(AccountInterface $account) {
     $perms_menu = &drupal_static(__FUNCTION__, []);
 
-    if (!isset($perms_menu[$account->id()])) {
+    if (!$perms_menu) {
       $menus = menu_ui_get_menus();
       foreach ($menus as $name => $title) {
         $permission = 'administer ' . $name . ' menu items';
         if ($account->hasPermission($permission)) {
-          $perms_menu[$account->id()][$permission] = $name;
+          $perms_menu[$permission] = $name;
         }
       }
-      $user_perms_menu = $perms_menu[$account->id()] ?? [];
-      \Drupal::moduleHandler()->alter('menu_admin_per_menu_get_permissions', $user_perms_menu, $account);
-      $perms_menu[$account->id()] = $user_perms_menu;
+      \Drupal::moduleHandler()->alter('menu_admin_per_menu_get_permissions', $perms_menu, $account);
     }
 
-    return $perms_menu[$account->id()] ?? [];
+
+    return $perms_menu;
   }
 
   /**
@@ -67,9 +66,6 @@ class MenuAdminPerMenuAccess implements MenuAdminPerMenuAccessInterface {
    * {@inheritdoc}
    */
   public function menuItemAccess(AccountInterface $account, MenuLinkContent $menu_link_content = NULL) {
-    if (!$menu_link_content instanceof MenuLinkContent) {
-      return AccessResult::neutral();
-    }
     $permission = 'administer ' . $menu_link_content->getMenuName() . ' menu items';
     $permissions = $this::getPerMenuPermissions($account);
     if ($account->hasPermission('administer menu')
@@ -83,9 +79,6 @@ class MenuAdminPerMenuAccess implements MenuAdminPerMenuAccessInterface {
    * {@inheritdoc}
    */
   public function menuLinkAccess(AccountInterface $account, MenuLinkInterface $menu_link_plugin = NULL) {
-    if (!$menu_link_plugin instanceof MenuLinkInterface) {
-      return AccessResult::neutral();
-    }
     $permission = 'administer ' . $menu_link_plugin->getMenuName() . ' menu items';
     $permissions = $this::getPerMenuPermissions($account);
     if ($account->hasPermission('administer menu')

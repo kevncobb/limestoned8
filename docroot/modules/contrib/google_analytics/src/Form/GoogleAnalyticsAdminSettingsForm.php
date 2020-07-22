@@ -2,8 +2,9 @@
 
 namespace Drupal\google_analytics\Form;
 
+use Drupal\Component\Utility\Unicode;
 use Drupal\Core\Config\ConfigFactoryInterface;
-use Drupal\Core\Extension\ModuleHandlerInterface;
+use Drupal\Core\Extension\ModuleHandler;
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Url;
@@ -16,31 +17,14 @@ use Drupal\google_analytics\GoogleAnalitycsInterface;
  */
 class GoogleAnalyticsAdminSettingsForm extends ConfigFormBase {
 
-  /**
-   * The manages modules.
-   *
-   * @var \Drupal\Core\Extension\ModuleHandlerInterface
-   */
   protected $moduleHandler;
 
-  /**
-   * The current user.
-   *
-   * @var \Drupal\Core\Session\AccountInterface
-   */
   protected $currentUser;
 
   /**
-   * The constructor method.
-   *
-   * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
-   *   The config factory.
-   * @param \Drupal\Core\Session\AccountInterface $currentUser
-   *   The current user.
-   * @param \Drupal\Core\Extension\ModuleHandlerInterface $moduleHandler
-   *   The manages modules.
+   * {@inheritdoc}
    */
-  public function __construct(ConfigFactoryInterface $config_factory, AccountInterface $currentUser, ModuleHandlerInterface $moduleHandler) {
+  public function __construct(ConfigFactoryInterface $config_factory, AccountInterface $currentUser, ModuleHandler $moduleHandler) {
     parent::__construct($config_factory);
     $this->currentUser = $currentUser;
     $this->moduleHandler = $moduleHandler;
@@ -190,7 +174,7 @@ class GoogleAnalyticsAdminSettingsForm extends ConfigFormBase {
       $description = $this->t("Specify pages by using their paths. Enter one path per line. The '*' character is a wildcard. Example paths are %blog for the blog page and %blog-wildcard for every personal blog. %front is the front page.", ['%blog' => '/blog', '%blog-wildcard' => '/blog/*', '%front' => '<front>']);
 
       if ($this->moduleHandler->moduleExists('php') && $php_access) {
-        $options[] = $this->t('Pages on which this PHP code returns <code>TRUE</code> (not supported in Drupal 9, experts only)');
+        $options[] = $this->t('Pages on which this PHP code returns <code>TRUE</code> (experts only)');
         $title = $this->t('Pages or PHP code');
         $description .= ' ' . $this->t('If the PHP option is chosen, enter PHP code between %php. Note that executing incorrect PHP code can break your Drupal site.', ['%php' => '<?php ?>']);
       }
@@ -252,9 +236,9 @@ class GoogleAnalyticsAdminSettingsForm extends ConfigFormBase {
       '#type' => 'radios',
       '#title' => $this->t('Allow users to customize tracking on their account page'),
       '#options' => [
-        0 => $this->t('No customization allowed'),
-        1 => $this->t('Tracking on by default, users with %permission permission can opt out', $t_permission),
-        2 => $this->t('Tracking off by default, users with %permission permission can opt in', $t_permission),
+        $this->t('No customization allowed'),
+        $this->t('Tracking on by default, users with %permission permission can opt out', $t_permission),
+        $this->t('Tracking off by default, users with %permission permission can opt in', $t_permission),
       ],
       '#default_value' => !empty($visibility_user_account_mode) ? $visibility_user_account_mode : 0,
     ];
@@ -599,7 +583,7 @@ class GoogleAnalyticsAdminSettingsForm extends ConfigFormBase {
     foreach ($form_state->getValue(['google_analytics_custom_dimension', 'indexes']) as $dimension) {
       $form_state->setValue(['google_analytics_custom_dimension', 'indexes', $dimension['index'], 'value'], trim($dimension['value']));
       // Remove empty values from the array.
-      if (!mb_strlen($form_state->getValue(['google_analytics_custom_dimension', 'indexes', $dimension['index'], 'value']))) {
+      if (!Unicode::strlen($form_state->getValue(['google_analytics_custom_dimension', 'indexes', $dimension['index'], 'value']))) {
         $form_state->unsetValue(['google_analytics_custom_dimension', 'indexes', $dimension['index']]);
       }
     }
@@ -608,7 +592,7 @@ class GoogleAnalyticsAdminSettingsForm extends ConfigFormBase {
     foreach ($form_state->getValue(['google_analytics_custom_metric', 'indexes']) as $metric) {
       $form_state->setValue(['google_analytics_custom_metric', 'indexes', $metric['index'], 'value'], trim($metric['value']));
       // Remove empty values from the array.
-      if (!mb_strlen($form_state->getValue(['google_analytics_custom_metric', 'indexes', $metric['index'], 'value']))) {
+      if (!Unicode::strlen($form_state->getValue(['google_analytics_custom_metric', 'indexes', $metric['index'], 'value']))) {
         $form_state->unsetValue(['google_analytics_custom_metric', 'indexes', $metric['index']]);
       }
     }
@@ -737,7 +721,7 @@ class GoogleAnalyticsAdminSettingsForm extends ConfigFormBase {
   public static function tokenElementValidate(&$element, FormStateInterface $form_state) {
     $value = isset($element['#value']) ? $element['#value'] : $element['#default_value'];
 
-    if (!mb_strlen($value)) {
+    if (!Unicode::strlen($value)) {
       // Empty value needs no further validation since the element should depend
       // on using the '#required' FAPI property.
       return $element;
@@ -755,13 +739,13 @@ class GoogleAnalyticsAdminSettingsForm extends ConfigFormBase {
   /**
    * Get an array of all forbidden tokens.
    *
-   * @param array|string $value
+   * @param array $value
    *   An array of token values.
    *
    * @return array
    *   A unique array of invalid tokens.
    */
-  protected static function getForbiddenTokens($value) {
+  protected static function getForbiddenTokens(array $value) {
     $invalid_tokens = [];
     $value_tokens = is_string($value) ? \Drupal::token()->scan($value) : $value;
 
@@ -771,7 +755,8 @@ class GoogleAnalyticsAdminSettingsForm extends ConfigFormBase {
       }
     }
 
-    return array_unique($invalid_tokens);
+    array_unique($invalid_tokens);
+    return $invalid_tokens;
   }
 
   /**
@@ -903,7 +888,7 @@ class GoogleAnalyticsAdminSettingsForm extends ConfigFormBase {
       $values[$name] = $value;
     }
 
-    return self::convertFormValueDataTypes($values);
+    return static::convertFormValueDataTypes($values);
   }
 
   /**
@@ -925,7 +910,6 @@ class GoogleAnalyticsAdminSettingsForm extends ConfigFormBase {
       'cookie_name',
       'cookie_domain',
       'cookie_expires',
-      'optimize_id',
       'sample_rate',
       'send_page_view',
       'site_speed_sample_rate',
@@ -950,26 +934,24 @@ class GoogleAnalyticsAdminSettingsForm extends ConfigFormBase {
     if (!in_array($name, $allowed_parameters)) {
       return t('Parameter name %name is unknown. Parameters are case sensitive. Please see <a href=":url">documentation</a> for supported parameters.', ['%name' => $name, ':url' => 'https://developers.google.com/analytics/devguides/collection/gtagjs/']);
     }
-    return NULL;
   }
 
   /**
    * Checks whether a candidate value is valid.
    *
-   * @param string|bool $value
+   * @param string $value
    *   The option value entered by the user.
    *
    * @return string|null
    *   The error message if the specified value is invalid, NULL otherwise.
    */
   protected static function validateParameterValue($value) {
-    if (!is_bool($value) && !mb_strlen($value)) {
+    if (!is_bool($value) && !Unicode::strlen($value)) {
       return t('A parameter requires a value.');
     }
-    if (mb_strlen($value) > 255) {
+    if (Unicode::strlen($value) > 255) {
       return t('The value of a parameter must be a string at most 255 characters long.');
     }
-    return NULL;
   }
 
   /**
@@ -1005,14 +987,14 @@ class GoogleAnalyticsAdminSettingsForm extends ConfigFormBase {
    * @param array $values
    *   Array of values.
    *
-   * @return array
+   * @return string
    *   Value with casted data type.
    */
   protected static function convertFormValueDataTypes(array $values) {
 
     foreach ($values as $name => $value) {
       // Convert data types.
-      $match = mb_strtolower($value);
+      $match = Unicode::strtolower($value);
       if ($match == 'true') {
         $value = TRUE;
       }

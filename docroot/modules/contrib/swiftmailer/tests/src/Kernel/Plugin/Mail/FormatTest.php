@@ -61,29 +61,15 @@ class FormatTest extends KernelTestBase {
     $message['key'] = 'FormatTest';
     $message['subject'] = 'FormatTest';
 
-    $message['params']['content_type'] = SWIFTMAILER_FORMAT_HTML;
+    $message['params']['format'] = SWIFTMAILER_FORMAT_HTML;
     $actual = $this->plugin->format($message);
-    $expected = implode(PHP_EOL, $expected);
-    $this->assertSame($expected, $this->extractBody($actual));
+    $expected = implode(PHP_EOL, $expected) . PHP_EOL;
+    $this->assertSame($expected, (string) $actual['body']);
 
-    $message['params']['content_type'] = SWIFTMAILER_FORMAT_PLAIN;
+    $message['params']['format'] = SWIFTMAILER_FORMAT_PLAIN;
     $actual = $this->plugin->format($message);
-    $expected_plain = implode(PHP_EOL, $expected_plain) . PHP_EOL;
+    $expected_plain = implode(PHP_EOL, $expected_plain);
     $this->assertSame($expected_plain, (string) $actual['body']);
-  }
-
-  /**
-   * Tests messages with CSS.
-   */
-  public function testCss() {
-    $message['module'] = 'swiftmailer';
-    $message['key'] = 'FormatTest';
-    $message['subject'] = 'FormatTest';
-    $message['params']['content_type'] = SWIFTMAILER_FORMAT_HTML;
-    $message['body'] = [Markup::create('<p class="red">Red text</p>')];
-    $expected = '<p class="red" style="color: red;">Red text</p>';
-    $actual = $this->plugin->format($message);
-    $this->assertSame($expected, $this->extractBody($actual));
   }
 
   /**
@@ -103,8 +89,8 @@ class FormatTest extends KernelTestBase {
           "<p>consetetur &lt; sadipscing elitr</p>",
         ],
         'expected_plain' => [
-          "Lorem ipsum & dolor sit amet\n",
-          "consetetur < sadipscing elitr",
+          "Lorem ipsum & dolor sit amet\n\n",
+          "consetetur < sadipscing elitr\n\n",
         ],
       ],
 
@@ -112,17 +98,10 @@ class FormatTest extends KernelTestBase {
         'message' => [
           'body' => [
             "Lorem ipsum & dolor sit amet\nconsetetur < sadipscing elitr",
-            "URL is http://example.com",
           ],
         ],
-        'expected' => [
-          "<p>Lorem ipsum &amp; dolor sit amet<br>\nconsetetur &lt; sadipscing elitr</p>",
-          '<p>URL is <a href="http://example.com">http://example.com</a></p>',
-        ],
-        'expected_plain' => [
-          "Lorem ipsum & dolor sit amet\nconsetetur < sadipscing elitr",
-          "URL is http://example.com",
-        ],
+        'expected' => ["<p>Lorem ipsum &amp; dolor sit amet<br />\nconsetetur &lt; sadipscing elitr</p>\n"],
+        'expected_plain' => ["Lorem ipsum & dolor sit amet\nconsetetur < sadipscing elitr"],
       ],
 
       'mixed' => [
@@ -133,32 +112,24 @@ class FormatTest extends KernelTestBase {
             // markup.  For example it could be a website lecturer explaining
             // to students about the <strong> tag.
             'Hello & <strong>World</strong>',
-            new FormattableMarkup('<p>Hello &amp; World #@number</p>', ['@number' => 2]),
-            Markup::create('<p>Hello &amp; <strong>World</strong></p>'),
+            new FormattableMarkup('Hello &amp; World #@number', ['@number' => 2]),
+            Markup::create('Hello &amp; <strong>World</strong>'),
           ],
         ],
         'expected' => [
-          "<p>Hello &amp; World</p>",
-          "<p>Hello &amp; &lt;strong&gt;World&lt;/strong&gt;</p>",
-          "<p>Hello &amp; World #2</p>",
-          "<p>Hello &amp; <strong>World</strong></p>",
+          "<p>Hello &amp; World</p>\n",
+          "<p>Hello &amp; &lt;strong&gt;World&lt;/strong&gt;</p>\n",
+          "Hello &amp; World #2",
+          "Hello &amp; <strong>World</strong>",
         ],
         'expected_plain' => [
           "Hello & World",
-          "Hello & <strong>World</strong>\n",
+          "Hello & <strong>World</strong>",
           "Hello & World #2\n",
-          "Hello & WORLD",
+          "Hello & *World*\n",
         ],
       ],
     ];
-  }
-
-  /**
-   * Returns the HTML body from a message (contents of <body> tag).
-   */
-  protected function extractBody($message) {
-    preg_match('|<html><body>(.*)</body></html>|s', $message['body'], $matches);
-    return trim($matches[1]);
   }
 
 }

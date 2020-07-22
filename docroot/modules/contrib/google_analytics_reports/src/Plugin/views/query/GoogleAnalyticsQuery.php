@@ -1,20 +1,21 @@
 <?php
+/**
+ * @file
+ * Contains \Drupal\google_analytics_reports\Plugin\views\query\GoogleAnalyticsQuery.
+ */
 
 namespace Drupal\google_analytics_reports\Plugin\views\query;
 
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\Messenger\MessengerInterface;
 use Drupal\Core\Url;
 use Drupal\Component\Utility\Html;
-use Drupal\Core\State\StateInterface;
 use Drupal\views\Plugin\views\display\DisplayPluginBase;
 use Drupal\views\Plugin\views\query\QueryPluginBase;
 use Drupal\views\ResultRow;
 use Drupal\views\ViewExecutable;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Drupal\Core\StringTranslation\StringTranslationTrait;
 
 /**
  * Defines a Views query class for Google Analytics Reports API.
@@ -27,26 +28,18 @@ use Drupal\Core\StringTranslation\StringTranslationTrait;
  */
 class GoogleAnalyticsQuery extends QueryPluginBase {
 
-  use StringTranslationTrait;
-
   /**
    * A list of tables in the order they should be added, keyed by alias.
-   *
-   * @var array
    */
   protected $tableQueue = [];
 
   /**
    * An array of fields.
-   *
-   * @var array
    */
   protected $fields = [];
 
   /**
    * An array mapping table aliases and field names to field aliases.
-   *
-   * @var array
    */
   protected $fieldAliases = [];
 
@@ -55,29 +48,23 @@ class GoogleAnalyticsQuery extends QueryPluginBase {
    *
    * Each section is in itself an array of pieces and a flag as to whether
    * or not it should be AND or OR.
-   *
-   * @var array
    */
   protected $where = [];
 
   /**
    * A simple array of order by clauses.
-   *
-   * @var array
    */
   protected $orderby = [];
 
   /**
    * The default operator to use when connecting the WHERE groups.
-   *
-   * @var string
    */
   protected $groupOperator = 'AND';
 
   /**
    * Module handler.
    *
-   * @var \Drupal\Core\Extension\ModuleHandlerInterface
+   * @var \Drupal\Core\Extension\ModuleHandlerInterface $moduleHandler;
    */
   public $moduleHandler;
 
@@ -89,42 +76,24 @@ class GoogleAnalyticsQuery extends QueryPluginBase {
   public $configFactory;
 
   /**
-   * The messenger.
-   *
-   * @var \Drupal\Core\Messenger\MessengerInterface
-   */
-  protected $messenger;
-
-  /**
-   * The state service.
-   *
-   * @var \Drupal\Core\State\StateInterface
-   */
-  protected $state;
-
-  /**
    * {@inheritdoc}
    */
-  public function __construct(array $configuration, $plugin_id, $plugin_definition, ModuleHandlerInterface $module_handler, ConfigFactoryInterface $config_factory, StateInterface $state, MessengerInterface $messenger) {
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, ModuleHandlerInterface $module_handler, ConfigFactoryInterface $config_factory) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
     $this->moduleHandler = $module_handler;
     $this->configFactory = $config_factory;
-    $this->state = $state;
-    $this->messenger = $messenger;
   }
 
   /**
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
-    return new static(
+    return new static (
       $configuration,
       $plugin_id,
       $plugin_definition,
       $container->get('module_handler'),
-      $container->get('config.factory'),
-      $container->get('state'),
-      $container->get('messenger')
+      $container->get('config.factory')
     );
   }
 
@@ -153,7 +122,7 @@ class GoogleAnalyticsQuery extends QueryPluginBase {
    * @return string
    *   The name that this field can be referred to as.
    */
-  public function addField($table, $field, $alias = '', array $params = []) {
+  public function addField($table, $field, $alias = '', $params = []) {
     // We check for this specifically because it gets a special alias.
     if ($table == $this->view->storage->get('base_table') && $field == $this->view->storage->get('base_field') && empty($alias)) {
       $alias = $this->view->storage->get('base_field');
@@ -248,7 +217,7 @@ class GoogleAnalyticsQuery extends QueryPluginBase {
    * @param array $params
    *   Don't use this yet (at all?).
    */
-  public function addOrderBy($table, $field = NULL, $order = 'ASC', $alias = '', array $params = []) {
+  public function addOrderBy($table, $field = NULL, $order = 'ASC', $alias = '', $params = []) {
     $this->orderby[] = [
       'field' => $field,
       'direction' => (strtoupper($order) == 'DESC') ? '-' : '',
@@ -305,7 +274,7 @@ class GoogleAnalyticsQuery extends QueryPluginBase {
     }
 
     // Change reports profile.
-    if (!empty($this->options['reports_profile']) && (!empty($this->options['profile_id']))) {
+    if (isset($this->options['reports_profile']) && (!empty($this->options['profile_id']))) {
       $query['profile_id'] = $this->options['profile_id'];
     }
 
@@ -340,9 +309,9 @@ class GoogleAnalyticsQuery extends QueryPluginBase {
    */
   public function execute(ViewExecutable $view) {
     // Initial check to see if we should attempt to run the query.
-    if (!$this->state->get('google_analytics_reports_api.access_token')) {
+    if (!$this->configFactory->get('google_analytics_reports_api.settings')->get('access_token')) {
       // Optionally do not warn users on every query attempt before auth.
-      $this->messenger->addMessage($this->t('You must <a href=":url">authorize your site</a> to use your Google Analytics account before you can view reports.', [':url' => Url::fromRoute('google_analytics_reports_api.settings')->toString()]));
+      drupal_set_message(t('You must <a href=":url">authorize your site</a> to use your Google Analytics account before you can view reports.', [':url' => Url::fromRoute('google_analytics_reports_api.settings')->toString()]));
       return;
     }
 
@@ -396,7 +365,7 @@ class GoogleAnalyticsQuery extends QueryPluginBase {
       if (!empty($count_feed->response->data)) {
         $response_data = json_decode($count_feed->response->data);
         if (isset($response_data['error']['message'])) {
-          $this->messenger->addMessage(Html::escape($response_data['error']['message']), 'error');
+          drupal_set_message(Html::escape($response_data['error']['message']), 'error');
         }
       }
     }
@@ -408,14 +377,19 @@ class GoogleAnalyticsQuery extends QueryPluginBase {
   public function defineOptions() {
     $options = parent::defineOptions();
 
-    $options['reports_profile'] = [
-      'default' => FALSE,
-      'translatable' => FALSE,
-      'bool' => TRUE,
-    ];
-    $options['profile_id'] = [
-      'default' => FALSE,
-    ];
+    // Load profiles list.
+    $profile_list = google_analytics_reports_api_profiles_list();
+
+    if ($profile_list) {
+      $options['reports_profile'] = [
+        'default' => FALSE,
+        'translatable' => FALSE,
+        'bool' => TRUE,
+      ];
+      $options['profile_id'] = [
+        'default' => $profile_list['profile_id'],
+      ];
+    }
 
     return $options;
   }
@@ -435,8 +409,8 @@ class GoogleAnalyticsQuery extends QueryPluginBase {
 
     if ($profile_list) {
       $form['reports_profile'] = [
-        '#title' => $this->t('Use another reports profile'),
-        '#description' => $this->t('This view will use another reports profile rather than system default profile: %profile.', [
+        '#title' => t('Use another reports profile'),
+        '#description' => t('This view will use another reports profile rather than system default profile: %profile.', [
           '%profile' => $profile_info,
         ]),
         '#type' => 'checkbox',
@@ -444,15 +418,16 @@ class GoogleAnalyticsQuery extends QueryPluginBase {
       ];
       $form['profile_id'] = [
         '#type' => 'select',
-        '#title' => $this->t('Reports profile'),
+        '#title' => t('Reports profile'),
         '#options' => $profile_list['options'],
-        '#description' => $this->t('Choose your Google Analytics profile.'),
+        '#description' => t('Choose your Google Analytics profile.'),
         '#default_value' => $this->options['profile_id'],
         '#dependency' => ['edit-query-options-reports-profile' => '1'],
       ];
     }
 
   }
+
 
   /**
    * Make sure table exists.

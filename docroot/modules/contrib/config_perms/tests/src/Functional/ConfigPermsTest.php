@@ -11,14 +11,7 @@ use Drupal\Tests\BrowserTestBase;
  */
 class ConfigPermsTest extends BrowserTestBase {
 
-  /**
-   * {@inheritdoc}
-   */
-  protected $defaultTheme = 'stark';
 
-  /**
-   * {@inheritdoc}
-   */
   protected static $modules = ['config_perms'];
 
   public function testAdministerConfigPermsPermission() {

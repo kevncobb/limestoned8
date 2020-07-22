@@ -1,5 +1,5 @@
 language: php
-dist: bionic
+dist: xenial
 
 services:
   - mysql
@@ -23,11 +23,16 @@ env:
     - PATH="$PATH:$HOME/.composer/vendor/bin"
 
 matrix:
-  include:
-    - env: DRUPAL_TESTING_DRUPAL_VERSION=~9.0.0
+  allow_failures:
     - env: DRUPAL_TESTING_DRUPAL_VERSION=~8.8.0
+  include:
+    - env: DRUPAL_TESTING_DRUPAL_VERSION=~8.7.0
+    - env: DRUPAL_TESTING_DRUPAL_VERSION=~8.7.0
+      php: 7.2
+    - env: DRUPAL_TESTING_DRUPAL_VERSION=~8.8.0 DRUPAL_TESTING_TEST_DEPRECATION=false
       php: 7.2
     - env: DRUPAL_TESTING_DRUPAL_VERSION=~8.8.0
+    - env: DRUPAL_TESTING_DRUPAL_VERSION=~8.8.0 DRUPAL_TESTING_TEST_DEPRECATION=false
 
 before_install:
   - composer global require thunder/drupal-testing

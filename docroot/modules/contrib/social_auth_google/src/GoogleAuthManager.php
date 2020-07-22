@@ -6,7 +6,6 @@ use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use Drupal\social_auth\AuthManager\OAuth2Manager;
 use Drupal\Core\Config\ConfigFactory;
 use League\OAuth2\Client\Provider\Exception\IdentityProviderException;
-use Symfony\Component\HttpFoundation\RequestStack;
 
 /**
  * Contains all the logic for Google OAuth2 authentication.
@@ -20,16 +19,12 @@ class GoogleAuthManager extends OAuth2Manager {
    *   Used for accessing configuration object factory.
    * @param \Drupal\Core\Logger\LoggerChannelFactoryInterface $logger_factory
    *   The logger factory.
-   * @param \Symfony\Component\HttpFoundation\RequestStack $request_stack
-   *   Used to get the authorization code from the callback request.
    */
   public function __construct(ConfigFactory $configFactory,
-                              LoggerChannelFactoryInterface $logger_factory,
-                              RequestStack $request_stack) {
+                              LoggerChannelFactoryInterface $logger_factory) {
 
     parent::__construct($configFactory->get('social_auth_google.settings'),
-                        $logger_factory,
-                        $request_stack->getCurrentRequest());
+                        $logger_factory);
   }
 
   /**
@@ -38,7 +33,7 @@ class GoogleAuthManager extends OAuth2Manager {
   public function authenticate() {
     try {
       $this->setAccessToken($this->client->getAccessToken('authorization_code',
-        ['code' => $this->request->query->get('code')]));
+        ['code' => $_GET['code']]));
     }
     catch (IdentityProviderException $e) {
       $this->loggerFactory->get('social_auth_google')

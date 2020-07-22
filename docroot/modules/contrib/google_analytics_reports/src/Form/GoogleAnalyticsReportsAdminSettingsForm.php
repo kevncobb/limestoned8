@@ -52,27 +52,27 @@ class GoogleAnalyticsReportsAdminSettingsForm extends GoogleAnalyticsReportsApiA
       $collapsed = (!$last_time) ? TRUE : FALSE;
       $form['fields'] = [
         '#type' => 'details',
-        '#title' => $this->t('Import and update fields'),
+        '#title' => t('Import and update fields'),
         '#open' => $collapsed,
       ];
       if ($last_time) {
         $form['fields']['last_time'] = [
           '#type' => 'item',
-          '#title' => $this->t('Google Analytics fields for Views integration'),
-          '#description' => $this->t('Last import was @time.',
+          '#title' => t('Google Analytics fields for Views integration'),
+          '#description' => t('Last import was @time.',
             [
               '@time' => $this->dateFormatter->format($last_time, 'custom', 'd F Y H:i'),
             ]),
         ];
         $form['fields']['update'] = [
           '#type' => 'submit',
-          '#value' => $this->t('Check updates'),
+          '#value' => t('Check updates'),
           '#submit' => [[GoogleAnalyticsReports::class, 'checkUpdates']],
         ];
       }
       $form['fields']['settings'] = [
         '#type' => 'submit',
-        '#value' => $this->t('Import fields'),
+        '#value' => t('Import fields'),
         '#submit' => [[GoogleAnalyticsReports::class, 'importFields']],
       ];
     }

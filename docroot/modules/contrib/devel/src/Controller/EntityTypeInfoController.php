@@ -156,6 +156,7 @@ class EntityTypeInfoController extends ControllerBase {
     return $this->dumper->exportAsRenderable($entity_type, $entity_type_id);
   }
 
+
   /**
    * Returns a render array representation of the entity type field definitions.
    *
@@ -169,7 +170,7 @@ class EntityTypeInfoController extends ControllerBase {
    *   If the requested entity type is not defined.
    */
   public function entityTypeFields($entity_type_id) {
-    if (!$this->entityTypeManager()->getDefinition($entity_type_id, FALSE)) {
+    if (!$entity_type = $this->entityTypeManager()->getDefinition($entity_type_id, FALSE)) {
       throw new NotFoundHttpException();
     }
 

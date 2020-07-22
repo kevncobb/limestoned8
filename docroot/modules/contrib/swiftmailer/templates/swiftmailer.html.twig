@@ -6,7 +6,6 @@
  * Available variables:
  * - subject: The subject.
  * - body: The message content.
- * - is_html: True if generating HTML output, false for plain text.
  * - message: The $message array created and used in the mail building
  *   procedure. Its content varies between cases, but typically contains at
  *   least the following elements:
@@ -17,7 +16,6 @@
  *   - from: The email address of the sender.
  *   - langcode: The langcode to use to compose the e-mail.
  *   - params: The message parameters.
- * - base_url: The site base url including scheme, without trailing slash.
  *
  * This template may be overriden by module and/or mail key, using any of the
  * following template names:
@@ -32,7 +30,6 @@
  * @ingroup themeable
  */
 #}
-{% if is_html %}
 <html>
 <head>
 <style type="text/css">
@@ -56,6 +53,3 @@ table tr td {
 </div>
 </body>
 </html>
-{% else %}
-{{ body }}
-{% endif %}

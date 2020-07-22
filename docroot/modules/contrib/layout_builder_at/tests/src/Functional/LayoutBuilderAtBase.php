@@ -34,13 +34,6 @@ abstract class LayoutBuilderAtBase extends ContentTranslationTestBase {
   protected $entity;
 
   /**
-   * The default theme to use.
-   *
-   * @var string
-   */
-  protected $defaultTheme = 'stark';
-
-  /**
    * {@inheritdoc}
    */
   protected function setUp() {
@@ -214,7 +207,7 @@ abstract class LayoutBuilderAtBase extends ContentTranslationTestBase {
     $page = $this->getSession()->getPage();
 
     if ($update_text_block) {
-      $id = $assert_session->elementExists('css', '.layout-builder__region > div:nth-child(4) > div');
+      $id = $assert_session->elementExists('css', '.block-inline-blocktext div');
 
       $groups = _contextual_id_to_links($id->getAttribute('data-contextual-id'));
       $contextual_links_manager = \Drupal::service('plugin.manager.menu.contextual_link');

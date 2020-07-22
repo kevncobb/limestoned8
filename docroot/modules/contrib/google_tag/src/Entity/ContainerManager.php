@@ -2,7 +2,8 @@
 
 namespace Drupal\google_tag\Entity;
 
-// use Drupal\google_tag\Entity\ContainerManagerInterface;
+use Drupal\google_tag\Entity\ContainerManagerInterface;
+
 use Drupal\Core\Config\Entity\ConfigEntityInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Extension\ModuleHandlerInterface;
@@ -34,7 +35,7 @@ class ContainerManager implements ContainerManagerInterface {
 
   /**
    * The file system.
-   *
+  *
    * @var \Drupal\Core\File\FileSystemInterface
    */
   protected $fileSystem;
@@ -48,7 +49,7 @@ class ContainerManager implements ContainerManagerInterface {
 
   /**
    * The logger.
-   *
+  *
    * @var \Psr\Log\LoggerInterface
    */
   protected $logger;
@@ -136,9 +137,7 @@ class ContainerManager implements ContainerManagerInterface {
    *   The entity ID array.
    */
   public function loadContainerIDs() {
-    return $this->entityTypeManager
-      ->getStorage('google_tag_container')
-      ->getQuery()
+    return \Drupal::entityQuery('google_tag_container')
       ->condition('status', 1)
       ->sort('weight')
       ->execute();
@@ -153,11 +152,6 @@ class ContainerManager implements ContainerManagerInterface {
     foreach ($containers as $container) {
       if (!$container->insertSnippet()) {
         continue;
-      }
-
-      if (!$this->findAssets($container)) {
-        // Create snippet files (e.g. after cache rebuild).
-        $this->createAssets($container);
       }
 
       static $weight = 9;
@@ -209,78 +203,20 @@ class ContainerManager implements ContainerManagerInterface {
   public function createAllAssets() {
     $ids = $this->loadContainerIDs();
     if (!$ids) {
-      return TRUE;
+      return;
+    }
+    if (\Drupal::config('google_tag.settings')->get('flush_snippets')) {
+      $directory = \Drupal::config('google_tag.settings')->get('uri');
+      if (!empty($directory)) {
+        // Remove any stale files (e.g. module update or machine name change).
+        $this->fileSystem->deleteRecursive($directory . '/google_tag');
+      }
     }
     // Create snippet files for enabled containers.
     $containers = $this->entityTypeManager->getStorage('google_tag_container')->loadMultiple($ids);
     $result = TRUE;
     foreach ($containers as $container) {
       $result = !$this->createAssets($container) ? FALSE : $result;
-    }
-    return $result;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function deleteAllAssets() {
-    if (\Drupal::config('google_tag.settings')->get('flush_snippets')) {
-      $directory = \Drupal::config('google_tag.settings')->get('uri');
-      if (!empty($directory)) {
-        // Remove any stale files (e.g. module update or machine name change).
-        return $this->fileSystem->deleteRecursive($directory . '/google_tag');
-      }
-    }
-
-    $ids = $this->loadContainerIDs();
-    if (!$ids) {
-      return TRUE;
-    }
-    // Delete snippet files for enabled containers.
-    $containers = $this->entityTypeManager->getStorage('google_tag_container')->loadMultiple($ids);
-    $result = TRUE;
-    foreach ($containers as $container) {
-      $result = !$this->deleteAssets($container) ? FALSE : $result;
-    }
-    return $result;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function deleteAssets(ConfigEntityInterface $container) {
-    $include_classes = $container->get('include_classes');
-    $types = $include_classes ? ['data_layer', 'script', 'noscript'] : ['script', 'noscript'];
-    $directory = $container->snippetDirectory();
-    $result = $this->fileSystem->deleteRecursive($directory);
-
-    $args = ['@count' => count($types), '%container' => $container->get('label')];
-    if (!$result) {
-      $message = 'An error occurred deleting @count snippet files for %container container. Contact the site administrator if this persists.';
-      $this->displayMessage($message, $args, MessengerInterface::TYPE_ERROR);
-      $this->logger->error($message, $args);
-    }
-    else {
-      $message = 'Deleted @count snippet files for %container container.';
-      $this->displayMessage($message, $args);
-      // In case this is not called during core cache rebuild, then [OMIT?]
-      // Reset the URL query argument so browsers reload snippet files.
-      // @todo Do these snippet files have the js token in a query argument? Yes. [OMIT]
-      _drupal_flush_css_js();
-    }
-    return $result;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function findAssets(ConfigEntityInterface $container) {
-    $include_classes = $container->get('include_classes');
-    $types = $include_classes ? ['data_layer', 'script', 'noscript'] : ['script', 'noscript'];
-    $result = TRUE;
-    foreach ($types as $type) {
-      $uri = $container->snippetURI($type);
-      $result = !is_file($uri) ? FALSE : $result;
     }
     return $result;
   }

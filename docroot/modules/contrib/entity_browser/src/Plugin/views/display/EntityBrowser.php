@@ -226,7 +226,7 @@ class EntityBrowser extends DisplayPluginBase implements TrustedCallbackInterfac
    * {@inheritdoc}
    */
   public static function trustedCallbacks() {
-    return ['preRenderAddFieldsetMarkup', 'postRender', 'elementPreRender'];
+    return ['postRender', 'elementPreRender'];
   }
 
 }

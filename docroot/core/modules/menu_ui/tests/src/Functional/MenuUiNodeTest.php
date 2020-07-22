@@ -26,15 +26,7 @@ class MenuUiNodeTest extends BrowserTestBase {
    *
    * @var array
    */
-  public static $modules = [
-    'menu_ui',
-    'test_page_test',
-    'node',
-    'block',
-    'locale',
-    'language',
-    'content_translation',
-  ];
+  public static $modules = ['menu_ui', 'test_page_test', 'node', 'block', 'locale', 'language', 'content_translation'];
 
   /**
    * {@inheritdoc}
@@ -141,7 +133,7 @@ class MenuUiNodeTest extends BrowserTestBase {
     $node = $this->drupalGetNodeByTitle($node_title);
     // Assert that there is no link for the node.
     $this->drupalGet('test-page');
-    $this->assertSession()->linkNotExists($node_title);
+    $this->assertNoLink($node_title);
 
     // Edit the node, enable the menu link setting, but skip the link title.
     $edit = [
@@ -150,7 +142,7 @@ class MenuUiNodeTest extends BrowserTestBase {
     $this->drupalPostForm('node/' . $node->id() . '/edit', $edit, t('Save'));
     // Assert that there is no link for the node.
     $this->drupalGet('test-page');
-    $this->assertSession()->linkNotExists($node_title);
+    $this->assertNoLink($node_title);
 
     // Make sure the menu links only appear when the node is published.
     // These buttons just appear for 'administer nodes' users.
@@ -171,12 +163,12 @@ class MenuUiNodeTest extends BrowserTestBase {
     ];
     $this->drupalPostForm('node/' . $node->id() . '/edit', $edit, 'Save');
     $this->drupalGet('test-page');
-    $this->assertSession()->linkNotExists($node_title, 'Found no menu link with the node unpublished');
+    $this->assertNoLink($node_title, 'Found no menu link with the node unpublished');
     // Assert that the link exists if published.
     $edit['status[value]'] = TRUE;
     $this->drupalPostForm('node/' . $node->id() . '/edit', $edit, 'Save');
     $this->drupalGet('test-page');
-    $this->assertSession()->linkExists($node_title, 0, 'Found a menu link with the node published');
+    $this->assertLink($node_title, 0, 'Found a menu link with the node published');
 
     // Log back in as normal user.
     $this->drupalLogin($this->editor);
@@ -189,7 +181,7 @@ class MenuUiNodeTest extends BrowserTestBase {
     $this->drupalPostForm('node/' . $node->id() . '/edit', $edit, t('Save'));
     // Assert that the link exists.
     $this->drupalGet('test-page');
-    $this->assertSession()->linkExists($node_title);
+    $this->assertLink($node_title);
 
     $this->drupalGet('node/' . $node->id() . '/edit');
     $this->assertFieldById('edit-menu-weight', 17, 'Menu weight correct in edit form');
@@ -213,7 +205,7 @@ class MenuUiNodeTest extends BrowserTestBase {
     $this->drupalPostForm('node/' . $node->id() . '/edit', $edit, t('Save'));
     // Assert that there is no link for the node.
     $this->drupalGet('test-page');
-    $this->assertSession()->linkNotExists($node_title);
+    $this->assertNoLink($node_title);
 
     // Add a menu link to the Administration menu.
     $item = MenuLinkContent::create([
@@ -230,7 +222,7 @@ class MenuUiNodeTest extends BrowserTestBase {
     // Assert that the link is still in the Administration menu after save.
     $this->drupalPostForm('node/' . $node->id() . '/edit', $edit, t('Save'));
     $link = MenuLinkContent::load($item->id());
-    $this->assertInstanceOf(MenuLinkContent::class, $link);
+    $this->assertInstanceOf(MenuLinkContent::class, $link, 'Link in not allowed menu still exists after saving node');
 
     // Move the menu link back to the Tools menu.
     $item->menu_name->value = 'tools';
@@ -335,11 +327,11 @@ class MenuUiNodeTest extends BrowserTestBase {
 
     // Assert that the original link exists in the frontend.
     $this->drupalGet('node/' . $node->id(), ['language' => $languages[$langcodes[0]]]);
-    $this->assertSession()->linkExists($node_title);
+    $this->assertLink($node_title);
 
     // Assert that the translated link exists in the frontend.
     $this->drupalGet('node/' . $node->id(), ['language' => $languages[$langcodes[1]]]);
-    $this->assertSession()->linkExists($translated_node_title);
+    $this->assertLink($translated_node_title);
 
     // Revisit the edit page in original language, check the loaded menu item title and save.
     $options = ['language' => $languages[$langcodes[0]]];

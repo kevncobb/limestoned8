@@ -9,7 +9,6 @@ use Drupal\jsonapi\Controller\EntityResource;
 use Drupal\jsonapi\JsonApiResource\JsonApiDocumentTopLevel as JsonApiDocumentTopLevel2;
 use Drupal\jsonapi\JsonApiResource\ResourceObject;
 use Drupal\jsonapi\ResourceType\ResourceType;
-use Drupal\jsonapi\ResourceType\ResourceTypeAttribute;
 use Drupal\KernelTests\KernelTestBase;
 use Drupal\node\Entity\NodeType;
 use Drupal\user\Entity\Role;
@@ -129,7 +128,7 @@ class EntityResourceTest extends KernelTestBase {
     $request = Request::create('/jsonapi/node/node_type/' . $node_type->uuid(), 'PATCH', [], [], [], [], $payload);
 
     $resource_type = new ResourceType('node_type', 'node_type', NodeType::class, FALSE, TRUE, TRUE, FALSE, [
-      'type' => new ResourceTypeAttribute('drupal_internal__type'),
+      'type' => 'drupal_internal__type',
     ]);
     $resource_type->setRelatableResourceTypes([]);
     $entity_resource = new EntityResource(
@@ -183,8 +182,7 @@ class EntityResourceTest extends KernelTestBase {
    * @dataProvider patchIndividualConfigFailedProvider
    */
   public function testPatchIndividualFailedConfig($values, $expected_message) {
-    $this->expectException(ConfigException::class);
-    $this->expectExceptionMessage($expected_message);
+    $this->setExpectedException(ConfigException::class, $expected_message);
     $this->testPatchIndividualConfig($values);
   }
 

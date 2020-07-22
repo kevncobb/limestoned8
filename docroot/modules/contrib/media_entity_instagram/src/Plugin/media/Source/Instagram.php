@@ -6,7 +6,6 @@ use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Entity\EntityFieldManagerInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Field\FieldTypePluginManagerInterface;
-use Drupal\Core\File\FileSystemInterface;
 use Drupal\media\MediaInterface;
 use Drupal\media\MediaSourceBase;
 use Drupal\media\MediaSourceFieldConstraintsInterface;
@@ -42,13 +41,6 @@ class Instagram extends MediaSourceBase implements MediaSourceFieldConstraintsIn
   protected $httpClient;
 
   /**
-   * The file system service.
-   *
-   * @var \Drupal\Core\File\FileSystemInterface
-   */
-  protected $fileSystem;
-
-  /**
    * Constructs a new class instance.
    *
    * @param array $configuration
@@ -70,11 +62,10 @@ class Instagram extends MediaSourceBase implements MediaSourceFieldConstraintsIn
    * @param \GuzzleHttp\Client $httpClient
    *   Guzzle client.
    */
-  public function __construct(array $configuration, $plugin_id, $plugin_definition, EntityTypeManagerInterface $entity_type_manager, EntityFieldManagerInterface $entity_field_manager, ConfigFactoryInterface $config_factory, FieldTypePluginManagerInterface $field_type_manager, InstagramEmbedFetcher $fetcher, Client $httpClient, FileSystemInterface $fileSystem) {
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, EntityTypeManagerInterface $entity_type_manager, EntityFieldManagerInterface $entity_field_manager, ConfigFactoryInterface $config_factory, FieldTypePluginManagerInterface $field_type_manager, InstagramEmbedFetcher $fetcher, Client $httpClient) {
     parent::__construct($configuration, $plugin_id, $plugin_definition, $entity_type_manager, $entity_field_manager, $field_type_manager, $config_factory);
     $this->fetcher = $fetcher;
     $this->httpClient = $httpClient;
-    $this->fileSystem = $fileSystem;
   }
 
   /**
@@ -90,8 +81,7 @@ class Instagram extends MediaSourceBase implements MediaSourceFieldConstraintsIn
       $container->get('config.factory'),
       $container->get('plugin.manager.field.field_type'),
       $container->get('media_entity_instagram.instagram_embed_fetcher'),
-      $container->get('http_client'),
-      $container->get('file_system')
+      $container->get('http_client')
     );
   }
 
@@ -103,8 +93,6 @@ class Instagram extends MediaSourceBase implements MediaSourceFieldConstraintsIn
   public static $validationRegexp = [
     '@((http|https):){0,1}//(www\.){0,1}instagram\.com/p/(?<shortcode>[a-z0-9_-]+)@i' => 'shortcode',
     '@((http|https):){0,1}//(www\.){0,1}instagr\.am/p/(?<shortcode>[a-z0-9_-]+)@i' => 'shortcode',
-    '@((http|https):){0,1}//(www\.){0,1}instagram\.com/tv/(?<shortcode>[a-z0-9_-]+)@i' => 'shortcode',
-    '@((http|https):){0,1}//(www\.){0,1}instagr\.am/tv/(?<shortcode>[a-z0-9_-]+)@i' => 'shortcode',
   ];
 
   /**
@@ -186,13 +174,13 @@ class Instagram extends MediaSourceBase implements MediaSourceFieldConstraintsIn
             else {
 
               $directory = dirname($local_uri);
-              $this->fileSystem->prepareDirectory($directory, FileSystemInterface::CREATE_DIRECTORY | FileSystemInterface::MODIFY_PERMISSIONS);
+              file_prepare_directory($directory, FILE_CREATE_DIRECTORY | FILE_MODIFY_PERMISSIONS);
 
               $image_url = $this->getMetadata($media, 'thumbnail');
 
               $response = $this->httpClient->get($image_url);
               if ($response->getStatusCode() == 200) {
-                return $this->fileSystem->saveData($response->getBody(), $local_uri, FileSystemInterface::EXISTS_REPLACE);
+                return file_unmanaged_save_data($response->getBody(), $local_uri, FILE_EXISTS_REPLACE);
               }
             }
           }

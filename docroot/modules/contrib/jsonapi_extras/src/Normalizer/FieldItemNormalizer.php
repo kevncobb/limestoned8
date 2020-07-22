@@ -2,7 +2,6 @@
 
 namespace Drupal\jsonapi_extras\Normalizer;
 
-use Drupal\Core\Cache\CacheableMetadata;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\jsonapi\Normalizer\FieldItemNormalizer as JsonapiFieldItemNormalizer;
 use Drupal\jsonapi\Normalizer\Value\CacheableNormalization;
@@ -60,9 +59,7 @@ class FieldItemNormalizer extends JsonApiNormalizerDecoratorBase {
     // Apply any enhancements necessary.
     $context['field_item_object'] = $object;
     $processed = $enhancer->undoTransform($normalized_output->getNormalization(), new Context($context));
-    $cacheability = CacheableMetadata::createFromObject($normalized_output)
-      ->addCacheTags(['config:jsonapi_resource_config_list']);
-    $normalized_output = new CacheableNormalization($cacheability, $processed);
+    $normalized_output = new CacheableNormalization($normalized_output, $processed);
 
     return $normalized_output;
   }

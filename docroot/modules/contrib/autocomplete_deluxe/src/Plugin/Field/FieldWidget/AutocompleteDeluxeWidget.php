@@ -12,11 +12,10 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Site\Settings;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
+use Drupal\Core\StringTranslation\TranslationInterface;
 use Drupal\Core\Url;
 use Drupal\user\EntityOwnerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Drupal\Core\Session\AccountInterface;
-use Drupal\Core\KeyValueStore\KeyValueFactory;
 
 /**
  * Plugin implementation of the 'options_buttons' widget.
@@ -42,20 +41,6 @@ class AutocompleteDeluxeWidget extends WidgetBase implements ContainerFactoryPlu
   protected $moduleHandler;
 
   /**
-   * Current Account Interface.
-   *
-   * @var \Drupal\Core\Session\AccountInterface
-   */
-  protected $account;
-
-  /**
-   * Key value service.
-   *
-   * @var \Drupal\Core\KeyValueStore\KeyValueFactory
-   */
-  protected $keyValue;
-
-  /**
    * {@inheritdoc}
    *
    * @param string $plugin_id
@@ -70,17 +55,11 @@ class AutocompleteDeluxeWidget extends WidgetBase implements ContainerFactoryPlu
    *   Any third party settings.
    * @param \Drupal\Core\Extension\ModuleHandlerInterface $module_handler
    *   The module handler.
-   * @param \Drupal\Core\Session\AccountInterface $account
-   *   Current account.
-   * @param \Drupal\Core\KeyValueStore\KeyValueFactory $key_value
-   *   Key value storage.
    */
-  public function __construct($plugin_id, $plugin_definition, FieldDefinitionInterface $field_definition, array $settings, array $third_party_settings, ModuleHandlerInterface $module_handler, AccountInterface $account, KeyValueFactory $key_value) {
+  public function __construct($plugin_id, $plugin_definition, FieldDefinitionInterface $field_definition, array $settings, array $third_party_settings, ModuleHandlerInterface $module_handler) {
     parent::__construct($plugin_id, $plugin_definition, $field_definition, $settings, $third_party_settings);
 
     $this->moduleHandler = $module_handler;
-    $this->account = $account;
-    $this->keyValue = $key_value;
   }
 
   /**
@@ -93,9 +72,7 @@ class AutocompleteDeluxeWidget extends WidgetBase implements ContainerFactoryPlu
       $configuration['field_definition'],
       $configuration['settings'],
       $configuration['third_party_settings'],
-      $container->get('module_handler'),
-      $container->get('current_user'),
-      $container->get('keyvalue')
+      $container->get('module_handler')
     );
   }
 
@@ -224,9 +201,9 @@ class AutocompleteDeluxeWidget extends WidgetBase implements ContainerFactoryPlu
       '#min_length' => isset($settings['min_length']) ? $settings['min_length'] : 0,
       '#delimiter' => isset($settings['delimiter']) ? $settings['delimiter'] : '',
       '#not_found_message_allow' => $allow_message,
-      '#not_found_message' => $this->t('@not_found_message', ['@not_found_message' => $not_found_message]),
+      '#not_found_message' => $this->t($not_found_message),
       '#new_terms' => isset($settings['new_terms']) ? $settings['new_terms'] : FALSE,
-      '#no_empty_message' => isset($settings['no_empty_message']) ? $this->t('@no_empty_message', ['@no_empty_message' => $settings['no_empty_message']]) : '',
+      '#no_empty_message' => isset($settings['no_empty_message']) ? $this->t($settings['no_empty_message']) : '',
     ];
 
     $multiple = $cardinality > 1 || $cardinality == FieldStorageDefinitionInterface::CARDINALITY_UNLIMITED;
@@ -236,7 +213,7 @@ class AutocompleteDeluxeWidget extends WidgetBase implements ContainerFactoryPlu
     if ($this->getSetting('new_terms') && $this->getSelectionHandlerSetting('auto_create') && ($bundle = $this->getAutocreateBundle())) {
       $element['#autocreate'] = [
         'bundle' => $bundle,
-        'uid' => ($entity instanceof EntityOwnerInterface) ? $entity->getOwnerId() : $this->account->id(),
+        'uid' => ($entity instanceof EntityOwnerInterface) ? $entity->getOwnerId() : \Drupal::currentUser()->id(),
       ];
     }
 
@@ -249,7 +226,7 @@ class AutocompleteDeluxeWidget extends WidgetBase implements ContainerFactoryPlu
     $data = serialize($selection_settings) . $element['#target_type'] . $element['#selection_handler'];
     $selection_settings_key = Crypt::hmacBase64($data, Settings::getHashSalt());
 
-    $key_value_storage = $this->keyValue->get('entity_autocomplete');
+    $key_value_storage = \Drupal::keyValue('entity_autocomplete');
     if (!$key_value_storage->has($selection_settings_key)) {
       $key_value_storage->set($selection_settings_key, $selection_settings);
     }
@@ -315,7 +292,7 @@ class AutocompleteDeluxeWidget extends WidgetBase implements ContainerFactoryPlu
   public static function validateInteger(&$element, FormStateInterface $form_state, &$complete_form) {
     $value = $element['#value'];
     if ($value !== '' && (!is_numeric($value) || intval($value) != $value)) {
-      $form_state->setError($element, \Drupal::translation()->translate('%name must be an integer.', ['%name' => $element['#title']]));
+      $form_state->setError($element, $this->t('%name must be an integer.', ['%name' => $element['#title']]));
     }
   }
 
@@ -325,7 +302,7 @@ class AutocompleteDeluxeWidget extends WidgetBase implements ContainerFactoryPlu
   public static function validateIntegerPositive(&$element, FormStateInterface $form_state, &$complete_form) {
     $value = $element['#value'];
     if ($value !== '' && (!is_numeric($value) || intval($value) != $value || $value <= 0)) {
-      $form_state->setError($element, \Drupal::translation()->translate('%name must be a positive integer.', ['%name' => $element['#title']]));
+      $form_state->setError($element, $this->t('%name must be a positive integer.', ['%name' => $element['#title']]));
     }
   }
 

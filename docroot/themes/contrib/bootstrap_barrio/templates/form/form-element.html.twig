@@ -45,10 +45,6 @@
  */
 #}
 
-{%
-  set label_attributes = label_attributes ? label_attributes : create_attribute()
-%}
-
 {% if type == 'checkbox' %}
   {% if customtype == 'custom' %}
     {% set wrapperclass = "custom-control custom-checkbox" %}
@@ -108,13 +104,13 @@
       </div>
     {% endif %}
     {% if label_display == 'before' %}
-      <label {{ label_attributes.addClass(labelclass).setAttribute('for', input_attributes.id) }}>
+      <label {{ attributes.addClass(labelclass).setAttribute('for', input_attributes.id) }}>
         {{ input_title | raw }}
       </label>
     {% endif %}
     <input{{ input_attributes.addClass(inputclass) }}>
     {% if label_display == 'after' %}
-      <label {{ label_attributes.addClass(labelclass).setAttribute('for', input_attributes.id) }}>
+      <label {{ attributes.addClass(labelclass).setAttribute('for', input_attributes.id) }}>
         {{ input_title | raw }}
       </label>
     {% endif %}

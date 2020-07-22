@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * @file
+ * Contains \Drupal\ckeditor_bidi\Plugin\CKEditorPlugin\BidiCKEditorButton.
+ */
+
 namespace Drupal\ckeditor_bidi\Plugin\CKEditorPlugin;
 
 use Drupal\ckeditor\CKEditorPluginBase;
@@ -48,29 +53,46 @@ class BidiCKEditorButton extends CKEditorPluginBase {
    *     times to the toolbar. This typically is only applicable for dividers
    *     and group indicators.
    *
-   *   NOTE: The keys of the returned array corresponds to the CKEditor button
-   *   names. They are the first argument of the editor.ui.addButton() or
-   *   editor.ui.addRichCombo() functions in the plugin.js file.
+   * NOTE: The keys of the returned array corresponds to the CKEditor button
+   * names. They are the first argument of the editor.ui.addButton() or
+   * editor.ui.addRichCombo() functions in the plugin.js file.
    */
   public function getButtons() {
     // Make sure that the path to the image matches the file structure of
     // the CKEditor plugin you are implementing.
-    $path = drupal_get_path('module', 'ckeditor_bidi') . '/js/plugins/bidi';
+    $path =  drupal_get_path('module', 'ckeditor_bidi') . '/js/plugins/bidi';
 
-    return [
-      'BidiLtr' => [
+    return array(
+      'BidiLtr' => array(
         'label' => $this->t('Text direction from left to right'),
         'image' => $path . '/icons/bidiltr.png',
-      ],
-      'BidiRtl' => [
+      ),
+      'BidiRtl' => array(
         'label' => $this->t('Text direction from right to left'),
         'image' => $path . '/icons/bidirtl.png',
-      ],
-    ];
+      ),
+    );
   }
 
   /**
-   * {@inheritdoc}
+   * Implements CKEditorPluginInterface::getFile().
+   *
+   * Returns the additions to CKEDITOR.config for a specific CKEditor instance.
+   *
+   * The editor's settings can be retrieved via $editor->getSettings(), but be
+   * aware that it may not yet contain plugin-specific settings, because the
+   * user may not yet have configured the form.
+   * If there are plugin-specific settings (verify with isset()), they can be
+   * found at
+   * @code
+   * $settings = $editor->getSettings();
+   * $plugin_specific_settings = $settings['plugins'][$plugin_id];
+   * @endcode
+   *
+   * @param \Drupal\editor\Entity\Editor $editor
+   *   A configured text editor object.
+   * @return array
+   *   A keyed array, whose keys will end up as keys under CKEDITOR.config.
    */
   public function getFile() {
     return drupal_get_path('module', 'ckeditor_bidi') . '/js/plugins/bidi/plugin.js';
@@ -84,31 +106,29 @@ class BidiCKEditorButton extends CKEditorPluginBase {
    * Plugins marked as internal are implicitly loaded as part of CKEditor.
    *
    * @return bool
-   *   The value.
    */
-  public function isInternal() {
+  function isInternal() {
     return FALSE;
   }
 
   /**
    * {@inheritdoc}
    */
-  public function getDependencies(Editor $editor) {
-    return [];
+  function getDependencies(Editor $editor) {
+    return array();
   }
 
   /**
    * {@inheritdoc}
    */
-  public function getLibraries(Editor $editor) {
-    return [];
+  function getLibraries(Editor $editor) {
+    return array();
   }
 
   /**
    * {@inheritdoc}
    */
   public function getConfig(Editor $editor) {
-    return [];
+    return array();
   }
-
 }

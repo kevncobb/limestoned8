@@ -104,6 +104,7 @@ class InlineEntityFormComplex extends InlineEntityFormBase implements ContainerF
     $defaults += [
       'allow_new' => TRUE,
       'allow_existing' => FALSE,
+      'allow_edit' => TRUE,
       'match_operator' => 'CONTAINS',
       'allow_duplicate' => FALSE,
     ];
@@ -128,6 +129,11 @@ class InlineEntityFormComplex extends InlineEntityFormBase implements ContainerF
       '#type' => 'checkbox',
       '#title' => $this->t('Allow users to add existing @label.', ['@label' => $labels['plural']]),
       '#default_value' => $this->getSetting('allow_existing'),
+    ];
+    $element['allow_edit'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Allow users to edit existing @label.', ['@label' => $labels['plural']]),
+      '#default_value' => $this->getSetting('allow_edit'),
     ];
     $element['match_operator'] = [
       '#type' => 'select',
@@ -352,7 +358,7 @@ class InlineEntityFormComplex extends InlineEntityFormBase implements ContainerF
 
         // Make sure entity_access is not checked for unsaved entities.
         $entity_id = $entity->id();
-        if (empty($entity_id) || $entity->access('update')) {
+        if (empty($entity_id) || ($settings['allow_edit'] && $entity->access('update'))) {
           $row['actions']['ief_entity_edit'] = [
             '#type' => 'submit',
             '#value' => $this->t('Edit'),

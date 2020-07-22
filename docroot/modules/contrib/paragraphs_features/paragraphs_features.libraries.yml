@@ -17,5 +17,3 @@ drupal.paragraphs_features.split_text:
     js/plugins/splittext/plugin.js: {}
   dependencies:
     - core/ckeditor
-    - core/drupal
-    - core/jquery.once

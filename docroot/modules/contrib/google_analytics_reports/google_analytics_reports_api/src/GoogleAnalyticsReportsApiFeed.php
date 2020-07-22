@@ -2,18 +2,10 @@
 
 namespace Drupal\google_analytics_reports_api;
 
-use Drupal\Core\Routing\TrustedRedirectResponse;
 use Drupal\Core\Url;
+use Drupal\Core\Cache\CacheableRedirectResponse;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
-use Drupal\Core\StringTranslation\StringTranslationTrait;
-use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
-use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Component\HttpFoundation\RequestStack;
-use Drupal\Core\Logger\LoggerChannelFactory;
-use Drupal\Core\Cache\CacheFactory;
-use Drupal\Component\Datetime\TimeInterface;
-use Drupal\Core\Extension\ModuleHandlerInterface;
 
 /**
  * Class GoogleAnalyticsReportsApiFeed.
@@ -21,126 +13,48 @@ use Drupal\Core\Extension\ModuleHandlerInterface;
  * GoogleAnalyticsReportsApiFeed class to authorize access to and request data
  * from the Google Analytics Core Reporting API.
  */
-class GoogleAnalyticsReportsApiFeed implements ContainerInjectionInterface {
-
-  use StringTranslationTrait;
+class GoogleAnalyticsReportsApiFeed {
 
   const OAUTH2_REVOKE_URI = 'https://accounts.google.com/o/oauth2/revoke';
   const OAUTH2_TOKEN_URI = 'https://accounts.google.com/o/oauth2/token';
   const OAUTH2_AUTH_URL = 'https://accounts.google.com/o/oauth2/auth';
   const SCOPE = 'https://www.googleapis.com/auth/analytics.readonly https://www.google.com/analytics/feeds/';
 
-  /**
-   * Response object.
-   *
-   * @var string
-   */
+  // Response object.
   public $response;
 
-  /**
-   * Formatted array of request results.
-   *
-   * @var string
-   */
+  // Formatted array of request results.
   public $results;
 
-  /**
-   * URL to Google Analytics Core Reporting API.
-   *
-   * @var string
-   */
+  // URL to Google Analytics Core Reporting API.
   public $queryPath;
 
-  /**
-   * Translated error message.
-   *
-   * @var string
-   */
+  // Translated error message.
   public $error;
 
-  /**
-   * Boolean TRUE if data is from the cache tables.
-   *
-   * @var bool
-   */
+  // Boolean TRUE if data is from the cache tables.
   public $fromCache = FALSE;
 
-  /**
-   * OAuth access token.
-   *
-   * @var string
-   */
+  // OAuth access token.
   public $accessToken;
 
-  /**
-   * OAuth refresh token.
-   *
-   * @var string
-   */
+  // OAuth refresh token.
   public $refreshToken;
 
-  /**
-   * OAuth expiration time.
-   *
-   * @var time
-   */
+  // OAuth expiration time.
   public $expiresAt;
 
-  /**
-   * Host and endpoint of Google Analytics API.
-   *
-   * @var string
-   */
+  // Host and endpoint of Google Analytics API.
   protected $host = 'www.googleapis.com/analytics/v3';
 
-  /**
-   * Request header source.
-   *
-   * @var string
-   */
+  // Request header source.
   protected $source = 'drupal';
 
-  /**
-   * Google authorize callback verifier string.
-   *
-   * @var string
-   */
+  // Google authorize callback verifier string.
   protected $verifier;
 
-  /**
-   * OAuth host.
-   *
-   * @var string
-   */
+  // OAuth host.
   protected $oAuthHost = 'www.google.com';
-
-  /**
-   * The module handler service.
-   *
-   * @var \Drupal\Core\Extension\ModuleHandlerInterface
-   */
-  protected $moduleHandler;
-
-  /**
-   * Logger Factory.
-   *
-   * @var \Drupal\Core\Logger\LoggerChannelFactory
-   */
-  protected $loggerFactory;
-
-  /**
-   * The RequestStack service.
-   *
-   * @var Symfony\Component\HttpFoundation\RequestStack
-   */
-  protected $requestStack;
-
-  /**
-   * The cache factory.
-   *
-   * @var \Drupal\Core\Cache\CacheFactory
-   */
-  protected $cacheFactory;
 
   /**
    * Check if object is authenticated with Google.
@@ -150,62 +64,10 @@ class GoogleAnalyticsReportsApiFeed implements ContainerInjectionInterface {
   }
 
   /**
-   * Google Analytics Reports Api Feed constructor.
-   *
-   * @param string|null $token
-   *   The token.
-   * @param \Drupal\Core\Extension\ModuleHandlerInterface $module_handler
-   *   The module handler service.
-   * @param Drupal\Core\Logger\LoggerChannelFactory $logger_factory
-   *   The logger Factory.
-   * @param Drupal\Core\Cache\CacheFactory $cache_factory
-   *   The cache factory.
-   * @param Symfony\Component\HttpFoundation\RequestStack $request_stack
-   *   The request service.
-   * @param \Drupal\Component\Datetime\TimeInterface $time
-   *   The time service.
-   */
-  public function __construct($token = NULL, ModuleHandlerInterface $module_handler = NULL, LoggerChannelFactory $logger_factory = NULL, CacheFactory $cache_factory = NULL, RequestStack $request_stack = NULL, TimeInterface $time = NULL) {
-    $this->accessToken = $token;
-
-    if (is_null($module_handler)) {
-      $module_handler = \Drupal::service('module_handler');
-    }
-    $this->moduleHandler = $module_handler;
-
-    if (is_null($logger_factory)) {
-      $logger_factory = \Drupal::service('logger.factory');
-    }
-    $this->loggerFactory = $logger_factory->get('google_analytics_reports_api');
-
-    if (is_null($cache_factory)) {
-      $cache_factory = \Drupal::service('cache_factory');
-    }
-    $this->cacheFactory = $cache_factory;
-
-    if (is_null($request_stack)) {
-      $request_stack = \Drupal::service('request_stack');
-    }
-    $this->requestStack = $request_stack;
-
-    if (is_null($time)) {
-      $time = \Drupal::service('datetime.time');
-    }
-    $this->time = $time;
-  }
-
-  /**
    * {@inheritdoc}
    */
-  public static function create(ContainerInterface $container) {
-    return new static(
-      NULL,
-      $container->get('module_handler'),
-      $container->get('logger.factory')->get('google_analytics_reports_api'),
-      $container->get('cache_factory'),
-      $container->get('request_stack'),
-      $container->get('datetime.time')
-    );
+  public function __construct($token = NULL) {
+    $this->accessToken = $token;
   }
 
   /**
@@ -215,8 +77,8 @@ class GoogleAnalyticsReportsApiFeed implements ContainerInjectionInterface {
    *   - current page url.
    */
   public static function currentUrl() {
-    $current_path_uri = $this->requestStack->getCurrentRequest()->getUri();
-    return Url::fromUri($current_path_uri, ['absolute' => TRUE])->toString();
+    $current_path = \Drupal::service('path.current')->getPath();
+    return Url::fromUri('base:/' . $current_path, ['absolute' => TRUE])->toString();
   }
 
   /**
@@ -256,7 +118,7 @@ class GoogleAnalyticsReportsApiFeed implements ContainerInjectionInterface {
    * @param string $redirect_uri
    *   Redirect uri.
    * @param string $refresh_token
-   *   Refresh token.
+   *   Referesh token.
    */
   protected function fetchToken($client_id, $client_secret, $redirect_uri, $refresh_token = NULL) {
     if ($refresh_token) {
@@ -268,9 +130,8 @@ class GoogleAnalyticsReportsApiFeed implements ContainerInjectionInterface {
       ];
     }
     else {
-      $current_request_code = $this->requestStack->getCurrentRequest()->query->get('code');
       $params = [
-        'code' => $current_request_code,
+        'code' => $_GET['code'],
         'grant_type' => 'authorization_code',
         'redirect_uri' => $redirect_uri,
         'client_id' => $client_id,
@@ -299,8 +160,8 @@ class GoogleAnalyticsReportsApiFeed implements ContainerInjectionInterface {
           '@code' => $response->getStatusCode(),
           '@details' => print_r(json_decode($this->response), TRUE),
         ];
-        $this->error = $this->t('<strong>Code</strong>: @code, <strong>Error</strong>: <pre>@details</pre>', $error_vars);
-        $this->loggerFactory->error('<strong>Code</strong>: @code, <strong>Error</strong>: <pre>@details</pre>', $error_vars);
+        $this->error = t('<strong>Code</strong>: @code, <strong>Error</strong>: <pre>@details</pre>', $error_vars);
+        \Drupal::logger('google_analytics_reports_api')->error('<strong>Code</strong>: @code, <strong>Error</strong>: <pre>@details</pre>', $error_vars);
       }
     }
     catch (ClientException $e) {
@@ -312,8 +173,8 @@ class GoogleAnalyticsReportsApiFeed implements ContainerInjectionInterface {
         '@message' => $e->getMessage(),
         '@details' => print_r(json_decode($this->response), TRUE),
       ];
-      $this->error = $this->t('<strong>Code</strong>: @code, <strong>Error</strong>: @message, <strong>Message</strong>: <pre>@details</pre>', $error_vars);
-      $this->loggerFactory->error('<strong>Code</strong>: @code, <strong>Error</strong>: <pre>@details</pre>', $error_vars);
+      $this->error = t('<strong>Code</strong>: @code, <strong>Error</strong>: @message, <strong>Message</strong>: <pre>@details</pre>', $error_vars);
+      \Drupal::logger('google_analytics_reports_api')->error('<strong>Code</strong>: @code, <strong>Error</strong>: <pre>@details</pre>', $error_vars);
     }
   }
 
@@ -327,8 +188,6 @@ class GoogleAnalyticsReportsApiFeed implements ContainerInjectionInterface {
    *   Client id.
    * @param string $client_secret
    *   Client secret.
-   * @param string $redirect_uri
-   *   Redirect uri.
    */
   public function finishAuthentication($client_id, $client_secret, $redirect_uri) {
     $this->fetchToken($client_id, $client_secret, $redirect_uri);
@@ -343,12 +202,10 @@ class GoogleAnalyticsReportsApiFeed implements ContainerInjectionInterface {
    *   Client id.
    * @param string $redirect_uri
    *   Redirect uri.
-   *
-   * @return \Drupal\Core\Routing\TrustedRedirectResponse
-   *   The trusted redirect response.
    */
   public function beginAuthentication($client_id, $redirect_uri) {
-    return new TrustedRedirectResponse($this->createAuthUrl($client_id, $redirect_uri));
+    $response = new CacheableRedirectResponse($this->createAuthUrl($client_id, $redirect_uri));
+    $response->send();
   }
 
   /**
@@ -372,7 +229,7 @@ class GoogleAnalyticsReportsApiFeed implements ContainerInjectionInterface {
    * Revoke an OAuth2 access token or refresh token. This method will revoke
    * the current access token, if a token isn't provided.
    *
-   * @param string|null $token
+   * @param string|NULL $token
    *   The token (access token or a refresh token) that should be revoked.
    *
    * @return boll
@@ -407,8 +264,8 @@ class GoogleAnalyticsReportsApiFeed implements ContainerInjectionInterface {
         '@message' => $e->getMessage(),
         '@details' => print_r(json_decode($this->response), TRUE),
       ];
-      $this->error = $this->t('<strong>Code</strong>: @code, <strong>Error</strong>: @message, <strong>Message</strong>: <pre>@details</pre>', $error_vars);
-      $this->loggerFactory->error('<strong>Code</strong>: @code, <strong>Error</strong>: <pre>@details</pre>', $error_vars);
+      $this->error = t('<strong>Code</strong>: @code, <strong>Error</strong>: @message, <strong>Message</strong>: <pre>@details</pre>', $error_vars);
+      \Drupal::logger('google_analytics_reports_api')->error('<strong>Code</strong>: @code, <strong>Error</strong>: <pre>@details</pre>', $error_vars);
     }
 
     return FALSE;
@@ -455,7 +312,7 @@ class GoogleAnalyticsReportsApiFeed implements ContainerInjectionInterface {
   /**
    * Public query method for all Core Reporting API features.
    */
-  public function query($url, $params = [], $method = 'GET', $headers = [], $cache_options = []) {
+  public function query($url, $params = [], $method = 'GET', $headers, $cache_options = []) {
     $params_defaults = [
       'start-index' => 1,
       'max-results' => 1000,
@@ -476,8 +333,9 @@ class GoogleAnalyticsReportsApiFeed implements ContainerInjectionInterface {
       $cache_options['cid'] = 'google_analytics_reports_data:' . md5(serialize(array_merge($params, [$url, $method])));
     }
 
-    $cache = $this->cacheFactory->get($cache_options['bin'])->get($cache_options['cid']);
-    if (!$cache_options['refresh'] && isset($cache) && !empty($cache->data) && ($cache->expire > $this->time->getRequestTime())) {
+    $cache = \Drupal::cache($cache_options['bin'])->get($cache_options['cid']);
+
+    if (!$cache_options['refresh'] && isset($cache) && !empty($cache->data) && ($cache->expire > REQUEST_TIME)) {
       $this->response = $cache->data;
       $this->results = json_decode($this->response);
       $this->fromCache = TRUE;
@@ -487,7 +345,7 @@ class GoogleAnalyticsReportsApiFeed implements ContainerInjectionInterface {
     }
 
     if (empty($this->error)) {
-      $this->cacheFactory->get($cache_options['bin'])->set($cache_options['cid'], $this->response, $cache_options['expire']);
+      \Drupal::cache($cache_options['bin'])->set($cache_options['cid'], $this->response, $cache_options['expire']);
     }
 
     return (empty($this->error));
@@ -531,8 +389,8 @@ class GoogleAnalyticsReportsApiFeed implements ContainerInjectionInterface {
           '@code' => $response->getStatusCode(),
           '@details' => print_r(json_decode($this->response), TRUE),
         ];
-        $this->error = $this->t('<strong>Code</strong>: @code, <strong>Error</strong>: <pre>@details</pre>', $error_vars);
-        $this->loggerFactory->error('<strong>Code</strong>: @code, <strong>Error</strong>: <pre>@details</pre>', $error_vars);
+        $this->error = t('<strong>Code</strong>: @code, <strong>Error</strong>: <pre>@details</pre>', $error_vars);
+        \Drupal::logger('google_analytics_reports_api')->error('<strong>Code</strong>: @code, <strong>Error</strong>: <pre>@details</pre>', $error_vars);
       }
     }
     catch (ClientException $e) {
@@ -544,8 +402,8 @@ class GoogleAnalyticsReportsApiFeed implements ContainerInjectionInterface {
         '@message' => $e->getMessage(),
         '@details' => print_r(json_decode($this->response), TRUE),
       ];
-      $this->error = $this->t('<strong>Code</strong>: @code, <strong>Error</strong>: @message, <strong>Message</strong>: <pre>@details</pre>', $error_vars);
-      $this->loggerFactory->error('<strong>Code</strong>: @code, <strong>Error</strong>: <pre>@details</pre>', $error_vars);
+      $this->error = t('<strong>Code</strong>: @code, <strong>Error</strong>: @message, <strong>Message</strong>: <pre>@details</pre>', $error_vars);
+      \Drupal::logger('google_analytics_reports_api')->error('<strong>Code</strong>: @code, <strong>Error</strong>: <pre>@details</pre>', $error_vars);
     }
   }
 
@@ -702,7 +560,7 @@ class GoogleAnalyticsReportsApiFeed implements ContainerInjectionInterface {
         $field_without_ga = str_replace('ga:', '', $this->results->columnHeaders[$item_key]->name);
 
         // Allow other modules to alter executed data before display.
-        $this->moduleHandler->alter('google_analytics_reports_api_reported_data', $field_without_ga, $item_value);
+        \Drupal::moduleHandler()->alter('google_analytics_reports_api_reported_data', $field_without_ga, $item_value);
 
         $this->results->rows[$row_key][$field_without_ga] = $item_value;
       }

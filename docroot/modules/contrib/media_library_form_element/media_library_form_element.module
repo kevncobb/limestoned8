@@ -2,7 +2,6 @@
 
 /**
  * @file
- * The Media Library Form Element module file.
  */
 
 use Drupal\Core\Render\Element;

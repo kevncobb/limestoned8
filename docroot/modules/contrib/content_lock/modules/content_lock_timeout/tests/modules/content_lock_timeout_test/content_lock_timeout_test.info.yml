@@ -1,13 +1,13 @@
 name: 'Content lock timeout test'
 type: module
 description: 'Provides test classes.'
-core_version_requirement: ^8.8 || ^9
+core: 8.x
 package: Testing
 # version: VERSION
 dependencies:
   - content_lock:content_lock_timeout
 
-# Information added by Drupal.org packaging script on 2020-06-05
-version: '8.x-2.1'
+# Information added by Drupal.org packaging script on 2019-11-26
+version: '8.x-2.0'
 project: 'content_lock'
-datestamp: 1591342903
+datestamp: 1574768893

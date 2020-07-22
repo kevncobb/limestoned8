@@ -2,7 +2,9 @@ name: 'Varbase Webform'
 description: 'Provide webforms features and settings.'
 type: module
 package: Varbase
+# version: 8.x-8.x-dev
 core_version_requirement: ^8 || ^9
+# project: varbase_core
 dependencies: 
   - webform:webform
 install:
@@ -13,7 +15,7 @@ install:
   - taxonomy
   - webform_views
 
-# Information added by Drupal.org packaging script on 2020-07-05
-version: '8.x-8.18'
+# Information added by Drupal.org packaging script on 2020-06-02
+version: '8.x-8.15'
 project: 'varbase_core'
-datestamp: 1593942260
+datestamp: 1591141520

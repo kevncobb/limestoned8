@@ -124,20 +124,20 @@ class SwiftMailerSettingsTest extends WebDriverTestBase {
     $this->assertSession()->pageTextContains('Transport types');
 
     $this->clickLink('Messages');
-    $this->assertSession()->pageTextContains('Content type');
+    $this->assertSession()->pageTextContains('Message format');
 
     $this->drupalPostForm(NULL, [
-      'content_type[type]' => 'text/html',
-      'generate_plain[mode]' => TRUE,
+      'format[type]' => 'text/html',
+      'convert[mode]' => TRUE,
       'character_set[type]' => 'EUC-CN',
     ], 'Save configuration');
     $this->assertSession()->pageTextContains('The configuration options have been saved.');
 
     $config = $this->config('swiftmailer.message');
-    $content_type = $config->get('content_type');
-    $mode = $config->get('generate_plain');
+    $format = $config->get('format');
+    $mode = $config->get('convert_mode');
     $character = $config->get('character_set');
-    $this->assertEqual($content_type, 'text/html');
+    $this->assertEqual($format, 'text/html');
     $this->assertEqual($mode, TRUE);
     $this->assertEqual($character, 'EUC-CN');
   }

@@ -2,11 +2,11 @@ name: Media Entity Instagram
 description: 'Media Entity Instagram provider.'
 type: module
 package: Media
-core_version_requirement: ^8.8 || ^9
+core: 8.x
 dependencies:
-  - drupal:media
+  - drupal:media (>= 8.4.0)
 
-# Information added by Drupal.org packaging script on 2020-06-03
-version: '8.x-2.1'
+# Information added by Drupal.org packaging script on 2019-09-25
+version: '8.x-2.0'
 project: 'media_entity_instagram'
-datestamp: 1591181709
+datestamp: 1569420801

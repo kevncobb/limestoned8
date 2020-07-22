@@ -7,7 +7,6 @@ use Drupal\Core\Render\Element\Number;
 use Drupal\views\Plugin\views\display\DisplayPluginBase;
 use Drupal\views\Plugin\views\filter\FilterPluginBase;
 use Drupal\views\ViewExecutable;
-use Drupal\Core\StringTranslation\StringTranslationTrait;
 
 /**
  * Provides base filter functionality for Google Analytics fields.
@@ -17,8 +16,6 @@ use Drupal\Core\StringTranslation\StringTranslationTrait;
  * @ViewsFilter("google_analytics_base")
  */
 class GoogleAnalyticsBase extends FilterPluginBase {
-
-  use StringTranslationTrait;
 
   /**
    * {@inheritdoc}
@@ -37,7 +34,7 @@ class GoogleAnalyticsBase extends FilterPluginBase {
    */
   public function init(ViewExecutable $view, DisplayPluginBase $display, array &$options = NULL) {
     parent::init($view, $display, $options);
-    $this->isCustom = google_analytics_reports_is_custom($this->realField);
+    $this->isCustom  = google_analytics_reports_is_custom($this->realField);
   }
 
   /**
@@ -59,7 +56,7 @@ class GoogleAnalyticsBase extends FilterPluginBase {
     if ($this->isCustom) {
       $form['custom_field_number'] = [
         '#type' => 'textfield',
-        '#title' => $this->t('Custom field number'),
+        '#title' => t('Custom field number'),
         '#default_value' => isset($this->options['custom_field_number']) ? $this->options['custom_field_number'] : 1,
         '#size' => 2,
         '#maxlength' => 2,

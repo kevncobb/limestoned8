@@ -30,7 +30,7 @@ class BlockContentPermissionsAddPageController extends BlockContentController {
    * Add current_user.
    */
   public static function create(ContainerInterface $container) {
-    $entity_manager = $container->get('entity_type.manager');
+    $entity_manager = $container->get('entity.manager');
     return new static(
       $entity_manager->getStorage('block_content'),
       $entity_manager->getStorage('block_content_type'),

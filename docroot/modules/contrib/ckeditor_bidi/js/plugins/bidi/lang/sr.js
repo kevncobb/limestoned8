@@ -1,8 +1,8 @@
 /*
-Copyright (c) 2003-2020, CKSource - Frederico Knabben. All rights reserved.
-For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
+Copyright (c) 2003-2017, CKSource - Frederico Knabben. All rights reserved.
+For licensing, see LICENSE.md or http://ckeditor.com/license
 */
 CKEDITOR.plugins.setLang( 'bidi', 'sr', {
-	ltr: 'Правац текста са лева на десно',
-	rtl: 'Правац текста са десно на лево'
+	ltr: 'Text direction from left to right', // MISSING
+	rtl: 'Text direction from right to left' // MISSING
 } );

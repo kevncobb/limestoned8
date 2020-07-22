@@ -1,5 +1,4 @@
 <?php
-
 /**
  * @file
  * Drush integration for Google Analytics Reports module.
@@ -12,17 +11,17 @@ use GuzzleHttp\Exception\RequestException;
  * Implements hook_drush_command().
  */
 function google_analytics_reports_drush_command() {
-  $commands = [];
+  $commands = array();
 
-  $commands['google-analytics-reports-fields'] = [
-    'aliases' => ['garf'],
+  $commands['google-analytics-reports-fields'] = array(
+    'aliases' => array('garf'),
     'bootstrap' => DRUSH_BOOTSTRAP_DRUSH,
     'description' => dt('Import Google Analytics fields.'),
-    'examples' => [
+    'examples' => array(
       'drush google-analytics-reports-fields' => dt('Import Google Analytics fields for Google Analytics Reports module.'),
-    ],
+    ),
     'callback' => 'drush_google_analytics_reports_fields',
-  ];
+  );
 
   return $commands;
 }
@@ -62,7 +61,7 @@ function drush_google_analytics_reports_fields() {
     }
     $google_analytics_reports_settings = \Drupal::config('google_analytics_reports.settings')->get();
     // Save current time as last executed time.
-    $google_analytics_reports_settings['metadata_last_time'] = \Drupal::time()->getRequestTime();
+    $google_analytics_reports_settings['metadata_last_time'] = REQUEST_TIME;
     // Save etag identifier. It is used to check updates for the fields.
     // @see https://developers.google.com/analytics/devguides/reporting/metadata/v3/devguide#etag
     if (!empty($data['etag'])) {
@@ -74,21 +73,20 @@ function drush_google_analytics_reports_fields() {
       ->save();
 
     if (!empty($data['items'])) {
-      $context = [];
+      $context = array();
       foreach ($data['items'] as $item) {
         // Do not import deprecated fields.
         if ($item['attributes']['status'] == 'PUBLIC') {
           GoogleAnalyticsReports::saveFields($item, $context);
         }
       }
-
-      \Drupal::logger(dt('Imported @count Google Analytics fields.', ['@count' => count($context['results'])]), 'success');
+      drush_log(dt('Imported @count Google Analytics fields.', array('@count' => count($context['results']))), 'success');
     }
     else {
-      \Drupal::logger(dt('An error has occurred during importing Google Analytics fields.'), 'error');
+      drush_log(dt('An error has occurred during importing Google Analytics fields.'), 'error');
     }
   }
   else {
-    \Drupal::logger(dt('There is a error during request to Google Analytics Metadata API: @error', ['@error' => $response->error]), 'error');
+    drush_log(dt('There is a error during request to Google Analytics Metadata API: @error', array('@error' => $response->error)), 'error');
   }
 }

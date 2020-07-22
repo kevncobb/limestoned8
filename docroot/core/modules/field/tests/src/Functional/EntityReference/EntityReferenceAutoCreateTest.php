@@ -92,10 +92,7 @@ class EntityReferenceAutoCreateTest extends BrowserTestBase {
       ])
       ->save();
 
-    $account = $this->drupalCreateUser([
-      'access content',
-      "create $this->referencingType content",
-    ]);
+    $account = $this->drupalCreateUser(['access content', "create $this->referencingType content"]);
     $this->drupalLogin($account);
   }
 

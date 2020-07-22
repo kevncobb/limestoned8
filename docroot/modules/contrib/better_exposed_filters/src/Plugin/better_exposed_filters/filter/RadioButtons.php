@@ -95,6 +95,7 @@ class RadioButtons extends FilterWidgetBase {
       if (!empty($form[$field_id]['#multiple'])) {
         $form[$field_id]['#theme'] = 'bef_checkboxes';
         $form[$field_id]['#type'] = 'checkboxes';
+        $form[$field_id]['#process'][] = ['\Drupal\Core\Render\Element\Checkboxes', 'processCheckboxes'];
 
         // Show all/none option.
         $form[$field_id]['#bef_select_all_none'] = $this->configuration['select_all_none'];
@@ -107,6 +108,7 @@ class RadioButtons extends FilterWidgetBase {
       else {
         $form[$field_id]['#theme'] = 'bef_radios';
         $form[$field_id]['#type'] = 'radios';
+        $form[$field_id]['#process'][] = ['\Drupal\Core\Render\Element\Radios', 'processRadios'];
       }
     }
   }

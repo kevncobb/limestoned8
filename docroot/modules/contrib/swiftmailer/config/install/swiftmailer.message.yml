@@ -1,4 +1,5 @@
-content_type: text/html
-text_format: ''
-generate_plain: true
+format: text/plain
+filter_format: plain_text
+respect_format: true
+convert_mode: false
 character_set: UTF-8

@@ -18,7 +18,7 @@ class EntityBlock implements ContainerDeriverInterface {
    *
    * @var array
    */
-  protected $derivatives = [];
+  protected $derivatives = array();
 
   /**
    * The base plugin ID.
@@ -45,7 +45,7 @@ class EntityBlock implements ContainerDeriverInterface {
   }
 
   /**
-   * Constructs a EntityBlock object.
+   * Constructs a ViewsBlock object.
    *
    * @param string $base_plugin_id
    *   The base plugin ID.

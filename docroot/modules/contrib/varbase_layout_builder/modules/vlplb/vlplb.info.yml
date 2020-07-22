@@ -16,7 +16,7 @@ install:
   - advanced_text_formatter
   - maxlength
 
-# Information added by Drupal.org packaging script on 2020-06-20
-version: '8.x-1.0-alpha13'
+# Information added by Drupal.org packaging script on 2020-06-02
+version: '8.x-1.0-alpha12'
 project: 'varbase_layout_builder'
-datestamp: 1592683140
+datestamp: 1591112417

@@ -102,7 +102,7 @@ class PageManagerHelper {
     $fixed_contexts = [];
     foreach ($contexts as $context_name => $context) {
       $data_type = $context->getContextDefinition()->getDataType();
-      if (preg_match('/entity:(\w+)/', $data_type, $matches)) {
+      if (preg_match('/entity:(\w)/', $data_type, $matches)) {
         $entity_type = $matches[1];
         if (is_numeric($context->getContextValue())) {
           $storage = $this->entityManager->getStorage($entity_type);

@@ -27,6 +27,7 @@ class GoogleAnalyticsPath extends ArgumentDefaultPluginBase implements Cacheable
    */
   protected $requestStack;
 
+
   /**
    * {@inheritdoc}
    */

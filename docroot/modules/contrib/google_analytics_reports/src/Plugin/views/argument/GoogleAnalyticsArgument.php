@@ -7,7 +7,6 @@ use Drupal\Core\Render\Element\Number;
 use Drupal\views\Plugin\views\argument\ArgumentPluginBase;
 use Drupal\views\Plugin\views\display\DisplayPluginBase;
 use Drupal\views\ViewExecutable;
-use Drupal\Core\StringTranslation\StringTranslationTrait;
 
 /**
  * Provides base argument functionality for Google Analytics fields.
@@ -18,21 +17,10 @@ use Drupal\Core\StringTranslation\StringTranslationTrait;
  */
 class GoogleAnalyticsArgument extends ArgumentPluginBase {
 
-  use StringTranslationTrait;
-
-  /**
-   * Is Custom.
-   *
-   * @var object
-   */
   protected $isCustom = NULL;
 
-  /**
-   * Operator.
-   *
-   * @var object
-   */
   public $operator;
+
 
   /**
    * {@inheritdoc}
@@ -63,7 +51,7 @@ class GoogleAnalyticsArgument extends ArgumentPluginBase {
     if ($this->isCustom) {
       $form['custom_field_number'] = [
         '#type' => 'textfield',
-        '#title' => $this->t('Custom field number'),
+        '#title' => t('Custom field number'),
         '#default_value' => isset($this->options['custom_field_number']) ? $this->options['custom_field_number'] : 1,
         '#size' => 2,
         '#maxlength' => 2,

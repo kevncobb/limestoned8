@@ -178,7 +178,7 @@
         "version_normalized": "2.3.0.0",
         "source": {
             "type": "git",
-            "url": "git@github.com:constancecchen/object-fit-polyfill.git",
+            "url": "https://github.com/constancecchen/object-fit-polyfill.git",
             "reference": "0a59e20c327c8b7984df3eaf852537656e3ada1c"
         },
         "dist": {
@@ -3203,6 +3203,9 @@
             },
             "branch-alias": {
                 "dev-8.x-1.x": "8.1.x-dev"
+            },
+            "patches_applied": {
+                "Issue #3128583: Fix Could not load data for internal links": "https://www.drupal.org/files/issues/2020-06-21/3128583-16.patch"
             }
         },
         "installation-source": "dist",
@@ -5170,27 +5173,27 @@
     },
     {
         "name": "drupal/entity",
-        "version": "1.0.0",
-        "version_normalized": "1.0.0.0",
+        "version": "1.1.0",
+        "version_normalized": "1.1.0.0",
         "source": {
             "type": "git",
             "url": "https://git.drupalcode.org/project/entity.git",
-            "reference": "8.x-1.0"
+            "reference": "8.x-1.1"
         },
         "dist": {
             "type": "zip",
-            "url": "https://ftp.drupal.org/files/projects/entity-8.x-1.0.zip",
-            "reference": "8.x-1.0",
-            "shasum": "ac359ada43416ca3a8d0e44f2985b0a9fae07625"
+            "url": "https://ftp.drupal.org/files/projects/entity-8.x-1.1.zip",
+            "reference": "8.x-1.1",
+            "shasum": "6009845bab8e76e23a0657cf898dc15365568e5c"
         },
         "require": {
-            "drupal/core": "^8.7.7 || ^9"
+            "drupal/core": "^8.8 || ^9"
         },
         "type": "drupal-module",
         "extra": {
             "drupal": {
-                "version": "8.x-1.0",
-                "datestamp": "1582735747",
+                "version": "8.x-1.1",
+                "datestamp": "1595445791",
                 "security-coverage": {
                     "status": "covered",
                     "message": "Covered by Drupal's security advisory policy"
@@ -5200,7 +5203,7 @@
         "installation-source": "dist",
         "notification-url": "https://packages.drupal.org/8/downloads",
         "license": [
-            "GPL-2.0+"
+            "GPL-2.0-or-later"
         ],
         "authors": [
             {
@@ -7100,6 +7103,9 @@
                     "status": "not-covered",
                     "message": "RC releases are not covered by Drupal security advisories."
                 }
+            },
+            "patches_applied": {
+                "Issue #3143422: Allow to hide the Edit button in Complex widget": "https://www.drupal.org/files/issues/2020-05-28/optional_edit-3143422-2.patch"
             }
         },
         "installation-source": "dist",
@@ -10221,6 +10227,9 @@
                     "status": "not-covered",
                     "message": "Beta releases are not covered by Drupal security advisories."
                 }
+            },
+            "patches_applied": {
+                "Issue #3156322: Rabbit Hole bundle settings is not created on content type creation, only on editing content type": "https://www.drupal.org/files/issues/2020-07-03/3156322_4.patch"
             }
         },
         "installation-source": "dist",
@@ -10598,22 +10607,22 @@
     },
     {
         "name": "drupal/schema_metatag",
-        "version": "1.6.0",
-        "version_normalized": "1.6.0.0",
+        "version": "1.7.0",
+        "version_normalized": "1.7.0.0",
         "source": {
             "type": "git",
             "url": "https://git.drupalcode.org/project/schema_metatag.git",
-            "reference": "8.x-1.6"
+            "reference": "8.x-1.7"
         },
         "dist": {
             "type": "zip",
-            "url": "https://ftp.drupal.org/files/projects/schema_metatag-8.x-1.6.zip",
-            "reference": "8.x-1.6",
-            "shasum": "89816975afc0345b57c3b0550c88a8f371ba56c9"
+            "url": "https://ftp.drupal.org/files/projects/schema_metatag-8.x-1.7.zip",
+            "reference": "8.x-1.7",
+            "shasum": "880ce69c9c1510e90747ebfab64070dbf704f653"
         },
         "require": {
             "drupal/core": "^8 || ^9",
-            "drupal/metatag": "*"
+            "drupal/metatag": "^1.0"
         },
         "require-dev": {
             "drupal/metatag_views": "*",
@@ -10623,8 +10632,8 @@
         "type": "drupal-module",
         "extra": {
             "drupal": {
-                "version": "8.x-1.6",
-                "datestamp": "1592573603",
+                "version": "8.x-1.7",
+                "datestamp": "1595441023",
                 "security-coverage": {
                     "status": "covered",
                     "message": "Covered by Drupal's security advisory policy"
@@ -18586,20 +18595,20 @@
     },
     {
         "name": "swagger-api/swagger-ui",
-        "version": "v3.30.0",
-        "version_normalized": "3.30.0.0",
+        "version": "v3.30.2",
+        "version_normalized": "3.30.2.0",
         "source": {
             "type": "git",
             "url": "https://github.com/swagger-api/swagger-ui.git",
-            "reference": "42dc02c6a2aefab65c7c398214d05f3c37b09f7e"
+            "reference": "d8521c1bc067cfa57108ecf8f1a513db039ff1da"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/swagger-api/swagger-ui/zipball/42dc02c6a2aefab65c7c398214d05f3c37b09f7e",
-            "reference": "42dc02c6a2aefab65c7c398214d05f3c37b09f7e",
+            "url": "https://api.github.com/repos/swagger-api/swagger-ui/zipball/d8521c1bc067cfa57108ecf8f1a513db039ff1da",
+            "reference": "d8521c1bc067cfa57108ecf8f1a513db039ff1da",
             "shasum": ""
         },
-        "time": "2020-07-17T22:50:30+00:00",
+        "time": "2020-07-22T20:37:48+00:00",
         "type": "library",
         "installation-source": "dist",
         "notification-url": "https://packagist.org/downloads/",
