@@ -21,6 +21,7 @@ regions:
   header: Header
   main_menu_region: 'Main Menu Region'
   help: Help
+  alert: 'Page top'
   page_top: 'Page top'
   page_bottom: 'Page bottom'
   highlighted: Highlighted

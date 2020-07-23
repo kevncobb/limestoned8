@@ -68,7 +68,9 @@
            data-off-canvas>
       {{ page.right_off_canvas }}
     </aside>
-
+    {% if page.alert %}
+      <div class="alert-section">{{ page.alert }}</div>
+    {% endif %}
     <div class="off-canvas-content" data-off-canvas-content>
       {% if page.top_bar %}
         <div class="top-bar">

@@ -63,3 +63,12 @@
     }
   }
 }
+
+.node--type-profile.node--view-mode-text-teaser-small {
+  .field-node--field-name {
+    font-size: 110%;
+  }
+  p {
+    margin-bottom: 0;
+  }
+}
