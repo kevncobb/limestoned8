@@ -3,22 +3,30 @@
 @import 'settings';
 
 .alert-section {
-  font-size: 16px;
+  font-size: 1.1rem;
   text-align: center;
   p {
     margin: 0;
   }
   .notice {
     background-color: #faefb3;
-    a {
-      color: #9f6000;
+    color: #6b450b;
+    a, [class^="icon-"], [class*=" icon-"] {
+      color: #6b450b;
     }
   }
   .alert {
     background-color: #ea6969;
+    color: white;
+    a, [class^="icon-"], [class*=" icon-"] {
+      color: white;
+    }
   }
   [class^="icon-"], [class*=" icon-"] {
     font-size: 1.5rem;
     padding-right: 0.5rem;
+  }
+  .alert--icon {
+    margin: auto;
   }
 }
