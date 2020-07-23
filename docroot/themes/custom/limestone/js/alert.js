@@ -13,18 +13,16 @@
         alert_section.addClass("display-none");
       }
 
-      attach: function (context, settings) {
-        $(context).find('.alert-section a.close').bind('touchstart click', function (event) {
-          event.stopPropagation();
-          event.preventDefault();
-          alert_section.addClass("display-none");
-          var inHalfADay = 0.5;
-          Cookies.set('alert', 'true', {
-            expires: inHalfADay
-          });
-          return false;
+      $(context).find('.alert-section a.close').bind('touchstart click', function (event) {
+        event.stopPropagation();
+        event.preventDefault();
+        alert_section.addClass("display-none");
+        var inHalfADay = 0.5;
+        Cookies.set('alert', 'true', {
+          expires: inHalfADay
         });
-      }
+        return false;
+      });
     }
   };
 
