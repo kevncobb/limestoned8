@@ -24,6 +24,13 @@ lc-sticky:
   version: 1.x
   js:
     js/jquery.stickybits.min.js: {}
+alert:
+  version: 1.x
+  css:
+    state:
+      css/alert.css: {}
+  js:
+    js/alert.js: {}
 error:
   version: 1.x
   js:
