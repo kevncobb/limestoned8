@@ -31,6 +31,7 @@ alert:
       css/alert.css: {}
   js:
     js/alert.js: {}
+    js/js.cookie.min.js: {}
 error:
   version: 1.x
   js:

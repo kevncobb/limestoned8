@@ -5,39 +5,25 @@
 
 (function ($, Drupal, drupalSettings) {
 
-  let callback;
-
-  // Function to update alert text.
-  let loadAlert = function (siteAlert) {
-    // Object contains information about the currently loaded theme for
-    // processing by our theme callback. Without it the default theme is always
-    // assumed.
-    let options = {
-      ajax_page_state: drupalSettings.ajaxPageState
-    };
-    siteAlert.load(callback, options);
-
-    if (drupalSettings.siteAlert.timeout > 0) {
-      setTimeout(function () {
-        loadAlert(siteAlert);
-      }, drupalSettings.siteAlert.timeout * 1000);
-    }
-  };
-
-  Drupal.behaviors.siteAlert = {
+  Drupal.behaviors.alert = {
     attach: function (context, settings) {
-      // Work around a core bug that prevents cached pages from being
-      // invalidated in time for scheduled alerts to appear. Immediately load
-      // the alerts.
-      // @todo Remove this workaround once the bug is fixed.
-      // @see https://www.drupal.org/project/site_alert/issues/3121988
+      var alert_section = $(".alert-section");
+      var closed_for_the_day = Cookies.get('alert');
+      if (closed_for_the_day != null) {
+        alert_section.addClass("display-none");
+      }
 
-      // Update content at configured interval.
-      if (drupalSettings.siteAlert.timeout > 0) {
-        callback = settings.path.baseUrl + 'ajax/site_alert';
-        setTimeout(function () {
-          loadAlert($('.alert-section', context));
-        }, drupalSettings.siteAlert.timeout * 1000);
+      attach: function (context, settings) {
+        $(context).find('.alert-section a.close').bind('touchstart click', function (event) {
+          event.stopPropagation();
+          event.preventDefault();
+          alert_section.addClass("display-none");
+          var inHalfADay = 0.5;
+          Cookies.set('alert', 'true', {
+            expires: inHalfADay
+          });
+          return false;
+        });
       }
     }
   };
