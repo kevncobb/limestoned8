@@ -3,7 +3,7 @@
  * Contains javascript to refresh alert div contents.
  */
 
-(function ($, Drupal, drupalSettings) {
+(function ($, Drupal) {
 
   Drupal.behaviors.alert = {
     attach: function (context, settings) {
