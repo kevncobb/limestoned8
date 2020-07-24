@@ -25,6 +25,7 @@ function limestone_foundation_paragraphs_theme($existing, $type, $theme, $path) 
     'paragraph__bp_columns_two_uneven' => ['base hook' => 'paragraph'],
     'paragraph__bp_image' => ['base hook' => 'paragraph'],
     'paragraph__bp_modal' => ['base hook' => 'paragraph'],
+    'paragraph__sub_header_title' => ['base hook' => 'paragraph'],
     'field__entity_reference_revisions' => ['base hook' => 'paragraph'],
     'field__paragraph__bp_column_content' => ['base hook' => 'paragraph'],
     'field__paragraph__bp_image__image' => ['base hook' => 'paragraph'],
