@@ -18,24 +18,25 @@
       $(context).find('.alert-section a.close').bind('touchstart click', function (event) {
         event.stopPropagation();
         event.preventDefault();
-        $( "<li class='top-menu-alert-icon'><a href='#'>" + alert_icon + "</a></li>" ).detach().insertBefore( top_menu_first );
+        $( "<li class='top-menu-alert-icon'><a href='#' title='Show Alert'>" + alert_icon + "</a></li>" ).detach().insertBefore( top_menu_first );
         alert_section.addClass("d-none");
         var inHalfADay = 0.5;
         Cookies.set('alert', 'true', {
           expires: inHalfADay
         });
+        $('#block-topmenu ul li.top-menu-alert-icon a').bind('touchstart click', function (event) {
+          event.stopPropagation();
+          event.preventDefault();
+          console.log('in 2nd alert function');
+          alert_section.removeClass("d-none");
+          $("#block-topmenu ul li.top-menu-alert-icon a").remove();
+          Cookies.remove('alert');
+          return false;
+        });
         return false;
       });
 
-      $(context).find('#block-topmenu ul li.top-menu-alert-icon a').bind('touchstart click', function (event) {
-        event.stopPropagation();
-        event.preventDefault();
-        console.log('in 2nd alert function');
-        alert_section.removeClass("d-none");
-        $("#block-topmenu ul li.top-menu-alert-icon a").remove();
-        Cookies.remove('alert');
-        return false;
-      });
+
     }
   };
 
