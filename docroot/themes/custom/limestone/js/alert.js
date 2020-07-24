@@ -13,6 +13,7 @@
       var top_menu_first = $("#block-topmenu ul > li:first-child");
       if (closed_for_the_day != null) {
         alert_section.addClass("d-none");
+        $( "<li class='top-menu-alert-icon'><a href='#' title='Show Alert'>" + alert_icon + "</a></li>" ).detach().insertBefore( top_menu_first );
       }
 
       $(context).find('.alert-section a.close').bind('touchstart click', function (event) {

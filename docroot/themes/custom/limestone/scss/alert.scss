@@ -5,6 +5,10 @@
 .alert-section {
   font-size: 1.1rem;
   text-align: center;
+  -webkit-transition: all 0.5s ease;
+  -moz-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  transition: all 0.5s ease;
   p {
     margin: 0;
   }
@@ -31,6 +35,10 @@
   }
 }
 .top-menu-alert-icon {
+  -webkit-transition: all 0.5s ease;
+  -moz-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  transition: all 0.5s ease;
   a {
     font-size: 1.1rem;
     padding: 0.4rem 0.3rem !important;
