@@ -11,7 +11,6 @@
       var alert_icon = $(".alert-section #alert--icon").html();
       var closed_for_the_day = Cookies.get('alert');
       var top_menu_first = $("#block-topmenu li:first-child");
-      var top_menu_alert_icon = $("#block-topmenu ul li.top-menu-alert-icon a");
       if (closed_for_the_day != null) {
         alert_section.addClass("d-none");
       }
@@ -28,7 +27,7 @@
         return false;
       });
 
-      $(context).find(top_menu_alert_icon).bind('touchstart click', function (event) {
+      $(context).find('#block-topmenu ul li.top-menu-alert-icon a').bind('touchstart click', function (event) {
         event.stopPropagation();
         event.preventDefault();
         console.log('in 2nd alert function');
