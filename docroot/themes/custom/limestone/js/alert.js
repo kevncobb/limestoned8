@@ -31,7 +31,7 @@
       $(context).find(top_menu_alert_icon).bind('touchstart click', function (event) {
         event.stopPropagation();
         event.preventDefault();
-        alert_section.addClass("d-block");
+        alert_section.removeClass("d-none");
         $("#block-topmenu li.top-menu-alert-icon a").remove();
         Cookies.remove('alert');
         return false;
