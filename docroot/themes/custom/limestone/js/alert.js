@@ -25,8 +25,7 @@
         Cookies.set('alert', 'true', {
           expires: inHalfADay
         });
-
-        return true;
+        return false;
       });
 
       $(context).find(top_menu_alert_icon).bind('touchstart click', function (event) {
