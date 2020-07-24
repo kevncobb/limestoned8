@@ -8,7 +8,10 @@
   Drupal.behaviors.alert = {
     attach: function (context, settings) {
       var alert_section = $(".alert-section");
+      var alert_icon = $(".alert-section .alert--icon > span");
       var closed_for_the_day = Cookies.get('alert');
+      var top_menu_first = $("#block-topmenu li:first-child");
+      var top_menu_alert_icon = $("#block-topmenu li.top-menu-alert-icon a");
       if (closed_for_the_day != null) {
         alert_section.addClass("d-none");
       }
@@ -17,10 +20,20 @@
         event.stopPropagation();
         event.preventDefault();
         alert_section.addClass("d-none");
+        $( "<li class='top-menu-alert-icon'><a href='#'>" + alert_icon + "</a></li>" ).insertBefore( top_menu_first );
         var inHalfADay = 0.5;
         Cookies.set('alert', 'true', {
           expires: inHalfADay
         });
+        return false;
+      });
+
+      $(context).find(top_menu_alert_icon).bind('touchstart click', function (event) {
+        event.stopPropagation();
+        event.preventDefault();
+        alert_section.addClass("d-block");
+        $("#block-topmenu li.top-menu-alert-icon a").remove();
+        Cookies.remove('alert');
         return false;
       });
     }
