@@ -19,7 +19,7 @@
       $(context).find('.alert-section a.close').bind('touchstart click', function (event) {
         event.stopPropagation();
         event.preventDefault();
-        $( "<li class='top-menu-alert-icon'><a href='#'>" + alert_icon + "</a></li>" ).insertBefore( top_menu_first );
+        $( "<li class='top-menu-alert-icon'><a href='#'>" + alert_icon + "</a></li>" ).detach().insertBefore( top_menu_first );
         alert_section.addClass("d-none");
         var inHalfADay = 0.5;
         Cookies.set('alert', 'true', {
