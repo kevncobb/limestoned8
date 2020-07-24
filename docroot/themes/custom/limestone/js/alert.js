@@ -19,8 +19,8 @@
       $(context).find('.alert-section a.close').bind('touchstart click', function (event) {
         event.stopPropagation();
         event.preventDefault();
-        alert_section.addClass("d-none");
         $( "<li class='top-menu-alert-icon'><a href='#'>" + alert_icon + "</a></li>" ).insertBefore( top_menu_first );
+        alert_section.addClass("d-none");
         var inHalfADay = 0.5;
         Cookies.set('alert', 'true', {
           expires: inHalfADay
