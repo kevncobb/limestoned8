@@ -29,6 +29,14 @@
   #alert--icon {
     margin: auto;
   }
+  a.close {
+    display: none;
+    &.close-alert-no-1 {
+      display: block;
+      text-decoration: none;
+      font-size: 1.3rem;
+    }
+  }
 }
 .top-menu-alert-icon {
   -webkit-transition: all 0.5s ease;
