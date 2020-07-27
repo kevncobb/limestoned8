@@ -2,6 +2,7 @@
 
 namespace Drupal\Tests\menu_block\Functional;
 
+use Drupal\menu_block\Plugin\Block\MenuBlock;
 use Drupal\Tests\BrowserTestBase;
 
 /**
@@ -456,6 +457,134 @@ class MenuBlockTest extends BrowserTestBase {
       'menu__main',
       'menu__mainnav',
     ], 'Found expected menu suggestions.');
+  }
+
+  /**
+   * Test menu block label type options.
+   */
+  public function testMenuBlockTitleOptions() {
+    // Create a block, and edit it repeatedly to test the title display options.
+    $block_id = 'main';
+    $this->drupalPostForm('admin/structure/block/add/menu_block:main', [
+      'id' => $block_id,
+      'settings[label]' => 'Block title',
+      'settings[label_display]' => TRUE,
+      'settings[label_link]' => FALSE,
+      'settings[parent]' => 'main:' . $this->links['child-1'],
+      'region' => 'primary_menu',
+    ], 'Save block');
+
+    $options = [
+      'block label' => [
+        'option' => MenuBlock::LABEL_BLOCK,
+        'title' => 'Block title',
+      ],
+      'menu label' => [
+        'option' => MenuBlock::LABEL_MENU,
+        'title' => 'Main navigation',
+      ],
+      'fixed menu item' => [
+        'option' => MenuBlock::LABEL_FIXED,
+        'title' => 'child-1 menu item',
+      ],
+      'fixed menu item as link' => [
+        'option' => MenuBlock::LABEL_FIXED,
+        'title' => 'child-1 menu item',
+        'label_link' => TRUE,
+      ],
+      'fixed menu item parent' => [
+        'option' => MenuBlock::LABEL_FIXED,
+        'title' => 'child-1 menu item',
+        'test_link' => 'menu-block-test/hierarchy/parent',
+      ],
+      'active item' => [
+        'option' => MenuBlock::LABEL_ACTIVE_ITEM,
+        'title' => 'child-1-1 menu item',
+      ],
+      'active item as link' => [
+        'option' => MenuBlock::LABEL_ACTIVE_ITEM,
+        'title' => 'child-1-1 menu item',
+        'label_link' => TRUE,
+      ],
+      'parent item' => [
+        'option' => MenuBlock::LABEL_PARENT,
+        'title' => 'child-1 menu item',
+      ],
+      'parent item as link' => [
+        'option' => MenuBlock::LABEL_PARENT,
+        'title' => 'child-1 menu item',
+        'label_link' => TRUE,
+      ],
+      'parent item top level' => [
+        'option' => MenuBlock::LABEL_PARENT,
+        'title' => 'parent menu item',
+        'test_link' => 'menu-block-test/hierarchy/parent',
+      ],
+      'parent item 2' => [
+        'option' => MenuBlock::LABEL_PARENT,
+        'title' => 'parent menu item',
+        'test_link' => 'menu-block-test/hierarchy/parent/child-1',
+      ],
+      'parent item 3' => [
+        'option' => MenuBlock::LABEL_PARENT,
+        'title' => 'child-1 menu item',
+        'test_link' => 'menu-block-test/hierarchy/parent/child-1/child-1-2',
+      ],
+      'menu root' => [
+        'option' => MenuBlock::LABEL_ROOT,
+        'title' => 'parent menu item',
+      ],
+      'menu root as link' => [
+        'option' => MenuBlock::LABEL_ROOT,
+        'title' => 'parent menu item',
+        'label_link' => TRUE,
+      ],
+      'menu root 2' => [
+        'option' => MenuBlock::LABEL_ROOT,
+        'title' => 'parent menu item',
+        'test_link' => 'menu-block-test/hierarchy/parent/child-1',
+      ],
+      'menu root 3' => [
+        'option' => MenuBlock::LABEL_ROOT,
+        'title' => 'parent menu item',
+        'test_link' => 'menu-block-test/hierarchy/parent/child-1/child-1-2',
+      ],
+      'menu root hidden title' => [
+        'option' => MenuBlock::LABEL_ROOT,
+        'title' => 'parent menu item',
+        'label_display' => FALSE,
+      ],
+    ];
+
+    foreach ($options as $case_id => $option) {
+      // The 'label_display' setting should be TRUE if not defined explicitly.
+      $label_display = $option['label_display'] ?? TRUE;
+      // The 'label_link' setting should default to FALSE.
+      $label_link = $option['label_link'] ?? FALSE;
+      $this->drupalPostForm('admin/structure/block/manage/main', [
+        'settings[label_type]' => $option['option'],
+        'settings[label_display]' => $label_display,
+        'settings[label_link]' => $label_link,
+      ], 'Save block');
+      $test_link = empty($option['test_link']) ? 'menu-block-test/hierarchy/parent/child-1/child-1-1' : $option['test_link'];
+      $this->drupalGet($test_link);
+
+      // Find the h2 associated with the main menu block.
+      $block_label = $this->assertSession()->elementExists('css', 'h2#block-main-menu');
+      // Check that the title is correct.
+      $this->assertEquals($option['title'], $block_label->getText(), "Test case '$case_id' should have the right title.");
+      // There is no notHasClass(), so we check for the "visually-hidden" class
+      // and invert it to determine if the block title is visible or not.
+      $visible = !$block_label->hasClass('visually-hidden');
+      $this->assertEquals($label_display, $visible, "Test case '$case_id' should have the right visibility.");
+
+      if ($label_link) {
+        $this->assertStringContainsString('<a href="', $block_label->getHtml(), "Test case '$case_id' should have a link in the block title.");
+      }
+      else {
+        $this->assertStringNotContainsString('<a href="', $block_label->getHtml(), "Test case '$case_id' should not have a link in the block title.");
+      }
+    }
   }
 
 }
