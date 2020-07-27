@@ -17,19 +17,19 @@ libraries:
 
 regions:
   top_off_canvas: 'Top off canvas'
+  alert: 'Site Alert'
   top_bar: 'Top Bar'
   header: Header
   main_menu_region: 'Main Menu Region'
   help: Help
-  alert: 'Site Alert'
   page_top: 'Page top'
   page_bottom: 'Page bottom'
   highlighted: Highlighted
   content: Content
   sidebar_first: 'Left Sidebar'
   sidebar_second: 'Right Sidebar'
-  penultimate: 'Penultimate'
   footer: 'Footer'
+  lower_footer: 'Lower Footer'
   left_off_canvas: 'Left off canvas'
   right_off_canvas: 'Right off canvas'
   blocks: 'Blocks used in Paragraphs'
