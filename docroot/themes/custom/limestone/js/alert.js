@@ -12,14 +12,6 @@
       var closed_for_the_day = Cookies.get('alert');
       var top_menu_first = $("#block-topmenu > ul.menu.dropdown > li:first-child");
 
-      $('.alert-section', context).once('alertReadClosed').each(function () {
-        // Apply the alertReadClosed effect to the elements only once.
-        if (closed_for_the_day == 'true') {
-          alert_section.slideUp();
-          $( "<li class='top-menu-alert-icon'><a href='#' title='Show Alert'>" + alert_icon + "</a></li>" ).once('alertReadClosed').insertBefore( top_menu_first );
-        }
-      });
-
       $(context).find('.alert-section a.close').bind('touchstart click', function (event) {
         event.stopPropagation();
         event.preventDefault();
@@ -29,28 +21,35 @@
         Cookies.set('alert', 'true', {
           expires: inHalfADay
         });
-        $('#block-topmenu ul li.top-menu-alert-icon a').bind('touchstart click', function (event) {
-          event.stopPropagation();
-          event.preventDefault();
-          //console.log('in 2nd alert function');
-          alert_section.slideDown();
-          $("#block-topmenu ul li.top-menu-alert-icon").remove();
-          Cookies.remove('alert');
-          return false;
-        });
         return false;
       });
-      if (closed_for_the_day == 'true') {
-        $('#block-topmenu ul li.top-menu-alert-icon a').bind('touchstart click', function (event) {
-          event.stopPropagation();
-          event.preventDefault();
-          //console.log('in 3rd alert function');
+
+      $('#block-topmenu ul li.top-menu-alert-icon a').bind('touchstart click', function (event) {
+        event.stopPropagation();
+        event.preventDefault();
+        //console.log('in 2nd alert function');
+        alert_section.slideDown();
+        $("#block-topmenu ul li.top-menu-alert-icon").remove();
+        Cookies.remove('alert');
+        return false;
+      });
+
+      $('.alert-section', context).once('alertReadClosed').each(function () {
+        // Apply the alertReadClosed effect to the elements only once.
+        if (closed_for_the_day == 'true') {
           alert_section.slideUp();
-          $("#block-topmenu ul li.top-menu-alert-icon a").remove();
-          Cookies.remove('alert');
-          return false;
-        });
-      }
+          $( "<li class='top-menu-alert-icon'><a href='#' title='Show Alert'>" + alert_icon + "</a></li>" ).once('alertReadClosed').insertBefore( top_menu_first );
+          $('#block-topmenu ul li.top-menu-alert-icon a').bind('touchstart click', function (event) {
+            event.stopPropagation();
+            event.preventDefault();
+            //console.log('in 3rd alert function');
+            alert_section.slideUp();
+            $("#block-topmenu ul li.top-menu-alert-icon a").remove();
+            Cookies.remove('alert');
+            return false;
+          });
+        }
+      });
     }
   };
 })(jQuery, Drupal, drupalSettings);
