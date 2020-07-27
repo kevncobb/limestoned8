@@ -8,10 +8,10 @@
   Drupal.behaviors.alert = {
     attach: function (context, settings) {
       var alert_section = $(".alert-section");
-      var alert_icon = $(".alert-section #alert--icon").once().html();
+      var alert_icon = $(".alert-section #alert--icon").html();
       var closed_for_the_day = Cookies.get('alert');
       var top_menu_first = $("#block-topmenu ul > li:first-child");
-      if (closed_for_the_day == 'true') {
+      if (closed_for_the_day != null) {
         alert_section.slideUp();
         $( "<li class='top-menu-alert-icon'><a href='#' title='Show Alert'>" + alert_icon + "</a></li>" ).detach().insertBefore( top_menu_first );
       }
