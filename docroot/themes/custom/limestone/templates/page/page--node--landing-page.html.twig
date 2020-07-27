@@ -129,11 +129,6 @@
                 </div>
             {% endif %}
 
-            {% if page.penultimate %}
-              <div class="penultimate-section">
-                {{ page.penultimate }}
-              </div>
-            {% endif %}
             {% if page.footer %}
               <footer class="site-footer">
                 <div class="grid-container">
@@ -142,6 +137,11 @@
                   </div>
                 </div>
               </footer>
+            {% endif %}
+            {% if page.lower_footer %}
+              <div class="lower-footer-region">
+                {{ page.lower_footer }}
+              </div>
             {% endif %}
             <div class="bottom-bar panel">
                 <div class="grid-container">

@@ -71,10 +71,13 @@ footer.site-footer {
   }
 }
 
-.penultimate-section {
+.lower-footer-region {
+  img {
+    max-width: 175px;
+  }
   figcaption {
     font-size: 1.2rem;
-    padding-top: 1.2rem;
+    padding-top: 0.2rem;
     font-style: normal;
     text-transform: uppercase;
   }

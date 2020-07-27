@@ -181,20 +181,20 @@
             {% endif %}
 
 
-            {% if page.penultimate %}
-              <div class="penultimate-section">
-                {{ page.penultimate }}
-              </div>
-            {% endif %}
-            {% if page.footer %}
-              <footer class="site-footer">
-                <div class="grid-container">
-                  <div id="footer" class="large-12 cell">
-                    {{ page.footer }}
-                  </div>
+          {% if page.footer %}
+            <footer class="site-footer">
+              <div class="grid-container">
+                <div id="footer" class="large-12 cell">
+                  {{ page.footer }}
                 </div>
-              </footer>
-            {% endif %}
+              </div>
+            </footer>
+          {% endif %}
+          {% if page.lower_footer %}
+            <div class="lower-footer-region">
+              {{ page.lower_footer }}
+            </div>
+          {% endif %}
             <div class="bottom-bar panel">
                 <div class="grid-container">
                     <div class="large-12 cell">
