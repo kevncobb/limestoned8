@@ -1,8 +1,8 @@
 // Non-modular or client styles for .l-footer region.
 footer.site-footer {
   background-color: $limestone-blue;
-  background-image: url("/themes/custom/limestone/images/footer-background.png");
-  background-size: cover;
+  //background-image: url("/themes/custom/limestone/images/footer-background.png");
+  //background-size: cover;
   color: $light-gray;
   padding-top: 2rem;
   h2, h3, h4, h5, h6 {
@@ -68,5 +68,14 @@ footer.site-footer {
     [class^="icon-"], [class*=" icon-"] {
       font-size: 12px;
     }
+  }
+}
+
+.penultimate-section {
+  figcaption {
+    font-size: 1.2rem;
+    padding-top: 1.2rem;
+    font-style: normal;
+    text-transform: uppercase;
   }
 }
