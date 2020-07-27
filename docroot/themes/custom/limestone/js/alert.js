@@ -36,7 +36,17 @@
         });
         return false;
       });
-
+      if (closed_for_the_day == 'true') {
+        $('#block-topmenu ul li.top-menu-alert-icon a').bind('touchstart click', function (event) {
+          event.stopPropagation();
+          event.preventDefault();
+          console.log('in 3rd alert function');
+          alert_section.removeClass("d-none");
+          $("#block-topmenu ul li.top-menu-alert-icon a").remove();
+          Cookies.remove('alert');
+          return false;
+        });
+      }
 
     }
   };
