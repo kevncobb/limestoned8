@@ -12,7 +12,7 @@
       var closed_for_the_day = Cookies.get('alert');
       var top_menu_first = $("#block-topmenu ul > li:first-child");
       if (closed_for_the_day != null) {
-        alert_section.slideUp("slow");
+        alert_section.slideUp();
         $( "<li class='top-menu-alert-icon'><a href='#' title='Show Alert'>" + alert_icon + "</a></li>" ).detach().insertBefore( top_menu_first );
       }
 
@@ -20,7 +20,7 @@
         event.stopPropagation();
         event.preventDefault();
         $( "<li class='top-menu-alert-icon'><a href='#' title='Show Alert'>" + alert_icon + "</a></li>" ).detach().insertBefore( top_menu_first );
-        alert_section.slideUp("slow");
+        alert_section.slideUp();
         var inHalfADay = 0.5;
         Cookies.set('alert', 'true', {
           expires: inHalfADay
@@ -29,7 +29,7 @@
           event.stopPropagation();
           event.preventDefault();
           //console.log('in 2nd alert function');
-          alert_section.slideDown("slow");
+          alert_section.slideDown();
           $("#block-topmenu ul li.top-menu-alert-icon a").remove();
           Cookies.remove('alert');
           return false;
