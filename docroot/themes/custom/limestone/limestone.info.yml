@@ -28,6 +28,7 @@ regions:
   content: Content
   sidebar_first: 'Left Sidebar'
   sidebar_second: 'Right Sidebar'
+  penultimate: 'Penultimate'
   footer: 'Footer'
   left_off_canvas: 'Left off canvas'
   right_off_canvas: 'Right off canvas'

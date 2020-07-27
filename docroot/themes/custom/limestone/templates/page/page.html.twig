@@ -182,15 +182,17 @@
                 </main>
             {% endif %}
 
-
+            {% if page.penultimate %}
+              <div class="penultimate-section">
+                {{ page.penultimate }}
+              </div>
+            {% endif %}
             {% if page.footer %}
                 <footer class="site-footer">
                     <div class="grid-container">
-                        {% if page.footer %}
-                            <div id="footer" class="large-12 cell">
-                                {{ page.footer }}
-                            </div>
-                        {% endif %}
+                        <div id="footer" class="large-12 cell">
+                            {{ page.footer }}
+                        </div>
                     </div>
                 </footer>
             {% endif %}
