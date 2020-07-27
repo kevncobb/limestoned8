@@ -9,6 +9,9 @@
       padding-left: 0;
     }
   }
+  a.is-submenu-item {
+    padding: 0.7rem 1rem;
+  }
   a {
     color: $white;
     &:focus, &:hover {

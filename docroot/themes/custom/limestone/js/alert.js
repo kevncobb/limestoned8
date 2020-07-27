@@ -41,7 +41,7 @@
           event.stopPropagation();
           event.preventDefault();
           //console.log('in 3rd alert function');
-          alert_section.fadeIn();
+          alert_section.slideUp();
           $("#block-topmenu ul li.top-menu-alert-icon a").remove();
           Cookies.remove('alert');
           return false;
