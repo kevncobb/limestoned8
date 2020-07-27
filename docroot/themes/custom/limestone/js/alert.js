@@ -30,7 +30,7 @@
           event.preventDefault();
           //console.log('in 2nd alert function');
           alert_section.slideDown();
-          $("#block-topmenu ul li.top-menu-alert-icon a").remove();
+          $("#block-topmenu ul li.top-menu-alert-icon").remove();
           Cookies.remove('alert');
           return false;
         });
