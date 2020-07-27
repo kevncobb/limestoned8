@@ -8,7 +8,7 @@
   Drupal.behaviors.alert = {
     attach: function (context, settings) {
       var alert_section = $(".alert-section");
-      var alert_icon = $(".alert-section div.views-row:first-child #alert--icon").html();
+      var alert_icon = $(".alert-section #alert--icon").once().html();
       var closed_for_the_day = Cookies.get('alert');
       var top_menu_first = $("#block-topmenu ul > li:first-child");
       if (closed_for_the_day == 'true') {
