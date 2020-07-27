@@ -11,10 +11,14 @@
       var alert_icon = $(".alert-section #alert--icon").html();
       var closed_for_the_day = Cookies.get('alert');
       var top_menu_first = $("#block-topmenu > ul.menu.dropdown > li:first-child");
-      if (closed_for_the_day != null) {
-        alert_section.slideUp();
-        $( "<li class='top-menu-alert-icon'><a href='#' title='Show Alert'>" + alert_icon + "</a></li>" ).detach().insertBefore( top_menu_first );
-      }
+
+      $('.alert-section', context).once('alertReadClosed').each(function () {
+        // Apply the alertReadClosed effect to the elements only once.
+        if (closed_for_the_day == 'true') {
+          alert_section.slideUp();
+          $( "<li class='top-menu-alert-icon'><a href='#' title='Show Alert'>" + alert_icon + "</a></li>" ).once('alertReadClosed').insertBefore( top_menu_first );
+        }
+      });
 
       $(context).find('.alert-section a.close').bind('touchstart click', function (event) {
         event.stopPropagation();

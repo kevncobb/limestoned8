@@ -32,6 +32,9 @@ alert:
   js:
     js/alert.js: {}
     js/js.cookie.min.js: {}
+  dependencies:
+    - core/jquery
+    - core/jquery.once
 error:
   version: 1.x
   js:
