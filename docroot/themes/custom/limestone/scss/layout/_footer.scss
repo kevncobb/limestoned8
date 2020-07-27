@@ -88,11 +88,12 @@ footer.site-footer {
 .lower-footer-region {
   img {
     max-width: 175px;
+    margin-bottom: 0;
   }
   figcaption {
     font-size: 1.2rem;
     padding-top: 0.2rem;
-    font-style: normal;
-    text-transform: uppercase;
+    margin: 0;
+    color: $limestone-blue;
   }
 }
