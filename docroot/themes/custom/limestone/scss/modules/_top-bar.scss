@@ -4,11 +4,7 @@
   font-weight: normal;
   padding: 0;
   font-size: 0.8rem;
-  li:first-child {
-    a {
-      padding-left: 0;
-    }
-  }
+
   a.is-submenu-item {
     padding: 0.7rem 1rem;
   }
@@ -20,6 +16,11 @@
         color: $limestone-yellow;
       }
     }
+  }
+}
+.top-bar ul.dropdown.menu > li:first-child {
+  a {
+    padding-left: 0;
   }
 }
 .top-bar ul.dropdown.menu, .top-bar ul {
