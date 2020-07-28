@@ -51,18 +51,43 @@ class Kint extends DevelDumperBase {
       call_user_func_array(['Kint', 'dump'], $input);
       $name = NULL;
     }
+    elseif ($name !== NULL) {
+      // In order to get the correct access path information returned from Kint
+      // we have to give a second parameter here. This is due to a fault in
+      // Kint::getSingleCall which returns no info when the number of arguments
+      // passed to Kint::dump does not match the number in the original call
+      // that invoked the export (such as dsm). However, this second parameter
+      // is just treated as the next variable to dump, it is not used as the
+      // label. So we give a dummy value that we can remove below.
+      // @see https://gitlab.com/drupalspoons/devel/-/issues/252
+      \Kint::dump($input, '---temporary-fix-see-issue-252---');
+    }
     else {
       \Kint::dump($input);
     }
     $dump = ob_get_clean();
-
-    // Kint does't allow to assign a title to the dump. Workaround to use the
-    // passed in name as dump title.
     if ($name) {
-      $dump = preg_replace('/\$input/', $name, $dump, 1);
+      // Kint no longer treats an additional parameter as a custom title, but we
+      // can add the required $name as a label at the top of the output.
+      $dump = str_replace('<div class="kint-rich">', '<div class="kint-rich">' . $name . ': ', $dump);
+
+      // Remove the output from the second dummy parameter. The pattern in [ ]
+      // matches the minimum to ensure we get just the string to be removed.
+      $pattern = '/(<dl><dt>[\w\d\s<>\/()]*"---temporary-fix-see-issue-252---"<\/dt><\/dl>)/';
+      preg_match($pattern, $dump, $matches);
+      if (!preg_last_error() && isset($matches[1])) {
+        $dump = str_replace($matches[1], '', $dump);
+      }
     }
 
     return $this->setSafeMarkup($dump);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getInternalFunctions() {
+    return array_merge(parent::getInternalFunctions(), \Kint\Kint::$aliases);
   }
 
   /**
