@@ -6,7 +6,7 @@ services:
     tags:
       - { name: path_processor_inbound, priority: 250 }
       - { name: path_processor_outbound, priority: 250 }
-    arguments: ['@path.alias_manager', '@entity_type.manager', '@view_mode_page.repository.pattern', '@language_manager']
+    arguments: ['@path_alias.manager', '@entity_type.manager', '@view_mode_page.repository.pattern', '@language_manager']
   view_mode_page.manager.alias_type:
     class: Drupal\view_mode_page\AliasTypeManager
     parent: default_plugin_manager

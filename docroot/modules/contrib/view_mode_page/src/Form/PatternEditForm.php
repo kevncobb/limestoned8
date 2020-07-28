@@ -291,7 +291,7 @@ class PatternEditForm extends EntityForm {
   public function save(array $form, FormStateInterface $form_state) {
     parent::save($form, $form_state);
 
-    drupal_set_message($this->t('Pattern @label saved.', ['@label' => $this->entity->label()]));
+    $this->messenger()->addMessage($this->t('Pattern @label saved.', ['@label' => $this->entity->label()]));
     $form_state->setRedirectUrl($this->entity->toUrl('collection'));
   }
 

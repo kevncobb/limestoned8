@@ -208,7 +208,7 @@ interface ViewmodepagePatternInterface extends ConfigEntityInterface {
   /**
    * Determines if this pattern can apply a given object.
    *
-   * @param EntityInterface $entity
+   * @param \Drupal\Core\Entity\EntityInterface $entity
    *   The entity used to determine if this plugin can apply.
    *
    * @return bool
