@@ -9,7 +9,7 @@
     attach: function (context, settings) {
       var alert_section = $(".alert-section");
       var alert_icon = $(".alert-section #alert--icon").html();
-      var closed_for_the_day = Cookies.get('alert');
+
       var top_menu_first = $("#block-topmenu > ul.menu.dropdown > li:first-child");
 
       $(context).find('.alert-section a.close').bind('touchstart click', function (event) {
@@ -24,7 +24,7 @@
         return false;
       });
 
-      $('#block-topmenu ul li.top-menu-alert-icon a').bind('touchstart click', function (event) {
+      $('#block-topmenu ul.menu.dropdown li.top-menu-alert-icon a').bind('touchstart click', function (event) {
         event.stopPropagation();
         event.preventDefault();
         //console.log('in 2nd alert function');
@@ -36,10 +36,11 @@
 
       $('.alert-section', context).once('alertReadClosed').each(function () {
         // Apply the alertReadClosed effect to the elements only once.
+        var closed_for_the_day = Cookies.get('alert');
         if (closed_for_the_day == 'true') {
-          alert_section.slideUp();
+          alert_section.hide();
           $( "<li class='top-menu-alert-icon'><a href='#' title='Show Alert'>" + alert_icon + "</a></li>" ).once('alertReadClosed').insertBefore( top_menu_first );
-          $('#block-topmenu ul li.top-menu-alert-icon a').bind('touchstart click', function (event) {
+          $('#block-topmenu ul.menu.dropdown li.top-menu-alert-icon a').bind('touchstart click', function (event) {
             event.stopPropagation();
             event.preventDefault();
             //console.log('in 3rd alert function');

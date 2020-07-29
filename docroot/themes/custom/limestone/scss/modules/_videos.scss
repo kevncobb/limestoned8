@@ -1,0 +1,16 @@
+.view-videos {
+  form.views-exposed-form {
+    @extend .grid-x;
+    @extend .grid-margin-x;
+    .js-form-type-select {
+      @extend .cell;
+      @extend .large-6;
+    }
+  }
+  .views-row {
+    margin: 0 auto;
+    .layout--onecol {
+      position: relative;
+    }
+  }
+}

@@ -96,19 +96,3 @@
     width: 100%;
   }
 }
-
-.view-videos {
-  form.views-exposed-form {
-    @extend .grid-x;
-    @extend .grid-margin-x;
-    .js-form-type-select {
-      @extend .cell;
-      @extend .large-6;
-    }
-  }
-  .views-row {
-    .layout--onecol {
-      position: relative;
-    }
-  }
-}
