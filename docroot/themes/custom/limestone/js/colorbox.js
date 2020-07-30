@@ -9,11 +9,11 @@
       var colorboxResize = function(resize) {
         var width = "90%";
         var height = "90%";
-        if ($(window).width() > 960) {
-          width = "860"
+        if ($(window).width() > 768) {
+          width = "1120"
         }
         if ($(window).height() > 700) {
-          height = "630"
+          height = "900"
         }
         $.colorbox.settings.height = height;
         $.colorbox.settings.width = width;

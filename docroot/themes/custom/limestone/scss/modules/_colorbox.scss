@@ -1,7 +1,12 @@
 //caption
 #cboxTitle {
-  bottom: -28px;
+  bottom: 0;
+  font-size: 0.7rem;
   font-family: $body-font-family;
+  @include breakpoint(smedium) {
+    bottom: -28px;
+    font-size: 1rem;
+  }
 }
 //1 of max
 #cboxCurrent {
