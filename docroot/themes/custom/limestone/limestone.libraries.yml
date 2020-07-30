@@ -7,6 +7,7 @@ global:
   js:
     js/limestone.js: {}
     js/trunk8.min.js: {}
+    js/colorbox.js: {}
 lc-slider:
   version: 1.x
   css:
