@@ -17,9 +17,6 @@ article.node--type-news {
     @include xy-cell(5 of 13);
   }
 }
-.panel-oedu-container {
-  @extend .grid-container;
-}
 .bs-region .row {
   @extend .grid-container;
 }
@@ -139,6 +136,10 @@ article.node--type-news {
     @extend .grid-container;
     display: inherit;
   }
+}
+
+.smaller-gutters {
+  @include grid-column-gutter(10px);
 }
 
 // To force a Drupal Block Component to fill width
