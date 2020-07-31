@@ -54,6 +54,9 @@
       margin: 0;
     }
   }
+  li.is-drilldown-submenu-item {
+    width: 100%;
+  }
   ul.dropdown.menu.medium-horizontal > li.is-dropdown-submenu-parent {
     position: relative;
 
