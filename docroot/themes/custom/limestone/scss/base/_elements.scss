@@ -202,7 +202,9 @@ table {
 .js-form-item-field-course-discipline-target-id,
 .form-item-field-faculty-department-target-id,
 .form-item-field-staff-department-target-id,
-.js-form-type-textfield.form-item-field-name-family {
+.js-form-item-field-categories-target-id,
+.js-form-type-textfield.form-item-field-name-family,
+#edit-field-program-type-target-id--wrapper {
   padding: 1rem;
   //width: 320px;
   float: left;
