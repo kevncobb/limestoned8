@@ -436,7 +436,7 @@
   nav.show-for-desktop-menu {
     display: none !important;
   }
-  @include breakpoint(smedium) {
+  @include breakpoint(medium) {
     nav.show-for-desktop-menu {
       display: block !important;
     }
@@ -452,7 +452,7 @@ $expander-toggle-size: 1em;
 $expander-toggle-arrow-size: $expander-toggle-size;
 $expander-toggle-margin: 1em;
 
-@include breakpoint(smedium down) {
+@include breakpoint(medium down) {
 
   .title-bar {
     background: $white;
