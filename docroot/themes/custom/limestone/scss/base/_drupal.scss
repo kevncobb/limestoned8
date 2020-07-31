@@ -41,15 +41,15 @@
 // Preventing Top Bar FOUC
 // http://foundation.zurb.com/sites/docs/responsive-navigation.html#preventing-fouc
 // More info: https://www.drupal.org/node/2783573
-.no-js .top-bar {
+.no-js .top-bar, .no-js .main-menu-region {
   display: none;
 }
 
 @include breakpoint(smedium) {
-  .no-js .top-bar {
+  .no-js .top-bar, .no-js .main-menu-region {
     display: block;
   }
-  .no-js .title-bar {
+  .no-js .title-bar, .no-js .main-menu-region {
     display: none;
   }
 }

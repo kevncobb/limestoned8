@@ -191,9 +191,9 @@ article.node--type-news {
     order: 4;
   }
 }
-.large-order-1 {
+.large-order-initial {
   @include breakpoint(large) {
-    order: 1;
+    order: initial;
   }
 }
 .mt-0 {

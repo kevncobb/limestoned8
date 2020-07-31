@@ -1,6 +1,6 @@
 .no-js {
   @include breakpoint(small only) {
-    .menu--main {
+    .menu--main, .main-menu-region {
       display: none;
     }
   }
