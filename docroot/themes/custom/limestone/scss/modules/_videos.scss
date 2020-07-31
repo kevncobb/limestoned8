@@ -1,4 +1,4 @@
-.view-videos {
+.view-videos.grid-x {
   form.views-exposed-form {
     @extend .grid-x;
     @extend .grid-margin-x;
@@ -7,7 +7,7 @@
       @extend .large-6;
     }
   }
-  .small-12.views-row {
+    > .small-12.views-row {
     margin: 0 auto;
     .layout--onecol {
       position: relative;

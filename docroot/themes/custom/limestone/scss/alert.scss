@@ -13,6 +13,10 @@
     color: #6b450b;
     a, [class^="icon-"], [class*=" icon-"] {
       color: #6b450b;
+      &:focus, &:hover {
+        color: smart-scale(#6b450b, 20%, 20%) !important;
+        text-decoration: none;
+      }
     }
   }
   .alert {
@@ -20,6 +24,10 @@
     color: white;
     a, [class^="icon-"], [class*=" icon-"] {
       color: white;
+      &:focus, &:hover {
+        color: #ddd;
+        text-decoration: none;
+      }
     }
   }
   [class^="icon-"], [class*=" icon-"] {
