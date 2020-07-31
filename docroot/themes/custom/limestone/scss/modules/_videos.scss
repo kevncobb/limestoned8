@@ -1,10 +1,10 @@
 .view-videos.grid-x {
   form.views-exposed-form {
-    @extend .grid-x;
-    @extend .grid-margin-x;
+    //@extend .grid-x;
+    //@extend .grid-margin-x;
     .js-form-type-select {
-      @extend .cell;
-      @extend .large-6;
+      //@extend .cell;
+      //@extend .large-6;
     }
   }
     > .small-12.views-row {
