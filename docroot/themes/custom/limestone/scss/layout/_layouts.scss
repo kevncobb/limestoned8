@@ -13,7 +13,7 @@
   display: block !important;
 }
 article.node--type-news {
-  @extend .grid-container;
+  //@extend .grid-container;
 }
 .fibonacci-aside.small-5 {
   @include breakpoint(medium) {
