@@ -8,4 +8,4 @@ web_docroot: true
 # Make sure Drush is version 8
 drush_version: 9
 
-php_version: 7.3
+php_version: 7.4
