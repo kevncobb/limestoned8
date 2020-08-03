@@ -6,6 +6,9 @@
 .hide-for-medium {
   @include hide-for(medium);
 }
+.hide-for-lcmedium {
+  @include hide-for(lcmedium);
+}
 .show-for-all {
   display: block !important;
 }
