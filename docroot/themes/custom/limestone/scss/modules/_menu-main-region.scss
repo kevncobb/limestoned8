@@ -442,7 +442,7 @@
   .show-for-desktop-menu, .title-bar {
     display: none !important;
   }
-  nav.show-for-mobile-menu {
+  .title-bar.show-for-mobile-menu {
     display: block !important;
   }
   @include breakpoint(medium) {

@@ -50,6 +50,15 @@
           alert_section.show();
         } else {
           $( "<li class='top-menu-alert-icon'><a href='#' title='Show Alert'>" + alert_icon + "</a></li>" ).detach().insertBefore( top_menu_first );
+          // when opening from red icon
+          $('#block-topmenu ul.menu.dropdown li.top-menu-alert-icon a').bind('touchstart click', function (event) {
+            event.stopPropagation();
+            event.preventDefault();
+            //console.log('in 2nd alert function');
+            alert_section.slideDown();
+            $("#block-topmenu ul li.top-menu-alert-icon").remove();
+            Cookies.remove('alert');
+          });
         }
       });
     }
