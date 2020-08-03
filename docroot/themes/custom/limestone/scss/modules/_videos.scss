@@ -6,6 +6,13 @@
       //@extend .cell;
       //@extend .large-6;
     }
+    fieldset {
+      background-color: $lighter-gray;
+      legend {
+        float: left;
+        width: 100%;
+      }
+    }
   }
     > .small-12.views-row {
     margin: 0 auto;
