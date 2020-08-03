@@ -439,7 +439,7 @@
 
 // HIDE SHOW MAIN MENU REGIONS
 .main-menu-region {
-  .show-for-desktop-menu {
+  .show-for-desktop-menu, .title-bar {
     display: none !important;
   }
   @include breakpoint(medium) {
