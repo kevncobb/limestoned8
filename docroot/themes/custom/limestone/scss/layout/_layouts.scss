@@ -4,7 +4,7 @@
 }
 
 .hide-for-medium {
-  //@include show-for(medium);
+  @include hide-for(medium);
 }
 .show-for-all {
   display: block !important;
