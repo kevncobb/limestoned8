@@ -42,21 +42,12 @@
         $("#block-topmenu ul li.top-menu-alert-icon").remove();
         Cookies.remove('alert');
       });
-      // when loading page with closed cookie
+      // when loading page without cookie
       $('.alert-section', context).once('alertReadClosed').each(function () {
         // Apply the alertReadClosed effect to the elements only once.
         var closed_for_the_day = Cookies.get('alert');
-        if (closed_for_the_day == 'true') {
-          alert_section.hide();
-          $( "<li class='top-menu-alert-icon'><a href='#' title='Show Alert'>" + alert_icon + "</a></li>" ).once('alertReadClosed').insertBefore( top_menu_first );
-          $('#block-topmenu ul.menu.dropdown li.top-menu-alert-icon a').bind('touchstart click', function (event) {
-            event.stopPropagation();
-            event.preventDefault();
-            //console.log('in 3rd alert function');
-            alert_section.slideUp();
-            $("#block-topmenu ul li.top-menu-alert-icon a").remove();
-            Cookies.remove('alert');
-          });
+        if (closed_for_the_day != 'true') {
+          alert_section.show();
         }
       });
     }

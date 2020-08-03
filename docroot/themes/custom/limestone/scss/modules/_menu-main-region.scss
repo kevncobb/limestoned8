@@ -443,7 +443,7 @@
     display: none !important;
   }
   @include breakpoint(medium) {
-    .show-for-desktop-menu {
+    nav.show-for-desktop-menu {
       display: block !important;
     }
     nav.show-for-mobile-menu {

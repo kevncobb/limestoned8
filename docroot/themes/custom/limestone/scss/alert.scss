@@ -5,6 +5,7 @@
 .alert-section {
   font-size: 1.1rem;
   text-align: center;
+  display: none;
   p {
     margin: 0;
   }
@@ -55,6 +56,6 @@
     font-size: 1.1rem;
     padding: 0.5rem 0.3rem 0.35rem !important;
     background-color: #e43434 !important;
-    color: $almost-black !important;
+    color: $black !important;
   }
 }
