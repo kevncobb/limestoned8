@@ -48,6 +48,8 @@
         var closed_for_the_day = Cookies.get('alert');
         if (closed_for_the_day != 'true') {
           alert_section.show();
+        } else {
+          $( "<li class='top-menu-alert-icon'><a href='#' title='Show Alert'>" + alert_icon + "</a></li>" ).detach().insertBefore( top_menu_first );
         }
       });
     }

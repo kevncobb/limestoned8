@@ -442,6 +442,9 @@
   .show-for-desktop-menu, .title-bar {
     display: none !important;
   }
+  nav.show-for-mobile-menu {
+    display: block !important;
+  }
   @include breakpoint(medium) {
     nav.show-for-desktop-menu {
       display: block !important;
