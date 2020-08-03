@@ -32,12 +32,17 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6 {
 .center, .align-center {
   text-align: center;
 }
-.medium-align-right {
-  @include breakpoint(medium) {
-    text-align: right;
+.smaller-mobile-only {
+  @include breakpoint(medium down) {
+    font-size: 80%;
+    line-height: 1rem;
   }
 }
-
+.medium-lead {
+  @include breakpoint(medium) {
+    font-size: 120%;
+  }
+}
 .centered, a.centered {
   display:block;
   margin-left: auto;

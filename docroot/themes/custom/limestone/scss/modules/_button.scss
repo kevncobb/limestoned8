@@ -208,12 +208,8 @@ a.lc-btn, .lc-btn a:first-child {
     }
 
     &.back {
-      &::after {
-        background-position: -342px -40px;
-        left: -31px;
-        background-size: 487px;
-        top: 10px;
-      }
+      margin-left: 50px;
+      margin-right: 0;
     }
   }
 
@@ -231,6 +227,8 @@ a.lc-btn, .lc-btn a:first-child {
   }
 
   &.back {
+    margin-left: 50px;
+    margin-right: 0;
     &::before {
       content: "";
       width: 44px;
@@ -247,18 +245,16 @@ a.lc-btn, .lc-btn a:first-child {
     }
 
     &::after {
-      content: "";
-      background: url(/themes/custom/limestone/images/lc-sprite.svg) no-repeat;
-      background-position: -310px -38px;
-      right: auto;
-      left: -31px;
+      right: auto !important;
+      left: -35px !important;
       background-size: 444px;
       position: absolute;
-      top: 8px;
+      top: 8px !important;
       height: 25px;
       width: 17px;
       transition: right 100ms ease-in-out;
       bottom: auto;
+      transform: rotate(90deg) !important;
     }
   }
 }

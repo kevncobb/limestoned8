@@ -213,3 +213,12 @@ section.block-block-contentfe8537ce-54d8-467c-ba0f-931c4b8e3ced {
     }
   }
 }
+.featured-news {
+  background-color: $light-gray;
+  img, p {
+    margin-bottom: 0;
+  }
+  h3 {
+    margin-top: 0.3rem;
+  }
+}
