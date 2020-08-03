@@ -137,10 +137,17 @@
       });
     }
   };
-  // Hack to prevent duplicate links on embedded images with links in CKeditor
+  // Hack to prevent duplicate links on embedded images with links in CKeditor   if ($(window).width() < 768) {
   Drupal.behaviors.hide_empty_button_links = {
     attach: function (context, settings) {
       $(context).find('.image-buttons a:empty').remove();
+    }
+  };
+  Drupal.behaviors.move_submenu_to_expandable_area = {
+    attach: function (context, settings) {
+      if ($(window).width() < 768) {
+        $(context).find('#side-submenu').appendTo("#expandable-menu");
+      }
     }
   };
 })(jQuery, Drupal);
