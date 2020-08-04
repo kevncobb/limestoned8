@@ -1,5 +1,6 @@
 .view-videos.grid-x {
   form.views-exposed-form {
+    padding: 0 1rem;
     //@extend .grid-x;
     //@extend .grid-margin-x;
     .js-form-type-select {
@@ -20,4 +21,12 @@
       position: relative;
     }
   }
+  .js-form-item.js-form-type-select {
+    width: 380px;
+  }
 }
+
+.js-form-item-field-categories-target-id {
+  padding: 0 1rem;
+}
+//

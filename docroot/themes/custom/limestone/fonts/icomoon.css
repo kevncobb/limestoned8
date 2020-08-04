@@ -504,3 +504,6 @@
 .icon-eye:before {
   content: "\e9ce";
 }
+.icon-menu:before {
+  content: "\e9bd";
+}

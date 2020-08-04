@@ -20,6 +20,10 @@ article.node--type-news {
     @include xy-cell(5 of 13);
   }
 }
+.addtoany_list {
+  display: inline-block;
+  margin: 0 0 2rem;
+}
 .bs-region .row {
   @extend .grid-container;
 }
