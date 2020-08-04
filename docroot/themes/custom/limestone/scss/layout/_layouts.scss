@@ -24,8 +24,8 @@ article.node--type-news {
   @extend .grid-container;
 }
 .bs-2col-stacked {
-  @extend .grid-container;
-  @extend .grid-x;
+  //@extend .grid-container;
+  //@extend .grid-x;
 }
 .bs-2col-stacked .bs-region--left {
   @include xy-cell(6 of 12);
