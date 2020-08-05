@@ -11,7 +11,7 @@ footer.site-footer {
   h2 {
     font-size: 1.5rem;
     padding-left: 0.5rem;
-    margin-bottom: 7px;
+    margin-bottom: 10px;
     &::after {
       height: 3px;
     }
@@ -54,10 +54,10 @@ footer.site-footer {
     }
   }
   .footer-social-icons {
-    padding-left: 0.5rem;
+    //padding-left: 0.5rem;
     a {
       color: white;
-      padding: 0 0.5rem;
+      padding: 0 0.45rem;
       text-decoration: none;
       &:hover, &:focus {
         svg {
