@@ -13,6 +13,12 @@ header.site-header {
       width: 100%;
     }
   }
+  .block-gatewaymenu {
+    margin-right: -1rem;
+    > ul > li:first-child a {
+      padding-left:0;
+    }
+  }
   .site-header-meta-links {
     position: relative;
     margin-right: 0;
@@ -42,7 +48,8 @@ header.site-header {
     }
   }
   .dropdown.menu>li.is-dropdown-submenu-parent>a::after {
-    right: 0;
+    right: 4px;
+    margin-top: -2px;
   }
   a, button {
     color: white !important;
@@ -133,6 +140,9 @@ header.site-header {
         font-size: inherit;
       }
     }
+    li.is-dropdown-submenu-parent a {
+      padding-right: 1.2rem;
+    }
     .is-dropdown-submenu {
       z-index: 999;
       font-size: 0.9rem;
@@ -148,10 +158,8 @@ header.site-header {
 .block-system-branding-block img {
   max-width: 344px;
   width: 100%;
-  margin: 5px;
-  @include breakpoint(medium) {
-    margin: 5px 0;
-  }
+  margin: 0;
+  padding: 5px;
 }
 .sub-page-header, .paragraph--type--sub-header-title {
   clear: both;

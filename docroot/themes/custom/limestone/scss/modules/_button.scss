@@ -445,8 +445,18 @@ a.cta-button, a.cta-btn {
     margin-left: auto;
     margin-right: auto;
     margin-bottom: 30px;
+    padding-top: 0;
+    .btn-wrapper {
+      border-spacing: 1px;
+      .btn-container a {
+        height: 75px !important;
+      }
+    }
     @include breakpoint(smedium) {
       max-width: 950px;
+      .btn-wrapper {
+        border-spacing: 15px;
+      }
     }
   }
 }

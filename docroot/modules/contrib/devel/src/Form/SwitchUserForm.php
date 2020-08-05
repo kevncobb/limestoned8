@@ -7,7 +7,6 @@ use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Url;
 use Drupal\user\Entity\User;
-use Drupal\user\UserInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -67,7 +66,7 @@ class SwitchUserForm extends FormBase {
         'include_anonymous' => FALSE,
       ],
       '#process_default_value' => FALSE,
-      '#maxlength' => UserInterface::USERNAME_MAX_LENGTH,
+      '#maxlength' => USERNAME_MAX_LENGTH,
       '#title_display' => 'invisible',
       '#required' => TRUE,
       '#size' => '28',
