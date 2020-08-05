@@ -90,7 +90,7 @@ header.site-header {
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
       }
-      span {
+      span.icon-chevron-down {
         transform: rotate(-90deg);
         display: inline-block;
         float: right;
@@ -120,7 +120,7 @@ header.site-header {
           filter: grayscale(0);
           background: url(/themes/custom/limestone/images/lc-sprite.svg) no-repeat -332px -163px !important;
           background-size: 501px !important;
-          span {
+          span.icon-chevron-down {
             right: 1px;
             position: relative;
             transition: 300ms;
@@ -170,6 +170,7 @@ header.site-header {
   -webkit-box-shadow: inset 0px 0px 300px 200px rgba(0,0,0,0.15);
   -moz-box-shadow: inset 0px 0px 300px 200px rgba(0,0,0,0.15);
   box-shadow: inset 0px 0px 300px 200px rgba(0,0,0,0.15);
+  background-color: $almost-black;
   &:before {
     position: absolute;
     bottom: 0;
