@@ -445,9 +445,11 @@ a.cta-button, a.cta-btn {
     margin-left: auto;
     margin-right: auto;
     margin-bottom: 30px;
+    margin-top: 0;
     padding-top: 0;
     .btn-wrapper {
       border-spacing: 1px;
+      display: table-cell;
       .btn-container a {
         height: 75px !important;
       }
