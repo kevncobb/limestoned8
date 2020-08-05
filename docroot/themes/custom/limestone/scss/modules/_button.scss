@@ -456,6 +456,7 @@ a.cta-button, a.cta-btn {
     }
     @include breakpoint(smedium) {
       max-width: 950px;
+      padding-top: 2rem;
       .btn-wrapper {
         border-spacing: 15px;
       }

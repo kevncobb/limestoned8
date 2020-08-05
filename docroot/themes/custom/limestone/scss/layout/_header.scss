@@ -15,7 +15,7 @@ header.site-header {
   }
   .block-gatewaymenu {
     margin-right: -1rem;
-    > ul > li:first-child a {
+    > ul > li:first-child > a {
       padding-left:0;
     }
   }
