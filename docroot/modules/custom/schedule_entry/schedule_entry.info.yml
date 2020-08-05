@@ -1,0 +1,14 @@
+name: 'Schedule Entry'
+description: 'Provides Schedule Entry content type and related configuration. '
+type: module
+core: 8.x
+dependencies:
+  - ds
+  - feeds
+  - field
+  - field_formatter_class
+  - menu_ui
+  - node
+  - options
+  - path
+  - user

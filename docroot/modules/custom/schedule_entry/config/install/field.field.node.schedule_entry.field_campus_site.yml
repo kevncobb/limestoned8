@@ -1,0 +1,28 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_campus_site
+    - node.type.schedule_entry
+    - taxonomy.vocabulary.campus_site
+id: node.schedule_entry.field_campus_site
+field_name: field_campus_site
+entity_type: node
+bundle: schedule_entry
+label: 'Campus Site'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      campus_site: campus_site
+    sort:
+      field: name
+      direction: asc
+    auto_create: true
+    auto_create_bundle: ''
+field_type: entity_reference
