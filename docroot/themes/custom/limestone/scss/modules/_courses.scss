@@ -1,6 +1,10 @@
 .course-schedule {
   caption.grouped-course {
     background-color: #d4e9ff;
+    a {
+      text-decoration: underline;
+      color: $header-color;
+    }
   }
   table {
     padding-bottom: 3rem;
