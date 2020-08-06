@@ -53,6 +53,7 @@
     label_display == 'visually_hidden' ? 'visually-hidden',
   ]
 %}
+kint('content');
 {% if content|length %}
   <div{{ attributes.addClass(classes) }}>
     {% if not label_hidden %}
