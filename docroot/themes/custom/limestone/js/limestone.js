@@ -143,7 +143,7 @@
       $(context).find('.image-buttons a').filter(function() {
         return !$.trim(this.innerHTML);
       }).remove();
-      $(context).find('figure a:blank').remove();
+      $(context).find('figure a:empty').remove();
     }
   };
   Drupal.behaviors.move_submenu_to_expandable_area = {
