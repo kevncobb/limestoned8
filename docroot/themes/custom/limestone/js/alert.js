@@ -17,7 +17,7 @@
       $(context).find('.alert-section a.close').bind('touchstart click', function (event) {
         event.stopPropagation();
         event.preventDefault();
-        $( "<li class='top-menu-alert-icon'><a href='#' title='Show Alert'>" + alert_icon + "<span class='show-for-sr'>Show Alert</span></a></li>" ).detach().insertBefore( top_menu_first );
+        $( "<li class='top-menu-alert-icon'><a href='#' title='Show Campus Alert'>" + alert_icon + "<span class='show-for-sr'>Show Alert</span></a></li>" ).detach().insertBefore( top_menu_first );
         alert_section.slideUp();
         var inHalfADay = 0.5;
         Cookies.set('alert', 'true', {
@@ -49,7 +49,7 @@
         if (closed_for_the_day != 'true') {
           alert_section.show();
         } else {
-          $( "<li class='top-menu-alert-icon'><a href='#' title='Show Alert'>" + alert_icon + "<span class='show-for-sr'>Show Alert</span></a></li>" ).detach().insertBefore( top_menu_first );
+          $( "<li class='top-menu-alert-icon'><a href='#' title='Show Campus Alert'>" + alert_icon + "<span class='show-for-sr'>Show Alert</span></a></li>" ).detach().insertBefore( top_menu_first );
           // when opening from red icon
           $('#block-topmenu ul.menu.dropdown li.top-menu-alert-icon a').bind('touchstart click', function (event) {
             event.stopPropagation();

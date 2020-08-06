@@ -35,7 +35,11 @@
         $(window).resize(function() {
           colorboxResize(true);
         });
+        $('#cboxPrevious', context).html('<span class="show-for-sr">Previous</span>');
+        $('#cboxNext', context).html('<span class="show-for-sr">Next</span>');
+        $('#cboxSlideshow', context).html('<span class="show-for-sr">Slideshow</span>');
       }
     };
   }
+
 })(jQuery, Drupal, drupalSettings);
