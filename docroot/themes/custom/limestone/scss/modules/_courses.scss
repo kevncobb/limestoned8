@@ -9,4 +9,30 @@
   table {
     padding-bottom: 3rem;
   }
+  form.views-exposed-form.bef-exposed-form {
+    background-color: $light-gray;
+    float: left;
+    width: 100%;
+    margin-bottom: 1rem;
+    @include breakpoint(medium) {
+      .js-form-item.js-form-type-select {
+        width: 50%;
+        display: inline-block;
+        float: left;
+      }
+    }
+    .js-form-item.js-form-type-select.js-form-item-field-course-discipline-target-id {
+      padding-top: 0;
+    }
+    #edit-actions {
+      float: left;
+      padding: 1rem;
+      input.form-submit {
+        margin: 0;
+        position: relative;
+        top: 4px;
+        width: 200px;
+      }
+    }
+  }
 }

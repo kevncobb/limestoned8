@@ -223,9 +223,7 @@ table {
   }
 }
 
-.js-form-item-field-course-discipline-target-id,
-.form-item-field-faculty-department-target-id,
-.form-item-field-staff-department-target-id,
+.js-form-type-select,
 .js-form-type-textfield.form-item-field-name-family {
   padding: 1rem;
   //width: 320px;
@@ -234,13 +232,13 @@ table {
   z-index: 2;
   label {
     @include breakpoint(smedium) {
-      font-size: 1.25rem;
+      font-size: 1rem;
     }
     @include breakpoint(medium) {
-      font-size: 1.6rem;
+      font-size: 1.2rem;
     }
     @include breakpoint(large) {
-      font-size: 2rem;
+      font-size: 1.5rem;
     }
   }
 }
