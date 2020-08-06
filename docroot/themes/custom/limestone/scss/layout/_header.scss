@@ -90,6 +90,10 @@ header.site-header {
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
       }
+      span.show-for-sr-mobile-only {
+        background-color: $limestone-yellow;
+        color: $limestone-blue;
+      }
       span.icon-chevron-down {
         transform: rotate(-90deg);
         display: inline-block;

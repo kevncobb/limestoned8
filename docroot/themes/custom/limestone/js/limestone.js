@@ -141,6 +141,7 @@
   Drupal.behaviors.hide_empty_button_links = {
     attach: function (context, settings) {
       $(context).find('.image-buttons a:empty').remove();
+      $(context).find('figure a:empty').remove();
     }
   };
   Drupal.behaviors.move_submenu_to_expandable_area = {
