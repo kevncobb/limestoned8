@@ -53,7 +53,8 @@
     label_display == 'visually_hidden' ? 'visually-hidden',
   ]
 %}
-{% if item.content.length %}
+
+{% if content is not empty %}
   <div{{ attributes.addClass(classes) }}>
     {% if not label_hidden %}
       <div{{ title_attributes.addClass(title_classes) }}>{{ label }}</div>
