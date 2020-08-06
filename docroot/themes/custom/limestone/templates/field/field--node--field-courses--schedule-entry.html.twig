@@ -53,7 +53,7 @@
     label_display == 'visually_hidden' ? 'visually-hidden',
   ]
 %}
-{{ dump('items.item') }}
+{{ dump('node.content') }}
 {% if content|length %}
   <div{{ attributes.addClass(classes) }}>
     {% if not label_hidden %}
@@ -75,4 +75,3 @@
     </div>
   </div>
 {% endif %}
-{{ dump('items.content') }}
