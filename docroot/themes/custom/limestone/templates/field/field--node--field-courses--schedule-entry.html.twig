@@ -54,7 +54,7 @@
   ]
 %}
 
-{% if items.content is not empty %}
+{% if items.content %}
   <div{{ attributes.addClass(classes) }}>
     {% if not label_hidden %}
       <div{{ title_attributes.addClass(title_classes) }}>{{ label }}</div>
