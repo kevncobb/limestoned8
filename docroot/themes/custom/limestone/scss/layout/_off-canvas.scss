@@ -1,20 +1,26 @@
 // search
 .position-top {
-  height: 175px;
+  height: 227px;
 }
 #top-off-canvas-search {
   padding-top: rem-calc(85);
   padding-bottom: rem-calc(33);
   position: absolute;
   > div {
-    @extend .grid-container;
-  }
+    max-width: 1300px;
+    width: 90%;
+    padding-top: 2rem;
+    padding-bottom: 1rem;
+    margin: 0 auto;
+}
   .form-item {
     float: left;
     width: calc(100% - 100px);
     input {
-      height: 51px;
-      line-height: 51px;
+      height: 54px;
+      line-height: 54px;
+      font-size: 35px;
+      color: $almost-black;
     }
   }
   .search-bar form .form-actions {
