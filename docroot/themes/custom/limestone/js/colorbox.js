@@ -35,11 +35,15 @@
         $(window).resize(function() {
           colorboxResize(true);
         });
-        $('#cboxPrevious', context).html('<span class="show-for-sr">Previous</span>');
-        $('#cboxNext', context).html('<span class="show-for-sr">Next</span>');
-        $('#cboxSlideshow', context).html('<span class="show-for-sr">Slideshow</span>');
+
       }
     };
   }
-
+  Drupal.behaviors.colorbox = {
+    attach: function(context, settings) {
+      $(context).find('#cboxPrevious').html('<span class="show-for-sr">Previous</span>');
+      $(context).find('#cboxNext').html('<span class="show-for-sr">Next</span>');
+      $(context).find('#cboxSlideshow').html('<span class="show-for-sr">Slideshow</span>');
+    }
+  };
 })(jQuery, Drupal, drupalSettings);
