@@ -31,6 +31,7 @@
           alert_section.slideDown();
           $("#block-topmenu ul li.top-menu-alert-icon").remove();
           Cookies.remove('alert');
+          $('.alert-section').focus();
         });
       });
       // when opening from red icon
