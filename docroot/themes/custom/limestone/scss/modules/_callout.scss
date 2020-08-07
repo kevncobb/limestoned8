@@ -149,3 +149,12 @@ $pull-quote-gradient: true;
     margin-right: $pull-quote-offset-large;
   }
 }
+.callout {
+  table tbody {
+    border: none;
+    background-color: transparent;
+    tr:nth-child(even) {
+      background-color: transparent;
+    }
+  }
+}
