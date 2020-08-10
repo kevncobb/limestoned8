@@ -45,7 +45,7 @@
       $('table tr').each(function() {
         var txt = $(this).children("td").text();
         console.log(txt)
-        if (seen[txt])
+        if ( (seen[txt]) || (seen[txt].length == 0) )
           $(this).remove();
         else
           seen[txt] = true;
