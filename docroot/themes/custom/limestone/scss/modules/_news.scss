@@ -175,8 +175,9 @@ section.block-block-contentfe8537ce-54d8-467c-ba0f-931c4b8e3ced {
 }
 
 .block-third {
-  @extend .medium-4;
-  @extend .cell;
+  @include breakpoint(smedium) {
+    @include xy-cell(4 of 12);
+  }
   h3 {
     font-size: 1.25rem;
     margin-bottom: 5px;
