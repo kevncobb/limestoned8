@@ -10,6 +10,9 @@ body.path-frontpage .thirds .thirds-top {
   a {
     text-decoration: underline;
     color: $limestone-blue;
+    &.button {
+      color: inherit;
+    }
   }
   h3 {
     a {
