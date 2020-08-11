@@ -173,7 +173,9 @@ section.block-block-contentfe8537ce-54d8-467c-ba0f-931c4b8e3ced {
     font-weight: normal;
   }
 }
-
+.views-infinite-scroll-content-wrapper {
+  @include xy-grid;
+}
 .block-third {
   @include breakpoint(smedium) {
     @include xy-cell(4 of 12);
