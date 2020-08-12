@@ -74,8 +74,8 @@ header.site-header {
       height: 50px;
       background: url(/themes/custom/limestone/images/lc-sprite.svg) no-repeat -498px -257px;
       background-size: 757px;
-      margin-right: -80px;
-      right: -30px;
+      margin-right: -72px;
+      right: -26px;
       &:before {
         content: "\e9cb";
         position: absolute;
@@ -101,7 +101,7 @@ header.site-header {
         transform: rotate(-90deg);
         display: inline-block;
         float: right;
-        margin-top: 3px;
+        margin-top: 6px;
         padding: 0;
         bottom: 0;
         right: 5px;
@@ -113,7 +113,7 @@ header.site-header {
         color: $limestone-blue !important;
         background: url(/themes/custom/limestone/images/lc-sprite.svg) no-repeat -332px -163px;
         background-size: 501px;
-        width: 110px;
+        width: 89px;
         height: 44px;
         padding-right: 0;
         margin-left: -3px;
