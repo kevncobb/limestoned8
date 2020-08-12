@@ -24,21 +24,20 @@
 
 
       // Front page Tabs function to activate the 3rd tab on page load. Need to move to new behavior.
-      $("ul.tabs li:nth-child(3) a").click();
+      //$("ul.tabs li:nth-child(3) a").click();
 
     }
   };
 
+  /*
   Drupal.behaviors.front_tabs = {
     attach: function (context, settings) {
       $('#vbp-tab-219').once('front_tabs').each(function() {
         // Front page Tabs function to activate the 3rd tab on page load. Need to move to new behavior.
         $("ul.tabs li:nth-child(3) a").click();
       });
-
-
-
     }
   };
+  */
 
 })(jQuery, Drupal);
