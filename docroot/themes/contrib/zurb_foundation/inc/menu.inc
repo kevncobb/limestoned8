@@ -1,18 +1,31 @@
 <?php
 
-/**
- * @file
- * Theme preprocess hooks related to menu elements.
- */
-
-use Drupal\Core\Url;
-use Drupal\Core\Template\Attribute;
 use Drupal\Core\Link;
 
 /**
+ * Implements theme_menu_local_tasks().
+ */
+function zurb_foundation_menu_local_tasks(&$variables) {
+  $output = '';
+
+  if (!empty($variables['primary'])) {
+    $variables['primary']['#prefix'] = '<h2 class="visually-hidden">' . t('Primary tabs') . '</h2>';
+    $variables['primary']['#prefix'] .= '<div class="button-group">';
+    $variables['primary']['#suffix'] = '</div>';
+    $output .= \Drupal::service('renderer')->render($variables['primary']);
+  }
+  if (!empty($variables['secondary'])) {
+    $variables['secondary']['#prefix'] = '<h2 class="visually-hidden">' . t('Secondary tabs') . '</h2>';
+    $variables['secondary']['#prefix'] .= '<div class="button-group">';
+    $variables['secondary']['#suffix'] = '</div>';
+    $output .= \Drupal::service('renderer')->render($variables['secondary']);
+  }
+
+  return $output;
+}
+
+/**
  * Implements theme_preprocess_menu_local_task().
- *
- * Switches between active or secondary classes on local menu buttons.
  */
 function zurb_foundation_preprocess_menu_local_task(&$variables) {
   $link = $variables['element']['#link'];
@@ -64,7 +77,7 @@ function zurb_foundation_preprocess_menu(&$variables) {
  */
 function zurb_foundation_preprocess_menu__main(&$variables) {
   if ($variables['top_bar'] = theme_get_setting('zurb_foundation_top_bar_enable')) {
-    $top_bar_attributes = new Attribute();
+    $top_bar_attributes = new \Drupal\Core\Template\Attribute();
 
     if (theme_get_setting('zurb_foundation_top_bar_grid')) {
       $top_bar_attributes->addClass('row column');
@@ -85,11 +98,12 @@ function zurb_foundation_preprocess_menu__main(&$variables) {
     }
 
     if ($variables['top_bar'] == 2) {
-      $top_bar_attributes->addClass('show-for-small-only');
+      $top_bar_attributes->addClass('show-for-small');
     }
 
     $variables['top_bar_attributes'] = $top_bar_attributes;
     $variables['top_bar_menu_text'] = theme_get_setting('zurb_foundation_top_bar_menu_text');
+
 
     if ($back_text = theme_get_setting('zurb_foundation_top_bar_back_text')) {
       $variables['attributes']['data-back-button'] = "<li class=\"js-drilldown-back\"><a>{$back_text}</a></li>";
@@ -102,7 +116,7 @@ function zurb_foundation_preprocess_menu__main(&$variables) {
     // Format the linked site name.
     $site_name = \Drupal::config('system.site')->get('name');
     $title = strip_tags($site_name) . ' ' . t('Home');
-    $url = Url::fromRoute('<front>');
+    $url = \Drupal\Core\Url::fromRoute('<front>');
     $url->setOption('attributes', ['title' => $title]);
 
     $variables['linked_site_name'] = '';
