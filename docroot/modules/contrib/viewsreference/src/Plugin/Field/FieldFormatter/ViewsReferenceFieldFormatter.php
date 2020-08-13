@@ -72,7 +72,7 @@ class ViewsReferenceFieldFormatter extends FormatterBase {
     foreach ($items as $delta => $item) {
       $view_name = $item->getValue()['target_id'];
       $display_id = $item->getValue()['display_id'];
-      $data = unserialize($item->getValue()['data']);
+      $data = unserialize($item->getValue()['data'], ['allowed_classes' => FALSE]);
       $view = Views::getView($view_name);
       // Add an extra check because the view could have been deleted.
       if (!is_object($view)) {

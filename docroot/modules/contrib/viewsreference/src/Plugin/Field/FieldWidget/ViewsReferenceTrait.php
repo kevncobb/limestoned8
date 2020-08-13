@@ -125,7 +125,7 @@ trait ViewsReferenceTrait {
 
     $field_data = [];
     if (isset($field_value['data'])) {
-      $field_data = unserialize($field_value['data']);
+      $field_data = unserialize($field_value['data'], ['allowed_classes' => FALSE]);
     }
 
     $element['options'] = [
