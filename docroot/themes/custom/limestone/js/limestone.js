@@ -46,6 +46,7 @@
       if (typeof CKEDITOR !== "undefined") {
         CKEDITOR.dtd.$removeEmpty['i'] = false;
         CKEDITOR.dtd.$removeEmpty['span'] = false;
+        CKEDITOR.config.forcePasteAsPlainText = true;
         //console.log(CKEDITOR.dtd);
       }
     }
