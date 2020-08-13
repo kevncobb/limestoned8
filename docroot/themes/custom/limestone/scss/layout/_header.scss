@@ -77,8 +77,8 @@ header.site-header {
       margin-right: -72px;
       right: -14px;
       &:hover, &:focus {
-        background: url(/themes/custom/limestone/images/lc-sprite.svg) no-repeat -498px -257px;
-        background-size: 757px;
+        background: url(/themes/custom/limestone/images/lc-sprite.svg) no-repeat -498px -257px !important;
+        background-size: 757px !important;
       }
       &:before {
         content: "\e9cb";
