@@ -46,7 +46,7 @@
         var txt = $(this).children("td").text();
         console.log(txt)
         // $(this).isEmpty(td) == true )
-        if ( (seen[txt]) || $(this).find('td:empty') )  //
+        if ( (seen[txt]) || $(this).find('td').is(':empty') )  //
           $(this).remove();
         else
           seen[txt] = true;
