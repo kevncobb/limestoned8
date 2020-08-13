@@ -557,7 +557,11 @@ a.to-top {
     }
   }
 }
-
+.field-larger {
+  p {
+    font-size: 120%;
+  }
+}
 .p-relative {
   position: relative;
 }
