@@ -38,25 +38,9 @@
   ]
 %}
 
-<script>
-  (function($, Drupal, window, document, undefined) {
-    $(document).ready(function() {
-      var seen = {};
-      $('table tr').each(function() {
-        var txt = $(this).children("td").text();
-        console.log(txt)
-        // $(this).isEmpty(td) == true )
-        if ( (seen[txt]) || $(this).find('td').is(':empty') )  //
-          $(this).remove();
-        else
-          seen[txt] = true;
-      });
-    });
-  })(jQuery, Drupal, this, this.document);
-</script>
 <table{{ attributes.addClass(classes) }}>
   {% if caption_needed %}
-    <caption class="show-for-sr">
+    <caption class="grouped-course">
     {% if caption %}
       {{ caption }}
     {% else %}

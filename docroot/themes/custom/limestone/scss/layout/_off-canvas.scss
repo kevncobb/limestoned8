@@ -72,8 +72,12 @@
         }
         >ul {
           background-color: #444343;
-          margin-left: 0;
-          padding-left: 12px;
+          margin-right: 0;
+          margin-left: -1rem;
+          padding-left: 1.5rem;
+          > li a {
+            font-size: 16px;
+          }
         }
       }
     }
