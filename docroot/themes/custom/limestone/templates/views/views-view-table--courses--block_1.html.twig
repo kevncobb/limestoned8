@@ -45,7 +45,8 @@
       $('table tr').each(function() {
         var txt = $(this).children("td").text();
         console.log(txt)
-        if ( (seen[txt]) || $(this).isEmpty(td) == true )  //
+        // $(this).isEmpty(td) == true )
+        if ( (seen[txt]) || $(this).find('td').is(':empty') )  //
           $(this).remove();
         else
           seen[txt] = true;
