@@ -1,7 +1,6 @@
 name: ZURB Foundation Sub-theme Starter
 description: "Custom sub-theme, inherits from the Foundation base theme read <a href=\"http://foundation.zurb.com/docs/index.php\">framework documentation</a>"
 core: 8.x
-core_version_requirement: ^8 || ^9
 type: theme
 base theme: zurb_foundation
 
@@ -16,22 +15,22 @@ libraries:
 # Regions are output in the page.html.twig
 
 regions:
+  meta_header: 'Meta Header'
   header: Header
-  meta_header: 'Meta header'
   help: Help
   page_top: 'Page top'
   page_bottom: 'Page bottom'
   highlighted: Highlighted
   content: Content
-  sidebar_first: 'Left sidebar'
-  sidebar_second: 'Right sidebar'
+  sidebar_first: 'Left Sidebar'
+  sidebar_second: 'Right Sidebar'
   footer_first: 'Footer first column'
   footer_middle: 'Footer middle column'
   footer_last: 'Footer last column'
   left_off_canvas: 'Left off canvas'
   right_off_canvas: 'Right off canvas'
 regions_hidden:
-  page_top: 'Page top'
+  page_top: 'Page Top'
   page_bottom: 'Page bottom'
 
 # Hidden regions
@@ -39,6 +38,8 @@ regions_hidden:
 # regions_hidden[]: Page bottom
 
 features:
+  - logo
+  - name
   - slogan
   - favicon
   - comment_user_picture

@@ -38,12 +38,6 @@
     ]
   %}
   <div role="contentinfo" aria-label="{{ status_headings[type] }}" data-closable="fade-out"{{ attributes.addClass(classes)|without('role', 'aria-label', 'data-closable') }}>
-    {% if not zurb_foundation_status_in_reveal %}
-      <button class="close-button" aria-label="Dismiss alert" type="button" data-close>
-        <span aria-hidden="true">&times;</span>
-      </button>
-    {% endif %}
-
     {% if status_headings[type] %}
       <h2 class="visually-hidden">{{ status_headings[type] }}</h2>
     {% endif %}
@@ -56,6 +50,12 @@
       </ul>
     {% else %}
       {{ messages|first }}
+    {% endif %}
+
+    {% if not zurb_foundation_status_in_reveal %}
+      <button class="close-button" aria-label="Dismiss alert" type="button" data-close>
+        <span aria-hidden="true">&times;</span>
+      </button>
     {% endif %}
   </div>
 
