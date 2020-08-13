@@ -4,8 +4,9 @@
   "devDependencies": {
     "extend": "^3.0.0",
     "del": "^2.2.0",
-    "foundation-sites": "~6.4.3",
-    "motion-ui": "~1.2.2",
+    "foundation-sites": "~6.5.3",
+    "motion-ui": "~2.0.3",
+    "what-input": "^4.3.1",
     "gulp": "^3.9.1",
     "gulp-autoprefixer": "^3.1.0",
     "gulp-cached": "^1.1.0",

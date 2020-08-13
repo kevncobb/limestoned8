@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @file
  * Add custom theme settings to the ZURB Foundation theme.
@@ -8,6 +9,7 @@ use Drupal\Core\Form\FormStateInterface;
 
 /**
  * Implements hook_form_FORM_ID_alter().
+ *
  * @param $form
  * @param \Drupal\Core\Form\FormStateInterface $form_state
  */
@@ -154,25 +156,55 @@ function zurb_foundation_form_system_theme_settings_alter(&$form, FormStateInter
     '#description' => t('Contains settings to toggle hard-coded elements in the page template.'),
   ];
 
-  $form['page_elements']['zurb_foundation_page_site_name'] = [
-    '#type' => 'checkbox',
-    '#title' => t('Show site name'),
-    '#description' => t('Determines if the hard-coded site name should be displayed.'),
-    '#default_value' => theme_get_setting('zurb_foundation_page_site_name'),
-  ];
-
-  $form['page_elements']['zurb_foundation_page_site_logo'] = [
-    '#type' => 'checkbox',
-    '#title' => t('Show site logo'),
-    '#description' => t('Determines if the hard-coded site logo should be displayed.'),
-    '#default_value' => theme_get_setting('zurb_foundation_page_site_logo'),
-  ];
-
   $form['page_elements']['zurb_foundation_page_account_info'] = [
     '#type' => 'checkbox',
     '#title' => t('Show Login/Signup information'),
     '#description' => t('Determines if the hard-coded login block should be displayed.'),
     '#default_value' => theme_get_setting('zurb_foundation_page_account_info'),
+  ];
+
+  /*
+   * Copyright Block.
+   */
+  $form['page_elements']['zurb_foundation_block_copyright_show'] = [
+    '#type' => 'checkbox',
+    '#title' => t('Show copyright block'),
+    '#description' => t('Check this to include a copyright block in your theme.'),
+    '#default_value' => theme_get_setting('zurb_foundation_block_copyright_show'),
+  ];
+
+  $form['page_elements']['copyright_settings'] = [
+    '#type' => 'container',
+    '#states' => [
+      // Hide the copyright container when disabled.
+      'invisible' => [
+        'input[name="zurb_foundation_block_copyright_show"]' => ['checked' => FALSE],
+      ],
+    ],
+  ];
+
+  $form['page_elements']['copyright_settings']['zurb_foundation_block_copyright_custom_text'] = [
+    '#type' => 'checkbox',
+    '#title' => t('Use custom copyright text'),
+    '#default_value' => theme_get_setting('zurb_foundation_block_copyright_custom_text'),
+    '#description' => t('Check this if you want modify the copyright text. If unchecked, defaults to &copy; Year, Site name, All rights reserved.'),
+  ];
+
+  $form['page_elements']['copyright_settings']['copyright_content'] = [
+    '#type' => 'container',
+    '#states' => [
+          // Hide the copyright content container when using the default label.
+      'invisible' => [
+        'input[name="zurb_foundation_block_copyright_custom_text"]' => ['checked' => FALSE],
+      ],
+    ],
+  ];
+
+  $form['page_elements']['copyright_settings']['copyright_content']['zurb_foundation_block_copyright_text'] = [
+    '#type' => 'textfield',
+    '#title' => t('Copyright text'),
+    '#description' => t('Specify your custom copyright text.'),
+    '#default_value' => theme_get_setting('zurb_foundation_block_copyright_text'),
   ];
 
   /*
