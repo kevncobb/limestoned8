@@ -61,12 +61,7 @@
     border: 2px solid white;
   }
 }
-.flex-direction-nav .flex-next {
-  right: -25px;
-}
-.flex-direction-nav .flex-prev {
-  right: -25px;
-}
+
 .flex-control-nav.flex-control-paging {
   bottom: auto;
   top: -52px;
@@ -77,14 +72,29 @@
     height: 20px;
   }
 }
+// Side Arrow navigation on flexslider
+ul.flex-direction-nav {
+  display: none;
+}
+/*
 .flex-direction-nav {
   //display: none;
+  a {
+    top: 50%;
+  }
   a:before {
-    font-size: 40px;
+    font-size: 30px;
     line-height: 3rem;
     display: inline-block;
   }
 }
+.flexslider:hover .flex-direction-nav .flex-next {
+  right: -20px;
+}
+.flexslider:hover .flex-direction-nav .flex-prev {
+  right: -30px;
+}
+*/
 
 //homepage ads
 section.block-block-contentfe8537ce-54d8-467c-ba0f-931c4b8e3ced {
