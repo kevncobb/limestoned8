@@ -1,6 +1,10 @@
 .block-limestone-local-tasks {
   clear: both;
 }
+
+.block-limestone-breadcrumbs {
+  width: 100%;
+}
 .block-limestone-breadcrumbs nav {
   margin: 0px 0 5px -30px;
   @include breakpoint(medium) {

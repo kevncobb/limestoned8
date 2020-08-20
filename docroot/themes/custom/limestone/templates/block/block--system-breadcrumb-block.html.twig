@@ -65,12 +65,7 @@
 
     {% block content %}
       {{ content }}
-      <div id="expandable-menu-wrapper" class="hide-for-lcmedium">
-        <div><a class="hollow button small fill" data-toggle="expandable-menu"><span class="icon-menu" style="font-size: 17px;"></span> Toggle Submenu</a></div>
-        <div id="expandable-menu" style="display:none;" data-toggler data-animate="fade-in fade-out">
 
-        </div>
-      </div>
     {% endblock %}
 
     {% if content_attributes|length %}
@@ -79,4 +74,12 @@
 
   {% if block.delta != 'main' %}
 </section>
+{% endif %}
+{% if content_attributes|length %}
+  <div id="expandable-menu-wrapper" class="hide-for-lcmedium">
+    <div><a class="hollow button small expanded" data-toggle="expandable-menu"><span class="icon-menu" style="font-size: 17px;"></span> Toggle Submenu</a></div>
+    <div id="expandable-menu" style="display:none;" data-toggler data-animate="fade-in fade-out">
+
+    </div>
+  </div>
 {% endif %}

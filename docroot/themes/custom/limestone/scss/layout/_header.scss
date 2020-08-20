@@ -599,12 +599,16 @@ form#views-exposed-form-news-latest-news-block .form-item-search label {
       text-transform: uppercase;
       margin-bottom: 0;
       height: 0px;
-      margin-top: 21px;
+      margin-top: 0;
       display: block;
       //overflow: hidden;
       //background: url(/themes/custom/limestone/images/limestone-news.png) 0 0 no-repeat;
       //background-size: 616px;
       //float: left;
+    }
+    a img {
+      margin-bottom: 0;
+      padding: 1rem 0;
     }
   }
   .align-right {
@@ -614,7 +618,7 @@ form#views-exposed-form-news-latest-news-block .form-item-search label {
   .lc-news-image {
     position: relative;
     @include breakpoint(medium) {
-      bottom: -7px;
+      //bottom: -7px;
     }
   }
   .news-category-page-title {

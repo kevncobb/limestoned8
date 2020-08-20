@@ -187,7 +187,9 @@ section.block-block-contentfe8537ce-54d8-467c-ba0f-931c4b8e3ced {
   @include xy-grid;
 }
 .block-third {
-  @include breakpoint(smedium) {
+  @include xy-cell(12 of 12);
+  margin-bottom: 1rem;
+  @include breakpoint(lcmedium) {
     @include xy-cell(4 of 12);
   }
   h3 {
@@ -234,5 +236,10 @@ section.block-block-contentfe8537ce-54d8-467c-ba0f-931c4b8e3ced {
   }
   h3 {
     margin-top: 0.3rem;
+  }
+  .group-left, .group-right {
+    @include breakpoint(phone) {
+      @include xy-cell(6 of 12);
+    }
   }
 }
