@@ -35,8 +35,12 @@
 
 .right-off-canvas-menu {
   background-color: $almost-black;
+  li {
+    width: 100%;
+  }
   a {
     color: white;
+    line-height: 1.2rem;
     &:focus, &:hover {
       color: $limestone-yellow;
       text-decoration: underline;
