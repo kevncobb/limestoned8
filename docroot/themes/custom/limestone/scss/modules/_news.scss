@@ -238,6 +238,7 @@ section.block-block-contentfe8537ce-54d8-467c-ba0f-931c4b8e3ced {
     margin-top: 0.3rem;
   }
   .group-left, .group-right {
+    @include xy-cell(12 of 12);
     @include breakpoint(phone) {
       @include xy-cell(6 of 12);
     }

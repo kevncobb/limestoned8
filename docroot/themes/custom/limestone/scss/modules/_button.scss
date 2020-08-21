@@ -324,7 +324,7 @@ a.cta-button, a.cta-btn {
   font-weight: bold;
   font-size: 2rem;
   text-decoration: none;
-  margin: 0 1.5em 0.5em 0;
+  margin: 0 0 0.5em 0;
   padding: 0.5em 2em;
   &:hover, &:focus {
     background: smart-scale($cta-button-color, 15%, 15%) !important;
