@@ -1,6 +1,7 @@
 // Non-modular or client styles for .l-footer region.
 footer.site-footer {
   background-color: #243057;
+  position: relative;
   @include breakpoint(phone) {
     &::before {
       content: '';
@@ -130,22 +131,22 @@ footer.site-footer {
   }
   #layer2 {
     z-index: 9;
-    bottom: -110px;
+    bottom: -90px;
     background-image: url("/themes/custom/limestone/images/lc-footer-layer2.png");
   }
   #layer3 {
     z-index: 8;
-    bottom: 0;
+    bottom: 37px;
     background-image: url("/themes/custom/limestone/images/lc-footer-layer3.png");
   }
   #layer4 {
     z-index: 7;
-    bottom: 110px;
+    bottom: 140px;
     background-image: url("/themes/custom/limestone/images/lc-footer-layer4.png");
   }
   #layer5 {
     z-index: 6;
-    bottom: 150px;
+    bottom: 190px;
     background-image: url("/themes/custom/limestone/images/lc-footer-layer5.png");
   }
   #mobileLayer {
