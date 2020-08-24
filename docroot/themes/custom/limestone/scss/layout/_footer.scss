@@ -74,11 +74,12 @@ footer.site-footer {
     //padding-left: 0.5rem;
     a {
       color: white;
-      padding: 0 0.45rem;
+      padding: 0;
       text-decoration: none;
       &:hover, &:focus {
-        svg {
+        svg path {
           color: $limestone-yellow !important;
+          fill: rgb(246 211 18);
         }
       }
     }
@@ -137,12 +138,12 @@ footer.site-footer {
   }
   #layer3 {
     z-index: 8;
-    bottom: 17px;
+    bottom: 35px;
     background-image: url("/themes/custom/limestone/images/lc-footer-layer3.png");
   }
   #layer4 {
     z-index: 7;
-    bottom: 60px;
+    bottom: 80px;
     background-image: url("/themes/custom/limestone/images/lc-footer-layer4.png");
     opacity: .4;
   }
