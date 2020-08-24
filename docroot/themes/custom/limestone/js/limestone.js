@@ -154,6 +154,31 @@
       }
     }
   };
+  Drupal.behaviors.lc_footer = {
+    attach: function (context, settings) {
+      if ( $(".lc-footer").length > 0) {
+        var a = function() {
+          window.scrollY;
+          for (var e, t, n = l.offsetTop + 100 + l.clientHeight - window.scrollY, s = 0, a = 0; a < i.length; a++)
+            t = (e = i[a]).getAttribute("data-speed") / -100,
+            n < c && n < o && (s = d ? (n - o) * t : (n - c) * t),
+              e.style.transform = "translate(0px," + s + "px)"
+        }
+          , r = document.querySelector(".lc-footer")
+          , i = document.querySelectorAll(".lc-footer-layer")
+          , c = window.innerHeight
+          , o = r.offsetTop
+          , l = document.getElementById("main")
+          , d = o < c;
+        window.addEventListener("scroll", (function(e) {
+            a()
+          }
+        )),
+          a()
+      }
+    }
+  };
+
 })(jQuery, Drupal);
 
 
