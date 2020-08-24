@@ -100,6 +100,9 @@ footer.site-footer {
 
 
 .lc-footer {
+  position: relative;
+  width: 100%;
+  z-index: 8;
   .lc-footer-layer {
     position: absolute;
     width: 100%;
@@ -133,8 +136,12 @@ footer.site-footer {
     display: block;
   }
   @include breakpoint(phone) {
+    height: 530px;
     .lc-footer-layer {
       display: block;
+      position: relative;
+      width: 100%;
+      z-index: 8;
     }
     #mobileLayer {
       display: none;
