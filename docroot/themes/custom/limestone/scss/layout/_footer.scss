@@ -1,6 +1,6 @@
 // Non-modular or client styles for .l-footer region.
 footer.site-footer {
-  background-color: #243057;
+  background-color: #2a355d;
   position: relative;
   @include breakpoint(phone) {
     &::before {
@@ -131,12 +131,12 @@ footer.site-footer {
   }
   #layer2 {
     z-index: 9;
-    bottom: -90px;
+    bottom: -82px;
     background-image: url("/themes/custom/limestone/images/lc-footer-layer2.png");
   }
   #layer3 {
     z-index: 8;
-    bottom: 37px;
+    bottom: 17px;
     background-image: url("/themes/custom/limestone/images/lc-footer-layer3.png");
   }
   #layer4 {
