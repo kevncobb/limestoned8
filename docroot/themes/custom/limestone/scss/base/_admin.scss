@@ -27,7 +27,7 @@ html.login-screen {
   overflow: hidden;
   width: 100%;
   background-color: $limestone-blue;
-  background-image: url("/themes/custom/limestone/images/footer-background.png");
+  background-image: url("/themes/custom/limestone/images/WD_HDR.jpg");
   background-size: cover;
   color: $light-gray;
   body {
@@ -36,6 +36,9 @@ html.login-screen {
     background: transparent;
     #auth_box h1#the_logo {
       padding: 0;
+    }
+    main {
+      padding: 7rem 0;
     }
   }
 }
