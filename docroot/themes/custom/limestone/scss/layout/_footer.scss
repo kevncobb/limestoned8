@@ -79,7 +79,7 @@ footer.site-footer {
       &:hover, &:focus {
         svg path {
           color: $limestone-yellow !important;
-          fill: rgb(246 211 18);
+          fill: $limestone-yellow;
         }
       }
     }
