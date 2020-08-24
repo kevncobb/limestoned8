@@ -1,6 +1,22 @@
 // Non-modular or client styles for .l-footer region.
 footer.site-footer {
-  background-color: $limestone-blue;
+  background-color: #243057;
+  @include breakpoint(phone) {
+    &::before {
+      content: '';
+      background-image: url("/themes/custom/limestone/images/lc-footer-layer1.png");
+      z-index: -1;
+      width: 100%;
+      display: block;
+      position: absolute;
+      bottom: 100%;
+      height: 530px;
+      left: 0;
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: right;
+    }
+  }
   //background-image: url("/themes/custom/limestone/images/footer-background.png");
   //background-size: cover;
   color: $light-gray;
@@ -137,11 +153,10 @@ footer.site-footer {
   }
   @include breakpoint(phone) {
     height: 530px;
+    background: rgb(134,192,233);
+    background: linear-gradient(180deg, rgba(134,192,233,1) 0%, rgba(134,192,233,1) 30%, rgba(255,255,255,1) 100%);
     .lc-footer-layer {
       display: block;
-      position: relative;
-      width: 100%;
-      z-index: 8;
     }
     #mobileLayer {
       display: none;
