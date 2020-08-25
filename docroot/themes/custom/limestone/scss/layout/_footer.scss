@@ -133,23 +133,23 @@ footer.site-footer {
   }
   #layer2 {
     z-index: 9;
-    bottom: -43px;
+    bottom: -21px;
     background-image: url("/themes/custom/limestone/images/lc-footer-layer2.png");
   }
   #layer3 {
     z-index: 8;
-    bottom: 35px;
+    bottom: 20px;
     background-image: url("/themes/custom/limestone/images/lc-footer-layer3.png");
   }
   #layer4 {
     z-index: 7;
     bottom: 80px;
     background-image: url("/themes/custom/limestone/images/lc-footer-layer4.png");
-    opacity: .4;
+    opacity: .7;
   }
   #layer5 {
     z-index: 6;
-    bottom: 190px;
+    bottom: 155px;
     background-image: url("/themes/custom/limestone/images/lc-footer-layer5.png");
   }
   #mobileLayer {
@@ -168,13 +168,13 @@ footer.site-footer {
   }
   @media screen and (min-width: 2200px) {
     #layer2 {
-      bottom: -8px;
+      bottom: 7px;
     }
     #layer3 {
-      bottom: 73px;
+      bottom: 55px;
     }
     #layer4 {
-      bottom: 125px;
+      bottom: 145px;
     }
     #layer5 {
       bottom: 215px;
