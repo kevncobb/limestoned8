@@ -55,6 +55,9 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6 {
 .medium-lead {
   @include breakpoint(medium) {
     font-size: 120%;
+    p {
+      line-height: 2.1rem;
+    }
   }
 }
 .centered, a.centered {

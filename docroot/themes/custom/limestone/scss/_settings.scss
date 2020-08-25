@@ -142,7 +142,9 @@ $breakpoint-classes: (small smedium medium large xlarge xxlarge);
 @include breakpoint(large) {
   $global-font-size: rem-calc(19);
 }
-
+@include breakpoint(xxlarge) {
+  $global-font-size: rem-calc(21);
+}
 // 3. The Grid
 // -----------
 
@@ -193,7 +195,7 @@ $header-styles: (
 $header-text-rendering: optimizeLegibility;
 $small-font-size: 80%;
 $header-small-font-color: $medium-gray;
-$paragraph-lineheight: 1.6rem;
+$paragraph-lineheight: 1.9rem;
 $paragraph-margin-bottom: 1rem;
 $paragraph-text-rendering: optimizeLegibility;
 $code-color: $black;
@@ -235,7 +237,7 @@ $abbr-underline: 1px dotted $black;
 // ---------------------
 
 $lead-font-size: $global-font-size * 1.35;
-$lead-lineheight: 1.6;
+$lead-lineheight: 2;
 $subheader-lineheight: 1.4;
 $subheader-color: $dark-gray;
 $subheader-font-weight: $global-weight-normal;
