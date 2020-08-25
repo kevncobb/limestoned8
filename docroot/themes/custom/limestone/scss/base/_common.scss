@@ -56,6 +56,9 @@ html {
 .paragraph--type--bp-column-wrapper {
   height: 100%;
 }
+.max-height {
+  height: 100%;
+}
 .max-300, .mw-300 {
   max-width: 300px;
 }
@@ -459,6 +462,11 @@ p {
   }
 }
 
+.medium-align-right {
+  @include breakpoint(smedium) {
+    text-align: right;
+  }
+}
 .height-90 {
   height: 90vh;
 }
