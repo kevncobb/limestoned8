@@ -512,6 +512,7 @@ form#views-exposed-form-news-latest-news-block .form-item-search label {
   line-height: 2rem;
   color: $limestone-blue;
   overflow-x: hidden;
+  position: relative;
   @include breakpoint(smedium) {
     font-size: 1.2rem;
   }
@@ -543,10 +544,26 @@ form#views-exposed-form-news-latest-news-block .form-item-search label {
   }
   &:before, &:after {
     position: absolute;
-    left: 0;
+    //left: 0;
     bottom: 4px;
     content: "";
     height: 5px;
+  }
+  &.align-right {
+    &::before {
+      transform: skew(35deg,0);
+      left: auto;
+      right: 0;
+    }
+  }
+  &.medium-align-right {
+    @include breakpoint(smedium) {
+      &::before {
+        transform: skew(35deg,0);
+        left: auto;
+        right: 0;
+      }
+    }
   }
   &:before {
     width: 7rem;
@@ -554,8 +571,8 @@ form#views-exposed-form-news-latest-news-block .form-item-search label {
     transform: skewX(-35deg) skewY(0);
     -ms-transform: skewX(-35deg) skewY(0);
     transform: skew(-35deg,0);
-    left: 5px;
-    margin-left: -10px;
+    left: -2px;
+    //margin-left: -10px;
   }
 }
 
