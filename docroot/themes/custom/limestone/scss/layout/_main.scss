@@ -9,4 +9,8 @@ main {
     font-size: 1.15rem;
     line-height: 1.9rem;
   }
+  @include breakpoint(xxlarge) {
+    font-size: 1.25rem;
+    line-height: 1.9rem;
+  }
 }

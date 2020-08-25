@@ -104,10 +104,11 @@ html {
   }
 }
 
-
 p {
-
+  font-size: inherit;
+  line-height: inherit;
 }
+
 .smaller {
   font-size: 80%;
   line-height: 1rem;
