@@ -26,10 +26,10 @@ html.login-screen {
   position: absolute;
   overflow: hidden;
   width: 100%;
-  background-color: $limestone-blue;
-  background-image: url("/themes/custom/limestone/images/WD_HDR.png");
-  background-size: cover;
-  color: $light-gray;
+  //background-color: $limestone-blue;
+  //background-image: url("/themes/custom/limestone/images/WD_HDR.png");
+  //background-size: cover;
+  //color: $light-gray;
   body {
     display: table-cell;
     vertical-align: middle;
@@ -40,7 +40,7 @@ html.login-screen {
     main {
       padding: 7rem 0;
       label {
-        color: #ffffff;
+        //color: #ffffff;
         font-size: 1.2rem;
       }
     }
