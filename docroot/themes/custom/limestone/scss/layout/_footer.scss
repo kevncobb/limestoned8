@@ -158,12 +158,17 @@ footer.site-footer {
   @include breakpoint(phone) {
     height: 530px;
     background: rgb(134,192,233);
-    background: linear-gradient(180deg, rgba(134,192,233,1) 0%, rgba(134,192,233,1) 30%, rgba(255,255,255,1) 100%);
+    background: linear-gradient(180deg, rgba(134,192,233,1) 0%, rgba(134,192,233,1) 2%, rgba(205,229,246,1) 41%, rgba(204,233,233,1) 100%);
     .lc-footer-layer {
       display: block;
     }
     #mobileLayer {
       display: none;
+    }
+  }
+  @media screen and (min-width: 2200px) {
+    #layer2 {
+      bottom: -12px;
     }
   }
 }
