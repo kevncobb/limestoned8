@@ -145,7 +145,8 @@ footer.site-footer {
     z-index: 7;
     bottom: 80px;
     background-image: url("/themes/custom/limestone/images/lc-footer-layer4.png");
-    opacity: .5;
+    opacity: .05;
+    filter: invert(1);
   }
   #layer5 {
     z-index: 6;
