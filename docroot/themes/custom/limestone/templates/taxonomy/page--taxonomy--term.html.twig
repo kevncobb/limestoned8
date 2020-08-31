@@ -134,18 +134,24 @@
           </div>
         {% endif %}
       </div>
-
-        {% if page.footer  %}
-            <footer class="site-footer">
-                <div class="grid-container">
-                    {% if page.footer %}
-                        <div id="footer" class="large-12 cell">
-                            {{ page.footer }}
-                        </div>
-                    {% endif %}
-                </div>
-            </footer>
-        {% endif %}
+      <div class="lc-footer">
+        <div class="lc-footer-layer" data-speed="-2" id="layer2"></div>
+        <div class="lc-footer-layer" data-speed="10" id="layer3"></div>
+        <div class="lc-footer-layer" data-speed="17" id="layer4"></div>
+        <div class="lc-footer-layer" data-speed="25" id="layer5"></div>
+        <img alt="campus skyline" id="mobileLayer" src="/themes/custom/limestone/images/lc-footer-background.png">
+      </div>
+      {% if page.footer  %}
+          <footer class="site-footer">
+              <div class="grid-container">
+                  {% if page.footer %}
+                      <div id="footer" class="large-12 cell">
+                          {{ page.footer }}
+                      </div>
+                  {% endif %}
+              </div>
+          </footer>
+      {% endif %}
       <div class="bottom-bar panel">
         <div class="grid-container">
           <div class="large-12 cell">

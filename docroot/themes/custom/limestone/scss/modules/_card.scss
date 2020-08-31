@@ -179,6 +179,7 @@
     img {
       position: relative;
       :before {
+        content: "";
         opacity: 0.4;
         position: absolute;
         content: '';
