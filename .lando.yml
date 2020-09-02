@@ -1,0 +1,6 @@
+name: limestoned8
+recipe: pantheon
+config:
+  framework: drupal8
+  site: limestoned8
+  id: 6a1e507a-9748-4068-a55a-f8ffe09e6c7b
