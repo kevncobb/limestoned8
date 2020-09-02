@@ -640,6 +640,7 @@ form#views-exposed-form-news-latest-news-block .form-item-search label {
   }
   .news-category-page-title {
     @extend .paragraph-section-title;
+    margin: 0;
     text-transform: uppercase;
     letter-spacing: -4px;
     @include breakpoint(medium) {
