@@ -209,6 +209,7 @@ class SearchApiSolrBackend extends BackendPluginBase implements SolrBackendInter
       'optimize' => FALSE,
       // 10 is Solr's default limit if rows is not set.
       'rows' => 10,
+      'index_single_documents_fallback_count' => 10,
     ];
   }
 
@@ -254,6 +255,7 @@ class SearchApiSolrBackend extends BackendPluginBase implements SolrBackendInter
     $configuration['site_hash'] = (bool) $configuration['site_hash'];
     $configuration['optimize'] = (bool) $configuration['optimize'];
     $configuration['rows'] = (int) ($configuration['rows'] ?? 10);
+    $configuration['index_single_documents_fallback_count'] = (int) ($configuration['index_single_documents_fallback_count'] ?? 10);
 
     parent::setConfiguration($configuration);
 
@@ -300,6 +302,16 @@ class SearchApiSolrBackend extends BackendPluginBase implements SolrBackendInter
       '#title' => $this->t('Default result rows'),
       '#description' => $this->t('Solr always requires to limit the search results. This default value will be set if the Search API query itself is not limited. 2147483630 is the theoretical maximum since the result pointer is an integer. But be careful! Especially in Solr Cloud setups too high values might cause an OutOfMemoryException because Solr reserves this rows limit per shard for sorting the combined result. This sum must not exceed the maximum integer value! And even if there is no exception any too high memory consumption per query on your server is a bad thing in general.'),
       '#default_value' => $this->configuration['rows'] ?: 10,
+      '#required' => TRUE,
+    ];
+
+    $form['advanced']['index_single_documents_fallback_count'] = [
+      '#type' => 'number',
+      '#min' => 0,
+      '#max' => 100,
+      '#title' => $this->t('Index single documents fallback count'),
+      '#description' => $this->t('In case of an erroneous document that causes a Solr exception, the entire batch of documents will not be indexed. In order to identify the erroneous document and to keep indexing the others, the indexing process falls back to index documents one by one instead of a batch. This setting limits the amount of single documents to be indexed per batch to avoid too many commits that might slow doen the Solr server. Setting the value to "0" disables the fallback.'),
+      '#default_value' => $this->configuration['index_single_documents_fallback_count'] ?: 10,
       '#required' => TRUE,
     ];
 
@@ -978,28 +990,61 @@ class SearchApiSolrBackend extends BackendPluginBase implements SolrBackendInter
    * @throws \Drupal\search_api\SearchApiException
    */
   public function indexItems(IndexInterface $index, array $items) {
+    $ret = [];
     $connector = $this->getSolrConnector();
     $update_query = $connector->getUpdateQuery();
     $documents = $this->getDocuments($index, $items, $update_query);
-    if (!$documents) {
-      return [];
-    }
-    try {
-      $update_query->addDocuments($documents);
-      $connector->update($update_query, $this->getCollectionEndpoint($index));
-
+    if ($documents) {
       $field_names = $this->getSolrFieldNames($index);
-      $ret = [];
-      foreach ($documents as $document) {
-        $ret[] = $document->getFields()[$field_names['search_api_id']];
+      $endpoint = $this->getCollectionEndpoint($index);
+      try {
+        $update_query->addDocuments($documents);
+        $connector->update($update_query, $endpoint);
+
+        foreach ($documents as $document) {
+          // We don't use $item->id() because we want have the real value that
+          // went into the index.
+          $ret[] = $document->getFields()[$field_names['search_api_id']];
+        }
+      } catch (SearchApiSolrException $e) {
+        if ($this->configuration['index_single_documents_fallback_count']) {
+          // It might be that a single document caused the exception. Try to index
+          // one by one and create a meaningful error message if possible.
+          $count = 0;
+          foreach ($documents as $document) {
+            if ($count++ < $this->configuration['index_single_documents_fallback_count']) {
+              $id = $document->getFields()[$field_names['search_api_id']];
+
+              try {
+                $update_query = $connector->getUpdateQuery();
+                $update_query->addDocument($document);
+                $connector->update($update_query, $endpoint);
+                $ret[] = $id;
+              } catch (\Exception $e) {
+                watchdog_exception('search_api_solr', $e, '%type while indexing item %id: @message in %function (line %line of %file).', ['%id' => $id]);
+                // We must not throw an exception because we might have indexed
+                // some documents successfully now and need to return these ids.
+              }
+            }
+            else {
+              break;
+            }
+          }
+        }
+        else {
+          watchdog_exception('search_api_solr', $e, "%type while indexing: @message in %function (line %line of %file).");
+          throw $e;
+        }
+      } catch (\Exception $e) {
+        watchdog_exception('search_api_solr', $e, "%type while indexing: @message in %function (line %line of %file).");
+        throw new SearchApiSolrException($e->getMessage(), $e->getCode(), $e);
       }
-      \Drupal::state()->set('search_api_solr.' . $index->id() . '.last_update', \Drupal::time()->getCurrentTime());
-      return $ret;
+
+      if ($ret) {
+        \Drupal::state()->set('search_api_solr.' . $index->id() . '.last_update', \Drupal::time()->getCurrentTime());
+      }
     }
-    catch (\Exception $e) {
-      watchdog_exception('search_api_solr', $e, "%type while indexing: @message in %function (line %line of %file).");
-      throw new SearchApiSolrException($e->getMessage(), $e->getCode(), $e);
-    }
+    return $ret;
   }
 
   /**
@@ -2581,7 +2626,7 @@ class SearchApiSolrBackend extends BackendPluginBase implements SolrBackendInter
             $type_info = Utility::getDataTypeInfo($field->getType()) + ['prefix' => '_'];
             switch (substr($type_info['prefix'], 0, 1)) {
               case 'd':
-                // Field type convertions
+                // Field type conversions
                 // Date fields need some special treatment to become valid date
                 // values (i.e., timestamps) again.
                 if (preg_match('/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z$/', $value)) {
@@ -3696,16 +3741,28 @@ class SearchApiSolrBackend extends BackendPluginBase implements SolrBackendInter
    * {@inheritdoc}
    */
   public function getTargetedIndexId(IndexInterface $index) {
-    $config = $this->getDatasourceConfig($index);
-    return $config['target_index'] ?? $this->getIndexId($index);
+    static $targeted_index = [];
+
+    if (!isset($targeted_index[$index->id()])) {
+      $config = $this->getDatasourceConfig($index);
+      $targeted_index[$index->id()] = $config['target_index'] ?? $this->getIndexId($index);
+    }
+
+    return $targeted_index[$index->id()];
   }
 
   /**
    * {@inheritdoc}
    */
   public function getTargetedSiteHash(IndexInterface $index) {
-    $config = $this->getDatasourceConfig($index);
-    return $config['target_hash'] ?? Utility::getSiteHash();
+    static $targeted_site_hash = [];
+
+    if (!isset($targeted_site_hash[$index->id()])) {
+      $config = $this->getDatasourceConfig($index);
+      $targeted_site_hash[$index->id()] = $config['target_hash'] ?? Utility::getSiteHash();
+    }
+
+    return $targeted_site_hash[$index->id()];
   }
 
   /**

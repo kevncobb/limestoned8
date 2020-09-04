@@ -1,8 +1,3 @@
-/**
- * @file
- * Infinite Scroll JS.
- */
-
 (function ($, Drupal, debounce) {
   "use strict";
 
@@ -48,13 +43,8 @@
     var $newRows = $newView.find(contentWrapperSelector).children();
     var $newPager = $newView.find(pagerSelector);
 
-    view.$view.find(contentWrapperSelector)
-      // Trigger a jQuery event on the wrapper to inform that new content was
-      // loaded and allow other scripts to respond to the event.
-      .trigger('views_infinite_scroll.new_content', $newRows.clone())
-      // Add the new rows to existing view.
-      .append($newRows);
-
+    // Add the new rows to existing view.
+    view.$view.find(contentWrapperSelector).append($newRows);
     // Replace the pager link with the new link and ajaxPageState values.
     $existingPager.replaceWith($newPager);
 
@@ -77,18 +67,12 @@
       $(context).find(automaticPagerSelector).once('infinite-scroll').each(function() {
         var $pager = $(this);
         $pager.addClass('visually-hidden');
-        var isLoadNeeded = function(){
-          return window.innerHeight + window.pageYOffset > $pager.offset().top - scrollThreshold;
-        };
         $window.on(scrollEvent, debounce(function() {
-          if (isLoadNeeded()) {
+          if (window.innerHeight + window.pageYOffset > $pager.offset().top - scrollThreshold) {
             $pager.find('[rel=next]').click();
             $window.off(scrollEvent);
           }
         }, 200));
-        if (isLoadNeeded()) {
-          $window.trigger(scrollEvent);
-        }
       });
     },
     detach: function (context, settings, trigger) {

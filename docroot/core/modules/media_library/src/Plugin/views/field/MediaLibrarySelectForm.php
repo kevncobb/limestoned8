@@ -2,7 +2,7 @@
 
 namespace Drupal\media_library\Plugin\views\field;
 
-use Drupal\Core\Ajax\CloseDialogCommand;
+use Drupal\Core\Ajax\CloseModalDialogCommand;
 use Drupal\Core\Form\FormBuilderInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Url;
@@ -130,7 +130,7 @@ class MediaLibrarySelectForm extends FieldPluginBase {
     return \Drupal::service('media_library.opener_resolver')
       ->get($state)
       ->getSelectionResponse($state, $selected_ids)
-      ->addCommand(new CloseDialogCommand());
+      ->addCommand(new CloseModalDialogCommand(FALSE, '#modal-media-library'));
   }
 
   /**

@@ -27,7 +27,7 @@ So that they will be disabled and not be able to use the site.
       And I wait
      Then I should see "test_authenticated"
      When I select the radio button "Blocked"
-      And I press "Save"
+      And I press the "Save" button
       And I wait
      Then I should see "The changes have been saved."
 

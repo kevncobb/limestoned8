@@ -1,3 +1,4 @@
+uuid: a7756521-a858-4f6d-8f7d-379984a2652b
 langcode: en
 status: true
 dependencies:
@@ -9,6 +10,8 @@ dependencies:
   module:
     - ds
     - slick
+_core:
+  default_config_hash: Z8kdpDdbgl51-qgUNQl-8RE7Xl-VpulobJh1SdjZLVE
 id: media.gallery.default
 targetEntityType: media
 bundle: gallery
@@ -91,6 +94,8 @@ content:
       grid_small: 0
       id: ''
       overlay: ''
+      fx: ''
+      _uri: ''
     third_party_settings:
       ds:
         ds_limit: ''

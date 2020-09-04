@@ -2,9 +2,7 @@ name: 'Varbase Admin'
 description: 'Manage administration configurations.'
 type: module
 package: Varbase
-# version: 8.x-8.x-dev
 core_version_requirement: ^8 || ^9
-# project: varbase_core
 dependencies:
   - varbase_core:varbase_core
   - drupal:shortcut
@@ -12,15 +10,16 @@ dependencies:
 install:
   - config_perms
   - roleassign
+  - prevent_homepage_deletion
   - userprotect
-  - event_log_track
-  - event_log_track_file
-  - event_log_track_media
-  - event_log_track_user
-  - event_log_track_taxonomy
-  - event_log_track_node
-  - event_log_track_menu
-  - event_log_track_auth
+  - admin_audit_trail
+  - admin_audit_trail_file
+  - admin_audit_trail_media
+  - admin_audit_trail_user
+  - admin_audit_trail_taxonomy
+  - admin_audit_trail_node
+  - admin_audit_trail_menu
+  - admin_audit_trail_auth
   - views_bulk_operations
   - views_bulk_edit
   - admin_toolbar
@@ -40,7 +39,7 @@ install:
   - coffee
   - length_indicator
 
-# Information added by Drupal.org packaging script on 2020-06-02
-version: '8.x-8.15'
+# Information added by Drupal.org packaging script on 2020-08-17
+version: '8.x-8.19'
 project: 'varbase_core'
-datestamp: 1591141520
+datestamp: 1597650321

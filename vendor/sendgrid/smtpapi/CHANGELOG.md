@@ -1,7 +1,16 @@
 # Change Log
-All notable changes to this project will be documented in this file.
+All the notable changes to this project will be documented in this file.
 
 This project adheres to [Semantic Versioning](http://semver.org/).
+
+[2020-08-19] Version 0.6.6
+--------------------------
+**Library - Docs**
+- [PR #89](https://github.com/sendgrid/smtpapi-php/pull/89): Update *.md docs using Grammar.ly. Thanks to [@vinayak42](https://github.com/vinayak42)!
+
+**Library - Chore**
+- [PR #114](https://github.com/sendgrid/smtpapi-php/pull/114): update GitHub branch references to use HEAD. Thanks to [@thinkingserious](https://github.com/thinkingserious)!
+
 
 [2020-03-04] Version 0.6.5
 --------------------------
@@ -60,12 +69,12 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Fixed
 - #27 Remove Swift Mailer as a dependency
-- Thank to [Nikolas](https://github.com/nikoskip) for the PR!
+- Thanks to [Nikolas](https://github.com/nikoskip) for the PR!
 
 ## [v0.6.0] - (2017-07-05) ##
 ### Added
 - #26 batch_id header added
-- Thank to [Nikolas](https://github.com/nikoskip) for the PR!
+- Thanks to [Nikolas](https://github.com/nikoskip) for the PR!
 
 ## [v0.5.0] - (2015-04-13) ##
 ### Added

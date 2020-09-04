@@ -3,21 +3,13 @@
 namespace Drupal\Tests\devel\Functional;
 
 use Drupal\Component\Render\FormattableMarkup;
-use Drupal\Tests\BrowserTestBase;
 
 /**
  * Tests switch user.
  *
  * @group devel
  */
-class DevelSwitchUserTest extends BrowserTestBase {
-
-  /**
-   * Modules to enable.
-   *
-   * @var array
-   */
-  public static $modules = ['devel', 'block'];
+class DevelSwitchUserTest extends DevelBrowserTestBase {
 
   /**
    * The block used by this test.
@@ -67,24 +59,24 @@ class DevelSwitchUserTest extends BrowserTestBase {
     $this->drupalLogin($this->webUser);
 
     $this->drupalGet('');
-    $this->assertNoText($this->block->label(), 'Block title was not found.');
+    $this->assertSession()->pageTextNotContains($this->block->label());
 
     // Ensure that a token is required to switch user.
     $this->drupalGet('/devel/switch/' . $this->webUser->getDisplayName());
-    $this->assertResponse(403);
+    $this->assertSession()->statusCodeEquals(403);
 
     $this->drupalLogin($this->develUser);
 
     $this->drupalGet('');
-    $this->assertText($this->block->label(), 'Block title was found.');
+    $this->assertSession()->pageTextContains($this->block->label(), 'Block title was found.');
 
     // Ensure that if name in not passed the controller returns access denied.
     $this->drupalGet('/devel/switch');
-    $this->assertResponse(403);
+    $this->assertSession()->statusCodeEquals(403);
 
     // Ensure that a token is required to switch user.
     $this->drupalGet('/devel/switch/' . $this->switchUser->getDisplayName());
-    $this->assertResponse(403);
+    $this->assertSession()->statusCodeEquals(403);
 
     // Switch to another user account.
     $this->drupalGet('/user/' . $this->switchUser->id());
@@ -99,7 +91,7 @@ class DevelSwitchUserTest extends BrowserTestBase {
 
     // Use the search form to switch to another account.
     $edit = ['userid' => $this->switchUser->getDisplayName()];
-    $this->drupalPostForm(NULL, $edit, t('Switch'));
+    $this->drupalPostForm(NULL, $edit, 'Switch');
     $this->assertSessionByUid($this->switchUser->id());
     $this->assertNoSessionByUid($this->develUser->id());
   }
@@ -118,7 +110,7 @@ class DevelSwitchUserTest extends BrowserTestBase {
     $this->drupalLogin($this->develUser);
 
     $this->drupalGet('');
-    $this->assertText($this->block->label(), 'Block title was found.');
+    $this->assertSession()->pageTextContains($this->block->label(), 'Block title was found.');
 
     // Ensure that block default configuration is effectively used. The block
     // default configuration is the following:
@@ -221,7 +213,7 @@ class DevelSwitchUserTest extends BrowserTestBase {
    */
   public function assertSwitchUserListCount($number) {
     $result = $this->xpath('//div[@id=:block]//ul/li/a', [':block' => 'block-switch-user']);
-    $this->assert(count($result) == $number, 'The number of users shown in switch user is correct.');
+    $this->assertTrue(count($result) == $number, 'The number of users shown in switch user is correct.');
   }
 
   /**
@@ -232,7 +224,7 @@ class DevelSwitchUserTest extends BrowserTestBase {
    */
   public function assertSwitchUserListContainsUser($username) {
     $result = $this->xpath('//div[@id=:block]//ul/li/a[normalize-space()=:user]', [':block' => 'block-switch-user', ':user' => $username]);
-    $this->assert(count($result) > 0, new FormattableMarkup('User "%user" is included in the switch user list.', ['%user' => $username]));
+    $this->assertTrue(count($result) > 0, new FormattableMarkup('User "%user" is included in the switch user list.', ['%user' => $username]));
   }
 
   /**
@@ -243,7 +235,7 @@ class DevelSwitchUserTest extends BrowserTestBase {
    */
   public function assertSwitchUserListNoContainsUser($username) {
     $result = $this->xpath('//div[@id=:block]//ul/li/a[normalize-space()=:user]', [':block' => 'block-switch-user', ':user' => $username]);
-    $this->assert(count($result) == 0, new FormattableMarkup('User "%user" is not included in the switch user list.', ['%user' => $username]));
+    $this->assertTrue(count($result) == 0, new FormattableMarkup('User "%user" is not included in the switch user list.', ['%user' => $username]));
   }
 
   /**
@@ -251,7 +243,7 @@ class DevelSwitchUserTest extends BrowserTestBase {
    */
   public function assertSwitchUserSearchForm() {
     $result = $this->xpath('//div[@id=:block]//form[contains(@class, :form)]', [':block' => 'block-switch-user', ':form' => 'devel-switchuser-form']);
-    $this->assert(count($result) > 0, 'The search form is shown.');
+    $this->assertTrue(count($result) > 0, 'The search form is shown.');
   }
 
   /**
@@ -259,7 +251,7 @@ class DevelSwitchUserTest extends BrowserTestBase {
    */
   public function assertSwitchUserNoSearchForm() {
     $result = $this->xpath('//div[@id=:block]//form[contains(@class, :form)]', [':block' => 'block-switch-user', ':form' => 'devel-switchuser-form']);
-    $this->assert(count($result) == 0, 'The search form is not shown.');
+    $this->assertTrue(count($result) == 0, 'The search form is not shown.');
   }
 
   /**
@@ -286,17 +278,10 @@ class DevelSwitchUserTest extends BrowserTestBase {
     $query->fields('sessions', ['uid']);
     $query->condition('uid', $uid);
     $result = $query->execute()->fetchAll();
-
-    if (empty($result)) {
-      $this->fail(new FormattableMarkup('No session found for uid @uid', ['@uid' => $uid]));
-    }
-    elseif (count($result) > 1) {
-      // If there is more than one session, then that must be unexpected.
-      $this->fail("Found more than 1 session for uid $uid.");
-    }
-    else {
-      $this->pass("Found session for uid $uid.");
-    }
+    // Check that we have some results.
+    $this->assertNotEmpty($result, sprintf('No session found for uid %s', $uid));
+    // If there is more than one session, then that must be unexpected.
+    $this->assertTrue(count($result) == 1, sprintf('Found more than one session for uid %s', $uid));
   }
 
   /**
@@ -314,7 +299,7 @@ class DevelSwitchUserTest extends BrowserTestBase {
     $query->fields('sessions', ['uid']);
     $query->condition('uid', $uid);
     $result = $query->execute()->fetchAll();
-    $this->assert(empty($result), "No session for uid $uid found.");
+    $this->assertTrue(empty($result), "No session for uid $uid found.");
   }
 
 }

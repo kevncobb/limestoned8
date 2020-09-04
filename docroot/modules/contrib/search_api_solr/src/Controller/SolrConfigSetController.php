@@ -261,9 +261,7 @@ class SolrConfigSetController extends ControllerBase {
     $solr_configset_template_mapping = [
       '6.x' => $template_path . '6.x',
       '7.x' => $template_path . '7.x',
-      // Solr 8.x uses the same schema and solrconf as 7.x. So we can use the
-      // same templates and only adjusts luceneMatchVersion to 8.
-      '8.x' => $template_path . '7.x',
+      '8.x' => $template_path . '8.x',
     ];
 
     $this->moduleHandler()->alter('search_api_solr_configset_template_mapping', $solr_configset_template_mapping);
@@ -284,8 +282,8 @@ class SolrConfigSetController extends ControllerBase {
       'solrconfig_index.xml' => $this->getSolrconfigIndexXml(),
     ];
 
-    if (empty($files['schema_extra_types.xml']) || empty($files['schema_extra_fields.xml'])) {
-      throw new SearchApiSolrException('The configs of the essential Solr field types are missing or broken on your site.');
+    if (!$backend->isNonDrupalOrOutdatedConfigSetAllowed() && (empty($files['schema_extra_types.xml']) || empty($files['schema_extra_fields.xml']))) {
+      throw new SearchApiSolrException(sprintf('The configs of the essential Solr field types are missing or broken for server "%s".', $backend->getServer()->id()));
     }
 
     if (version_compare($solr_major_version, '7', '>=')) {
@@ -308,13 +306,15 @@ class SolrConfigSetController extends ControllerBase {
     }
 
     $solrcore_properties['solr.luceneMatchVersion'] = $connector->getLuceneMatchVersion($this->assumedMinimumVersion ?: '');
-    // @todo
-    // $solrcore_properties['solr.replication.masterUrl']
-    $solrcore_properties_string = '';
-    foreach ($solrcore_properties as $property => $value) {
-      $solrcore_properties_string .= $property . '=' . $value . "\n";
+    if (!$connector->isCloud()) {
+      // @todo
+      // $solrcore_properties['solr.replication.masterUrl']
+      $solrcore_properties_string = '';
+      foreach ($solrcore_properties as $property => $value) {
+        $solrcore_properties_string .= $property . '=' . $value . "\n";
+      }
+      $files['solrcore.properties'] = $solrcore_properties_string;
     }
-    $files['solrcore.properties'] = $solrcore_properties_string;
 
     // Now add all remaining static files from the conf dir that have not been
     // generated dynamically above.
@@ -332,6 +332,15 @@ class SolrConfigSetController extends ControllerBase {
           throw new SearchApiSolrException(sprintf('%s template is not readable.', $file));
         }
       }
+    }
+
+    if ($connector->isCloud() && isset($files['solrconfig.xml'])) {
+      // solrcore.properties won’t work in SolrCloud mode (it is not read from
+      // ZooKeeper). Therefore we go for a more specific fallback to keep the
+      // possibility to set the property as parameter of the virtual machine.
+      // @see https://lucene.apache.org/solr/guide/8_6/configuring-solrconfig-xml.html
+      $files['solrconfig.xml'] = preg_replace('/solr.luceneMatchVersion:LUCENE_\d+/', 'solr.luceneMatchVersion:' . $solrcore_properties['solr.luceneMatchVersion'], $files['solrconfig.xml']);
+      unset($files['solrcore.properties']);
     }
 
     $connector->alterConfigFiles($files, $solrcore_properties['solr.luceneMatchVersion'], $this->serverId);

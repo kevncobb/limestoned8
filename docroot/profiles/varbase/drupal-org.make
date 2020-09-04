@@ -12,7 +12,7 @@ projects[config_update][type] = module
 projects[config_update][version] = 1.7
 
 projects[config_filter][type] = module
-projects[config_filter][version] = 2.0-rc1
+projects[config_filter][version] = 2.1
 
 projects[config_ignore][type] = module
 projects[config_ignore][version] = 2.2
@@ -32,19 +32,19 @@ projects[token_filter][version] = 1.2
 projects[page_manager][type] = module
 projects[page_manager][version] = 4.0-beta6
 ;; Issue #2665328: Variants take entity label not the variant title
-projects[page_manager][patch][] = https://www.drupal.org/files/issues/2020-06-03/2665328-102.patch
+projects[page_manager][patch][] = https://www.drupal.org/files/issues/2020-06-09/2665328-106.patch
 
 projects[panels][type] = module
-projects[panels][version] = 4.4
+projects[panels][version] = 4.6
 
 projects[bootstrap_layouts][type] = module
-projects[bootstrap_layouts][version] = 5.1
+projects[bootstrap_layouts][version] = 5.2
 
 projects[layout_builder_modal][type] = module
 projects[layout_builder_modal][version] = 1.1
 
 projects[layout_builder_restrictions][type] = module
-projects[layout_builder_restrictions][version] = 1.5
+projects[layout_builder_restrictions][version] = 2.7
 
 projects[layout_library][type] = module
 projects[layout_library][version] = 1.0-beta2
@@ -53,31 +53,34 @@ projects[layout_builder_block_sanitizer][type] = module
 projects[layout_builder_block_sanitizer][version] = 1.0-alpha2
 
 projects[media_library_theme_reset][type] = module
-projects[media_library_theme_reset][version] = 1.0-beta2
+projects[media_library_theme_reset][version] = 1.0
 
 projects[layout_builder_at][type] = module
-projects[layout_builder_at][version] = 2.10 
+projects[layout_builder_at][version] = 2.11
+
+projects[media_library_edit][type] = module
+projects[media_library_edit][version] = 1.0-alpha2 
 
 projects[media_library_form_element][type] = module
-projects[media_library_form_element][version] = 1.0-beta2 
+
+projects[media_revisions_ui][type] = module
 
 projects[lb_ux][type] = module
 projects[lb_ux][version] = 1.0-beta2
 
 projects[ds][type] = module
-projects[ds][version] = 3.7
+projects[ds][version] = 3.8
 
 projects[views_bootstrap][type] = module
 projects[views_bootstrap][version] = 4.3
 
 projects[field_group][type] = module
-projects[field_group][version] = 3.0
+projects[field_group][version] = 3.1
 
 projects[smart_trim][type] = module
 projects[smart_trim][version] = 1.3
 
 projects[advanced_text_formatter][type] = module
-projects[advanced_text_formatter][version] = 1.0
 
 projects[block_class][type] = module
 projects[block_class][version] = 1.2
@@ -89,10 +92,10 @@ projects[block_form_alter][type] = module
 projects[block_form_alter][version] = 1.1
 
 projects[entity_block][type] = module
-projects[entity_block][version] = 1.0-beta2
+projects[entity_block][version] = 1.0-beta3
 
 projects[block_content_permissions][type] = module
-projects[block_content_permissions][version] = 1.8
+projects[block_content_permissions][version] = 1.10
 
 projects[extlink][type] = module
 projects[extlink][version] = 1.3
@@ -110,7 +113,7 @@ projects[embed][type] = module
 projects[embed][version] = 1.4
 
 projects[entity][type] = module
-projects[entity][version] = 1.0
+projects[entity][version] = 1.1
 
 projects[entity_clone][type] = module
 projects[entity_clone][version] = 1.0-beta4
@@ -129,10 +132,12 @@ projects[entity_embed][patch][] = https://www.drupal.org/files/issues/2019-07-25
 projects[entity_embed][patch][] = https://www.drupal.org/files/issues/2019-08-18/2679875-10.patch
 
 projects[inline_entity_form][type] = module
-projects[inline_entity_form][version] = 1.0-rc6
+projects[inline_entity_form][version] = 1.0-rc7
+;; Issue #3143422: Allow to hide the Edit button in Complex widget
+projects[inline_entity_form][patch][] = https://www.drupal.org/files/issues/2020-05-28/optional_edit-3143422-2.patch
 
 projects[media_entity_instagram][type] = module
-projects[media_entity_instagram][version] = 2.0
+projects[media_entity_instagram][version] = 2.1
 
 projects[media_entity_twitter][type] = module
 projects[media_entity_twitter][version] = 2.4
@@ -144,22 +149,26 @@ projects[focal_point][type] = module
 projects[focal_point][version] = 1.4
 
 projects[pathologic][type] = module
-projects[pathologic][version] = 1.0-alpha1
+projects[pathologic][version] = 1.0-alpha2
 
 projects[ckeditor_bidi][type] = module
-projects[ckeditor_bidi][version] = 2.1
 
 projects[ace_editor][type] = module
 projects[ace_editor][version] = 1.2
 
 projects[entityqueue][type] = module
-projects[entityqueue][version] = 1.0
+projects[entityqueue][version] = 1.1
 
 projects[entityqueue_form_widget][type] = module
-projects[entityqueue_form_widget][version] = 1.1
 
 projects[imagemagick][type] = module
 projects[imagemagick][version] = 3.1
+
+projects[file_mdm][type] = module
+projects[file_mdm][version] = 2.1
+
+projects[sophron][type] = module
+projects[sophron][version] = 1.0
 
 projects[imageapi_optimize][type] = module
 projects[imageapi_optimize][version] = 2.0-beta1
@@ -168,12 +177,20 @@ projects[ultimate_cron][type] = module
 projects[ultimate_cron][version] = 2.0-alpha4
 
 projects[persistent_login][type] = module
-projects[persistent_login][version] = 1.2
+projects[persistent_login][version] = 1.3
 ;; Issue #2899530: Hide user^s local task
 projects[persistent_login][patch][] = https://www.drupal.org/files/issues/persistent_login-user_task_permission-2899530-6.patch
 
 projects[userprotect][type] = module
 projects[userprotect][version] = 1.1
+
+core = ''
+
+projects[admin_audit_trail][type] = module
+projects[admin_audit_trail][download][type] = "git"
+projects[admin_audit_trail][download][branch] = 1.0.x
+
+core = 8.x
 
 projects[events_log_track][type] = module
 projects[events_log_track][version] = 1.1
@@ -191,13 +208,16 @@ projects[events_log_track][patch][] =https://www.drupal.org/files/issues/2019-01
 projects[events_log_track][patch][] =https://www.drupal.org/files/issues/2019-06-11/3060838-4.patch
 
 projects[config_perms][type] = module
-projects[config_perms][version] = 2.0-beta2
+projects[config_perms][version] = 2.0
 
 projects[roleassign][type] = module
 projects[roleassign][version] = 1.0-beta1
 
+projects[prevent_homepage_deletion][type] = module
+projects[prevent_homepage_deletion][version] = 1.3
+
 projects[admin_toolbar][type] = module
-projects[admin_toolbar][version] = 2.2
+projects[admin_toolbar][version] = 2.3
 
 projects[adminimal_admin_toolbar][type] = module
 projects[adminimal_admin_toolbar][version] = 1.11
@@ -212,7 +232,7 @@ projects[responsive_preview][type] = module
 projects[responsive_preview][version] = 1.0
 
 projects[views_bulk_operations][type] = module
-projects[views_bulk_operations][version] = 3.6
+projects[views_bulk_operations][version] = 3.9
 
 projects[views_bulk_edit][type] = module
 projects[views_bulk_edit][version] = 2.4
@@ -221,50 +241,49 @@ projects[revision_log_default][type] = module
 projects[revision_log_default][version] = 1.2
 
 projects[webform][type] = module
-projects[webform][version] = 5.15
+projects[webform][version] = 5.19
 
 projects[webform_analysis][type] = module
 projects[webform_analysis][version] = 1.0-beta7
 
 projects[webform_views][type] = module
-projects[webform_views][version] = 5.0-alpha7
+projects[webform_views][version] = 5.0-alpha8
 
 projects[default_content][type] = module
-projects[default_content][version] = 1.0-alpha9
-;; Issue #2900089: Invalid translation language error when selected installation language does not match demo content language
-projects[default_content][patch][] = https://www.drupal.org/files/issues/2900089-14.patch
-;; Issue #2886350: Allow export of all site content.
-projects[default_content][patch][] = https://www.drupal.org/files/issues/default_content-export_all_content-2886350-2-D8.patch
+projects[default_content][download][type] = "git"
+projects[default_content][download][branch] = 2.0.x
+;; Issue #3160146: Add Layout Builder Normalizer and Denormalize
+projects[default_content][patch][] = https://www.drupal.org/files/issues/2020-07-22/3160146-22.patch
 
 projects[better_normalizers][type] = module
 projects[better_normalizers][version] = 1.0-beta4
 
 projects[content_lock][type] = module
-projects[content_lock][version] = 2.0
+projects[content_lock][version] = 2.1
 
 projects[node_edit_protection][type] = module
 projects[node_edit_protection][version] = 1.0-alpha1
 
 projects[rabbit_hole][type] = module
-projects[rabbit_hole][version] = 1.0-beta6
+projects[rabbit_hole][version] = 1.0-beta7
 
 projects[fast_404][type] = module
-projects[fast_404][version] = 1.0-alpha5
+projects[fast_404][version] = 2.0-alpha5
 
 projects[mailsystem][type] = module
 projects[mailsystem][version] = 4.3
 
 projects[swiftmailer][type] = module
-projects[swiftmailer][version] = 2.0-alpha2
+projects[swiftmailer][version] = 2.0-beta1
 
 projects[smtp][type] = module
-projects[smtp][version] = 1.0-rc2
+projects[smtp][version] = 1.0-rc4
 
 projects[length_indicator][type] = module
 projects[length_indicator][version] = 1.1
 
 projects[maxlength][type] = module
-projects[maxlength][version] = 1.0-beta5
+projects[maxlength][version] = 1.0-rc1
 
 projects[menu_position][type] = module
 projects[menu_position][version] = 1.0-beta1
@@ -273,7 +292,7 @@ projects[mail_edit][type] = module
 projects[mail_edit][version] = 1.x-dev
 
 projects[taxonomy_access_fix][type] = module
-projects[taxonomy_access_fix][version] = 2.7
+projects[taxonomy_access_fix][version] = 2.8
 
 projects[taxonomy_menu][type] = module
 projects[taxonomy_menu][version] = 3.4
@@ -281,12 +300,9 @@ projects[taxonomy_menu][version] = 3.4
 projects[taxonomy_menu][patch][] = https://www.drupal.org/files/issues/2018-12-23/2939143-10.patch
 
 projects[better_exposed_filters][type] = module
-projects[better_exposed_filters][version] = 4.0-beta1
+projects[better_exposed_filters][version] = 5.0-beta1
 
 projects[autocomplete_deluxe][type] = module
-projects[autocomplete_deluxe][version] = 1.0-beta2
-;; Issue #3096033: Autocomplete stopped working in localhost environment
-projects[autocomplete_deluxe][patch][] = https://www.drupal.org/files/issues/2019-12-17/fix_acdx_path-3096033-4.patch
 
 projects[link_attributes][type] = module
 projects[link_attributes][version] = 1.10
@@ -304,52 +320,52 @@ projects[paragraphs_previewer][version] = 1.5
 projects[paragraphs_previewer][patch][] = https://www.drupal.org/files/issues/2019-02-20/2904917-8.patch
 
 projects[paragraphs_features][type] = module
-projects[paragraphs_features][version] = 1.8
+projects[paragraphs_features][version] = 1.9
 
 projects[paragraphs_asymmetric_translation_widgets][type] = module
-projects[paragraphs_asymmetric_translation_widgets][version] = 1.0-beta2
+projects[paragraphs_asymmetric_translation_widgets][version] = 1.0-beta4
 
 projects[paragraphs_edit][type] = module
-projects[paragraphs_edit][version] = 2.0-alpha6
+projects[paragraphs_edit][version] = 2.0-alpha8
 
 projects[entity_usage][type] = module
 projects[entity_usage][version] = 2.0-beta3
 
 projects[color_field][type] = module
-projects[color_field][version] = 2.2
+projects[color_field][version] = 2.4
 
 projects[entity_reference_revisions][type] = module
 projects[entity_reference_revisions][version] = 1.8
 
 projects[viewsreference][type] = module
-projects[viewsreference][version] = 2.0-alpha7
+projects[viewsreference][version] = 2.0-beta2
 
 projects[libraries][type] = module
 projects[libraries][version] = 3.0-alpha1
 
 projects[masonry][type] = module
-projects[masonry][version] = 1.0-rc2
+projects[masonry][version] = 1.1
 
 projects[charts][type] = module
 projects[charts][version] = 3.2
 
 projects[google_analytics_reports][type] = module
-projects[google_analytics_reports][version] = 3.0-beta3
+projects[google_analytics_reports][version] = 3.0-rc3
 
 projects[login_destination][type] = module
-projects[login_destination][version] = 1.0-beta1
+projects[login_destination][version] = 2.0-alpha1
 
 projects[betterlogin][type] = module
 projects[betterlogin][version] = 1.5
 
 projects[social_api][type] = module
-projects[social_api][version] = 2.0-rc2
+projects[social_api][version] = 2.0-rc3
 
 projects[social_auth][type] = module
 projects[social_auth][version] = 2.0-rc2
 
 projects[social_auth_google][type] = module
-projects[social_auth_google][version] = 2.0
+projects[social_auth_google][version] = 2.1
 
 projects[social_auth_facebook][type] = module
 projects[social_auth_facebook][version] = 2.0
@@ -375,19 +391,19 @@ projects[redirect][type] = module
 projects[redirect][version] = 1.6
 
 projects[metatag][type] = module
-projects[metatag][version] = 1.13
+projects[metatag][version] = 1.14
 
 projects[schema_metatag][type] = module
-projects[schema_metatag][version] = 1.5
+projects[schema_metatag][version] = 1.7
 
 projects[simple_sitemap][type] = module
-projects[simple_sitemap][version] = 3.6
+projects[simple_sitemap][version] = 3.7
 
 projects[google_analytics][type] = module
-projects[google_analytics][version] = 3.0
+projects[google_analytics][version] = 3.1
 
 projects[google_tag][type] = module
-projects[google_tag][version] = 1.3
+projects[google_tag][version] = 1.4
 
 projects[yoast_seo][type] = module
 projects[yoast_seo][version] = 1.5
@@ -401,22 +417,26 @@ projects[username_enumeration_prevention][version] = 1.1
 projects[password_policy][type] = module
 projects[password_policy][version] = 3.0-beta1
 
+projects[genpass][type] = module
+projects[genpass][version] = 1.0
+
 projects[seckit][type] = module
-projects[seckit][version] = 1.2
 
 projects[security_review][type] = module
-projects[security_review][version] = 1.x-dev
+projects[security_review][version] = 1.0-alpha1
 
 projects[honeypot][type] = module
 
 projects[shield][type] = module
 projects[shield][version] = 1.4
 
+projects[flood_unblock][type] = module
+
 projects[captcha][type] = module
-projects[captcha][version] = 1.0
+projects[captcha][version] = 1.1
 
 projects[recaptcha][type] = module
-projects[recaptcha][version] = 2.5
+projects[recaptcha][version] = 3.0
 
 projects[search_api][type] = module
 projects[search_api][version] = 1.17
@@ -430,14 +450,17 @@ projects[slick][version] = 2.2
 projects[slick_views][type] = module
 projects[slick_views][version] = 2.3
 
-projects[slick_media][type] = module
-projects[slick_media][version] = 2.0-alpha3
-
 projects[consumers][type] = module
 projects[consumers][version] = 1.11
 
 projects[openapi][type] = module
-projects[openapi][version] = 1.0-beta7
+projects[openapi][version] = 2.0-rc3
+
+projects[openapi_jsonapi][type] = module
+projects[openapi_jsonapi][version] = 2.0-rc2
+
+projects[openapi_rest][type] = module
+projects[openapi_rest][version] = 2.0-rc2
 
 projects[schemata][type] = module
 projects[schemata][version] = 1.0-beta2
@@ -458,7 +481,40 @@ projects[restui][type] = module
 projects[restui][version] = 1.18
 
 projects[jsonapi_extras][type] = module
-projects[jsonapi_extras][version] = 3.14
+projects[jsonapi_extras][version] = 3.15
+
+projects[moderation_sidebar][type] = module
+projects[moderation_sidebar][version] = 1.4
+;; Issue #3157219: Fix RTL Moderation Sidebar style
+projects[moderation_sidebar][patch][] = https://www.drupal.org/files/issues/2020-07-06/3157219-3.patch
+
+projects[content_planner][type] = module
+projects[content_planner][version] = 1.0-beta12
+;; Issue #3010615 Kanban Published to Draft workflow Issue
+projects[content_planner][patch][] = https://www.drupal.org/files/issues/2020-05-06/kanban-published-to-draft-workflow-issue-3010615-16.patch
+
+projects[scheduler][type] = module
+projects[scheduler][version] = 1.3
+
+projects[content_moderation_notifications][type] = module
+projects[content_moderation_notifications][version] = 3.2
+
+projects[scheduler_content_moderation_integration][type] = module
+projects[scheduler_content_moderation_integration][version] = 1.3
+
+projects[jquery_ui][type] = module
+projects[jquery_ui_datepicker][type] = module
+projects[jquery_ui_draggable][type] = module
+projects[jquery_ui_droppable][type] = module
+projects[jquery_ui_slider][type] = module
+
+core = ''
+
+projects[jquery_ui_touch_punch][type] = module
+projects[jquery_ui_touch_punch][download][type] = "git"
+projects[jquery_ui_touch_punch][download][branch] = 1.0.x
+
+core = 8.x
 
 ;;;;;;;;;;;;;;;;;;;;;
 ;; Development contrib modules
@@ -469,6 +525,8 @@ projects[features][version] = 3.11
 
 projects[coffee][type] = module
 projects[coffee][version] = 1.0
+;; Issue #3128583: Fix Could not load data for internal links
+projects[coffee][patch][] = https://www.drupal.org/files/issues/2020-06-21/3128583-16.patch
 
 projects[diff][type] = module
 projects[diff][version] = 1.0
@@ -477,7 +535,7 @@ projects[masquerade][type] = module
 projects[masquerade][version] = 2.0-beta4
 
 projects[menu_admin_per_menu][type] = module
-projects[menu_admin_per_menu][version] = 1.1
+projects[menu_admin_per_menu][version] = 1.3
 
 projects[drd_agent][type] = module
 projects[drd_agent][version] = 3.13
@@ -486,31 +544,31 @@ projects[libraries_ui][type] = module
 projects[libraries_ui][version] = 1.0
 
 projects[devel][type] = module
-projects[devel][version] = 3.0-beta1
 
 projects[update_helper][type] = module
-projects[update_helper][version] = 1.3
+projects[update_helper][download][type] = "git"
+projects[update_helper][download][branch] = 2.x
 ;; Issue #3024165: [PATCH] Enhancements, Better messages for the unable to apply updates, drush command and removed the Mark all updates as successful on install
-projects[update_helper][patch][] = https://www.drupal.org/files/issues/2020-03-08/3024165-35.patch
+projects[update_helper][patch][] = https://www.drupal.org/files/issues/2020-08-16/3024165-40.patch
 
 projects[checklistapi][type] = module
 projects[checklistapi][version] = 1.11
 
 projects[script_manager][type] = module
-projects[script_manager][version] = 1.1
+projects[script_manager][version] = 1.2
 
 projects[allowed_formats][type] = module
-projects[allowed_formats][version] = 1.2
+projects[allowed_formats][version] = 1.3
 
 ;;;;;;;;;;;;;;;;;;;;;
 ;; Contrib themes
 ;;;;;;;;;;;;;;;;;;;;;
 
 projects[bootstrap][type] = theme
-projects[bootstrap][version] = 3.21
+projects[bootstrap][version] = 3.23
 
 projects[bootstrap_barrio][type] = theme
-projects[bootstrap_barrio][version] = 4.28
+projects[bootstrap_barrio][version] = 4.32
 
 projects[adminimal_theme][type] = theme
 projects[adminimal_theme][version] = 1.5
@@ -536,40 +594,40 @@ projects[total_control][version] = 2.0
 ;;;;;;;;;;;;;;;;;;;;;
 
 projects[varbase_core][type] = module
-projects[varbase_core][version] = 8.15
+projects[varbase_core][version] = 8.19
 
 projects[varbase_api][type] = module
-projects[varbase_api][version] = 7.10
+projects[varbase_api][version] = 7.11
 
 projects[varbase_media][type] = module
-projects[varbase_media][version] = 7.21
+projects[varbase_media][version] = 7.25
 
 projects[varbase_bootstrap_paragraphs][type] = module
-projects[varbase_bootstrap_paragraphs][version] = 7.13
+projects[varbase_bootstrap_paragraphs][version] = 7.14
 
 projects[varbase_editor][type] = module
-projects[varbase_editor][version] = 7.9
+projects[varbase_editor][version] = 7.11
 
 projects[varbase_landing][type] = module
-projects[varbase_landing][version] = 7.4
+projects[varbase_landing][version] = 7.5
 
 projects[varbase_layout_builder][type] = module
-projects[varbase_layout_builder][version] = 1.0-alpha12
+projects[varbase_layout_builder][version] = 1.0-alpha15
 
 projects[varbase_heroslider_media][type] = module
-projects[varbase_heroslider_media][version] = 7.10
+projects[varbase_heroslider_media][version] = 7.11
 
 projects[varbase_carousels][type] = module
-projects[varbase_carousels][version] = 7.3
+projects[varbase_carousels][version] = 7.5
 
 projects[varbase_blog][type] = module
-projects[varbase_blog][version] = 8.3
+projects[varbase_blog][version] = 8.4
 
 projects[varbase_search][type] = module
 projects[varbase_search][version] = 6.6
 
 projects[varbase_seo][type] = module
-projects[varbase_seo][version] = 6.13
+projects[varbase_seo][version] = 6.15
 
 projects[varbase_total_control][type] = module
 projects[varbase_total_control][version] = 6.11
@@ -583,6 +641,8 @@ projects[varbase_styleguide][version] = 6.5
 projects[varbase_email][type] = module
 projects[varbase_email][version] = 6.3
 
+projects[varbase_workflow][type] = module
+
 ;;;;;;;;;;;;;;;;;;;;;
 ;; Varbase public contributed themes.
 ;;;;;;;;;;;;;;;;;;;;;
@@ -591,7 +651,7 @@ projects[vartheme][type] = theme
 projects[vartheme][version] = 6.8
 
 projects[vartheme_bs4][type] = theme
-projects[vartheme_bs4][version] = 6.12
+projects[vartheme_bs4][version] = 6.16
 
 projects[vartheme_admin][type] = theme
 projects[vartheme_admin][version] = 6.10

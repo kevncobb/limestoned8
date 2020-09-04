@@ -2,120 +2,85 @@
 
 namespace Drupal\taxonomy_access_fix;
 
-use Symfony\Component\Routing\Route;
-use Drupal\Core\Access\AccessResult;
-use Drupal\taxonomy\Entity\Vocabulary;
-use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\Core\StringTranslation\StringTranslationTrait;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
-class TaxonomyAccessFixPermissions {
+/**
+ * Provides additional permissions for entities provided by Taxonomy module.
+ */
+class TaxonomyAccessFixPermissions implements ContainerInjectionInterface {
+
+  use StringTranslationTrait;
 
   /**
-   * Permission callback for TAF's MODULE.permissions.yml.
+   * The entity type manager.
    *
-   * @see taxonomy_access_fix.permissions.yml
+   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
    */
-  public static function getAccess() {
-    $vocabularies = Vocabulary::loadMultiple();
+  protected $entityTypeManager;
 
+  /**
+   * Constructs a TaxonomyAccessFixPermissions instance.
+   *
+   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
+   *   The entity type manager.
+   */
+  public function __construct(EntityTypeManagerInterface $entity_type_manager) {
+    $this->entityTypeManager = $entity_type_manager;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container) {
+    return new static($container->get('entity_type.manager'));
+  }
+
+  /**
+   * Gets additional permissions for Taxonomy Vocabulary entities.
+   *
+   * @return array
+   *   Permissions array.
+   */
+  public function getPermissions() {
     $permissions = [];
+
+    $vocabularies = $this->entityTypeManager->getStorage('taxonomy_vocabulary')->loadMultiple();
+    $schema_version = 0;
+    if (count($vocabularies) > 0) {
+      $schema_version = (int) drupal_get_installed_schema_version('taxonomy_access_fix');
+    }
     foreach ($vocabularies as $vocabulary) {
       $permissions['view terms in ' . $vocabulary->id()] = [
-        'title' => t('View terms in %vocabulary', ['%vocabulary' => $vocabulary->label()]),
+        'title' => $this->t('View terms in %vocabulary', [
+          '%vocabulary' => $vocabulary->label(),
+        ]),
       ];
-      $permissions['add terms in ' . $vocabulary->id()] = [
-        'title' => t('Add terms in %vocabulary', ['%vocabulary' => $vocabulary->label()]),
-      ];
+      // @todo: Remove in 8.x-3.x or later or mark as deprecated once Issue
+      // 2924785 has been fixed.
+      if ($schema_version < 8202) {
+        $permissions['add terms in ' . $vocabulary->id()] = [
+          'title' => $this->t('Add terms in %vocabulary', [
+            '%vocabulary' => $vocabulary->label(),
+          ]),
+          'description' => $this->t("This permission is <strong>no longer used</strong> and will be removed in a future release. Use the @permission_label permission provided by Drupal Core's %module_label module instead.", [
+            '%module_label' => $this->t('Taxonomy'),
+            '@permission_label' => $this->t('"%vocabulary: Create terms"', [
+              '%vocabulary' => $vocabulary->label(),
+            ]),
+          ]),
+        ];
+      }
       $permissions['reorder terms in ' . $vocabulary->id()] = [
-        'title' => t('Reorder terms in %vocabulary', ['%vocabulary' => $vocabulary->label()]),
+        'title' => $this->t('Reorder terms in %vocabulary', [
+          '%vocabulary' => $vocabulary->label(),
+        ]),
       ];
     }
 
     return $permissions;
-  }
-
-  /**
-   * Access callback for common CUSTOM taxonomy operations.
-   */
-  public static function fixAccess($op, $vocabulary = NULL) {
-    // Admin: always.
-    if (\Drupal::currentUser()->hasPermission('administer taxonomy')) {
-      return TRUE;
-    }
-    if ($vocabulary && is_string($vocabulary)) {
-      $vocabulary = Vocabulary::load($vocabulary);
-    }
-    // Others: well, that depends.
-    switch ($op) {
-      case 'list terms':
-        if ($vocabulary) {
-          $vid = $vocabulary->id();
-          $perm1 = sprintf('edit terms in %s', $vid);
-          $perm2 = sprintf('delete terms in %s', $vid);
-          $perm3 = sprintf('add terms in %s', $vid);
-          $perm4 = sprintf('reorder terms in %s', $vid);
-          if (\Drupal::currentUser()
-              ->hasPermission($perm1) || \Drupal::currentUser()
-              ->hasPermission($perm2) || \Drupal::currentUser()
-              ->hasPermission($perm3) || \Drupal::currentUser()
-              ->hasPermission($perm4)) {
-            return \Drupal::currentUser()->hasPermission('access taxonomy overview');
-          }
-        }
-        break;
-      case 'reorder terms':
-        if ($vocabulary) {
-          if (\Drupal::currentUser()
-            ->hasPermission('reorder terms in ' . $vocabulary->id())) {
-            return TRUE;
-          }
-        }
-        break;
-      case 'add terms':
-        if ($vocabulary) {
-          if (\Drupal::currentUser()
-            ->hasPermission('add terms in ' . $vocabulary->id())) {
-            return TRUE;
-          }
-        }
-        break;
-      case 'view terms':
-        if ($vocabulary) {
-          if (\Drupal::currentUser()
-            ->hasPermission('view terms in ' . $vocabulary->id())) {
-            return TRUE;
-          }
-        }
-        break;
-      case 'edit terms':
-        if ($vocabulary) {
-          if (\Drupal::currentUser()
-            ->hasPermission('edit terms in ' . $vocabulary->id())) {
-            return TRUE;
-          }
-        }
-        break;
-      case 'delete terms':
-        if ($vocabulary) {
-          if (\Drupal::currentUser()
-            ->hasPermission('delete terms in ' . $vocabulary->id())) {
-            return TRUE;
-          }
-        }
-        break;
-    }
-    return FALSE;
-  }
-
-  /**
-   * Route access callback
-   */
-  public static function fixRouteAccess(Route $route, RouteMatchInterface $match) {
-    $op = $route->getOption('op');
-    $vocabulary = $match->getParameter('taxonomy_vocabulary');
-    if (self::fixAccess($op, $vocabulary)) {
-      return AccessResult::allowed();
-    }
-    return AccessResult::forbidden();
   }
 
 }

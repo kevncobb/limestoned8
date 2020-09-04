@@ -13,6 +13,7 @@ use Drupal\varbase\Form\ConfigureMultilingualForm;
 use Drupal\varbase\Form\AssemblerForm;
 use Drupal\varbase\Form\DevelopmentToolsAssemblerForm;
 use Drupal\varbase\Entity\VarbaseEntityDefinitionUpdateManager;
+use Drupal\node\Entity\Node;
 
 /**
  * Implements hook_form_FORM_ID_alter() for install_configure_form().
@@ -224,6 +225,21 @@ function varbase_assemble_extra_components(array &$install_state) {
   // Uninstall list of not needed modules after the config had been loaded.
   // To be loaded from a ConfigBit yml file.
   $uninstall_components = ['varbase_default_content'];
+
+  if (isset($selected_extra_features['varbase_heroslider_media'])
+    && $selected_extra_features['varbase_heroslider_media'] == TRUE) {
+    $batch['operations'][] = ['varbase_install_component', (array) 'enabled_varbase_heroslider_media_content'];
+    $uninstall_components[] = 'enabled_varbase_heroslider_media_content';
+  }
+  else {
+    $batch['operations'][] = ['varbase_install_component', (array) 'disabled_varbase_heroslider_media_content'];
+    $uninstall_components[] = 'disabled_varbase_heroslider_media_content';
+  }
+
+  // Reset timestamp for nodes.
+  $node_ids = [1];
+  $batch['operations'][] = ['varbase_reset_timestamp_for_nodes', (array) $node_ids];
+
   if (count($uninstall_components) > 0) {
     foreach ($uninstall_components as $uninstall_component) {
       $batch['operations'][] = ['varbase_uninstall_component', (array) $uninstall_component];
@@ -416,6 +432,18 @@ function varbase_config_bit_for_multilingual($enable_multilingual) {
 }
 
 /**
+ * Batch function to Install needed modules.
+ *
+ * @param string|array $install_component
+ *   Name of the extra component.
+ */
+function varbase_install_component($install_component) {
+  if (!\Drupal::moduleHandler()->moduleExists($install_component)) {
+    \Drupal::service('module_installer')->install([$install_component], FALSE);
+  }
+}
+
+/**
  * Batch function to Uninstall list of not needed modules.
  *
  * After the config had been loaded.
@@ -426,6 +454,20 @@ function varbase_config_bit_for_multilingual($enable_multilingual) {
 function varbase_uninstall_component($uninstall_component) {
   if (\Drupal::moduleHandler()->moduleExists($uninstall_component)) {
     \Drupal::service('module_installer')->uninstall((array) $uninstall_component, FALSE);
+  }
+}
+
+/**
+ * Batch to reset timestamp for selected nodes.
+ *
+ * @param int|array $nid
+ *   The Node ID.
+ */
+function varbase_reset_timestamp_for_nodes($nid) {
+  $node = Node::load($nid);
+  if (isset($node)) {
+    $node->created = \Drupal::time()->getCurrentTime();
+    $node->save();
   }
 }
 

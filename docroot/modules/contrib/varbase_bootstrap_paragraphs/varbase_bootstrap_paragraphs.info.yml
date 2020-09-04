@@ -25,7 +25,7 @@ install:
   - paragraphs_previewer
   - paragraphs_edit
 
-# Information added by Drupal.org packaging script on 2020-06-02
-version: '8.x-7.13'
+# Information added by Drupal.org packaging script on 2020-08-17
+version: '8.x-7.14'
 project: 'varbase_bootstrap_paragraphs'
-datestamp: 1591111547
+datestamp: 1597653622

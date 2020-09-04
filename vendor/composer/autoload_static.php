@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit40e3064ec2c57d8f0b4bf47661a2cf5c
+class ComposerStaticInit6872d14edd3f825f03f324a54b50bb39
 {
     public static $files = array (
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
@@ -41,6 +41,7 @@ class ComposerStaticInit40e3064ec2c57d8f0b4bf47661a2cf5c
         '2cffec82183ee1cea088009cef9a6fc3' => __DIR__ . '/..' . '/ezyang/htmlpurifier/library/HTMLPurifier.composer.php',
         'fbeead2280a8f3911a1fe6dd034f7d5e' => __DIR__ . '/..' . '/mkalkbrenner/php-htmldiff-advanced/src/HtmlDiffAdvancedInterface.php',
         '96f8d8288528d52059397cad6ec61f17' => __DIR__ . '/..' . '/mkalkbrenner/php-htmldiff-advanced/src/HtmlDiffAdvanced.php',
+        '952683d815ff0a7bf322b93c0be7e4e4' => __DIR__ . '/..' . '/chi-teck/drupal-code-generator/src/bootstrap.php',
         '2c102faa651ef8ea5874edb585946bce' => __DIR__ . '/..' . '/swiftmailer/swiftmailer/lib/swift_required.php',
         '2324d0e5cadd603331d27de142371f0b' => __DIR__ . '/..' . '/symfony/contracts/Deprecation/function.php',
     );
@@ -100,6 +101,7 @@ class ComposerStaticInit40e3064ec2c57d8f0b4bf47661a2cf5c
             'Symfony\\Component\\HttpKernel\\' => 29,
             'Symfony\\Component\\HttpFoundation\\' => 33,
             'Symfony\\Component\\Finder\\' => 25,
+            'Symfony\\Component\\Filesystem\\' => 29,
             'Symfony\\Component\\EventDispatcher\\' => 34,
             'Symfony\\Component\\DependencyInjection\\' => 38,
             'Symfony\\Component\\Debug\\' => 24,
@@ -180,6 +182,7 @@ class ComposerStaticInit40e3064ec2c57d8f0b4bf47661a2cf5c
             'Drupal\\Composer\\Plugin\\Scaffold\\' => 32,
             'Drupal\\Composer\\Plugin\\ProjectMessage\\' => 38,
             'Drupal\\Component\\' => 17,
+            'DrupalCodeGenerator\\' => 20,
             'Doctrine\\Persistence\\' => 21,
             'Doctrine\\Inflector\\' => 19,
             'Doctrine\\Common\\Lexer\\' => 22,
@@ -328,6 +331,10 @@ class ComposerStaticInit40e3064ec2c57d8f0b4bf47661a2cf5c
         'Symfony\\Component\\Finder\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/finder',
+        ),
+        'Symfony\\Component\\Filesystem\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/filesystem',
         ),
         'Symfony\\Component\\EventDispatcher\\' => 
         array (
@@ -522,6 +529,10 @@ class ComposerStaticInit40e3064ec2c57d8f0b4bf47661a2cf5c
         array (
             0 => __DIR__ . '/../..' . '/docroot/core/lib/Drupal/Component',
         ),
+        'DrupalCodeGenerator\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/chi-teck/drupal-code-generator/src',
+        ),
         'Doctrine\\Persistence\\' => 
         array (
             0 => __DIR__ . '/..' . '/doctrine/persistence/lib/Doctrine/Persistence',
@@ -690,11 +701,11 @@ class ComposerStaticInit40e3064ec2c57d8f0b4bf47661a2cf5c
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit40e3064ec2c57d8f0b4bf47661a2cf5c::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit40e3064ec2c57d8f0b4bf47661a2cf5c::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInit40e3064ec2c57d8f0b4bf47661a2cf5c::$prefixesPsr0;
-            $loader->fallbackDirsPsr0 = ComposerStaticInit40e3064ec2c57d8f0b4bf47661a2cf5c::$fallbackDirsPsr0;
-            $loader->classMap = ComposerStaticInit40e3064ec2c57d8f0b4bf47661a2cf5c::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit6872d14edd3f825f03f324a54b50bb39::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit6872d14edd3f825f03f324a54b50bb39::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInit6872d14edd3f825f03f324a54b50bb39::$prefixesPsr0;
+            $loader->fallbackDirsPsr0 = ComposerStaticInit6872d14edd3f825f03f324a54b50bb39::$fallbackDirsPsr0;
+            $loader->classMap = ComposerStaticInit6872d14edd3f825f03f324a54b50bb39::$classMap;
 
         }, null, ClassLoader::class);
     }

@@ -1,7 +1,0 @@
-load:
-  version: VERSION
-  js:
-    js/colorbox-simple-load.js: {}
-  dependencies:
-  - core/jquery
-  - core/drupal

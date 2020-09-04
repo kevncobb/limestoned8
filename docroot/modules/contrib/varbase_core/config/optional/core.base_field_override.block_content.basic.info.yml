@@ -16,7 +16,7 @@ default_value_callback: ''
 settings: {  }
 field_type: string
 
-# Information added by Drupal.org packaging script on 2020-06-02
-version: '8.x-8.15'
+# Information added by Drupal.org packaging script on 2020-08-17
+version: '8.x-8.19'
 project: 'varbase_core'
-datestamp: 1591141520
+datestamp: 1597650321

@@ -1,11 +1,11 @@
-<div {{ attributes.setAttribute('id', settings.wrapper_id).addClass('grid-x', settings.wrapper_classes) }}>
+<div {{ attributes.setAttribute('id', settings.wrapper_id).addClass('row', settings.wrapper_classes) }}>
   {% if content.sidebar_left %}
-    <{{ settings.wrappers.sidebar_left }} {{ region_attributes.sidebar_left.addClass('cell', 'medium-7') }}>
+    <{{ settings.wrappers.sidebar_left }} class="columns medium-7">
       {{ content.sidebar_left }}
     </{{ settings.wrappers.sidebar_left }}>
   {% endif %}
   {% if content.sidebar_right %}
-    <{{ settings.wrappers.sidebar_right }} {{ region_attributes.sidebar_right.addClass('cell', 'medium-5') }}>
+    <{{ settings.wrappers.sidebar_right }} class="columns medium-5">
       {{ content.sidebar_right }}
     </{{ settings.wrappers.sidebar_right }}>
   {% endif %}

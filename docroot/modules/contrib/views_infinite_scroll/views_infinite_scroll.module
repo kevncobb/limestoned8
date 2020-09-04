@@ -22,9 +22,9 @@ function views_infinite_scroll_preprocess_views_infinite_scroll_pager(&$vars) {
   $pager = $pager_manager->getPager($element);
 
   if (isset($pager) && $pager->getCurrentPage() < ($pager->getTotalPages() - 1)) {
-    $options = [
+    $options = array(
       'query' => $pager_manager->getUpdatedParameters($parameters, $element, $pager->getCurrentPage() + 1),
-    ];
+    );
     $vars['items']['next']['href'] = Url::fromRoute('<none>', [], $options);
   }
   $vars['#cache']['contexts'][] = 'url.query_args';

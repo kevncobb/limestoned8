@@ -1,5 +1,5 @@
-__global_actions:
-  install_modules:
+__global_conditions:
+  expected_modules:
     - varbase_media
 responsive_image.styles.d01:
   expected_config:

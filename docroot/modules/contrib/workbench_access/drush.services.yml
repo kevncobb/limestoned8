@@ -1,5 +1,0 @@
-services:
-  workbench_access.commands:
-    class: \Drupal\workbench_access\Commands\WorkbenchAccessCommands
-    tags:
-      - { name: drush.command }

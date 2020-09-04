@@ -47,7 +47,7 @@
 }
 
 .cke_widget_wrapper .align-left {
-  margin: 0 8px 8px 0;
+  margin: 0 1rem 1rem 0;
 }
 
 .cke_widget_wrapper .align-left figcaption {
@@ -55,7 +55,7 @@
 }
 
 .cke_widget_wrapper .align-right {
-  margin: 0 0 8px 8px;
+  margin: 0 0 1rem 1rem;
 }
 
 .cke_widget_wrapper .align-right figcaption {
@@ -602,4 +602,134 @@ details[id^="edit-field-media-gallery-"] .details-wrapper {
 
 .gallery-entity-embed-dialog-step--embed .media-library-item {
   margin: 20px;
+}
+
+.cke_widget_drupalmedia drupal-media .caption {
+  width: 100%;
+}
+
+.cke_widget_drupalmedia drupal-media[data-view-mode="original"] {
+  width: 100%;
+}
+
+.cke_widget_drupalmedia drupal-media[data-view-mode="original"][data-align=center] {
+  margin-left: 0%;
+  margin-right: 0%;
+}
+
+.cke_widget_drupalmedia drupal-media[data-view-mode="large"] {
+  width: 100%;
+}
+
+.cke_widget_drupalmedia drupal-media[data-view-mode="large"][data-align=center] {
+  margin-left: 0%;
+  margin-right: 0%;
+}
+
+.cke_widget_drupalmedia drupal-media[data-view-mode="medium"] {
+  width: 50%;
+}
+
+.cke_widget_drupalmedia drupal-media[data-view-mode="medium"][data-align=center] {
+  margin-left: 25%;
+  margin-right: 25%;
+}
+
+.cke_widget_drupalmedia drupal-media[data-view-mode="small"] {
+  width: 25%;
+}
+
+.cke_widget_drupalmedia drupal-media[data-view-mode="small"][data-align=center] {
+  margin-left: 32%;
+  margin-right: 32%;
+}
+
+.cke_widget_drupalmedia drupal-media[data-align=left] {
+  display: inline-block;
+  float: left;
+  margin: 0 1rem 1rem 0;
+}
+
+.cke_widget_drupalmedia drupal-media[data-align=left] figcaption {
+  text-align: center;
+}
+
+.cke_widget_drupalmedia drupal-media[data-align=right] {
+  display: inline-block;
+  float: right;
+  margin: 0 0 1rem 1rem;
+}
+
+.cke_widget_drupalmedia drupal-media[data-align=right] figcaption {
+  text-align: center;
+}
+
+.cke_widget_drupalmedia drupal-media .media-library-item__edit {
+  z-index: 1000;
+  position: absolute;
+}
+
+.cke_widget_drupalmedia drupal-media .blazy.blazy--field-media-cover-image {
+  position: absolute !important;
+}
+
+.cke_widget_drupalmedia drupal-media .media.media--type-remote-video,
+.cke_widget_drupalmedia drupal-media .media.media--type-video {
+  width: 100%;
+  position: absolute;
+}
+
+.cke_widget_drupalmedia drupal-media .media.media--type-remote-video picture,
+.cke_widget_drupalmedia drupal-media .media.media--type-remote-video img,
+.cke_widget_drupalmedia drupal-media .media.media--type-video picture,
+.cke_widget_drupalmedia drupal-media .media.media--type-video img {
+  width: 100%;
+}
+
+.cke_widget_drupalmedia drupal-media .media.media--type-remote-video .video-player-icon,
+.cke_widget_drupalmedia drupal-media .media.media--type-video .video-player-icon {
+  position: relative;
+}
+
+.cke_widget_drupalmedia drupal-media .media.media--type-remote-video .video-player-icon.js-video-player-icon,
+.cke_widget_drupalmedia drupal-media .media.media--type-video .video-player-icon.js-video-player-icon {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  margin: 0;
+  cursor: pointer;
+  z-index: 3;
+}
+
+.cke_widget_drupalmedia drupal-media .media.media--type-remote-video .video-player-icon:after,
+.cke_widget_drupalmedia drupal-media .media.media--type-video .video-player-icon:after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  background: url(../images/play.svg) no-repeat center center;
+  height: 72px;
+  width: 72px;
+  max-height: 55%;
+  font-size: 15%;
+  cursor: pointer;
+}
+
+.cke_widget_drupalmedia drupal-media .media.media--type-remote-video .video-player-icon:hover:after,
+.cke_widget_drupalmedia drupal-media .media.media--type-video .video-player-icon:hover:after {
+  opacity: 0.75;
+}
+
+@media screen and (min-width: 761rem) {
+  .cke_widget_drupalmedia drupal-media .media.media--type-remote-video,
+  .cke_widget_drupalmedia drupal-media .media.media--type-video {
+    min-width: 100%;
+    width: -webkit-max-content;
+    width: -moz-max-content;
+    width: max-content;
+  }
 }

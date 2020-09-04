@@ -21,7 +21,7 @@
   }
   
   &.align-right {
-    margin: 0 0 8px 8px;
+    margin: 0 0 1rem 1rem;
     
     figcaption {
       text-align: center;
@@ -39,7 +39,7 @@
 
 picture {
   &.align-right {
-    margin: 0 0 8px 8px;
+    margin: 0 0 1rem 1rem;
     
     figcaption {
       text-align: center;
@@ -47,7 +47,7 @@ picture {
   }
 
   &.align-left {
-    margin: 0 8px 8px 0;
+    margin: 0 1rem 1rem 0;
     
     figcaption {
       text-align: center;
@@ -73,7 +73,7 @@ figure {
   
   &.align-right {
     display:table;
-    margin: 0 0 8px 8px;
+    margin: 0 0 1rem 1rem;
     
     figcaption {
       display: table-caption;
@@ -83,7 +83,7 @@ figure {
 
   &.align-left {
     display:table;
-    margin: 0 8px 8px 0;
+    margin: 0 1rem 1rem 0;
     
     figcaption {
       display: table-caption;
@@ -100,17 +100,84 @@ img {
   }
 
   &.align-right {
-    margin: 0 0 8px 8px;
+    margin: 0 0 1rem 1rem;
   }
 }
 
 // Image caption Right and Left style (Fit Image).
-figure.align-right,
-figure.align-left {
-  display:table;
+figure {
   
-  figcaption {
-    display: table-caption;
-    caption-side: bottom;
+  &.align-right,
+  &.align-left {
+    display:table;
+
+    figcaption {
+      display: table-caption;
+      caption-side: bottom;
+      text-align: center;
+    }
+  }
+
+  &.caption.caption-drupal-media {
+
+    &.align-center {
+      margin-right: auto;
+      margin-left: auto;
+    }
+  }
+}
+
+.media {
+  &.media--type-remote-video,
+  &.media--type-video {
+    width: 100%;
+    
+    &.align-center {
+
+      figcaption {
+        display: table-caption;
+        caption-side: bottom;
+        text-align: center;
+      }
+    }
+
+    &.align-right {
+      display:table;
+      margin: 0 0 1rem 1rem;
+
+      figcaption {
+        display: table-caption;
+        caption-side: bottom;
+        text-align: center;
+      }
+    }
+
+    &.align-left {
+      display:table;
+      margin: 0 1rem 1rem 0;
+
+      figcaption {
+        display: table-caption;
+        caption-side: bottom;
+        text-align: center;
+      }
+    }
+    
+    &.media--view-mode-medium {
+      width: 50%; 
+    }
+
+    &.media--view-mode-small {
+      width: 25%; 
+    }
+
+  }
+
+  &.media--type-remote-video
+  &.media--bundle--image {
+    .blazy img {
+      width: auto;
+      height: auto;
+    }
   }
 }

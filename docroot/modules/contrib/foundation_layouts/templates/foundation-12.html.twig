@@ -1,6 +1,6 @@
-<div {{ attributes.setAttribute('id', settings.wrapper_id).addClass('grid-x',  settings.wrapper_classes) }}>
+<div {{ attributes.setAttribute('id', settings.wrapper_id).addClass('row', settings.wrapper_classes) }}>
   {% if content.main %}
-    <{{ settings.wrappers.main }} {{ region_attributes.main.addClass('cell', 'medium-12') }}>
+    <{{ settings.wrappers.main }} class="columns medium-12">
       {{ content.main }}
     </{{ settings.wrappers.main }}>
   {% endif %}

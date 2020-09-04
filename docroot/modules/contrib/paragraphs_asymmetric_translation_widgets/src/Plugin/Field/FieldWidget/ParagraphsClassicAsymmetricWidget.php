@@ -9,6 +9,7 @@ use Drupal\Component\Utility\Html;
 use Drupal\Core\Entity\Entity\EntityFormDisplay;
 use Drupal\Core\Field\FieldFilteredMarkup;
 use Drupal\Core\Field\FieldStorageDefinitionInterface;
+use Drupal\field_group\FormatterHelper;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Render\Element;
@@ -470,10 +471,13 @@ class ParagraphsClassicAsymmetricWidget extends InlineParagraphsWidget {
         ];
 
         field_group_attach_groups($element['subform'], $context);
-        if (function_exists('field_group_form_pre_render')) {
+        if (method_exists(FormatterHelper::class, 'formProcess')) {
+          $element['subform']['#process'][] = [FormatterHelper::class, 'formProcess'];
+        }
+        elseif (function_exists('field_group_form_pre_render')) {
           $element['subform']['#pre_render'][] = 'field_group_form_pre_render';
         }
-        if (function_exists('field_group_form_process')) {
+        elseif (function_exists('field_group_form_process')) {
           $element['subform']['#process'][] = 'field_group_form_process';
         }
       }
@@ -519,7 +523,13 @@ class ParagraphsClassicAsymmetricWidget extends InlineParagraphsWidget {
       elseif ($item_mode == 'preview') {
         $element['subform'] = array();
         $element['behavior_plugins'] = [];
-        $element['preview'] = entity_view($paragraphs_entity, 'preview', $paragraphs_entity->language()->getId());
+        $render_controller = \Drupal::entityTypeManager()
+          ->getViewBuilder($paragraphs_entity->getEntityTypeId());
+        $element['preview'] = $render_controller->view(
+          $paragraphs_entity,
+          'preview',
+          $paragraphs_entity->language()->getId()
+        );
         $element['preview']['#access'] = $paragraphs_entity->access('view');
       }
       elseif ($item_mode == 'closed') {

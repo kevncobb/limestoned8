@@ -160,8 +160,6 @@ default_content:
 
 UI for easily exporting?
 
-[![Build Status](https://travis-ci.org/larowlan/default_content.svg?branch=8.x-1.x)](https://travis-ci.org/larowlan/default_content)
-
 [1]: https://www.drupal.org/project/default_content "Default Content"
 [2]: https://www.drupal.org/docs/8/core/modules/hal "HAL (Hypertext Application Language) module"
 [3]: https://www.drupal.org/docs/8/core/modules/serialization "Serialization module"

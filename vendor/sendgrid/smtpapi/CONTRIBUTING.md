@@ -1,4 +1,4 @@
-Hello! Thank you for choosing to help contribute to one of the SendGrid open source libraries. There are many ways you can contribute and help is always welcome.  We simply ask that you follow the following contribution policies.
+Hello! Thank you for choosing to help contribute to one of the Twilio SendGrid open source libraries. There are many ways you can contribute and help is always welcome.  We simply ask that you follow the following contribution policies.
 
 All third party contributors acknowledge that any contributions they provide will be made under the same open source license that the open source project is provided under.
 
@@ -14,7 +14,7 @@ All third party contributors acknowledge that any contributions they provide wil
 - [Code Reviews](#code-reviews)
 
 <a name="roadmap"></a>
-We use [Milestones](https://github.com/sendgrid/smtpapi-php/milestones) to help define current roadmaps, please feel free to grab an issue from the current milestone. Please indicate that you have begun work on it to avoid collisions. Once a PR is made, community review, comments, suggestions and additional PRs are welcomed and encouraged.
+We use [Milestones](https://github.com/sendgrid/smtpapi-php/milestones) to help define current roadmaps, please feel free to grab an issue from the current milestone. Please indicate that you have begun work on it to avoid collisions. Once a PR is made, community review, comments, suggestions, and additional PRs are welcomed and encouraged.
 
 There are a few ways to contribute, which we'll enumerate below:
 
@@ -25,7 +25,7 @@ If you'd like to make a feature request, please read this section.
 
 The GitHub issue tracker is the preferred channel for library feature requests, but please respect the following restrictions:
 
-- Please **search for existing issues** in order to ensure we don't have duplicate bugs/feature requests.
+- Please **search for existing issues** to ensure we don't have duplicate bugs/feature requests.
 - Please be respectful and considerate of others when commenting on issues
 
 <a name="submit-a-bug-report"></a>
@@ -33,17 +33,17 @@ The GitHub issue tracker is the preferred channel for library feature requests, 
 
 Note: DO NOT include your credentials in ANY code examples, descriptions, or media you make public.
 
-A software bug is a demonstrable issue in the code base. In order for us to diagnose the issue and respond as quickly as possible, please add as much detail as possible into your bug report.
+A software bug is a demonstrable issue in the code base. For us to diagnose the issue and respond as quickly as possible, please add as much detail as possible into your bug report.
 
 Before you decide to create a new issue, please try the following:
 
-1. Check the Github issues tab if the identified issue has already been reported, if so, please add a +1 to the existing post.
-2. Update to the latest version of this code and check if issue has already been fixed
-3. Copy and fill in the Bug Report Template we have provided below
+1. Check the Github issues tab if the identified issue has already been reported. If so, please add a +1 to the existing post.
+2. Update to the latest version of this code and check if the issue has already been fixed.
+3. Copy and fill in the Bug Report Template we have provided below.
 
 ### Please use our Bug Report Template
 
-In order to make the process easier, we've included a [sample bug report template](https://github.com/sendgrid/smtpapi-php/ISSUE_TEMPLATE.md) (borrowed from [Ghost](https://github.com/TryGhost/Ghost/)). The template uses [GitHub flavored markdown](https://help.github.com/articles/github-flavored-markdown/) for formatting.
+In order to make the process easier, we've included a [sample bug report template](ISSUE_TEMPLATE.md).
 
 <a name="improvements-to-the-codebase"></a>
 ## Improvements to the Codebase
@@ -56,7 +56,7 @@ We welcome direct contributions to the smtpapi-php code base. Thank you!
 
 ##### Prerequisites #####
 
-Please see [composer.json](https://github.com/sendgrid/smtpapi-php/blob/master/composer.json).
+Please see [composer.json](composer.json).
 
 ##### Initial setup: #####
 
@@ -81,7 +81,7 @@ source ./sendgrid.env
 
 ##### Execute: #####
 
-See the [examples folder](https://github.com/sendgrid/smtpapi-php/tree/master/examples) to get started quickly.
+See the [examples folder](examples) to get started quickly.
 
 <a name="understanding-the-codebase"></a>
 ## Understanding the Code Base
@@ -103,9 +103,9 @@ Source code.
 
 All PRs require passing tests before the PR will be reviewed.
 
-All test files are in the [`test`](https://github.com/sendgrid/smtpapi-php/tree/master/test) directory.
+All test files are in the [`test`](test) directory.
 
-For the purposes of contributing to this repo, please update the [`Header.php`](https://github.com/sendgrid/smtpapi-php/blob/master/test/Smtpapi/Header.php) file with unit tests as you modify the code.
+For the purposes of contributing to this repo, please update the [`Header.php`](test/Smtpapi/HeaderTest.php) file with unit tests as you modify the code.
 
 ```bash
 cd test
@@ -158,7 +158,7 @@ If you can, please look at open PRs and review them. Give feedback and help us m
 
 4. Commit your changes in logical chunks. Please adhere to these [git commit
    message guidelines](http://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html)
-   or your code is unlikely be merged into the main project. Use Git's
+   or your code is unlikely to be merged into the main project. Use Git's
    [interactive rebase](https://help.github.com/articles/interactive-rebase)
    feature to tidy up your commits before making them public.
 
@@ -169,7 +169,7 @@ If you can, please look at open PRs and review them. Give feedback and help us m
 5. Locally merge (or rebase) the upstream development branch into your topic branch:
 
    ```bash
-   git pull [--rebase] upstream master
+   git pull [--rebase] upstream main
    ```
 
 6. Push your topic branch up to your fork:
@@ -179,9 +179,7 @@ If you can, please look at open PRs and review them. Give feedback and help us m
    ```
 
 7. [Open a Pull Request](https://help.github.com/articles/using-pull-requests/)
-    with a clear title and description against the `master` branch. All tests must be passing before we will review the PR.
-
-If you have any additional questions, please feel free to [email](mailto:dx@sendgrid.com) us or create an issue in this repo.
+    with a clear title and description against the `main` branch. All tests must be passing before we will review the PR.
 
 <a name="code-reviews"></a>
 ## Code Reviews

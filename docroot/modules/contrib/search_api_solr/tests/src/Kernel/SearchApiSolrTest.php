@@ -265,6 +265,8 @@ class SearchApiSolrTest extends SolrBackendTestBase {
     $this->clearIndex();
     $this->checkRetrieveData();
     $this->clearIndex();
+    $this->checkIndexFallback();
+    $this->clearIndex();
     $this->checkSearchResultSorts();
   }
 
@@ -757,6 +759,41 @@ class SearchApiSolrTest extends SolrBackendTestBase {
     $this->assertArrayHasKey('category_edge', $fulltext_fields);
     // body_suggest should be removed by getQueryFulltextFields().
     $this->assertArrayNotHasKey('body_suggest', $fulltext_fields);
+  }
+
+  /**
+   * Tests retrieve_data options.
+   */
+  protected function checkIndexFallback() {
+    global $index_fallback_test;
+
+    // If set to TRUE, search_api_solr_test_search_api_solr_documents_alter()
+    // turns one out of five test documents into an illegal one.
+    $index_fallback_test = TRUE;
+
+    // If five documents are updated as batch, one illegal document causes the
+    // entire batch to fail.
+    $this->assertEqual($this->indexItems($this->indexId), 0);
+
+    // Enable the fallback to index the documents one by one.
+    $server = $this->getIndex()->getServerInstance();
+    $config = $server->getBackendConfig();
+    $config['index_single_documents_fallback_count'] = 10;
+    $server->setBackendConfig($config);
+    $server->save();
+
+    // Indexed one by one, four documents get indexed successfully.
+    $this->assertEqual($this->indexItems($this->indexId), 4);
+
+    // Don't mess up the remionaing document anymnore.
+    $index_fallback_test = FALSE;
+    // Disable the fallback to index the documents one by one.
+    $config['index_single_documents_fallback_count'] = 0;
+    $server->setBackendConfig($config);
+    $server->save();
+
+    // Index the previously broken document that is still in the queue.
+    $this->assertEqual($this->indexItems($this->indexId), 1);
   }
 
   /**
@@ -1411,13 +1448,14 @@ class SearchApiSolrTest extends SolrBackendTestBase {
     $config_name = 'name="drupal-' . SolrBackendInterface::SEARCH_API_SOLR_MIN_SCHEMA_VERSION . '-solr-' . $solr_major_version . '.x-'. SEARCH_API_SOLR_JUMP_START_CONFIG_SET .'"';
     $this->assertStringContainsString($config_name, $config_files['solrconfig.xml']);
     $this->assertStringContainsString($config_name, $config_files['schema.xml']);
-    $this->assertStringContainsString('solr.luceneMatchVersion=' . $solr_major_version, $config_files['solrcore.properties']);
     $this->assertStringContainsString($server->id(), $config_files['test.txt']);
     $this->assertStringNotContainsString('<jmx />', $config_files['solrconfig_extra.xml']);
     if ('true' === SOLR_CLOUD) {
+      $this->assertStringContainsString('solr.luceneMatchVersion:' . $solr_major_version, $config_files['solrconfig.xml']);
       $this->assertStringContainsString('<statsCache class="org.apache.solr.search.stats.LRUStatsCache" />', $config_files['solrconfig_extra.xml']);
     }
     else {
+      $this->assertStringContainsString('solr.luceneMatchVersion=' . $solr_major_version, $config_files['solrcore.properties']);
       $this->assertStringNotContainsString('<statsCache', $config_files['solrconfig_extra.xml']);
     }
 
@@ -1431,7 +1469,6 @@ class SearchApiSolrTest extends SolrBackendTestBase {
 
     $config_files = $solr_configset_controller->getConfigFiles();
     $this->assertStringContainsString('<jmx />', $config_files['solrconfig_extra.xml']);
-    $this->assertStringNotContainsString('solr.install.dir', $config_files['solrcore.properties']);
     $this->assertStringContainsString('text_en', $config_files['schema_extra_types.xml']);
     $this->assertStringNotContainsString('text_foo_en', $config_files['schema_extra_types.xml']);
     $this->assertStringNotContainsString('text_de', $config_files['schema_extra_types.xml']);
@@ -1451,11 +1488,12 @@ class SearchApiSolrTest extends SolrBackendTestBase {
     /** @var \Drupal\search_api_solr\SolrBackendInterface $backend */
     $backend = $server->getBackend();
     if ($backend->getSolrConnector()->isCloud()) {
-      $this->assertStringNotContainsString('solr.replication', $config_files['solrcore.properties']);
-      $this->assertStringNotContainsString('"/replication"', $config_files[(version_compare($solr_major_version, '7', '>=')) ? 'solrconfig_extra.xml' : 'solrconfig.xml']);
-      $this->assertStringNotContainsString('"/get"', $config_files[(version_compare($solr_major_version, '7', '>=')) ? 'solrconfig_extra.xml' : 'solrconfig.xml']);
+      $this->assertArrayNotHasKey('solrcore.properties', $config_files);
+      $this->assertStringNotContainsString('"/replication"', $config_files['solrconfig_extra.xml']);
+      $this->assertStringNotContainsString('"/get"', $config_files['solrconfig_extra.xml']);
     }
     else {
+      $this->assertStringNotContainsString('solr.install.dir', $config_files['solrcore.properties']);
       $this->assertStringContainsString('solr.replication', $config_files['solrcore.properties']);
       $this->assertStringContainsString('"/replication"', $config_files[(version_compare($solr_major_version, '7', '>=')) ? 'solrconfig_extra.xml' : 'solrconfig.xml']);
       if (version_compare($solr_major_version, '7', '>=')) {
@@ -1549,7 +1587,6 @@ class SearchApiSolrTest extends SolrBackendTestBase {
       'accents_de.txt' => [
         ' Not needed if German2 Porter stemmer is used.'
       ],
-      'solrcore.properties' => [],
       'elevate.xml' => [],
       'schema.xml' => [],
       'solrconfig.xml' => [],

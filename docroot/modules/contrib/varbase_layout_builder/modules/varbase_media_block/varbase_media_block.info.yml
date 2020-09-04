@@ -17,7 +17,7 @@ dependencies:
   - block_content_permissions:block_content_permissions
   - varbase_media:varbase_media
 
-# Information added by Drupal.org packaging script on 2020-06-02
-version: '8.x-1.0-alpha12'
+# Information added by Drupal.org packaging script on 2020-08-17
+version: '8.x-1.0-alpha15'
 project: 'varbase_layout_builder'
-datestamp: 1591112417
+datestamp: 1597680917

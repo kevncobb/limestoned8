@@ -1,9 +1,0 @@
-.position-md-down {
-  @include breakpoint(smedium) {
-    position: relative;
-    img {
-      position: absolute;
-      bottom: -4rem;
-    }
-  }
-}

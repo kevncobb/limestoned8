@@ -139,7 +139,7 @@ ckeditor_stylesheets:
   - css/theme/vbp-colors.theme.css
   - css/theme/vlb-colors.theme.css
 
-# Information added by Drupal.org packaging script on 2020-07-28
-version: '8.x-6.13'
+# Information added by Drupal.org packaging script on 2020-08-23
+version: '8.x-6.16'
 project: 'vartheme_bs4'
-datestamp: 1595927157
+datestamp: 1598191990

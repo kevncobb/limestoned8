@@ -11,6 +11,7 @@ use Symfony\Component\Yaml\Yaml;
 use Drupal\Core\Config\InstallStorage;
 use Drupal\Core\Config\StorageInterface;
 use Drupal\Core\Config\FileStorage;
+use Drupal\varbase\Entity\VarbaseEntityDefinitionUpdateManager;
 
 /**
  * Implements hook_install().
@@ -27,7 +28,12 @@ function vlplb_install() {
     $module_info_data = (array) Yaml::parse(file_get_contents($module_info_file));
     if (isset($module_info_data['install'])
       && is_array($module_info_data['install'])) {
-      \Drupal::service('module_installer')->install($module_info_data['install'], TRUE);
+
+      foreach ($module_info_data['install'] as $module) {
+        if (!\Drupal::moduleHandler()->moduleExists($module)) {
+          \Drupal::service('module_installer')->install([$module], TRUE);
+        }
+      }
     }
   }
 
@@ -63,5 +69,11 @@ function vlplb_install() {
       }
     }
   }
-  // ---------------------------------------------------------------------------
+  // --------------------------------------------------------------------------.
+  // Entity updates to clear up any mismatched entity and/or field definitions
+  // And Fix changes were detected in the entity type and field definitions.
+  \Drupal::classResolver()
+    ->getInstanceFromDefinition(VarbaseEntityDefinitionUpdateManager::class)
+    ->applyUpdates();
+
 }

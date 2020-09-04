@@ -3,7 +3,7 @@
 namespace Drupal\media_library\Form;
 
 use Drupal\Core\Ajax\AjaxResponse;
-use Drupal\Core\Ajax\CloseDialogCommand;
+use Drupal\Core\Ajax\CloseModalDialogCommand;
 use Drupal\Core\Ajax\InvokeCommand;
 use Drupal\Core\Ajax\ReplaceCommand;
 use Drupal\Core\Entity\Entity\EntityFormDisplay;
@@ -343,7 +343,7 @@ abstract class AddFormBase extends FormBase implements BaseFormIdInterface, Trus
   }
 
   /**
-   * {@inheritdodc}
+   * {@inheritdoc}
    */
   public static function trustedCallbacks() {
     return ['preRenderAddedMedia'];
@@ -476,13 +476,11 @@ abstract class AddFormBase extends FormBase implements BaseFormIdInterface, Trus
     if ($this->isAdvancedUi()) {
       $actions['save_select']['#value'] = $this->t('Save and select');
       $actions['save_insert'] = [
-        'save_insert' => [
-          '#type' => 'submit',
-          '#value' => $this->t('Save and insert'),
-          '#ajax' => [
-            'callback' => '::updateWidget',
-            'wrapper' => 'media-library-add-form-wrapper',
-          ],
+        '#type' => 'submit',
+        '#value' => $this->t('Save and insert'),
+        '#ajax' => [
+          'callback' => '::updateWidget',
+          'wrapper' => 'media-library-add-form-wrapper',
         ],
       ];
     }
@@ -763,7 +761,7 @@ abstract class AddFormBase extends FormBase implements BaseFormIdInterface, Trus
     $state = $this->getMediaLibraryState($form_state);
     return $this->openerResolver->get($state)
       ->getSelectionResponse($state, $current_media_ids)
-      ->addCommand(new CloseDialogCommand());
+      ->addCommand(new CloseModalDialogCommand(FALSE, '#modal-media-library'));
   }
 
   /**

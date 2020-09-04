@@ -67,6 +67,7 @@ class TermAccessTest extends OriginalTermAccessTest {
     // control handlers. Asserting the original reasons should flag unexpected
     // changes in Core's implementation.
     // @see \Drupal\taxonomy_access_fix\TermAccessFixTermControlHandler::checkAccess()
+    // @see \Drupal\taxonomy_access_fix\VocabularyAccessControlHandler::checkAccess()
     $account_access_content = $this->drupalCreateUser(['access content']);
     $this->drupalLogin($account_access_content);
     $this->drupalGet('taxonomy/term/' . $unpublished_terms[0]->id());
@@ -83,7 +84,6 @@ class TermAccessTest extends OriginalTermAccessTest {
     $this->installModules(['taxonomy_access_fix']);
 
     $account_administer = $this->drupalCreateUser(['administer taxonomy']);
-    $account_add_first_vocabulary = $this->drupalCreateUser(['add terms in ' . $this->vocabularies[0]->id()]);
     $account_create_first_vocabulary = $this->drupalCreateUser(['create terms in ' . $this->vocabularies[0]->id()]);
     $account_update_first_vocabulary = $this->drupalCreateUser(['edit terms in ' . $this->vocabularies[0]->id()]);
     $account_delete_first_vocabulary = $this->drupalCreateUser(['delete terms in ' . $this->vocabularies[0]->id()]);
@@ -155,48 +155,12 @@ class TermAccessTest extends OriginalTermAccessTest {
 
       $this->drupalGet('admin/structure/taxonomy/manage/' . $vocabulary->id() . '/add');
       if ($delta === 0) {
-        $assert_session->statusCodeEquals(403);
-        $this->assertTermAccess($published_terms[$delta], 'create', FALSE, "The 'add terms in {$this->vocabularies[$delta]->id()}' permission is required.");
-      }
-      else {
-        $assert_session->statusCodeEquals(403);
-        $this->assertTermAccess($published_terms[$delta], 'create', FALSE, "The 'add terms in {$this->vocabularies[$delta]->id()}' permission is required.");
-      }
-
-      $this->drupalGet('taxonomy/term/' . $published_terms[$delta]->id() . '/edit');
-      $assert_session->statusCodeEquals(403);
-      $this->assertTermAccess($published_terms[$delta], 'update', FALSE, "The following permissions are required: 'edit terms in {$this->vocabularies[$delta]->id()}' OR 'administer taxonomy'.");
-      $this->drupalGet('taxonomy/term/' . $unpublished_terms[$delta]->id() . '/edit');
-      $assert_session->statusCodeEquals(403);
-      $this->assertTermAccess($unpublished_terms[$delta], 'update', FALSE, "The following permissions are required: 'edit terms in {$this->vocabularies[$delta]->id()}' OR 'administer taxonomy'.");
-
-      $this->drupalGet('taxonomy/term/' . $published_terms[$delta]->id() . '/delete');
-      $assert_session->statusCodeEquals(403);
-      $this->assertTermAccess($published_terms[$delta], 'delete', FALSE, "The following permissions are required: 'delete terms in {$this->vocabularies[$delta]->id()}' OR 'administer taxonomy'.");
-      $this->drupalGet('taxonomy/term/' . $unpublished_terms[$delta]->id() . '/delete');
-      $assert_session->statusCodeEquals(403);
-      $this->assertTermAccess($unpublished_terms[$delta], 'delete', FALSE, "The following permissions are required: 'delete terms in {$this->vocabularies[$delta]->id()}' OR 'administer taxonomy'.");
-    }
-
-    // Test the per vocabulary 'add terms in' permission.
-    $this->drupalLogin($account_add_first_vocabulary);
-
-    foreach ($this->vocabularies as $delta => $vocabulary) {
-      $this->drupalGet('taxonomy/term/' . $published_terms[$delta]->id());
-      $assert_session->statusCodeEquals(403);
-      $this->assertTermAccess($published_terms[$delta], 'view', FALSE, "The 'view terms in {$this->vocabularies[$delta]->id()}' OR 'administer taxonomy' permission is required and the taxonomy term must be published.");
-      $this->drupalGet('taxonomy/term/' . $unpublished_terms[$delta]->id());
-      $assert_session->statusCodeEquals(403);
-      $this->assertTermAccess($unpublished_terms[$delta], 'view', FALSE, "The 'view terms in {$this->vocabularies[$delta]->id()}' OR 'administer taxonomy' permission is required and the taxonomy term must be published.");
-
-      $this->drupalGet('admin/structure/taxonomy/manage/' . $vocabulary->id() . '/add');
-      if ($delta === 0) {
         $assert_session->statusCodeEquals(200);
         $this->assertTermAccess($published_terms[$delta], 'create', TRUE);
       }
       else {
         $assert_session->statusCodeEquals(403);
-        $this->assertTermAccess($published_terms[$delta], 'create', FALSE, "The 'add terms in {$this->vocabularies[$delta]->id()}' permission is required.");
+        $this->assertTermAccess($published_terms[$delta], 'create', FALSE, "The following permissions are required: 'create terms in {$this->vocabularies[$delta]->id()}' OR 'administer taxonomy'.");
       }
 
       $this->drupalGet('taxonomy/term/' . $published_terms[$delta]->id() . '/edit');
@@ -227,7 +191,7 @@ class TermAccessTest extends OriginalTermAccessTest {
 
       $this->drupalGet('admin/structure/taxonomy/manage/' . $vocabulary->id() . '/add');
       $assert_session->statusCodeEquals(403);
-      $this->assertTermAccess($published_terms[$delta], 'create', FALSE, "The 'add terms in {$this->vocabularies[$delta]->id()}' permission is required.");
+      $this->assertTermAccess($published_terms[$delta], 'create', FALSE, "The following permissions are required: 'create terms in {$this->vocabularies[$delta]->id()}' OR 'administer taxonomy'.");
 
       $this->drupalGet('taxonomy/term/' . $published_terms[$delta]->id() . '/edit');
       if ($delta === 0) {
@@ -271,7 +235,7 @@ class TermAccessTest extends OriginalTermAccessTest {
 
       $this->drupalGet('admin/structure/taxonomy/manage/' . $vocabulary->id() . '/add');
       $assert_session->statusCodeEquals(403);
-      $this->assertTermAccess($published_terms[$delta], 'create', FALSE, "The 'add terms in {$this->vocabularies[$delta]->id()}' permission is required.");
+      $this->assertTermAccess($published_terms[$delta], 'create', FALSE, "The following permissions are required: 'create terms in {$this->vocabularies[$delta]->id()}' OR 'administer taxonomy'.");
 
       $this->drupalGet('taxonomy/term/' . $published_terms[$delta]->id() . '/edit');
       $assert_session->statusCodeEquals(403);
@@ -319,7 +283,7 @@ class TermAccessTest extends OriginalTermAccessTest {
 
       $this->drupalGet('admin/structure/taxonomy/manage/' . $vocabulary->id() . '/add');
       $assert_session->statusCodeEquals(403);
-      $this->assertTermAccess($published_terms[$delta], 'create', FALSE, "The 'add terms in {$this->vocabularies[$delta]->id()}' permission is required.");
+      $this->assertTermAccess($published_terms[$delta], 'create', FALSE, "The following permissions are required: 'create terms in {$this->vocabularies[$delta]->id()}' OR 'administer taxonomy'.");
 
       $this->drupalGet('taxonomy/term/' . $published_terms[$delta]->id() . '/edit');
       $assert_session->statusCodeEquals(403);

@@ -1,8 +1,0 @@
-expand_collapse_formatter:
-  version: 1.x
-  js:
-    js/expand_collapse_formatter.js: {}
-  dependencies:
-    - core/jquery
-    - core/drupal
-    - core/jquery.once

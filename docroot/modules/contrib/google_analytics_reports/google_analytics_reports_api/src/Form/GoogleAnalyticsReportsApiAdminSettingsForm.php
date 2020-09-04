@@ -2,16 +2,69 @@
 
 namespace Drupal\google_analytics_reports_api\Form;
 
+use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Link;
 use Drupal\Core\Url;
+use Drupal\Core\Datetime\DateFormatterInterface;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\google_analytics_reports_api\GoogleAnalyticsReportsApiFeed;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 /**
  * Represents the admin settings form for google_analytics_reports_api.
  */
 class GoogleAnalyticsReportsApiAdminSettingsForm extends FormBase {
+
+  /**
+   * The config factory used by the config entity query.
+   *
+   * @var \Drupal\Core\Config\ConfigFactoryInterface
+   */
+  protected $configFactory;
+
+  /**
+   * The date formatter service.
+   *
+   * @var \Drupal\Core\Datetime\DateFormatterInterface
+   */
+  protected $dateFormatter;
+
+  /**
+   * The RequestStack service.
+   *
+   * @var Symfony\Component\HttpFoundation\RequestStack
+   */
+  protected $requestStack;
+
+  /**
+   * Constructs a new Google Analytics Reports Api Admin Settings Form.
+   *
+   * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
+   *   The configuration factory.
+   * @param \Drupal\Core\Datetime\DateFormatterInterface $date_formatter
+   *   The Date formatter.
+   * @param Symfony\Component\HttpFoundation\RequestStack $request_stack
+   *   The request service.
+   */
+  public function __construct(ConfigFactoryInterface $config_factory, DateFormatterInterface $date_formatter, RequestStack $request_stack) {
+    $this->configFactory = $config_factory;
+    $this->dateFormatter = $date_formatter;
+    $this->requestStack = $request_stack;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container) {
+    return new static(
+      $container->get('config.factory'),
+      $container->get('date.formatter'),
+      $container->get('request_stack')
+    );
+  }
 
   /**
    * {@inheritdoc}
@@ -31,32 +84,47 @@ class GoogleAnalyticsReportsApiAdminSettingsForm extends FormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
+    // TODO move to a separate controller/url? Problematic could be that
+    // users have set this url as the allowed redirect url in google console.
+    // We could use a event listener?
+    $code = $this->getRequest()->query->get('code');
+    if ($code) {
+      google_analytics_reports_api_authenticate($code);
+
+      $redirect_uri = Url::fromRoute('google_analytics_reports_api.settings')
+        ->setAbsolute()
+        ->toString();
+      $redirect = new RedirectResponse($redirect_uri);
+      $redirect->send();
+      exit;
+    }
+
     $account = google_analytics_reports_api_gafeed();
     $config = $this->config('google_analytics_reports_api.settings');
 
     // There are no profiles, and we should just leave it at setup.
-    if (!$account) {
+    if (!$account || !$account->isAuthenticated()) {
       $dev_console_url = Url::fromUri('https://console.developers.google.com');
       $dev_console_link = Link::fromTextAndUrl($this->t('Google Developers Console'), $dev_console_url)->toRenderable();
       $dev_console_link['#attributes']['target'] = '_blank';
 
-      $current_path = \Drupal::service('path.current')->getPath();
-      $current_path_url = Url::fromUri('base:/' . $current_path, ['absolute' => TRUE]);
+      $current_path_uri = $this->requestStack->getCurrentRequest()->getUri();
+      $current_path_url = Url::fromUri($current_path_uri, ['absolute' => TRUE]);
 
       $setup_help = $this->t('To access data from Google Analytics you have to create a new project in Google Developers Console.');
       $setup_help .= '<ol>';
-      $setup_help .= '<li>' . $this->t('Open %google_developers_console.', ['%google_developers_console' => render($dev_console_link)]) . '</li>';
-      $setup_help .= '<li>' . $this->t('Along the toolbar click the pull down arrow and the press <strong>Create a Project</strong> button, enter project name and press <strong>Create</strong>.') . '</li>';
-      $setup_help .= '<li>' . $this->t('Click <strong>Enable and manage APIs</strong>.') . '</li>';
-      $setup_help .= '<li>' . $this->t('In the search box type <strong>Analytics</strong> and then press <strong>Analytics API</strong>, this opens the API page, press <strong>Enable</strong>.') . '</li>';
-      $setup_help .= '<li>' . $this->t('Click on <strong>Go to Credentials</strong>') . '</li>';
-      $setup_help .= '<li>' . $this->t('Under <strong>Where will you be calling the API from?</strong> select <strong>Web Browser Javascript</strong> and then select <strong>User Data</strong>') . '</li>';
-      $setup_help .= '<li>' . $this->t('Hit <strong>What credentials do I need</strong>, edit the name if necessary.') . '</li>';
-      $setup_help .= '<li>' . $this->t('Leave empty <strong>Authorized JavaScript origins</strong>, fill in <strong>Authorized redirect URIs</strong> with <code>@url</code> and press <strong>Create Client ID</strong> button.', ['@url' => $current_path_url->toString()]) . '</li>';
-      $setup_help .= '<li>' . $this->t('Type a Product name to show to users and hit <strong>Continue</strong> and then <strong>Done</strong>') . '</li>';
-      $setup_help .= '<li>' . $this->t('Click on the name of your new client ID to be shown both the <strong>Client ID</strong> and <strong>Client Secret</strong>.') . '</li>';
-      $setup_help .= '<li>' . $this->t('Copy <strong>Client ID</strong> and <strong>Client secret</strong> from opened page to the form below.') . '</li>';
-      $setup_help .= '<li>' . $this->t('Press <strong>Start setup and authorize account</strong> in the form below and allow the project access to Google Analytics data.') . '</li>';
+      $setup_help .= ' <li>' . $this->t('Open %google_developers_console.', ['%google_developers_console' => render($dev_console_link)]) . '</li>';
+      $setup_help .= ' <li>' . $this->t('Along the toolbar click the pull down arrow and the press <strong>Create a Project</strong> button, enter project name and press <strong>Create</strong>.') . '</li>';
+      $setup_help .= ' <li>' . $this->t('Click <strong>Enable and manage APIs</strong>.') . '</li>';
+      $setup_help .= ' <li>' . $this->t('In the search box type <strong>Analytics</strong> and then press <strong>Analytics API</strong>, this opens the API page, press <strong>Enable</strong>.') . '</li>';
+      $setup_help .= ' <li>' . $this->t('Click on <strong>Go to Credentials</strong>') . '</li>';
+      $setup_help .= ' <li>' . $this->t('Under <strong>Where will you be calling the API from?</strong> select <strong>Web Browser Javascript</strong> and then select <strong>User Data</strong>') . '</li>';
+      $setup_help .= ' <li>' . $this->t('Hit <strong>What credentials do I need</strong>, edit the name if necessary.') . '</li>';
+      $setup_help .= ' <li>' . $this->t('Leave empty <strong>Authorized JavaScript origins</strong>, fill in <strong>Authorized redirect URIs</strong> with <code>@url</code> and press <strong>Create Client ID</strong> button.', ['@url' => $current_path_url->toString()]) . '</li>';
+      $setup_help .= ' <li>' . $this->t('Type a Product name to show to users and hit <strong>Continue</strong> and then <strong>Done</strong>') . '</li>';
+      $setup_help .= ' <li>' . $this->t('Click on the name of your new client ID to be shown both the <strong>Client ID</strong> and <strong>Client Secret</strong>.') . '</li>';
+      $setup_help .= ' <li>' . $this->t('Copy <strong>Client ID</strong> and <strong>Client secret</strong> from opened page to the form below.') . '</li>';
+      $setup_help .= ' <li>' . $this->t('Press <strong>Start setup and authorize account</strong> in the form below and allow the project access to Google Analytics data.') . '</li>';
       $setup_help .= '</ol>';
 
       $form['setup'] = [
@@ -123,10 +191,9 @@ class GoogleAnalyticsReportsApiAdminSettingsForm extends FormBase {
         $times[] = $weeks * 60 * 60 * 24 * 7;
       }
 
-      $date_formatter = \Drupal::service('date.formatter');
       $options = array_map([
-        $date_formatter,
-        'formatInterval'
+        $this->dateFormatter,
+        'formatInterval',
       ], array_combine($times, $times));
 
       $form['settings']['cache_length'] = [
@@ -149,7 +216,7 @@ class GoogleAnalyticsReportsApiAdminSettingsForm extends FormBase {
       $form['revoke'] = [
         '#type' => 'details',
         '#title' => $this->t('Revoke access and logout'),
-        '#description' => t('Revoke your access token from Google Analytics. This action will log you out of your Google Analytics account and stop all reports from displaying on your site.'),
+        '#description' => $this->t('Revoke your access token from Google Analytics. This action will log you out of your Google Analytics account and stop all reports from displaying on your site.'),
       ];
       $form['revoke']['revoke_submit'] = [
         '#type' => 'submit',
@@ -171,29 +238,31 @@ class GoogleAnalyticsReportsApiAdminSettingsForm extends FormBase {
    * Save Google Analytics Reports API admin setup.
    */
   public function adminSubmitSetup(array &$form, FormStateInterface $form_state) {
-    $redirect_uri = GoogleAnalyticsReportsApiFeed::currentUrl();
-
-    $config = \Drupal::configFactory()->getEditable('google_analytics_reports_api.settings');
+    $config = $this->configFactory->getEditable('google_analytics_reports_api.settings');
     $config
       ->set('client_id', $form_state->getValue('client_id'))
       ->set('client_secret', $form_state->getValue('client_secret'))
-      ->set('redirect_uri', $redirect_uri)
       ->save();
 
+    $redirect_uri = Url::fromRoute('google_analytics_reports_api.settings')
+      ->setAbsolute()
+      ->toString();
+
     $google_analytics_reports_api_feed = new GoogleAnalyticsReportsApiFeed();
-    $google_analytics_reports_api_feed->beginAuthentication($form_state->getValue('client_id'), $redirect_uri);
+    $response = $google_analytics_reports_api_feed->beginAuthentication($form_state->getValue('client_id'), $redirect_uri);
+    $form_state->setResponse($response);
   }
 
   /**
    * Save Google Analytics Reports API settings.
    */
   public function adminSubmitSettings(array &$form, FormStateInterface $form_state) {
-    $config = \Drupal::configFactory()->getEditable('google_analytics_reports_api.settings');
+    $config = $this->configFactory->getEditable('google_analytics_reports_api.settings');
     $config
       ->set('profile_id', $form_state->getValue('profile_id'))
       ->set('cache_length', $form_state->getValue('cache_length'))
       ->save();
-    drupal_set_message(t('Settings have been saved successfully.'));
+    $this->messenger()->addMessage($this->t('Settings have been saved successfully.'));
   }
 
   /**
@@ -201,7 +270,7 @@ class GoogleAnalyticsReportsApiAdminSettingsForm extends FormBase {
    */
   public function adminSubmitRevoke(array &$form, FormStateInterface $form_state) {
     google_analytics_reports_api_revoke();
-    drupal_set_message(t('Access token has been successfully revoked.'));
+    $this->messenger()->addMessage($this->t('Access token has been successfully revoked.'));
   }
 
 }

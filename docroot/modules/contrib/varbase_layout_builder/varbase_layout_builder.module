@@ -30,9 +30,25 @@ function varbase_layout_builder_form_alter(&$form, FormStateInterface $form_stat
     // Attache the Varbase Layout Builder Colors libraray.
     $form['#attached']['library'][] = 'varbase_layout_builder/vlb-colors';
 
-    // Hide revision information fields.
+    // No revision information or revision log message.
     if (isset($form['revision_information'])) {
-      $form['revision_information']['#access'] = FALSE;
+      $form['revision_information']['#disabled'] = TRUE;
+      $form['revision_information']['#attributes']['style'][] = 'display:none;';
+      $form['revision_information']['#prefix'] = '<div style="display:none;">';
+      $form['revision_information']['#suffix'] = '</div>';
+    }
+
+    // Hide revision.
+    if (isset($form['revision'])) {
+      $form['revision']['#default_value'] = TRUE;
+      $form['revision']['#disabled'] = TRUE;
+      $form['revision']['#attributes']['style'][] = 'display:none;';
+    }
+
+    // Hide revision log message.
+    if (isset($form['revision_log_message'])) {
+      $form['revision_log_message']['#disabled'] = TRUE;
+      $form['revision_log_message']['#attributes']['style'][] = 'display:none;';
     }
 
     // Hide rabbit hole fields.
@@ -292,7 +308,7 @@ function varbase_layout_builder_form_layout_builder_configure_section_alter(&$fo
           }
           elseif ($style_option['field_type'] == 'media_library') {
 
-            $default_value = 0;
+            $default_value = NULL;
             if (isset($vlb_section_config[$style_option_id])
               && $vlb_section_config[$style_option_id] != 0) {
 
@@ -305,6 +321,7 @@ function varbase_layout_builder_form_layout_builder_configure_section_alter(&$fo
               '#description' => (isset($style_option['description']) ? $style_option['description'] : NULL),
               '#allowed_bundles' => $style_option['allowed_bundles'],
               '#default_value' => $default_value,
+              '#cardinality' => (isset($style_option['cardinality']) ? $style_option['cardinality'] : 1),
               '#prefix' => '<hr />',
             ];
 

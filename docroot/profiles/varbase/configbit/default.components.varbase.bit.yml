@@ -20,8 +20,10 @@ config_bit:
         - varbase_security
         - varbase_seo
         - varbase_webform
+        - varbase_workflow
         - varbase_page
-        - varbase_landing
+        - varbase_layout_builder
+        - vlplb
         - varbase_total_control
         - varbase_default_content
         - varbase_tour

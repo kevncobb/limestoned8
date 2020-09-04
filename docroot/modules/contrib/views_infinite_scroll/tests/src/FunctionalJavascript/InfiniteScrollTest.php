@@ -64,15 +64,6 @@ class InfiniteScrollTest extends WebDriverTestBase {
     $this->assertSession()->waitForElement('css', '.node--type-page:nth-child(4)');
     $this->assertTotalNodes(6);
 
-    // Test loading a page past the first
-    $this->createView('initially-load-all', [
-      'button_text' => 'Load More',
-      'automatically_load_content' => FALSE,
-      'initially_load_all_pages' => TRUE,
-    ]);
-    $this->drupalGet('initially-load-all', ['query' => ['page' => 1]]);
-    $this->assertTotalNodes(6);
-
     // Test the view automatically loading.
     $this->createView('automatic-load', [
       'button_text' => 'Load More',
@@ -137,7 +128,7 @@ class InfiniteScrollTest extends WebDriverTestBase {
    * @param int $items_per_page
    *   The number of items per page to display.
    */
-  protected function createView($path, array $settings, $items_per_page = 3) {
+  protected function createView($path, $settings, $items_per_page = 3) {
     View::create([
       'label' => 'VIS Test',
       'id' => $this->randomMachineName(),

@@ -9,14 +9,25 @@ install:
   - user
   - node
   - menu_ui
-  - varbase_seo
+  - text
+  - options
+  - link
+  - ckeditor
+  - block
   - field
   - field_group
   - length_indicator
   - advanced_text_formatter
   - maxlength
+  - viewsreference
+  - entity_reference_revisions
+  - varbase_seo
+  - varbase_rich_text_block
+  - varbase_html_code_block
+  - varbase_media_block
+  - varbase_gallery_block
 
-# Information added by Drupal.org packaging script on 2020-06-02
-version: '8.x-1.0-alpha12'
+# Information added by Drupal.org packaging script on 2020-08-17
+version: '8.x-1.0-alpha15'
 project: 'varbase_layout_builder'
-datestamp: 1591112417
+datestamp: 1597680917

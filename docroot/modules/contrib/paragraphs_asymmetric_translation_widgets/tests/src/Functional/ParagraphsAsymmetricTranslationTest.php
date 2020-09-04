@@ -2,8 +2,8 @@
 
 namespace Drupal\Tests\paragraphs_asymmetric_translation_widgets\Functional;
 
-use Drupal\field_ui\Tests\FieldUiTestTrait;
-use Drupal\paragraphs\Tests\Classic\ParagraphsCoreVersionUiTestTrait;
+use Drupal\Tests\field_ui\Traits\FieldUiTestTrait;
+use Drupal\Tests\paragraphs\Traits\ParagraphsCoreVersionUiTestTrait;
 use Drupal\Tests\BrowserTestBase;
 use Drupal\Tests\paragraphs\FunctionalJavascript\ParagraphsTestBaseTrait;
 
