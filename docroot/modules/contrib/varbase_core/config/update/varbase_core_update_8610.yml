@@ -1,3 +1,3 @@
-__global_conditions:
-  expected_modules:
+__global_actions:
+  install_modules:
     - varbase_media
