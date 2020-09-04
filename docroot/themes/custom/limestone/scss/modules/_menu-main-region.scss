@@ -6,15 +6,15 @@
   @include breakpoint(large) {
     font-size: 1.25em !important;
   }
-
+  .is-dropdown-submenu .is-dropdown-submenu-parent > a::after {
+    right: 19px;
+  }
   ul.grid-container.align-center {
     margin: 0 auto;
   }
-
   ul.main-menu > li > a {
     padding: 1rem 1rem;
   }
-
   .lc-dropdown.menu > li.is-dropdown-submenu-parent > a {
     &:focus, &:hover {
       color: $success-color;

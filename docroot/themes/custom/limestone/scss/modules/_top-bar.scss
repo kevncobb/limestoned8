@@ -12,6 +12,7 @@
   }
   a {
     color: $white;
+    font-size: 1rem;
     &:focus, &:hover {
       color: $limestone-yellow;
       &::before {
@@ -35,6 +36,11 @@
 .top-bar-menu {
   [class^="menu-icon-"]::before, [class*=" menu-icon-"]::before {
       position: absolute;
+      font-size: 19px;
+      top: 9px;
+      left: -26px;
+      width: 22px;
+      height: 25px;
     }
 }
 

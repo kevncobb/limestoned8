@@ -39,6 +39,7 @@
       $(context).find('.sidebar nav h2 span:has(a)').addClass( "has-link" );
       $(context).find('.thirds-right nav h2 span:has(a)').addClass( "has-link" );
       $(context).find('.large-4 nav h2 span:has(a)').addClass( "has-link" );
+      $(context).find('.fibonacci-aside nav h2 span:has(a)').addClass( "has-link" );
     }
   };
   Drupal.behaviors.customCKEditorConfig = {
