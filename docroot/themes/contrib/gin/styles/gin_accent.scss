@@ -1,0 +1,74 @@
+@import "_vars";
+
+$ginPrimary: #003cc5;
+
+:root {
+  // Accent color: use Claro defaults for Gin
+  --colorGinPrimary: #{$ginPrimary};
+  --colorGinPrimaryHover: #0036b1;
+  --colorGinPrimaryActive: #00339a;
+  --colorGinPrimaryLight: #{rgba($ginPrimary, .15)};
+  --colorGinPrimaryLightHover: #{rgba($ginPrimary, .25)};
+  --colorGinPrimaryLightActive: #{rgba($ginPrimary, .35)};
+  --colorGinItemHover: #{$colorAppBackground};
+  --colorGinButtonShadow: rgba(0, 0, 0, .2);
+  --colorGinButtonText: #fff;
+  --colorGinFocus: #e0714d;
+
+  --colorGinDisabled: #bbb;
+  --colorGinWarning: #e0ac00;
+  --colorGinDanger: #c11f1f;
+  --colorGinGreen: #26a769;
+
+  --colorGinAppBackground: #{$colorAppBackground};
+  --colorGinLayerBackground: #fff;
+  --colorGinLayer2Background: #edeff5;
+  --colorGinLayer3Background: #fff;
+  --colorGinBorder: #d4d4d8;
+  --colorGinLayer2Border: #d4d4d8;
+
+  --colorGinTitle:#222330;
+  --colorGinText: #222330;
+  --colorGinTextLight: #545560;
+
+  --colorGinTableHeader: #dfe0e4;
+  --colorGinSwitch: var(--colorGinGreen);
+
+  --colorGinIcons: #888;
+}
+
+.gin--dark-mode {
+  $ginPrimary: #90aeef; //#799eef; //#6b95ff; //#f99271;
+  --colorGinPrimary: #{$ginPrimary};
+  --colorGinPrimaryHover: #{lighten(#799eef, 5)};
+  --colorGinPrimaryActive: #{lighten(#799eef, 10)};
+  --colorGinPrimaryLight: #{rgba($ginPrimary, .20)};
+  --colorGinPrimaryLightHover: #{rgba($ginPrimary, .30)};
+  --colorGinPrimaryLightActive: #{rgba($ginPrimary, .40)};
+  --colorGinItemHover: #{rgba($ginPrimary, .10)};
+  --colorGinButtonShadow: #111;
+  --colorGinButtonText: #111;
+  --colorGinFocus: #e0714d;
+
+  --colorGinDisabled: #999;
+  --colorGinWarning: #dec15f;
+  --colorGinDanger: #ce6060;
+  --colorGinGreen: #48ab7b;
+
+  --colorGinAppBackground: #{$colorDarkAppBackground};
+  --colorGinLayerBackground: #2A2A2D;
+  --colorGinLayer2Background: #3B3B3F;
+  --colorGinLayer3Background: #47474c;
+  --colorGinBorder: #43454a;
+  --colorGinLayer2Border: #76777B;
+
+  --colorGinTitle: #fff;
+  --colorGinText: #ccc;
+  --colorGinTextLight: #9e9fa0;
+
+  // --colorGinSelected: #{lighten(#3B3B3F, 5)};
+  --colorGinTableHeader: var(--colorGinAppBackground);
+  --colorGinSwitch: var(--colorGinPrimary);
+
+  --colorGinIcons: #888;
+}
