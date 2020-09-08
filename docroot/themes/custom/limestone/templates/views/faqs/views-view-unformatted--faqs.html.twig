@@ -1,0 +1,50 @@
+{#
+/**
+ * @file
+ * Theme override to display a view of unformatted rows.
+ *
+ * Available variables:
+ * - title: The title of this group of rows. May be empty.
+ * - rows: A list of the view's row items.
+ *   - attributes: The row's HTML attributes.
+ *   - content: The row's content.
+ * - view: The view object.
+ * - default_row_class: A flag indicating whether default classes should be
+ *   used on rows.
+ *
+ * @see template_preprocess_views_view_unformatted()
+ */
+#}
+{{ attach_library('limestone/faqs') }}
+
+<section class='faqs'>
+  <div class='faq-frame'>
+    <menu class='feature-previous' tabindex='0'>
+      <span id='less-photos' class='icon-circleleft less-photos'></span>
+    </menu>
+    <menu class='feature-more' tabindex='0'>
+      <span id='more-photos' class='icon-circleright more-photos'></span>
+    </menu>
+    {% if title %}
+      <h3>{{ title }}</h3>
+    {% endif %}
+    {% for row in rows %}
+      {%
+        set row_classes = [
+        default_row_class ? 'views-row',
+      ]
+      %}
+      <article tabindex='0' {{ row.attributes.addClass(row_classes) }}>
+        {{- row.content -}}
+      </article>
+    {% endfor %}
+    <div class='faq-details' style='display: none;'>
+      <section class='wrap'>
+        <a href='#' class='close'><span class='icon-cross'><span class='esc-to-close'>ESC to close</span><span class='invisible'>Close</span></span></a>
+        <h2>null</h2>
+        <hr class='white'>
+        <div class='answer' tabindex='-1'> </div>
+      </section>
+    </div>
+  </div>
+</section>

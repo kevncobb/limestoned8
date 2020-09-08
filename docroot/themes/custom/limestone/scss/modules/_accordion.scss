@@ -1,0 +1,16 @@
+.accordion-title {
+  text-decoration: none;
+  text-transform: uppercase;
+  margin: 0;
+  border: 1px solid #c7c7c7;
+  background-color: #eaeaea;
+  font-size: 0.9rem;
+}
+:last-child:not(.is-active)>.accordion-title {
+  border: 1px solid #c7c7c7;
+}
+.accordion-content {
+  a.button {
+    text-transform: uppercase;
+  }
+}
