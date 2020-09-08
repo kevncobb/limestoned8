@@ -1,0 +1,14 @@
+name: DraggableViews
+type: module
+description: 'Allows your views to be draggable and gives you the ability to set the order of how they appear.'
+core: 8.x
+dependencies:
+  - drupal:views
+test_dependencies:
+  - draggableviews:draggableviews_demo
+package: Views
+
+# Information added by Drupal.org packaging script on 2019-12-06
+version: '8.x-1.2+8-dev'
+project: 'draggableviews'
+datestamp: 1575665287
