@@ -156,7 +156,12 @@
   };
   Drupal.behaviors.expand_active_menu = {
     attach: function (context, settings) {
-      $(context).find('#side-submenu > li.menu-item--expanded > ul.is-active').attr("aria-hidden","false").show();
+      $(window).bind("load", function() {
+        $(context).find('#side-submenu > li.is-accordion-submenu-parent.menu-item--active-trail')(function() {
+          $( this ).find("button").attr("aria-expanded","true");
+          $( this ).first("ul").show().attr("aria-hidden","false");
+        });
+      });
     }
   };
   Drupal.behaviors.lc_footer = {
