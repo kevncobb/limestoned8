@@ -200,7 +200,7 @@ table {
 }
 a.formstack {
   &::before {
-    content: "\e95f";
+    content: "\e91f";
     font-family: 'icomoon' !important;
     speak: none;
     font-style: normal;
@@ -210,10 +210,11 @@ a.formstack {
     line-height: 1;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    font-size: 22px;
-    font-size: 25px;
-    top: 10px;
-    left: -6px;
+    display: inline-block;
+    font-size: 19px;
+    padding-right: 3px;
+    color: #21B573;
+    text-decoration: none !important;
   }
 }
 a.pdf {

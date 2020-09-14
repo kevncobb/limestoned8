@@ -157,7 +157,7 @@
   Drupal.behaviors.expand_active_menu = {
     attach: function (context, settings) {
       $(window).bind("load", function() {
-        $(context).find('#side-submenu > li.is-accordion-submenu-parent.menu-item--active-trail')(function() {
+        $(context).find('#side-submenu > li.is-accordion-submenu-parent.menu-item--active-trail').each(function() {
           $( this ).find("button").attr("aria-expanded","true");
           $( this ).first("ul").show().attr("aria-hidden","false");
         });
