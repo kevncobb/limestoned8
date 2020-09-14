@@ -198,6 +198,37 @@ table {
     }
   }
 }
+a.formstack {
+  &::before {
+    content: "\e95f";
+    font-family: 'icomoon' !important;
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-size: 22px;
+    font-size: 25px;
+    top: 10px;
+    left: -6px;
+  }
+}
+a.pdf {
+  &::before {
+    content: "";
+    background: url(/themes/custom/limestone/images/icons/icon-pdf.svg) no-repeat;
+    background-size: 18px;
+    width: 19px;
+    height: 21px;
+    display: inline-block;
+    position: relative;
+    top: 3px;
+    margin-right: 3px;
+  }
+}
 
 .file--application-pdf {
   a {
