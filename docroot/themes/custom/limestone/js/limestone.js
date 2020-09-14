@@ -154,6 +154,11 @@
       }
     }
   };
+  Drupal.behaviors.expand_active_menu = {
+    attach: function (context, settings) {
+      $(context).find('#side-submenu > li.menu-item--expanded > ul.is-active').attr("aria-hidden","false").show();
+    }
+  };
   Drupal.behaviors.lc_footer = {
     attach: function (context, settings) {
       if ( $(".lc-footer").length > 0) {

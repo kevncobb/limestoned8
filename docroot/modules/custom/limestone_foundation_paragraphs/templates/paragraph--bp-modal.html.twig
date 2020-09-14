@@ -111,8 +111,8 @@ view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class,
           {% if paragraph_title and paragraph_title_status %}<h2 class="text-center">{{- paragraph_title -}}</h2>{% endif %}
           {{ title_suffix }}
           {# Button trigger modal #}
-        <button type="button" class="large button btn" data-open="{{ paragraph_id_modal }}">
-            {{ content.bp_modal_button_text }} <span class="icon-clone"></span>
+        <button type="button" class="button modal-button" data-open="{{ paragraph_id_modal }}">
+            {{ content.bp_modal_button_text }}
         </button>
       </div>
     </div>
