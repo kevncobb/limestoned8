@@ -159,10 +159,7 @@
       $(window).bind("load", function() {
         $(context).find('#side-submenu > ul.root-level > li.menu-item--active-trail').each(function() {
           $( this ).find("button").attr("aria-expanded","true");
-          $( this ).find("ul.is-accordion-submenu").delay(200).attr({
-            display:"block",
-            "aria-hidden":"false"
-          });
+          $( this ).find("ul.is-accordion-submenu").delay(200).attr("aria-hidden","false").css("display", "block");;
         });
       });
     }
