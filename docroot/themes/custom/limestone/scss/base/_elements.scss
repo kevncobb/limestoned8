@@ -202,16 +202,15 @@ a.halo {
   &::before {
     content: "";
     position: relative;
-    display: block;
-    float: left;
+    display: inline-block;
     width: 36px;
     height: 31px;
     background: url(/themes/custom/limestone/images/lc-sprite.svg) no-repeat 0 35px;
     background-position: -129px -236px;
-    top: -7px;
-    left: -8px;
+    top: 9px;
+    left: -2px;
     background-size: 561px;
-    filter: invert(0.5);
+    filter: invert(0.7);
   }
 }
 a.formstack {
