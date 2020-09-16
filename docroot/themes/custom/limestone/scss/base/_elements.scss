@@ -199,6 +199,8 @@ table {
   }
 }
 a.formstack {
+  border: 2px solid #22b572;
+  color: #22b572;
   &::before {
     content: "\e91f";
     font-family: 'icomoon' !important;
@@ -212,9 +214,19 @@ a.formstack {
     -moz-osx-font-smoothing: grayscale;
     display: inline-block;
     font-size: 19px;
-    padding-right: 3px;
+    padding-right: 6px;
+    position: relative;
+    bottom: -2px;
     color: #21B573;
     text-decoration: none !important;
+  }
+  &:focus, &:hover {
+    border: 2px solid #22b572;
+    background-color: #22b572;
+    color: white;
+    &::before {
+      color: white;
+    }
   }
 }
 a.pdf {
