@@ -24,12 +24,7 @@ function limestone_preprocess_field(&$variables, $hook) {
  * Adds additional classes
  */
 function limestone_preprocess_html(&$variables) {
-if (is_array($vars['attributes'])) {
-    $vars['attributes'] = new Attribute();
-  }
 
-  $vars['html_attributes']->addClass('goes-to-HTML-tag');
-  $vars['attributes']->addClass('no-trans');
 }
 
 /**
