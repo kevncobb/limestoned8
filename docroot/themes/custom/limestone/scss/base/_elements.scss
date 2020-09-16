@@ -201,9 +201,9 @@ table {
 a.formstack {
   border: 2px solid #22b572;
   color: #22b572;
-  font-weight: 700;
+  font-weight: 400;
   text-decoration: none !important;
-  font-size: 1.3rem;
+  font-size: 1.2rem;
   line-height: 1.5rem;
   display: inline-block;
   vertical-align: middle;
@@ -233,6 +233,9 @@ a.formstack {
     color: #21B573;
     text-decoration: none !important;
   }
+  &::after {
+    display: none;
+  }
   &:focus, &:hover {
     border: 2px solid #22b572;
     background-color: #22b572;
@@ -246,9 +249,9 @@ a.pdf {
   &::before {
     content: "";
     background: url(/themes/custom/limestone/images/icons/icon-pdf.svg) no-repeat;
-    background-size: 18px;
+    background-size: 16px;
     width: 19px;
-    height: 21px;
+    height: 18px;
     display: inline-block;
     position: relative;
     top: 3px;
