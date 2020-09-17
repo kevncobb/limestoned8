@@ -65,15 +65,15 @@
     }
   };
   // td:has(> a)
-  Drupal.behaviors.choose_your_interest_focus = {
+  Drupal.behaviors.focus_search_bar_when_opened = {
     attach: function (context, settings) {
-      $(context).find('form#views-exposed-form-degrees-block-4 select').change(function () {
+      $(context).find('button.button.search-button').on('click touchstart', function () {
         //event.stopPropagation();
         //event.preventDefault();
         var focus = function(){
-          $('table.table tbody tr:first-child td a').focus();
+          $('form#search-block-form input.form-search').focus();
         };
-        setTimeout(focus, 2000);
+        setTimeout(focus, 500);
       });
     }
   };
