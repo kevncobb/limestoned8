@@ -77,6 +77,38 @@ p.lc-callout, blockquote.lc-callout {
   }
 }
 
+.bg-blue {
+  p.lc-callout, blockquote.lc-callout {
+    background: none;
+    color: #fff;
+    &::before, &::after {
+      content: "";
+      position: absolute;
+      height: 3px;
+      width: 100%;
+      top: 0;
+      left: 0;
+      background: rgba(220,220,220,0);
+      background: -webkit-gradient(left top,right top,color-stop(0%,rgba(220,220,220,0)),color-stop(14%,rgba(220,220,220,0.5)),color-stop(32%,rgba(220,220,220,0.8)),color-stop(52%,rgba(220,220,220,0.8)),color-stop(71%,rgba(220,220,220,0.8)),color-stop(85%,rgba(220,220,220,0.5)),color-stop(100%,rgba(220,220,220,0)));
+      background: linear-gradient(to right,rgba(220,220,220,0) 0%,rgba(220,220,220,0.5) 14%,rgba(220,220,220,0.8) 32%,rgba(220,220,220,0.8) 52%,rgba(220,220,220,0.8) 71%,rgba(220,220,220,0.5) 85%,rgba(220,220,220,0) 100%);
+      filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#1e4076',endColorstr='#1972d7',GradientType=1);
+    }
+    span.watermark {
+      width: 150px;
+      height: 162px;
+      position: absolute;
+      top: 45%;
+      margin-top: -65px;
+      left: -89px;
+      background-image: url(/themes/custom/limestone/images/lc-sprite.svg);
+      background-size: 1250px;
+      background-position: -7px -1px;
+      opacity: 0.2;
+      z-index: -1;
+    }
+  }
+}
+
 .info-box {
   width: 100%;
   float: left;
