@@ -177,6 +177,7 @@
     }
   }
   &.smaller-title {
+    max-width: 320px;
     .title-on-image { margin: 0; }
     img {
       margin: 0;
