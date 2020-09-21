@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Contains \Drupal\views_slideshow\Plugin\views\style\Masonry.
+ * Contains \Drupal\masonry_views\Plugin\views\style\Masonry.
  *
  * Sponsored by: www.freelance-drupal.com
  */
@@ -58,7 +58,7 @@ class Masonry extends StylePluginBase {
     $default_options = \Drupal::service('masonry.service')
       ->getMasonryDefaultOptions();
 
-    // Set default values for Masonry
+    // Set default values for Masonry.
     foreach ($default_options as $option => $default_value) {
       $options[$option] = [
         'default' => $default_value,
@@ -77,7 +77,7 @@ class Masonry extends StylePluginBase {
   public function buildOptionsForm(&$form, FormStateInterface $form_state) {
     parent::buildOptionsForm($form, $form_state);
 
-    // Add Masonry options to views form
+    // Add Masonry options to views form.
     $form['masonry'] = [
       '#type' => 'details',
       '#title' => $this->t('Masonry'),
@@ -87,13 +87,13 @@ class Masonry extends StylePluginBase {
       $form += \Drupal::service('masonry.service')
         ->buildSettingsForm($this->options);
 
-      // Display each option within the Masonry fieldset
+      // Display each option within the Masonry fieldset.
       foreach (\Drupal::service('masonry.service')
                  ->getMasonryDefaultOptions() as $option => $default_value) {
         $form[$option]['#fieldset'] = 'masonry';
       }
 
-      // Views doesn't use FAPI states, so set dependencies instead
+      // Views doesn't use FAPI states, so set dependencies instead.
       $form['masonry_animated']['#dependency'] = [
         'edit-style-options-masonry-resizable' => [1],
       ];
@@ -102,7 +102,7 @@ class Masonry extends StylePluginBase {
       ];
     }
     else {
-      // Disable Masonry as plugin is not installed
+      // Disable Masonry as plugin is not installed.
       $form['masonry_disabled'] = [
         '#markup' => $this->t('These options have been disabled as the jQuery Masonry plugin is not installed.'),
         '#fieldset' => 'masonry',
