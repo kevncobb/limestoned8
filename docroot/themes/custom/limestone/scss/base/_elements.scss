@@ -434,14 +434,14 @@ a.pdf {
       }
     }
     .js-form-type-textfield {
-      width: calc(100% - 82px);
+      width: calc(100% - 90px);
       display: inline-block;
 
       input.form-text {
         width: 100%;
         padding: 0 0 0 15px;
-        height: 50px;
-        line-height: 50px;
+        height: 56px;
+        line-height: 56px;
         border: none;
         font-size: 17px;
         font-weight: 400;
@@ -454,6 +454,7 @@ a.pdf {
       position: relative;
       top: 6px;
       left: -3px;
+      width: 85px;
     }
     .js-form-submit.button {
       font-size: 1.1rem;

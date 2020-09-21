@@ -31,9 +31,10 @@ footer.site-footer {
     padding-left: 0.2rem;
     color: #fefefe;
     margin-bottom: 10px;
+    position: relative;
     &::before{
       position: absolute;
-      bottom: 4px;
+      bottom: -4px;
       content: "";
       height: 3px;
       width: 7rem;
@@ -55,6 +56,14 @@ footer.site-footer {
     &:hover, &:focus {
       color: $limestone-yellow;
       text-decoration: underline;
+    }
+  }
+  .text-align-right {
+    h2 {
+      &::before {
+        left: auto;
+        right: 2px;
+      }
     }
   }
   ul {

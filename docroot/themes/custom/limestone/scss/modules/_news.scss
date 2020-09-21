@@ -230,7 +230,8 @@ section.block-block-contentfe8537ce-54d8-467c-ba0f-931c4b8e3ced {
 }
 .featured-news {
   background-color: $light-gray;
-  padding: 0.5rem 0 0.5rem 1.5rem;
+  border: thin solid $light-gray;
+  padding: 0 13px 0 5px;
   img, p {
     margin-bottom: 0;
   }
