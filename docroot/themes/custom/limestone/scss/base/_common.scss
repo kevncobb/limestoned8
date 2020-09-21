@@ -218,6 +218,12 @@ p {
 .content {
   @extend .padding-sides-md;
 }
+.columns-height-auto {
+  // to get around the data-equalizer-watch on the column paragraphs we add this style to override the height
+  .large-6, .large-8, .large-4 {
+    height: auto !important;
+  }
+}
 .light-text {
   color: white;
   h1, h2, h3, h4, h5, h6 {
