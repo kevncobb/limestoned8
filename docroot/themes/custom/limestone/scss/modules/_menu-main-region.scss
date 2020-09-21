@@ -203,10 +203,11 @@
           top: 100%;
           left: 0;
           padding-top: 1rem;
-          border-top: none;
+          border-top: thin solid #d2d2d2;
+          border-bottom: thin solid #d2d2d2;
           font-size: 17px;
           line-height: 20px;
-          background-color: #efefef;
+          background-color: #fff;
           aside {
             font-family: $body-font-family;
             font-size: 14px;

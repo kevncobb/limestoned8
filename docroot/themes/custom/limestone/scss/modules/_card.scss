@@ -176,6 +176,15 @@
       text-decoration: underline;
     }
   }
+  &.smaller-title {
+    margin: 0;
+    img {
+      margin: 0;
+    }
+    .node-title {
+      font-size: 1.4rem;
+    }
+  }
   &.overlay {
     img {
       position: relative;
