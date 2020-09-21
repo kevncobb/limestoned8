@@ -177,7 +177,7 @@
     }
   }
   &.smaller-title {
-    max-width: 320px;
+    max-width: 240px;
     .title-on-image { margin: 0; }
     img {
       margin: 0;
@@ -211,6 +211,7 @@
     transform: translate(-50%,-50%);
     width: 85%;
     text-align: center;
+    z-index: 1;
     a {
       text-decoration: none;
       color: white;
