@@ -187,7 +187,7 @@
   div.cell-answer {
     display: none;
   }
-  blockquote.faq-question {
+  button.faq-question {
     background: transparent;
     color: #FFF;
     text-shadow: black 2px 1px 2px;
@@ -214,7 +214,7 @@
   bottom: 0;
 }
 
-.faq-cell:hover blockquote {
+.faq-cell:hover button {
   color: #FFF;
 }
 
@@ -222,7 +222,7 @@
   height: 351px;
 }
 
-.cell-full blockquote {
+.cell-full button {
   height: 266px;
 }
 
@@ -231,7 +231,7 @@
   height: 175px;
 }
 
-.cell-half blockquote {
+.cell-half button {
   height: 90px;
 }
 
@@ -240,7 +240,7 @@
   height: 87px;
 }
 
-.cell-quarter blockquote {
+.cell-quarter button {
   height: 20px;
 }
 

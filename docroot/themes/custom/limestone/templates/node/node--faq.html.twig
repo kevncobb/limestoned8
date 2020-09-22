@@ -72,10 +72,9 @@
   (render_var(content.field_background_color.0))
 ]
 %}
-<article tabindex="0" {{ attributes.addClass(cell_classes) }}<span>See the answer</span>
-  <blockquote class="faq-question">
-    {{ label }}
-  </blockquote>
+<article tabindex="0" {{ attributes.addClass(cell_classes) }}">
+<span>See the answer</span>
+  <button class="button faq-question" data-open="faqNumber{{ node.id }}">{{ label }}</button>
   <div tabindex="0" class="cell-answer">
     <div class="reveal" id="faqNumber{{ node.id }}" data-reveal>
       {{ content.body }}
