@@ -69,7 +69,10 @@
   div.cell-answer {
     display: none;
   }
-  h6.faq-question {
+  button {
+    height: 100%;
+  }
+  button > h6 {
     width: 100%;
     color: #FFF;
     text-shadow: black 2px 1px 2px;
