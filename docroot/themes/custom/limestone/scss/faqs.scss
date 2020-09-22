@@ -24,140 +24,26 @@
 }
 
 .faqs {
-  min-height: 353px;
+  //min-height: 353px;
   height: 100%;
-  float: left;
+  //float: left;
   margin-top: 80px;
   z-index: 10;
   position: relative;
   background-color: #fff;
   .faq-frame {
     width: 100%;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
   }
-  .feature-previous, .feature-more {
-    display: none;
-  }
-  @media screen and (min-width: 1450px) {
-    .feature-more {
-      left: auto;
-      right: 0%;
-
-      span {
-        background: $limestone-yellow;
-        color: $limestone-blue;
-        cursor: pointer;
-        display: block;
-        font-size: 30px;
-        letter-spacing: 0.01em;
-        padding: 15px;
-        text-align: center;
-        text-transform: uppercase;
-        width: 45px;
-      }
-
-      span:hover {
-        background: #fff;
-        text-decoration: none;
-      }
-    }
-    .feature-more span:before, .feature-previous span:before {
-      left: -6px;
-      position: relative;
-    }
-    .feature-previous {
-      span {
-        background: $limestone-yellow;
-        color: $limestone-blue;
-        cursor: pointer;
-        display: block;
-        font-size: 30px;
-        letter-spacing: 0.01em;
-        padding: 15px;
-        text-align: center;
-        text-transform: uppercase;
-        width: 45px;
-      }
-
-      span:before {
-        left: -6px;
-      }
-
-    }
-    .feature-previous, .feature-more {
-      position: absolute;
-      left: 0;
-      padding: 0;
-      top: -60px;
-      width: 45px;
-      z-index: 112;
-
-      &:focus, &:hover {
-        width: 120px;
-
-        span {
-          width: 120px;
-          background: #fff !important;
-          text-decoration: none;
-          transition: all 200ms;
-        }
-      }
-    }
-    .feature-more {
-      left: auto;
-      right: 0%;
-    }
-  }
-  .faq-details {
-    h2 {
-      color: #FFF;
-      font-size: 29px;
-      font-style: normal;
-      line-height: 35px;
-      margin: 0;
-      padding: 10px 5px 12px 5px;
-      text-transform: none;
-      overflow: visible;
-      text-align: left;
-    }
-    div {
-      overflow: auto;
-    }
-    [class^="icon-"], [class*=" icon-"] {
-      position: relative;
-    }
-    .esc-to-close {
-      position: absolute;
-      font-size: 18px;
-      top: 4px;
-      left: 35px;
-      width: 120px;
-    }
-  }
-}
-
-.fl-left.faq {
-  padding-right: 0;
-  padding-bottom: 0;
-}
-
-.faqs .cell-answer {
-  display: none;
-}
-
-.faq-column {
-  float: left;
-  height: 352px;
-  padding: 1px 0 0 0;
-  width: 385px;
 }
 
 .faq-cell {
   cursor: pointer;
   margin: 0 0 1px 0;
-  overflow: hidden;
-  position: relative;
-  width: 100%;
-  float: left;
+  //overflow: hidden;
+  //position: relative;
+  //width: 100%;
+  //float: left;
   -webkit-box-shadow: inset 0px 0px 30px 0px rgba(0, 0, 0, 0.2);
   -moz-box-shadow: inset 0px 0px 30px 0px rgba(0, 0, 0, 0.2);
   -webkit-box-shadow: inset 0px 0px 30px 0px rgba(0, 0, 0, 0.2);
@@ -197,6 +83,7 @@
     line-height: 22px;
     margin: 0;
     padding: 1.3rem 0.9rem;
+    height: 100px;
   }
   p {
     font-size: 15px;
