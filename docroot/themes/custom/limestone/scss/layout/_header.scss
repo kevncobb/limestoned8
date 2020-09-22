@@ -642,9 +642,9 @@ form#views-exposed-form-news-latest-news-block .form-item-search label {
     @extend .paragraph-section-title;
     margin: 0;
     text-transform: uppercase;
-    letter-spacing: -4px;
     @include breakpoint(medium) {
       line-height: 110px; // Height of lc-news-header
+      letter-spacing: -4px;
     }
   }
 }
