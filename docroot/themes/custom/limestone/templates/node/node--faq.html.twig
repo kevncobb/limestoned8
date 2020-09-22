@@ -69,7 +69,9 @@
 #}
 {% set cell_classes = [
   'faq-cell',
-  (render_var(content.field_background_color.0.value))
+  'cell',
+  'auto',
+  (render_var(content.field_background_color.value))
 ]
 %}
 <article tabindex="0" {{ attributes.addClass(cell_classes) }}">
