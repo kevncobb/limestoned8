@@ -37,7 +37,7 @@
   cursor: pointer;
   margin: 0 0 1px 0;
   overflow: hidden;
-  //position: relative;
+  position: relative;
   //width: 100%;
   //float: left;
   -webkit-box-shadow: inset 0px 0px 30px 0px rgba(0, 0, 0, 0.2);
@@ -229,39 +229,12 @@
   hr {
     margin: 0 0 20px 0;
   }
-  .vote {
-    background: rgba(255, 255, 255, 0.25);
-    border-radius: 10px;
-    -moz-border-radius: 10px;
-    -webkit-border-radius: 10px;
-    color: #FFF;
-    float: right;
-    font-size: 11px;
-    height: 20px;
-    line-height: 22px;
-    margin: 0 0 0 12px;
-    text-align: center;
-    width: 20px;
-  }
-  .vote:hover {
-    background: rgba(0, 0, 0, 0.5);
-    color: #fff;
-    text-decoration: none;
-  }
   label {
     color: #FFF;
     float: right;
     font-family: futura-pt;
     font-size: 14px;
     line-height: 20px;
-  }
-  .thanks {
-    color: #FFF;
-    float: right;
-    font-family: futura-pt;
-    font-size: 14px;
-    line-height: 20px;
-    margin-top: 50px;
   }
 }
 
