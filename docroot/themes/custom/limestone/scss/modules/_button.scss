@@ -6,6 +6,8 @@
   line-height: 1.5rem;
   background-color: $limestone-blue;
   color: white;
+  font-weight: 800;
+  letter-spacing: -0.5px;
   &:hover, &:focus {
     color: white !important;
     background: smart-scale($limestone-blue, 10%, 10%) !important;
