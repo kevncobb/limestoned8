@@ -69,14 +69,10 @@
 #}
 {% set cell_classes = [
   'faq-cell',
-  'cell',
-  'small-12',
-  'medium-4',
-  'large-auto',
   (render_var(content.field_background_color.0))
 ]
 %}
-<article tabindex="0" {{ attributes.addClass(cell_classes) }}">
+<article tabindex="0" {{ attributes.addClass(cell_classes) }} {{ attributes }}">
 <span>See the answer</span>
   <button class="button faq-question" data-open="faqNumber{{ node.id }}">{{ label }}</button>
   <div tabindex="0" class="cell-answer">
