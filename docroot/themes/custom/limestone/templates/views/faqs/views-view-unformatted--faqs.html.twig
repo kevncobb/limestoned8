@@ -26,5 +26,7 @@
     default_row_class ? 'views-row',
   ]
   %}
-  {{- row.content -}}
+  <article{{ row.attributes.addClass(row_classes) }}>
+    {{- row.content -}}
+  </article>
 {% endfor %}
