@@ -209,9 +209,7 @@ header.site-header {
   }
   &.taller {
     .sub-header-title {
-      font-family: $interstate-font;
-      text-transform: uppercase;
-      letter-spacing: -0.05em;
+      top: -1rem;
     }
     @include breakpoint(medium) {
       padding-top: 1rem;
@@ -220,6 +218,9 @@ header.site-header {
     @include breakpoint(large) {
       padding-top: 2rem;
       padding-bottom: 0;
+      .sub-header-title {
+        padding-top: 3rem;
+      }
     }
   }
   figure {
