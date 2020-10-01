@@ -109,6 +109,7 @@
   }
   &.category {
     background-color: $category;
+    font-family: $body-font-family;
     &:hover, &:focus {
       color: white !important;
       background: smart-scale($category, 20%, 20%) !important;
