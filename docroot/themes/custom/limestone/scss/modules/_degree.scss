@@ -31,13 +31,8 @@
   }
 }
 .degree-header.youtube-section {
-  height: 62vw;
-  max-height: 54vh;
-  table {
-    @include breakpoint(medium) {
-      margin-top: 6rem;
-    }
-  }
+  height: 64vw;
+  max-height: 64vh;
 }
 .degree-related-news {
   padding: 1.5rem;
