@@ -91,3 +91,7 @@ print-styling:
   css:
     theme:
       css/print.css: { media: "print" }
+jquery:
+  version: 1.x
+  dependencies:
+    - core/jquery

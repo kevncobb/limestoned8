@@ -16,32 +16,6 @@
       $(context).find('.lc-callout right').prepend( "<span class='watermark right'>&nbsp;</span>" );
     }
   };
-  Drupal.behaviors.searchList = {
-    attach: function (context, settings) {
-      // Using once() to apply the myCustomBehaviour effect when you want to do just run one function.
-      $(context).find('#corporateGrantList')('open.fndtn.reveal', '[data-reveal]', function () {
-        function searchCorporateGrantList() {
-          // Declare variables
-          var input, filter, ul, li, a, i, txtValue;
-          input = document.getElementById('corporateGrantSearchBar');
-          filter = input.value.toUpperCase();
-          ul = document.getElementById("corporateGrantList");
-          li = ul.getElementsByTagName('li');
-
-          // Loop through all list items, and hide those who don't match the search query
-          for (i = 0; i < li.length; i++) {
-            a = li[i].getElementsByTagName("a")[0];
-            txtValue = a.textContent || a.innerText;
-            if (txtValue.toUpperCase().indexOf(filter) > -1) {
-              li[i].style.display = "";
-            } else {
-              li[i].style.display = "none";
-            }
-          }
-        }
-      });
-    }
-  };
   Drupal.behaviors.flyout = {
     attach: function (context, settings) {
       // Using once() to apply the myCustomBehaviour effect when you want to do just run one function.
