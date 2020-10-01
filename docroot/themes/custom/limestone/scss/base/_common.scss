@@ -488,7 +488,7 @@ p {
 }
 
 .medium-align-right {
-  @include breakpoint(smedium) {
+  @include breakpoint(medium) {
     text-align: right;
   }
 }

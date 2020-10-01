@@ -2,6 +2,10 @@
 footer.site-footer {
   background-color: #243056;
   position: relative;
+  margin-top: 1px;
+  img {
+    margin-bottom: 0;
+  }
   @include breakpoint(phone) {
     &::before {
       content: '';
@@ -63,6 +67,16 @@ footer.site-footer {
       &::before {
         left: auto;
         right: 2px;
+      }
+    }
+  }
+  .medium-align-right {
+    @include breakpoint(medium) {
+      h2 {
+        &::before {
+          left: auto;
+          right: 2px;
+        }
       }
     }
   }
