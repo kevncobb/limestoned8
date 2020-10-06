@@ -12,6 +12,9 @@
   a[target=_blank]::after {
     display: none;
   }
+  img {
+    max-width: 320px;
+  }
 }
 ul.list-unstyled, ul.unstyled-list {
   margin-left: 0;
