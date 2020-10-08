@@ -43,7 +43,6 @@ THIS TEMPLATE IS TO OVERRIDE THE DEFAULT IN THE ZURB CONTRIB BASE THEME
         ]
         %}
         {% if menu_level == 0 %}
-
           <li role="menuitem" {{ item.attributes.setAttribute('tabindex', '0').addClass(classes) }} >
             {{ link(item.title, item.url) }}
             {% if item.below %}
