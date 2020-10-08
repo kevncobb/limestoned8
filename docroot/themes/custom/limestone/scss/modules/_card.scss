@@ -85,6 +85,12 @@
     width: 361px;
   }
 }
+.slick-prev {
+  left: -45px;
+}
+.slick-next {
+  right: -45px;
+}
 .card {
   background-color: #fff;
   padding: 0 36px 20px;
