@@ -171,7 +171,7 @@
   ul.main_menu_region {
 
   }
-  nav.menu--desktop-megamenu .menu-link-contentdesktop-megamenu  {
+  nav.menu--desktop-megamenu  {
     //border-bottom: 3px solid $limestone-blue;
 
     > ul.menu.dropdown.menu.medium-horizontal {
@@ -564,7 +564,7 @@ $expander-toggle-margin: 1em;
   }
 }
 
-nav.menu--desktop-megamenu .menu-link-contentdesktop-megamenu {
+nav.menu--desktop-megamenu {
   ul.submenu.is-dropdown-submenu {
     min-width: 960px;
   }
