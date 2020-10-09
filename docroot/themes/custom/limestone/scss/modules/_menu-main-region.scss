@@ -211,6 +211,7 @@
           font-size: 17px;
           line-height: 20px;
           background-color: #fff;
+          min-width: 960px;
           aside {
             font-family: $body-font-family;
             font-size: 14px;
@@ -569,7 +570,7 @@ $expander-toggle-margin: 1em;
 
 nav.menu--desktop-megamenu {
   ul.submenu.is-dropdown-submenu {
-    min-width: 960px;
+    //min-width: 960px;
   }
   .field-menu-link-content--field-megasubmenu {
     h6 a {
