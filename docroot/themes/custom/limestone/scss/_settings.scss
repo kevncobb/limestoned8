@@ -185,11 +185,11 @@ $header-styles: (
   ),
   medium: (
     'h1': ('font-size': 49, 'letter-spacing': -0.015rem, 'margin-bottom': 1rem),
-    'h2': ('font-size': 42, 'letter-spacing': -0.015rem, 'margin-bottom': 0.8rem),
-    'h3': ('font-size': 37, 'letter-spacing': -0.015rem, 'margin-bottom': 0.7rem),
-    'h4': ('font-size': 33, 'letter-spacing': -0.015rem),
-    'h5': ('font-size': 30, 'letter-spacing': -0.015rem),
-    'h6': ('font-size': 28, 'letter-spacing': -0.015rem),
+    'h2': ('font-size': 46, 'letter-spacing': -0.015rem, 'margin-bottom': 0.8rem),
+    'h3': ('font-size': 40, 'letter-spacing': -0.015rem, 'margin-bottom': 0.7rem),
+    'h4': ('font-size': 36, 'letter-spacing': -0.015rem),
+    'h5': ('font-size': 33, 'letter-spacing': -0.015rem),
+    'h6': ('font-size': 30, 'letter-spacing': -0.015rem),
   ),
 );
 $header-text-rendering: optimizeLegibility;

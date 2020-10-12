@@ -1,4 +1,23 @@
+.slick--view .slick-list .slick__slide.slide .slide__grid {
+  display: inline-block;
+  vertical-align: middle;
+  float: none;
+}
+
+nav.slick__arrow {
+  button.slick-prev {
+    left: -45px;
+  }
+  button.slick-next {
+    right: -45px;
+  }
+}
+
+
+
+/*
 .views_slideshow_cycle_main,
+
 .views_slideshow_cycle_slide {
   width: 100% !important;
 }
@@ -200,3 +219,4 @@
   position: absolute;
   top: 0px;
 }
+ */
