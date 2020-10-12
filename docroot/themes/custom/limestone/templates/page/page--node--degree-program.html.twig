@@ -232,6 +232,7 @@
                 {% if node.field_display_grad_financial_aid.value == '1' %}
                   {{ drupal_block('gradfinancialaidinfomodalbutton') }}
                 {% endif %}
+                {{ drupal_field('field_related_minors', 'node') }}
                 {% if node.field_display_related_news_below.value == '0' %}
                   {{ drupal_view('news', 'block_5') }}
                 {% endif %}
