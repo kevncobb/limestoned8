@@ -101,6 +101,11 @@
     padding: 15px;
     text-align: right;
   }
+  &.cell-yellow {
+    button {
+      color: $limestone-blue-body;
+    }
+  }
 }
 
 
@@ -272,7 +277,7 @@
 .cell-yellow {
   background-color: #FFCF01;
   border-color: #FFCF01;
-  color: $limestone-blue-body;
+  button { color: $limestone-blue-body; }
 }
 
 .cell-gray {
