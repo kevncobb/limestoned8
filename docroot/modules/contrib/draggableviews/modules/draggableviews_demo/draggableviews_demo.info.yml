@@ -2,6 +2,7 @@ name: Draggableviews Demo
 type: module
 description: 'Demo module for Draggableviews.'
 core: 8.x
+core_version_requirement: ^8 || ^9
 dependencies:
   - drupal:block
   - drupal:draggableviews
@@ -15,7 +16,7 @@ dependencies:
 hidden: false
 package: Views
 
-# Information added by Drupal.org packaging script on 2019-12-06
-version: '8.x-1.2+8-dev'
+# Information added by Drupal.org packaging script on 2020-06-16
+version: '2.0.0'
 project: 'draggableviews'
-datestamp: 1575665287
+datestamp: 1592329897

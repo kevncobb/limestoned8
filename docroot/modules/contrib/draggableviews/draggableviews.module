@@ -216,7 +216,7 @@ function draggableviews_views_submit(&$form, FormStateInterface $form_state) {
   catch (\Exception $e) {
     $transaction->rollback();
     \Drupal::logger('draggableviews')->error('Failed with @message', ['@message' => $e->getMessage()]);
-    drupal_set_message(t('There was an error while saving the data. Please, try gain.'), 'warning');
+    \Drupal::messenger()->addMessage(t('There was an error while saving the data. Please, try again.'), 'warning');
   }
 }
 
@@ -235,12 +235,6 @@ function draggableviews_views_query_alter(ViewExecutable $view, QueryPluginBase 
         'field' => 'view_name',
         'operator' => '=',
         'value' => $view->id(),
-        'numeric' => FALSE,
-      ],
-      [
-        'field' => 'view_display',
-        'operator' => '=',
-        'value' => $view->current_display,
         'numeric' => FALSE,
       ],
     ];
