@@ -24,6 +24,12 @@
   .js-form-item.js-form-type-select {
     width: 380px;
   }
+  .form-radios {
+    padding: 0 1rem;
+    label {
+      font-size: 1.5rem;
+    }
+  }
 }
 
 .js-form-item-field-categories-target-id {

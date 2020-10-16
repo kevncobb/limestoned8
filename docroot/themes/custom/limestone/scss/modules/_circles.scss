@@ -7,9 +7,9 @@ $circle-size: 2em;
   -moz-border-radius: 50%;
   -webkit-border-radius: 50%;
   border-radius: 50%;
-  background: rgba($limestone-blue, 0.7);
+  background: rgba($limestone-blue, 0.9);
   margin: 0 auto;
-  font-size: 65px;
+  font-size: 70px;
   color: #fff;
   i {
     margin: 0.4em 0 0 0.38em;
@@ -30,10 +30,10 @@ $circle-size: 2em;
     display: inline-block;
   }
   .icon-graduate {
-    margin: 0.75em 0 0 0.6em !important;
+    margin: 51px 0 0 4px !important;
   }
   .icon-dollar, .icon-dollar2 {
-    margin: 0.75em 0 0 0.7em;
+    margin: 51px 0 0 4px !important;
   }
   img.icon-logo {
     width: 105px;
@@ -80,41 +80,30 @@ $circle-size: 2em;
 .circles {
   //min-height: 460px;
   z-index: 2;
-  @include breakpoint(smedium) {
-    //min-height: 320px;
-  }
-  ul {
-    position: relative;
-    //display: block;
-    padding: 0;
-    list-style-type: none;
-    a {
-      &:hover,
-      &:focus {
-        .text { color: $success-color; }
-        .circle {
-          background: rgba($limestone-blue, 1);
-          transition: background .15s ease-in-out;
-          -moz-transition: background .15s ease-in-out;
-          -webkit-transition: background .15s ease-in-out;
-          box-shadow: 0px 0px 21px white;
-        }
-      }
-      span.text {
-        color: $light-gray;
+  position: relative;
+  //display: block;
+  padding: 0;
+  list-style-type: none;
+  a {
+    &:hover,
+    &:focus {
+      .text { color: $success-color; }
+      .circle {
+        background: rgba($limestone-blue, 1);
+        transition: background .15s ease-in-out;
+        -moz-transition: background .15s ease-in-out;
+        -webkit-transition: background .15s ease-in-out;
+        box-shadow: 0px 0px 21px white;
       }
     }
     span.text {
-      //font-family: 'mr-eaves-xl-modern-narrow', Helvetica, Arial;
+      color: $light-gray;
     }
   }
-  a {
-    text-decoration: none;
-    &:hover,
-    &:focus {
-      text-decoration: none !important;
-    }
+  span.text {
+    //font-family: 'mr-eaves-xl-modern-narrow', Helvetica, Arial;
   }
+
   span.text {
     clear: both;
     text-align: center;
@@ -123,5 +112,13 @@ $circle-size: 2em;
     text-transform: uppercase;
     font-size: 1.2rem;
     margin: 0.5em auto;
+    color: rgba($limestone-blue, 0.9);
+  }
+  a, button {
+    text-decoration: none;
+    &:hover,
+    &:focus {
+      text-decoration: none !important;
+    }
   }
 }

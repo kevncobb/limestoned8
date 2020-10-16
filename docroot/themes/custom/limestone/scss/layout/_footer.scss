@@ -2,7 +2,9 @@
 footer.site-footer {
   background-color: #243056;
   position: relative;
-  margin-top: 1px;
+  color: $light-gray;
+  padding-top: 2rem;
+  margin-top: 2px;
   img {
     margin-bottom: 0;
   }
@@ -22,10 +24,6 @@ footer.site-footer {
       background-position: bottom right;
     }
   }
-  //background-image: url("/themes/custom/limestone/images/footer-background.png");
-  //background-size: cover;
-  color: $light-gray;
-  padding-top: 2rem;
   h2, h3, h4, h5, h6 {
     color: white;
   }
