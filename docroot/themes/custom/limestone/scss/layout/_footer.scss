@@ -108,22 +108,21 @@ footer.site-footer {
       left: -1px;
     }
   }
-  .footer-social-icons {
-    //padding-left: 0.5rem;
-    a {
-      color: white;
-      padding: 0;
-      text-decoration: none;
-      &:hover, &:focus {
-        svg path {
-          color: $limestone-yellow !important;
-          fill: $limestone-yellow;
-        }
+}
+.footer-social-icons, .main-social-icons {
+  //padding-left: 0.5rem;
+  a {
+    color: white;
+    padding: 0;
+    text-decoration: none;
+    &:hover, &:focus {
+      svg path {
+        color: $limestone-yellow !important;
+        fill: $limestone-yellow;
       }
     }
   }
 }
-
 .bottom-bar {
   background-color: $black;
   font-family: $site-header-font-family;

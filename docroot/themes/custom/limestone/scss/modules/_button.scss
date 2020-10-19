@@ -387,6 +387,9 @@ a.cta-button, a.cta-btn {
       color: white !important;
     }
   }
+  &.warning {
+    color: $limestone-blue-body;
+  }
 }
 
 .btn-group, .btn-group-vertical {

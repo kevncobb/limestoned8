@@ -116,6 +116,7 @@ $circle-size: 2em;
   }
   a, button {
     text-decoration: none;
+    width: 100%;
     &:hover,
     &:focus {
       text-decoration: none !important;
