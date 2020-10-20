@@ -37,7 +37,13 @@
         });
 
       }
+
     };
   }
-
+  $('a.use-ajax').click(function(event) {
+    var currentNode = $(document.activeElement);
+    $(document).bind('cbox_closed', function(){
+      setTimeout(function(){ currentNode.focus(); }, 200);
+    });
+  });
 })(jQuery, Drupal, drupalSettings);
