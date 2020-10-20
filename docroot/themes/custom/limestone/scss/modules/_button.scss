@@ -389,6 +389,9 @@ a.cta-button, a.cta-btn {
   }
   &.warning {
     color: $limestone-blue-body;
+    &:hover, &:focus {
+      color: $limestone-blue-body !important;
+    }
   }
 }
 

@@ -166,14 +166,14 @@
 .title-on-image, .node--view-mode-title-on-image {
   position: relative;
   margin: 0 auto 1.8rem auto;
-  .node-title a {
+  .node-title a, .node-title button {
     &:focus, &:hover { text-decoration: underline; }
   }
   .cover-image img {
     //margin-bottom: 1rem;
   }
   &:hover {
-    .node-title a {
+    .node-title a, .node-title button {
       text-decoration: underline;
     }
   }
@@ -213,7 +213,7 @@
     width: 85%;
     text-align: center;
     z-index: 1;
-    a {
+    a, button {
       text-decoration: none;
       color: white;
       text-shadow: #222 1px 1px 6px
