@@ -46,4 +46,5 @@
       setTimeout(function(){ currentNode.focus(); }, 200);
     });
   });
+
 })(jQuery, Drupal, drupalSettings);
