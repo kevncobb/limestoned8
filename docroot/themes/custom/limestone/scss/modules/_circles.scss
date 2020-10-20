@@ -29,7 +29,10 @@ $circle-size: 2em;
     margin: 0.5em 0 0 0.5em;
     display: inline-block;
   }
-  .icon-graduate {
+  a .icon-graduate {
+    margin: 0.8em 0 0 0.6em;
+  }
+  button .icon-graduate {
     margin: 51px 0 0 4px !important;
   }
   .icon-dollar, .icon-dollar2 {
