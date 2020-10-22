@@ -117,10 +117,10 @@
         color: $success-color;
         font-size: 15px;
         right: 0.5rem;
-        @include breakpoint(medium) {
+        @include breakpoint(large) {
           top: 0.6rem;
         }
-        @include breakpoint(large) {
+        @include breakpoint(xlarge) {
           top: 0.95rem;
         }
       }

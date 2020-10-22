@@ -245,3 +245,19 @@ section.block-block-contentfe8537ce-54d8-467c-ba0f-931c4b8e3ced {
     }
   }
 }
+
+
+.block-aggregator-feed-block {
+  ul {
+    margin-left: 0;
+    &.centered {
+      margin-left: auto;
+    }
+    li {
+      list-style-type: none;
+    }
+  }
+  .more-link {
+    display: none;
+  }
+}
