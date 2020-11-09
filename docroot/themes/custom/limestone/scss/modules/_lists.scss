@@ -62,3 +62,10 @@ ul.line-items {
 .field-type-text-long .field-item ul li {
   line-height: 1.9rem;
 }
+.views-row.border-separated {
+  border-bottom: 1px solid #dcdcdc;
+  padding: 0rem 0rem 2rem;
+  &:last-child {
+    border-bottom: none;
+  }
+}
