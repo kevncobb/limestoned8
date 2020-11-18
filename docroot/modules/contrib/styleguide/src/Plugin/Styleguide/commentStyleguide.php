@@ -28,7 +28,7 @@ class CommentStyleguide extends StyleguidePluginBase {
   /**
    * The module handler service.
    *
-   * @var ModuleHandlerInterface
+   * @var \Drupal\Core\Extension\ModuleHandlerInterface
    */
   protected $moduleHandler;
 
@@ -36,12 +36,17 @@ class CommentStyleguide extends StyleguidePluginBase {
    * Constructs a new CommentStyleguide.
    *
    * @param array $configuration
+   *   A configuration array containing information about the plugin instance.
    * @param string $plugin_id
-   * @param mixed $plugin_definition
+   *   The plugin_id for the plugin instance.
+   * @param array $plugin_definition
+   *   The plugin implementation definition.
    * @param \Drupal\styleguide\GeneratorInterface $styleguide_generator
-   * @param ModuleHandlerInterface $module_handler
+   *   The styleguide generator service.
+   * @param \Drupal\Core\Extension\ModuleHandlerInterface $module_handler
+   *   The module handler service.
    */
-  public function __construct(array $configuration, $plugin_id, $plugin_definition, GeneratorInterface $styleguide_generator, ModuleHandlerInterface $module_handler) {
+  public function __construct(array $configuration, $plugin_id, array $plugin_definition, GeneratorInterface $styleguide_generator, ModuleHandlerInterface $module_handler) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
 
     $this->generator = $styleguide_generator;

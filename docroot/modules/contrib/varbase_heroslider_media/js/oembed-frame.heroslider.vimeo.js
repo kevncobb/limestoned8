@@ -4,15 +4,13 @@
  */
 
 function ready(fn) {
-  if (document.readyState != 'loading') {
+  if (document.readyState !== "loading") {
     fn();
-  }
-  else if (document.addEventListener) {
-    document.addEventListener('DOMContentLoaded', fn);
-  }
-  else {
-    document.attachEvent('onreadystatechange', function () {
-      if (document.readyState != 'loading') {
+  } else if (document.addEventListener) {
+    document.addEventListener("DOMContentLoaded", fn);
+  } else {
+    document.attachEvent("onreadystatechange", function() {
+      if (document.readyState !== "loading") {
         fn();
       }
     });
@@ -20,57 +18,54 @@ function ready(fn) {
 }
 
 // Load the Vimeo API library.
-var tag = document.createElement('script');
+const tag = document.createElement("script");
 tag.src = "//player.vimeo.com/api/player.js";
-var firstScriptTag = document.getElementsByTagName('script')[0];
+const firstScriptTag = document.getElementsByTagName("script")[0];
 firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
-ready(function () {
+ready(function() {
+  const mediaIframe = document.querySelector("iframe");
+  mediaIframe.setAttribute("id", "media-oembed-iframe");
 
-  var media_iframe = document.querySelector('iframe');
-  media_iframe.setAttribute('id', 'media-oembed-iframe');
-
-  var player_confgured = false;
-  var vimeo_player;
+  let playerConfgured = false;
+  let vimeoPlayer;
 
   function actionProcessor(evt) {
-
     // Manage Vimeo video.
     if (evt.data === "play") {
-      if (!player_confgured) {
-        var vimeo_iframe = document.querySelector('iframe[src*="vimeo.com"]');
+      if (!playerConfgured) {
+        const vimeoIframe = document.querySelector('iframe[src*="vimeo.com"]');
 
-        var vimeo_options = {
-            background: true,
-            autoplay: true,
-            muted: true,
-            controls: false
+        const vimeoOptions = {
+          background: true,
+          autoplay: true,
+          muted: true,
+          controls: false
         };
 
-        vimeo_player = new Vimeo.Player(vimeo_iframe, vimeo_options);
-        vimeo_player.setVolume(0);
-        vimeo_player.on('ended', function () {
+        vimeoPlayer = new window.Vimeo.Player(vimeoIframe, vimeoOptions);
+        vimeoPlayer.setVolume(0);
+        vimeoPlayer.on("ended", function() {
           window.parent.postMessage("endedVimeo", "*");
-          vimeo_player.pause();
+          vimeoPlayer.pause();
         });
 
-        vimeo_player.on('play', function () {
+        vimeoPlayer.on("play", function() {
           window.parent.postMessage("playingVimeo", "*");
         });
-        player_confgured = true;
+        playerConfgured = true;
       }
 
-       vimeo_player.ready().then(function () {
-         vimeo_player.getPaused().then(function (paused) {
+      vimeoPlayer.ready().then(function() {
+        vimeoPlayer.getPaused().then(function(paused) {
           if (paused) {
-            vimeo_player.play();
+            vimeoPlayer.play();
           }
         });
       });
-    }
-    else if (evt.data === "pause") {
-      if (player_confgured) {
-        vimeo_player.pause();
+    } else if (evt.data === "pause") {
+      if (playerConfgured) {
+        vimeoPlayer.pause();
       }
     }
   }
@@ -78,8 +73,7 @@ ready(function () {
   // Setup the event listener for messaging.
   if (window.addEventListener) {
     window.addEventListener("message", actionProcessor, false);
-  }
-  else {
+  } else {
     window.attachEvent("onmessage", actionProcessor);
   }
 });

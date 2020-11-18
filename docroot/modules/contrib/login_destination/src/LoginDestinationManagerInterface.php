@@ -19,6 +19,7 @@ interface LoginDestinationManagerInterface {
    *   User account.
    *
    * @return bool|\Drupal\login_destination\Entity\LoginDestination
+   *   Returns either FALSE or a LoginDestination object.
    */
   public function findDestination($trigger, AccountInterface $account);
 

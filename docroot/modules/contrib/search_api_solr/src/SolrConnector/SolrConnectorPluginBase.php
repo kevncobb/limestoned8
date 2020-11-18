@@ -27,6 +27,7 @@ use Solarium\QueryType\Extract\Result as ExtractResult;
 use Solarium\QueryType\Update\Query\Query as UpdateQuery;
 use Solarium\QueryType\Select\Query\Query;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use ZipStream\ZipStream;
 
 /**
  * Defines a base class for Solr connector plugins.
@@ -342,7 +343,14 @@ abstract class SolrConnectorPluginBase extends ConfigurablePluginBase implements
    */
   protected function createClient(array &$configuration) {
     $configuration[self::QUERY_TIMEOUT] = $configuration['timeout'] ?? 5;
-    $adapter = extension_loaded('curl') ? new Curl($configuration) : new Http($configuration);
+    $adapter = NULL;
+    if (extension_loaded('curl')) {
+      $adapter = new Curl($configuration);
+    }
+    else {
+      $adapter = new Http();
+      $adapter->setTimeout($configuration[self::QUERY_TIMEOUT]);
+    }
     unset($configuration['timeout']);
     return new Client($adapter, $this->eventDispatcher);
   }
@@ -576,7 +584,7 @@ abstract class SolrConnectorPluginBase extends ConfigurablePluginBase implements
     $this->connect();
     $this->useTimeout(self::QUERY_TIMEOUT, $endpoint);
 
-    $query = $this->solr->createPing();
+    $query = $this->solr->createPing($options);
 
     try {
       $start = microtime(TRUE);
@@ -627,8 +635,8 @@ abstract class SolrConnectorPluginBase extends ConfigurablePluginBase implements
         }
         $summary['@deletes_by_id'] = (int) $update_handler_stats['UPDATE.updateHandler.deletesById'];
         $summary['@deletes_by_query'] = (int) $update_handler_stats['UPDATE.updateHandler.deletesByQuery'];
-        $summary['@core_name'] = $stats['solr-mbeans']['CORE']['core']['stats']['CORE.coreName'];
-        $summary['@index_size'] = $stats['solr-mbeans']['CORE']['core']['stats']['INDEX.size'];
+        $summary['@core_name'] = $stats['solr-mbeans']['CORE']['core']['stats']['CORE.coreName'] ?? $this->t('No information available.');
+        $summary['@index_size'] = $stats['solr-mbeans']['CORE']['core']['stats']['INDEX.size'] ?? $this->t('No information available.');
       }
       else {
         $update_handler_stats = $stats['solr-mbeans']['UPDATEHANDLER']['updateHandler']['stats'];
@@ -636,13 +644,13 @@ abstract class SolrConnectorPluginBase extends ConfigurablePluginBase implements
         $max_time = (int) $update_handler_stats['autocommit maxTime'];
         $summary['@deletes_by_id'] = (int) $update_handler_stats['deletesById'];
         $summary['@deletes_by_query'] = (int) $update_handler_stats['deletesByQuery'];
-        $summary['@core_name'] = $stats['solr-mbeans']['CORE']['core']['stats']['coreName'];
+        $summary['@core_name'] = $stats['solr-mbeans']['CORE']['core']['stats']['coreName'] ?? $this->t('No information available.');;
         if (version_compare($solr_version, '6.4', '>=')) {
           // @see https://issues.apache.org/jira/browse/SOLR-3990
-          $summary['@index_size'] = $stats['solr-mbeans']['CORE']['core']['stats']['size'];
+          $summary['@index_size'] = $stats['solr-mbeans']['CORE']['core']['stats']['size'] ?? $this->t('No information available.');;
         }
         else {
-          $summary['@index_size'] = $stats['solr-mbeans']['QUERYHANDLER']['/replication']['stats']['indexSize'];
+          $summary['@index_size'] = $stats['solr-mbeans']['QUERYHANDLER']['/replication']['stats']['indexSize'] ?? $this->t('No information available.');;
         }
       }
 
@@ -946,6 +954,11 @@ abstract class SolrConnectorPluginBase extends ConfigurablePluginBase implements
   /**
    * Converts a HttpException in an easier to read SearchApiSolrException.
    *
+   * Connectors must not overwrite this function. Otherwise support requests are
+   * hard to handle in the issue queue. If you want to extend this function and
+   * add more sophisticated error handling, please contribute a patch to
+   * the search_api_solr project on drupal.org.
+   *
    * @param \Solarium\Exception\HttpException $e
    *   The HttpException object.
    * @param \Solarium\Core\Client\Endpoint $endpoint
@@ -953,7 +966,7 @@ abstract class SolrConnectorPluginBase extends ConfigurablePluginBase implements
    *
    * @throws \Drupal\search_api_solr\SearchApiSolrException
    */
-  protected function handleHttpException(HttpException $e, Endpoint $endpoint) {
+  final protected function handleHttpException(HttpException $e, Endpoint $endpoint) {
     $body = $e->getBody();
     $response_code = (int) $e->getCode();
     switch ((string) $response_code) {
@@ -982,7 +995,20 @@ abstract class SolrConnectorPluginBase extends ConfigurablePluginBase implements
       default:
         $description = 'unreachable or returned unexpected response code';
     }
-    throw new SearchApiSolrException(sprintf('Solr endpoint %s %s (%d). %s', $endpoint->getServerUri(), $description, $response_code, $e->getBody()), $response_code, $e);
+    throw new SearchApiSolrException(sprintf('Solr endpoint %s %s (%d). %s', $this->getEndpointUri($endpoint), $description, $response_code, $body), $response_code, $e);
+  }
+
+  /**
+   * Gets a string representation of the endpoint URI.
+   *
+   * Could be overwritten by other connectors according to their needs.
+   *
+   * @param \Solarium\Core\Client\Endpoint $endpoint
+   *
+   * @return string
+   */
+  protected function getEndpointUri(Endpoint $endpoint): string {
+    return $endpoint->getServerUri();
   }
 
   /**
@@ -1177,4 +1203,9 @@ abstract class SolrConnectorPluginBase extends ConfigurablePluginBase implements
     }
   }
 
+  /**
+   * {@inheritdoc}
+   */
+  public function alterConfigZip(ZipStream $zip, string $lucene_match_version, string $server_id = '') {
+  }
 }

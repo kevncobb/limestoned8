@@ -15,8 +15,9 @@ dependencies:
 install:
   - restui
   - jsonapi_extras
+  - jsonapi_defaults
 
-# Information added by Drupal.org packaging script on 2020-06-15
-version: '8.x-7.11'
+# Information added by Drupal.org packaging script on 2020-09-22
+version: '8.x-7.13'
 project: 'varbase_api'
-datestamp: 1592238489
+datestamp: 1600792258

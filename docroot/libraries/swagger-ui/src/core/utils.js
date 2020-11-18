@@ -1,4 +1,4 @@
-/* 
+/*
   ATTENTION! This file (but not the functions within) is deprecated.
 
   You should probably add a new file to `./helpers/` instead of adding a new
@@ -133,7 +133,7 @@ export function createObjWithHashedKeys (fdObj) {
       trackKeys[pair[0]].length += 1
       let hashedKeyCurrent = `${pair[0]}${hashIdx}${trackKeys[pair[0]].length}`
       newObj[hashedKeyCurrent] = pair[1]
-    } 
+    }
   }
   return newObj
 }
@@ -263,13 +263,13 @@ export function extractFileNameFromContentDispositionHeader(value){
     /filename="([^;]*);?"/i,
     /filename=([^;]*);?/i
   ]
-  
+
   let responseFilename
   patterns.some(regex => {
     responseFilename = regex.exec(value)
     return responseFilename !== null
   })
-    
+
   if (responseFilename !== null && responseFilename.length > 1) {
     try {
       return decodeURIComponent(responseFilename[1])
@@ -325,13 +325,13 @@ export const propChecker = (props, nextProps, objectList=[], ignoreList=[]) => {
 
 export const validateMaximum = ( val, max ) => {
   if (val > max) {
-    return "Value must be less than Maximum"
+    return `Value must be less than ${max}`
   }
 }
 
 export const validateMinimum = ( val, min ) => {
   if (val < min) {
-    return "Value must be greater than Minimum"
+    return `Value must be greater than ${min}`
   }
 }
 
@@ -380,13 +380,13 @@ export const validateGuid = (val) => {
 
 export const validateMaxLength = (val, max) => {
   if (val.length > max) {
-      return "Value must be less than MaxLength"
+      return `Value must be no longer than ${max} character${max !== 1 ? "s" : ""}`
   }
 }
 
 export const validateMinLength = (val, min) => {
   if (val.length < min) {
-      return "Value must be greater than MinLength"
+      return `Value must be at least ${min} character${min !== 1 ? "s" : ""}`
   }
 }
 
@@ -399,7 +399,7 @@ export const validatePattern = (val, rxPattern) => {
 
 // validation of parameters before execute
 export const validateParam = (param, value, { isOAS3 = false, bypassRequiredCheck = false } = {}) => {
-  
+
   let errors = []
 
   let paramRequired = param.get("required")
@@ -436,7 +436,7 @@ export const validateParam = (param, value, { isOAS3 = false, bypassRequiredChec
     let objectStringCheck = type === "object" && typeof value === "string" && value
 
     const allChecks = [
-      stringCheck, arrayCheck, arrayListCheck, arrayStringCheck, fileCheck, 
+      stringCheck, arrayCheck, arrayListCheck, arrayStringCheck, fileCheck,
       booleanCheck, numberCheck, integerCheck, objectCheck, objectStringCheck,
     ]
 
@@ -541,26 +541,57 @@ export const validateParam = (param, value, { isOAS3 = false, bypassRequiredChec
   return errors
 }
 
-export const getSampleSchema = (schema, contentType="", config={}) => {
-  if (/xml/.test(contentType)) {
-    if (!schema.xml || !schema.xml.name) {
-      schema.xml = schema.xml || {}
+const getXmlSampleSchema = (schema, config, exampleOverride) => {
+  if (schema && (!schema.xml || !schema.xml.name)) {
+    schema.xml = schema.xml || {}
 
-      if (schema.$$ref) {
-        let match = schema.$$ref.match(/\S*\/(\S+)$/)
-        schema.xml.name = match[1]
-      } else if (schema.type || schema.items || schema.properties || schema.additionalProperties) {
-        return "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<!-- XML example cannot be generated; root element name is undefined -->"
-      } else {
-        return null
-      }
+    if (schema.$$ref) {
+      let match = schema.$$ref.match(/\S*\/(\S+)$/)
+      schema.xml.name = match[1]
+    } else if (schema.type || schema.items || schema.properties || schema.additionalProperties) {
+      return "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<!-- XML example cannot be generated; root element name is undefined -->"
+    } else {
+      return null
     }
-    return memoizedCreateXMLExample(schema, config)
+  }
+  return memoizedCreateXMLExample(schema, config, exampleOverride)
+}
+
+const shouldStringifyTypesConfig = [
+  {
+    when: /json/,
+    shouldStringifyTypes: ["string"]
+  }
+]
+
+const defaultStringifyTypes = ["object"]
+
+const getStringifiedSampleForSchema = (schema, config, contentType, exampleOverride) => {
+  const res = memoizedSampleFromSchema(schema, config, exampleOverride)
+  const resType = typeof res
+
+  const typesToStringify = shouldStringifyTypesConfig.reduce(
+    (types, nextConfig) => nextConfig.when.test(contentType)
+      ? [...types, ...nextConfig.shouldStringifyTypes]
+      : types,
+    defaultStringifyTypes)
+
+  return some(typesToStringify, x => x === resType)
+    ? JSON.stringify(res, null, 2)
+    : res
+}
+
+export const getSampleSchema = (schema, contentType="", config={}, exampleOverride = undefined) => {
+  if(schema && isFunc(schema.toJS))
+    schema = schema.toJS()
+  if(exampleOverride && isFunc(exampleOverride.toJS))
+    exampleOverride = exampleOverride.toJS()
+
+  if (/xml/.test(contentType)) {
+    return getXmlSampleSchema(schema, config, exampleOverride)
   }
 
-  const res = memoizedSampleFromSchema(schema, config)
-
-  return typeof res === "object" ? JSON.stringify(res, null, 2) : res
+  return getStringifiedSampleForSchema(schema, config, contentType, exampleOverride)
 }
 
 export const parseSearch = () => {
@@ -597,7 +628,7 @@ export const btoa = (str) => {
   if (str instanceof Buffer) {
     buffer = str
   } else {
-    buffer = new Buffer(str.toString(), "utf-8")
+    buffer = Buffer.from(str.toString(), "utf-8")
   }
 
   return buffer.toString("base64")
@@ -639,7 +670,6 @@ export function sanitizeUrl(url) {
 
   return braintreeSanitizeUrl(url)
 }
-
 
 export function requiresValidationURL(uri) {
   if (!uri || uri.indexOf("localhost") >= 0 || uri.indexOf("127.0.0.1") >= 0 || uri === "none") {
@@ -741,7 +771,7 @@ export function paramToIdentifier(param, { returnAll = false, allowHashes = true
   }
   const paramName = param.get("name")
   const paramIn = param.get("in")
-  
+
   let generatedIdentifiers = []
 
   // Generate identifiers in order of most to least specificity
@@ -749,7 +779,7 @@ export function paramToIdentifier(param, { returnAll = false, allowHashes = true
   if (param && param.hashCode && paramIn && paramName && allowHashes) {
     generatedIdentifiers.push(`${paramIn}.${paramName}.hash-${param.hashCode()}`)
   }
-  
+
   if(paramIn && paramName) {
     generatedIdentifiers.push(`${paramIn}.${paramName}`)
   }

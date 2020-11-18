@@ -490,13 +490,13 @@ abstract class Check {
   }
 
   /**
-   * Returns the entity manager.
+   * Returns the entity type manager.
    *
-   * @return \Drupal\Core\Entity\EntityManagerInterface
-   *   Entity manager.
+   * @return \Drupal\Core\Entity\EntityTypeManagerInterface
+   *   Entity type manager.
    */
-  protected function entityManager() {
-    return $this->container->get('entity.manager');
+  protected function entityTypeManager() {
+    return $this->container->get('entity_type.manager');
   }
 
   /**

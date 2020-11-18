@@ -135,7 +135,7 @@ class Field extends Check {
     $items = [];
     foreach ($findings as $entity_type_id => $entities) {
       foreach ($entities as $entity_id => $fields) {
-        $entity = $this->entityManager()
+        $entity = $this->entityTypeManager()
           ->getStorage($entity_type_id)
           ->load($entity_id);
 
@@ -166,7 +166,7 @@ class Field extends Check {
    * Falls back on a string with entity type id and id if no good link can
    * be found.
    *
-   * @param \Drupal\Core\Entity\Entity $entity
+   * @param \Drupal\Core\Entity\EntityBase $entity
    *   The entity.
    *
    * @return string
@@ -202,7 +202,7 @@ class Field extends Check {
     $output = '';
     foreach ($findings as $entity_type_id => $entities) {
       foreach ($entities as $entity_id => $fields) {
-        $entity = $this->entityManager()
+        $entity = $this->entityTypeManager()
           ->getStorage($entity_type_id)
           ->load($entity_id);
 

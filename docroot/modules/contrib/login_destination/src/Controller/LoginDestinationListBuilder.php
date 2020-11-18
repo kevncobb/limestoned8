@@ -6,7 +6,6 @@ use Drupal\Core\Config\Entity\DraggableListBuilder;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Url;
-use Drupal\login_destination\Entity\LoginDestination;
 
 /**
  * Provides a listing of Login Destinations rules.
@@ -47,7 +46,7 @@ class LoginDestinationListBuilder extends DraggableListBuilder {
    * {@inheritdoc}
    */
   public function buildRow(EntityInterface $entity) {
-    /** @var LoginDestination $entity */
+    /** @var \Drupal\login_destination\Entity\LoginDestination $entity */
     $row['label'] = $entity->getLabel();
 
     if ($entity->isDestinationCurrent()) {

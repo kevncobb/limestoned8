@@ -6,7 +6,7 @@ services:
       - { name: theme_negotiator, priority: 0 }
   styleguide.generator:
     class: Drupal\styleguide\Generator
-    arguments: ['@request_stack']
+    arguments: ['@request_stack', '@pager.manager', '@config.factory']
   plugin.manager.styleguide:
     class: Drupal\styleguide\StyleguidePluginManager
     arguments: ['@container.namespaces', '@cache.default', '@module_handler']

@@ -6,6 +6,7 @@ use Drupal\Core\Entity\Element\EntityAutocomplete;
 use Drupal\Core\Entity\EntityForm;
 use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Language\LanguageManagerInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\login_destination\Entity\LoginDestination;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -25,28 +26,40 @@ class LoginDestinationRuleForm extends EntityForm {
   protected $loginDestinationStorage;
 
   /**
+   * The language manager.
+   *
+   * @var \Drupal\Core\Language\LanguageManagerInterface
+   */
+  protected $languageManager;
+
+  /**
    * Constructs a base class for login destination add and edit forms.
    *
    * @param \Drupal\Core\Entity\EntityStorageInterface $login_destination_storage
    *   The login destination entity storage.
+   * @param \Drupal\Core\Language\LanguageManagerInterface $language_manager
+   *   The language manager.
    */
-  public function __construct(EntityStorageInterface $login_destination_storage) {
+  public function __construct(EntityStorageInterface $login_destination_storage, LanguageManagerInterface $language_manager) {
     $this->loginDestinationStorage = $login_destination_storage;
+    $this->languageManager = $language_manager;
   }
 
   /**
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container) {
-    return new static($container->get('entity_type.manager')
-      ->getStorage('login_destination'));
+    return new static(
+      $container->get('entity_type.manager')->getStorage('login_destination'),
+      $container->get('language_manager')
+    );
   }
 
   /**
    * {@inheritdoc}
    */
   public function form(array $form, FormStateInterface $form_state) {
-    /** @var $login_destination LoginDestination */
+    /** @var \Drupal\login_destination\Entity\LoginDestination $login_destination */
     $login_destination = $this->entity;
 
     $form['label'] = [
@@ -104,12 +117,12 @@ class LoginDestinationRuleForm extends EntityForm {
     ];
 
     // Add the token tree UI.
-    $form['token_tree'] = array(
+    $form['token_tree'] = [
       '#theme' => 'token_tree_link',
-      '#token_types' => array('user'),
+      '#token_types' => ['user'],
       '#show_restricted' => TRUE,
       '#global_types' => TRUE,
-    );
+    ];
 
     $form['pages_type'] = [
       '#type' => 'radios',
@@ -124,7 +137,7 @@ class LoginDestinationRuleForm extends EntityForm {
     $form['pages'] = [
       '#type' => 'textarea',
       '#default_value' => $login_destination->getPages(),
-      '#description' => $this->t('Specify pages by using their paths. Enter one path per line. The \'*\' character is a wildcard. Example paths are %blog for the blog page and %blog-wildcard for every personal blog. %front is the front page. %login is the login form. %register is the registration form. %reset is the one-time login (e-mail validation).', [
+      '#description' => $this->t("Specify pages by using their paths. Enter one path per line. The '*' character is a wildcard. Example paths are %blog for the blog page and %blog-wildcard for every personal blog. %front is the front page. %login is the login form. %register is the registration form. %reset is the one-time login (e-mail validation).", [
         '%blog' => 'blog',
         '%blog-wildcard' => '/blog/*',
         '%front' => '<front>',
@@ -135,7 +148,7 @@ class LoginDestinationRuleForm extends EntityForm {
     ];
 
     $languages[''] = $this->t('All languages');
-    foreach (\Drupal::languageManager()->getLanguages() as $key => $value) {
+    foreach ($this->languageManager->getLanguages() as $key => $value) {
       $languages[$key] = $value->getName();
     }
     $form['language'] = [
@@ -175,7 +188,7 @@ class LoginDestinationRuleForm extends EntityForm {
     $form_state->setValue('triggers', array_filter($form_state->getValue('triggers')));
 
     // Get entered by user destination path.
-    // $destination = $form_state->getValue('destination_path');
+    // $destination = $form_state->getValue('destination_path');.
     // @todo verify that selected role has access to entered path.
     // @todo verify entered paths to specific pages.
   }
@@ -184,7 +197,7 @@ class LoginDestinationRuleForm extends EntityForm {
    * {@inheritdoc}
    */
   public function save(array $form, FormStateInterface $form_state) {
-    /* @var  $login_destination \Drupal\login_destination\Entity\LoginDestination */
+    /** @var  \Drupal\login_destination\Entity\LoginDestination $login_destination */
     $login_destination = $this->entity;
 
     if ($login_destination->save()) {
@@ -246,7 +259,7 @@ class LoginDestinationRuleForm extends EntityForm {
    *   The URI to get the displayable string for.
    *
    * @return string
-   *
+   *   Returns a $displayable_string for the URI.
    * @see LinkWidget::getUriAsDisplayableString()
    */
   protected function getUriAsDisplayableString($uri) {
@@ -272,12 +285,11 @@ class LoginDestinationRuleForm extends EntityForm {
     elseif ($scheme === 'entity') {
       list($entity_type, $entity_id) = explode('/', substr($uri, 7), 2);
       // Show the 'entity:' URI as the entity autocomplete would.
-      $entity_manager = \Drupal::entityTypeManager();
-      if ($entity_manager->getDefinition($entity_type, FALSE) && $entity = \Drupal::entityTypeManager()
-          ->getStorage($entity_type)
-          ->load($entity_id)
+      if ($this->entityTypeManager->getDefinition($entity_type, FALSE) && $entity = $this->entityTypeManager
+        ->getStorage($entity_type)
+        ->load($entity_id)
       ) {
-        $displayable_string = EntityAutocomplete::getEntityLabels(array($entity));
+        $displayable_string = EntityAutocomplete::getEntityLabels([$entity]);
       }
     }
 
@@ -309,7 +321,7 @@ class LoginDestinationRuleForm extends EntityForm {
     $entity_id = EntityAutocomplete::extractEntityIdFromAutocompleteInput($string);
     if ($entity_id !== NULL) {
       // @todo Support entity types other than 'node'. Will be fixed in
-      //    https://www.drupal.org/node/2423093.
+      //   https://www.drupal.org/node/2423093.
       $uri = 'entity:node/' . $entity_id;
     }
     // Detect a schemeless string, map to 'internal:' URI.

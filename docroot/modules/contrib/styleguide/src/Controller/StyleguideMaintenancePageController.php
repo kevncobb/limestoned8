@@ -29,8 +29,10 @@ class StyleguideMaintenancePageController extends ControllerBase {
   /**
    * Constructs a new StyleguideMaintenancePageController.
    *
-   * @param BareHtmlPageRendererInterface $bare_html_page_renderer
-   * @param GeneratorInterface $styleguide_generator
+   * @param \Drupal\Core\Render\BareHtmlPageRendererInterface $bare_html_page_renderer
+   *   The bare HTML page renderer.
+   * @param \Drupal\styleguide\GeneratorInterface $styleguide_generator
+   *   The styleguide generator service.
    */
   public function __construct(BareHtmlPageRendererInterface $bare_html_page_renderer, GeneratorInterface $styleguide_generator) {
     $this->bareHtmlPageRenderer = $bare_html_page_renderer;

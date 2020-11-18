@@ -45,7 +45,7 @@ abstract class StyleguidePluginBase extends PluginBase implements StyleguideInte
    * @return array
    *   The renderable array.
    */
-  public function buildLinkFromRoute($text, $route_name, $route_parameters = array(), $options = array()) {
+  public function buildLinkFromRoute($text, $route_name, array $route_parameters = [], array $options = []) {
     $link = Link::createFromRoute($text, $route_name, $route_parameters, $options);
     return $link->toRenderable();
   }

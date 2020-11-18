@@ -27,7 +27,7 @@ install:
   - varbase_media_block
   - varbase_gallery_block
 
-# Information added by Drupal.org packaging script on 2020-08-17
-version: '8.x-1.0-alpha15'
+# Information added by Drupal.org packaging script on 2020-11-05
+version: '8.x-1.22'
 project: 'varbase_layout_builder'
-datestamp: 1597680917
+datestamp: 1604575617

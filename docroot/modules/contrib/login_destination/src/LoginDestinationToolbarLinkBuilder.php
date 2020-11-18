@@ -2,6 +2,7 @@
 
 namespace Drupal\login_destination;
 
+use Drupal\Core\Path\CurrentPathStack;
 use Drupal\Core\Session\AccountProxyInterface;
 use Drupal\user\ToolbarLinkBuilder;
 
@@ -18,15 +19,25 @@ class LoginDestinationToolbarLinkBuilder extends ToolbarLinkBuilder {
   protected $innerService;
 
   /**
+   * The current path service.
+   *
+   * @var \Drupal\Core\Path\CurrentPathStack
+   */
+  protected $currentPath;
+
+  /**
    * ToolbarHandler constructor.
    *
    * @param \Drupal\user\ToolbarLinkBuilder $inner_service
    *   The decorated service.
+   * @param \Drupal\Core\Path\CurrentPathStack $current_path
+   *   The current path.
    * @param \Drupal\Core\Session\AccountProxyInterface $account
    *   The current user.
    */
-  public function __construct(ToolbarLinkBuilder $inner_service, AccountProxyInterface $account) {
+  public function __construct(ToolbarLinkBuilder $inner_service, CurrentPathStack $current_path, AccountProxyInterface $account) {
     $this->innerService = $inner_service;
+    $this->currentPath = $current_path;
     parent::__construct($account);
   }
 
@@ -57,7 +68,7 @@ class LoginDestinationToolbarLinkBuilder extends ToolbarLinkBuilder {
     if ($this->account->getAccount()->isAuthenticated()) {
       $url = &$build['#links']['logout']['url'];
 
-      $current = \Drupal::service('path.current')->getPath();
+      $current = $this->currentPath->getPath();
 
       // Add current param to be able to evaluate previous page.
       $url->setOptions(['query' => ['current' => $current]]);

@@ -125,12 +125,12 @@ class TermAccessTest extends OriginalTermAccessTest {
 
       $this->drupalGet('taxonomy/term/' . $published_terms[$delta]->id() . '/edit');
       $assert_session->statusCodeEquals(200);
-      $this->assertText(t('Delete'));
+      $this->assertSession()->pageTextContains('Delete');
       $this->assertLinkByEndOfHref(Url::fromRoute('entity.taxonomy_term.delete_form', ['taxonomy_term' => $published_terms[$delta]->id()])->toString());
       $this->assertTermAccess($published_terms[$delta], 'update', TRUE);
       $this->drupalGet('taxonomy/term/' . $unpublished_terms[$delta]->id() . '/edit');
       $assert_session->statusCodeEquals(200);
-      $this->assertText(t('Delete'));
+      $this->assertSession()->pageTextContains('Delete');
       $this->assertLinkByEndOfHref(Url::fromRoute('entity.taxonomy_term.delete_form', ['taxonomy_term' => $unpublished_terms[$delta]->id()])->toString());
       $this->assertTermAccess($unpublished_terms[$delta], 'update', TRUE);
 
@@ -196,7 +196,7 @@ class TermAccessTest extends OriginalTermAccessTest {
       $this->drupalGet('taxonomy/term/' . $published_terms[$delta]->id() . '/edit');
       if ($delta === 0) {
         $assert_session->statusCodeEquals(200);
-        $this->assertNoText(t('Delete'));
+        $this->assertSession()->pageTextNotContains('Delete');
         $this->assertNoLinkByEndOfHref(Url::fromRoute('entity.taxonomy_term.delete_form', ['taxonomy_term' => $published_terms[$delta]->id()])->toString());
         $this->assertTermAccess($published_terms[$delta], 'update', TRUE);
       }

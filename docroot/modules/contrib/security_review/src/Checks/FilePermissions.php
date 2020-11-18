@@ -220,7 +220,7 @@ class FilePermissions extends Check {
     $ignore = ['..', 'CVS', '.git', '.svn', '.bzr', realpath($file_path)];
 
     // Add temporary files directory if it's set.
-    $temp_path = file_directory_temp();
+    $temp_path = \Drupal::service('file_system')->getTempDirectory();
     if (!empty($temp_path)) {
       $ignore[] = realpath('./' . rtrim($temp_path, '/'));
     }

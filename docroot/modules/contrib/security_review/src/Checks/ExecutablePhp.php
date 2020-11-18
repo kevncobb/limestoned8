@@ -2,7 +2,7 @@
 
 namespace Drupal\security_review\Checks;
 
-use Drupal\Component\PhpStorage\FileStorage;
+use Drupal\Component\FileSecurity\FileSecurity;
 use Drupal\Core\StreamWrapper\PublicStream;
 use Drupal\security_review\Check;
 use Drupal\security_review\CheckResult;
@@ -87,7 +87,7 @@ class ExecutablePhp extends Check {
     else {
       // Check whether the contents of .htaccess are correct.
       $contents = file_get_contents($htaccess_path);
-      $expected = FileStorage::htaccessLines(FALSE);
+      $expected = FileSecurity::htaccessLines(FALSE);
 
       // Trim each line separately then put them back together.
       $contents = implode("\n", array_map('trim', explode("\n", trim($contents))));

@@ -4,6 +4,7 @@ namespace Drupal\login_destination\Entity;
 
 use Drupal\Component\Utility\Html;
 use Drupal\Core\Config\Entity\ConfigEntityBase;
+use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\Core\Url;
 use Drupal\login_destination\LoginDestinationInterface;
 
@@ -31,10 +32,24 @@ use Drupal\login_destination\LoginDestinationInterface;
  *   links = {
  *     "edit-form" = "/admin/config/people/login-destination/{login_destination}/edit",
  *     "delete-form" = "/admin/config/people/login-destination/{login_destination}/delete",
+ *   },
+ *   config_export = {
+ *     "name",
+ *     "label",
+ *     "triggers",
+ *     "roles",
+ *     "pages_type",
+ *     "pages",
+ *     "language",
+ *     "enabled",
+ *     "destination_path",
+ *     "weight"
  *   }
  * )
  */
 class LoginDestination extends ConfigEntityBase implements LoginDestinationInterface {
+
+  use StringTranslationTrait;
 
   /**
    * Redirect from all pages except listed.
@@ -217,23 +232,23 @@ class LoginDestination extends ConfigEntityBase implements LoginDestinationInter
       }
       switch ($trigger) {
         case LoginDestination::TRIGGER_REGISTRATION:
-          $items[] = t('Registration');
+          $items[] = $this->t('Registration');
           break;
 
         case LoginDestination::TRIGGER_LOGIN:
-          $items[] = t('Login');
+          $items[] = $this->t('Login');
           break;
 
         case LoginDestination::TRIGGER_ONE_TIME_LOGIN:
-          $items[] = t('One-time login link');
+          $items[] = $this->t('One-time login link');
           break;
 
         case LoginDestination::TRIGGER_LOGOUT:
-          $items[] = t('Logout');
+          $items[] = $this->t('Logout');
           break;
       }
     }
-    return $this->renderItemList($items, t('All triggers'));
+    return $this->renderItemList($items, $this->t('All triggers'));
   }
 
   /**
@@ -242,7 +257,7 @@ class LoginDestination extends ConfigEntityBase implements LoginDestinationInter
   public function viewRoles() {
     $roles = $this->getAllSystemRoles();
     $items = array_values(array_intersect_key($roles, $this->roles));
-    return $this->renderItemList($items, t('All roles'));
+    return $this->renderItemList($items, $this->t('All roles'));
   }
 
   /**
@@ -254,9 +269,9 @@ class LoginDestination extends ConfigEntityBase implements LoginDestinationInter
 
     if (empty($pages)) {
       if ($type == self::REDIRECT_NOT_LISTED) {
-        return t('All pages');
+        return $this->t('All pages');
       }
-      return t('No pages');
+      return $this->t('No pages');
     }
 
     $pages = explode("\n", preg_replace('/\r/', '', $this->pages));
@@ -265,7 +280,7 @@ class LoginDestination extends ConfigEntityBase implements LoginDestinationInter
       $items[] = $type == self::REDIRECT_NOT_LISTED ? '~ ' . $page : $page;
     }
 
-    return $this->renderItemList($items, t('Empty'));
+    return $this->renderItemList($items, $this->t('Empty'));
   }
 
   /**
@@ -284,7 +299,7 @@ class LoginDestination extends ConfigEntityBase implements LoginDestinationInter
       $scheme = parse_url($this->destination_path, PHP_URL_SCHEME);
     }
     if ($scheme === 'internal') {
-      return t('Internal destination');
+      return $this->t('Internal destination');
     }
     if ($scheme === 'entity') {
       $params = $url->getRouteParameters();

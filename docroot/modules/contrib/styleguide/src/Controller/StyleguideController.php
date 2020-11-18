@@ -19,16 +19,9 @@ class StyleguideController extends ControllerBase {
   /**
    * The theme handler service.
    *
-   * @var ThemeHandlerInterface
+   * @var \Drupal\Core\Extension\ThemeHandlerInterface
    */
   protected $themeHandler;
-
-  /**
-   * The styleguide generator service.
-   *
-   * @var \Drupal\styleguide\Generator
-   */
-  protected $generator;
 
   /**
    * The theme manager service.
@@ -45,7 +38,7 @@ class StyleguideController extends ControllerBase {
   protected $requestStack;
 
   /**
-   * The block plugin manager.
+   * The Styleguide plugin manager.
    *
    * @var \Drupal\styleguide\StyleguidePluginManager
    */
@@ -54,11 +47,14 @@ class StyleguideController extends ControllerBase {
   /**
    * Constructs a new StyleguideController.
    *
-   * @param ThemeHandlerInterface $theme_handler
-   *   The theme handler.
+   * @param \Drupal\Core\Extension\ThemeHandlerInterface $theme_handler
+   *   The theme handler service.
    * @param \Drupal\styleguide\StyleguidePluginManager $styleguide_manager
+   *   The Styleguide plugin manager.
    * @param \Drupal\Core\Theme\ThemeManagerInterface $theme_manager
+   *   The theme manager service.
    * @param \Symfony\Component\HttpFoundation\RequestStack $request_stack
+   *   The request stack.
    */
   public function __construct(ThemeHandlerInterface $theme_handler, StyleguidePluginManager $styleguide_manager, ThemeManagerInterface $theme_manager, RequestStack $request_stack) {
     $this->themeHandler = $theme_handler;
@@ -93,33 +89,34 @@ class StyleguideController extends ControllerBase {
     // Get theme data.
     $theme_info = $themes[$active_theme]->info;
 
-    $items = array();
+    $items = [];
     foreach ($this->styleguideManager->getDefinitions() as $plugin_id => $plugin_definition) {
-      $plugin = $this->styleguideManager->createInstance($plugin_id, array('of' => 'configuration values'));
+      $plugin = $this->styleguideManager->createInstance($plugin_id, ['of' => 'configuration values']);
       $items = array_merge($items, $plugin->items());
     }
 
     $this->moduleHandler()->alter('styleguide', $items);
+    $this->themeManager->alter('styleguide', $items);
 
-    $groups = array();
+    $groups = [];
     foreach ($items as $key => $item) {
       if (!isset($item['group'])) {
         $item['group'] = $this->t('Common');
       }
       else {
-        $item['group'] = $this->t('@group', array('@group' => $item['group']));
+        $item['group'] = $this->t('@group', ['@group' => $item['group']]);
       }
-      $item['title'] = $this->t('@title', array('@title' => $item['title']));
+      $item['title'] = $this->t('@title', ['@title' => $item['title']]);
       $groups[$item['group']->__toString()][$key] = $item;
     }
 
     ksort($groups);
     // Create a navigation header.
-    $header = $head = $content = array();
+    $header = $head = $content = [];
     // Process the elements, by group.
     foreach ($groups as $group => $elements) {
       foreach ($elements as $key => $item) {
-        $display = array();
+        $display = [];
         // Output a standard HTML tag.
         if (isset($item['tag']) && isset($item['content'])) {
           $tag = [

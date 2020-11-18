@@ -64,12 +64,12 @@ class StyleguideLocalTasks extends DeriverBase implements ContainerDeriverInterf
       }
       if ($theme->status) {
         $route_name = 'styleguide.' . $theme->getName();
-        $this->derivatives[$route_name] = $base_plugin_definition + array(
+        $this->derivatives[$route_name] = $base_plugin_definition + [
           'title' => $theme->info['name'],
           'route_name' => $route_name,
           'parent_id' => 'styleguide.page',
           'weight' => $weight++,
-        );
+        ];
         if ($default_theme == $theme->getName()) {
           $this->derivatives[$route_name]['route_name'] = 'styleguide.page';
         }

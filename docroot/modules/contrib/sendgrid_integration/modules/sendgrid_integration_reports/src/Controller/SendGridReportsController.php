@@ -2,18 +2,23 @@
 
 namespace Drupal\sendgrid_integration_reports\Controller;
 
+use Drupal\Component\Utility\Xss;
+use Drupal\Core\Config\ConfigFactoryInterface;
+use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Link;
+use Drupal\Core\Logger\LoggerChannelFactory;
+use Drupal\Core\Messenger\MessengerInterface;
 use Drupal\Core\Url;
 use GuzzleHttp\Client;
-use Drupal\Component\Utility\Xss;
 use GuzzleHttp\Exception\ClientException;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Class SendGridReportsController.
  *
  * @package Drupal\sendgrid_integration_reports\Controller
  */
-class SendGridReportsController {
+class SendGridReportsController extends ControllerBase {
 
   /**
    * Api Key of SendGrid.
@@ -30,18 +35,61 @@ class SendGridReportsController {
   protected $bin = 'sendgrid_integration_reports';
 
   /**
-   * SendGridReportsController constructor.
+   * Include the messenger service.
+   *
+   * @var \Drupal\Core\Messenger\MessengerInterface
    */
-  public function __construct() {
+  protected $messenger;
+
+  /**
+   * The config factory.
+   *
+   * @var \Drupal\Core\Config\ConfigFactoryInterface
+   */
+  protected $configFactory;
+
+  /**
+   * Logger service.
+   *
+   * @var \Drupal\Core\Logger\LoggerChannelFactory
+   */
+  protected $loggerFactory;
+
+  /**
+   * SendGridReportsController constructor.
+   *
+   * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
+   *   The configuration factory.
+   * @param \Drupal\Core\Messenger\MessengerInterface $messenger
+   *   The messenger service.
+   * @param \Drupal\Core\Logger\LoggerChannelFactory $logger_factory
+   *   The logger factory.
+   */
+  public function __construct(ConfigFactoryInterface $config_factory, MessengerInterface $messenger, LoggerChannelFactory $logger_factory) {
+    $this->configFactory = $config_factory;
+    $this->messenger = $messenger;
+    $this->loggerFactory = $logger_factory;
     // Load key from variables and throw errors if not there.
-    $this->apiKey = \Drupal::config('sendgrid_integration.settings')->get('apikey');
+    $this->apiKey = $this->configFactory->get('sendgrid_integration.settings')
+      ->get('apikey');
     // Display message one time if api key is not set.
     if (empty($this->apiKey)) {
-      \Drupal::logger('sendgrid_integration_reports')
-        ->notice(t('SendGrid Module is not setup with API key.'));
-      \Drupal::messenger()
-        ->addWarning(t('Sendgrid Module is not setup with an API key.'));
+      $this->loggerFactory->get('sendgrid_integration_reports')
+        ->warning(t('SendGrid Module is not setup with API key.'));
+      $this->messenger->addWarning('Sendgrid Module is not setup with an API key.');
     }
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container) {
+    return new static(
+      $container->get('config.factory'),
+      $container->get('messenger'),
+      $container->get('logger.factory')
+    );
+
   }
 
   /**
@@ -117,10 +165,9 @@ class SendGridReportsController {
     }
     catch (ClientException $e) {
       $code = Xss::filter($e->getCode());
-      \Drupal::logger('sendgrid_integration_reports')
+      $this->loggerFactory->get('sendgrid_integration_reports')
         ->error(t('SendGrid Reports module failed to receive data. HTTP Error Code @errno', ['@errno' => $code]));
-      \Drupal::messenger()
-        ->addError(t('SendGrid Reports module failed to receive data. See logs.'));
+      $this->messenger->addError(t('SendGrid Reports module failed to receive data. See logs.'));
       return FALSE;
     }
     // Sanitize return before using in Drupal.
@@ -160,9 +207,12 @@ class SendGridReportsController {
       'message' => [
         '#markup' => t('The following reports are the from the Global Statistics provided by SendGrid. For more comprehensive data, please visit your @dashboard. @cache to ensure the data is current. @settings to alter the time frame of this data.',
           [
-            '@dashboard' => Link::fromTextAndUrl(t('SendGrid Dashboard'), Url::fromUri('//app.sendgrid.com/'))->toString(),
-            '@cache' => Link::createFromRoute(t('Clear your cache'), 'system.performance_settings')->toString(),
-            '@settings' => Link::createFromRoute(t('Change your settings'), 'sendgrid_integration_reports.settings_form')->toString(),
+            '@dashboard' => Link::fromTextAndUrl(t('SendGrid Dashboard'), Url::fromUri('//app.sendgrid.com/'))
+              ->toString(),
+            '@cache' => Link::createFromRoute(t('Clear your cache'), 'system.performance_settings')
+              ->toString(),
+            '@settings' => Link::createFromRoute(t('Change your settings'), 'sendgrid_integration_reports.settings_form')
+              ->toString(),
           ]
         ),
       ],
@@ -245,7 +295,8 @@ class SendGridReportsController {
     }
 
     // Get config.
-    $config = \Drupal::config('sendgrid_integration_reports.settings')->get();
+    $config = $this->configFactory->get('sendgrid_integration_reports.settings')
+      ->get();
     if ($start_date) {
       $start_date = date('Y-m-d', strtotime($start_date));
     }

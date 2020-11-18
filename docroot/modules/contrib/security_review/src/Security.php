@@ -8,6 +8,7 @@ use Drupal\Core\DrupalKernelInterface;
 use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\user\Entity\Role;
+use Drupal\user\UserInterface;
 
 /**
  * Provides frequently used security-related data.
@@ -101,7 +102,7 @@ class Security {
     // Check whether visitors can create accounts.
     $user_register = $this->configFactory->get('user.settings')
       ->get('register');
-    if ($user_register !== USER_REGISTER_ADMINISTRATORS_ONLY) {
+    if ($user_register !== UserInterface::REGISTER_ADMINISTRATORS_ONLY) {
       // If visitors are allowed to create accounts they are considered
       // untrusted.
       $roles[] = AccountInterface::AUTHENTICATED_ROLE;

@@ -5,12 +5,14 @@
  * Control where users are directed to, once they login, register or logout.
  */
 
+use Drupal\Component\Utility\UrlHelper;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\Url;
 use Drupal\Core\Link;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Routing\TrustedRedirectResponse;
 use Drupal\user\UserInterface;
 
 /**
@@ -131,17 +133,11 @@ function login_destination_link_alter(&$variables) {
   ];
   /* @var Drupal\Core\Url $url */
   $url = $variables['url'];
-  if ($url->isExternal()) {
-    return;
+  if ($url->isRouted() && in_array($url->getRouteName(), $routes)) {
+    // Get current path.
+    $current = \Drupal::service('path.current')->getPath();
+    $variables['options']['query']['current'] = $current;
   }
-
-  if ($url->isRouted() && !in_array($url->getRouteName(), $routes)) {
-    return;
-  }
-
-  // Get current path.
-  $current = \Drupal::service('path.current')->getPath();
-  $variables['options']['query']['current'] = $current;
 }
 
 /**
@@ -177,6 +173,11 @@ function login_destination_perform_redirect($trigger, AccountInterface $account)
   $service = \Drupal::service('login_destination.manager');
   $destination = $service->findDestination($trigger, $account);
   if ($destination) {
+    // Check if it's a external URL.
+    if (UrlHelper::isExternal($destination->destination_path)) {
+      $response = new TrustedRedirectResponse($destination->destination_path);
+      $response->send();
+    }
     $service->prepareDestination($destination);
   }
 }

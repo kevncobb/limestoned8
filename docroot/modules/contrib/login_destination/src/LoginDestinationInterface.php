@@ -42,8 +42,10 @@ interface LoginDestinationInterface extends ConfigEntityInterface {
   public function getTriggers();
 
   /**
-   * Get Type of pages:
+   * Get Type of pages.
+   *
    *  - 0: all pages except listed pages.
+   *
    *  - 1: only listed pages.
    *
    * @return int
@@ -111,6 +113,7 @@ interface LoginDestinationInterface extends ConfigEntityInterface {
    * Return status.
    *
    * @return bool
+   *   TRUE for enabled, FALSE otherwise.
    */
   public function isEnabled();
 

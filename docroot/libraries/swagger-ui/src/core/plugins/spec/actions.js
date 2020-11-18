@@ -416,7 +416,10 @@ export const executeRequest = (req) =>
             }
           )
           .filter(
-            (value, key) => !isEmptyValue(value) || requestBodyInclusionSetting.get(key)
+            (value, key) => (Array.isArray(value) 
+              ? value.length !== 0 
+              : !isEmptyValue(value)
+            ) || requestBodyInclusionSetting.get(key)
           )
           .toJS()
       } else{
@@ -429,8 +432,8 @@ export const executeRequest = (req) =>
 
     specActions.setRequest(req.pathName, req.method, parsedRequest)
 
-    let requestInterceptorWrapper = function(r) {
-      let mutatedRequest = requestInterceptor.apply(this, [r])
+    let requestInterceptorWrapper = async (r) => {
+      let mutatedRequest = await requestInterceptor.apply(this, [r])
       let parsedMutatedRequest = Object.assign({}, mutatedRequest)
       specActions.setMutatedRequest(req.pathName, req.method, parsedMutatedRequest)
       return mutatedRequest

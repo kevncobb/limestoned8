@@ -45,3 +45,22 @@ div.styleguide {
   border-top: 1px solid #777;
   padding-top: 1em;
 }
+
+.styleguide .layout:hover .layout__region {
+  outline: 2px dashed #2f91da;
+  background-color: #eff6fc;
+}
+
+.styleguide .demo-block {
+  display: inline-block;
+  margin: 10px;
+}
+
+.styleguide__layout-info {
+  display: flex;
+  margin: 10px 0;
+}
+
+.styleguide__layout-info *:first-child {
+  margin-right: 10px;
+}

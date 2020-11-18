@@ -23,7 +23,7 @@ use Drupal\Core\Url;
  *   Will be visible inside the upload area.
  * - #max_filesize (string)
  *   Used by dropzonejs and expressed in number + unit (i.e. 1.1M) This will be
- *   converted to a form that DropzoneJs understands. See:
+ *   converted to a form that DropzoneJS understands. See:
  *   http://www.dropzonejs.com/#config-maxFilesize
  * - #extensions (string)
  *   A string of valid extensions separated by a space.
@@ -86,6 +86,10 @@ class DropzoneJs extends FormElement {
    * Processes a dropzone upload element.
    */
   public static function processDropzoneJs(&$element, FormStateInterface $form_state, &$complete_form) {
+
+    /** @var \Drupal\Core\Routing\UrlGeneratorInterface $urlGenerator */
+    $urlGenerator = \Drupal::service('dropzonejs.url_generator');
+
     $element['uploaded_files'] = [
       '#type' => 'hidden',
       // @todo Handle defaults.
@@ -93,7 +97,7 @@ class DropzoneJs extends FormElement {
       // If we send a url with a token through drupalSettings the placeholder
       // doesn't get replaced, because the actual scripts markup is not there
       // yet. So we pass this information through a data attribute.
-      '#attributes' => ['data-upload-path' => Url::fromRoute('dropzonejs.upload')->toString()],
+      '#attributes' => ['data-upload-path' => $urlGenerator->generateFromRoute('dropzonejs.upload')],
     ];
 
     if (empty($element['#max_filesize'])) {
@@ -138,6 +142,7 @@ class DropzoneJs extends FormElement {
           'dictDefaultMessage' => Html::escape($element['#dropzone_description']),
           'acceptedFiles' => '.' . str_replace(' ', ',.', self::getValidExtensions($element)),
           'maxFiles' => $element['#max_files'],
+          'timeout' => \Drupal::configFactory()->get('dropzonejs.settings')->get('upload_timeout_ms'),
         ],
       ],
     ];

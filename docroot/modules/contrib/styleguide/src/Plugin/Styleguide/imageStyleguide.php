@@ -8,6 +8,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\image\Entity\ImageStyle;
 use Drupal\Component\Render\FormattableMarkup;
+use Drupal\Core\File\FileSystemInterface;
 
 /**
  * Image styles Styleguide items implementation.
@@ -29,24 +30,39 @@ class ImageStyleguide extends StyleguidePluginBase {
   /**
    * The module handler service.
    *
-   * @var ModuleHandlerInterface
+   * @var \Drupal\Core\Extension\ModuleHandlerInterface
    */
   protected $moduleHandler;
+
+  /**
+   * The file system service.
+   *
+   * @var \Drupal\Core\File\FileSystemInterface
+   */
+  protected $fileSystem;
 
   /**
    * Constructs a new imageStyleguide.
    *
    * @param array $configuration
+   *   A configuration array containing information about the plugin instance.
    * @param string $plugin_id
+   *   The plugin_id for the plugin instance.
    * @param mixed $plugin_definition
+   *   The plugin implementation definition.
    * @param \Drupal\styleguide\GeneratorInterface $styleguide_generator
-   * @param ModuleHandlerInterface $module_handler
+   *   The styleguide generator service.
+   * @param \Drupal\Core\Extension\ModuleHandlerInterface $module_handler
+   *   The module handler service.
+   * @param \Drupal\Core\File\FileSystemInterface $file_system
+   *   The file system service.
    */
-  public function __construct(array $configuration, $plugin_id, $plugin_definition, GeneratorInterface $styleguide_generator, ModuleHandlerInterface $module_handler) {
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, GeneratorInterface $styleguide_generator, ModuleHandlerInterface $module_handler, FileSystemInterface $file_system) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
 
     $this->generator = $styleguide_generator;
     $this->moduleHandler = $module_handler;
+    $this->fileSystem = $file_system;
   }
 
   /**
@@ -58,7 +74,8 @@ class ImageStyleguide extends StyleguidePluginBase {
       $plugin_id,
       $plugin_definition,
       $container->get('styleguide.generator'),
-      $container->get('module_handler')
+      $container->get('module_handler'),
+      $container->get('file_system')
     );
   }
 
@@ -70,9 +87,9 @@ class ImageStyleguide extends StyleguidePluginBase {
     if ($this->moduleHandler->moduleExists('image')) {
       // Get the sample file provided by the module.
       $preview_img_path = 'public://styleguide-preview.jpg';
-      if (file_destination($preview_img_path, FILE_EXISTS_ERROR) !== FALSE) {
+      if ($this->fileSystem->getDestinationFilename($preview_img_path, FileSystemInterface::EXISTS_ERROR) !== FALSE) {
         // Move the image so that styles may be applied.
-        file_unmanaged_copy($this->generator->image('vertical'), $preview_img_path, FILE_EXISTS_ERROR);
+        $this->fileSystem->copy($this->generator->image('vertical'), $preview_img_path, FileSystemInterface::EXISTS_ERROR);
       }
 
       // Iterate through the image styles on the site.
@@ -83,15 +100,15 @@ class ImageStyleguide extends StyleguidePluginBase {
           $summary = render($summary);
           $label = $effect->label();
           if ($summary) {
-            $details[] = new FormattableMarkup('%label: @summary', array(
+            $details[] = new FormattableMarkup('%label: @summary', [
               '%label' => $label,
               '@summary' => $summary,
-            ));
+            ]);
           }
           else {
-            $details[] = new FormattableMarkup('%label', array(
+            $details[] = new FormattableMarkup('%label', [
               '%label' => $label,
-            ));
+            ]);
           }
         }
 

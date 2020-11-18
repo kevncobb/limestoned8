@@ -25,6 +25,11 @@ class VocabularyAccessTest extends TaxonomyTestBase {
   public static $modules = ['taxonomy_access_fix', 'block'];
 
   /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'stark';
+
+  /**
    * Users used.
    *
    * @var \Drupal\user\UserInterface[]
@@ -521,7 +526,7 @@ class VocabularyAccessTest extends TaxonomyTestBase {
     foreach ($vocabularies as $vocabulary) {
       $vocabulary->delete();
     }
-    $this->assertFalse(Vocabulary::loadMultiple(), 'No vocabularies found.');
+    $this->assertEmpty(Vocabulary::loadMultiple(), 'No vocabularies found.');
     $this->drupalLogin($this->users['administer']);
     $this->drupalGet('admin/structure/taxonomy');
     $assert_session->statusCodeEquals(200);
@@ -649,8 +654,7 @@ class VocabularyAccessTest extends TaxonomyTestBase {
     foreach ($this->vocabularies as $delta => $vocabulary) {
       $this->assertVocabularyAccess($vocabulary, 'view', FALSE, "The 'access taxonomy overview' and one of the 'create terms in {$vocabulary->id()}', 'delete terms in {$vocabulary->id()}', 'edit terms in {$vocabulary->id()}', 'reorder terms in {$vocabulary->id()}' permissions OR the 'administer taxonomy' permission are required.");
       $this->assertVocabularyAccess($vocabulary, 'access taxonomy overview', FALSE, "The 'access taxonomy overview' and one of the 'create terms in {$vocabulary->id()}', 'delete terms in {$vocabulary->id()}', 'edit terms in {$vocabulary->id()}', 'reorder terms in {$vocabulary->id()}' permissions OR the 'administer taxonomy' permission are required.");
-      $this->assertVocabularyAccess($vocabulary, 'reorder_terms', FALSE, "The 'reorder terms in {$vocabulary->id()}' OR the 'administer taxonomy' permission is required.");
-      $this->assertVocabularyAccess($vocabulary, 'create', FALSE, "The 'administer taxonomy' permission is required.");
+      $this->assertVocabularyAccess($vocabulary, 'reorder_terms', FALSE, "The 'reorder terms in {$vocabulary->id()}' OR the 'administer taxonomy' permission is required.");      $this->assertVocabularyAccess($vocabulary, 'create', FALSE, "The 'administer taxonomy' permission is required.");
       $this->assertVocabularyAccess($vocabulary, 'update', FALSE, "The 'administer taxonomy' permission is required.");
       $this->assertVocabularyAccess($vocabulary, 'delete', FALSE, "The 'administer taxonomy' permission is required.");
     }

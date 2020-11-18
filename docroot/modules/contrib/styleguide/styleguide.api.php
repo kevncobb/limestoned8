@@ -1,17 +1,19 @@
 <?php
 
 /**
+ * @file
+ * Hooks for the Styleguide module.
+ */
+
+/**
  * Alter styleguide elements.
  *
- * @param &$items
+ * @param array &$items
  *   An array of items to be displayed.
- *
- * @return
- *   No return value. Modify $items by reference.
  *
  * @see hook_styleguide()
  */
-function hook_styleguide_alter(&$items) {
+function hook_styleguide_alter(array &$items) {
   // Add a class to the text test.
   $items['text']['content'] = '<div class="mytestclass">' . $items['text']['content'] . '</div>';
   // Remove the headings tests.

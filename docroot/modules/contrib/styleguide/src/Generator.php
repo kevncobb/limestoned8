@@ -2,9 +2,12 @@
 
 namespace Drupal\styleguide;
 
+use Drupal\Core\Config\ConfigFactoryInterface;
+use Drupal\Core\Pager\PagerManagerInterface;
 use Drupal\Core\Url;
 use Drupal\Component\Utility\Random;
 use Symfony\Component\HttpFoundation\RequestStack;
+use Drupal\Core\Render\Markup;
 
 /**
  * Class Generator.
@@ -28,18 +31,34 @@ class Generator implements GeneratorInterface {
   protected $random;
 
   /**
+   * The page manager service.
+   *
+   * @var \Drupal\Core\Pager\PagerManagerInterface
+   */
+  protected $pagerManager;
+
+  /**
+   * The configuration entry point.
+   *
+   * @var \Drupal\Core\Config\ConfigFactoryInterface
+   */
+  protected $config;
+
+  /**
    * Constructor.
    */
-  public function __construct(RequestStack $request_stack) {
+  public function __construct(RequestStack $request_stack, PagerManagerInterface $page_manager, ConfigFactoryInterface $config) {
     $this->currentRequest = $request_stack->getCurrentRequest();
     $this->random = new Random();
+    $this->pagerManager = $page_manager;
+    $this->config = $config;
   }
 
   /**
    * {@inheritdoc}
    */
   public function wordList($size = 5, $words = 3) {
-    $items = array();
+    $items = [];
     for ($i = 0; $i < $size; $i++) {
       $items[] = $this->words($words, 'ucfirst');
     }
@@ -55,7 +74,7 @@ class Generator implements GeneratorInterface {
       $words[] = $this->random->word(rand(4, 12));
     }
     $words = implode(' ', $words);
-    $functions = array('ucfirst', 'ucwords', 'strtoupper', 'strtolower');
+    $functions = ['ucfirst', 'ucwords', 'strtoupper', 'strtolower'];
     if (!is_null($case) && function_exists($case) && in_array($case, $functions)) {
       $words = $case($words);
     }
@@ -74,7 +93,7 @@ class Generator implements GeneratorInterface {
    * {@inheritdoc}
    */
   public function tableRows($size = 5) {
-    $rows = array();
+    $rows = [];
     for ($i = 0; $i < $size; $i++) {
       $rows[] = $this->wordList($size);
     }
@@ -87,7 +106,7 @@ class Generator implements GeneratorInterface {
   public function lorem($size = 5, $words = 0, $case = 'mixed', $returns = TRUE, $punctuation = TRUE, $array = FALSE) {
     $text = $this->random->paragraphs($size, TRUE);
     if (!$punctuation) {
-      $text = str_replace(array(',', '.'), '', $text);
+      $text = str_replace([',', '.'], '', $text);
     }
     switch ($case) {
       case 'mixed':
@@ -109,7 +128,7 @@ class Generator implements GeneratorInterface {
     }
     if ($words > 0) {
       $elements = explode(' ', implode(' ', $text));
-      $output = array();
+      $output = [];
       for ($i = 0; $i < $words; $i++) {
         $val = array_rand($elements);
         $output[] = $elements[$val];
@@ -127,7 +146,7 @@ class Generator implements GeneratorInterface {
    */
   public function paragraphs($size = 5, $render = FALSE) {
     $text = $this->lorem($size, 0, 'mixed', TRUE, TRUE, TRUE);
-    $output = array();
+    $output = [];
     foreach ($text as $item) {
       $output[] = [
         '#type' => 'html_tag',
@@ -143,7 +162,8 @@ class Generator implements GeneratorInterface {
    * {@inheritdoc}
    */
   public function image($image = 'vertical', $type = 'jpg', $min_resolution = '240x320', $max_resolution = '240x320') {
-    $file_path = file_default_scheme() . '://styleguide-image-' . $image . '.' . $type;
+    $file_path = $this->config->get('system.file')
+      ->get('default_scheme') . '://styleguide-image-' . $image . '.' . $type;
 
     if ($image == 'horizontal') {
       $min_resolution = $max_resolution = '320x240';
@@ -164,26 +184,27 @@ class Generator implements GeneratorInterface {
     $sentence = trim($explode[$rand]);
     if ($link) {
       $explode = explode(' ', $sentence);
-      $link = array(
-        '#theme' => 'link',
-        '#text' => $explode[0],
-        '#path' => $link,
-        '#options' => array(
-          'attributes' => array(),
+      $link = [
+        '#type' => 'link',
+        '#title' => $explode[0],
+        '#url' => $link,
+        '#options' => [
+          'attributes' => [],
           'html' => FALSE,
-        ),
-      );
+        ],
+        '#text' => $explode[0],
+      ];
       $explode[0] = render($link);
       $sentence = implode(' ', $explode);
     }
-    return $sentence . '.';
+    return Markup::create($sentence . '.');
   }
 
   /**
    * {@inheritdoc}
    */
   public function pager($size = 8, $total = 20) {
-    pager_default_initialize($total, $size);
+    $this->pagerManager->createPager($total, $size)->getCurrentPage();
     return ['#type' => 'pager'];
   }
 
@@ -191,12 +212,12 @@ class Generator implements GeneratorInterface {
    * {@inheritdoc}
    */
   public function links($url, $size = 4) {
-    $links = array();
+    $links = [];
     for ($i = 0; $i < 5; $i++) {
-      $links[] = array(
+      $links[] = [
         'title' => $this->words(3),
         'url' => Url::fromUserInput($url),
-      );
+      ];
     }
     return $links;
   }
@@ -205,11 +226,11 @@ class Generator implements GeneratorInterface {
    * {@inheritdoc}
    */
   public function menuItem($url) {
-    $menu_item = array(
+    $menu_item = [
       '#type' => 'link',
       '#title' => $this->sentence(),
       '#url' => Url::fromUserInput($url),
-    );
+    ];
     return $menu_item;
   }
 
@@ -217,15 +238,15 @@ class Generator implements GeneratorInterface {
    * {@inheritdoc}
    */
   public function ulLinks() {
-    $links = array();
+    $links = [];
 
     for ($i = 0; $i <= 10; $i++) {
       $word = $this->words();
-      $links[$word] = array(
+      $links[$word] = [
         'title' => $word,
         'url' => Url::fromUserInput($this->currentRequest->getRequestUri()),
         'fragment' => 'ul_links',
-      );
+      ];
     }
 
     return $links;

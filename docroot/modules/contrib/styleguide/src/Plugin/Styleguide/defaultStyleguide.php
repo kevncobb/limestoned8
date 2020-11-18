@@ -87,7 +87,7 @@ class DefaultStyleguide extends StyleguidePluginBase {
   /**
    * The module handler service.
    *
-   * @var ModuleHandlerInterface
+   * @var \Drupal\Core\Extension\ModuleHandlerInterface
    */
   protected $moduleHandler;
 
@@ -95,22 +95,34 @@ class DefaultStyleguide extends StyleguidePluginBase {
    * Constructs a new defaultStyleguide.
    *
    * @param array $configuration
+   *   A configuration array containing information about the plugin instance.
    * @param string $plugin_id
-   * @param mixed $plugin_definition
+   *   The plugin_id for the plugin instance.
+   * @param array $plugin_definition
+   *   The plugin implementation definition.
    * @param \Drupal\styleguide\GeneratorInterface $styleguide_generator
+   *   The styleguide generator service.
    * @param \Symfony\Component\HttpFoundation\RequestStack $request_stack
+   *   The request stack.
    * @param \Drupal\Core\Menu\MenuLinkTreeInterface $link_tree
+   *   The menu link tree.
    * @param \Drupal\Core\Form\FormBuilder $form_builder
+   *   The form builder.
    * @param \Drupal\Core\Breadcrumb\ChainBreadcrumbBuilderInterface $breadcrumb_manager
+   *   The breadcrumb manager.
    * @param \Drupal\Core\Routing\CurrentRouteMatch $current_route_match
-   * @param BlockManager $block_manager
-   * @param ThemeManagerInterface $theme_manager
-   * @param ModuleHandlerInterface $module_handler
+   *   The current_route_match service.
+   * @param \Drupal\Core\Block\BlockManager $block_manager
+   *   The block plugin manager.
+   * @param \Drupal\Core\Theme\ThemeManagerInterface $theme_manager
+   *   The theme manager service.
+   * @param \Drupal\Core\Extension\ModuleHandlerInterface $module_handler
+   *   The module handler service.
    *
    * @internal param \Drupal\Core\Breadcrumb\ChainBreadcrumbBuilderInterface $breadcrumb
    * @internal param \Drupal\styleguide\GeneratorInterface $generator
    */
-  public function __construct(array $configuration, $plugin_id, $plugin_definition, GeneratorInterface $styleguide_generator, RequestStack $request_stack, MenuLinkTreeInterface $link_tree, FormBuilder $form_builder, ChainBreadcrumbBuilderInterface $breadcrumb_manager, CurrentRouteMatch $current_route_match, BlockManager $block_manager, ThemeManagerInterface $theme_manager, ModuleHandlerInterface $module_handler) {
+  public function __construct(array $configuration, $plugin_id, array $plugin_definition, GeneratorInterface $styleguide_generator, RequestStack $request_stack, MenuLinkTreeInterface $link_tree, FormBuilder $form_builder, ChainBreadcrumbBuilderInterface $breadcrumb_manager, CurrentRouteMatch $current_route_match, BlockManager $block_manager, ThemeManagerInterface $theme_manager, ModuleHandlerInterface $module_handler) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
 
     $this->generator = $styleguide_generator;
@@ -149,7 +161,7 @@ class DefaultStyleguide extends StyleguidePluginBase {
    */
   public function items() {
     $current_url = $this->requestStack->getCurrentRequest()->getRequestUri();
-    $items['a'] = array(
+    $items['a'] = [
       'title' => $this->t('Link'),
       'content' => [
         '#type' => 'inline_template',
@@ -160,8 +172,8 @@ class DefaultStyleguide extends StyleguidePluginBase {
           'post' => $this->generator->words(4),
         ],
       ],
-    );
-    $items['b'] = array(
+    ];
+    $items['b'] = [
       'title' => $this->t('Bold'),
       'content' => [
         '#type' => 'inline_template',
@@ -172,8 +184,8 @@ class DefaultStyleguide extends StyleguidePluginBase {
           'post' => $this->generator->words(4),
         ],
       ],
-    );
-    $items['del'] = array(
+    ];
+    $items['del'] = [
       'title' => $this->t('Delete'),
       'content' => [
         '#type' => 'inline_template',
@@ -184,8 +196,8 @@ class DefaultStyleguide extends StyleguidePluginBase {
           'post' => $this->generator->words(4),
         ],
       ],
-    );
-    $items['em'] = array(
+    ];
+    $items['em'] = [
       'title' => $this->t('Emphasis'),
       'content' => [
         '#type' => 'inline_template',
@@ -196,8 +208,8 @@ class DefaultStyleguide extends StyleguidePluginBase {
           'post' => $this->generator->words(4),
         ],
       ],
-    );
-    $items['figcaption'] = array(
+    ];
+    $items['figcaption'] = [
       'title' => $this->t('Figcaption'),
       'content' => [
         '#type' => 'inline_template',
@@ -208,8 +220,8 @@ class DefaultStyleguide extends StyleguidePluginBase {
           'post' => $this->generator->words(4),
         ],
       ],
-    );
-    $items['figure'] = array(
+    ];
+    $items['figure'] = [
       'title' => $this->t('Figure'),
       'content' => [
         '#type' => 'inline_template',
@@ -220,8 +232,8 @@ class DefaultStyleguide extends StyleguidePluginBase {
           'post' => $this->generator->words(4),
         ],
       ],
-    );
-    $items['hr'] = array(
+    ];
+    $items['hr'] = [
       'title' => $this->t('Horizontal rule'),
       'content' => [
         '#type' => 'inline_template',
@@ -232,8 +244,8 @@ class DefaultStyleguide extends StyleguidePluginBase {
           'post' => $this->generator->words(4),
         ],
       ],
-    );
-    $items['i'] = array(
+    ];
+    $items['i'] = [
       'title' => $this->t('Italic'),
       'content' => [
         '#type' => 'inline_template',
@@ -244,8 +256,8 @@ class DefaultStyleguide extends StyleguidePluginBase {
           'post' => $this->generator->words(4),
         ],
       ],
-    );
-    $items['q'] = array(
+    ];
+    $items['q'] = [
       'title' => $this->t('Quote'),
       'content' => [
         '#type' => 'inline_template',
@@ -256,8 +268,8 @@ class DefaultStyleguide extends StyleguidePluginBase {
           'post' => $this->generator->words(4),
         ],
       ],
-    );
-    $items['s'] = array(
+    ];
+    $items['s'] = [
       'title' => $this->t('Strikethrough'),
       'content' => [
         '#type' => 'inline_template',
@@ -268,8 +280,8 @@ class DefaultStyleguide extends StyleguidePluginBase {
           'post' => $this->generator->words(4),
         ],
       ],
-    );
-    $items['small'] = array(
+    ];
+    $items['small'] = [
       'title' => $this->t('Small'),
       'content' => [
         '#type' => 'inline_template',
@@ -280,8 +292,8 @@ class DefaultStyleguide extends StyleguidePluginBase {
           'post' => $this->generator->words(4),
         ],
       ],
-    );
-    $items['strong'] = array(
+    ];
+    $items['strong'] = [
       'title' => $this->t('Strong'),
       'content' => [
         '#type' => 'inline_template',
@@ -292,8 +304,8 @@ class DefaultStyleguide extends StyleguidePluginBase {
           'post' => $this->generator->words(4),
         ],
       ],
-    );
-    $items['sub'] = array(
+    ];
+    $items['sub'] = [
       'title' => $this->t('Subscript'),
       'content' => [
         '#type' => 'inline_template',
@@ -304,8 +316,8 @@ class DefaultStyleguide extends StyleguidePluginBase {
           'post' => $this->generator->words(4),
         ],
       ],
-    );
-    $items['sup'] = array(
+    ];
+    $items['sup'] = [
       'title' => $this->t('Superscript'),
       'content' => [
         '#type' => 'inline_template',
@@ -316,8 +328,8 @@ class DefaultStyleguide extends StyleguidePluginBase {
           'post' => $this->generator->words(4),
         ],
       ],
-    );
-    $items['u'] = array(
+    ];
+    $items['u'] = [
       'title' => $this->t('Underline'),
       'content' => [
         '#type' => 'inline_template',
@@ -328,8 +340,8 @@ class DefaultStyleguide extends StyleguidePluginBase {
           'post' => $this->generator->words(4),
         ],
       ],
-    );
-    $items['ul'] = array(
+    ];
+    $items['ul'] = [
       'title' => $this->t('Unordered list'),
       'content' => [
         '#theme' => 'item_list',
@@ -337,8 +349,8 @@ class DefaultStyleguide extends StyleguidePluginBase {
         '#list_type' => 'ul',
       ],
       'group' => $this->t('Lists'),
-    );
-    $items['ol'] = array(
+    ];
+    $items['ol'] = [
       'title' => $this->t('Ordered list'),
       'content' => [
         '#theme' => 'item_list',
@@ -346,8 +358,8 @@ class DefaultStyleguide extends StyleguidePluginBase {
         '#list_type' => 'ol',
       ],
       'group' => $this->t('Lists'),
-    );
-    $items['ul_title'] = array(
+    ];
+    $items['ul_title'] = [
       'title' => $this->t('Unordered list, with title'),
       'content' => [
         '#theme' => 'item_list',
@@ -356,8 +368,8 @@ class DefaultStyleguide extends StyleguidePluginBase {
         '#title' => $this->generator->words(3, 'ucfirst'),
       ],
       'group' => $this->t('Lists'),
-    );
-    $items['ol_title'] = array(
+    ];
+    $items['ol_title'] = [
       'title' => $this->t('Ordered list, with title'),
       'content' => [
         '#theme' => 'item_list',
@@ -366,8 +378,8 @@ class DefaultStyleguide extends StyleguidePluginBase {
         '#title' => $this->generator->words(3, 'ucfirst'),
       ],
       'group' => $this->t('Lists'),
-    );
-    $items['ul_long'] = array(
+    ];
+    $items['ul_long'] = [
       'title' => $this->t('Unordered list with wrapped list items'),
       'content' => [
         '#theme' => 'item_list',
@@ -375,8 +387,8 @@ class DefaultStyleguide extends StyleguidePluginBase {
         '#list_type' => 'ul',
       ],
       'group' => $this->t('Lists'),
-    );
-    $items['ol_long'] = array(
+    ];
+    $items['ol_long'] = [
       'title' => $this->t('Ordered list with wrapped list items'),
       'content' => [
         '#theme' => 'item_list',
@@ -384,37 +396,37 @@ class DefaultStyleguide extends StyleguidePluginBase {
         '#list_type' => 'ol',
       ],
       'group' => $this->t('Lists'),
-    );
-    $items['ul_links'] = array(
+    ];
+    $items['ul_links'] = [
       'title' => $this->t('Unordered list with links'),
       'content' => [
         '#theme' => 'links',
         '#links' => $this->generator->ulLinks(),
       ],
       'group' => $this->t('Lists'),
-    );
-    $items['ul_links_inline'] = array(
+    ];
+    $items['ul_links_inline'] = [
       'title' => $this->t('Unordered inline list with links'),
       'content' => [
         '#theme' => 'links',
         '#links' => $this->generator->ulLinks(),
-        '#attributes' => array('class' => array('inline')),
+        '#attributes' => ['class' => ['inline']],
       ],
       'group' => $this->t('Lists'),
-    );
+    ];
 
     $menu = $this->linkTree->load('admin', new MenuTreeParameters());
-    $items['menu_tree'] = array(
+    $items['menu_tree'] = [
       'title' => $this->t('Menu tree'),
       'content' => $this->linkTree->build($menu),
       'group' => $this->t('Menus'),
-    );
-    $items['menu_link'] = array(
+    ];
+    $items['menu_link'] = [
       'title' => $this->t('Menu link'),
       'content' => $this->generator->menuItem($current_url),
       'group' => $this->t('Menus'),
-    );
-    $items['table'] = array(
+    ];
+    $items['table'] = [
       'title' => $this->t('Table'),
       'content' => [
         '#theme' => 'table',
@@ -423,13 +435,13 @@ class DefaultStyleguide extends StyleguidePluginBase {
         '#rows' => $this->generator->tableRows(),
       ],
       'group' => $this->t('Tables'),
-    );
-    $items['text'] = array(
+    ];
+    $items['text'] = [
       'title' => $this->t('Text block'),
       'content' => $this->generator->paragraphs(3),
       'group' => $this->t('Text'),
-    );
-    $items['blockquote'] = array(
+    ];
+    $items['blockquote'] = [
       'title' => $this->t('Blockquote'),
       'content' => [
         '#type' => 'inline_template',
@@ -441,8 +453,8 @@ class DefaultStyleguide extends StyleguidePluginBase {
         ],
       ],
       'group' => $this->t('Text'),
-    );
-    $items['image-horizontal'] = array(
+    ];
+    $items['image-horizontal'] = [
       'title' => $this->t('Image, horizontal'),
       'content' => [
         '#theme' => 'image',
@@ -451,8 +463,8 @@ class DefaultStyleguide extends StyleguidePluginBase {
         '#title' => $this->t('My image'),
       ],
       'group' => $this->t('Media'),
-    );
-    $items['image-vertical'] = array(
+    ];
+    $items['image-vertical'] = [
       'title' => $this->t('Image, vertical'),
       'content' => [
         '#theme' => 'image',
@@ -461,8 +473,8 @@ class DefaultStyleguide extends StyleguidePluginBase {
         '#title' => $this->t('My image'),
       ],
       'group' => $this->t('Media'),
-    );
-    $items['image-inset-horizontal'] = array(
+    ];
+    $items['image-inset-horizontal'] = [
       'title' => $this->t('Image, horizontal, within text'),
       'content' => [
         [$this->generator->paragraphs(1)],
@@ -475,8 +487,8 @@ class DefaultStyleguide extends StyleguidePluginBase {
         [$this->generator->paragraphs(2)],
       ],
       'group' => $this->t('Media'),
-    );
-    $items['image-inset-vertical'] = array(
+    ];
+    $items['image-inset-vertical'] = [
       'title' => $this->t('Image, vertical, within text'),
       'content' => [
         [$this->generator->paragraphs(1)],
@@ -489,8 +501,8 @@ class DefaultStyleguide extends StyleguidePluginBase {
         [$this->generator->paragraphs(2)],
       ],
       'group' => $this->t('Media'),
-    );
-    $content = array();
+    ];
+    $content = [];
     for ($i = 1; $i <= 6; $i++) {
       $content[] = [
         '#type' => 'inline_template',
@@ -501,12 +513,12 @@ class DefaultStyleguide extends StyleguidePluginBase {
         ],
       ];
     }
-    $items['headings'] = array(
+    $items['headings'] = [
       'title' => "Headings",
       'content' => $content,
       'group' => $this->t('Text'),
-    );
-    $content = array();
+    ];
+    $content = [];
     for ($i = 1; $i <= 6; $i++) {
       $content[] = [
         '#type' => 'inline_template',
@@ -518,40 +530,40 @@ class DefaultStyleguide extends StyleguidePluginBase {
         ],
       ];
     }
-    $items['headings_text'] = array(
+    $items['headings_text'] = [
       'title' => "Headings with text",
       'content' => $content,
       'group' => $this->t('Text'),
-    );
+    ];
 
     // Store all of the current messages, do not display them here.
-    $message_queue = drupal_get_messages();
-    $messages = array('status', 'warning', 'error');
+    $message_queue = $this->messenger()->all();
+    $messages = ['status', 'warning', 'error'];
     foreach ($messages as $message) {
       // Set a new message with a link.
-      drupal_set_message($this->generator->sentence('http://www.example.com'), $message);
-      $items[$message . '-message'] = array(
+      $this->messenger()->addMessage($this->generator->sentence(Url::fromUri('http://www.example.com')), $message);
+      $items[$message . '-message'] = [
         'title' => ucwords($message) . ' message',
-        'content' => array(
+        'content' => [
           '#theme' => 'status_messages',
-          '#message_list' => drupal_get_messages($message),
-        ),
-      );
+          '#message_list' => [$message => $this->messenger->deleteByType($message)],
+        ],
+      ];
     }
     // Loop through the original messages, resetting them.
     foreach ($message_queue as $message_type => $messages) {
       foreach ($messages as $message) {
-        drupal_set_message($message, $message_type);
+        $this->messenger()->addMessage($message, $message_type);
       }
     }
 
     // Form elements.
     $form_state = new FormState();
     $elements = $this->formBuilder->buildForm('Drupal\styleguide\Form\StyleguideForm', $form_state);
-    $basic = array();
-    $details = array();
-    $tabs = array();
-    $markup = array();
+    $basic = [];
+    $details = [];
+    $tabs = [];
+    $markup = [];
     foreach (Element::children($elements) as $key) {
       if ($key == 'vertical_tabs' && !in_array($key, $tabs)) {
         $tabs[] = $key;
@@ -563,54 +575,62 @@ class DefaultStyleguide extends StyleguidePluginBase {
         $details[] = $key;
       }
       // We skip these.
-      elseif (in_array($elements[$key]['#type'], array('button', 'submit', 'image_button'))) {
-        $buttons[] = $key;
+      elseif (in_array($elements[$key]['#type'], [
+        'button',
+        'submit',
+        'image_button',
+      ])) {
       }
       else {
         $basic[] = $key;
       }
     }
-    $items['form'] = array(
+    $items['form'] = [
       'title' => $this->t('Forms, basic'),
       'content' => $this->formBuilder->getForm('Drupal\styleguide\Form\StyleguideForm', $basic),
       'group' => $this->t('Forms'),
-    );
-    $items['form-submit'] = array(
+    ];
+    $items['form-submit'] = [
       'title' => $this->t('Forms, submit'),
-      'content' => $this->formBuilder->getForm('Drupal\styleguide\Form\StyleguideForm', array('submit')),
+      'content' => $this->formBuilder->getForm('Drupal\styleguide\Form\StyleguideForm', ['submit']),
       'group' => $this->t('Forms'),
-    );
-    $items['form-button'] = array(
+    ];
+    $items['form-button'] = [
       'title' => $this->t('Forms, button'),
-      'content' => $this->formBuilder->getForm('Drupal\styleguide\Form\StyleguideForm', array('button')),
+      'content' => $this->formBuilder->getForm('Drupal\styleguide\Form\StyleguideForm', ['button']),
       'group' => $this->t('Forms'),
-    );
-    $items['form-image-button'] = array(
+    ];
+    $items['form-button-disabled'] = [
+      'title' => $this->t('Forms, button - disabled'),
+      'content' => $this->formBuilder->getForm('Drupal\styleguide\Form\StyleguideForm', ['button_disabled']),
+      'group' => $this->t('Forms'),
+    ];
+    $items['form-image-button'] = [
       'title' => $this->t('Forms, image button'),
-      'content' => $this->formBuilder->getForm('Drupal\styleguide\Form\StyleguideForm', array('image_button')),
+      'content' => $this->formBuilder->getForm('Drupal\styleguide\Form\StyleguideForm', ['image_button']),
       'group' => $this->t('Forms'),
-    );
-    $items['form-markup'] = array(
+    ];
+    $items['form-markup'] = [
       'title' => $this->t('Forms, markup'),
       'content' => $this->formBuilder->getForm('Drupal\styleguide\Form\StyleguideForm', $markup),
       'group' => $this->t('Forms'),
-    );
-    $items['form-details'] = array(
+    ];
+    $items['form-details'] = [
       'title' => $this->t('Forms, details'),
       'content' => $this->formBuilder->getForm('Drupal\styleguide\Form\StyleguideForm', $details),
       'group' => $this->t('Forms'),
-    );
-    $items['form-fieldset'] = array(
+    ];
+    $items['form-fieldset'] = [
       'title' => $this->t('Forms, fieldset'),
-      'content' => $this->formBuilder->getForm('Drupal\styleguide\Form\StyleguideForm', array('fieldset')),
+      'content' => $this->formBuilder->getForm('Drupal\styleguide\Form\StyleguideForm', ['fieldset']),
       'group' => $this->t('Forms'),
-    );
-    $items['form-vertical-tabs'] = array(
+    ];
+    $items['form-vertical-tabs'] = [
       'title' => $this->t('Forms, vertical tabs'),
       'content' => $this->formBuilder->getForm('Drupal\styleguide\Form\StyleguideForm', $tabs),
       'group' => $this->t('Forms'),
-    );
-    $items['feed_icon'] = array(
+    ];
+    $items['feed_icon'] = [
       'title' => $this->t('Feed icon'),
       'content' => [
         '#theme' => 'feed_icon',
@@ -618,62 +638,62 @@ class DefaultStyleguide extends StyleguidePluginBase {
         '#title' => $this->t('Syndicate'),
       ],
       'group' => $this->t('System'),
-    );
+    ];
     // Builds a link to the Styleguide maintenance page.
     $route_name = 'styleguide.maintenance_page.' . $this->themeManager->getActiveTheme()->getName();
-    $items['maintenance_page'] = array(
+    $items['maintenance_page'] = [
       'title' => $this->t('Maintenance page'),
-      'content' => $this->buildLinkFromRoute($this->t('Open the maintenance page'), $route_name, array(), array(
-        'attributes' => array(
-          'target' => array('_blank'),
-        ),
-      )),
+      'content' => $this->buildLinkFromRoute($this->t('Open the maintenance page'), $route_name, [], [
+        'attributes' => [
+          'target' => ['_blank'],
+        ],
+      ]),
       'group' => $this->t('System'),
-    );
+    ];
     $plugin = $this->blockManager->createInstance('system_powered_by_block');
-    $items['system_powered_by'] = array(
+    $items['system_powered_by'] = [
       'title' => $this->t('System powered by'),
       'content' => $plugin->build(),
       'group' => $this->t('System'),
-    );
-    $items['confirm_form'] = array(
+    ];
+    $items['confirm_form'] = [
       'title' => $this->t('Confirm form'),
       'content' => $this->formBuilder->getForm('Drupal\styleguide\Form\StyleguideConfirmForm'),
       'group' => $this->t('System'),
-    );
+    ];
 
     if ($this->moduleHandler->moduleExists('filter')) {
-      $items['text_format'] = array(
+      $items['text_format'] = [
         'title' => t('Text format'),
-        'content' => $this->formBuilder->getForm('Drupal\styleguide\Form\StyleguideForm', array('text_format')),
+        'content' => $this->formBuilder->getForm('Drupal\styleguide\Form\StyleguideForm', ['text_format']),
         'group' => t('System'),
-      );
-      $items['filter_tips'] = array(
+      ];
+      $items['filter_tips'] = [
         'title' => t('Filter tips, short'),
-        'content' => array(
+        'content' => [
           '#theme' => 'filter_tips',
           '#tips' => _filter_tips(-1, FALSE),
           '#long' => FALSE,
-        ),
+        ],
         'group' => t('System'),
-      );
-      $items['filter_tips_long'] = array(
+      ];
+      $items['filter_tips_long'] = [
         'title' => t('Filter tips, long'),
-        'content' => array(
+        'content' => [
           '#theme' => 'filter_tips',
           '#tips' => _filter_tips(-1, TRUE),
           '#long' => TRUE,
-        ),
+        ],
         'group' => t('System'),
-      );
+      ];
     }
 
-    $items['pager'] = array(
+    $items['pager'] = [
       'title' => $this->t('Pager'),
       'content' => $this->generator->pager(),
       'group' => $this->t('User interface'),
-    );
-    $items['progress_bar'] = array(
+    ];
+    $items['progress_bar'] = [
       'title' => $this->t('Progress bar'),
       'content' => [
         '#theme' => 'progress_bar',
@@ -681,28 +701,28 @@ class DefaultStyleguide extends StyleguidePluginBase {
         '#message' => $this->generator->sentence(2),
       ],
       'group' => $this->t('User interface'),
-    );
+    ];
     // Use alternative item name to avoid conflict with main breadcrumb.
     $breadcrumb = $this->breadcrumbManager->build($this->currentRouteMatch);
-    $items['styleguide_breadcrumb'] = array(
+    $items['styleguide_breadcrumb'] = [
       'title' => $this->t('Breadcrumb'),
       'content' => $breadcrumb->toRenderable(),
       'group' => $this->t('User interface'),
-    );
-    $items['link'] = array(
+    ];
+    $items['link'] = [
       'title' => $this->t('Link'),
       'content' => $this->buildLink($this->generator->words(2), $current_url),
       'group' => $this->t('Link'),
-    );
-    $items['links'] = array(
+    ];
+    $items['links'] = [
       'title' => $this->t('Links'),
       'content' => [
         '#theme' => 'links',
         '#links' => $this->generator->links($current_url),
       ],
       'group' => $this->t('Link'),
-    );
-    $items['mark_new'] = array(
+    ];
+    $items['mark_new'] = [
       'title' => $this->t('Mark, new'),
       'content' => [
         [$this->buildLink($this->generator->sentence(), $current_url)],
@@ -712,8 +732,8 @@ class DefaultStyleguide extends StyleguidePluginBase {
         ],
       ],
       'group' => $this->t('Link'),
-    );
-    $items['mark_updated'] = array(
+    ];
+    $items['mark_updated'] = [
       'title' => $this->t('Mark, updated'),
       'content' => [
         [$this->buildLink($this->generator->sentence(), $current_url)],
@@ -723,8 +743,8 @@ class DefaultStyleguide extends StyleguidePluginBase {
         ],
       ],
       'group' => $this->t('Link'),
-    );
-    $items['more_help_link'] = array(
+    ];
+    $items['more_help_link'] = [
       'title' => $this->t('More help link'),
       'content' => [
         [$this->generator->paragraphs(1)],
@@ -732,14 +752,14 @@ class DefaultStyleguide extends StyleguidePluginBase {
           '#type' => 'link',
           '#url' => Url::fromUserInput($current_url),
           '#title' => t('More help'),
-          '#attributes' => array(
-            'class' => array('icon-help'),
-          ),
+          '#attributes' => [
+            'class' => ['icon-help'],
+          ],
         ],
       ],
       'group' => $this->t('Link'),
-    );
-    $items['more_link'] = array(
+    ];
+    $items['more_link'] = [
       'title' => $this->t('More link'),
       'content' => [
         [$this->generator->paragraphs(1)],
@@ -749,13 +769,13 @@ class DefaultStyleguide extends StyleguidePluginBase {
         ],
       ],
       'group' => $this->t('Link'),
-    );
-    $items['monospace'] = array(
+    ];
+    $items['monospace'] = [
       'title' => $this->t('Monospace'),
       'content' => $this->generator->lorem(1, 0, 'mixed', FALSE),
       'group' => $this->t('Text'),
       'tag' => 'code',
-    );
+    ];
 
     return $items;
   }

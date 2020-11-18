@@ -15,7 +15,7 @@ class LoginDestinationDeleteRuleForm extends EntityConfirmFormBase {
    * {@inheritdoc}
    */
   public function getQuestion() {
-    /** @var $login_destination \Drupal\login_destination\Entity\LoginDestination */
+    /** @var \Drupal\login_destination\Entity\LoginDestination $login_destination */
     $login_destination = $this->entity;
     return $this->t('Are you sure you want to delete the login destination "@destination"?', [
       '@destination' => $login_destination->getLabel(),
@@ -40,7 +40,7 @@ class LoginDestinationDeleteRuleForm extends EntityConfirmFormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    /** @var $login_destination \Drupal\login_destination\Entity\LoginDestination */
+    /** @var \Drupal\login_destination\Entity\LoginDestination $login_destination */
     $login_destination = $this->entity;
     $login_destination->delete();
     $this->messenger()->addMessage($this->t('The login destination %destination has been deleted.', [

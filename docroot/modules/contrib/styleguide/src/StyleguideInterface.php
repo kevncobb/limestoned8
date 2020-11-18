@@ -1,6 +1,7 @@
 <?php
 
 namespace Drupal\styleguide;
+
 /**
  * Styleguide plugin interface.
  */

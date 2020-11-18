@@ -4,7 +4,6 @@ namespace Drupal\styleguide\Theme;
 
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
 use Drupal\Core\Extension\ThemeHandlerInterface;
-use Drupal\Core\Routing\CurrentRouteMatch;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\Theme\ThemeNegotiatorInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -32,6 +31,7 @@ class StyleguideThemeNegotiator implements ThemeNegotiatorInterface, ContainerIn
    * StyleguideThemeNegotiator constructor.
    *
    * @param \Drupal\Core\Extension\ThemeHandlerInterface $theme_handler
+   *   The theme handler service.
    */
   public function __construct(ThemeHandlerInterface $theme_handler) {
     $this->themeHandler = $theme_handler;

@@ -2,7 +2,6 @@
 
 namespace Drupal\styleguide;
 
-
 use Drupal\Core\Cache\CacheBackendInterface;
 use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Plugin\DefaultPluginManager;

@@ -6,23 +6,38 @@
  */
 
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\entity_browser_generic_embed\OverrideHelper as Override;
+use Drupal\entity_browser_generic_embed\OverrideHelper;
 use Drupal\varbase_media_instagram\Plugin\media\Source\VarbaseMediaInstagram;
 
 /**
  * Implements hook_media_source_info_alter().
  */
 function varbase_media_instagram_media_source_info_alter(array &$sources) {
-  $sources['instagram']['input_match'] = [
-    'constraint' => 'InstagramEmbedCode',
-    'field_types' => [
-      'string',
-      'string_long',
-    ],
-  ];
-  $sources['instagram']['preview'] = TRUE;
 
-  Override::pluginClass($sources['instagram'], VarbaseMediaInstagram::class);
+  if ($sources['oembed:instagram']) {
+    $sources['oembed:instagram']['input_match'] = [
+      'constraint' => 'InstagramEmbedCode',
+      'field_types' => [
+        'string',
+        'string_long',
+      ],
+    ];
+    $sources['oembed:instagram']['preview'] = TRUE;
+
+    OverrideHelper::pluginClass($sources['oembed:instagram'], VarbaseMediaInstagram::class);
+  }
+  elseif ($sources['instagram']) {
+    $sources['instagram']['input_match'] = [
+      'constraint' => 'InstagramEmbedCode',
+      'field_types' => [
+        'string',
+        'string_long',
+      ],
+    ];
+    $sources['instagram']['preview'] = TRUE;
+
+    OverrideHelper::pluginClass($sources['instagram'], VarbaseMediaInstagram::class);
+  }
 }
 
 /**

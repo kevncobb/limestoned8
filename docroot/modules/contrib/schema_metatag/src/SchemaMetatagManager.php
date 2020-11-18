@@ -5,7 +5,7 @@ namespace Drupal\schema_metatag;
 use Drupal\Component\Utility\Random;
 
 /**
- * Class SchemaMetatagManager.
+ * The SchemaMetatag Manager.
  *
  * @package Drupal\schema_metatag
  */
@@ -168,13 +168,15 @@ class SchemaMetatagManager implements SchemaMetatagManagerInterface {
    * {@inheritdoc}
    */
   public static function explode($value) {
-    $value = explode(',', $value);
-    $value = array_map('trim', $value);
-    // $value = array_unique($value);
-    if (count($value) == 1) {
-      return $value[0];
+    if (is_string($value)) {
+      $value = explode(',', $value);
     }
-
+    if (is_array($value)) {
+      $value = array_map('trim', $value);
+      if (count($value) == 1) {
+        return $value[0];
+      }
+    }
     return $value;
   }
 
@@ -345,27 +347,15 @@ class SchemaMetatagManager implements SchemaMetatagManagerInterface {
       'title' => '',
       'description' => '',
       'value' => [],
-      '#required' => FALSE,
       'visibility_selector' => '',
-      'actionTypes' => [],
-      'actions' => [],
+      'tree_parent' => [],
+      'tree_depth' => -1,
+      'multiple' => FALSE,
     ];
   }
 
   /**
-   * Alternate visibility selector for the field element.
-   *
-   * This is necessary because the form elements on the general configuration
-   * form have different parents than the form elements in the metatags field
-   * widget. This function makes is possible to convert the #states visibility
-   * selectors for the general configuration form into the right pattern
-   * so they will work on the field widget.
-   *
-   * @param string $selector
-   *   The selector constructed for the main metatag form.
-   *
-   * @return string
-   *   A rewritten selector that will work in the field form.
+   * {@inheritdoc}
    */
   public static function altSelector($selector) {
 

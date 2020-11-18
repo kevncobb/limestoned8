@@ -4,6 +4,7 @@ namespace Drupal\security_review\Controller;
 
 use Drupal\Core\Access\CsrfTokenGenerator;
 use Drupal\Core\Controller\ControllerBase;
+use Drupal\Core\Messenger\MessengerInterface;
 use Drupal\Core\Url;
 use Drupal\security_review\Checklist;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -45,11 +46,14 @@ class ToggleController extends ControllerBase {
    *   The request stack.
    * @param \Drupal\security_review\Checklist $checklist
    *   The security_review.checklist service.
+   * @param \Drupal\Core\Messenger\MessengerInterface $messenger
+   *   The messenger service.
    */
-  public function __construct(CsrfTokenGenerator $csrf_token_generator, RequestStack $request, Checklist $checklist) {
+  public function __construct(CsrfTokenGenerator $csrf_token_generator, RequestStack $request, Checklist $checklist, MessengerInterface $messenger) {
     $this->checklist = $checklist;
     $this->csrfToken = $csrf_token_generator;
     $this->request = $request->getCurrentRequest();
+    $this->messenger = $messenger;
   }
 
   /**
@@ -59,7 +63,8 @@ class ToggleController extends ControllerBase {
     return new static(
       $container->get('csrf_token'),
       $container->get('request_stack'),
-      $container->get('security_review.checklist')
+      $container->get('security_review.checklist'),
+      $container->get('messenger')
     );
   }
 
@@ -110,16 +115,10 @@ class ToggleController extends ControllerBase {
       else {
         // Set message.
         if ($check->isSkipped()) {
-          drupal_set_message($this->t(
-            '@name check skipped.',
-            ['@name' => $check->getTitle()]
-          ));
+          $this->messenger()->addMessage($this->t('@name check skipped.', ['@name' => $check->getTitle()]));
         }
         else {
-          drupal_set_message($this->t(
-            '@name check no longer skipped.',
-            ['@name' => $check->getTitle()]
-          ));
+          $this->messenger()->addMessage($this->t('@name check no longer skipped.', ['@name' => $check->getTitle()]));
         }
 
         // Redirect back to Run & Review.

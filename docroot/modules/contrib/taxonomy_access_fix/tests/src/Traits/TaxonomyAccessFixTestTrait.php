@@ -127,11 +127,11 @@ trait TaxonomyAccessFixTestTrait {
    */
   protected function assertSortableTable($assert_overview_page = TRUE) {
     if ($assert_overview_page) {
-      $this->assertText('Weight for added term');
+      $this->assertSession()->pageTextContains('Weight for added term');
     }
     else {
       foreach ($this->vocabularies as $vocabulary) {
-        $this->assertText('Weight for ' . $vocabulary->label());
+        $this->assertSession()->pageTextContains('Weight for ' . $vocabulary->label());
       }
     }
     $select_class = $assert_overview_page ? 'term-weight' : 'weight';
@@ -150,11 +150,11 @@ trait TaxonomyAccessFixTestTrait {
    */
   protected function assertNoSortableTable($assert_overview_page = TRUE) {
     if ($assert_overview_page) {
-      $this->assertNoText('Weight for added term');
+      $this->assertSession()->pageTextNotContains('Weight for added term');
     }
     else {
       foreach ($this->vocabularies as $vocabulary) {
-        $this->assertNoText('Weight for ' . $vocabulary->label());
+        $this->assertSession()->pageTextNotContains('Weight for ' . $vocabulary->label());
       }
     }
     $select_class = $assert_overview_page ? 'term-weight' : 'weight';

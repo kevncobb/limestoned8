@@ -20,7 +20,7 @@ use Drupal\webform\WebformSubmissionInterface;
  * @see \Drupal\webform\Plugin\WebformHandlerManagerInterface
  * @see plugin_api
  */
-interface WebformHandlerInterface extends PluginInspectionInterface, ConfigurableInterface, ContainerFactoryPluginInterface, PluginFormInterface {
+interface WebformHandlerInterface extends PluginInspectionInterface, ConfigurableInterface, ContainerFactoryPluginInterface, PluginFormInterface, WebformEntityInjectionInterface {
 
   /**
    * Value indicating unlimited plugin instances are permitted.
@@ -135,6 +135,24 @@ interface WebformHandlerInterface extends PluginInspectionInterface, Configurabl
    * @return $this
    */
   public function setLabel($label);
+
+  /**
+   * Returns notes of the webform variant.
+   *
+   * @return string
+   *   Notes for the webform variant, or an empty string.
+   */
+  public function getNotes();
+
+  /**
+   * Set notes for this webform variant.
+   *
+   * @param string $notes
+   *   Notes for this webform variant.
+   *
+   * @return $this
+   */
+  public function setNotes($notes);
 
   /**
    * Returns the weight of the webform handler.
@@ -268,52 +286,6 @@ interface WebformHandlerInterface extends PluginInspectionInterface, Configurabl
   public function hasAnonymousSubmissionTracking();
 
   /**
-   * Set the webform that this is handler is attached to.
-   *
-   * @param \Drupal\webform\WebformInterface $webform
-   *   A webform.
-   *
-   * @return $this
-   *   This webform handler.
-   *
-   * @todo Webform 8.x-6.x: Replace with WebformEntityInjectionInterface.
-   */
-  public function setWebform(WebformInterface $webform);
-
-  /**
-   * Get the webform that this handler is attached to.
-   *
-   * @return \Drupal\webform\WebformInterface
-   *   A webform.
-   *
-   * @todo Webform 8.x-6.x: Replace with WebformEntityInjectionInterface.
-   */
-  public function getWebform();
-
-  /**
-   * Set the webform submission that this handler is handling.
-   *
-   * @param \Drupal\webform\WebformSubmissionInterface $webform_submission
-   *   A webform submission.
-   *
-   * @return $this
-   *   This webform handler.
-   *
-   * @todo Webform 8.x-6.x: Replace with WebformEntityInjectionInterface.
-   */
-  public function setWebformSubmission(WebformSubmissionInterface $webform_submission = NULL);
-
-  /**
-   * Get the webform submission that this handler is handling.
-   *
-   * @return \Drupal\webform\WebformSubmissionInterface
-   *   A webform submission.
-   *
-   * @todo Webform 8.x-6.x: Replace with WebformEntityInjectionInterface.
-   */
-  public function getWebformSubmission();
-
-  /**
    * Check handler conditions against a webform submission.
    *
    * Note: Conditions are only applied to callbacks that require a
@@ -384,6 +356,19 @@ interface WebformHandlerInterface extends PluginInspectionInterface, Configurabl
   /****************************************************************************/
   // Submission form methods.
   /****************************************************************************/
+
+  /**
+   * Get configuration form's off-canvas width.
+   *
+   * @return string
+   *   The off-canvas width.
+   *
+   * @see WebformDialogHelper::DIALOG_NARROW
+   * @see WebformDialogHelper::DIALOG_NORMAL
+   * @see WebformDialogHelper::DIALOG_WIDE
+   * @see WebformDialogHelper::DIALOG_NONE
+   */
+  public function getOffCanvasWidth();
 
   /**
    * Alter webform submission webform .

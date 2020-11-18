@@ -211,7 +211,7 @@ function _security_review_batch_run_finished($success, array $results, array $op
     if (!empty($results)) {
       $checklist->storeResults($results);
     }
-    drupal_set_message(t('Review complete'));
+    \Drupal::messenger()->addMessage(t('Review complete'));
   }
   else {
     // Show error information.
@@ -224,6 +224,8 @@ function _security_review_batch_run_finished($success, array $results, array $op
       ]
     );
     $security_review->log(NULL, $message, [], RfcLogLevel::ERROR);
-    drupal_set_message(t('The review did not store all results, please run again or check the logs for details.'));
+    \Drupal::messenger()->addMessage(
+      t('The review did not store all results, please run again or check the logs for details.')
+    );
   }
 }

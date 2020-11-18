@@ -64,6 +64,9 @@ libraries-override:
   bootstrap_barrio/affix: vartheme_bs4/affix
   bootstrap_barrio/alerts: vartheme_bs4/alerts
 
+  # Content Moderation overrides.
+  content_moderation/content_moderation: vartheme_bs4/moderation-state
+
   # Varbase module compnents overrides in Vartheme BS4.
   varbase_bootstrap_paragraphs/vbp-colors: vartheme_bs4/vbp-colors
   varbase_layout_builder/vlb-colors: vartheme_bs4/vlb-colors
@@ -139,7 +142,7 @@ ckeditor_stylesheets:
   - css/theme/vbp-colors.theme.css
   - css/theme/vlb-colors.theme.css
 
-# Information added by Drupal.org packaging script on 2020-07-28
-version: '8.x-6.13'
+# Information added by Drupal.org packaging script on 2020-10-27
+version: '8.x-6.24'
 project: 'vartheme_bs4'
-datestamp: 1595927157
+datestamp: 1603819286

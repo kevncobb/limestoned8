@@ -23,6 +23,7 @@ class StyleguideRoutes implements ContainerInjectionInterface {
    * StyleguideRoutes constructor.
    *
    * @param \Drupal\Core\Extension\ThemeHandlerInterface $theme_handler
+   *   The theme handler service.
    */
   public function __construct(ThemeHandlerInterface $theme_handler) {
     $this->themeHandler = $theme_handler;
@@ -39,7 +40,7 @@ class StyleguideRoutes implements ContainerInjectionInterface {
    * {@inheritdoc}
    */
   public function routes() {
-    $routes = array();
+    $routes = [];
 
     $themes = $this->themeHandler->rebuildThemeData();
     foreach ($themes as &$theme) {
@@ -50,29 +51,29 @@ class StyleguideRoutes implements ContainerInjectionInterface {
         $name = $theme->getName();
         $routes['styleguide.' . $name] = new Route(
           '/admin/appearance/styleguide/' . $name,
-          array(
+          [
             '_controller' => 'Drupal\styleguide\Controller\StyleguideController::page',
             '_title' => $theme->info['name'],
-          ),
-          array(
+          ],
+          [
             '_permission'  => 'view style guides',
-          ),
-          array(
+          ],
+          [
             '_admin_route' => FALSE,
-          )
+          ]
         );
         $routes['styleguide.maintenance_page.' . $name] = new Route(
           '/admin/appearance/styleguide/maintenance-page/' . $name,
-          array(
+          [
             '_controller' => 'Drupal\styleguide\Controller\StyleguideMaintenancePageController::page',
             '_title' => $theme->info['name'],
-          ),
-          array(
+          ],
+          [
             '_permission'  => 'view style guides',
-          ),
-          array(
+          ],
+          [
             '_admin_route' => FALSE,
-          )
+          ]
         );
       }
     }

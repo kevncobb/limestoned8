@@ -24,7 +24,6 @@ All the updates to this module are documented in our [CHANGELOG](CHANGELOG.md).
 * [Quick Start](#quick-start)
 * [Usage](#usage)
 * [Announcements](#announcements)
-* [Roadmap](#roadmap)
 * [How to Contribute](#how-to-contribute)
 * [About](#about)
 * [License](#license)
@@ -46,7 +45,7 @@ Add the following to your `composer.json` file.
 ```json
 {
     "require": {
-        "sendgrid/smtpapi": "^0.6.6"
+        "sendgrid/smtpapi": "^0.6.7"
     }
 }
 ```
@@ -59,9 +58,9 @@ require 'vendor/autoload.php';
 
 #### Alternative: Install package from zip
 
-If you are not using Composer, simply download and install the **[latest packaged release of the library as a zip](https://github.com/sendgrid/smtpapi-php/releases/download/0.6.6/smtpapi-php.zip)**.
+If you are not using Composer, simply download and install the **[latest packaged release of the library as a zip](https://github.com/sendgrid/smtpapi-php/releases/download/0.6.7/smtpapi-php.zip)**.
 
-[**⬇︎ Download Packaged Library ⬇︎**](https://github.com/sendgrid/smtpapi-php/releases/download/0.6.6/smtpapi-php.zip)
+[**⬇︎ Download Packaged Library ⬇︎**](https://github.com/sendgrid/smtpapi-php/releases/download/0.6.7/smtpapi-php.zip)
 
 Then require the library from package:
 
@@ -98,11 +97,6 @@ print $header->jsonString();
 
 - [Twilio SendGrid Docs](https://sendgrid.com/docs/API_Reference/SMTP_API/index.html)
 - [Example Code](examples)
-
-<a name="roadmap"></a>
-## Roadmap
-
-If you are interested in the future direction of this project, please take a look at our [milestones](https://github.com/sendgrid/smtpapi-php/milestones). Your feedback will be highly appreciated.
 
 <a name="how-to-contribute"></a>
 ## How to Contribute

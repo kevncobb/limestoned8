@@ -5,9 +5,11 @@ namespace Drupal\login_destination;
 use Drupal\Component\Utility\UrlHelper;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
-use Drupal\Core\Path\AliasManagerInterface;
+use Drupal\Core\Language\LanguageManagerInterface;
+use Drupal\path_alias\AliasManagerInterface;
 use Drupal\Core\Path\CurrentPathStack;
 use Drupal\Core\Path\PathMatcherInterface;
+use Drupal\Core\Utility\Token;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\Core\Url;
 use Drupal\login_destination\Entity\LoginDestination;
@@ -28,7 +30,7 @@ class LoginDestinationManager implements LoginDestinationManagerInterface {
   /**
    * The alias manager that caches alias lookups based on the request.
    *
-   * @var \Drupal\Core\Path\AliasManagerInterface
+   * @var \Drupal\path_alias\AliasManagerInterface
    */
   protected $aliasManager;
 
@@ -61,11 +63,25 @@ class LoginDestinationManager implements LoginDestinationManagerInterface {
   protected $requestStack;
 
   /**
+   * The language manager.
+   *
+   * @var \Drupal\Core\Language\LanguageManagerInterface
+   */
+  protected $languageManager;
+
+  /**
+   * The token service.
+   *
+   * @var \Drupal\Core\Utility\Token
+   */
+  protected $token;
+
+  /**
    * Constructor.
    *
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
    *   The entity type manager.
-   * @param \Drupal\Core\Path\AliasManagerInterface $alias_manager
+   * @param \Drupal\path_alias\AliasManagerInterface $alias_manager
    *   The alias manager.
    * @param \Drupal\Core\Path\PathMatcherInterface $path_matcher
    *   The path matcher.
@@ -75,14 +91,20 @@ class LoginDestinationManager implements LoginDestinationManagerInterface {
    *   The configuration factory.
    * @param \Symfony\Component\HttpFoundation\RequestStack $request_stack
    *   The request stack.
+   * @param \Drupal\Core\Language\LanguageManagerInterface $language_manager
+   *   The language manager.
+   * @param \Drupal\Core\Utility\Token $token
+   *   The token service.
    */
-  public function __construct(EntityTypeManagerInterface $entity_type_manager, AliasManagerInterface $alias_manager, PathMatcherInterface $path_matcher, CurrentPathStack $current_path, ConfigFactoryInterface $config_factory, RequestStack $request_stack) {
+  public function __construct(EntityTypeManagerInterface $entity_type_manager, AliasManagerInterface $alias_manager, PathMatcherInterface $path_matcher, CurrentPathStack $current_path, ConfigFactoryInterface $config_factory, RequestStack $request_stack, LanguageManagerInterface $language_manager, Token $token) {
     $this->entityTypeManager = $entity_type_manager;
     $this->aliasManager = $alias_manager;
     $this->pathMatcher = $path_matcher;
     $this->currentPath = $current_path;
     $this->configFactory = $config_factory;
     $this->requestStack = $request_stack;
+    $this->languageManager = $language_manager;
+    $this->token = $token;
   }
 
   /**
@@ -99,13 +121,12 @@ class LoginDestinationManager implements LoginDestinationManagerInterface {
     // Get user roles.
     $user_roles = $account->getRoles();
 
-    /** @var LoginDestination $destination */
+    /** @var \Drupal\login_destination\Entity\LoginDestination $destination */
     foreach ($destinations as $destination) {
 
       if (!$destination->isEnabled()) {
         continue;
       }
-
 
       // Determine if the trigger matches that of the login destination rule.
       $destination_triggers = $destination->getTriggers();
@@ -113,37 +134,35 @@ class LoginDestinationManager implements LoginDestinationManagerInterface {
         continue;
       }
 
-
       $destination_roles = $destination->getRoles();
 
       $role_match = array_intersect($user_roles, $destination_roles);
-      // Ensure the user logging in has a role allowed by the login destination rule.
-      // Or Login Destination Rule does not have any selected roles.
+      // Ensure that the user logging in has a role allowed by the login
+      // destination rule and the login destination rule does not have any
+      // selected roles.
       if (empty($role_match) && !empty($destination_roles)) {
         continue;
       }
 
-
       $destination_language = $destination->getLanguage();
-      $lang_code = \Drupal::languageManager()->getCurrentLanguage()->getId();
+      $lang_code = $this->languageManager->getCurrentLanguage()->getId();
       if ($destination_language != '' && $destination_language != $lang_code) {
         continue;
       }
-
 
       $pages = mb_strtolower($destination->getPages());
       if (!empty($pages)) {
         $type = $destination->getPagesType();
         $page_match = $this->pathMatcher->matchPath($path_alias, $pages) || $this->pathMatcher->matchPath($path, $pages);
 
-        // Make sure the page matches(or does not match if the rule specifies that).
+        // Make sure the page matches(or does not match if the rule specifies
+        // that).
         if (($page_match && $type == $destination::REDIRECT_LISTED) || (!$page_match && $type == $destination::REDIRECT_NOT_LISTED)) {
 
           return $destination;
         }
         continue;
       }
-
 
       return $destination;
     }
@@ -170,8 +189,8 @@ class LoginDestinationManager implements LoginDestinationManagerInterface {
     }
 
     // Prepare destination path.
-    $token_service = \Drupal::token();
-    $path = $token_service->replace($destination->getDestination());    // Check if rules refers to the current page.
+    $path = $this->token->replace($destination->getDestination());
+    // Check if rules refers to the current page.
     if ($destination->isDestinationCurrent()) {
       $request = $this->requestStack->getCurrentRequest();
       $query = $request->get('current');
@@ -189,6 +208,7 @@ class LoginDestinationManager implements LoginDestinationManagerInterface {
    * Get current path.
    *
    * @return string
+   *   Returns the current path.
    */
   protected function getCurrentPath() {
     $current = $this->requestStack->getCurrentRequest()->get('current', '');

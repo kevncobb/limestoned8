@@ -14,21 +14,21 @@ class LoginDestinationSettingsForm extends ConfigFormBase {
   use StringTranslationTrait;
 
   /**
-   * @inheritdoc
+   * {@inheritdoc}
    */
   public function getFormId() {
     return 'login_destination_settings';
   }
 
   /**
-   * @inheritdoc
+   * {@inheritdoc}
    */
   protected function getEditableConfigNames() {
     return ['login_destination.settings'];
   }
 
   /**
-   * @inheritdoc
+   * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
     $config = $this->config('login_destination.settings');
@@ -49,7 +49,7 @@ class LoginDestinationSettingsForm extends ConfigFormBase {
   }
 
   /**
-   * @inheritdoc
+   * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $config = $this->config('login_destination.settings');

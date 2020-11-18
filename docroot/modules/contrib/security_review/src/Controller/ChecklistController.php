@@ -5,6 +5,7 @@ namespace Drupal\security_review\Controller;
 use Drupal\Core\Access\CsrfTokenGenerator;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Link;
+use Drupal\Core\Messenger\MessengerInterface;
 use Drupal\Core\Url;
 use Drupal\security_review\Checklist;
 use Drupal\security_review\SecurityReview;
@@ -36,6 +37,12 @@ class ChecklistController extends ControllerBase {
    */
   protected $securityReview;
 
+  /**
+   * The messenger service.
+   *
+   * @var \Drupal\Core\Messenger\MessengerInterface
+   */
+  protected $messenger;
 
   /**
    * Constructs a ChecklistController.
@@ -46,11 +53,14 @@ class ChecklistController extends ControllerBase {
    *   The security_review service.
    * @param \Drupal\security_review\Checklist $checklist
    *   The security_review.checklist service.
+   * @param \Drupal\Core\Messenger\MessengerInterface $messenger
+   *   The messenger service.
    */
-  public function __construct(CsrfTokenGenerator $csrf_token_generator, SecurityReview $security_review, Checklist $checklist) {
+  public function __construct(CsrfTokenGenerator $csrf_token_generator, SecurityReview $security_review, Checklist $checklist, MessengerInterface $messenger) {
     $this->csrfToken = $csrf_token_generator;
     $this->checklist = $checklist;
     $this->securityReview = $security_review;
+    $this->messenger = $messenger;
   }
 
   /**
@@ -60,7 +70,8 @@ class ChecklistController extends ControllerBase {
     return new static(
       $container->get('csrf_token'),
       $container->get('security_review'),
-      $container->get('security_review.checklist')
+      $container->get('security_review.checklist'),
+      $container->get('messenger')
     );
   }
 
@@ -89,7 +100,7 @@ class ChecklistController extends ControllerBase {
     if ($this->securityReview->getLastRun() <= 0) {
       // If they haven't configured the site, prompt them to do so.
       if (!$this->securityReview->isConfigured()) {
-        drupal_set_message($this->t('It appears this is your first time using the Security Review checklist. Before running the checklist please review the settings page at <a href=":url">admin/reports/security-review/settings</a> to set which roles are untrusted.',
+        $this->messenger->addWarning($this->t('It appears this is your first time using the Security Review checklist. Before running the checklist please review the settings page at <a href=":url">admin/reports/security-review/settings</a> to set which roles are untrusted.',
           [':url' => Url::fromRoute('security_review.settings')->toString()]
         ), 'warning');
       }

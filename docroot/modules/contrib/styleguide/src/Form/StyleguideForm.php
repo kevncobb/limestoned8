@@ -23,7 +23,7 @@ class StyleguideForm extends FormBase {
   /**
    * The module handler.
    *
-   * @var ModuleHandlerInterface
+   * @var \Drupal\Core\Extension\ModuleHandlerInterface
    */
   protected $moduleHandler;
 
@@ -32,7 +32,7 @@ class StyleguideForm extends FormBase {
    *
    * @param \Drupal\styleguide\GeneratorInterface $styleguide_generator
    *   The styleguide generator.
-   * @param ModuleHandlerInterface $module_handler
+   * @param \Drupal\Core\Extension\ModuleHandlerInterface $module_handler
    *   The module handler.
    */
   public function __construct(GeneratorInterface $styleguide_generator, ModuleHandlerInterface $module_handler) {
@@ -99,12 +99,11 @@ class StyleguideForm extends FormBase {
       '#default_value' => $this->generator->words(3, 'ucfirst'),
       '#description' => $this->generator->sentence(),
     ];
-    $form['autocomplete'] = [
-      '#type' => 'textfield',
-      '#title' => $this->t('Autocomplete textfield'),
-      '#default_value' => $this->generator->words(),
+    $form['entity_autocomplete'] = [
+      '#type' => 'entity_autocomplete',
+      '#title' => $this->t('Node entity autocomplete'),
       '#description' => $this->generator->sentence(),
-      '#autocomplete_path' => 'user/autocomplete',
+      '#target_type' => 'node',
     ];
     $form['textfield-machine'] = [
       '#type' => 'textfield',
@@ -216,6 +215,11 @@ class StyleguideForm extends FormBase {
     $form['button'] = [
       '#type' => 'button',
       '#value' => $this->t('Button'),
+    ];
+    $form['button_disabled'] = [
+      '#type' => 'button',
+      '#value' => $this->t('Button - disabled'),
+      '#disabled' => TRUE,
     ];
 
     if ($this->moduleHandler->moduleExists('filter')) {

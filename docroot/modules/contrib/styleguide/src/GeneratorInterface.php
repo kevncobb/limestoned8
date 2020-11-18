@@ -86,7 +86,7 @@ interface GeneratorInterface {
    * @param bool $render
    *   Allow to choose render the paragraph or return renderable array.
    *
-   * @return array|string HTML paragraphs.
+   * @return array|string
    *   Renderable array or string of HTML paragraphs.
    */
   public function paragraphs($size = 5, $render = FALSE);
@@ -100,7 +100,7 @@ interface GeneratorInterface {
    *   The file type, (jpg, png, gif). Do not include a dot.
    *
    * @return string
-   *    The Drupal path to the file.
+   *   The Drupal path to the file.
    */
   public function image($image = 'vertical', $type = 'jpg');
 

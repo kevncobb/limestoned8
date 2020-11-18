@@ -162,7 +162,8 @@ class HelpController extends ControllerBase {
     if ($check->isSkipped()) {
 
       if ($check->skippedBy() != NULL) {
-        $user = $check->skippedBy()->link();
+        $user_object = $check->skippedBy();
+        $user = $user_object->toLink()->toString();
       }
       else {
         $user = 'Anonymous';

@@ -76,17 +76,27 @@ class SearchStyleguide extends StyleguidePluginBase {
    * Constructs a new searchStyleguide.
    *
    * @param array $configuration
+   *   A configuration array containing information about the plugin instance.
    * @param string $plugin_id
-   * @param mixed $plugin_definition
+   *   The plugin_id for the plugin instance.
+   * @param array $plugin_definition
+   *   The plugin implementation definition.
    * @param \Drupal\styleguide\GeneratorInterface $styleguide_generator
-   * @param \Drupal\Core\Form\FormBuilder $form_builder
+   *   The styleguide generator service.
    * @param \Drupal\Core\Extension\ModuleHandlerInterface $module_handler
+   *   The module handler service.
+   * @param \Drupal\Core\Form\FormBuilder $form_builder
+   *   The form builder.
    * @param \Drupal\Core\Session\AccountInterface $current_user
+   *   The current user.
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entityTypeManager
+   *   The entity type manager.
    * @param \Drupal\Core\Render\RendererInterface $renderer
+   *   The Renderer service to format the username and node.
    * @param \Drupal\search\SearchPluginManager $search_manager
+   *   The search manager.
    */
-  public function __construct(array $configuration, $plugin_id, $plugin_definition, GeneratorInterface $styleguide_generator, ModuleHandlerInterface $module_handler, FormBuilder $form_builder, AccountInterface $current_user, EntityTypeManagerInterface $entityTypeManager, RendererInterface $renderer, SearchPluginManager $search_manager = NULL) {
+  public function __construct(array $configuration, $plugin_id, array $plugin_definition, GeneratorInterface $styleguide_generator, ModuleHandlerInterface $module_handler, FormBuilder $form_builder, AccountInterface $current_user, EntityTypeManagerInterface $entityTypeManager, RendererInterface $renderer, SearchPluginManager $search_manager = NULL) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
     $this->generator = $styleguide_generator;
     $this->moduleHandler = $module_handler;
@@ -156,7 +166,7 @@ class SearchStyleguide extends StyleguidePluginBase {
    * @param array $items
    *   An array of the search Styleguide elements.
    */
-  private function searchResults(&$items) {
+  private function searchResults(array &$items) {
     $results = [];
     if (!empty($this->searchManager)) {
       $definitions = $this->searchManager->getDefinitions();
