@@ -6,4 +6,4 @@ Loading composer repositories with package information
 
 Fatal error: Allowed memory size of 1610612736 bytes exhausted (tried to allocate 167772160 bytes) in phar:///usr/local/bin/composer/src/Composer/DependencyResolver/RuleSet.php on line 90
 
-Check https://getcomposer.org/doc/articles/troubleshooting.md#memory-limit-errors for more info on how to handle out of memory errors./Users/kcobb/Sites/lime-up-d8/vendor/vardot/varbase-updater/scripts/update/varbase-updater.sh: line 80: drush: command not found
+Check https://getcomposer.org/doc/articles/troubleshooting.md#memory-limit-errors for more info on how to handle out of memory errors.
