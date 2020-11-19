@@ -249,7 +249,7 @@ function install_state_defaults() {
     // The server URL where the interface translation files can be downloaded.
     // Tokens in the pattern will be replaced by appropriate values for the
     // required translation file.
-    'server_pattern' => 'http://ftp.drupal.org/files/translations/%core/%project/%project-%version.%language.po',
+    'server_pattern' => 'https://ftp.drupal.org/files/translations/%core/%project/%project-%version.%language.po',
     // Installation tasks can set this to TRUE to force the page request to
     // end (even if there is no themable output), in the case of an interactive
     // installation. This is needed only rarely; for example, it would be used
@@ -464,12 +464,6 @@ function install_begin_request($class_loader, &$install_state) {
     if (isset($install_state['profile_info']['distribution']['install']['theme'])) {
       $install_state['theme'] = $install_state['profile_info']['distribution']['install']['theme'];
     }
-    // Ensure all profile directories are registered.
-    $profiles = \Drupal::service('extension.list.profile')->getAncestors($profile);
-    $profile_directories = array_map(function($extension) {
-      return $extension->getPath();
-    }, $profiles);
-    $listing->setProfileDirectories($profile_directories);
   }
 
   // Before having installed the system module and being able to do a module
@@ -1273,9 +1267,7 @@ function install_select_profile(&$install_state) {
  *   - For interactive installations via request query parameters.
  *   - For non-interactive installations via install_drupal() settings.
  * - One of the available profiles is a distribution. If multiple profiles are
- *   distributions, then the first discovered profile will be selected. If an
- *   inherited profile is detected that is a distribution, it will be chosen
- *   over its base profile.
+ *   distributions, then the first discovered profile will be selected.
  * - Only one visible profile is available.
  *
  * @param array $install_state
@@ -1300,9 +1292,12 @@ function _install_select_profile(&$install_state) {
       return $profile;
     }
   }
-  // Check for a distribution profile.
-  if ($distribution = \Drupal::service('extension.list.profile')->selectDistribution(array_keys($install_state['profiles']))) {
-    return $distribution;
+  // If any of the profiles are distribution profiles, return the first one.
+  foreach ($install_state['profiles'] as $profile) {
+    $profile_info = install_profile_info($profile->getName());
+    if (!empty($profile_info['distribution'])) {
+      return $profile->getName();
+    }
   }
   // Get all visible (not hidden) profiles.
   $visible_profiles = array_filter($install_state['profiles'], function ($profile) {
@@ -1651,9 +1646,7 @@ function install_profile_themes(&$install_state) {
  *   An array of information about the current installation state.
  */
 function install_install_profile(&$install_state) {
-  // Install all the profiles.
-  $profiles = \Drupal::service('extension.list.profile')->getAncestors();
-  \Drupal::service('module_installer')->install(array_keys($profiles), FALSE);
+  \Drupal::service('module_installer')->install([$install_state['parameters']['profile']], FALSE);
   // Install all available optional config. During installation the module order
   // is determined by dependencies. If there are no dependencies between modules
   // then the order in which they are installed is dependent on random factors

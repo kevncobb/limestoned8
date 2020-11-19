@@ -4108,17 +4108,17 @@
     },
     {
         "name": "drupal/core",
-        "version": "8.9.8",
-        "version_normalized": "8.9.8.0",
+        "version": "8.9.9",
+        "version_normalized": "8.9.9.0",
         "source": {
             "type": "git",
             "url": "https://github.com/drupal/core.git",
-            "reference": "e16f650e7bd7f0cfb4ff4dd8ed753625313cdfdb"
+            "reference": "724ada1a6c497a663797c40e4ee3d0c7c618371d"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/drupal/core/zipball/e16f650e7bd7f0cfb4ff4dd8ed753625313cdfdb",
-            "reference": "e16f650e7bd7f0cfb4ff4dd8ed753625313cdfdb",
+            "url": "https://api.github.com/repos/drupal/core/zipball/724ada1a6c497a663797c40e4ee3d0c7c618371d",
+            "reference": "724ada1a6c497a663797c40e4ee3d0c7c618371d",
             "shasum": ""
         },
         "require": {
@@ -4285,7 +4285,7 @@
             "drupal/workflows": "self.version",
             "drupal/workspaces": "self.version"
         },
-        "time": "2020-11-05T16:34:55+00:00",
+        "time": "2020-11-17T22:05:46+00:00",
         "type": "drupal-core",
         "extra": {
             "drupal-scaffold": {
@@ -4314,19 +4314,6 @@
                     "[web-root]/profiles/README.txt": "assets/scaffold/files/profiles.README.txt",
                     "[web-root]/themes/README.txt": "assets/scaffold/files/themes.README.txt"
                 }
-            },
-            "patches_applied": {
-                "Issue #2869592: Disabled update module shouldn't produce a status report warning": "https://www.drupal.org/files/issues/2869592-remove-update-warning-7.patch",
-                "Issue #2815221: Add quickedit to the latest-revision route": "https://www.drupal.org/files/issues/2019-11-27/2815221-125.patch",
-                "Issue #1356276: Allow profiles to define a base/parent profile and load them in the correct order": "https://www.drupal.org/files/issues/2019-11-05/1356276-531-8.8.x-4.patch",
-                "Issue #2914389: Allow profiles to exclude dependencies of their parent": "https://www.drupal.org/files/issues/2018-07-09/2914389-8-do-not-test.patch",
-                "Issue #2893892: Fixed Warning Invalid argument supplied for foreach() in Drupal": "https://www.drupal.org/files/issues/2018-12-10/core--getDerivatives-Invalid-argument-foreach--2893892-11-d8.patch",
-                "Issue #3044656: Add a helper method to strip subdirectories from URL paths": "https://www.drupal.org/files/issues/2019-03-31/3044656-2.patch",
-                "Issue #3101231: Fix multilingual site's layout edit context issue with TypeError: Argument 1 passed to UrlHelper::buildQuery() must be of the type array, null given": "https://www.drupal.org/files/issues/2019-12-19/3101231-19.patch",
-                "Issue #2996114: Fix Argument 2 passed to Drupal jsonapi Routing closure must be an instance of ResourceType, NULL given": "https://www.drupal.org/files/issues/2019-12-03/2996114-99.patch",
-                "Issue #2985882: Fix Error: Call to a member function getLabel() after enabling layout_builder": "https://www.drupal.org/files/issues/2020-01-20/2985882-53.patch",
-                "Issue #2741877: Nested modals don't work: opening a modal from a modal closes the original": "https://www.drupal.org/files/issues/2020-04-20/2741877-48.patch",
-                "Issue #3165435: Fix tour <front> route as route name when a selected node had been set as the front page for the site": "https://www.drupal.org/files/issues/2020-08-16/3165435-2.patch"
             }
         },
         "installation-source": "dist",
@@ -4354,8 +4341,8 @@
     },
     {
         "name": "drupal/core-composer-scaffold",
-        "version": "8.9.8",
-        "version_normalized": "8.9.8.0",
+        "version": "8.9.9",
+        "version_normalized": "8.9.9.0",
         "source": {
             "type": "git",
             "url": "https://github.com/drupal/core-composer-scaffold.git",
@@ -4403,8 +4390,8 @@
     },
     {
         "name": "drupal/core-project-message",
-        "version": "8.9.8",
-        "version_normalized": "8.9.8.0",
+        "version": "8.9.9",
+        "version_normalized": "8.9.9.0",
         "source": {
             "type": "git",
             "url": "https://github.com/drupal/core-project-message.git",
@@ -8036,18 +8023,18 @@
     },
     {
         "name": "drupal/layout_builder_component_attributes",
-        "version": "1.1.0",
-        "version_normalized": "1.1.0.0",
+        "version": "1.1.1",
+        "version_normalized": "1.1.1.0",
         "source": {
             "type": "git",
             "url": "https://git.drupalcode.org/project/layout_builder_component_attributes.git",
-            "reference": "1.1.0"
+            "reference": "1.1.1"
         },
         "dist": {
             "type": "zip",
-            "url": "https://ftp.drupal.org/files/projects/layout_builder_component_attributes-1.1.0.zip",
-            "reference": "1.1.0",
-            "shasum": "29df8efaeafa1bb56a71f57bd19115f5ecc694fe"
+            "url": "https://ftp.drupal.org/files/projects/layout_builder_component_attributes-1.1.1.zip",
+            "reference": "1.1.1",
+            "shasum": "36650d031e649f4fccf5cec38b385ef8354d0176"
         },
         "require": {
             "drupal/core": "^8.8|^9.0",
@@ -8056,8 +8043,8 @@
         "type": "drupal-module",
         "extra": {
             "drupal": {
-                "version": "1.1.0",
-                "datestamp": "1601998427",
+                "version": "1.1.1",
+                "datestamp": "1605801492",
                 "security-coverage": {
                     "status": "covered",
                     "message": "Covered by Drupal's security advisory policy"
@@ -11766,18 +11753,18 @@
     },
     {
         "name": "drupal/search_api_solr",
-        "version": "4.1.9",
-        "version_normalized": "4.1.9.0",
+        "version": "4.1.10",
+        "version_normalized": "4.1.10.0",
         "source": {
             "type": "git",
             "url": "https://git.drupalcode.org/project/search_api_solr.git",
-            "reference": "4.1.9"
+            "reference": "4.1.10"
         },
         "dist": {
             "type": "zip",
-            "url": "https://ftp.drupal.org/files/projects/search_api_solr-4.1.9.zip",
-            "reference": "4.1.9",
-            "shasum": "ded7bd04d48f992ad042c70cc722b4ea05ba4265"
+            "url": "https://ftp.drupal.org/files/projects/search_api_solr-4.1.10.zip",
+            "reference": "4.1.10",
+            "shasum": "b91fb84785d92b26b9c456e4491aa07553c397b3"
         },
         "require": {
             "consolidation/annotated-command": "^2.12|^4.1",
@@ -11814,8 +11801,8 @@
         "type": "drupal-module",
         "extra": {
             "drupal": {
-                "version": "4.1.9",
-                "datestamp": "1605026966",
+                "version": "4.1.10",
+                "datestamp": "1605773021",
                 "security-coverage": {
                     "status": "covered",
                     "message": "Covered by Drupal's security advisory policy"
@@ -11989,30 +11976,30 @@
     },
     {
         "name": "drupal/sendgrid_integration",
-        "version": "1.6.0",
-        "version_normalized": "1.6.0.0",
+        "version": "1.7.0",
+        "version_normalized": "1.7.0.0",
         "source": {
             "type": "git",
             "url": "https://git.drupalcode.org/project/sendgrid_integration.git",
-            "reference": "8.x-1.6"
+            "reference": "8.x-1.7"
         },
         "dist": {
             "type": "zip",
-            "url": "https://ftp.drupal.org/files/projects/sendgrid_integration-8.x-1.6.zip",
-            "reference": "8.x-1.6",
-            "shasum": "0b313f591b41bf6d37bd1f6442e0969205b2fb2b"
+            "url": "https://ftp.drupal.org/files/projects/sendgrid_integration-8.x-1.7.zip",
+            "reference": "8.x-1.7",
+            "shasum": "95ddb39998dd61c218d01f65e0817839a771623a"
         },
         "require": {
             "drupal/core": "^8 || ^9",
             "drupal/mailsystem": "^4",
-            "fastglass/sendgrid": ">=1.0.10",
-            "html2text/html2text": "~4.0.1"
+            "fastglass/sendgrid": "~1.0.10",
+            "html2text/html2text": "^4.3.1"
         },
         "type": "drupal-module",
         "extra": {
             "drupal": {
-                "version": "8.x-1.6",
-                "datestamp": "1605472420",
+                "version": "8.x-1.7",
+                "datestamp": "1605743273",
                 "security-coverage": {
                     "status": "covered",
                     "message": "Covered by Drupal's security advisory policy"
@@ -12046,7 +12033,7 @@
             "sendgrid"
         ],
         "support": {
-            "source": "http://cgit.drupalcode.org/sendgrid_integration",
+            "source": "https://git.drupalcode.org/project/sendgrid_integration",
             "issues": "https://drupal.org/project/issues/sendgrid_integration"
         }
     },
@@ -17191,17 +17178,17 @@
     },
     {
         "name": "html2text/html2text",
-        "version": "4.0.1",
-        "version_normalized": "4.0.1.0",
+        "version": "4.3.1",
+        "version_normalized": "4.3.1.0",
         "source": {
             "type": "git",
             "url": "https://github.com/mtibben/html2text.git",
-            "reference": "f55104b7c9f99b0937f0e20fe051b19f9c0ecad1"
+            "reference": "61ad68e934066a6f8df29a3d23a6460536d0855c"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/mtibben/html2text/zipball/f55104b7c9f99b0937f0e20fe051b19f9c0ecad1",
-            "reference": "f55104b7c9f99b0937f0e20fe051b19f9c0ecad1",
+            "url": "https://api.github.com/repos/mtibben/html2text/zipball/61ad68e934066a6f8df29a3d23a6460536d0855c",
+            "reference": "61ad68e934066a6f8df29a3d23a6460536d0855c",
             "shasum": ""
         },
         "require-dev": {
@@ -17211,7 +17198,7 @@
             "ext-mbstring": "For best performance",
             "symfony/polyfill-mbstring": "If you can't install ext-mbstring"
         },
-        "time": "2016-03-16T23:24:34+00:00",
+        "time": "2020-04-16T23:44:31+00:00",
         "type": "library",
         "installation-source": "dist",
         "autoload": {
@@ -17224,7 +17211,7 @@
         },
         "notification-url": "https://packagist.org/downloads/",
         "license": [
-            "GPLv2"
+            "GPL-2.0-or-later"
         ],
         "description": "Converts HTML to formatted plain text"
     },
@@ -17532,17 +17519,17 @@
     },
     {
         "name": "laminas/laminas-feed",
-        "version": "2.12.3",
-        "version_normalized": "2.12.3.0",
+        "version": "2.13.0",
+        "version_normalized": "2.13.0.0",
         "source": {
             "type": "git",
             "url": "https://github.com/laminas/laminas-feed.git",
-            "reference": "3c91415633cb1be6f9d78683d69b7dcbfe6b4012"
+            "reference": "fb89aac1984222227f37792dd193d34829a0762f"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/laminas/laminas-feed/zipball/3c91415633cb1be6f9d78683d69b7dcbfe6b4012",
-            "reference": "3c91415633cb1be6f9d78683d69b7dcbfe6b4012",
+            "url": "https://api.github.com/repos/laminas/laminas-feed/zipball/fb89aac1984222227f37792dd193d34829a0762f",
+            "reference": "fb89aac1984222227f37792dd193d34829a0762f",
             "shasum": ""
         },
         "require": {
@@ -17551,7 +17538,10 @@
             "laminas/laminas-escaper": "^2.5.2",
             "laminas/laminas-stdlib": "^3.2.1",
             "laminas/laminas-zendframework-bridge": "^1.0",
-            "php": "^5.6 || ^7.0"
+            "php": "^7.3 || ~8.0.0"
+        },
+        "conflict": {
+            "laminas/laminas-servicemanager": "<3.3"
         },
         "replace": {
             "zendframework/zend-feed": "^2.12.0"
@@ -17561,10 +17551,12 @@
             "laminas/laminas-coding-standard": "~1.0.0",
             "laminas/laminas-db": "^2.8.2",
             "laminas/laminas-http": "^2.7",
-            "laminas/laminas-servicemanager": "^2.7.8 || ^3.3",
+            "laminas/laminas-servicemanager": "^3.3",
             "laminas/laminas-validator": "^2.10.1",
-            "phpunit/phpunit": "^5.7.27 || ^6.5.14 || ^7.5.20",
-            "psr/http-message": "^1.0.1"
+            "phpunit/phpunit": "^9.3",
+            "psalm/plugin-phpunit": "^0.13.0",
+            "psr/http-message": "^1.0.1",
+            "vimeo/psalm": "^4.1"
         },
         "suggest": {
             "laminas/laminas-cache": "Laminas\\Cache component, for optionally caching feeds between requests",
@@ -17574,14 +17566,8 @@
             "laminas/laminas-validator": "Laminas\\Validator component, for validating email addresses used in Atom feeds and entries when using the Writer subcomponent",
             "psr/http-message": "PSR-7 ^1.0.1, if you wish to use Laminas\\Feed\\Reader\\Http\\Psr7ResponseDecorator"
         },
-        "time": "2020-08-18T13:45:04+00:00",
+        "time": "2020-11-18T21:02:52+00:00",
         "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "2.12.x-dev",
-                "dev-develop": "2.13.x-dev"
-            }
-        },
         "installation-source": "dist",
         "autoload": {
             "psr-4": {
@@ -17607,17 +17593,17 @@
     },
     {
         "name": "laminas/laminas-stdlib",
-        "version": "3.3.0",
-        "version_normalized": "3.3.0.0",
+        "version": "3.3.1",
+        "version_normalized": "3.3.1.0",
         "source": {
             "type": "git",
             "url": "https://github.com/laminas/laminas-stdlib.git",
-            "reference": "b9d84eaa39fde733356ea948cdef36c631f202b6"
+            "reference": "d81c7ffe602ed0e6ecb18691019111c0f4bf1efe"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/laminas/laminas-stdlib/zipball/b9d84eaa39fde733356ea948cdef36c631f202b6",
-            "reference": "b9d84eaa39fde733356ea948cdef36c631f202b6",
+            "url": "https://api.github.com/repos/laminas/laminas-stdlib/zipball/d81c7ffe602ed0e6ecb18691019111c0f4bf1efe",
+            "reference": "d81c7ffe602ed0e6ecb18691019111c0f4bf1efe",
             "shasum": ""
         },
         "require": {
@@ -17630,16 +17616,10 @@
         "require-dev": {
             "laminas/laminas-coding-standard": "~1.0.0",
             "phpbench/phpbench": "^0.17.1",
-            "phpunit/phpunit": "^9.3.7"
+            "phpunit/phpunit": "~9.3.7"
         },
-        "time": "2020-08-25T09:08:16+00:00",
+        "time": "2020-11-19T20:18:59+00:00",
         "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "3.3.x-dev",
-                "dev-develop": "3.4.x-dev"
-            }
-        },
         "installation-source": "dist",
         "autoload": {
             "psr-4": {

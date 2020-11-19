@@ -3,7 +3,7 @@
 namespace Drupal\media_library\Form;
 
 use Drupal\Core\Ajax\AjaxResponse;
-use Drupal\Core\Ajax\CloseModalDialogCommand;
+use Drupal\Core\Ajax\CloseDialogCommand;
 use Drupal\Core\Ajax\InvokeCommand;
 use Drupal\Core\Ajax\ReplaceCommand;
 use Drupal\Core\Entity\Entity\EntityFormDisplay;
@@ -761,7 +761,7 @@ abstract class AddFormBase extends FormBase implements BaseFormIdInterface, Trus
     $state = $this->getMediaLibraryState($form_state);
     return $this->openerResolver->get($state)
       ->getSelectionResponse($state, $current_media_ids)
-      ->addCommand(new CloseModalDialogCommand(FALSE, '#modal-media-library'));
+      ->addCommand(new CloseDialogCommand());
   }
 
   /**
