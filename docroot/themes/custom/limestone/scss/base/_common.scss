@@ -299,7 +299,25 @@ p {
   &.bg-faded {
     background-color: rgba($success-color, 0.3);
   }
+}  //c6c7c9
+
+.bg-mid-gray, .bg-med-gray {
+  background-color: $medium-gray;
+  width: 100%;
+  &.bg-faded {
+    background-color: rgba($medium-gray, 0.4);
+  }
+  p.callout, blockquote.callout {
+    background-color: transparent;
+  }
+  h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6 {
+    color: $header-color;
+    > h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6 {
+      color: $header-color;
+    }
+  }
 }
+
 .bg-l-gray {
   background-color: $light-gray;
   width: 100%;
