@@ -3,8 +3,9 @@ header.site-header {
   background-color: $limestone-blue;
   font-family: $header-font-family;
   font-weight: bold;
-  $header-font-size: 1.5rem;
+  $header-font-size: 1.1rem;
   font-size: $header-font-size;
+
   .block-limestone-branding {
     max-width: 220px;
     width: 100%;
@@ -48,6 +49,16 @@ header.site-header {
       .align-right {
         top: 17px;
       }
+      $header-font-size: 1.2rem;
+      font-size: $header-font-size;
+    }
+    @include breakpoint(medium) {
+      $header-font-size: 1.3rem;
+      font-size: $header-font-size;
+    }
+    @include breakpoint(large) {
+      $header-font-size: 1.5rem;
+      font-size: $header-font-size;
     }
   }
   .dropdown.menu>li.is-dropdown-submenu-parent>a::after {
