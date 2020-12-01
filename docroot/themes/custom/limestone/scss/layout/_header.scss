@@ -5,7 +5,14 @@ header.site-header {
   font-weight: bold;
   $header-font-size: 1.1rem;
   font-size: $header-font-size;
-
+  @include breakpoint(smedium) {
+    $header-font-size: 1.3rem;
+    font-size: $header-font-size;
+  }
+  @include breakpoint(large) {
+    $header-font-size: 1.5rem;
+    font-size: $header-font-size;
+  }
   .block-limestone-branding {
     max-width: 220px;
     width: 100%;
