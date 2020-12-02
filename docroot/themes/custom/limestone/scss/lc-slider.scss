@@ -25,7 +25,7 @@
     position: absolute;
     z-index: 3;
     right: 4%;
-    bottom: 75px;
+    bottom: 16px;
     width: 240px;
 
     &::before {
@@ -85,7 +85,7 @@
   position: relative;
   text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
   letter-spacing: 0;
-  height: 525px !important;
+  overflow: hidden;
   .overlay {
     width: 100%;
     height: 100%;
@@ -129,7 +129,7 @@
     z-index: 1;
     color: white;
     padding: 0 0 40px 0;
-
+    height: 100%;
     .medium-8 {
       z-index: 1;
       padding: 1em;
@@ -168,7 +168,9 @@
       padding-right: 0;
       margin: 0;
       padding-top: 13px;
+      margin-bottom: 23px;
       width: 120%;
+      position: relative;
       &::after {
         content: "";
         position: absolute;
@@ -177,8 +179,8 @@
         width: 155px;
         height: 14px;
         top: auto;
-        bottom: 2.25rem;
-        left: 1rem;
+        bottom: -19px;
+        left: 2px;
       }
       &.dark {
         color: $dark-gray;
@@ -266,13 +268,14 @@
     width: 100%;
     content: "";
     background: url(/themes/custom/limestone/images/stripes-dark-tile.svg);
-    opacity: 0.2;
+    opacity: 0.1;
   }
 }
 
 .slide-cover-image img {
   background-size: cover;
   background-position: bottom right; // Desktop changes  768px
+  margin: 0;
   @include breakpoint(smedium) {
     background-position: 80% 0;
   }
