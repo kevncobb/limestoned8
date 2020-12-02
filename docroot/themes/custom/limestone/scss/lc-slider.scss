@@ -18,6 +18,15 @@
     float: left;
   }
   */
+  .view-content {
+    height: 100%;
+    .skin-default {
+      height: 100%;
+      .views_slideshow_cycle_teaser_section {
+        height: 100% !important;
+      }
+    }
+  }
   .view-footer {
     display: none;
   }
