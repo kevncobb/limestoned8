@@ -35,6 +35,20 @@
         display: block;
         &.has-link {
           padding: 0;
+          a {
+            position: relative;
+            .icon-arrow-right {
+              position: absolute;
+              top: 4px;
+              right: -5px;
+              background-color: #fbea65;
+              color: #0138a5;
+              height: 44px;
+              width: 53px;
+              font-size: 1.4rem;
+              transform: rotate(-90deg);
+            }
+          }
         }
         a {
           padding: 0.7rem 1rem;

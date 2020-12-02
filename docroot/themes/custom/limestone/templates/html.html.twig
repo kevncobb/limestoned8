@@ -46,10 +46,29 @@
             h=d.documentElement,t=setTimeout(function(){h.className=h.className.replace(/\bwf-loading\b/g,"")+" wf-inactive";},config.scriptTimeout),tk=d.createElement("script"),f=false,s=d.getElementsByTagName("script")[0],a;h.className+=" wf-loading";tk.src='https://use.typekit.net/'+config.kitId+'.js';tk.async=true;tk.onload=tk.onreadystatechange=function(){a=this.readyState;if(f||a&&a!="complete"&&a!="loaded")return;f=true;clearTimeout(t);try{Typekit.load(config)}catch(e){}};s.parentNode.insertBefore(tk,s)
       })(document);
     </script>
+    <script type='application/ld+json'>
+      {
+        "@context": "http://www.schema.org",
+        "@type": "EducationalOrganization",
+        "name": "Limestone University",
+        "url": "http://www.limestone.edu",
+        "description": "Limestone University is an accredited, independent, liberal arts college located in Gaffney, South Carolina with extended campus locations in Columbia, Greenville, Florence and Charleston for working adults wishing to complete a degree.",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "1115 College Dr.",
+          "addressLocality": "Gaffney",
+          "addressRegion": "South Carolina",
+          "postalCode": "29340",
+          "addressCountry": "United States"
+        },
+        "telephone": "+1 (864) 489-7151"
+      }
+    </script>
     <head-placeholder token="{{ placeholder_token|raw }}">
     <title>{{ head_title|safe_join(' | ') }}</title>
     <css-placeholder token="{{ placeholder_token }}">
     <js-placeholder token="{{ placeholder_token }}">
+    <script src="https://api.meritpages.com/merit.js"></script>
   </head>
   <body{{ attributes.addClass(body_classes) }}>
   <a href="#main-content" class="visually-hidden focusable skip-link">
