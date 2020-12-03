@@ -25,6 +25,10 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-instagram:before {
+  content: "\e922";
+  color: #e4405f;
+}
 .icon-formstack:before {
   content: "\e91f";
   color: #21b573;
