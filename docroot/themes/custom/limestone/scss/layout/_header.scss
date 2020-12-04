@@ -419,8 +419,8 @@ body.section-trip {
     font-family: $site-header-font-family;
   }
   @include breakpoint(small) {
-    font-size: 4rem;
-    line-height: 4rem;
+    font-size: 3.5rem;
+    line-height: 3.5rem;
     &.bold {
       font-size: 3.1rem;
       line-height: 3.1rem;

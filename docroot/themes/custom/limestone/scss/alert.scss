@@ -9,6 +9,17 @@
   p {
     margin: 0;
   }
+  .purple {
+    background-color: #9a5ab8;
+    color: #FFF;
+    a, [class^="icon-"], [class*=" icon-"] {
+      color: #FFF;
+      &:focus, &:hover {
+        color: smart-scale(#6b450b, 25%, 25%) !important;
+        text-decoration: none;
+      }
+    }
+  }
   .notice {
     background-color: #ffef86;
     color: #6b450b;
