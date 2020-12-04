@@ -31,7 +31,18 @@
       }
     }
   }
-  .alert, .closings {
+  .alert {
+    background-color: #d74141;
+    color: white;
+    a, [class^="icon-"], [class*=" icon-"] {
+      color: white;
+      &:focus, &:hover {
+        color: #ddd;
+        text-decoration: none;
+      }
+    }
+  }
+  .closings {
     background-color: #ea6969;
     color: white;
     a, [class^="icon-"], [class*=" icon-"] {
