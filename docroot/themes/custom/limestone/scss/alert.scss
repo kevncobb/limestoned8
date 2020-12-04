@@ -15,7 +15,7 @@
     a, [class^="icon-"], [class*=" icon-"] {
       color: #FFF;
       &:focus, &:hover {
-        color: smart-scale(#6b450b, 25%, 25%) !important;
+        color: #efefef !important;
         text-decoration: none;
       }
     }
