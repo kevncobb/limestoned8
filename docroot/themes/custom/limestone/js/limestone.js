@@ -126,18 +126,6 @@
       }
     }
   };
-  Drupal.behaviors.accordion_focus_tab = {
-    attach: function (context, settings) {
-      $(context).find('a.accordion-title').bind('touchstart click', function (event) {
-        //event.stopPropagation();
-        //event.preventDefault();
-        $(this).delay(500).animate({
-          scrollTop: ($(this).offset().top)
-        },200);
-        return false;
-      });
-    }
-  };
   // Hack to prevent duplicate links on embedded images with links in CKeditor   if ($(window).width() < 768) {
   Drupal.behaviors.hide_empty_button_links = {
     attach: function (context, settings) {
