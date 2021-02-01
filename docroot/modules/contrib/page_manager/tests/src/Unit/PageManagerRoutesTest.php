@@ -247,7 +247,7 @@ class PageManagerRoutesTest extends UnitTestCase {
     $data['with_requirement'] = [
       '/test_route/{foo}',
       '/test_route/{foo}',
-      ['foo' => '\d'],
+      ['foo' => '\d+'],
     ];
     return $data;
   }

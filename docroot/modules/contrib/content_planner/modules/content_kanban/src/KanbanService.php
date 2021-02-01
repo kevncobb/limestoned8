@@ -114,9 +114,7 @@ class KanbanService {
    *   Returns the Kanban settings immutable config.
    */
   public function getKanbanSettings() {
-    $settings = $this->configFactory->get(SettingsForm::$configName);
-
-    return $settings;
+    return $this->configFactory->get(SettingsForm::CONFIG_NAME);
   }
 
   /**

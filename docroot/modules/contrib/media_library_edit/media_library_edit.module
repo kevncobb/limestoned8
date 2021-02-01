@@ -9,7 +9,7 @@ use Drupal\Component\Utility\Html;
 use Drupal\Component\Utility\UrlHelper;
 use Drupal\Core\Ajax\AjaxResponse;
 use Drupal\Core\Ajax\BeforeCommand;
-use Drupal\Core\Ajax\CloseModalDialogCommand;
+use Drupal\Core\Ajax\CloseDialogCommand;
 use Drupal\Core\Ajax\ReplaceCommand;
 use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Field\WidgetInterface;
@@ -112,8 +112,9 @@ function media_library_edit_field_widget_form_alter(&$element, FormStateInterfac
                   'data-dialog-options' => json_encode([
                     'height' => $dialog_options['height'],
                     'width' => $dialog_options['width'],
+                    'classes' => ['ui-dialog-content' => 'media-library-edit__modal'],
                   ]),
-                  'data-dialog-type' => 'modal',
+                  'data-dialog-type' => 'dialog',
                 ],
                 '#attached' => [
                   'library' => [
@@ -154,21 +155,23 @@ function media_library_edit_form_alter(&$form, FormStateInterface $form_state, $
 function _media_library_edit_media_edit_save(array &$form, FormStateInterface $form_state) {
   $response = new AjaxResponse();
   $media_form = $form_state->getFormObject();
-  $media = $media_form->getEntity();
   if (!$form_state->hasAnyErrors()) {
     // Run the (inherited) media save callbacks.
     $media_form->submitForm($form, $form_state);
+    $media = $media_form->getEntity();
     if ($media->save()) {
       // Close the dialog.
-      $response->addCommand(new CloseModalDialogCommand());
+      $response->addCommand(new CloseDialogCommand('.media-library-edit__modal'));
 
       // Figure out the media item field name and the form structure from the request.
       $field_name = \Drupal::request()->query->get('media_library_edit_field_name');
       $entity_type = \Drupal::request()->query->get('media_library_edit_entity_type');
       $entity_id = \Drupal::request()->query->get('media_library_edit_entity_id');
       $entity = \Drupal::entityTypeManager()->getStorage($entity_type)->load($entity_id);
-      // Note: this only works if the entity exists (i.e., this isn't an add form).
       if ($entity) {
+        // Ensure the value of the media field is set to the media entity.
+        // This new value will be saved to the parent entity when the entity is saved in the UI.
+        $entity->set($field_name, $media->id());
         $form = \Drupal::service('entity.form_builder')->getForm($entity);
 
         // Re-render the widget markup.

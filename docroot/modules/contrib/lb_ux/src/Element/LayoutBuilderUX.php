@@ -57,7 +57,7 @@ class LayoutBuilderUX extends LayoutBuilder {
         $route_parameters = $build['layout-builder__section'][$region][$uuid]['#contextual_links']['layout_builder_block']['route_parameters'];
 
         // Remove default contextual links.
-        unset($build['layout-builder__section'][$region][$uuid]['#contextual_links']['layout_builder_block']);
+        // unset($build['layout-builder__section'][$region][$uuid]['#contextual_links']['layout_builder_block']);
 
         // Ensure the 'content' key is present, as set by
         // \Drupal\layout_builder\EventSubscriber\BlockComponentRenderArray.
@@ -127,6 +127,23 @@ class LayoutBuilderUX extends LayoutBuilder {
           ],
           'content' => $build['layout-builder__section'][$region][$uuid]['content'],
         ];
+
+        if(\Drupal::moduleHandler()->moduleExists('layout_builder_component_attributes')) {
+          $build['layout-builder__section'][$region][$uuid]['content']['actions']['layout_builder_block_attributes'] = [
+            '#type' => 'link',
+            '#title' => $this->t('<span class="visually-hidden">Manage attributes @block</span>', ['@block' => $preview_fallback_string]),
+            '#url' => Url::fromRoute('layout_builder_component_attributes.manage_attributes', $route_parameters),
+            '#attributes' => [
+              'class' => [
+                'use-ajax',
+                'layout-builder__link',
+                'layout-builder__link--layout_builder_block_attributes',
+              ],
+              'data-dialog-type' => 'dialog',
+              'data-dialog-renderer' => 'off_canvas',
+            ],
+          ];
+        }
       }
     }
     return $build;

@@ -44,7 +44,7 @@ projects[layout_builder_modal][type] = module
 projects[layout_builder_modal][version] = 1.1
 
 projects[layout_builder_restrictions][type] = module
-projects[layout_builder_restrictions][version] = 2.7
+projects[layout_builder_restrictions][version] = 2.8
 
 projects[layout_library][type] = module
 projects[layout_library][version] = 1.0-beta2
@@ -55,14 +55,9 @@ projects[layout_builder_block_sanitizer][version] = 1.0-alpha4
 projects[media_library_theme_reset][type] = module
 projects[media_library_theme_reset][version] = 1.0
 
-
-core = ''
-
 projects[layout_builder_component_attributes][type] = module
 projects[layout_builder_component_attributes][download][type] = "git"
 projects[layout_builder_component_attributes][download][branch] = 1.1.x
-
-core = 8.x
 
 projects[layout_builder_at][type] = module
 projects[layout_builder_at][version] = 2.11
@@ -98,7 +93,7 @@ projects[smart_trim][version] = 1.3
 projects[advanced_text_formatter][type] = module
 
 projects[block_class][type] = module
-projects[block_class][version] = 1.2
+projects[block_class][version] = 1.3
 
 projects[menu_block][type] = module
 projects[menu_block][version] = 1.6
@@ -128,7 +123,7 @@ projects[embed][type] = module
 projects[embed][version] = 1.4
 
 projects[entity][type] = module
-projects[entity][version] = 1.1
+projects[entity][version] = 1.2
 
 projects[entity_clone][type] = module
 projects[entity_clone][version] = 1.0-beta4
@@ -169,10 +164,10 @@ projects[pathologic][version] = 1.0-alpha2
 projects[ckeditor_bidi][type] = module
 
 projects[ace_editor][type] = module
-projects[ace_editor][version] = 1.2
+projects[ace_editor][version] = 1.3
 
 projects[entityqueue][type] = module
-projects[entityqueue][version] = 1.1
+projects[entityqueue][version] = 1.2
 
 projects[entityqueue_form_widget][type] = module
 
@@ -183,7 +178,7 @@ projects[file_mdm][type] = module
 projects[file_mdm][version] = 2.1
 
 projects[sophron][type] = module
-projects[sophron][version] = 1.0
+projects[sophron][version] = 1.1
 
 projects[imageapi_optimize][type] = module
 projects[imageapi_optimize][version] = 2.0-beta1
@@ -199,13 +194,9 @@ projects[persistent_login][patch][] = https://www.drupal.org/files/issues/persis
 projects[userprotect][type] = module
 projects[userprotect][version] = 1.1
 
-core = ''
-
 projects[admin_audit_trail][type] = module
 projects[admin_audit_trail][download][type] = "git"
 projects[admin_audit_trail][download][branch] = 1.0.x
-
-core = 8.x
 
 projects[events_log_track][type] = module
 projects[events_log_track][version] = 1.1
@@ -250,7 +241,7 @@ projects[views_bulk_operations][type] = module
 projects[views_bulk_operations][version] = 3.9
 
 projects[views_bulk_edit][type] = module
-projects[views_bulk_edit][version] = 2.4
+projects[views_bulk_edit][version] = 2.5
 
 projects[revision_log_default][type] = module
 projects[revision_log_default][version] = 1.2
@@ -279,7 +270,7 @@ projects[node_edit_protection][type] = module
 projects[node_edit_protection][version] = 1.0
 
 projects[rabbit_hole][type] = module
-projects[rabbit_hole][version] = 1.0-beta7
+projects[rabbit_hole][version] = 1.0-beta9
 
 projects[fast_404][type] = module
 projects[fast_404][version] = 2.0-alpha5
@@ -367,7 +358,7 @@ projects[google_analytics_reports][type] = module
 projects[google_analytics_reports][version] = 3.0-rc3
 
 projects[login_destination][type] = module
-projects[login_destination][version] = 2.0-alpha3
+projects[login_destination][version] = 2.0-beta1
 
 projects[betterlogin][type] = module
 projects[betterlogin][version] = 1.5
@@ -376,7 +367,7 @@ projects[social_api][type] = module
 projects[social_api][version] = 2.0-rc3
 
 projects[social_auth][type] = module
-projects[social_auth][version] = 2.0-rc2
+projects[social_auth][version] = 2.0-rc3
 
 projects[social_auth_google][type] = module
 projects[social_auth_google][version] = 2.1
@@ -391,12 +382,12 @@ projects[social_auth_linkedin][type] = module
 projects[social_auth_linkedin][version] = 2.0-beta3
 
 projects[ckeditor_media_embed][type] = module
-projects[ckeditor_media_embed][version] = 1.9
+projects[ckeditor_media_embed][version] = 1.10
 ;; Issue #2900313: Add ability to embed tweets and other rich content in WYSIWYG
 projects[ckeditor_media_embed][patch][] = https://www.drupal.org/files/issues/embed_rich_content_in_WYSIWYG-2900313-2.patch
 
 projects[styleguide][type] = module
-projects[styleguide][version] = 1.0-alpha3
+projects[styleguide][version] = 1.0-beta1
 
 projects[pathauto][type] = module
 projects[pathauto][version] = 1.8
@@ -405,13 +396,13 @@ projects[redirect][type] = module
 projects[redirect][version] = 1.6
 
 projects[metatag][type] = module
-projects[metatag][version] = 1.14
+projects[metatag][version] = 1.15
 
 projects[schema_metatag][type] = module
 projects[schema_metatag][version] = 2.1
 
 projects[simple_sitemap][type] = module
-projects[simple_sitemap][version] = 3.7
+projects[simple_sitemap][version] = 3.8
 
 projects[google_analytics][type] = module
 projects[google_analytics][version] = 3.1
@@ -420,7 +411,7 @@ projects[google_tag][type] = module
 projects[google_tag][version] = 1.4
 
 projects[yoast_seo][type] = module
-projects[yoast_seo][version] = 1.6
+projects[yoast_seo][version] = 1.7
 
 projects[l10n_client][type] = module
 projects[l10n_client][version] = 1.x-dev
@@ -453,7 +444,7 @@ projects[recaptcha][type] = module
 projects[recaptcha][version] = 3.0
 
 projects[search_api][type] = module
-projects[search_api][version] = 1.17
+projects[search_api][version] = 1.18
 
 projects[blazy][type] = module
 projects[blazy][version] = 2.1
@@ -471,7 +462,7 @@ projects[openapi][type] = module
 projects[openapi][version] = 2.0-rc3
 
 projects[openapi_jsonapi][type] = module
-projects[openapi_jsonapi][version] = 2.0-rc2
+projects[openapi_jsonapi][version] = 2.0
 
 projects[openapi_rest][type] = module
 projects[openapi_rest][version] = 2.0-rc2
@@ -492,7 +483,7 @@ projects[simple_oauth][type] = module
 projects[simple_oauth][version] = 4.5
 
 projects[restui][type] = module
-projects[restui][version] = 1.18
+projects[restui][version] = 1.19
 
 projects[jsonapi_extras][type] = module
 projects[jsonapi_extras][version] = 3.16
@@ -522,13 +513,9 @@ projects[jquery_ui_draggable][type] = module
 projects[jquery_ui_droppable][type] = module
 projects[jquery_ui_slider][type] = module
 
-core = ''
-
 projects[jquery_ui_touch_punch][type] = module
 projects[jquery_ui_touch_punch][download][type] = "git"
 projects[jquery_ui_touch_punch][download][branch] = 1.0.x
-
-core = 8.x
 
 ;;;;;;;;;;;;;;;;;;;;;
 ;; Development contrib modules
@@ -584,7 +571,6 @@ projects[bootstrap][type] = theme
 projects[bootstrap][version] = 3.23
 
 projects[bootstrap_barrio][type] = theme
-projects[bootstrap_barrio][version] = 4.32
 
 projects[adminimal_theme][type] = theme
 projects[adminimal_theme][version] = 1.6
@@ -610,52 +596,52 @@ projects[total_control][version] = 2.0
 ;;;;;;;;;;;;;;;;;;;;;
 
 projects[varbase_core][type] = module
-projects[varbase_core][version] = 8.24
+projects[varbase_core][version] = 8.27
 
 projects[varbase_api][type] = module
-projects[varbase_api][version] = 7.13
+projects[varbase_api][version] = 7.14
 
 projects[varbase_media][type] = module
-projects[varbase_media][version] = 7.28
+projects[varbase_media][version] = 7.31
 
 projects[varbase_bootstrap_paragraphs][type] = module
-projects[varbase_bootstrap_paragraphs][version] = 7.16
+projects[varbase_bootstrap_paragraphs][version] = 7.17
 
 projects[varbase_editor][type] = module
-projects[varbase_editor][version] = 7.12
+projects[varbase_editor][version] = 7.13
 
 projects[varbase_landing][type] = module
-projects[varbase_landing][version] = 7.9
+projects[varbase_landing][version] = 7.10
 
 projects[varbase_layout_builder][type] = module
-projects[varbase_layout_builder][version] = 1.0-alpha20
+projects[varbase_layout_builder][version] = 1.23
 
 projects[varbase_heroslider_media][type] = module
-projects[varbase_heroslider_media][version] = 7.15
+projects[varbase_heroslider_media][version] = 7.16
 
 projects[varbase_carousels][type] = module
-projects[varbase_carousels][version] = 7.6
+projects[varbase_carousels][version] = 7.7
 
 projects[varbase_blog][type] = module
-projects[varbase_blog][version] = 8.5
+projects[varbase_blog][version] = 8.6
 
 projects[varbase_search][type] = module
-projects[varbase_search][version] = 6.7
+projects[varbase_search][version] = 6.8
 
 projects[varbase_seo][type] = module
-projects[varbase_seo][version] = 6.17
+projects[varbase_seo][version] = 6.18
 
 projects[varbase_total_control][type] = module
-projects[varbase_total_control][version] = 6.12
+projects[varbase_total_control][version] = 6.13
 
 projects[varbase_auth][type] = module
-projects[varbase_auth][version] = 6.10
+projects[varbase_auth][version] = 6.11
 
 projects[varbase_styleguide][type] = module
-projects[varbase_styleguide][version] = 6.6
+projects[varbase_styleguide][version] = 6.8
 
 projects[varbase_email][type] = module
-projects[varbase_email][version] = 6.4
+projects[varbase_email][version] = 6.5
 
 projects[varbase_workflow][type] = module
 
@@ -664,13 +650,13 @@ projects[varbase_workflow][type] = module
 ;;;;;;;;;;;;;;;;;;;;;
 
 projects[vartheme][type] = theme
-projects[vartheme][version] = 6.8
+projects[vartheme][version] = 6.9
 
 projects[vartheme_bs4][type] = theme
-projects[vartheme_bs4][version] = 6.20
+projects[vartheme_bs4][version] = 6.26
 
 projects[vartheme_admin][type] = theme
-projects[vartheme_admin][version] = 6.x-dev
+projects[vartheme_admin][version] = 6.11
 
 projects[vartheme_claro][type] = theme
 

@@ -8,7 +8,7 @@ $baseDir = dirname($vendorDir);
 return array(
     'vardot\\Composer\\' => array($vendorDir . '/vardot/varbase-updater/src'),
     'lsolesen\\pel\\' => array($vendorDir . '/lsolesen/pel/src'),
-    'cweagans\\Composer\\' => array($vendorDir . '/cweagans/composer-configurable-plugin/src', $vendorDir . '/cweagans/composer-patches/src'),
+    'cweagans\\Composer\\' => array($vendorDir . '/cweagans/composer-patches/src'),
     'ZipStream\\' => array($vendorDir . '/maennchen/zipstream-php/src'),
     'Webmozart\\PathUtil\\' => array($vendorDir . '/webmozart/path-util/src'),
     'Webmozart\\Assert\\' => array($vendorDir . '/webmozart/assert/src'),

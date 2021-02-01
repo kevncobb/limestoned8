@@ -11,11 +11,8 @@ class DashboardSettingsService {
 
   /**
    * Config name.
-   *
-   * @var string
-   * @todo conver this to a constant, see https://www.drupal.org/project/content_planner/issues/3091404
    */
-  static $configName = 'content_planner.dashboard_settings';
+  const CONFIG_NAME = 'content_planner.dashboard_settings';
 
   /**
    * Drupal\Core\Config\ConfigFactoryInterface definition.
@@ -38,7 +35,7 @@ class DashboardSettingsService {
    *   The complete settings config of the module.
    */
   public function getSettings() {
-    return $this->configFactory->get(self::$configName);
+    return $this->configFactory->get(self::CONFIG_NAME);
   }
 
   /**
@@ -118,7 +115,7 @@ class DashboardSettingsService {
    */
   public function saveBlockConfigurations(array $configuration) {
 
-    $this->configFactory->getEditable(self::$configName)
+    $this->configFactory->getEditable(self::CONFIG_NAME)
       ->set('blocks', $configuration)
       ->save();
   }

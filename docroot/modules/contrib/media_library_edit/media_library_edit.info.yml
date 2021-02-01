@@ -5,7 +5,7 @@ core: 8.x
 core_version_requirement: ^8 || ^9
 package: 'Newcity'
 
-# Information added by Drupal.org packaging script on 2020-06-08
-version: '8.x-1.0-alpha2'
+# Information added by Drupal.org packaging script on 2020-12-12
+version: '8.x-2.0'
 project: 'media_library_edit'
-datestamp: 1591618256
+datestamp: 1607795683

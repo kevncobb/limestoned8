@@ -108,12 +108,12 @@ function webform_token_info() {
     'description' => t('Is the webform submission in draft.'),
   ];
   $webform_submission['state'] = [
-    'name' => t('State'),
-    'description' => t('The state of the webform submission. (Unsaved, Draft, Completed, Updated, Locked, or Converted)'),
+    'name' => t('State (Name)'),
+    'description' => t('The state of the webform submission. (unsaved, draft, completed, updated, locked, or converted)'),
   ];
-  $webform_submission['state:raw'] = [
-    'name' => t('State (Raw value)'),
-    'description' => t('The state raw value untranslated of the webform submission. (unsaved, draft, completed, updated, locked, or converted)'),
+  $webform_submission['state:label'] = [
+    'name' => t('State (Label)'),
+    'description' => t('The state raw value untranslated of the webform submission. (Unsaved, Draft, Completed, Updated, Locked, or Converted)'),
   ];
   $webform_submission['label'] = [
     'name' => t('Label'),
@@ -733,10 +733,12 @@ function webform_tokens($type, $tokens, array $data, array $options, BubbleableM
       $replacements += $token_service->generate('webform', $webform_tokens, ['webform' => $webform], $options, $bubbleable_metadata);
     }
     if (($source_entity_tokens = $token_service->findWithPrefix($tokens, 'source-entity')) && ($source_entity = $webform_submission->getSourceEntity(TRUE))) {
-      $replacements += $token_service->generate($source_entity->getEntityTypeId(), $source_entity_tokens, [$source_entity->getEntityTypeId() => $source_entity], $options, $bubbleable_metadata);
+      $type = $source_entity->getEntityType()->get('token_type') ?: $source_entity->getEntityTypeId();
+      $replacements += $token_service->generate($type, $source_entity_tokens, [$type => $source_entity], $options, $bubbleable_metadata);
     }
     if (($submitted_to_tokens = $token_service->findWithPrefix($tokens, 'submitted-to')) && ($submitted_to = $webform_submission->getSourceEntity(TRUE) ?: $webform_submission->getWebform())) {
-      $replacements += $token_service->generate($submitted_to->getEntityTypeId(), $submitted_to_tokens, [$submitted_to->getEntityTypeId() => $submitted_to], $options, $bubbleable_metadata);
+      $type = $submitted_to->getEntityType()->get('token_type') ?: $submitted_to->getEntityTypeId();
+      $replacements += $token_service->generate($type, $submitted_to_tokens, [$type => $submitted_to], $options, $bubbleable_metadata);
     }
     foreach (['token-view-url', 'token-update-url', 'token-delete-url', 'source-url'] as $token) {
       if ($url_tokens = $token_service->findWithPrefix($tokens, $token)) {

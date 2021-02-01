@@ -168,6 +168,7 @@ global-scripts:
   dependencies:
     - core/jquery
     - core/drupal
+    - core/drupal.ajax
 
 
 # VARTHEME_BS4_SUBTHEME Varbase Bootstrap Paragraphs colors theme.
@@ -285,4 +286,4 @@ material_design_icons:
 fontawesome:
   css:
     component:
-      //use.fontawesome.com/releases/v5.0.13/css/all.css: {}
+      //use.fontawesome.com/releases/v5.15.2/css/all.css: {}

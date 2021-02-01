@@ -5,6 +5,7 @@ namespace Drupal\ctools\Plugin\Condition;
 use Drupal\Core\Condition\ConditionPluginBase;
 use Drupal\Core\Entity\EntityTypeBundleInfoInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\ctools\ConstraintConditionInterface;
@@ -104,6 +105,11 @@ class EntityBundle extends ConditionPluginBase implements ConstraintConditionInt
     }
     /** @var \Drupal\Core\Entity\ContentEntityInterface $entity */
     $entity = $this->getContextValue($this->bundleOf->id());
+
+    if (!$entity instanceof ContentEntityInterface) {
+      return TRUE;
+    }
+
     return !empty($this->configuration['bundles'][$entity->bundle()]);
   }
 

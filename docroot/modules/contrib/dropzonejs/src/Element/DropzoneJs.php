@@ -86,10 +86,6 @@ class DropzoneJs extends FormElement {
    * Processes a dropzone upload element.
    */
   public static function processDropzoneJs(&$element, FormStateInterface $form_state, &$complete_form) {
-
-    /** @var \Drupal\Core\Routing\UrlGeneratorInterface $urlGenerator */
-    $urlGenerator = \Drupal::service('dropzonejs.url_generator');
-
     $element['uploaded_files'] = [
       '#type' => 'hidden',
       // @todo Handle defaults.
@@ -97,7 +93,7 @@ class DropzoneJs extends FormElement {
       // If we send a url with a token through drupalSettings the placeholder
       // doesn't get replaced, because the actual scripts markup is not there
       // yet. So we pass this information through a data attribute.
-      '#attributes' => ['data-upload-path' => $urlGenerator->generateFromRoute('dropzonejs.upload')],
+      '#attributes' => ['data-upload-path' => Url::fromRoute('dropzonejs.upload')->toString()],
     ];
 
     if (empty($element['#max_filesize'])) {

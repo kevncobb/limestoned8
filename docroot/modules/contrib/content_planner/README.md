@@ -57,6 +57,14 @@ case. Please follow the instructions here:
  * https://www.drupal-blog.ch/drupal-module/how-install-drupal-content-calendar.
 
 
+MODULE DEVELOPMENT
+------------------
+
+To compile module scss files use npm.
+
+npm install
+npm run build-css
+
 MAINTAINERS
 -----------
 

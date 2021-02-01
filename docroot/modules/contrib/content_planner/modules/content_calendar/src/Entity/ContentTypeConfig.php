@@ -29,6 +29,11 @@ use Drupal\Core\Config\Entity\ConfigEntityBase;
  *     "label" = "label",
  *     "uuid" = "uuid"
  *   },
+ *   config_export = {
+ *     "id" = "id",
+ *     "label" = "label",
+ *     "color" = "color"
+ *   },
  *   links = {
  *     "canonical" = "/admin/content-calendar/content-type-config/{content_type_config}",
  *     "add-form" = "/admin/content-calendar/content-type-config/add",

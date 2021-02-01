@@ -5,15 +5,14 @@ namespace Drupal\content_calendar\Component;
 use Drupal\content_calendar\DateTimeHelper;
 use Drupal\content_calendar\Entity\ContentTypeConfig;
 use Drupal\content_calendar\Form\SettingsForm;
-use Drupal\content_planner\UserProfileImage;
-use Drupal\user\Entity\User;
+use Drupal\content_planner\Component\BaseEntry;
 
 /**
  * Class CalendarEntry.
  *
  * @package Drupal\content_calendar\Component
  */
-class CalendarEntry {
+class CalendarEntry extends BaseEntry {
 
   /**
    * @var int
@@ -34,13 +33,6 @@ class CalendarEntry {
    * @var \stdClass
    */
   protected $node;
-
-  /**
-   * Internal cache for user pictures, used to avoid performance issues.
-   *
-   * @var array
-   */
-  static $userPictureCache = [];
 
   /**
    * @var \Drupal\Core\Config\ImmutableConfig
@@ -66,7 +58,7 @@ class CalendarEntry {
     $this->contentTypeConfig = $content_type_config;
     $this->node = $node;
 
-    $this->config = \Drupal::config(SettingsForm::$configName);
+    $this->config = \Drupal::config(SettingsForm::CONFIG_NAME);
   }
 
   /**
@@ -101,9 +93,9 @@ class CalendarEntry {
    */
   public function formatSchedulingDateAsMySQLDateOnly() {
 
-    $datetime = DateTimeHelper::convertUnixTimestampToDatetime($this->getRelevantDate());
+    $datetime = DateTimeHelper::convertUnixTimestampToDatetime($this->node->created);
 
-    return $datetime->format(DateTimeHelper::$formatMYSQLDateOnly);
+    return $datetime->format(DateTimeHelper::FORMAT_MYSQL_DATE_ONLY);
   }
 
   /**
@@ -116,11 +108,29 @@ class CalendarEntry {
     // Get User Picture.
     $user_picture = $this->getUserPictureURL();
 
+    
+    if ($this->node->publish_on) {
+      $this->node->scheduled = true;
+    } else {
+      $this->node->scheduled = false;
+    }
+
     // Add time to node object.
-    $this->node->publish_on_time = DateTimeHelper::convertUnixTimestampToDatetime($this->getRelevantDate())->format('H:i');
+    $this->node->publish_on_time = DateTimeHelper::convertUnixTimestampToDatetime($this->node->publish_on)->format('H:i');
+    $this->node->created_on_time = DateTimeHelper::convertUnixTimestampToDatetime($this->node->created)->format('H:i');
 
     // Build options.
     $options = $this->buildOptions();
+
+    if (\Drupal::currentUser()->hasPermission('manage content calendar')) {
+      $this->node->editoptions = true;
+    }
+
+    if (\Drupal::currentUser()->hasPermission('manage own content calendar')) {
+      if ($this->node->uid == \Drupal::currentUser()->id()) {
+        $this->node->editoptions = true;
+      }
+    }
 
     $build = [
       '#theme' => 'content_calendar_entry',
@@ -147,7 +157,7 @@ class CalendarEntry {
     // Background color for unpublished content.
     $options['bg_color_unpublished_content'] = ($this->config->get('bg_color_unpublished_content'))
       ? $this->config->get('bg_color_unpublished_content')
-      : SettingsForm::$defaultBgColorUnpublishedContent;
+      : SettingsForm::DEFAULT_BG_COLOR_UNPUBLISHED_CONTENT;
 
     return $options;
   }
@@ -161,22 +171,7 @@ class CalendarEntry {
 
     // If show user thumb is active.
     if ($this->config->get('show_user_thumb')) {
-
-      $style_url = FALSE;
-
-      // If a user picture is not in the internal cache, then create one.
-      if (!array_key_exists($this->node->uid, self::$userPictureCache)) {
-
-        // Load User.
-        if ($user = User::load($this->node->uid)) {
-          $style_url = UserProfileImage::generateProfileImageUrl($user, 'content_calendar_user_thumb');
-        }
-
-        // Store in Cache.
-        self::$userPictureCache[$this->node->uid] = $style_url;
-      }
-
-      return self::$userPictureCache[$this->node->uid];
+      return $this->getUserPictureFromCache($this->node->uid, 'content_calendar_user_thumb');
     }
 
     return FALSE;

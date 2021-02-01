@@ -27,17 +27,13 @@ class SettingsForm extends ConfigFormBase {
 
   /**
    * Config name.
-   *
-   * @var string
    */
-  static $configName = 'content_calendar.settings';
+  const CONFIG_NAME = 'content_calendar.settings';
 
   /**
    * The default background color value for unpublished content.
-   *
-   * @var string
    */
-  static $defaultBgColorUnpublishedContent = '#fff4f4';
+  const DEFAULT_BG_COLOR_UNPUBLISHED_CONTENT = '#fff4f4';
 
   /**
    * Constructor.
@@ -51,7 +47,7 @@ class SettingsForm extends ConfigFormBase {
     $this->contentTypeConfigService = \Drupal::service('content_calendar.content_type_config_service');
 
     // Get config.
-    $this->config = $this->config(self::$configName);
+    $this->config = $this->config(self::CONFIG_NAME);
   }
 
   /**
@@ -247,7 +243,7 @@ class SettingsForm extends ConfigFormBase {
     $values = $form_state->getValues();
 
     // Save show user image thumbnail option.
-    $this->config(self::$configName)
+    $this->config(self::CONFIG_NAME)
       ->set('show_user_thumb', $values['show_user_thumb'])
       ->set('bg_color_unpublished_content', $values['bg_color_unpublished_content'])
       ->save();

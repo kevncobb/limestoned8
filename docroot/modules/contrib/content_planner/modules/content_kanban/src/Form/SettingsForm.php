@@ -16,10 +16,8 @@ class SettingsForm extends ConfigFormBase {
 
   /**
    * Config name.
-   *
-   * @var string
    */
-  static public $configName = 'content_kanban.settings';
+  const CONFIG_NAME = 'content_kanban.settings';
 
   /**
    *  Default Date Range value.
@@ -49,7 +47,7 @@ class SettingsForm extends ConfigFormBase {
     $this->kanbanService = $kanbanService;
 
     // Get config.
-    $this->config = $this->config(self::$configName);
+    $this->config = $this->config(self::CONFIG_NAME);
   }
 
   /**
@@ -89,7 +87,7 @@ class SettingsForm extends ConfigFormBase {
       $this->saveColorSetting(0);
     }
 
-    $config = $this->config(self::$configName);
+    $config = $this->config(self::CONFIG_NAME);
 
     $form['advice'] = [
       '#title' => 'Disclaimer',
@@ -164,7 +162,7 @@ class SettingsForm extends ConfigFormBase {
     $this->saveColorSetting($use_content_calendar_colors);
 
     // Save show user image thumbnail option.
-    $this->config(self::$configName)
+    $this->config(self::CONFIG_NAME)
       ->set('show_user_thumb', $values['show_user_thumb'])
       ->set('default_filter_date_range', $values['default_filter_date_range'])
       ->save();
@@ -177,7 +175,7 @@ class SettingsForm extends ConfigFormBase {
    *   The "use content calendar colors" setting value.
    */
   protected function saveColorSetting($value) {
-    $this->config(self::$configName)
+    $this->config(self::CONFIG_NAME)
       ->set('use_content_calendar_colors', $value)
       ->save();
   }

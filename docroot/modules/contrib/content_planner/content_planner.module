@@ -65,13 +65,21 @@ function content_planner_toolbar() {
       '#options' => [
         'attributes' => [
           'title' => t('Content Planner'),
-          'class' => 'trigger toolbar-item toolbar-icon toolbar-icon-system-admin-content',
+          'class' => [
+            'trigger',
+            'toolbar-item',
+            'toolbar-icon',
+            'toolbar-icon-system-admin-content',
+          ],
         ],
       ],
     ],
     'tray' => [
       '#heading' => t('Content Planner sections'),
       'links' => [
+        '#attributes' => [
+          'class' => ['toolbar-menu'],
+        ],
         '#theme' => 'item_list',
         '#items' => $links,
       ],

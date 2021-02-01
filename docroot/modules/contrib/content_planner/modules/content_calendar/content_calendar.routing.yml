@@ -4,7 +4,7 @@ content_calendar.calendar:
     _controller: '\Drupal\content_calendar\Controller\CalendarController::showCalendarYear'
     _title: 'Content Calendar'
   requirements:
-    _permission: 'manage content calendar'
+    _permission: 'view content calendar'
     year: \d{4}
 
 content_calendar.current:
@@ -13,7 +13,7 @@ content_calendar.current:
     _controller: '\Drupal\content_calendar\Controller\CalendarController::showCurrentCalendarYear'
     _title: 'Content Calendar'
   requirements:
-    _permission: 'manage content calendar'
+    _permission: 'view content calendar'
 
 content_calendar.calendar_redirect:
   path: '/admin/content-calendar/redirect/{year}/{month}'
@@ -21,7 +21,7 @@ content_calendar.calendar_redirect:
     _controller: '\Drupal\content_calendar\Controller\CalendarController::redirectToCalendar'
     _title: 'Content Calendar'
   requirements:
-    _permission: 'manage content calendar'
+    _permission: 'view content calendar'
     year: \d{4}
     month: \d{1,2}
 
@@ -38,7 +38,7 @@ content_calendar.upate_node_publish_date:
   defaults:
     _controller: '\Drupal\content_calendar\Controller\CalendarController::updateNodePublishDate'
   requirements:
-    _permission: 'manage content calendar'
+    _permission: 'view content calendar'
     node: \d+
     date: \d{4}\-\d{2}\-\d{2}
   options:
@@ -51,7 +51,7 @@ content_calendar.duplicate_node:
   defaults:
     _controller: '\Drupal\content_calendar\Controller\CalendarController::duplicateNode'
   requirements:
-    _permission: 'manage content calendar'
+    _permission: 'view content calendar'
     node: \d+
   options:
     parameters:

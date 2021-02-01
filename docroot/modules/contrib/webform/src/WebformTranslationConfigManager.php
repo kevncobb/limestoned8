@@ -231,7 +231,7 @@ class WebformTranslationConfigManager implements WebformTranslationConfigManager
     // Tweak form elements.
     $element_alterations = [
       // Form settings.
-      'title' => ['#maxlength' => 255],
+      'title' => ['#maxlength' => NULL],
       // Submission settings.
       'submission_label' => ['#maxlength' => NULL],
       // Email handler.
@@ -261,10 +261,17 @@ class WebformTranslationConfigManager implements WebformTranslationConfigManager
     $translation_elements = $values['translation']['config_names'][$config_name]['elements'];
     foreach ($translation_elements as $key => $element) {
       $translation_elements[$key] = WebformArrayHelper::addPrefix($element);
+      // Handle composite elements.
       if (isset($translation_elements[$key]['#element'])) {
         foreach ($translation_elements[$key]['#element'] as $composite_key => $composite_element)  {
           $translation_elements[$key]['#element'][$composite_key] = WebformArrayHelper::addPrefix($composite_element);
         }
+      }
+      // Handle 'text_format' elements.
+      elseif (isset($translation_elements[$key]['#text'])
+        && isset($translation_elements[$key]['#text']['value'])
+        && isset($translation_elements[$key]['#text']['format'])) {
+        $translation_elements[$key]['#text'] = $translation_elements[$key]['#text']['value'];
       }
     }
 
@@ -462,6 +469,7 @@ class WebformTranslationConfigManager implements WebformTranslationConfigManager
           '#type' => 'textfield',
           '#title' => $this->t('@text (@value)', $t_args),
           '#title_display' => 'invisible',
+          '#maxlength' => NULL,
           '#default_value' => $option_text,
           '#parents' => array_merge($property_parents, [$option_value]),
         ],
@@ -662,6 +670,14 @@ class WebformTranslationConfigManager implements WebformTranslationConfigManager
         '#mode' => 'yaml',
       ];
     }
+    elseif ($property_type === 'text_format') {
+      $property_translation_element += [
+        '#type' => 'text_format',
+        '#title_display' => 'hidden',
+        '#format' => $element_property['#format'],
+        '#allowed_formats' => [$element_property['#format']],
+      ];
+    }
     elseif ($property_type) {
       $property_translation_element += [
         '#type' => $property_type,
@@ -693,6 +709,13 @@ class WebformTranslationConfigManager implements WebformTranslationConfigManager
         'html' => WebformHtmlEditor::checkMarkup($source_element[$property_name]),
       ];
     }
+    elseif ($property_translation_element['#type'] === 'text_format') {
+      $property_source_element += [
+        '#type' => 'processed_text',
+        '#text' => $source_element[$property_name],
+        '#format' => $element_property['#format'],
+      ];
+    }
     else {
       $property_source_element += [
         '#type' => 'item',
@@ -717,6 +740,8 @@ class WebformTranslationConfigManager implements WebformTranslationConfigManager
    */
   protected function alterElements(array &$elements, array $element_alterations) {
     foreach ($elements as $key => &$element) {
+      // Make sure the element key is a string.
+      $key = (string) $key;
       if (Element::property($key) || !is_array($element)) {
         continue;
       }

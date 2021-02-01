@@ -108,7 +108,7 @@ class EntityViewBuilder extends EntityHandlerBase implements EntityHandlerInterf
     $this->languageManager = $language_manager;
     $this->themeRegistry = $theme_registry ?: \Drupal::service('theme.registry');
     if (!$entity_display_repository) {
-      @trigger_error('Calling EntityViewBuilder::__construct() with the $entity_repository argument is supported in drupal:8.7.0 and will be required before drupal:9.0.0. See https://www.drupal.org/node/2549139.', E_USER_DEPRECATED);
+      @trigger_error('Calling EntityViewBuilder::__construct() with the $entity_display_repository argument is supported in drupal:8.7.0 and will be required before drupal:9.0.0. See https://www.drupal.org/node/2549139.', E_USER_DEPRECATED);
       $entity_display_repository = \Drupal::service('entity_display.repository');
     }
     $this->entityDisplayRepository = $entity_display_repository;
@@ -367,20 +367,30 @@ class EntityViewBuilder extends EntityHandlerBase implements EntityHandlerInterf
     if ($entity->isNew()) {
       return;
     }
-    $key = $entity->getEntityTypeId();
-    $rel = 'canonical';
+    $links = [];
+    // Only attach one of either the revision or canonical contextual link
+    // group.
     if ($entity instanceof ContentEntityInterface && !$entity->isDefaultRevision()) {
-      $rel = 'revision';
-      $key .= '_revision';
+      $links[$entity->getEntityTypeId() . '_revision'] = 'revision';
     }
-    if ($entity->hasLinkTemplate($rel)) {
-      $build['#contextual_links'][$key] = [
-        'route_parameters' => $entity->toUrl($rel)->getRouteParameters(),
-      ];
-      if ($entity instanceof EntityChangedInterface) {
-        $build['#contextual_links'][$key]['metadata'] = [
-          'changed' => $entity->getChangedTime(),
+    else {
+      $links[$entity->getEntityTypeId()] = 'canonical';
+    }
+    // For entities which are non-default and are the latest version, add an
+    // additional group of contextual links.
+    if ($entity instanceof ContentEntityInterface && !$entity->isDefaultRevision() && $entity->isLatestRevision()) {
+      $links[$entity->getEntityTypeId() . '_latest_version'] = 'revision';
+    }
+    foreach ($links as $group => $link_template) {
+      if ($entity->hasLinkTemplate($link_template)) {
+        $build['#contextual_links'][$group] = [
+          'route_parameters' => $entity->toUrl($link_template)->getRouteParameters(),
         ];
+        if ($entity instanceof EntityChangedInterface) {
+          $build['#contextual_links'][$group]['metadata'] = [
+            'changed' => $entity->getChangedTime(),
+          ];
+        }
       }
     }
   }

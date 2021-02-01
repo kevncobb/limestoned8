@@ -16,7 +16,7 @@ dependencies:
   - allowed_formats:allowed_formats
   - block_content_permissions:block_content_permissions
 
-# Information added by Drupal.org packaging script on 2020-11-05
-version: '8.x-1.22'
+# Information added by Drupal.org packaging script on 2021-02-01
+version: '8.x-1.25'
 project: 'varbase_layout_builder'
-datestamp: 1604575617
+datestamp: 1612182692

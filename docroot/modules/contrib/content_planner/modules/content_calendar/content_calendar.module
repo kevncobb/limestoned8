@@ -94,15 +94,28 @@ function content_calendar_form_node_form_alter(&$form,
       // If the date is a valid MySQL Date.
       if (DateTimeHelper::dateIsMySQLDateOnly($date)) {
 
+        // Check scheduler for default time
+        $scheduler_config = \Drupal::config('scheduler.settings');
+        $default_time = FALSE;
+        if ($scheduler_config->get('allow_date_only')) {
+          $default_time = $scheduler_config->get('default_time');
+        }
         // Create DrupalDateTime object.
-        $datetime = DrupalDateTime::createFromFormat('Y-m-d', $date);
+        if ($default_time) {
+          $datetime = DrupalDateTime::createFromFormat('Y-m-d H:i:s', $date . ' ' . $default_time);
+        } else {
+          $datetime = DrupalDateTime::createFromFormat('Y-m-d', $date);
+        }
 
         // Assign date to the created field.
         $form['created']['widget'][0]['value']['#default_value'] = $datetime;
 
         // Assign date to the scheduler date, if it exists.
-        if (array_key_exists('publish_on', $form)) {
-          $form['publish_on']['widget'][0]['value']['#default_value'] = $datetime;
+
+        if (\Drupal::currentUser()->hasPermission('schedule publishing of nodes')) {
+          if (array_key_exists('publish_on', $form)) {
+            $form['publish_on']['widget'][0]['value']['#default_value'] = $datetime;
+          }
         }
       }
     }
@@ -117,7 +130,7 @@ function content_calendar_form_node_form_alter(&$form,
 function content_calendar_toolbar_alter(&$items) {
 
   $links =& $items['content_planner']['tray']['links']['#items'];
-  if (\Drupal::currentUser()->hasPermission('manage content calendar') || \Drupal::currentUser()->hasPermission('administer content calendar settings')) {
+  if (\Drupal::currentUser()->hasPermission('manage content calendar') || \Drupal::currentUser()->hasPermission('view content calendar') || \Drupal::currentUser()->hasPermission('administer content calendar settings')) {
     $links['content_calendar'] = [
       '#type' => 'link',
       '#title' => t('Content Calendar'),

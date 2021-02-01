@@ -15,6 +15,11 @@ class BlockFormAlterTest extends BrowserTestBase {
   /**
    * {@inheritdoc}
    */
+  protected $defaultTheme = 'stark';
+
+  /**
+   * {@inheritdoc}
+   */
   protected static $modules = [
     'block_content',
     'block_form_alter',

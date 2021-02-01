@@ -24,3 +24,10 @@ function block_form_alter_test_block_plugin_form_alter(array &$form, FormStateIn
     $form['settings']['block_branding']['use_site_logo']['#default_value'] = FALSE;
   }
 }
+
+/**
+ * Implements hook_theme_registry_alter().
+ */
+function block_form_alter_test_theme_registry_alter(&$theme_registry) {
+  $theme_registry['block']['path'] = drupal_get_path('module', 'block_form_alter_test') . '/templates/block';
+}

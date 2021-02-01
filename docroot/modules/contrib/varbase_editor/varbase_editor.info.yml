@@ -21,7 +21,7 @@ install:
   - token
   - token_filter
 
-# Information added by Drupal.org packaging script on 2020-09-26
-version: '8.x-7.12'
+# Information added by Drupal.org packaging script on 2020-12-01
+version: '8.x-7.13'
 project: 'varbase_editor'
-datestamp: 1601080468
+datestamp: 1606838497

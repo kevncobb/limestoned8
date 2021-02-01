@@ -57,7 +57,7 @@ class DashboardSettingsForm extends ConfigFormBase {
    */
   protected function getEditableConfigNames() {
     return [
-      DashboardSettingsService::$configName,
+      DashboardSettingsService::CONFIG_NAME,
     ];
   }
 

@@ -7,6 +7,8 @@
 namespace Drupal\page_manager;
 
 use Drupal\Core\Entity\EntityManagerInterface;
+use Drupal\Core\Entity\EntityRepositoryInterface;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Plugin\Context\Context;
 use Drupal\Core\Utility\Token;
 use Drupal\Core\Render\Markup;
@@ -25,11 +27,17 @@ class PageManagerHelper {
   protected $token;
 
   /**
-   * The entity manager service.
+   * The entity type manager service.
    *
-   * @var \Drupal\Core\Entity\EntityManagerInterface
+   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
    */
-  protected $entityManager;
+  protected $entityTypeManager;
+
+  /** The entity repository service.
+   *
+   * @var \Drupal\Core\Entity\EntityRepositoryInterface
+   */
+  protected $entityRepository;
 
   /**
    * Constructs a new PageManagerHelper.
@@ -37,12 +45,13 @@ class PageManagerHelper {
    * @param \Drupal\Core\Utility\Token $token
    *   The token service.
    *
-   * @param \Drupal\Core\Entity\EntityManagerInterface $entity_manager
+   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_manager
    *   The entity manager service.
    */
-  public function __construct(Token $token, EntityManagerInterface $entity_manager) {
+  public function __construct(Token $token, EntityTypeManagerInterface $entity_type_manager, EntityRepositoryInterface $entity_repository) {
     $this->token = $token;
-    $this->entityManager = $entity_manager;
+    $this->entityTypeManager = $entity_type_manager;
+    $this->entityRepository = $entity_repository;
   }
 
   /**
@@ -60,7 +69,7 @@ class PageManagerHelper {
     $variant_title = '';
     if ($page_manager_page_variant != NULL) {
       if (is_string($page_manager_page_variant)) {
-        $page_manager_page_variant = $this->entityManager->loadEntityByConfigTarget('page_variant', $page_manager_page_variant);
+        $page_manager_page_variant = $this->entityRepository->loadEntityByConfigTarget('page_variant', $page_manager_page_variant);
       }
       $variant_title = $this->getTitle($page_manager_page_variant->getTitle(), $page_manager_page_variant->getContexts());
     }
@@ -105,7 +114,7 @@ class PageManagerHelper {
       if (preg_match('/entity:(\w+)/', $data_type, $matches)) {
         $entity_type = $matches[1];
         if (is_numeric($context->getContextValue())) {
-          $storage = $this->entityManager->getStorage($entity_type);
+          $storage = $this->entityTypeManager->getStorage($entity_type);
           $entity = $storage->load($context->getContextValue());
           if ($entity) {
             $context = new Context($context->getContextDefinition(), $entity);

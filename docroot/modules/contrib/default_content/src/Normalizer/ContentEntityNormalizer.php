@@ -256,6 +256,18 @@ class ContentEntityNormalizer implements ContentEntityNormalizerInterface {
           $property->setValue($target_entity);
         }
         elseif ($property instanceof SectionData) {
+          // Rebuild references on layout_builder.
+          foreach ($value['components'] as $key => $component) {
+            if (isset($component['configuration']['id'])) {
+              [$component_type, $component_bundle] = explode(PluginBase::DERIVATIVE_SEPARATOR, $component['configuration']['id']);
+              if ($component_type == 'inline_block') {
+                $target_uuid = $component['additional']['target_uuid'] ?? NULL;
+                if ($target_uuid && $block_content = $this->entityRepository->loadEntityByUuid('block_content', $target_uuid)) {
+                  $value['components'][$key]['configuration']['block_revision_id'] = $block_content->getRevisionId();
+                }
+              }
+            }
+          }
           $section_value = Section::fromArray($value);
           $property->setValue($section_value);
         }
@@ -427,6 +439,23 @@ class ContentEntityNormalizer implements ContentEntityNormalizerInterface {
     }
     elseif ($property instanceof SectionData && $property->getValue() instanceof Section) {
       $value = $property->getValue()->toArray();
+
+      // Layout Sections reference inline blocks by id, we need to reference by
+      // UUID and make sure the section has a dependency on the inline_block.
+      foreach ($value['components'] as $key => $component) {
+        if (isset($component['configuration']['id'])) {
+          // This is only valid for inline_block.
+          [$component_type, $component_bundle] = explode(PluginBase::DERIVATIVE_SEPARATOR, $component['configuration']['id']);
+          if ($component_type == 'inline_block') {
+            $block_revision_id = $component['configuration']['block_revision_id'];
+            $block_content = $this->entityTypeManager->getStorage('block_content')->loadRevision($block_revision_id);
+            if ($block_content) {
+              $value['components'][$key]['additional']['target_uuid'] = $block_content->uuid();
+              $this->addDependency($block_content);
+            }
+          }
+        }
+      }
     }
     elseif ($property instanceof Uri) {
       $value = $property->getValue();

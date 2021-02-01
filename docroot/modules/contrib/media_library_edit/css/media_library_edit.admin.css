@@ -11,7 +11,7 @@
   color: transparent;
   border: 2px solid #ccc;
   border-radius: 20px;
-  background: url(../../../../core/misc/icons/787878/pencil.svg) #fff center no-repeat;
+  background: url(../icons/pencil.svg) #fff center no-repeat;
   background-size: 16px 16px;
   text-shadow: none;
   box-sizing: border-box;
@@ -19,4 +19,15 @@
 
 .media-library-edit__link:hover {
    color: transparent;
+}
+
+.media-library-edit__modal::before {
+  content: '';
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.3);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -1;
 }

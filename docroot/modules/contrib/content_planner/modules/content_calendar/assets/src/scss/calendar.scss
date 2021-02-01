@@ -171,7 +171,10 @@
     min-height: 60px;
     margin-bottom: 0.5em;
     background-color: white;
-    cursor: move;
+    &.draggable {
+      cursor: move;
+    }
+    
 
     &.ui-draggable-dragging {
       z-index: 1000;
@@ -231,7 +234,7 @@
         background-color: #333333;
       }
 
-      .publish-on {
+      .publish-on, .created-on {
         float: right;
       }
     }
@@ -302,6 +305,34 @@
         height: 20px;
         border: 1px solid black;
         display: inline-block;
+      }
+    }
+  }
+}
+
+//Style Content calender on rtl 
+[dir="rtl"] {
+  .calendars {
+    padding-right: 200px;
+    padding-left: 0;
+  }
+  .content-calendar {
+    .calendar-entry {
+      .node-actions {
+        left: 6px;
+        right: auto;
+      }
+      .state-and-publication {
+        .publish-on, .created-on {
+          float: left;
+        }
+      }
+    }
+    .add-content {
+      left: 12px;
+      right: auto;
+      .add-button {
+        line-height: auto;
       }
     }
   }

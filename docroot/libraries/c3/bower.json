@@ -1,18 +1,10 @@
 {
   "name": "c3",
-  "main": [
-    "c3.css",
-    "c3.js"
-  ],
-  "homepage": "https://github.com/masayuki0812/c3",
-  "authors": [
-    "Masayuki Tanaka <masayuki0812@mac.com>"
-  ],
+  "main": ["c3.css", "c3.js"],
+  "homepage": "https://github.com/c3js/c3",
+  "authors": ["Masayuki Tanaka <masayuki0812@mac.com>"],
   "description": "D3-based reusable chart library",
-  "keywords": [
-    "chart",
-    "d3"
-  ],
+  "keywords": ["chart", "d3"],
   "license": "MIT",
   "ignore": [
     "**/.*",
@@ -26,6 +18,6 @@
     "Gruntfile.*"
   ],
   "dependencies": {
-    "d3": "~3.5.0"
+    "d3": "^5.0.0"
   }
 }

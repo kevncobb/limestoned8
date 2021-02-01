@@ -155,26 +155,68 @@ class CalendarController extends ControllerBase {
       return new JsonResponse($data);
     }
 
+    
+    
+
+
+
+    
+
+
+    // First – Update created on date!
+
+    // Get the Node's "created on" date 
+    $created_on_timestamp = $node->get('created')->getValue();
+    $created_on_timestamp_value = $created_on_timestamp[0]['value'];
+    // Return a date object
+    $original_created_on_datetime = DateTimeHelper::convertUnixTimestampToDatetime($created_on_timestamp_value);
+
+    // Extract hour, minutes and seconds.
+    $hour = $original_created_on_datetime->format('H');
+    $minutes = $original_created_on_datetime->format('i');
+    $seconds = $original_created_on_datetime->format('s');
+
+    // Create a new datetime object from the given date.
+    $new_created_on_datetime = \DateTime::createFromFormat('Y-m-d', $date);
+
+    // Set hour, minutes and seconds.
+    $new_created_on_datetime->setTime($hour, $minutes, $seconds);
+
+    // Set created time.
+    $node->set('created', $new_created_on_datetime->getTimestamp());
+
+
+    // Second - Update publish on date! (only if publish on date is set)
+
     // Get publish on timestamp.
     $publish_on_timestamp = $node->get('publish_on')->getValue();
     $publish_on_timestamp_value = $publish_on_timestamp[0]['value'];
 
-    // Get the Node's publish ondate and return a datetime object.
-    $original_publish_datetime = DateTimeHelper::convertUnixTimestampToDatetime($publish_on_timestamp_value);
 
-    // Extract hour, minutes and seconds.
-    $hour = $original_publish_datetime->format('H');
-    $minutes = $original_publish_datetime->format('i');
-    $seconds = $original_publish_datetime->format('s');
+    // Only change scheduler publish on timestamp, when "publish on" is set
+    if ($publish_on_timestamp_value) {
 
-    // Create a new datetime object from the given date.
-    $new_publish_datetime = \DateTime::createFromFormat('Y-m-d', $date);
+      // Get the Node's publish ondate and return a datetime object.
+      $original_publish_datetime = DateTimeHelper::convertUnixTimestampToDatetime($publish_on_timestamp_value);
 
-    // Set hour, minutes and seconds.
-    $new_publish_datetime->setTime($hour, $minutes, $seconds);
+      // Extract hour, minutes and seconds.
+      $hour = $original_publish_datetime->format('H');
+      $minutes = $original_publish_datetime->format('i');
+      $seconds = $original_publish_datetime->format('s');
 
-    // Set created time.
-    $node->set('publish_on', $new_publish_datetime->getTimestamp());
+      // Create a new datetime object from the given date.
+      $new_publish_datetime = \DateTime::createFromFormat('Y-m-d', $date);
+
+      // Set hour, minutes and seconds.
+      $new_publish_datetime->setTime($hour, $minutes, $seconds);
+
+      // Set publish on datetime.
+      $node->set('publish_on', $new_publish_datetime->getTimestamp());
+
+      // Set created on datetime.  
+      $node->set('created', $new_publish_datetime->getTimestamp());
+    }
+    
 
     // Save.
     if ($node->save() == SAVED_UPDATED) {

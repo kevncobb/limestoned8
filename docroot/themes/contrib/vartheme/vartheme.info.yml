@@ -87,7 +87,7 @@ ckeditor_stylesheets:
   - css/layout/edge2edge.layout.css
   - css/layout/spacing.layout.css
 
-# Information added by Drupal.org packaging script on 2020-06-02
-version: '8.x-6.8'
+# Information added by Drupal.org packaging script on 2020-12-02
+version: '8.x-6.9'
 project: 'vartheme'
-datestamp: 1591079692
+datestamp: 1606898132

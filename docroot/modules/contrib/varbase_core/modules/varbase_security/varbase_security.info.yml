@@ -18,7 +18,7 @@ install:
   - seckit
   - username_enumeration_prevention
 
-# Information added by Drupal.org packaging script on 2020-10-14
-version: '8.x-8.25'
+# Information added by Drupal.org packaging script on 2021-01-28
+version: '8.x-8.28'
 project: 'varbase_core'
-datestamp: 1602672120
+datestamp: 1611849473

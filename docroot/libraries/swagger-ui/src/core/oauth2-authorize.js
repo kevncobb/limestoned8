@@ -26,11 +26,13 @@ export default function authorize ( { auth, authActions, errActions, configs, au
       break
 
     case "clientCredentials":
+    case "client_credentials":
       // OAS3
       authActions.authorizeApplication(auth)
       return
 
     case "authorizationCode":
+    case "authorization_code":
       // OAS3
       query.push("response_type=code")
       break
@@ -61,7 +63,7 @@ export default function authorize ( { auth, authActions, errActions, configs, au
     scopesArray = scopes.toArray()
   }
 
-  if (scopesArray.length > 0)  {
+  if (scopesArray.length > 0) {
     let scopeSeparator = authConfigs.scopeSeparator || " "
 
     query.push("scope=" + encodeURIComponent(scopesArray.join(scopeSeparator)))

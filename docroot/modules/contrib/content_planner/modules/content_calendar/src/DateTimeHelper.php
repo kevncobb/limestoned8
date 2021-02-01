@@ -6,8 +6,15 @@ use Drupal\Core\Datetime\DateHelper;
 
 abstract class DateTimeHelper {
 
-  static $formatMYSQLDateOnlyRegex = '\d{4}\-\d{2}\-\d{2}';
-  static $formatMYSQLDateOnly = 'Y-m-d';
+  /**
+   * Regex for mysql date only values.
+   */
+  const FORMAT_MYSQL_DATE_ONLY_REGEX = '\d{4}\-\d{2}\-\d{2}';
+
+  /**
+   * Format value for mysql date only values.
+   */
+  const FORMAT_MYSQL_DATE_ONLY = 'Y-m-d';
 
   /**
    * Get Month label by its number.
@@ -111,7 +118,7 @@ abstract class DateTimeHelper {
    * @return false|int
    */
   public static function dateIsMySQLDateOnly($value) {
-    return preg_match("/" . self::$formatMYSQLDateOnlyRegex . "/", $value);
+    return preg_match("/" . self::FORMAT_MYSQL_DATE_ONLY_REGEX . "/", $value);
   }
 
 }

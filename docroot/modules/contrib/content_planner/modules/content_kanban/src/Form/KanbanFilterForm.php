@@ -297,7 +297,7 @@ class KanbanFilterForm extends FormBase {
     if (\Drupal::request()->query->has('filter_date_range')) {
       return \Drupal::request()->query->get('filter_date_range');
     } else {
-      $config = \Drupal::config(SettingsForm::$configName);
+      $config = \Drupal::config(SettingsForm::CONFIG_NAME);
 
       $date_range = $config->get('default_filter_date_range');
 

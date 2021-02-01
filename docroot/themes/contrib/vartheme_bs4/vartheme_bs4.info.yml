@@ -63,6 +63,7 @@ libraries-override:
   bootstrap_barrio/book-navigation: vartheme_bs4/book-navigation
   bootstrap_barrio/affix: vartheme_bs4/affix
   bootstrap_barrio/alerts: vartheme_bs4/alerts
+  bootstrap_barrio/fontawesome: vartheme_bs4/fontawesome
 
   # Content Moderation overrides.
   content_moderation/content_moderation: vartheme_bs4/moderation-state
@@ -142,7 +143,7 @@ ckeditor_stylesheets:
   - css/theme/vbp-colors.theme.css
   - css/theme/vlb-colors.theme.css
 
-# Information added by Drupal.org packaging script on 2020-10-27
-version: '8.x-6.24'
+# Information added by Drupal.org packaging script on 2021-01-20
+version: '8.x-6.29'
 project: 'vartheme_bs4'
-datestamp: 1603819286
+datestamp: 1611160592
