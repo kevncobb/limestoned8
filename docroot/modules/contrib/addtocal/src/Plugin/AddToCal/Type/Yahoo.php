@@ -27,8 +27,8 @@ class Yahoo extends AddToCalTypeBase {
    */
   public function generateStructure(array $info) {
 
-    $url = Url::fromUri('http://calendar.yahoo.com/', array(
-      'query' => array(
+    $url = Url::fromUri('http://calendar.yahoo.com/', [
+      'query' => [
         'v' => 60,
         'TITLE' => $info['title'],
         'ST' => $info['rfc3339']['start'],
@@ -36,8 +36,8 @@ class Yahoo extends AddToCalTypeBase {
         'URL' => $_SERVER['HTTP_HOST'],
         'in_loc' => $info['location'],
         'desc' => $info['description'],
-      ),
-    ));
+      ],
+    ]);
 
     return $url;
   }

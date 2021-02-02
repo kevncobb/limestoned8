@@ -72,9 +72,10 @@ class AddtocalView extends DateTimeCustomFormatter {
     $field = $this->fieldDefinition;
     $location_field_types = ['string', 'text_with_summary', 'address'];
     $description_field_types = ['string', 'text_long', 'text_with_summary'];
-    $description_options = $location_options = array(FALSE => 'None');
+    $description_options = $location_options = [FALSE => 'None'];
 
-    $entity_field_list = \Drupal::service('entity_field.manager')->getFieldDefinitions($field->get('entity_type'), $field->get('bundle'));
+    $entity_field_list = \Drupal::service('entity_field.manager')
+      ->getFieldDefinitions($field->getTargetEntityTypeId(), $field->getTargetBundle());
     foreach ($entity_field_list as $entity_field) {
       // Filter out base fields like nid, uuid, revisions, etc.
       if ($entity_field->getFieldStorageDefinition()->isBaseField() == FALSE) {
@@ -97,48 +98,48 @@ class AddtocalView extends DateTimeCustomFormatter {
       ];
     }
 
-    $form['location'] = array(
+    $form['location'] = [
       '#type' => 'fieldset',
       '#title' => $this->t('Location'),
       '#open' => TRUE,
-    );
-    $form['location']['value'] = array(
+    ];
+    $form['location']['value'] = [
       '#title' => $this->t('Location Field:'),
       '#type' => 'select',
       '#options' => $location_options,
       '#default_value' => isset($settings['location']['value']) ? $settings['location']['value'] : '',
       '#description' => $this->t('A field to use as the location for calendar events.'),
-    );
-    $form['location']['tokenized'] = array(
+    ];
+    $form['location']['tokenized'] = [
       '#title' => $this->t('Tokenized Location Contents:'),
       '#type' => 'textarea',
       '#default_value' => isset($settings['location']['tokenized']) ? $settings['location']['tokenized'] : '',
       '#description' => $this->t('You can insert static text or use tokens (see the token chart below).'),
-    );
-    $form['description'] = array(
+    ];
+    $form['description'] = [
       '#type' => 'fieldset',
       '#title' => $this->t('Description'),
       '#open' => TRUE,
-    );
-    $form['description']['value'] = array(
+    ];
+    $form['description']['value'] = [
       '#title' => $this->t('Description Field:'),
       '#type' => 'select',
       '#options' => $description_options,
       '#default_value' => $this->getSetting('description'),
       '#description' => $this->t('A field to use as the description for calendar events. <em>The contents used from this field will be truncated to 1024 characters</em>.'),
-    );
-    $form['description']['tokenized'] = array(
+    ];
+    $form['description']['tokenized'] = [
       '#title' => $this->t('Tokenized Description Contents:'),
       '#type' => 'textarea',
       '#default_value' => isset($settings['description']['tokenized']) ? $settings['description']['tokenized'] : '',
       '#description' => $this->t('You can insert static text or use tokens (see the token chart below).'),
-    );
-    $form['past_events'] = array(
+    ];
+    $form['past_events'] = [
       '#title' => $this->t('Show Add to Cal widget for Past Events'),
       '#type' => 'checkbox',
       '#default_value' => $settings['past_events'],
       '#description' => $this->t('Show the widget for past events.'),
-    );
+    ];
 
     return $form;
   }
@@ -157,40 +158,43 @@ class AddtocalView extends DateTimeCustomFormatter {
     $settings['field_name'] = $field_name;
 
     foreach ($items as $delta => $item) {
-      $start_date = $end_date = FALSE;
+      /** @var \Drupal\Core\Datetime\DrupalDateTime $start_date */
+      $start_date = NULL;
+      /** @var \Drupal\Core\Datetime\DrupalDateTime $end_date */
+      $end_date = NULL;
 
       if ($field->getType() == 'daterange') {
-        if (!empty($item->start_date) && !empty($item->end_date)) {
-          /** @var \Drupal\Core\Datetime\DrupalDateTime $start_date */
+        if (!empty($item->start_date)) {
           $start_date = $item->start_date;
-          /** @var \Drupal\Core\Datetime\DrupalDateTime $end_date */
+        }
+        if (!empty($item->end_date)) {
           $end_date = $item->end_date;
         }
       }
       else if ($field->getType() == 'date_recur') {
-        if (!empty($item->value) && !empty($item->end_value)) {
-          /** @var \Drupal\Core\Datetime\DrupalDateTime $start_date */
+        if (!empty($item->value)) {
           $start_date = new DrupalDateTime($item->value, 'UTC');
-          /** @var \Drupal\Core\Datetime\DrupalDateTime $end_date */
+        }
+        if (!empty($item->end_value)) {
           $end_date = new DrupalDateTime($item->end_value, 'UTC');
         }
       }
       else if (!empty($item->date)) {
-        /** @var \Drupal\Core\Datetime\DrupalDateTime $start_date */
-        $start_date = $end_date = $item->date;
+        $start_date = $item->date;
       }
 
-      if ($start_date && $end_date) {
-        if ($start_date->format('U') !== $end_date->format('U')) {
-          $elements[$delta] = [
-            'start_date' => $this->buildDate($start_date),
-            'separator' => ['#plain_text' => ' ' . $settings['separator'] . ' '],
-            'end_date' => $this->buildDate($end_date),
-          ];
-        }
-        else {
-          $elements[$delta] = $this->buildDate($start_date);
-        }
+      if ($start_date && $end_date && $start_date->format('U') !== $end_date->format('U')) {
+        $elements[$delta] = [
+          'start_date' => $this->buildDate($start_date),
+          'separator' => ['#plain_text' => ' ' . $settings['separator'] . ' '],
+          'end_date' => $this->buildDate($end_date),
+        ];
+      }
+      elseif ($start_date) {
+        $elements[$delta] = $this->buildDate($start_date);
+      }
+      else {
+        $elements[$delta] = [];
       }
 
       // Attaches the calendar form to each element

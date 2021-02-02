@@ -62,7 +62,7 @@ class FeedTypeEditFormTest extends FeedsExBrowserTestBase {
       'source' => $this->resourcesUrl() . '/content.xml',
     ]);
     $this->batchImport($feed);
-    $this->assertSession()->pageTextContains('Created 2 Articles.');
+    $this->assertSession()->pageTextContains('Created 2 Article items.');
 
     // Assert node values.
     $node1 = Node::load(1);

@@ -105,12 +105,12 @@ abstract class AddToCalTypeBase extends PluginBase implements AddToCalTypeInterf
 
     $title = $entity->label();
 
-    $overridable_items = array(
+    $overridable_items = [
       'override_status' => false,
       'title' => $title,
       'location' => $location,
       'description' => $description
-    );
+    ];
 
     // Trigger hook_addtocal_alter().
     // Allow modules to override addtocal fields.
@@ -123,7 +123,7 @@ abstract class AddToCalTypeBase extends PluginBase implements AddToCalTypeInterf
       $description = $overridable_items['description'];
     }
 
-    return array(
+    return [
       'title' => $title,
       'start' => $start_date,
       'end' => $end_date,
@@ -134,7 +134,7 @@ abstract class AddToCalTypeBase extends PluginBase implements AddToCalTypeInterf
       'entity_type' => $entity_type,
       'url' => $url,
       'rfc3339' => $this->rfc3339Date($start_date_object, $end_date_object, $timezone),
-    );
+    ];
   }
 
   /**
@@ -172,11 +172,11 @@ abstract class AddToCalTypeBase extends PluginBase implements AddToCalTypeInterf
         $output = $string;
       }
       else {
-        $replace_strings = array(
+        $replace_strings = [
           '&nbsp;' => '',
           '<br />' => '',
           PHP_EOL => '',
-        );
+        ];
 
         $output = $value[0]['value'];
 
@@ -203,13 +203,13 @@ abstract class AddToCalTypeBase extends PluginBase implements AddToCalTypeInterf
     $start_date = gmdate(self::RF3339_FORMAT, $start_timestamp);
     $end_date = gmdate(self::RF3339_FORMAT, $end_timestamp);
 
-    return array(
+    return [
       'start' => $start_date,
       'end' => $end_date,
       'both' => $start_date . '/' . $end_date,
       'local_start' => $this->dateFormatter->format($start_timestamp, 'custom', self::DT_FORMAT, $timezone),
       'local_end' => $this->dateFormatter->format($end_timestamp, 'custom', self::DT_FORMAT, $timezone),
-    );
+    ];
   }
 
 }

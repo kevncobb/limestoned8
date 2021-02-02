@@ -2,11 +2,10 @@ name: 'Feeds extensible parser tests'
 type: module
 description: 'Provides a test parser.'
 package: Testing
-core: 8.x
 dependencies:
   - feeds_ex:feeds_ex
 
-# Information added by Drupal.org packaging script on 2020-04-09
-version: '8.x-1.0-alpha3'
+# Information added by Drupal.org packaging script on 2020-06-04
+version: '8.x-1.0-alpha4'
 project: 'feeds_ex'
-datestamp: 1586433437
+datestamp: 1591295183

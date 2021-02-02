@@ -27,16 +27,16 @@ class Google extends AddToCalTypeBase {
    */
   public function generateStructure(array $info) {
 
-    $url = Url::fromUri('http://www.google.com/calendar/event', array(
-      'query' => array(
+    $url = Url::fromUri('http://www.google.com/calendar/event', [
+      'query' => [
         'action' => 'TEMPLATE',
         'text' => $info['title'],
         'dates' => $info['rfc3339']['both'],
         'sprop' => 'website:' . $_SERVER['HTTP_HOST'],
         'location' => $info['location'],
         'details' => $info['description'],
-      ),
-    ));
+      ],
+    ]);
 
     return $url;
   }

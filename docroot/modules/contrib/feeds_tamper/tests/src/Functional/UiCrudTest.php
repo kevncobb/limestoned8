@@ -119,7 +119,7 @@ class UiCrudTest extends FeedsTamperBrowserTestBase {
     // Click link for editing this tamper plugin.
     $this->getSession()
       ->getPage()
-      ->find('css', '#edit-title ul.dropbutton li.edit a')
+      ->find('css', '#edit-title ul.dropbutton li:nth-child(1) a')
       ->click();
 
     // Change a setting.
@@ -164,7 +164,7 @@ class UiCrudTest extends FeedsTamperBrowserTestBase {
     // Click link for removing this tamper plugin.
     $this->getSession()
       ->getPage()
-      ->find('css', '#edit-title ul.dropbutton li.delete a')
+      ->find('css', '#edit-title ul.dropbutton li:nth-child(2) a')
       ->click();
 
     // Confirm.

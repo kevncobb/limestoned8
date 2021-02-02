@@ -7,6 +7,7 @@ use Drupal\feeds_ex\Feeds\Parser\JmesPathParser;
 use Drupal\feeds_ex\Messenger\TestMessenger;
 use Drupal\feeds_ex\Utility\JsonUtility;
 use JmesPath\AstRuntime;
+use RuntimeException;
 
 /**
  * @coversDefaultClass \Drupal\feeds_ex\Feeds\Parser\JmesPathParser
@@ -159,9 +160,6 @@ class JmesPathParserTest extends ParserTestBase {
 
   /**
    * Tests parsing invalid context expression.
-   *
-   * @expectedException RuntimeException
-   * @expectedExceptionMessage The context expression must return an object or array.
    */
   public function testInvalidContextExpression() {
     $config = [
@@ -172,14 +170,13 @@ class JmesPathParserTest extends ParserTestBase {
     ];
     $this->parser->setConfiguration($config);
 
+    $this->expectException(RuntimeException::class);
+    $this->expectExceptionMessage('The context expression must return an object or array.');
     $this->parser->parse($this->feed, new RawFetcherResult('{"items": "not an array"}', $this->fileSystem), $this->state);
   }
 
   /**
    * Tests parsing invalid JSON.
-   *
-   * @expectedException RuntimeException
-   * @expectedExceptionMessage The JSON is invalid.
    */
   public function testInvalidJson() {
     $config = [
@@ -190,6 +187,8 @@ class JmesPathParserTest extends ParserTestBase {
     ];
     $this->parser->setConfiguration($config);
 
+    $this->expectException(RuntimeException::class);
+    $this->expectExceptionMessage('The JSON is invalid.');
     $this->parser->parse($this->feed, new RawFetcherResult('invalid json', $this->fileSystem), $this->state);
   }
 

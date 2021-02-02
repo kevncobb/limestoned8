@@ -101,7 +101,7 @@ class FeedTypeTamperMetaTest extends UnitTestCase {
    * @covers ::getTampersGroupedBySource
    */
   public function testGetTampersGroupedBySource() {
-    $this->assertInternalType('array', $this->feedTypeTamperMeta->getTampersGroupedBySource());
+    $this->assertIsArray($this->feedTypeTamperMeta->getTampersGroupedBySource());
   }
 
   /**

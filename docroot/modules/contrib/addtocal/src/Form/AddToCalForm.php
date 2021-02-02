@@ -119,13 +119,13 @@ class AddToCalForm extends FormBase {
       '#id' => $element_id . '-menu',
     ];
 
-    $form['submit'] = array(
+    $form['submit'] = [
       '#type' => 'submit',
-      '#value' => t('Submit'),
+      '#value' => $this->t('Submit'),
       '#attributes' => [
         'class' => ['addtocal-submit'],
       ],
-    );
+    ];
 
     return $form;
   }

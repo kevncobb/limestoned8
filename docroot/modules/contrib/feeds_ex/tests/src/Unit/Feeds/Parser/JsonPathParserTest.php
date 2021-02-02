@@ -2,11 +2,12 @@
 
 namespace Drupal\Tests\feeds_ex\Unit\Feeds\Parser;
 
-use Exception;
 use Drupal\feeds\Result\RawFetcherResult;
 use Drupal\feeds_ex\Feeds\Parser\JsonPathParser;
 use Drupal\feeds_ex\Messenger\TestMessenger;
 use Drupal\feeds_ex\Utility\JsonUtility;
+use Exception;
+use RuntimeException;
 
 /**
  * @coversDefaultClass \Drupal\feeds_ex\Feeds\Parser\JsonPathParser
@@ -123,9 +124,6 @@ class JsonPathParserTest extends ParserTestBase {
 
   /**
    * Tests parsing invalid JSON.
-   *
-   * @expectedException RuntimeException
-   * @expectedExceptionMessage The JSON is invalid.
    */
   public function testInvalidJson() {
     $config = [
@@ -135,6 +133,8 @@ class JsonPathParserTest extends ParserTestBase {
     ] + $this->parser->defaultConfiguration();
     $this->parser->setConfiguration($config);
 
+    $this->expectException(RuntimeException::class);
+    $this->expectExceptionMessage('The JSON is invalid.');
     $this->parser->parse($this->feed, new RawFetcherResult('invalid json', $this->fileSystem), $this->state);
   }
 
