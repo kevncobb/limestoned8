@@ -16,7 +16,7 @@ function webp_requirements($phase) {
   // installation or show an error on the status page.
   $gd_info = gd_info();
   // Let's convert to capital case, so we ensure we always cover both.
-  $supported_formats = [];
+  $supported_formats = array();
   if (extension_loaded('imagick')) {
     $supported_formats = array_map('strtoupper', Imagick::queryFormats());
   }

@@ -35,8 +35,8 @@ class SettingsForm extends ConfigFormBase {
       '#type' => 'number',
       '#title' => $this->t('Image quality'),
       '#description' => $this->t('Specify the image quality. This setting
-       will be in effect for all new image style derivatives. In order to apply
-       this setting to existing image style derivatives, flush image styles
+       will be in effect for all new image style derivatives. In order to apply 
+       this setting to existing image style derivatives, flush image styles 
        through the interface, or by using Drush or Drupal Console.'),
       '#default_value' => $config->get('quality'),
       '#min' => 1,
@@ -59,7 +59,7 @@ class SettingsForm extends ConfigFormBase {
     parent::submitForm($form, $form_state);
 
     $this->config('webp.settings')
-      ->set('quality', (int) $form_state->getValue('quality'))
+      ->set('quality', (int)$form_state->getValue('quality'))
       ->save();
   }
 

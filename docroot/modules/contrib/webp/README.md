@@ -2,7 +2,7 @@
 Creates a WebP copy of image style derivatives to decrease loading times.
 
 ## Description
-Whenever an image style derivative is created this module will also create
+Whenever an image style derivative is created this module will also create 
 a WebP copy of the derivative to be served to supporting browsers.
 
 ## Requirements

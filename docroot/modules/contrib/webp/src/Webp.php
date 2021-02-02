@@ -86,10 +86,7 @@ class Webp {
 
     $toolkit = \Drupal::config('system.image')->get('toolkit', FALSE);
     // Fall back to GD if the installed imagemagick does not support WEBP.
-    if (!extension_loaded('imagick')) {
-      $toolkit = 'gd';
-    }
-    elseif ($toolkit == 'imagemagick' && !in_array('WEBP', Imagick::queryFormats())) {
+    if ($toolkit == 'imagemagick' && !in_array('WEBP', Imagick::queryFormats())) {
       $toolkit = 'gd';
     }
 
@@ -121,9 +118,9 @@ class Webp {
           '@extension' => $pathInfo['extension'],
         ]);
 
-        imagesavealpha($sourceImage, TRUE);
-        imagealphablending($sourceImage, TRUE);
-        imagesavealpha($sourceImage, TRUE);
+        imageSaveAlpha($sourceImage, true);
+        imageAlphaBlending($sourceImage, true);
+        imageSaveAlpha($sourceImage, true);
         if (@imagewebp($sourceImage, $destination, $quality)) {
           // In some cases, libgd generates broken images. See
           // https://stackoverflow.com/questions/30078090/imagewebp-php-creates-corrupted-webp-files
@@ -158,9 +155,9 @@ class Webp {
   public function deleteImageStyleDerivatives() {
     // Remove the styles directory and generated images.
     try {
-      $this->fileSystem->deleteRecursive(\Drupal::config('system.file')->get('default_scheme') . '://styles');
+      $this->fileSystem->deleteRecursive(file_default_scheme() . '://styles');
     }
-    catch (FileException $e) {
+    catch (FileException $e){
       $this->logger->error($e->getMessage());
       $error = $this->t('Could not delete image style directory while uninstalling WebP. You have to delete it manually.');
       $this->logger->error($error);
@@ -170,7 +167,7 @@ class Webp {
   /**
    * Receives the srcset string of an image and returns the webp equivalent.
    *
-   * @param string $srcset
+   * @param $srcset
    *   Srcset to convert to .webp version
    *
    * @return string

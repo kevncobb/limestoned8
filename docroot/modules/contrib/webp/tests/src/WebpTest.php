@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\Tests\webp\Unit;
+namespace Drupal\Tests\phpunit_example\Unit;
 
 use Drupal\Tests\UnitTestCase;
 
@@ -10,6 +10,8 @@ use Drupal\Tests\UnitTestCase;
  * @group phpunit_example
  */
 class WebpTest extends UnitTestCase {
+
+  protected $webp;
 
   /**
    * Before a test method is run, setUp() is invoked.
