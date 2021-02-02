@@ -19,9 +19,6 @@ class RouteSubscriber extends RouteSubscriberBase {
     if ($route = $collection->get('image.style_public')) {
       $route->setDefault('_controller', 'Drupal\imageapi_optimize_webp\Controller\ImageStyleDownloadController::deliver');
     }
-    if ($route = $collection->get('image.style_private')) {
-      $route->setDefault('_controller', 'Drupal\imageapi_optimize_webp\Controller\ImageStyleDownloadController::deliver');
-    }
   }
 
 }
