@@ -38,7 +38,7 @@ class ScannerForm extends FormBase {
    */
   public static function create(ContainerInterface $container) {
     return new static(
-      $container->get('user.private_tempstore'),
+      $container->get('tempstore.private'),
       $container->get('plugin.manager.scanner')
     );
   }
@@ -259,19 +259,37 @@ class ScannerForm extends FormBase {
   }
 
   public static function batchFinished($success, $results, $operations) {
-    if ($success) {
+    if ($success && isset($results['count'])) {
       $count = $results['count'];
+      $count_for_theme = NULL;
+      if (isset($results['count']['matches'])) {
+        // Handle regex results.
+        $count_for_theme = $results['count']['matches'];
+      }
+      else if (isset($results['count']['entities'])) {
+        // Handle other results.
+        $count_for_theme = $results['count']['entities'];
+      }
+      else {
+        // Handle other results.
+        $count_for_theme = $results['count'];
+      }
+      // $count expected to be a numerical value.
       unset($results['count']);
       $renderable = [ 
         '#theme' => 'scanner_results',
-        '#data' => ['values' => $results, 'count' => $count],
+        '#data' => ['values' => $results, 'count' => $count_for_theme],
       ];
-      $scannerStore = \Drupal::service('user.private_tempstore')->get('scanner');
+      $scannerStore = \Drupal::service('tempstore.private')->get('scanner');
       // Persist the results to the tempstore.
       $scannerStore->set('results', $renderable);
     }
     else {
       $message = t('There were some errors.');
+    }
+    if (!isset($count['matches'])) {
+      $count['matches'] = 0;
+      $count['entities'] = 0;
     }
     \Drupal::messenger()->addMessage(t('Found @matches matches in @entities entities.', ['@matches' => $count['matches'],'@entities' => $count['entities']]));
   }

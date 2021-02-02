@@ -4,9 +4,9 @@ type: module
 package: Media
 dependencies:
 - drupal:media
-core: '8.x'
+core_version_requirement: ^8.7.7 || ^9
 
-# Information added by Drupal.org packaging script on 2020-01-01
-version: '8.x-1.0-alpha4+2-dev'
+# Information added by Drupal.org packaging script on 2020-10-11
+version: '8.x-1.0-beta1'
 project: 'media_entity_file_redirect'
-datestamp: 1577908690
+datestamp: 1602432350

@@ -21,7 +21,8 @@ Views Conditional is a simple module that allows you to define conditionals
  * Empty
  * Not Empty
 
-Views conditional allows you to output text based on the result of the condition.
+Views conditional allows you to output text based on the result of the
+condition.
 
 
  * For a full description of the module, visit the project page:
@@ -65,8 +66,9 @@ NOTE: In D8 alpha release we've updated token format from [token_name] to
 MAINTAINERS
 -----------
 
- * Anand Toshniwal (anand.toshniwal93) - https://www.drupal.org/u/anandtoshniwal93
- * Timofey Denisov (ofry) - https://www.drupal.org/u/ofry
+ * Shelane French - https://www.drupal.org/u/shelane
+ * Anand Toshniwal - https://www.drupal.org/u/anandtoshniwal93
+ * Timofey Denisov - https://www.drupal.org/u/ofry
  * MChittenden - https://www.drupal.org/u/mchittenden
 
 Supporting organization:

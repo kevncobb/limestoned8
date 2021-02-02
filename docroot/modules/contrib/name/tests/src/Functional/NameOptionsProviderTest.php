@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\name\Tests;
+namespace Drupal\Tests\name\Functional;
 
 use Drupal\taxonomy\Entity\Term;
 use Drupal\taxonomy\Entity\Vocabulary;
@@ -14,6 +14,9 @@ class NameOptionsProviderTest extends NameTestBase {
 
   use NameTestTrait;
 
+  /**
+   * {@inheritdoc}
+   */
   public static $modules = [
     'field',
     'name',
@@ -69,7 +72,7 @@ class NameOptionsProviderTest extends NameTestBase {
       'a' => 'a',
       'c' => 'c',
     ];
-    $this->assertEqual($expected, $this->optionsProvider->getOptions($field, 'title'));
+    $this->assertEquals($expected, $this->optionsProvider->getOptions($field, 'title'));
 
     // Enable sorting.
     $settings['sort_options']['title'] = TRUE;
@@ -80,7 +83,7 @@ class NameOptionsProviderTest extends NameTestBase {
       'b' => 'b',
       'c' => 'c',
     ];
-    $this->assertEqual($expected, $this->optionsProvider->getOptions($field, 'title'));
+    $this->assertEquals($expected, $this->optionsProvider->getOptions($field, 'title'));
   }
 
   /**
@@ -117,7 +120,7 @@ class NameOptionsProviderTest extends NameTestBase {
       'baz' => 'baz',
       'foo' => 'foo',
     ];
-    $this->assertEqual($expected, $this->optionsProvider->getOptions($field, 'title'));
+    $this->assertEquals($expected, $this->optionsProvider->getOptions($field, 'title'));
   }
 
 }

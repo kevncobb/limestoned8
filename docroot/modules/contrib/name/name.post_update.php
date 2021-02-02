@@ -9,7 +9,10 @@
  * Adds the default list format.
  */
 function name_post_update_create_name_list_format() {
-  $default_list = \Drupal::entityTypeManager()->getStorage('name_list_format')->load('default');
+  /** @var \Drupal\Core\Config\Entity\ConfigEntityStorageInterface $name_list_format_storage */
+  $name_list_format_storage = \Drupal::entityTypeManager()->getStorage('name_list_format');
+
+  $default_list = $name_list_format_storage->load('default');
   if ($default_list) {
     if (!$default_list->locked) {
       $default_list->locked = TRUE;
@@ -21,7 +24,7 @@ function name_post_update_create_name_list_format() {
     }
   }
   else {
-    $default_list = entity_create('name_list_format', [
+    $name_list_format = $name_list_format_storage->create([
       'id' => 'default',
       'label' => 'Default',
       'locked' => TRUE,
@@ -32,7 +35,7 @@ function name_post_update_create_name_list_format() {
       'el_al_min' => 3,
       'el_al_first' => 1,
     ]);
-    $default_list->save();
+    $name_list_format->save();
     $message = t('Default name list format was added.');
   }
 
@@ -85,8 +88,9 @@ function name_post_update_formatter_settings() {
 }
 
 /**
- * Updates the field formatter settings for new link and alternative data
- * sources settings.
+ * Updates the field formatter settings.
+ *
+ * Adds new link and alternative data sources settings.
  */
 function name_post_update_formatter_settings_link_and_external_sources() {
   $new_settings = [

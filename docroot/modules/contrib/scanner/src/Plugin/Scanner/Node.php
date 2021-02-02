@@ -4,6 +4,7 @@ namespace Drupal\scanner\Plugin\Scanner;
 
 use Drupal\scanner\Plugin\ScannerEntityPluginBase;
 use Drupal\scanner\Plugin\Scanner\Entity;
+use Drupal\scanner\AdminHelper;
 
 /**
  * Class Node.
@@ -92,6 +93,9 @@ class Node extends Entity {
    */
   public function replace($field, $values, $undo_data) {
     $data = $undo_data;
+    if (!is_array($data)) {
+      $data=[];
+    }
     list($entityType, $bundle, $fieldname) = explode(':', $field);
 
     $query = \Drupal::entityQuery($entityType);
@@ -113,18 +117,47 @@ class Node extends Entity {
       $nodeField = $node->get($fieldname);
       $fieldType = $nodeField->getFieldDefinition()->getType();
       if (in_array($fieldType, ['text_with_summary','text','text_long'])) {
-        $fieldValue = $nodeField->getValue()[0];
-        // Replace the search term with the replace term.
-        $fieldValue['value'] = preg_replace($conditionVals['phpRegex'], $values['replace'], $fieldValue['value']);
-        $node->$fieldname = $fieldValue;
-        // This check prevents the creation of multiple revisions if more than
-        // one field of the same node has been modified.
-        if (!isset($data["node:$id"]['new_vid'])) {
-          $data["node:$id"]['old_vid'] = $node->vid->getString();
-          // Crete a new revision so that we can have the option of undoing it
-          // later on.
-          $node->setNewRevision(true);
-          $node->revision_log = t('Replaced %search with %replace via Scanner Search and Replace module.', ['%search' => $values['search'], '%replace' => $values['replace']]);
+        if ($values['language'] === 'all') {
+          $other_languages = AdminHelper::getAllEnabledLanguages();
+          foreach ($other_languages as $langcode => $languageName) {
+            if ($node->hasTranslation($langcode)) {
+              $node = $node->getTranslation($langcode);
+              $nodeField = $node->get($fieldname);
+            }
+            $fieldValue = $nodeField->getValue()[0];
+            // Replace the search term with the replace term.
+            $fieldValue['value'] = preg_replace($conditionVals['phpRegex'], $values['replace'], $fieldValue['value']);
+            $node->$fieldname = $fieldValue;
+          }
+          // This check prevents the creation of multiple revisions if more than
+          // one field of the same node has been modified.
+          if (!isset($data["node:$id"]['new_vid'])) {
+            $data["node:$id"]['old_vid'] = $node->vid->getString();
+            // Crete a new revision so that we can have the option of undoing it
+            // later on.
+            $node->setNewRevision(true);
+            $node->revision_log = t('Replaced %search with %replace via Scanner Search and Replace module.', ['%search' => $values['search'], '%replace' => $values['replace']]);
+          }
+        }
+        else {
+          $requested_lang = $values['language'];
+          if ($node->hasTranslation($requested_lang)) {
+            $node = $node->getTranslation($requested_lang);
+            $nodeField = $node->get($fieldname);
+          }
+          $fieldValue = $nodeField->getValue()[0];
+          // Replace the search term with the replace term.
+          $fieldValue['value'] = preg_replace($conditionVals['phpRegex'], $values['replace'], $fieldValue['value']);
+          $node->$fieldname = $fieldValue;
+          // This check prevents the creation of multiple revisions if more than
+          // one field of the same node has been modified.
+          if (!isset($data["node:$id"]['new_vid'])) {
+            $data["node:$id"]['old_vid'] = $node->vid->getString();
+            // Crete a new revision so that we can have the option of undoing it
+            // later on.
+            $node->setNewRevision(true);
+            $node->revision_log = t('Replaced %search with %replace via Scanner Search and Replace module.', ['%search' => $values['search'], '%replace' => $values['replace']]);
+          }
         }
         // Save the updated node.
         $node->save();
@@ -132,12 +165,34 @@ class Node extends Entity {
         $data["node:$id"]['new_vid'] = $node->vid->getString();
       }
       elseif ($fieldType == 'string') {
-        $fieldValue = preg_replace($conditionVals['phpRegex'], $values['replace'], $nodeField->getString());
-        $node->$fieldname = $fieldValue;
         if (!isset($data["node:$id"]['new_vid'])) {
-          $data["node:$id"]['old_vid'] = $node->vid->getString();
-          $node->setNewRevision(true);
-          $node->revision_log = t('Replaced %search with %replace via Scanner Search and Replace module.', ['%search' => $values['search'], '%replace' => $values['replace']]);
+          if ($values['language'] === 'all') {
+            $all_languages = AdminHelper::getAllEnabledLanguages();
+            foreach ($all_languages as $langcode => $languageName) {
+              if ($node->hasTranslation($langcode)) {
+                $node = $node->getTranslation($langcode);
+                $nodeField = $node->get($fieldname);
+              }
+              $fieldValue = preg_replace($conditionVals['phpRegex'], $values['replace'], $nodeField->getString());
+              $node->$fieldname = $fieldValue;
+            }
+            $data["node:$id"]['old_vid'] = $node->vid->getString();
+            $node->setNewRevision(true);
+            $node->revision_log = t('Replaced %search with %replace via Scanner Search and Replace module.', ['%search' => $values['search'], '%replace' => $values['replace']]);
+          }
+          else {
+            $requested_lang = $values['language'];
+            if ($node->hasTranslation($requested_lang)) {
+              //$nodeField = $nodeField->getTranslation($requested_lang);
+              $node = $node->getTranslation($requested_lang);
+              $nodeField = $node->get($fieldname);
+            }
+            $fieldValue = preg_replace($conditionVals['phpRegex'], $values['replace'], $nodeField->getString());
+            $node->$fieldname = $fieldValue;
+            $data["node:$id"]['old_vid'] = $node->vid->getString();
+            $node->setNewRevision(true);
+            $node->revision_log = t('Replaced %search with %replace via Scanner Search and Replace module.', ['%search' => $values['search'], '%replace' => $values['replace']]);
+          }
         }
         $node->save();
         $data["node:$id"]['new_vid'] = $node->vid->getString();

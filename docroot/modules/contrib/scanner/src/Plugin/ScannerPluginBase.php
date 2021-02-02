@@ -46,7 +46,7 @@ abstract class ScannerPluginBase extends PluginBase implements ScannerPluginInte
       $configuration,
       $plugin_id,
       $plugin_definition,
-      $container->get('user.private_tempstore'),
+      $container->get('tempstore.private'),
       $container->get('plugin.manager.scanner')
     );
   }

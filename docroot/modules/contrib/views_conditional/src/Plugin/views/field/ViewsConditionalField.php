@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Definition of Drupal\views_conditional\Plugin\views\field\ViewsConditionalField
- */
-
 namespace Drupal\views_conditional\Plugin\views\field;
 
 use Drupal\Core\Form\FormStateInterface;
@@ -25,20 +20,23 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 class ViewsConditionalField extends FieldPluginBase implements ContainerFactoryPluginInterface {
 
   /**
-   * @var DateFormatter $dateFormatter
+   * The date formatter.
+   *
+   * @var \Drupal\Core\Datetime\DateFormatter
    */
   protected $dateFormatter;
 
   /**
-   * @var TimeInterface $dateTime
+   * The time.
+   *
+   * @var \Drupal\Component\Datetime\TimeInterface
    */
   protected $dateTime;
 
   /**
    * {@inheritdoc}
    */
-  public function __construct(array $configuration, $plugin_id, $plugin_definition, DateFormatter $dateFormatter, TimeInterface $dateTime)
-  {
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, DateFormatter $dateFormatter, TimeInterface $dateTime) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
     $this->dateFormatter = $dateFormatter;
     $this->dateTime = $dateTime;
@@ -47,19 +45,23 @@ class ViewsConditionalField extends FieldPluginBase implements ContainerFactoryP
   /**
    * {@inheritdoc}
    */
-  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition)
-  {
+  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
     return new static($configuration, $plugin_id, $plugin_definition, $container->get('date.formatter'), $container->get('datetime.time'));
   }
 
   /**
-   * @{inheritdoc}
+   * {@inheritDoc}
    */
   public function query() {
     // Leave empty to avoid a query on this field.
     $this->field_alias = 'views_conditional_' . $this->position;
   }
-  // Conditional operators.
+
+  /**
+   * Conditional operators.
+   *
+   * @var array
+   */
   public $conditions = [
     1 => 'Equal to',
     2 => 'NOT equal to',
@@ -76,8 +78,10 @@ class ViewsConditionalField extends FieldPluginBase implements ContainerFactoryP
   ];
 
   /**
-   * Define the available options
+   * Define the available options.
+   *
    * @return array
+   *   Returns the available options.
    */
   protected function defineOptions() {
     $options = parent::defineOptions();
@@ -93,7 +97,7 @@ class ViewsConditionalField extends FieldPluginBase implements ContainerFactoryP
   }
 
   /**
-   * {@inheritdoc}
+   * {@inheritDoc}
    */
   protected function getEditableConfigNames() {
     return ['views_conditional.settings'];
@@ -186,15 +190,15 @@ class ViewsConditionalField extends FieldPluginBase implements ContainerFactoryP
         $form_state->setErrorByName('if', $this->t("Please specify a valid field to run a condition on."));
       }
       if (empty($values['options']['condition'])) {
-        $form_state->setErrorByName('condition', t("Please select a conditional operator."));
+        $form_state->setErrorByName('condition', $this->t("Please select a conditional operator."));
       }
-      // We using there is_numeric because values '0', '0.0' counting as empty in PHP language.
+      // We using there is_numeric because values '0', '0.0' counts as empty.
       if (empty($values['options']['equalto']) && !in_array($values['options']['condition'], [
-          5,
-          6
-        ]) && !is_numeric($values['options']['equalto'])
+        5,
+        6,
+      ]) && !is_numeric($values['options']['equalto'])
       ) {
-        $form_state->setErrorByName('condition', t("Please specify something to compare with."));
+        $form_state->setErrorByName('condition', $this->t("Please specify something to compare with."));
       }
     }
   }
@@ -202,13 +206,13 @@ class ViewsConditionalField extends FieldPluginBase implements ContainerFactoryP
   /**
    * Cleans a variable for handling later.
    */
-  public function clean_var($var) {
+  public function cleanVar($var) {
     $unparsed = isset($var->last_render) ? $var->last_render : '';
     return $this->options['strip_tags'] ? trim(strip_tags($unparsed)) : trim($unparsed);
   }
 
   /**
-   * @{inheritdoc}
+   * {@inheritDoc}
    */
   public function render(ResultRow $values) {
     $if = $this->options['if'];
@@ -221,18 +225,18 @@ class ViewsConditionalField extends FieldPluginBase implements ContainerFactoryP
     $fields = $this->view->display_handler->getHandlers('field');
     $labels = $this->view->display_handler->getFieldLabels();
     // Search through field information for possible replacement variables.
-    foreach ( $labels as $key => $var) {
+    foreach ($labels as $key => $var) {
       // If we find a replacement variable, replace it.
       if (strpos($equalto, "{{ $key }}") !== FALSE) {
-        $field = $this->clean_var($fields[$key]);
+        $field = $this->cleanVar($fields[$key]);
         $equalto = $this->t(str_replace("{{ $key }}", $field, $equalto));
       }
       if (strpos($then, "{{ $key }}") !== FALSE) {
-        $field = $this->clean_var($fields[$key]);
+        $field = $this->cleanVar($fields[$key]);
         $then = $this->t(str_replace("{{ $key }}", $field, $then));
       }
       if (strpos($or, "{{ $key }}") !== FALSE) {
-        $field = $this->clean_var($fields[$key]);
+        $field = $this->cleanVar($fields[$key]);
         $or = $this->t(str_replace("{{ $key }}", $field, $or));
       }
     }
@@ -262,7 +266,7 @@ class ViewsConditionalField extends FieldPluginBase implements ContainerFactoryP
     // Strip tags on the "if" field.  Otherwise it appears to
     // output as <div class="xxx">Field data</div>...
     // ...which of course makes it difficult to compare.
-    $r = isset($fields["$if"]->last_render) ? trim(strip_tags($fields["$if"]->last_render, '<img>')) : NULL;
+    $r = isset($fields["$if"]->last_render) ? trim(strip_tags($fields["$if"]->last_render, '<img><video><iframe><audio>')) : NULL;
 
     // Run conditions.
     switch ($condition) {
@@ -326,7 +330,7 @@ class ViewsConditionalField extends FieldPluginBase implements ContainerFactoryP
         }
         break;
 
-      // Contains
+      // Contains.
       case 7:
         if (mb_stripos($r, $equalto) !== FALSE) {
           return $then;
@@ -336,7 +340,7 @@ class ViewsConditionalField extends FieldPluginBase implements ContainerFactoryP
         }
         break;
 
-      // Does NOT contain
+      // Does NOT contain.
       case 8:
         if (mb_stripos($r, $equalto) === FALSE) {
           return $then;
@@ -387,4 +391,5 @@ class ViewsConditionalField extends FieldPluginBase implements ContainerFactoryP
         break;
     }
   }
+
 }

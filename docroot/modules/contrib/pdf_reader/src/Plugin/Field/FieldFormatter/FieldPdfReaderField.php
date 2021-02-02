@@ -64,6 +64,8 @@ class FieldPdfReaderField extends FormatterBase {
       'pdf_width' => 600,
       'pdf_height' => 780,
       'renderer' => 'google',
+      'embed_view_fit' => 'Fit',
+      'embed_hide_toolbar' => FALSE,
       'download' => FALSE,
       'link_placement' => 'top',
     ] + parent::defaultSettings();
@@ -90,6 +92,26 @@ class FieldPdfReaderField extends FormatterBase {
       '#type' => 'select',
       '#options' => $this->getPdfDisplayOptions(),
       '#default_value' => $this->getSetting('renderer'),
+    ];
+
+    $element['embed_view_fit'] = [
+      '#title' => $this->t('Direct Embed fit option'),
+      '#description' => $this->t('Only applies for Direct Embed renderer'),
+      '#type' => 'select',
+      // See https://www.adobe.com/content/dam/acom/en/devnet/acrobat/pdfs/pdf_open_parameters.pdf
+      '#options' => [
+        'Fit' => $this->t('Fit'),
+        'FitH' => $this->t('Fit horizontally'),
+        'FitV' => $this->t('Fit vertically'),
+      ],
+      '#default_value' => $this->getSetting('embed_view_fit'),
+    ];
+
+    $element['embed_hide_toolbar'] = [
+      '#title' => $this->t('Direct Embed Hide toolbar'),
+      '#description' => $this->t('Only applies for Direct Embed renderer'),
+      '#type' => 'checkbox',
+      '#default_value' => $this->getSetting('embed_hide_toolbar'),
     ];
 
     $element['download'] = [
@@ -123,9 +145,11 @@ class FieldPdfReaderField extends FormatterBase {
     $summary = [];
     $displayoptions = $this->getPdfDisplayOptions();
     $summary[] = $this->t('Size:') . $this->getSetting('pdf_width') . 'x' . $this->getSetting('pdf_height');
+    $summary[] = $this->t('Direct Embed fit option:') . $this->getSetting('embed_view_fit');
     $summary[] = $this->t('Using:') . $displayoptions[$this->getSetting('renderer')];
     $is_downloadable = $this->getSetting('download') ? $this->t('YES') : $this->t('NO');
     $summary[] = $this->t('Download Link:') . $is_downloadable;
+    $summary[] = $this->t('Direct Embed Hide toolbar:') . $this->getSetting('embed_hide_toolbar');
     return $summary;
   }
 
@@ -138,6 +162,9 @@ class FieldPdfReaderField extends FormatterBase {
     $width = $this->getSetting('pdf_width');
     $height = $this->getSetting('pdf_height');
     $download_placement = $this->getSetting('link_placement');
+    $fit = $this->getSetting('embed_view_fit');
+    $toolbar = $this->getSetting('embed_hide_toolbar');
+    $fragment = http_build_query(['view' => $fit, 'toolbar' => ($toolbar ? 0 : 1)]);
     foreach ($items as $delta => $item) {
       if ($values = $item->getValue('values')) {
         if (isset($values['target_id']) && !empty($values['target_id']) && is_numeric($values['target_id'])) {
@@ -173,7 +200,7 @@ class FieldPdfReaderField extends FormatterBase {
                 '#service' => $field_display_type,
                 '#width' => $width,
                 '#height' => $height,
-                '#file_url' => $file_url . '#view=Fit',
+                '#file_url' => Url::fromUri($file_url, ['fragment' => $fragment])->toUriString(),
                 '#text' => $this->t('It appears your Web browser is not configured to display PDF files.')
                 . Link::fromTextAndUrl($this->t('Download adobe Acrobat'), Url::fromUri('http://www.adobe.com/products/reader.html'))->toString()
                 . ' ' . $this->t('or') . ' ' . Link::fromTextAndUrl($this->t('Click here to download the PDF file.'), Url::fromUri($file_url))->toString() ,

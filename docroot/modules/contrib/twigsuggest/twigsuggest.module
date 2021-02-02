@@ -29,13 +29,22 @@ function twigsuggest_theme_suggestions_block(array $variables) {
       $suggestions[] = 'block__' . $block->getRegion();
       $suggestions[] = 'block__' . $block->getRegion() . '__' . $variables['elements']['#id'];
       if ($block->get('settings') && $provider = $block->get('settings')['provider']) {
-        $suggestions[] = 'block__' . $provider;
-        if ($variables['elements']['#base_plugin_id'] != $provider) {
-          $suggestions[] = 'block__' . $variables['elements']['#base_plugin_id'];
+        // I'm pretty sure Drupal core is already providing provider as a suggestion.
+        // $suggestions[] = 'block__' . $provider;
+        $base_plugin = $variables['elements']['#base_plugin_id'];
+        if ($base_plugin !== $provider) {
+          $suggestions[] = 'block__' . $base_plugin;
         }
         $suggestions[] = 'block__' . $provider . '__' . $block->getRegion();
         if ($variables['elements']['#base_plugin_id'] != $provider) {
-          $suggestions[] = 'block__' . $variables['elements']['#base_plugin_id'] . '__' . $block->getRegion();
+          $suggestions[] = 'block__' . $base_plugin . '__' . $block->getRegion();
+        }
+        if (isset($variables['elements']['content']['#menu_name'])) {
+          $menu_name = $variables['elements']['content']['#menu_name'];
+          $suggestions[] = 'block__' . $provider . '__' . $menu_name . '__' . $block->getRegion();
+          if ($base_plugin !== $provider) {
+            $suggestions[] = 'block__' . $base_plugin . '__' . $menu_name . '__' . $block->getRegion();
+          }
         }
       }
     }
@@ -127,8 +136,65 @@ function twigsuggest_theme_suggestions_container(array $variables) {
     $suggestions[] = 'container__file__' . $element['widget']['#field_name'];
   }
 
+  // Additional module-specific container templates.
+  if (isset($element['#group'])) {
+    $suggestions[] = 'container__' . str_replace('-', '_', $element['#group']);
+  }
+
+  if (isset($element['#webform_key'])) {
+    $suggestions[] = 'container__' . str_replace('-', '_', $element['#webform_key']);
+  }
+
   return $suggestions;
+
 }
+
+/**
+ * Implements hook_theme_suggestions_HOOK for form element templates.
+ *
+ * Add suggestions, as by default none are provided.
+ */
+function twigsuggest_theme_suggestions_form_element(array $variables) {
+
+  $suggestions = [];
+
+  $element = $variables['element'];
+
+  if (isset($element['#id'])) {
+    $suggestions[] = 'form_element__' . $element['#id'];
+  }
+
+  if (isset($element['#type'])) {
+    $suggestions[] = 'form_element__' . $element['#type'];
+  }
+
+  // Additional module-specific container templates.
+  if (isset($element['#webform_id'])) {
+    $suggestions[] = 'form_element__webform__' . $element['#webform_id'];
+  }
+
+  return $suggestions;
+
+}
+
+
+/**
+ * Implements hook_theme_suggestions_HOOK for form input element templates.
+ */
+function twigsuggest_theme_suggestions_input(array $variables) {
+
+  $suggestions = [];
+
+  $element = $variables['element'];
+
+  if (isset($element['#id'])) {
+    $suggestions[] = 'input__' . $element['#id'];
+  }
+
+  return $suggestions;
+
+}
+
 
 /**
  * Implements hook_theme_suggestions_HOOK_alter().
@@ -240,6 +306,16 @@ function twigsuggest_theme_suggestions_taxonomy_term(array $variables) {
   $suggestions[] = 'taxonomy_term__' . $term->id() . '__' . $sanitized_view_mode;
 
   return $suggestions;
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK_alter() for block templates.
+ *
+ * Remove duplicate template suggestions for blocks.
+ */
+function twigsuggest_theme_suggestions_block_alter(array &$suggestions, array $variables)
+{
+  $suggestions = array_unique($suggestions);
 }
 
 /**

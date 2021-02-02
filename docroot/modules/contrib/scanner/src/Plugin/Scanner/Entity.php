@@ -43,7 +43,7 @@ class Entity extends ScannerPluginBase {
       // The instance could not be found so fail gracefully and let the user
       // know.
       \Drupal::logger('scanner')->error($e->getMessage());
-      $this->messenger()->addError(t('An error occured: '. $e->getMessage()));
+      \Drupal::messenger()->addError(t('An error occured: '. $e->getMessage()));
     }
 
     // Perform the search on the current field.
@@ -76,7 +76,7 @@ class Entity extends ScannerPluginBase {
       // The instance could not be found so fail gracefully and let the user
       // know.
       \Drupal::logger('scanner')->error($e->getMessage());
-      $this->messenger()->addError(t('An error occured: '. $e->getMessage()));
+      \Drupal::messenger()->addError(t('An error occured: '. $e->getMessage()));
     }   
   
     // Perform the replace on the current field and save results.
@@ -105,7 +105,7 @@ class Entity extends ScannerPluginBase {
       }
       catch (PluginException $e) {
         \Drupal::logger('scanner')->error($e->getMessage());
-        $this->messenger()->addError(t('An error occured: '. $e->getMessage()));
+        \Drupal::messenger()->addError(t('An error occured: '. $e->getMessage()));
       }
     }
   }

@@ -292,7 +292,7 @@ class ScannerAdminForm extends ConfigFormBase {
             continue;
           }
           $name_with_type = "$entity_type:$bundle:$field_name";
-          $options[$name_with_type] = $this->t('@entity_bundle » @field_label <small><b>(@field_name)</b></small>', [
+          $options[$name_with_type] = $this->t('@entity_bundle » @field_label <small><strong>(@field_name)</strong></small>', [
             '@entity_bundle' => $available_entity_types[$key],
             '@field_label' => $field_definition->getLabel(),
             '@field_name' => $field_name,

@@ -8,6 +8,7 @@ use Drupal\Core\Url;
 use Drupal\Core\TempStore\PrivateTempStoreFactory;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Messenger\MessengerTrait;
+use Drupal\scanner\AdminHelper;
 
 /**
  * Form for configure messages.
@@ -31,7 +32,7 @@ class ScannerConfirmForm extends ConfirmFormBase {
    */
   public static function create(ContainerInterface $container) {
     return new static(
-      $container->get('user.private_tempstore')
+      $container->get('tempstore.private')
     );
   }
 
@@ -98,10 +99,14 @@ class ScannerConfirmForm extends ConfirmFormBase {
       // The instance could not be found so fail gracefully and let the user
       // know.
       \Drupal::logger('scanner')->error($e->getMessage());
-      $this->messenger()->addError(t('An error occured: '. $e->getMessage()));
+      \Drupal::messenger()->addError(t('An error occured: ') . $e->getMessage());
     }
 
-    $results = $plugin->replace($field, $values, $context['results']['data']);
+    $results_data = '';
+    if (isset($context['results']['data'])) {
+      $results_data = $context['results']['data'];
+    }
+    $results = $plugin->replace($field, $values, $results_data);
     if (!empty($results)) {
       $entityKeys = array_keys($results);
       foreach ($entityKeys as $entityKey) {
@@ -117,6 +122,7 @@ class ScannerConfirmForm extends ConfirmFormBase {
 
   public static function batchFinished($success, $results, $operations) {
     $count = 0;
+    $messenger = \Drupal::messenger();
     if ($success) {
       if (!empty($results['data'])) {
         foreach ($results['data'] as $key => $value) {
@@ -128,6 +134,10 @@ class ScannerConfirmForm extends ConfirmFormBase {
             \Drupal::logger('scanner')->error('An issue has occured during the replace operation.');
           }
         }
+        $results['count'] = $count;
+        $messenger->addMessage(t('@count entities processed.', [
+         '@count' => $count,
+        ]));
         $connection = \Drupal::service('database');
         // Insert to row into the scanner table so that the action can be undone in the future.
         $undoQuery = $connection->insert('scanner')
@@ -144,6 +154,7 @@ class ScannerConfirmForm extends ConfirmFormBase {
     }
     else {
       $message = t('There were some errors.');
+      $messenger->addMessage($message);
     }
   }
 
