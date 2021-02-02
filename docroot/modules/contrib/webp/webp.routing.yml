@@ -4,6 +4,6 @@ webp.settings_form:
     _form: '\Drupal\webp\Form\SettingsForm'
     _title: 'WebP settings'
   requirements:
-    _permission: 'administer site configuration'
+    _permission: 'access administration pages'
   options:
     _admin_route: TRUE

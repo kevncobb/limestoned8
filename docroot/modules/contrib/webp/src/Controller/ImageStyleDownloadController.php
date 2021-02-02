@@ -3,7 +3,6 @@
 namespace Drupal\webp\Controller;
 
 use Drupal\Component\Utility\Crypt;
-use Drupal\Core\File\FileSystem;
 use Drupal\Core\Image\Image;
 use Drupal\Core\Image\ImageFactory;
 use Drupal\Core\Lock\LockBackendInterface;
@@ -51,13 +50,6 @@ class ImageStyleDownloadController extends FileDownloadController {
   protected $webp;
 
   /**
-   * The file system service.
-   *
-   * @var \Drupal\Core\File\FileSystem
-   */
-  protected $fileSystem;
-
-  /**
    * Constructs a ImageStyleDownloadController object.
    *
    * @param \Drupal\Core\Lock\LockBackendInterface $lock
@@ -66,15 +58,12 @@ class ImageStyleDownloadController extends FileDownloadController {
    *   The image factory.
    * @param \Drupal\webp\Webp $webp
    *   WebP driver.
-   * @param \Drupal\Core\File\FileSystem $file_system
-   *   The file system service.
    */
-  public function __construct(LockBackendInterface $lock, ImageFactory $image_factory, Webp $webp, FileSystem $file_system) {
+  public function __construct(LockBackendInterface $lock, ImageFactory $image_factory, Webp $webp) {
     $this->lock = $lock;
     $this->imageFactory = $image_factory;
     $this->logger = $this->getLogger('image');
     $this->webp = $webp;
-    $this->fileSystem = $file_system;
   }
 
   /**
@@ -84,8 +73,7 @@ class ImageStyleDownloadController extends FileDownloadController {
     return new static(
       $container->get('lock'),
       $container->get('image.factory'),
-      $container->get('webp.webp'),
-      $container->get('file_system')
+      $container->get('webp.webp')
     );
   }
 
@@ -124,18 +112,12 @@ class ImageStyleDownloadController extends FileDownloadController {
         // the actual source image, we remove the extension and check if that
         // image exists.
         $path_info['dirname'] . DIRECTORY_SEPARATOR . $path_info['filename'],
-      ];
 
-      // Try out the different possible sources for a webp image.
-      $extensions = [
-        '.jpg',
-        '.jpeg',
-        '.png',
+        // Try out the different possible sources for a webp image.
+        str_replace('.webp', '.jpg', $image_uri),
+        str_replace('.webp', '.jpeg', $image_uri),
+        str_replace('.webp', '.png', $image_uri),
       ];
-      foreach ($extensions as $extension) {
-        $possible_image_uris[] = str_replace('.webp', mb_strtoupper($extension), $image_uri);
-        $possible_image_uris[] = str_replace('.webp', $extension, $image_uri);
-      }
 
       $source_image_found = FALSE;
       foreach ($possible_image_uris as $possible_image_uri) {
@@ -163,7 +145,7 @@ class ImageStyleDownloadController extends FileDownloadController {
     // The $target variable for a derivative of a style has
     // styles/<style_name>/... as structure, so we check if the $target variable
     // starts with styles/.
-    $valid = !empty($image_style) && $this->fileSystem->validScheme($scheme);
+    $valid = !empty($image_style) && file_stream_wrapper_valid_scheme($scheme);
     if (!$this->config('image.settings')->get('allow_insecure_derivatives') || strpos(ltrim($target, '\/'), 'styles/') === 0) {
       $valid &= $request->query->get(IMAGE_DERIVATIVE_TOKEN) === $image_style->getPathToken($image_uri);
     }
