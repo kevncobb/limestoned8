@@ -1,6 +1,6 @@
 name: Thunder Admin
 type: theme
-core: 8.x
+core_version_requirement: ^8.8
 base theme: seven
 description: 'Administration theme for the Thunder Distribution that extends and modifies Sevens styles for authoring UX and integrated look and feel of the contributed modules used in the distribution.'
 
@@ -82,6 +82,10 @@ libraries-override:
     css:
       theme:
         css/admin.toolbar.css: css/components/admin.toolbar.css
+  admin_toolbar_tools/toolbar.icon:
+    css:
+      theme:
+        css/tools.css: css/components/tools.css
   paragraphs/drupal.paragraphs.widget:
     css:
       theme:
@@ -106,10 +110,6 @@ libraries-extend:
     - thunder_admin/dropzonejs.widget
   entity_browser/tabs:
     - thunder_admin/entity_browser.tabs
-  entity_browser/multi_step_display:
-    - thunder_admin/ui.sortable.with.fractionl.pixels
-  entity_browser/entity_reference:
-    - thunder_admin/ui.sortable.with.fractionl.pixels
   seven/drupal.nav-tabs:
     - thunder_admin/drupal.nav-tabs
   toolbar/toolbar:
@@ -133,7 +133,7 @@ regions:
 regions_hidden:
   - sidebar_first
 
-# Information added by Drupal.org packaging script on 2020-04-16
-version: '8.x-3.3'
+# Information added by Drupal.org packaging script on 2020-12-15
+version: '8.x-3.6'
 project: 'thunder_admin'
-datestamp: 1587036810
+datestamp: 1608047688

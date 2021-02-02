@@ -3,7 +3,7 @@ const isDev = (process.env.NODE_ENV !== 'production');
 
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const SVGSpritemapPlugin = require('svg-spritemap-webpack-plugin');
 const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin');
 const globImporter = require('node-sass-glob-importer');
 const FixStyleOnlyEntriesPlugin = require('webpack-fix-style-only-entries');
@@ -12,11 +12,14 @@ const autoprefixer = require('autoprefixer');
 module.exports = {
   entry: {
     gin: ['./styles/gin.scss'],
+    gin_init: ['./js/gin_init.js'],
     gin_toolbar: ['./js/gin_toolbar.js', './styles/gin_toolbar.scss'],
+    gin_horizontal_toolbar: ['./styles/gin_horizontal_toolbar.scss'],
     gin_classic_toolbar: ['./styles/gin_classic_toolbar.scss'],
     gin_accent: ['./js/gin_accent.js','./styles/gin_accent.scss'],
     gin_settings: ['./js/gin_settings.js'],
-    gin_ckeditor: ['./styles/gin_ckeditor.scss'],
+    gin_dialog: ['./styles/gin_dialog.scss'],
+    gin_ckeditor: ['./js/gin_ckeditor.js', './styles/gin_ckeditor.scss'],
   },
   output: {
     devtoolLineToLine: true,
@@ -24,6 +27,7 @@ module.exports = {
     chunkFilename: 'js/async/[name].chunk.js',
     pathinfo: true,
     filename: 'js/[name].js',
+    publicPath: '../',
   },
   module: {
     rules: [{
@@ -40,18 +44,23 @@ module.exports = {
       },
       {
         test: /\.(png|jpe?g|gif|svg)$/,
+        exclude: /sprite\.svg$/,
         use: [{
             loader: 'file-loader',
             options: {
-              name: 'images/[name].[ext]?[hash]',
+              name: 'media/[name].[ext]?[hash]',
             },
           },
-          // {
-          //   loader: 'img-loader',
-          //   options: {
-          //     enabled: !isDev,
-          //   },
-          // },
+        ],
+      },
+      {
+        test: /sprite\.svg$/,
+        use: [{
+            loader: 'file-loader',
+            options: {
+              name: 'media/[name].[ext]',
+            },
+          },
         ],
       },
       {
@@ -71,7 +80,7 @@ module.exports = {
           {
             loader: MiniCssExtractPlugin.loader,
             options: {
-              publicPath: '../'
+              name: '[name].[ext]?[hash]',
             }
           },
           {
@@ -86,14 +95,15 @@ module.exports = {
             options: {
               plugins: () => [autoprefixer()],
               sourceMap: isDev,
-              // minimize: true
             },
           },
           {
             loader: 'sass-loader',
             options: {
-              importer: globImporter(),
               sourceMap: isDev,
+              sassOptions: {
+                importer: globImporter()
+              },
             },
           },
         ],
@@ -112,9 +122,32 @@ module.exports = {
     new CleanWebpackPlugin(['dist'], {
       root: path.resolve(__dirname),
     }),
+    new SVGSpritemapPlugin(path.resolve(__dirname, 'media/icons/**/*.svg'), {
+      output: {
+        filename: './media/sprite.svg',
+        svg: {
+          sizes: false
+        }
+      },
+      sprite: {
+        prefix: false,
+        gutter: 0,
+        generate: {
+          title: false,
+          symbol: true,
+          use: true,
+          view: '-view'
+        }
+      },
+      styles: {
+        filename: path.resolve(__dirname, 'styles/helpers/_svg-sprite.scss'),
+        // Fragment does not yet work with Firefox with mask-image.
+        // format: 'fragment'
+      }
+    }),
     new MiniCssExtractPlugin({
       filename: 'css/[name].css',
-    })
+    }),
   ],
   watchOptions: {
     aggregateTimeout: 300,

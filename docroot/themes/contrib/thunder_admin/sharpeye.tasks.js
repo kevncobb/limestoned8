@@ -93,15 +93,15 @@ module.exports = [
     { $: '//*[@id="field-paragraphs-values"]/tbody/tr[7]/td/div/input' },
     { $: '//div[contains(@class, "paragraphs-add-dialog") and contains(@class, "ui-dialog-content")]/ul/li/input[@name="field_paragraphs_link_add_more"]' },
     { fill: [
-      { $: '//input[@data-drupal-selector="edit-field-paragraphs-4-subform-field-link-0-uri"]', value: 'http://example.com/1' }
+      { $: '//input[@data-drupal-selector="edit-field-paragraphs-3-subform-field-link-0-uri"]', value: 'http://example.com/1' },
     ]},
-    { $: '//input[@data-drupal-selector="edit-field-paragraphs-4-subform-field-link-add-more"]'},
+    { $: '//input[@data-drupal-selector="edit-field-paragraphs-3-subform-field-link-add-more"]'},
     { fill: [
-      { $: '//input[@data-drupal-selector="edit-field-paragraphs-4-subform-field-link-1-uri"]', value: 'http://example.com/2' }
+      { $: '//input[@data-drupal-selector="edit-field-paragraphs-3-subform-field-link-1-uri"]', value: 'http://example.com/2' }
     ]},
-    { $: '//*[@data-drupal-selector="edit-field-paragraphs-4-subform-field-link-wrapper"]/div/div/table/thead/tr[2]/th/button' },
-    { $: '//*[@data-drupal-selector="edit-field-paragraphs-4-subform-field-link-wrapper"]/div/div/table/tbody/tr[4]/td[1]/input' },
-    { $: '//*[@data-drupal-selector="edit-field-paragraphs-4-subform-field-link-wrapper"]/div/div/table/tbody/tr[1]/td/a' }
+    { $: '//*[@data-drupal-selector="edit-field-paragraphs-3-subform-field-link-wrapper"]/div/div/table/thead/tr[2]/th/button' },
+    { $: '//*[@data-drupal-selector="edit-field-paragraphs-3-subform-field-link-wrapper"]/div/div/table/tbody/tr[4]/td[1]/input' },
+    { $: '//*[@data-drupal-selector="edit-field-paragraphs-3-subform-field-link-wrapper"]/div/div/table/tbody/tr[1]/td/a' }
   ]},
   { name: 'Modals in paragraphs', path: '/node/add/article', fullPage: true, actions: [
     { $: '.field-multiple-table--paragraphs > tbody > tr:last-of-type .paragraphs-features__add-in-between__button', wait: '.paragraphs-add-dialog.ui-dialog-content '},
@@ -124,18 +124,18 @@ module.exports = [
   ]},
   { name: 'Media type image edit form', path: '/media/1/edit', fullPage: true },
   { name: 'Media type twitter edit form', path:'/media/3/edit' },
-  { name: 'Media type video edit form', path:'/media/2/edit', fullPage: true },
+  { name: 'Media type video add form', path:'/media/add/video', fullPage: true },
   { name: 'Status page', path: '/admin/reports/status', fullPage: true, remove: ['#block-thunder-admin-content > div.system-status-report > div:nth-child(2) > details:nth-of-type(1):not(:only-of-type)'], replace: [
     { $: '//*[@id="block-thunder-admin-content"]/div[1]/div[1]/span/span[2]/span[1]', value: 'X Errors' },
     { $: '//*[@id="block-thunder-admin-content"]/div[1]/div[2]/span/span[2]/span[1]', value: 'X Warnings' },
     { $: '//*[@id="block-thunder-admin-content"]/div[1]/div[3]/span/span[2]/span[1]', value: 'X Checked' },
-    { $: '//*[@id="block-thunder-admin-content"]/div[2]/div/div[1]/div/text()[2]', value: '8.x.x' },
-    { $: '//*[@id="block-thunder-admin-content"]/div[2]/div/div[2]/div/text()[2]', value: 'Last run 00 hours 00 minutes ago' },
-    { $: '//*[@id="block-thunder-admin-content"]/div[2]/div/div[3]/div/text()[2]', value: 'Apache/x.x.xx (Unix) OpenSSL/x.x.x mod_fcgid/x.x.x\n' },
-    { $: '//*[@id="block-thunder-admin-content"]/div[2]/div/div[4]/div/text()[3]', value: '7.x.xx (' },
-    { $: '//*[@id="block-thunder-admin-content"]/div[2]/div/div[4]/div/text()[5]', value: 'xxxM' },
-    { $: '//*[@id="block-thunder-admin-content"]/div[2]/div/div[5]/div/text()[3]', value: 'x.x.x-xx.x-log\n\n' },
-    { $: '//*[@id="block-thunder-admin-content"]/div[2]/div/div[5]/div/text()[4]', value: 'MySQL, MariaDB, Percona Server, or equivalent\n\n' },
+    { $: '//*[@id="block-thunder-admin-content"]/div[2]/div/div[1]/div/text()[1]', value: '8.x.x' },
+    { $: '//*[@id="block-thunder-admin-content"]/div[2]/div/div[2]/div/text()[1]', value: 'Last run 00 hours 00 minutes ago' },
+    { $: '//*[@id="block-thunder-admin-content"]/div[2]/div/div[3]/div/text()[1]', value: 'Apache/x.x.xx (Unix) OpenSSL/x.x.x mod_fcgid/x.x.x\n' },
+    { $: '//*[@id="block-thunder-admin-content"]/div[2]/div/div[4]/div/text()[1]', value: '7.x.xx (' },
+    { $: '//*[@id="block-thunder-admin-content"]/div[2]/div/div[4]/div/text()[3]', value: 'xxxM' },
+    { $: '//*[@id="block-thunder-admin-content"]/div[2]/div/div[5]/div/text()[1]', value: 'x.x.x-xx.x-log\n\n' },
+    { $: '//*[@id="block-thunder-admin-content"]/div[2]/div/div[5]/div/text()[2]', value: 'MySQL, MariaDB, Percona Server, or equivalent\n\n' },
     { $: 'h3#checked ~ details div', value: ' ' }
   ]},
   { name: 'Admin structure block',  path: '/admin/structure/block', fullPage: true, actions: [
@@ -218,7 +218,7 @@ module.exports = [
   { name: 'Cleanup details element as field group', path: '/admin/structure/types/manage/article/form-display', fullPage: true, actions: [
     { $: '//a[@href="/admin/structure/types/manage/article/form-display/group_basis_details/delete"]' },
     { $: '//input[@data-drupal-selector="edit-submit"]', waitBefore: 1000 },
-    { dragAndDrop: '//tr[@data-drupal-selector="edit-fields-field-channel"]/td/a[@class="tabledrag-handle"]', offsety: 50 },
+    { dragAndDrop: '//tr[@data-drupal-selector="edit-fields-field-channel"]/td/a[@class="tabledrag-handle"]', offsety: 100 },
     { $: '//tr[@data-drupal-selector="edit-fields-field-channel"]/td/a[@class="tabledrag-handle"]' },
     { $: '//input[@data-drupal-selector="edit-submit"]', waitBefore: 1000 }
   ]},
@@ -241,14 +241,16 @@ module.exports = [
     { $: '//div[@data-drupal-selector="edit-fields-field-tags-settings-edit-form"]', waitBefore: 1000 },
   ]},
   { name: 'Views overlay and toolbar', path: '/admin/structure/views/view/content', actions: [
-    { $: '#toolbar-item-administration-tray > nav > div.toolbar-toggle-orientation > div > button'  },
+    { $: '#toolbar-item-administration-tray button.toolbar-icon-toggle-vertical' },
     { $: '[data-drupal-selector="edit-displays-settings-settings-content-tab-content-details-columns-third"]' },
     { $: '[data-drupal-selector="edit-displays-settings-settings-content-tab-content-details-columns-third-relationships"] .views-ui-display-tab-setting a.views-ajax-link', wait: '[data-drupal-selector="edit-options-required"]' }
   ]},
   { name: 'Nested paragraphs', path: '/node/10/edit', fullPage: true, replace: [
     { $: '//*[@id="edit-meta-changed"]/text()', value: ' 01/01/2018 - 00:00' }
   ], actions: [
-    { $: '#toolbar-item-administration-tray > nav > div.toolbar-toggle-orientation > div > button'  },
+    { $: '#toolbar-item-administration' },
+    { $: '#toolbar-item-administration' },
+    { $: '#toolbar-item-administration-tray button.toolbar-icon-toggle-horizontal' },
     { $: 'input#field-paragraphs-0-edit--2', wait: '#field-paragraphs-0-subform-field-paragraph-add-more-wrapper' },
   ]},
   { name: 'Open sidebar elements', path: '/node/7/edit', viewports: [ { width: 1280, height: 1803 } ],  replace: [

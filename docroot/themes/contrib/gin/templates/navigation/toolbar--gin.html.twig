@@ -26,14 +26,16 @@
     {% for key, tab in tabs %}
       {% set tray = trays[key] %}
       {% set user_menu = tray.links['user_links'] ? 'user-menu' : false %}
-      <div{{ tab.attributes.addClass('toolbar-tab', user_menu, 'toolbar-tab--' ~ tab.link['#id']) }}>
-        {% if tab.link['#id'] == 'toolbar-item-administration' %}
-          <a class="toolbar-menu__logo" href="/admin/content"></a>
-          {{ tab.link }}
+      {% if tab.attributes.id == 'admin-toolbar-search-tab' %}
+          {# render nothing #}
         {% else %}
-          {{ tab.link }}
-        {% endif %}
-        {% spaceless %}
+        <div{{ tab.attributes.addClass('toolbar-tab', user_menu, 'toolbar-tab--' ~ tab.link['#id']) }}>
+          {% if tab.link['#id'] == 'toolbar-item-administration' %}
+            <a class="toolbar-menu__logo" href="/admin/content"></a>
+            {{ tab.link }}
+          {% else %}
+            {{ tab.link }}
+          {% endif %}
           <div{{ tray.attributes }}>
             {% if tray.label %}
               <nav class="toolbar-lining clearfix" role="navigation" aria-label="{{ tray.label }}">
@@ -44,8 +46,8 @@
             {{ tray.links }}
             </nav>
           </div>
-        {% endspaceless %}
-      </div>
+        </div>
+      {% endif %}
     {% endfor %}
   </nav>
   {{ remainder }}

@@ -16,96 +16,166 @@ use Drupal\Core\Url;
  * Implements hook_preprocess_HOOK() for html.
  */
 function gin_preprocess_html(&$variables) {
-  // Get configs.
-  $darkmode = _gin_dark_mode_enabled();
-  $classic_toolbar = _gin_classic_toolbar();
+  // Are we relevant?
+  $gin_activated = _gin_is_active();
 
-  // Check if darkmode is enabled.
-  if ($darkmode === TRUE) {
-    $variables['attributes']['class'][] = 'gin--dark-mode';
-  }
+  if ($gin_activated) {
+    // Get configs.
+    $darkmode = _gin_dark_mode_enabled();
+    $preset_accent_color = _gin_preset_accent_color();
+    $toolbar = _gin_toolbar();
+    $high_contrast_mode = _gin_highcontrastmode_enabled();
 
-  // Only add gin--classic-toolbar class if user has permission.
-  if (!\Drupal::currentUser()->hasPermission('access toolbar')) {
-    return;
-  }
+    // Check if darkmode is enabled.
+    if ($darkmode === TRUE) {
+      $variables['attributes']['class'][] = 'gin--dark-mode';
+    }
 
-  // Check if classic_toolbar is active.
-  if ($classic_toolbar === TRUE) {
-    $variables['attributes']['class'][] = 'gin--classic-toolbar';
-  }
+    // Set accent color.
+    if ($preset_accent_color) {
+      $variables['attributes']['data-gin-accent'] = $preset_accent_color;
+    }
 
-  // Gin secondary toolbar.
-  if (!$classic_toolbar) {
-    $variables['page']['gin_secondary_toolbar'] = [
-      '#type' => 'toolbar',
-      '#access' => \Drupal::currentUser()->hasPermission('access toolbar'),
-      '#cache' => [
-        'keys' => ['toolbar_secondary'],
-        'contexts' => ['user.permissions'],
-      ],
-      '#attributes' => [
-        'id' => 'toolbar-administration-secondary',
-      ],
-    ];
+    // High contrast mode.
+    if ($high_contrast_mode === TRUE) {
+      $variables['attributes']['class'][] = 'gin--high-contrast-mode';
+    }
+
+    // Edit form? Use the new Gin Edit form layout.
+    if (_gin_is_content_form()) {
+      $variables['attributes']['class'][] = 'gin--edit-form';
+    }
+
+    // Only add gin--classic-toolbar class if user has permission.
+    if (!\Drupal::currentUser()->hasPermission('access toolbar')) {
+      return;
+    }
+
+    // Check if classic_toolbar is active.
+    if ($toolbar === 1) {
+      $variables['attributes']['class'][] = 'gin--classic-toolbar';
+    }
+    // If modern horizontal Toolbar is active.
+    elseif ($toolbar === 'horizontal') {
+      $variables['attributes']['class'][] = 'gin--horizontal-toolbar';
+    }
+    // Sidebar toolbar.
+    else {
+      $variables['attributes']['class'][] = 'gin--vertical-toolbar';
+    }
+
+    // Gin secondary toolbar.
+    if ($toolbar !== 1) {
+      $variables['page']['gin_secondary_toolbar'] = [
+        '#type' => 'toolbar',
+        '#access' => \Drupal::currentUser()->hasPermission('access toolbar'),
+        '#cache' => [
+          'keys' => ['toolbar_secondary'],
+          'contexts' => ['user.permissions'],
+        ],
+        '#attributes' => [
+          'id' => 'toolbar-administration-secondary',
+        ],
+      ];
+    }
   }
+}
+
+/**
+ * Implements hook_preprocess_HOOK() for html__entity_browser__modal.
+ */
+function gin_preprocess_html__entity_browser__modal(&$variables) {
+  gin_preprocess_html($variables);
 }
 
 /**
  * Implements hook_preprocess_HOOK() for page.
  */
 function gin_preprocess_page(&$variables) {
-  $path = \Drupal::service('path.current')->getPath();
-
-  // Check if we're directly on the node/add page
-  // or an delete/revision node page.
-  if (
-    $path === '/node/add' ||
-    strpos($path, '/delete') !== FALSE ||
-    strpos($path, '/revisions') !== FALSE
-  ) {
-    $variables['has_sidebar'] = 'false';
-  }
-
   // Required for allowing subtheming Gin.
   $activeThemeName = \Drupal::theme()->getActiveTheme()->getName();
   $variables['active_admin_theme'] = $activeThemeName;
 }
 
 /**
+ * Implements hook_preprocess_HOOK() for page_alter.
+ */
+function gin_theme_suggestions_page_alter(&$suggestions, $variables) {
+  $path = \Drupal::requestStack()->getCurrentRequest()->getPathInfo();
+
+  if ($path != '/') {
+    $path = trim($path, '/');
+    $arg = str_replace(["/", '-'], ['_', '_'], $path);
+    $suggestions[] = 'page__' . $arg;
+  }
+}
+
+/**
  * Implements hook_preprocess_HOOK() for page_attachments.
  */
 function gin_page_attachments_alter(&$page) {
-  // Get theme configs.
-  $darkmode = _gin_dark_mode_enabled();
-  $preset_accent_color = _gin_preset_accent_color();
-  $accent_color = _gin_accent_color();
-  $preset_focus_color = theme_get_setting('preset_focus_color', 'gin');
-  $focus_color = theme_get_setting('focus_color', 'gin');
-  $classic_toolbar = _gin_classic_toolbar();
+  // Are we relevant?
+  $gin_activated = _gin_is_active();
 
-  // Define darkmode class.
-  $darkmode_class = 'gin--dark-mode';
+  if ($gin_activated) {
+    // Get theme configs.
+    $darkmode = _gin_dark_mode_enabled();
+    $preset_accent_color = _gin_preset_accent_color();
+    $accent_color = _gin_accent_color();
+    $preset_focus_color = theme_get_setting('preset_focus_color');
+    $focus_color = theme_get_setting('focus_color');
+    $toolbar = _gin_toolbar();
+    $highcontrastmode = _gin_highcontrastmode_enabled();
 
-  if ($classic_toolbar) {
-    // Attach the classic toolbar styles.
-    $page['#attached']['library'][] = 'gin/gin_classic_toolbar';
+    // Define darkmode class.
+    $darkmode_class = 'gin--dark-mode';
+    $highcontrastmode_class = 'gin--high-contrast-mode';
+
+    // Attach the init script.
+    $page['#attached']['library'][] = 'gin/gin_init';
+
+    if ($toolbar === 1) {
+      // Attach the classic toolbar styles.
+      $page['#attached']['library'][] = 'gin/gin_classic_toolbar';
+    }
+    elseif ($toolbar === 'horizontal') {
+      // Attach the horizontal toolbar styles.
+      $page['#attached']['library'][] = 'gin/gin_horizontal_toolbar';
+    }
+    else {
+      // Attach toolbar styles.
+      $page['#attached']['library'][] = 'gin/gin_toolbar';
+    }
+
+    // Attach accent overrides CSS.
+    $page['#attached']['library'][] = 'gin/gin_accent';
+
+    // Custom CSS file.
+    if (file_exists('public://gin-custom.css')) {
+      $page['#attached']['library'][] = 'gin/gin_custom_css';
+    }
+
+    // Expose settings to JS.
+    $page['#attached']['drupalSettings']['gin']['darkmode'] = $darkmode;
+    $page['#attached']['drupalSettings']['gin']['darkmode_class'] = $darkmode_class;
+    $page['#attached']['drupalSettings']['gin']['preset_accent_color'] = $preset_accent_color;
+    $page['#attached']['drupalSettings']['gin']['accent_color'] = $accent_color;
+    $page['#attached']['drupalSettings']['gin']['preset_focus_color'] = $preset_focus_color;
+    $page['#attached']['drupalSettings']['gin']['focus_color'] = $focus_color;
+    $page['#attached']['drupalSettings']['gin']['highcontrastmode'] = $highcontrastmode;
+    $page['#attached']['drupalSettings']['gin']['highcontrastmode_class'] = $highcontrastmode_class;
+
+    // Add stylesheets for JS use.
+    $basethemeurl_with_prefix = \Drupal::urlGenerator()->generateFromRoute('<front>', [], ['absolute' => TRUE]) . drupal_get_path('theme', 'gin');
+    $page['#attached']['drupalSettings']['gin']['accent_css_path'] = $basethemeurl_with_prefix . '/dist/css/gin_accent.css';
+    $page['#attached']['drupalSettings']['gin']['ckeditor_css_path'] = $basethemeurl_with_prefix . '/dist/css/gin_ckeditor.css';
+
+    // Expose default settings.
+    $page['#attached']['drupalSettings']['gin']['default_darkmode'] = theme_get_setting('enable_darkmode');
+    $page['#attached']['drupalSettings']['gin']['default_accent_color'] = theme_get_setting('accent_color');
+    $page['#attached']['drupalSettings']['gin']['default_preset_accent_color'] = theme_get_setting('preset_accent_color');
+    $page['#attached']['drupalSettings']['gin']['default_high_contrast_mode'] = theme_get_setting('high_contrast_mode');
   }
-  else {
-    // Attach toolbar styles.
-    $page['#attached']['library'][] = 'gin/gin_toolbar';
-  }
-
-  // Attach accent overrides CSS.
-  $page['#attached']['library'][] = 'gin/gin_accent';
-
-  // Expose settings to JS.
-  $page['#attached']['drupalSettings']['gin']['darkmode'] = $darkmode;
-  $page['#attached']['drupalSettings']['gin']['darkmode_class'] = $darkmode_class;
-  $page['#attached']['drupalSettings']['gin']['preset_accent_color'] = $preset_accent_color;
-  $page['#attached']['drupalSettings']['gin']['accent_color'] = $accent_color;
-  $page['#attached']['drupalSettings']['gin']['preset_focus_color'] = $preset_focus_color;
-  $page['#attached']['drupalSettings']['gin']['focus_color'] = $focus_color;
 }
 
 /**
@@ -128,15 +198,7 @@ function gin_preprocess_dropbutton_wrapper(&$variables) {
  * Implements form_alter_HOOK() for some major form changes.
  */
 function gin_form_alter(&$form, $form_state, $form_id) {
-  $path = \Drupal::service('path.current')->getPath();
-
-  // Okay this is the tricky part.
-  // Choose the right node forms to alter the actions.
-  if (
-    strpos($form_id, 'node_') === 0 &&
-    (strpos($path, '/edit') !== FALSE || strpos($path, '/add') !== FALSE) &&
-    $form_id !== 'node_type_add_form'
-  ) {
+  if (_gin_is_content_form($form, $form_state, $form_id)) {
     // Submit change weight.
     if (isset($form['actions']['submit'])) {
       $form['actions']['submit']['#weight'] = '99';
@@ -170,6 +232,7 @@ function gin_form_alter(&$form, $form_state, $form_id) {
         '#group' => 'meta',
         '#type' => 'container',
         '#weight' => 99,
+        '#multilingual' => TRUE,
         '#attributes' => [
           'class' => [
             'gin-sidebar',
@@ -186,6 +249,15 @@ function gin_form_alter(&$form, $form_state, $form_id) {
     }
   }
 
+  // If not logged in hide changed and author node info on add forms.
+  $not_logged_in = \Drupal::currentUser()->isAnonymous();
+  $route = \Drupal::routeMatch()->getRouteName();
+
+  if ($not_logged_in && $route == 'node.add') {
+    unset($form['meta']['changed']);
+    unset($form['meta']['author']);
+  }
+
   // User form (Login, Register or Forgot password).
   if (strpos($form_id, 'user_login') !== FALSE || strpos($form_id, 'user_register') !== FALSE || strpos($form_id, 'user_pass') !== FALSE) {
     $form['actions']['submit']['#attributes']['class'][] = 'button--primary';
@@ -196,7 +268,7 @@ function gin_form_alter(&$form, $form_state, $form_id) {
     if (isset($form['header'])) {
       $bulk_form = current(preg_grep('/_bulk_form/', array_keys($form['header'])));
 
-      if ($form['header'][$bulk_form]) {
+      if (isset($form['header'][$bulk_form])) {
         $form['header'][$bulk_form]['action']['#attributes']['class'][] = 'form-element--type-select--small';
         $form['header'][$bulk_form]['actions']['submit']['#attributes']['class'][] = 'button--small';
 
@@ -213,18 +285,19 @@ function gin_form_alter(&$form, $form_state, $form_id) {
 function gin_form_user_form_alter(&$form, FormStateInterface $form_state) {
   /** @var \Drupal\user\UserInterface $user */
   $user = $form_state->getBuildInfo()['callback_object']->getEntity();
+  $showUserThemeSettings = theme_get_setting('show_user_theme_settings');
 
-  if ($user->id()) {
+  if ($user->id() && $showUserThemeSettings) {
     /** @var \Drupal\user\UserDataInterface $userData */
     $userData = Drupal::service('user.data');
     $enabledUserOverrides = $userData->get('gin', $user->id(), 'enable_user_settings');
     $darkModeValue = $userData->get('gin', $user->id(), 'enable_darkmode');
 
     if ($darkModeValue == NULL) {
-      $darkModeValue = theme_get_setting('enable_darkmode', 'gin') == TRUE ? TRUE : FALSE;
+      $darkModeValue = theme_get_setting('enable_darkmode') == TRUE ? TRUE : FALSE;
     }
 
-    // Inject the settings for the dark mode feauture.
+    // Inject the settings for the dark mode feature.
     $form['gin_theme_settings'] = [
       '#type' => 'details',
       '#title' => t('Admin theme settings'),
@@ -245,14 +318,14 @@ function gin_form_user_form_alter(&$form, FormStateInterface $form_state) {
       '#states' => [
         // Show if met.
         'visible' => [
-          'input[name="enable_user_settings"]' => ['checked' => TRUE],
+          ':input[name="enable_user_settings"]' => ['checked' => TRUE],
         ],
       ],
     ];
 
     $form['gin_theme_settings']['user_settings']['enable_darkmode'] = [
       '#type' => 'checkbox',
-      '#title' => t('Enable Darkmode (EXPERIMENTAL)'),
+      '#title' => t('Enable Darkmode (BETA)'),
       '#description' => t("Enables Darkmode for the admin interface."),
       '#default_value' => $darkModeValue !== NULL ? $darkModeValue : 0,
       '#weight' => 0,
@@ -266,10 +339,11 @@ function gin_form_user_form_alter(&$form, FormStateInterface $form_state) {
 
     // Accent color setting.
     $form['gin_theme_settings']['user_settings']['preset_accent_color'] = [
-      '#type' => 'select',
-      '#title' => t('Accent color (EXPERIMENTAL)'),
+      '#type' => 'radios',
+      '#title' => t('Accent color'),
       '#default_value' => $accentColorPresetValue,
       '#options' => _gin_get_accent_color_presets(),
+      '#after_build' => ['_gin_accent_radios'],
     ];
 
     $accentColorValue = $userData->get('gin', $user->id(), 'accent_color');
@@ -280,10 +354,10 @@ function gin_form_user_form_alter(&$form, FormStateInterface $form_state) {
 
     // Main Accent color setting.
     $form['gin_theme_settings']['user_settings']['accent_color'] = [
-      '#type' => 'color',
+      '#type' => 'textfield',
       '#placeholder' => '#77777',
-      '#title' => t('Accent color (EXPERIMENTAL)'),
-      '#description' => t('Use with caution, values should meet a11y criterias.'),
+      '#title' => t('Accent color'),
+      '#description' => t('Use with caution, values should meet a11y criteria.'),
       '#default_value' => $accentColorValue,
       '#min' => '7',
       '#max' => '7',
@@ -291,24 +365,43 @@ function gin_form_user_form_alter(&$form, FormStateInterface $form_state) {
       '#states' => [
         // Show if met.
         'visible' => [
-          'select[name="preset_accent_color"]' => ['value' => 'custom'],
+          ':input[name="preset_accent_color"]' => ['value' => 'custom'],
         ],
       ],
     ];
 
-    $classicToolbarValue = $userData->get('gin', $user->id(), 'classic_toolbar');
+    $hcm_value = $userData->get('gin', $user->id(), 'high_contrast_mode');
 
-    if ($classicToolbarValue == NULL) {
-      $classicToolbarValue = theme_get_setting('classic_toolbar');
+    if ($hcm_value == NULL) {
+      $hcm_value = theme_get_setting('high_contrast_mode') == TRUE ? TRUE : FALSE;
+    }
+
+    $form['gin_theme_settings']['user_settings']['high_contrast_mode'] = [
+      '#type' => 'checkbox',
+      '#title' => ('Increase contrast (EXPERIMENTAL)'),
+      '#description' => t("Enables high contrast mode."),
+      '#default_value' => $hcm_value !== NULL ? $hcm_value : 0,
+      '#weight' => 0,
+    ];
+
+    $toolbarValue = $userData->get('gin', $user->id(), 'classic_toolbar');
+
+    if ($toolbarValue == NULL) {
+      $toolbarValue = theme_get_setting('classic_toolbar');
     }
 
     // Classic Toolbar user setting.
     $form['gin_theme_settings']['user_settings']['classic_toolbar'] = [
-      '#type' => 'checkbox',
-      '#title' => t('Enable Classic Drupal Toolbar'),
-      '#description' => t('Enables Classic Legacy Drupal Toolbar (Horizontal Toolbar).'),
-      '#default_value' => $classicToolbarValue,
+      '#type' => 'radios',
+      '#title' => t('Drupal Toolbar'),
+      '#description' => t('Choose Drupal Toolbar.'),
+      '#default_value' => $toolbarValue,
+      '#options' => _gin_get_toolbar_presets(),
+      '#after_build' => ['_gin_toolbar_radios'],
     ];
+
+    // Attach custom js.
+    $form['#attached']['library'][] = 'gin/gin_settings';
 
     array_unshift($form['actions']['submit']['#submit'], '_gin_user_form_submit');
   }
@@ -318,7 +411,7 @@ function gin_form_user_form_alter(&$form, FormStateInterface $form_state) {
  * Implements hook_preprocess_menu().
  */
 function gin_preprocess_menu(&$variables) {
-  if (isset($variables['menu_name']) && $variables['menu_name'] == 'admin') {
+  if (isset($variables['theme_hook_original']) && $variables['theme_hook_original'] == 'menu__toolbar__admin') {
     $moduleHandler = \Drupal::service('module_handler');
 
     // Check if the admin_toolbar module is installed.
@@ -338,23 +431,18 @@ function gin_preprocess_menu(&$variables) {
  * Implements toolbar preprocess.
  */
 function gin_preprocess_toolbar(&$variables) {
-  $classic_toolbar = _gin_classic_toolbar();
+  $user_id = \Drupal::currentUser()->id();
 
-  // Only if Classic Toolbar is disabled.
-  if (!$classic_toolbar) {
-    $user_id = \Drupal::currentUser()->id();
+  // Check that the field exists and that it has a value.
+  if ($user_id) {
+    $user = User::load($user_id);
 
-    // Check that the field exists and that it has a value.
-    if ($user_id) {
-      $user = User::load($user_id);
+    if (!empty($user->user_picture) && !empty($user->user_picture->entity)) {
+      $image = $user->user_picture->entity->getFileUri();
+      $style = \Drupal::entityTypeManager()->getStorage('image_style')->load('thumbnail');
+      $url = $style->buildUrl($image);
 
-      if (!empty($user->user_picture) && !empty($user->user_picture->entity)) {
-        $image = $user->user_picture->entity->getFileUri();
-        $style = \Drupal::entityTypeManager()->getStorage('image_style')->load('thumbnail');
-        $url = $style->buildUrl($image);
-
-        $variables['user_picture'] = $url;
-      }
+      $variables['user_picture'] = $url;
     }
   }
 }
@@ -370,12 +458,12 @@ function gin_theme_suggestions_form_alter(array &$suggestions, array $variables)
  * Toolbar alter().
  */
 function gin_theme_suggestions_toolbar_alter(array &$suggestions, array $variables) {
-  $classic_toolbar = _gin_classic_toolbar();
+  $toolbar = _gin_toolbar();
+
+  $suggestions[] = 'toolbar__gin';
 
   // Only if Classic Toolbar is disabled.
-  if (!$classic_toolbar) {
-    $suggestions[] = 'toolbar__gin';
-
+  if ($toolbar !== 1) {
     if ($variables['element']['#attributes']['id'] === 'toolbar-administration-secondary') {
       $suggestions[] = 'toolbar__gin__secondary';
     }
@@ -386,10 +474,9 @@ function gin_theme_suggestions_toolbar_alter(array &$suggestions, array $variabl
  * Toolbar menu alter().
  */
 function gin_theme_suggestions_menu_alter(array &$suggestions, array $variables) {
-  $classic_toolbar = _gin_classic_toolbar();
+  $toolbar = _gin_toolbar();
 
-  // Only if Classic Toolbar is disabled.
-  if (isset($variables['menu_name']) && $variables['menu_name'] === 'admin' && !$classic_toolbar) {
+  if (isset($variables['theme_hook_original']) && $variables['theme_hook_original'] == 'menu__toolbar__admin') {
     $suggestions[] = 'menu__toolbar__gin';
   }
 }
@@ -410,28 +497,15 @@ function gin_css_alter(&$css, $assets) {
 }
 
 /**
- * Implements hook_ckeditor_css_alter().
- */
-function gin_ckeditor_css_alter(array &$css) {
-  // Get theme darkmode config.
-  $darkmode = _gin_dark_mode_enabled();
-
-  if ($darkmode) {
-    $css[] = drupal_get_path('theme', 'gin') . '/dist/css/gin_ckeditor.css';
-  }
-}
-
-/**
  * Implements hook_preprocess_menu__toolbar__gin().
  */
 function gin_preprocess_menu__toolbar__gin(&$variables) {
   // Get theme configs.
-  $logo_path = theme_get_setting('icon_path', 'gin');
-  $logo_default = theme_get_setting('icon_default', 'gin');
-  $classic_toolbar = _gin_classic_toolbar();
+  $logo_path = theme_get_setting('icon_path');
+  $logo_default = theme_get_setting('icon_default');
   $variables['icon_default'] = $logo_default;
 
-  if (!$classic_toolbar && !$logo_default) {
+  if (!$logo_default) {
     $variables['icon_path'] = $logo_path;
   }
 }
@@ -473,6 +547,7 @@ function gin_form_system_theme_settings_alter(&$form, FormStateInterface $form_s
     '#title' => t('Settings'),
   ];
 
+  $user_overrides = _gin_user__overrides_enabled();
   $userEditUrl = Url::fromRoute('entity.user.edit_form', ['user' => Drupal::currentUser()->id()])->toString();
 
   // Darkmode setting.
@@ -485,9 +560,10 @@ function gin_form_system_theme_settings_alter(&$form, FormStateInterface $form_s
     $darkmode = $userDarkMode ? t('Enabled') : t('Disabled');
     $description = t("Enables Darkmode for the admin interface.") . '<br/><span class="form-item__warning">' . t('This setting is overridden by the <a href="@editUrl">current user</a>. Darkmode: <strong>@darkmode</strong></span>', ['@darkmode' => $darkmode, '@editUrl' => $userEditUrl]);
   }
+
   $form['custom_settings']['enable_darkmode'] = [
     '#type' => 'checkbox',
-    '#title' => t('Enable Darkmode (EXPERIMENTAL)'),
+    '#title' => t('Enable Darkmode (BETA)'),
     '#description' => $description,
     '#default_value' => $themeDarkMode,
   ];
@@ -497,13 +573,14 @@ function gin_form_system_theme_settings_alter(&$form, FormStateInterface $form_s
   $userPresetAccentColor = _gin_user__get_preset_accentcolor();
   $themePresetAccentColor = theme_get_setting('preset_accent_color');
   $form['custom_settings']['preset_accent_color'] = [
-    '#type' => 'select',
-    '#title' => t('Accent color (EXPERIMENTAL)'),
+    '#type' => 'radios',
+    '#title' => t('Accent color'),
     '#default_value' => $themePresetAccentColor,
     '#options' => _gin_get_accent_color_presets(),
+    '#after_build' => ['_gin_accent_radios'],
   ];
 
-  if (!is_null($userPresetAccentColor) && $userPresetAccentColor !== $themePresetAccentColor) {
+  if ($user_overrides && !is_null($userPresetAccentColor) && $userPresetAccentColor !== $themePresetAccentColor) {
     $presetActionColorLabel = _gin_get_accent_color_preset_label($userPresetAccentColor);
     $form['custom_settings']['preset_accent_color']['#description'] = '<span class="form-item__warning">' . t('This setting is overridden by the <a href="@editUrl">current user</a>. Accent Color: <strong>@colorLabel</strong></span>', ['@editUrl' => $userEditUrl, '@colorLabel' => $presetActionColorLabel]);
   }
@@ -514,10 +591,10 @@ function gin_form_system_theme_settings_alter(&$form, FormStateInterface $form_s
 
   // Main Accent color setting.
   $form['custom_settings']['accent_color'] = [
-    '#type' => 'color',
+    '#type' => 'textfield',
     '#placeholder' => '#77777',
-    '#title' => t('Accent color (EXPERIMENTAL)'),
-    '#description' => t('Use with caution, values should meet a11y criterias.'),
+    '#title' => t('Custom Accent color'),
+    '#description' => t('Use with caution, values should meet a11y criteria.'),
     '#default_value' => $themeAccentColor,
     '#min' => '7',
     '#max' => '7',
@@ -525,23 +602,26 @@ function gin_form_system_theme_settings_alter(&$form, FormStateInterface $form_s
     '#states' => [
       // Show if met.
       'visible' => [
-        'select[name="preset_accent_color"]' => ['value' => 'custom'],
+        ':input[name="preset_accent_color"]' => ['value' => 'custom'],
       ],
     ],
   ];
 
-  if (!is_null($userAccentColor) && $userAccentColor !== $themeAccentColor) {
-    $form['custom_settings']['accent_color']['#description'] = t('Use with caution, values should meet a11y criterias.') . '<br/>' . t('This setting is overridden by the <a href="@editUrl">current user</a>. Custom Accent Color: <strong>@accentColor</strong>', ['@editUrl' => $userEditUrl, '@accentColor' => $userAccentColor]);
+  if ($user_overrides && !is_null($userAccentColor) && $userAccentColor !== $themeAccentColor) {
+    $form['custom_settings']['accent_color']['#description'] = t('Use with caution, values should meet a11y criteria.') . '<br/>' . t('This setting is overridden by the <a href="@editUrl">current user</a>. Custom Accent Color: <strong>@accentColor</strong>', ['@editUrl' => $userEditUrl, '@accentColor' => $userAccentColor]);
   }
 
   // Focus color setting.
   $form['custom_settings']['preset_focus_color'] = [
     '#type' => 'select',
-    '#title' => t('Focus color (EXPERIMENTAL)'),
+    '#title' => t('Focus color (BETA)'),
     '#default_value' => theme_get_setting('preset_focus_color'),
     '#options' => [
-      'gin' => t('Orange (Default)'),
+      'gin' => t('Gin Focus color (Default)'),
+      'green' => t('Green'),
       'claro' => t('Claro Green'),
+      'orange' => t('Orange'),
+      'dark' => t('Dark'),
       'accent' => t('Same as Accent color'),
       'custom' => t('Custom'),
     ],
@@ -549,10 +629,10 @@ function gin_form_system_theme_settings_alter(&$form, FormStateInterface $form_s
 
   // Custom Focus color setting.
   $form['custom_settings']['focus_color'] = [
-    '#type' => 'color',
+    '#type' => 'textfield',
     '#placeholder' => '#777777',
-    '#title' => t('Custom Focus color (EXPERIMENTAL)'),
-    '#description' => t('Use with caution, values should meet a11y criterias.'),
+    '#title' => t('Custom Focus color (BETA)'),
+    '#description' => t('Use with caution, values should meet a11y criteria.'),
     '#default_value' => theme_get_setting('focus_color'),
     '#min' => '7',
     '#max' => '7',
@@ -560,9 +640,37 @@ function gin_form_system_theme_settings_alter(&$form, FormStateInterface $form_s
     '#states' => [
       // Show if met.
       'visible' => [
-        'select[name="preset_focus_color"]' => ['value' => 'custom'],
+        ':input[name="preset_focus_color"]' => ['value' => 'custom'],
       ],
     ],
+  ];
+
+  // High contrast mode.
+  // Check if this is overridden by the logged in user.
+  $hcm_user = _gin_highcontrastmode_enabled();
+  $hcm_default = theme_get_setting('high_contrast_mode');
+  $hcm_description = t("Enables high contrast mode.");
+
+  if ($user_overrides && !is_null($hcm_user) && $hcm_user !== $hcm_default) {
+    $hcm_active = $hcm_user ? t('Enabled') : t('Disabled');
+    $hcm_description = t("Enables high contrast mode.") . '<br/><span class="form-item__warning">' . t('This setting is overridden by the <a href="@editUrl">current user</a>. High Contrast Mode: <strong>@highcontrastmode</strong></span>', ['@highcontrastmode' => $hcm_active, '@editUrl' => $userEditUrl]);
+  }
+
+  $form['custom_settings']['high_contrast_mode'] = [
+    '#type' => 'checkbox',
+    '#title' => t('Increase contrast (EXPERIMENTAL)'),
+    '#description' => $hcm_description,
+    '#default_value' => $hcm_default,
+  ];
+
+  // Allow user settings.
+  $showUserThemeSettings = theme_get_setting('show_user_theme_settings');
+
+  $form['custom_settings']['show_user_theme_settings'] = [
+    '#type' => 'checkbox',
+    '#title' => t('Users can override Gin settings'),
+    '#description' => t('Expose the admin theme settings to users.'),
+    '#default_value' => $showUserThemeSettings,
   ];
 
   /*
@@ -576,21 +684,35 @@ function gin_form_system_theme_settings_alter(&$form, FormStateInterface $form_s
     '#open' => TRUE,
   ];
 
-  // Classic toolbar setting.
+  // Toolbar setting.
   // Check if this is overridden by the logged in user.
-  $userClassicToolbar = _gin_classic_toolbar();
-  $classicToolbar = theme_get_setting('classic_toolbar');
-  $description = t('Enables Classic Legacy Drupal Toolbar (Horizontal Toolbar).');
+  $userToolbar = _gin_toolbar();
+  $toolbar = theme_get_setting('classic_toolbar');
+  $description = t('Choose Drupal Toolbar.');
 
-  if (!is_null($userClassicToolbar) && $userClassicToolbar !== $classicToolbar) {
-    $toolbar = $userClassicToolbar ? t('Classic') : t('Sidebar');
-    $description = t('Enables Classic Legacy Drupal Toolbar (Horizontal Toolbar).') . '<br/><span class="form-item__warning">' . t('This setting is overridden by the <a href="@editUrl">current user</a>. Toolbar: <strong>@toolbar</strong></span>', ['@toolbar' => $toolbar, '@editUrl' => $userEditUrl]);
+  if (!is_null($userToolbar) && $userToolbar !== $toolbar) {
+    switch ($userToolbar) {
+      case 1:
+        $toolbar = t('Classic');
+        break;
+
+      case 'horizontal':
+        $toolbar = t('Horizontal');
+        break;
+
+      default:
+        $toolbar = t('Sidebar');
+    }
+
+    $description = t('Choose Drupal Toolbar.') . '<br/><span class="form-item__warning">' . t('This setting is overridden by the <a href="@editUrl">current user</a>. Toolbar: <strong>@toolbar</strong></span>', ['@toolbar' => $toolbar, '@editUrl' => $userEditUrl]);
   }
   $form['toolbar']['classic_toolbar'] = [
-    '#type' => 'checkbox',
-    '#title' => t('Enable Classic Drupal Toolbar'),
+    '#type' => 'radios',
+    '#title' => t('Drupal Toolbar'),
     '#description' => $description,
     '#default_value' => theme_get_setting('classic_toolbar'),
+    '#options' => _gin_get_toolbar_presets(),
+    '#after_build' => ['_gin_toolbar_radios'],
   ];
 
   /*
@@ -618,7 +740,7 @@ function gin_form_system_theme_settings_alter(&$form, FormStateInterface $form_s
     '#states' => [
       // Hide the logo settings when using the default logo.
       'invisible' => [
-        'input[name="icon_default"]' => ['checked' => TRUE],
+        ':input[name="icon_default"]' => ['checked' => TRUE],
       ],
     ],
   ];
@@ -645,6 +767,74 @@ function gin_form_system_theme_settings_alter(&$form, FormStateInterface $form_s
 }
 
 /**
+ * Validation for logo.
+ */
+function gin_form_system_theme_settings_alter_validate(array &$form, FormStateInterface $form_state) {
+  $module_handler = \Drupal::service('module_handler');
+
+  if (isset($form['icon']) && $module_handler->moduleExists('file')) {
+    $file = _file_save_upload_from_form($form['icon']['settings']['icon_upload'], $form_state, 0);
+    if ($file) {
+      try {
+        $filename = \Drupal::service('file_system')->copy($file->getFileUri(), \Drupal::config('system.file')->get('default_scheme') . '://');
+        $form_state->setValue('icon_default', 0);
+        $form_state->setValue('icon_path', $filename);
+        $form_state->unsetValue('icon_upload');
+      }
+      catch (FileException $e) {
+        \Drupal::logger('gin')->error($e->getMessage());
+      }
+    }
+  }
+
+  // When intending to use the default logo, unset the icon_path.
+  if ($form_state->getValue('icon_default')) {
+    $form_state->unsetValue('icon_path');
+  }
+
+  // If the user provided a path for a logo file, make sure a file
+  // exists at that path.
+  if ($form_state->getValue('icon_path')) {
+    $path = _gin_validate_path_logo($form_state->getValue('icon_path'));
+
+    if (!$path) {
+      $form_state->setErrorByName('icon_path', t('The custom logo path is invalid.'));
+    }
+  }
+}
+
+/**
+ * Accent color element.
+ */
+function _gin_accent_radios($element) {
+  $options = array_keys($element['#options']);
+
+  foreach ($options as $values) {
+    $element[$values]['#attributes']['data-gin-accent'] = $element[$values]['#return_value'];
+  }
+
+  return $element;
+}
+
+/**
+ * Toolbar element.
+ */
+function _gin_toolbar_radios($element) {
+  $options = array_keys($element['#options']);
+
+  $element['#attributes']['class'][] = 'toolbar-option';
+
+  foreach ($options as $values) {
+    $return_value = $element[$values]['#return_value'] === 1 ? 'legacy' : $element[$values]['#return_value'];
+
+    $element[$values]['#attributes']['class'][] = 'toolbar-option__' . $return_value;
+    $element[$values]['#attributes']['data-gin-toolbar'] = $return_value;
+  }
+
+  return $element;
+}
+
+/**
  * Implements helper function _gin_user_form_submit().
  */
 function _gin_user_form_submit(&$form, FormStateInterface $form_state) {
@@ -667,9 +857,47 @@ function _gin_user_form_submit(&$form, FormStateInterface $form_state) {
     $accentColorValue = $form_state->getValue('accent_color');
     $userData->set('gin', $user->id(), 'accent_color', $accentColorValue);
 
-    $classicToolbarValue = $form_state->getValue('classic_toolbar');
-    $userData->set('gin', $user->id(), 'classic_toolbar', $classicToolbarValue);
+    $toolbarValue = $form_state->getValue('classic_toolbar');
+    $userData->set('gin', $user->id(), 'classic_toolbar', $toolbarValue);
+
+    $highContrastValue = $form_state->getValue('high_contrast_mode');
+    $userData->set('gin', $user->id(), 'high_contrast_mode', $highContrastValue);
   }
+}
+
+/**
+ * Helper function for check if Gin is active.
+ */
+function _gin_is_active() {
+  $theme_handler = \Drupal::service('theme_handler')->listInfo();
+
+  // Check if set as frontend theme.
+  $frontend_theme_name = \Drupal::config('system.theme')->get('default');
+
+  // Check if base themes are set.
+  if (isset($theme_handler[$frontend_theme_name]->base_themes)) {
+    $frontend_base_themes = $theme_handler[$frontend_theme_name]->base_themes;
+  }
+
+  // Add theme name to base theme array.
+  $frontend_base_themes[$frontend_theme_name] = $frontend_theme_name;
+
+  // Check if set as admin theme.
+  $admin_theme_name = \Drupal::config('system.theme')->get('admin');
+
+  // Admin theme will have no value if it is set to use the default theme.
+  if ($admin_theme_name) {
+    $admin_base_themes = $theme_handler[$admin_theme_name]->base_themes;
+    $admin_base_themes[$admin_theme_name] = $admin_theme_name;
+  }
+  else {
+    $admin_base_themes = $frontend_base_themes;
+  }
+
+  $base_themes = array_merge($admin_base_themes, $frontend_base_themes);
+  $gin_activated = array_key_exists('gin', $base_themes);
+
+  return $gin_activated;
 }
 
 /**
@@ -709,9 +937,13 @@ function _gin_user__get_user_id() {
 }
 
 /**
- * Check user has enabled darkmode helper function.
+ * Check if user overrides are enabled.
  */
 function _gin_user__overrides_enabled() {
+  if (theme_get_setting('show_user_theme_settings') !== TRUE) {
+    return FALSE;
+  }
+
   $uid = _gin_user__get_user_id();
 
   /** @var \Drupal\user\UserDataInterface $userData */
@@ -735,17 +967,16 @@ function _gin_user__overrides_enabled() {
 function _gin_dark_mode_enabled() {
   // Get user config.
   if (_gin_user__overrides_enabled()) {
-    $uid = _gin_user__get_user_id();
     $darkmode = _gin_user__get_darkmode_enabled();
-
-    // Convert older versions to boolean.
-    $darkmode = $darkmode === 0 || $darkmode === '0' ? FALSE : $darkmode;
-    $darkmode = $darkmode === 1 || $darkmode === '1' ? TRUE : $darkmode;
   }
   // Get general config.
   else {
-    $darkmode = theme_get_setting('enable_darkmode', 'gin');
+    $darkmode = theme_get_setting('enable_darkmode');
   }
+
+  // Convert older versions to boolean.
+  $darkmode = $darkmode === 0 || $darkmode === '0' ? FALSE : $darkmode;
+  $darkmode = $darkmode === 1 || $darkmode === '1' ? TRUE : $darkmode;
 
   return $darkmode;
 }
@@ -775,7 +1006,12 @@ function _gin_preset_accent_color() {
     return _gin_user__get_preset_accentcolor();
   }
   else {
-    return theme_get_setting('preset_accent_color', 'gin');
+    if (theme_get_setting('preset_accent_color') === 'claro_blue') {
+      return 'blue';
+    }
+    else {
+      return theme_get_setting('preset_accent_color');
+    }
   }
 }
 
@@ -789,7 +1025,12 @@ function _gin_user__get_preset_accentcolor() {
   $userData = Drupal::service('user.data');
 
   if ($userData->get('gin', $uid, 'preset_accent_color') !== NULL) {
-    return $userData->get('gin', $uid, 'preset_accent_color');
+    if ($userData->get('gin', $uid, 'preset_accent_color') === 'claro_blue') {
+      return 'blue';
+    }
+    else {
+      return $userData->get('gin', $uid, 'preset_accent_color');
+    }
   }
   else {
     return NULL;
@@ -804,7 +1045,7 @@ function _gin_accent_color() {
     return _gin_user__accentcolor();
   }
   else {
-    return theme_get_setting('accent_color', 'gin');
+    return theme_get_setting('accent_color');
   }
 }
 
@@ -817,7 +1058,7 @@ function _gin_user__accentcolor() {
   /** @var \Drupal\user\UserDataInterface $userData */
   $userData = Drupal::service('user.data');
 
-  if ($uid && $userData->get('gin', $uid, 'accent_color') !== NULL) {
+  if ($uid && $userData->get('gin', $uid, 'preset_accent_color') === 'custom' && $userData->get('gin', $uid, 'accent_color') !== NULL) {
     return $userData->get('gin', $uid, 'accent_color');
   }
   else {
@@ -830,16 +1071,28 @@ function _gin_user__accentcolor() {
  */
 function _gin_get_accent_color_presets() {
   return [
-    'blue' => t('Claro Blue (Default)'),
-    'teal' => t('Teal'),
+    'blue' => t('Gin Blue (Default)'),
+    'light_blue' => t('Light Blue'),
     'dark_purple' => t('Dark Purple'),
     'purple' => t('Purple'),
+    'teal' => t('Teal'),
     'green' => t('Green'),
+    'pink' => t('Pink'),
     'red' => t('Red'),
     'orange' => t('Orange'),
     'yellow' => t('Yellow'),
-    'pink' => t('Pink'),
     'custom' => t('Custom'),
+  ];
+}
+
+/**
+ * Toolbar presets helper function.
+ */
+function _gin_get_toolbar_presets() {
+  return [
+    'vertical' => t('Sidebar, Vertical Toolbar (Default)'),
+    'horizontal' => t('Horizontal, Modern Toolbar'),
+    1 => t('Legacy, Classic Drupal Toolbar'),
   ];
 }
 
@@ -848,6 +1101,7 @@ function _gin_get_accent_color_presets() {
  */
 function _gin_get_accent_color_preset_label($key) {
   $options = _gin_get_accent_color_presets();
+
   if (!empty($options[$key])) {
     return $options[$key];
   }
@@ -855,30 +1109,29 @@ function _gin_get_accent_color_preset_label($key) {
 }
 
 /**
- * Classic Toolbar helper function.
+ * Toolbar helper function.
  */
-function _gin_classic_toolbar() {
+function _gin_toolbar() {
   // Get user config.
   if (_gin_user__overrides_enabled()) {
     $uid = _gin_user__get_user_id();
-    $classic_toolbar = _gin_user__classic_toolbar();
+    $toolbar = _gin_user__toolbar();
   }
   // Get general config.
   else {
-    $classic_toolbar = theme_get_setting('classic_toolbar', 'gin');
+    $toolbar = theme_get_setting('classic_toolbar');
   }
 
   // Convert older versions to boolean.
-  $classic_toolbar = $classic_toolbar === 0 || $classic_toolbar === '0' ? FALSE : $classic_toolbar;
-  $classic_toolbar = $classic_toolbar === 1 || $classic_toolbar === '1' ? TRUE : $classic_toolbar;
+  $toolbar = $toolbar === TRUE || $toolbar === 'true' ||  $toolbar === '1' || $toolbar === 1 ? 1 : $toolbar;
 
-  return $classic_toolbar;
+  return $toolbar;
 }
 
 /**
  * User Classic Toolbar helper function.
  */
-function _gin_user__classic_toolbar() {
+function _gin_user__toolbar() {
   $uid = _gin_user__get_user_id();
 
   /** @var \Drupal\user\UserDataInterface $userData */
@@ -893,37 +1146,39 @@ function _gin_user__classic_toolbar() {
 }
 
 /**
- * Validation for logo.
+ * Enable high contrast mode helper function.
  */
-function gin_form_system_theme_settings_alter_validate(array &$form, FormStateInterface $form_state) {
-  if (isset($form['icon'])) {
-    $file = _file_save_upload_from_form($form['icon']['settings']['icon_upload'], $form_state, 0);
-    if ($file) {
-      try {
-        $filename = \Drupal::service('file_system')->copy($file->getFileUri(), \Drupal::config('system.file')->get('default_scheme') . '://');
-        $form_state->setValue('icon_default', 0);
-        $form_state->setValue('icon_path', $filename);
-        $form_state->unsetValue('icon_upload');
-      }
-      catch (FileException $e) {
-        \Drupal::logger('gin')->error($e->getMessage());
-      }
-    }
+function _gin_highcontrastmode_enabled() {
+  // Get user config.
+  if (_gin_user__overrides_enabled()) {
+    $hcm = _gin_user__get_highcontrastmode_enabled();
+  }
+  // Get general config.
+  else {
+    $hcm = theme_get_setting('high_contrast_mode');
   }
 
-  // When intending to use the default logo, unset the icon_path.
-  if ($form_state->getValue('icon_default')) {
-    $form_state->unsetValue('icon_path');
+  // Convert older versions to boolean.
+  $hcm = $hcm === 0 || $hcm === '0' ? FALSE : $hcm;
+  $hcm = $hcm === 1 || $hcm === '1' ? TRUE : $hcm;
+
+  return $hcm;
+}
+
+/**
+ * Check user has enabled high contrast mode helper function.
+ */
+function _gin_user__get_highcontrastmode_enabled() {
+  $uid = _gin_user__get_user_id();
+
+  if ($uid) {
+    /** @var \Drupal\user\UserDataInterface $userData */
+    $userData = Drupal::service('user.data');
+
+    return $userData->get('gin', $uid, 'high_contrast_mode');
   }
-
-  // If the user provided a path for a logo file, make sure a file
-  // exists at that path.
-  if ($form_state->getValue('icon_path')) {
-    $path = _gin_validate_path_logo($form_state->getValue('icon_path'));
-
-    if (!$path) {
-      $form_state->setErrorByName('icon_path', t('The custom logo path is invalid.'));
-    }
+  else {
+    return FALSE;
   }
 }
 
@@ -961,4 +1216,48 @@ function _gin_validate_path_logo($path) {
     return $path;
   }
   return FALSE;
+}
+
+/**
+ * Check if were on a content edit form.
+ */
+function _gin_is_content_form($form = NULL, $form_state = NULL, $form_id = NULL) {
+  $is_content_form = FALSE;
+
+  // Get route name.
+  $route_name = \Drupal::routeMatch()->getRouteName();
+
+  // Routes to include.
+  $route_names = [
+    'node.add',
+    'entity.node.content_translation_add',
+    'quick_node_clone.node.quick_clone',
+    'entity.node.edit_form',
+  ];
+
+  if (
+    in_array($route_name, $route_names, TRUE) ||
+    ($form_state && ($form_state->getBuildInfo()['base_form_id'] ?? NULL) === 'node_form') ||
+    ($route_name === 'entity.group_content.create_form' && strpos($form_id, 'group_node') === FALSE)
+  ) {
+    $is_content_form = TRUE;
+  }
+
+  // Forms to exclude.
+  // If media library widget, don't use new content edit form.
+  // gin_preprocess_html is not triggered here, so checking
+  // the form id is enough.
+  $form_ids_to_ignore = [
+    'media_library_add_form_',
+    'views_form_media_library_widget_',
+    'views_exposed_form',
+  ];
+
+  foreach ($form_ids_to_ignore as $form_id_to_ignore) {
+    if ($form_id && strpos($form_id, $form_id_to_ignore) !== FALSE) {
+      $is_content_form = FALSE;
+    }
+  }
+
+  return $is_content_form;
 }
