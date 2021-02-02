@@ -6,6 +6,7 @@ use Drupal\Component\Utility\Crypt;
 use Drupal\Core\Image\Image;
 use Drupal\Core\Image\ImageFactory;
 use Drupal\Core\Lock\LockBackendInterface;
+use Drupal\Core\StreamWrapper\StreamWrapperManagerInterface;
 use Drupal\image\ImageStyleInterface;
 use Drupal\system\FileDownloadController;
 use Drupal\webp\Webp;
@@ -58,8 +59,11 @@ class ImageStyleDownloadController extends FileDownloadController {
    *   The image factory.
    * @param \Drupal\webp\Webp $webp
    *   WebP driver.
+   * @param \Drupal\Core\StreamWrapper\StreamWrapperManagerInterface|null $stream_wrapper_manager
+   *   The stream wrapper manager.
    */
-  public function __construct(LockBackendInterface $lock, ImageFactory $image_factory, Webp $webp) {
+  public function __construct(LockBackendInterface $lock, ImageFactory $image_factory, Webp $webp, StreamWrapperManagerInterface $stream_wrapper_manager = NULL) {
+    parent::__construct($stream_wrapper_manager);
     $this->lock = $lock;
     $this->imageFactory = $image_factory;
     $this->logger = $this->getLogger('image');
@@ -73,7 +77,8 @@ class ImageStyleDownloadController extends FileDownloadController {
     return new static(
       $container->get('lock'),
       $container->get('image.factory'),
-      $container->get('webp.webp')
+      $container->get('webp.webp'),
+      $container->get('stream_wrapper_manager')
     );
   }
 
@@ -101,9 +106,7 @@ class ImageStyleDownloadController extends FileDownloadController {
     $target = $request->query->get('file');
     $image_uri = $scheme . '://' . $target;
 
-    // Don't try to generate file if source is missing.
-    if (!file_exists($image_uri)) {
-
+    if ($webp_wanted = preg_match('/\.webp$/', $image_uri)) {
       $path_info = pathinfo($image_uri);
 
       $possible_image_uris = [
@@ -112,26 +115,31 @@ class ImageStyleDownloadController extends FileDownloadController {
         // the actual source image, we remove the extension and check if that
         // image exists.
         $path_info['dirname'] . DIRECTORY_SEPARATOR . $path_info['filename'],
-
-        // Try out the different possible sources for a webp image.
-        str_replace('.webp', '.jpg', $image_uri),
-        str_replace('.webp', '.jpeg', $image_uri),
-        str_replace('.webp', '.png', $image_uri),
       ];
 
-      $source_image_found = FALSE;
+      // Try out the different possible sources for a webp image.
+      $extensions = [
+        '.jpg',
+        '.jpeg',
+        '.png',
+      ];
+      foreach ($extensions as $extension) {
+        $possible_image_uris[] = str_replace('.webp', mb_strtoupper($extension), $image_uri);
+        $possible_image_uris[] = str_replace('.webp', $extension, $image_uri);
+      }
+
       foreach ($possible_image_uris as $possible_image_uri) {
         if (file_exists($possible_image_uri)) {
           $image_uri = $possible_image_uri;
-          $source_image_found = TRUE;
           break;
         }
       }
+    }
 
-      if (!$source_image_found) {
-        $this->logger->notice('Source image at %source_image_path not found while trying to generate derivative image.', ['%source_image_path' => $image_uri]);
-        return new Response($this->t('Error generating image, missing source file.'), 404);
-      }
+    // Don't try to generate file if source is missing.
+    if (!file_exists($image_uri)) {
+      $this->logger->notice('Source image at %source_image_path not found while trying to generate derivative image.', ['%source_image_path' => $image_uri]);
+      return new Response($this->t('Error generating image, missing source file.'), 404);
     }
 
     // Check that the style is defined, the scheme is valid, and the image
@@ -145,7 +153,7 @@ class ImageStyleDownloadController extends FileDownloadController {
     // The $target variable for a derivative of a style has
     // styles/<style_name>/... as structure, so we check if the $target variable
     // starts with styles/.
-    $valid = !empty($image_style) && file_stream_wrapper_valid_scheme($scheme);
+    $valid = !empty($image_style) && $this->streamWrapperManager->isValidScheme($scheme);
     if (!$this->config('image.settings')->get('allow_insecure_derivatives') || strpos(ltrim($target, '\/'), 'styles/') === 0) {
       $valid &= $request->query->get(IMAGE_DERIVATIVE_TOKEN) === $image_style->getPathToken($image_uri);
     }
@@ -188,7 +196,7 @@ class ImageStyleDownloadController extends FileDownloadController {
     if ($success) {
       $image = $this->imageFactory->get($derivative_uri);
 
-      if (($webp = $this->webp->createWebpCopy($image->getSource())) && in_array('image/webp', $request->getAcceptableContentTypes())) {
+      if ($webp_wanted && ($webp = $this->webp->createWebpCopy($image->getSource())) && in_array('image/webp', $request->getAcceptableContentTypes())) {
         return $this->webpResponse($webp, $headers, $scheme);
       }
       else {

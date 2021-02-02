@@ -6,6 +6,33 @@
  */
 
 /**
+ * Implements hook_requirements().
+ */
+function webp_requirements($phase) {
+  $requirements = [];
+
+  // The existence of GD, does not mean, that it was compiled with webp
+  // support. So check if it has webp capabilities. Otherwise prevent the
+  // installation or show an error on the status page.
+  $gd_info = gd_info();
+  // Let's convert to capital case, so we ensure we always cover both.
+  $supported_formats = [];
+  if (extension_loaded('imagick')) {
+    $supported_formats = array_map('strtoupper', Imagick::queryFormats());
+  }
+
+  if (!$gd_info['WebP Support'] && !in_array("WEBP", $supported_formats)) {
+    $requirements['webp'] = [
+      'title' => t('WebP'),
+      'description' => t('The GD or ImageMagick library must be compiled with WebP support on your server. For more information consult the <a href=":php_documentation">PHP documentation</a>.', [':php_documentation' => 'http://php.net/manual/en/book.image.php']),
+      'severity' => REQUIREMENT_ERROR,
+    ];
+  }
+
+  return $requirements;
+}
+
+/**
  * Implements hook_install().
  */
 function webp_install() {

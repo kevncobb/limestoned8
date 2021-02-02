@@ -42,15 +42,15 @@ function webp_preprocess_responsive_image(&$variables) {
       }
 
       if ($srcset_attribute_key !== FALSE) {
-        $original_url = $source->offsetGet($srcset_attribute_key)->value();
+        $srcset_orig = $source->offsetGet($srcset_attribute_key)->value();
 
         /* @var \Drupal\webp\Webp $webp */
         $webp = \Drupal::service('webp.webp');
-        $webp_url = $webp->getWebpFilename($original_url);
+        $webp_srcset = $webp->getWebpSrcset($srcset_orig);
 
         // Create a new source pointing to the webp URL.
         $webp_source = clone $source;
-        $webp_source->offsetSet($srcset_attribute_key, $webp_url);
+        $webp_source->offsetSet($srcset_attribute_key, $webp_srcset);
         $webp_source->offsetSet('type', 'image/webp');
         $webp_sources[] = $webp_source;
       }
