@@ -112,8 +112,10 @@
 {#  <div{{ attributes.addClass(classes).setAttribute('id', paragraph_id) }} {% if VBP.background_image.url %} style="background-image:url({{- VBP.background_image.url -}});" {% endif %}#}
 <div{{ attributes.addClass(classes).setAttribute('id', paragraph_id) }} {% if VBP.field_overlay.value %} data-overlay="{{ VBP.field_overlay.value }}" {% endif %}>
   {% if VBP.background_image.url %}
-  <div class="splash-header degree-header stripes-dark-tile grid-x align-middle">
+  <div class="splash-header paragraph-background-image stripes-dark-tile grid-x align-middle">
+    <div class="cover-image field-background-splash-image">
     {{ content.bp_image_field }}
+    </div>
   </div>
   {% endif %}
 

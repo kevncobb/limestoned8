@@ -320,6 +320,9 @@ header.site-header {
   &.splash-header-half {
     height: 40vh;
   }
+  &.paragraph-background-image {
+    height: 100% !important;
+  }
   &::before {
     content: "";
     position: absolute;
