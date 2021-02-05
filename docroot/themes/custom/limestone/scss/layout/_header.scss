@@ -308,7 +308,7 @@ header.site-header {
   }
 }
 .paragraph.background-image-holder {
-  [data-overlay]:before {
+  &[data-overlay]:before {
     z-index: 1;
   }
 }
@@ -327,6 +327,7 @@ header.site-header {
   }
   &.paragraph-background-image {
     height: 100% !important;
+    display: table-header-group;
     .cover-image {
       position: absolute;
     }
