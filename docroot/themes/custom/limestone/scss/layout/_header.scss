@@ -307,6 +307,11 @@ header.site-header {
     @include vertical-center;
   }
 }
+.paragraph.background-image-holder {
+  [data-overlay]:before {
+    z-index: 1;
+  }
+}
 .splash-header, .paragraph--type--splash-header {
   height: 100%;
   position: relative;
@@ -322,6 +327,9 @@ header.site-header {
   }
   &.paragraph-background-image {
     height: 100% !important;
+    .cover-image {
+      position: absolute;
+    }
   }
   &::before {
     content: "";
