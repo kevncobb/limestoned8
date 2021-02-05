@@ -113,7 +113,7 @@
 <div{{ attributes.addClass(classes).setAttribute('id', paragraph_id) }} {% if VBP.field_overlay.value %} data-overlay="{{ VBP.field_overlay.value }}" {% endif %}>
   {% if VBP.background_image.url %}
   <div class="splash-header degree-header stripes-dark-tile grid-x align-middle">
-    {{ drupal_entity('paragraph', content.bp_image_field[0]['#paragraph'].id(), 'default') }}
+    {{ content.bp_image_field }}
   </div>
   {% endif %}
 
