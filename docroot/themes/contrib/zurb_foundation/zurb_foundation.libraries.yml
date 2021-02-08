@@ -12,6 +12,7 @@ global:
     js/motion-ui.min.js: {}
   dependencies:
     - core/drupal
+    - core/jquery
     - core/jquery.once
 
 status_in_reveal:
