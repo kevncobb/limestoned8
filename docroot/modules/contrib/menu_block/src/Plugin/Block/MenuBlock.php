@@ -70,18 +70,18 @@ class MenuBlock extends SystemMenuBlock {
 
     $form = parent::blockForm($form, $form_state);
 
+    // If there exists a config value for Expand all menu links (expand), that
+    // value should populate core's Expand all menu items checkbox
+    // (expand_all_items).
+    if (isset($config['expand'])) {
+      $form['menu_levels']['expand_all_items']['#default_value'] = $config['expand'];
+    }
+
     $form['advanced'] = [
       '#type' => 'details',
       '#title' => $this->t('Advanced options'),
       '#open' => FALSE,
       '#process' => [[get_class(), 'processMenuBlockFieldSets']],
-    ];
-
-    $form['advanced']['expand'] = [
-      '#type' => 'checkbox',
-      '#title' => $this->t('<strong>Expand all menu links</strong>'),
-      '#default_value' => $config['expand'],
-      '#description' => $this->t('All menu links that have children will "Show as expanded".'),
     ];
 
     $menu_name = $this->getDerivativeId();
@@ -204,7 +204,12 @@ class MenuBlock extends SystemMenuBlock {
     $this->configuration['follow_parent'] = $form_state->getValue('follow_parent');
     $this->configuration['level'] = $form_state->getValue('level');
     $this->configuration['depth'] = $form_state->getValue('depth');
-    $this->configuration['expand'] = $form_state->getValue('expand');
+    $this->configuration['expand_all_items'] = (bool) $form_state->getValue('expand_all_items');
+    // On save, the core config property (expand_all_items) gets updated, and
+    // the contrib config property value (expand) is deleted/removed altogether.
+    if (isset($this->configuration['expand'])) {
+      unset($this->configuration['expand']);
+    }
     $this->configuration['parent'] = $form_state->getValue('parent');
     $this->configuration['suggestion'] = $form_state->getValue('suggestion');
     $this->configuration['label_type'] = $form_state->getValue('label_type');
@@ -221,7 +226,10 @@ class MenuBlock extends SystemMenuBlock {
     // Adjust the menu tree parameters based on the block's configuration.
     $level = $this->configuration['level'];
     $depth = $this->configuration['depth'];
-    $expand = $this->configuration['expand'];
+    // For blocks placed in Layout Builder or similar, check for the deprecated
+    // 'expand' config property in case the menu block's configuration has not
+    // yet been updated.
+    $expand_all_items = $this->configuration['expand'] ?? $this->configuration['expand_all_items'];
     $parent = $this->configuration['parent'];
     $follow = $this->configuration['follow'];
     $follow_parent = $this->configuration['follow_parent'];
@@ -269,7 +277,7 @@ class MenuBlock extends SystemMenuBlock {
     }
 
     // If expandedParents is empty, the whole menu tree is built.
-    if ($expand) {
+    if ($expand_all_items) {
       $parameters->expandedParents = [];
     }
 
@@ -361,7 +369,7 @@ class MenuBlock extends SystemMenuBlock {
       'follow_parent' => 'child',
       'level' => 1,
       'depth' => 0,
-      'expand' => 0,
+      'expand_all_items' => FALSE,
       'parent' => $this->getDerivativeId() . ':',
       'suggestion' => strtr($this->getDerivativeId(), '-', '_'),
       'label_type' => self::LABEL_BLOCK,

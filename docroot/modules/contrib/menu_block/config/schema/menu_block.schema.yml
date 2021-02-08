@@ -20,9 +20,9 @@ block.settings.menu_block:*:
     depth:
       type: integer
       label: 'Maximum number of levels'
-    expand:
+    expand_all_items:
       type: boolean
-      label: 'Expand all menu links'
+      label: 'Expand all items'
     parent:
       type: string
       label: 'Parent menu link'
