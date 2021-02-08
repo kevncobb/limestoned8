@@ -190,104 +190,107 @@ header.site-header {
   margin: 0;
   padding: 5px;
 }
-.sub-page-header, .paragraph--type--sub-header-title {
-  clear: both;
-  position: relative;
-  background-image: url("/themes/custom/limestone/images/pano-front-quad.jpg");
-  background-size: cover;
-  background-position: center;
-  -webkit-box-shadow: inset 0px 0px 300px 200px rgba(0,0,0,0.15);
-  -moz-box-shadow: inset 0px 0px 300px 200px rgba(0,0,0,0.15);
-  box-shadow: inset 0px 0px 300px 200px rgba(0,0,0,0.15);
-  background-color: $almost-black;
-  &:before {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    max-height: 80px;
-    height: 100%;
-    width: 100%;
-    content: "";
-    opacity: 0.4;
-    background: -webkit-gradient(linear, 0 0, 0 100%, from(rgba(0, 0, 0, 0)), to(rgba(0, 0, 0, 0.8))) 0 0 no-repeat;
-  }
-  &:after {
-    position: absolute;
-    z-index: 1;
-    bottom: 0;
-    max-height: 80px;
-    height: 100%;
-    width: 100%;
-    content: "";
-    background: url("/themes/custom/limestone/images/stripes-dark-tile.svg");
-    opacity: 0.08;
-  }
-  .contextual-region {
-    position: static;
-  }
-  &.taller {
-    .sub-header-title {
-      top: -1rem;
+@include breakpoint(smedium) {
+  .sub-page-header, .paragraph--type--sub-header-title {
+    clear: both;
+    position: relative;
+    background-image: url("/themes/custom/limestone/images/pano-front-quad.jpg");
+    background-size: cover;
+    background-position: center;
+    -webkit-box-shadow: inset 0px 0px 300px 200px rgba(0,0,0,0.15);
+    -moz-box-shadow: inset 0px 0px 300px 200px rgba(0,0,0,0.15);
+    box-shadow: inset 0px 0px 300px 200px rgba(0,0,0,0.15);
+    background-color: $almost-black;
+    &:before {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      max-height: 80px;
+      height: 100%;
+      width: 100%;
+      content: "";
+      opacity: 0.4;
+      background: -webkit-gradient(linear, 0 0, 0 100%, from(rgba(0, 0, 0, 0)), to(rgba(0, 0, 0, 0.8))) 0 0 no-repeat;
     }
-    @include breakpoint(medium) {
-      padding-top: 1rem;
-      padding-bottom: 0;
+    &:after {
+      position: absolute;
+      z-index: 1;
+      bottom: 0;
+      max-height: 80px;
+      height: 100%;
+      width: 100%;
+      content: "";
+      background: url("/themes/custom/limestone/images/stripes-dark-tile.svg");
+      opacity: 0.08;
     }
-    @include breakpoint(large) {
-      padding-top: 2rem;
-      padding-bottom: 0;
+    .contextual-region {
+      position: static;
+    }
+    &.taller {
       .sub-header-title {
-        padding-top: 3rem;
+        top: -1rem;
+      }
+      @include breakpoint(medium) {
+        padding-top: 1rem;
+        padding-bottom: 0;
+      }
+      @include breakpoint(large) {
+        padding-top: 2rem;
+        padding-bottom: 0;
+        .sub-header-title {
+          padding-top: 3rem;
+        }
       }
     }
-  }
-  figure {
-    display: none;
-  }
-}
-.sub-header-title {
-  font-size: 2em;
-  line-height: 2em;
-  font-weight: 700;
-  margin: 0 auto 0 auto;
-  color: white;
-  display: block;
-  width: 100%;
-  text-transform: uppercase;
-  position: relative;
-  z-index: 2;
-  cursor: pointer;
-  -webkit-font-smoothing: antialiased;
-  text-shadow: 2px 2px 1px rgba(0,0,0,0.5);
-  padding: 0.6rem 0 0.6rem 1rem;
-
-  @include breakpoint(medium) {
-    font-size: 2.5em;
-    line-height: 3.7rem;
-    padding-top: 1rem;
-    padding-bottom: 2.5rem;
-    padding-right: .85227rem;
-    padding-left: 1rem;
-
-    &::after {
-      content: "";
-      position: absolute;
-      background: url("/themes/custom/limestone/images/lc-sprite.svg") no-repeat -467px -388px;
-      background-size: 708px !important;
-      width: 155px;
-      height: 14px;
-      top: auto;
-      bottom: 2.25rem;
-      left: 1rem;
+    figure {
+      display: none;
     }
   }
+  .sub-header-title {
+    font-size: 2em;
+    line-height: 2em;
+    font-weight: 700;
+    margin: 0 auto 0 auto;
+    color: white;
+    display: block;
+    width: 100%;
+    text-transform: uppercase;
+    position: relative;
+    z-index: 2;
+    cursor: pointer;
+    -webkit-font-smoothing: antialiased;
+    text-shadow: 2px 2px 1px rgba(0,0,0,0.5);
+    padding: 0.6rem 0 0.6rem 1rem;
 
-  @include breakpoint(large) {
-    font-size: 3em;
-    padding-top: 2rem;
-    padding-bottom: 3rem;
+    @include breakpoint(medium) {
+      font-size: 2.5em;
+      line-height: 3.7rem;
+      padding-top: 1rem;
+      padding-bottom: 2.5rem;
+      padding-right: .85227rem;
+      padding-left: 1rem;
+
+      &::after {
+        content: "";
+        position: absolute;
+        background: url("/themes/custom/limestone/images/lc-sprite.svg") no-repeat -467px -388px;
+        background-size: 708px !important;
+        width: 155px;
+        height: 14px;
+        top: auto;
+        bottom: 2.25rem;
+        left: 1rem;
+      }
+    }
+
+    @include breakpoint(large) {
+      font-size: 3em;
+      padding-top: 2rem;
+      padding-bottom: 3rem;
+    }
   }
 }
+
 .field-header-background-image {
   width: 100%;
   height: 100%;
