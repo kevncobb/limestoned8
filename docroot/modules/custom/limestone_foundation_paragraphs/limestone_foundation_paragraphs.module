@@ -7,7 +7,6 @@
 
 use Drupal\file\Entity\File;
 use Drupal\image\Entity\ImageStyle;
-use Drupal\image\Entity\ResponsiveImage;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\field\Entity\FieldStorageConfig;
@@ -51,7 +50,7 @@ function limestone_foundation_paragraphs_preprocess_paragraph(&$variables) {
       $file = File::load($target_id);
       if (isset($file)) {
         $file_uri = $file->getFileUri();
-        $style = ResponsiveImage::load('de2e');
+        $style = ImageStyle::load('de2e');
         $file_path = $style->buildUrl($file_uri);
       }
     }
@@ -70,7 +69,7 @@ function limestone_foundation_paragraphs_preprocess_paragraph(&$variables) {
       $file = File::load($target_id);
       if (isset($file)) {
         $file_uri = $file->getFileUri();
-        $style = ResponsiveImage::load('subheader_background');
+        $style = ImageStyle::load('header_background_image');
         $file_path = $style->buildUrl($file_uri);
       }
     }
