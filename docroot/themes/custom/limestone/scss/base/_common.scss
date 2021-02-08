@@ -73,6 +73,9 @@ html {
 }
 .max-600, .mw-600 {
   max-width: 600px;
+  .media-cover-image {
+    max-width: 95%;
+  }
 }
 .max-800, .mw-800 {
   max-width: 800px;
