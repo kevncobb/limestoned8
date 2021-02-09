@@ -95,3 +95,9 @@ jquery:
   version: 1.x
   dependencies:
     - core/jquery
+juicer:
+  version: 1.x
+  js:
+    js/juicer.js: {}
+  css:
+    css/juicer.css: {}

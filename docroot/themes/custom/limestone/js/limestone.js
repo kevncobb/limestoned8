@@ -54,8 +54,8 @@
   Drupal.behaviors.lc_menu = {
     attach: function (context, settings) {
       $(context).find('.lc-mobile-menu-toggle').bind('touchstart click', function (event) {
-        event.stopPropagation();
-        event.preventDefault();
+        //event.stopPropagation();
+        //event.preventDefault();
         $(this).toggleClass("expander-hidden");
         if (!Foundation.MediaQuery.atLeast("medium")){
           // workaround for https://github.com/zurb/foundation-sites/issues/10478
@@ -101,8 +101,8 @@
   Drupal.behaviors.open_gallery = {
     attach: function (context, settings) {
       $(context).find('a.open-side-column-gallery').bind('touchstart click', function (event) {
-        event.stopPropagation();
-        event.preventDefault();
+        //event.stopPropagation();
+        //event.preventDefault();
         var holdingCell = $(this).parents('.cell');
         var galleryElement = $(holdingCell).siblings('.cell').find('.cover-image > .field-items > .field-item:first-child a.colorbox');
         var galleryLink = $(galleryElement).colorbox();
