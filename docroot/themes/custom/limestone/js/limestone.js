@@ -178,17 +178,18 @@
       }
     }
   };
-  /*
+
   Drupal.behaviors.onPageLoad = {
     attach: function (context, settings) {
       $(window).bind("load", function() {
-        $(context).find('nav.menu--desktop-megamenu>ul.menu.dropdown.menu.medium-horizontal>li.is-dropdown-submenu-parent ul.is-dropdown-submenu').each(function() {
-          $( this ).css("display", "block");
-        });
+        if ($(window).width() > 767.98) {
+          $(context).find('.main-menu-region nav.show-for-desktop-menu').each(function() {
+            $( this ).css("display", "block !important");
+          });
+        }
       });
     }
   };
-   */
 })(jQuery, Drupal);
 
 

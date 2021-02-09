@@ -462,9 +462,6 @@
     display: block !important;
   }
   @include breakpoint(medium) {
-    nav.show-for-desktop-menu {
-      display: block !important;
-    }
     nav.show-for-mobile-menu, .title-bar.show-for-mobile-menu {
       display: none !important;
     }
