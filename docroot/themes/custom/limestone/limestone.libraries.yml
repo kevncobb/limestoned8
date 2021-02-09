@@ -100,4 +100,4 @@ juicer:
   js:
     js/juicer.js: {}
   css:
-    css/juicer.css: {}
+    fonts/juicer.css: {}
