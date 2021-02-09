@@ -156,6 +156,8 @@
 // Each section of the document has it's own partial seperated out to improve
 // developer experience. Additionally, grids can be declared in layouts as well.
 @import 'layout/header';
+@import 'modules/top-bar';
+@import 'modules/menu-main-region';
 @import 'layout/main';
 @import 'layout/aside';
 @import 'layout/footer';
@@ -163,7 +165,7 @@
 @import 'layout/layouts';
 
 // Modules
-@import 'modules/accordion';
+
 @import 'modules/block';
 @import 'modules/news';
 @import 'modules/paragraphs';
@@ -181,9 +183,8 @@
 @import 'modules/menu-block';
 @import 'modules/flip-cards';
 @import 'modules/menu-icons';
-@import 'modules/menu-main-region';
-@import 'modules/top-bar';
 @import 'modules/callout';
+@import 'modules/accordion';
 @import 'modules/lists';
 @import 'modules/search';
 @import 'modules/slope-separated-content';
