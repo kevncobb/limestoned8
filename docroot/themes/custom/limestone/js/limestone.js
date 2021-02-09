@@ -147,36 +147,46 @@
       $(window).bind("load", function() {
         $(context).find('#side-submenu > ul.root-level > li.menu-item--active-trail').each(function() {
           $( this ).find("button").attr("aria-expanded","true");
-          $( this ).find("ul.is-accordion-submenu").delay(200).attr("aria-hidden","false").css("display", "block");;
+          $( this ).find("ul.is-accordion-submenu").delay(200).attr("aria-hidden","false").css("display", "block");
         });
       });
     }
   };
   Drupal.behaviors.lc_footer = {
     attach: function (context, settings) {
-      if ( $(".lc-footer").length > 0) {
-        var a = function() {
-          window.scrollY;
-          for (var e, t, n = l.offsetTop + 100 + l.clientHeight - window.scrollY, s = 0, a = 0; a < i.length; a++)
-            t = (e = i[a]).getAttribute("data-speed") / -100,
-            n < c && n < o && (s = d ? (n - o) * t : (n - c) * t),
-              e.style.transform = "translate(0px," + s + "px)"
-        }
-          , r = document.querySelector(".lc-footer")
-          , i = document.querySelectorAll(".lc-footer-layer")
-          , c = window.innerHeight
-          , o = r.offsetTop
-          , l = document.getElementById("main")
-          , d = o < c;
-        window.addEventListener("scroll", (function(e) {
-            a()
+      if ($(window).width() > 530) {
+        if ($(".lc-footer").length > 0) {
+          var a = function () {
+            window.scrollY;
+            for (var e, t, n = l.offsetTop + 100 + l.clientHeight - window.scrollY, s = 0, a = 0; a < i.length; a++)
+              t = (e = i[a]).getAttribute("data-speed") / -100,
+              n < c && n < o && (s = d ? (n - o) * t : (n - c) * t),
+                e.style.transform = "translate(0px," + s + "px)"
           }
-        )),
-          a()
+            , r = document.querySelector(".lc-footer")
+            , i = document.querySelectorAll(".lc-footer-layer")
+            , c = window.innerHeight
+            , o = r.offsetTop
+            , l = document.getElementById("main")
+            , d = o < c;
+          window.addEventListener("scroll", (function (e) {
+              a()
+            }
+          )),
+            a()
+        }
       }
     }
   };
-
+  Drupal.behaviors.onPageLoad = {
+    attach: function (context, settings) {
+      $(window).bind("load", function() {
+        $(context).find('nav.menu--desktop-megamenu>ul.menu.dropdown.menu.medium-horizontal>li.is-dropdown-submenu-parent ul.is-dropdown-submenu').each(function() {
+          $( this ).css("display", "block");
+        });
+      });
+    }
+  };
 })(jQuery, Drupal);
 
 
