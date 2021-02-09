@@ -182,7 +182,7 @@
   Drupal.behaviors.onPageLoad = {
     attach: function (context, settings) {
       $(window).bind("load", function() {
-        if ($(window).width() > 767.98) {
+        if ($(window).width() > 767) {
           $(context).find('.main-menu-region nav.show-for-desktop-menu').each(function() {
             $( this ).css("display", "block !important");
           });
