@@ -178,7 +178,7 @@
       }
     }
   };
-
+/*
   Drupal.behaviors.onPageLoad = {
     attach: function (context, settings) {
       $(window).bind("load", function() {
@@ -190,6 +190,7 @@
       });
     }
   };
+ */
 })(jQuery, Drupal);
 
 
