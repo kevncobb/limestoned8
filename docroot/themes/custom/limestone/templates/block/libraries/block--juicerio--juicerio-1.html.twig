@@ -53,7 +53,10 @@
 %}
 <section{{ attributes.addClass(classes) }}>
   {% endif %}
-
+  <style type="text/css">
+    .juicer-feed li.feed-item.j-video a.j-image:before, .juicer-feed .j-facebook:before, .juicer-feed .j-twitter:before, .juicer-feed .j-instagram:before,.juicer-feed .j-pinterest:before, .juicer-feed .j-linkedin:before, .juicer-feed .j-email:before, .juicer-feed .j-previous:before, .juicer-feed .j-next:before {font-family: 'fontawesome-5-juicer' !important;}
+  </style>
+  <h2 class="mega-title center color-white spacing-bottom-xs spacing-top-sm">Connect With Us</h2>
   {{ title_prefix }}
   {% if label %}
     <h2 {{ title_attributes }}>{{ label }}</h2>
