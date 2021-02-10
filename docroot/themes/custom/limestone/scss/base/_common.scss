@@ -5,12 +5,7 @@
 // %font-FONTNAME   {}
 // %font-sans-serif { font-family: sans-serif; }
 // %font-serif      { font-family: serif; }
-@font-face {
-  font-family: 'interstate-boldregular';
-  src: url('/themes/custom/limestone/fonts/font_bureau_-_interstate-bold-webfont.woff2') format('woff2'),url('/themes/custom/limestone/fonts/font_bureau_-_interstate-bold-webfont.woff') format('woff');
-  font-weight: normal;
-  font-style: normal;
-}
+
 html {
   scroll-behavior: smooth;
 }
