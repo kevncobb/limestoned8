@@ -20,7 +20,8 @@
         "vardot/varbase-updater": "~1.0",
         "webflo/drupal-finder": "~1.0",
         "webmozart/path-util": "~2.0",
-        "drupal/image_effects": "^3.0"
+        "drupal/image_effects": "^3.0",
+        "drupal/minifyjs": "^2.2"
     },
     "conflict": {
         "drupal/drupal": "*"
