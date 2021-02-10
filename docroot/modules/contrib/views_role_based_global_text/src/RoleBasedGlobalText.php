@@ -33,7 +33,7 @@ class RoleBasedGlobalText extends Text {
       '#title' => $this->t('Select Roles'),
       '#type' => 'checkboxes',
       '#options' => user_role_names(),
-      '#default_value' => $this->options['roles_fieldset']['roles'],
+      '#default_value' => $this->options['roles_fieldset']['roles'] ?? [],
       '#description' => $this->t('Only the checked roles will be able to access this value. If no role is selected, available to all.'),
     ];
   }
@@ -43,8 +43,8 @@ class RoleBasedGlobalText extends Text {
    */
   public function render($empty = FALSE) {
     // Get the checked roles.
-    $checked_roles = $this->options['roles_fieldset']['roles'];
-    $checked_roles = is_array($checked_roles) ? array_filter($checked_roles) : [];
+    $checked_roles = $this->options['roles_fieldset'] && is_array($this->options['roles_fieldset']['roles']) ? array_filter($this->options['roles_fieldset']['roles']) : [];
+
     // Roles assigned to logged-in users.
     $user_roles = \Drupal::currentUser()->getRoles();
 
