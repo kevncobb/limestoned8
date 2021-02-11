@@ -2,18 +2,12 @@
 
 namespace Drupal\Tests\search_api_solr\Functional;
 
-use Drupal\search_api\Entity\Index;
-use Drupal\search_api_solr\Utility\SolrCommitTrait;
-use Drupal\Tests\search_api\Functional\IntegrationTest as SearchApiIntegrationTest;
-
 /**
  * Tests the overall functionality of the Search API framework and admin UI.
  *
  * @group search_api_solr
  */
-class IntegrationTest extends SearchApiIntegrationTest {
-
-  use SolrCommitTrait;
+class IntegrationTest extends \Drupal\Tests\search_api\Functional\IntegrationTest {
 
   /**
    * The backend of the search server used for this test.
@@ -25,19 +19,19 @@ class IntegrationTest extends SearchApiIntegrationTest {
   /**
    * {@inheritdoc}
    */
-  public static $modules = [
+  public static $modules = array(
     'search_api_solr',
     'search_api_solr_test',
-  ];
+  );
 
   /**
    * {@inheritdoc}
    */
-  protected function tearDown(): void {
+  protected function tearDown() {
     if ($this->indexId) {
       if ($index = $this->getIndex()) {
         $index->clear();
-        $this->ensureCommit($index);
+        sleep(2);
       }
     }
     parent::tearDown();
@@ -135,13 +129,10 @@ class IntegrationTest extends SearchApiIntegrationTest {
    *
    * @return int
    *   The number of successfully indexed items.
-   *
-   * @throws \Drupal\search_api\SearchApiException
    */
   protected function indexItems() {
     $index_status = parent::indexItems();
-    $index = Index::load($this->indexId);
-    $this->ensureCommit($index);
+    sleep(2);
     return $index_status;
   }
 

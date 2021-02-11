@@ -7,7 +7,6 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Link;
 use Drupal\Core\Plugin\PluginFormInterface;
 use Drupal\Core\Url;
-use Drupal\search_api\LoggerTrait;
 use Drupal\search_api\Plugin\ConfigurablePluginBase;
 use Drupal\search_api\Plugin\PluginFormTrait;
 use Drupal\search_api_solr\SearchApiSolrException;
@@ -21,13 +20,13 @@ use Solarium\Core\Client\Adapter\TimeoutAwareInterface;
 use Solarium\Core\Client\Endpoint;
 use Solarium\Core\Client\Request;
 use Solarium\Core\Client\Response;
+use Solarium\Core\Query\Helper;
 use Solarium\Core\Query\QueryInterface;
 use Solarium\Exception\HttpException;
 use Solarium\QueryType\Extract\Result as ExtractResult;
 use Solarium\QueryType\Update\Query\Query as UpdateQuery;
 use Solarium\QueryType\Select\Query\Query;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use ZipStream\ZipStream;
 
 /**
  * Defines a base class for Solr connector plugins.
@@ -62,8 +61,6 @@ abstract class SolrConnectorPluginBase extends ConfigurablePluginBase implements
     submitConfigurationForm as traitSubmitConfigurationForm;
   }
 
-  use LoggerTrait;
-
   /**
    * The event dispatcher.
    *
@@ -96,85 +93,64 @@ abstract class SolrConnectorPluginBase extends ConfigurablePluginBase implements
     return [
       'scheme' => 'http',
       'host' => 'localhost',
-      'port' => 8983,
-      'path' => '/',
+      'port' => '8983',
+      'path' => '/solr',
       'core' => '',
       'timeout' => 5,
-      self::INDEX_TIMEOUT => 5,
-      self::OPTIMIZE_TIMEOUT => 10,
-      self::FINALIZE_TIMEOUT => 30,
+      'index_timeout' => 5,
+      'optimize_timeout' => 10,
       'solr_version' => '',
       'http_method' => 'AUTO',
       'commit_within' => 1000,
-      'jmx' => FALSE,
-      'solr_install_dir' => '',
-      'skip_schema_check' => FALSE,
     ];
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function setConfiguration(array $configuration) {
-    $configuration['port'] = (int) $configuration['port'];
-    $configuration['timeout'] = (int) $configuration['timeout'];
-    $configuration[self::INDEX_TIMEOUT] = (int) $configuration[self::INDEX_TIMEOUT];
-    $configuration[self::OPTIMIZE_TIMEOUT] = (int) $configuration[self::OPTIMIZE_TIMEOUT];
-    $configuration[self::FINALIZE_TIMEOUT] = (int) $configuration[self::FINALIZE_TIMEOUT];
-    $configuration['commit_within'] = (int) $configuration['commit_within'];
-    $configuration['jmx'] = (bool) $configuration['jmx'];
-    $configuration['skip_schema_check'] = (bool) $configuration['skip_schema_check'];
-
-    parent::setConfiguration($configuration);
   }
 
   /**
    * {@inheritdoc}
    */
   public function buildConfigurationForm(array $form, FormStateInterface $form_state) {
-    $form['scheme'] = [
+    $form['scheme'] = array(
       '#type' => 'select',
       '#title' => $this->t('HTTP protocol'),
       '#description' => $this->t('The HTTP protocol to use for sending queries.'),
       '#default_value' => isset($this->configuration['scheme']) ? $this->configuration['scheme'] : 'http',
-      '#options' => [
+      '#options' => array(
         'http' => 'http',
         'https' => 'https',
-      ],
-    ];
+      ),
+    );
 
-    $form['host'] = [
+    $form['host'] = array(
       '#type' => 'textfield',
       '#title' => $this->t('Solr host'),
       '#description' => $this->t('The host name or IP of your Solr server, e.g. <code>localhost</code> or <code>www.example.com</code>.'),
       '#default_value' => isset($this->configuration['host']) ? $this->configuration['host'] : '',
       '#required' => TRUE,
-    ];
+    );
 
-    $form['port'] = [
+    $form['port'] = array(
       '#type' => 'textfield',
       '#title' => $this->t('Solr port'),
       '#description' => $this->t('The Jetty example server is at port 8983, while Tomcat uses 8080 by default.'),
       '#default_value' => isset($this->configuration['port']) ? $this->configuration['port'] : '',
       '#required' => TRUE,
-    ];
+    );
 
-    $form['path'] = [
+    $form['path'] = array(
       '#type' => 'textfield',
       '#title' => $this->t('Solr path'),
       '#description' => $this->t('The path that identifies the Solr instance to use on the server.'),
-      '#default_value' => isset($this->configuration['path']) ? $this->configuration['path'] : '/',
-    ];
+      '#default_value' => isset($this->configuration['path']) ? $this->configuration['path'] : '',
+    );
 
-    $form['core'] = [
+    $form['core'] = array(
       '#type' => 'textfield',
       '#title' => $this->t('Solr core'),
       '#description' => $this->t('The name that identifies the Solr core to use on the server.'),
       '#default_value' => isset($this->configuration['core']) ? $this->configuration['core'] : '',
-      '#required' => TRUE,
-    ];
+    );
 
-    $form['timeout'] = [
+    $form['timeout'] = array(
       '#type' => 'number',
       '#min' => 1,
       '#max' => 180,
@@ -182,102 +158,68 @@ abstract class SolrConnectorPluginBase extends ConfigurablePluginBase implements
       '#description' => $this->t('The timeout in seconds for search queries sent to the Solr server.'),
       '#default_value' => isset($this->configuration['timeout']) ? $this->configuration['timeout'] : 5,
       '#required' => TRUE,
-    ];
+    );
 
-    $form[self::INDEX_TIMEOUT] = [
+    $form['index_timeout'] = array(
       '#type' => 'number',
       '#min' => 1,
       '#max' => 180,
       '#title' => $this->t('Index timeout'),
       '#description' => $this->t('The timeout in seconds for indexing requests to the Solr server.'),
-      '#default_value' => isset($this->configuration[self::INDEX_TIMEOUT]) ? $this->configuration[self::INDEX_TIMEOUT] : 5,
+      '#default_value' => isset($this->configuration['index_timeout']) ? $this->configuration['index_timeout'] : 5,
       '#required' => TRUE,
-    ];
+    );
 
-    $form[self::OPTIMIZE_TIMEOUT] = [
+    $form['optimize_timeout'] = array(
       '#type' => 'number',
       '#min' => 1,
       '#max' => 180,
       '#title' => $this->t('Optimize timeout'),
       '#description' => $this->t('The timeout in seconds for background index optimization queries on a Solr server.'),
-      '#default_value' => isset($this->configuration[self::OPTIMIZE_TIMEOUT]) ? $this->configuration[self::OPTIMIZE_TIMEOUT] : 10,
+      '#default_value' => isset($this->configuration['optimize_timeout']) ? $this->configuration['optimize_timeout'] : 10,
       '#required' => TRUE,
-    ];
+    );
 
-    $form[self::FINALIZE_TIMEOUT] = [
-      '#type' => 'number',
-      '#min' => 1,
-      '#max' => 180,
-      '#title' => $this->t('Finalize timeout'),
-      '#description' => $this->t('The timeout in seconds for index finalization queries on a Solr server.'),
-      '#default_value' => isset($this->configuration[self::FINALIZE_TIMEOUT]) ? $this->configuration[self::FINALIZE_TIMEOUT] : 30,
-      '#required' => TRUE,
-    ];
-
-    $form['commit_within'] = [
+    $form['commit_within'] = array(
       '#type' => 'number',
       '#min' => 0,
       '#title' => $this->t('Commit within'),
       '#description' => $this->t('The limit in milliseconds within a (soft) commit on Solr is forced after any updating the index in any way. Setting the value to "0" turns off this dynamic enforcement and lets Solr behave like configured solrconf.xml.'),
       '#default_value' => isset($this->configuration['commit_within']) ? $this->configuration['commit_within'] : 1000,
       '#required' => TRUE,
-    ];
+    );
 
-    $form['workarounds'] = [
-      '#type' => 'details',
+    $form['workarounds'] = array(
+      '#type' => 'fieldset',
       '#title' => $this->t('Connector Workarounds'),
-    ];
+      '#collapsible' => TRUE,
+      '#collapsed' => TRUE,
+    );
 
-    $form['workarounds']['solr_version'] = [
+    $form['workarounds']['solr_version'] = array(
       '#type' => 'select',
       '#title' => $this->t('Solr version override'),
       '#description' => $this->t('Specify the Solr version manually in case it cannot be retrived automatically. The version can be found in the Solr admin interface under "Solr Specification Version" or "solr-spec"'),
-      '#options' => [
+      '#options' => array(
         '' => $this->t('Determine automatically'),
+        '4' => '4.x',
+        '5' => '5.x',
         '6' => '6.x',
-        '7' => '7.x',
-        '8' => '8.x',
-      ],
-      '#default_value' => $this->configuration['solr_version'] ?? '',
-    ];
+      ),
+      '#default_value' => isset($this->configuration['solr_version']) ? $this->configuration['solr_version'] : '',
+    );
 
-    $form['workarounds']['http_method'] = [
+    $form['workarounds']['http_method'] = array(
       '#type' => 'select',
       '#title' => $this->t('HTTP method'),
       '#description' => $this->t('The HTTP method to use for sending queries. GET will often fail with larger queries, while POST should not be cached. AUTO will use GET when possible, and POST for queries that are too large.'),
-      '#default_value' => $this->configuration['http_method'] ?? 'AUTO',
-      '#options' => [
+      '#default_value' => isset($this->configuration['http_method']) ? $this->configuration['http_method'] : 'AUTO',
+      '#options' => array(
         'AUTO' => $this->t('AUTO'),
         'POST' => 'POST',
         'GET' => 'GET',
-      ],
-    ];
-
-    $form['workarounds']['skip_schema_check'] = [
-      '#type' => 'checkbox',
-      '#title' => $this->t('Skip schema verification'),
-      '#description' => $this->t('Skip the automatic check for schema-compatibillity. Use this override if you are seeing an error-message about an incompatible schema.xml configuration file, and you are sure the configuration is compatible.'),
-      '#default_value' => $this->configuration['skip_schema_check'] ?? FALSE,
-    ];
-
-    $form['advanced'] = [
-      '#type' => 'details',
-      '#title' => $this->t('Advanced server configuration'),
-    ];
-
-    $form['advanced']['jmx'] = [
-      '#type' => 'checkbox',
-      '#title' => $this->t('Enable JMX'),
-      '#description' => $this->t('Enable JMX based monitoring.'),
-      '#default_value' => isset($this->configuration['jmx']) ? $this->configuration['jmx'] : FALSE,
-    ];
-
-    $form['advanced']['solr_install_dir'] = [
-      '#type' => 'textfield',
-      '#title' => $this->t('solr.install.dir'),
-      '#description' => $this->t('The path where Solr is installed on the server, relative to the configuration or absolute. Some examples are "../../.." for Solr downloaded from apache.org, "/usr/local/opt/solr" for installations via homebrew on macOS or "/opt/solr" for some linux distributions and for the official Solr docker container. If you use different systems for development, testing and production you can use drupal config overwrites to adjust the value per environment or adjust the generated solrcore.properties per environment or use java virtual machine options (-D) to set the property. Modern Solr installations should set that virtual machine option correctly in their start script by themselves. In this case this field should be left empty!'),
-      '#default_value' => isset($this->configuration['solr_install_dir']) ? $this->configuration['solr_install_dir'] : '',
-    ];
+      ),
+    );
 
     return $form;
   }
@@ -294,14 +236,20 @@ abstract class SolrConnectorPluginBase extends ConfigurablePluginBase implements
       $form_state->setError($form['path'], $this->t('If provided the path has to start with "/".'));
     }
     if (!empty($values['core']) && strpos($values['core'], '/') === 0) {
-      $form_state->setError($form['core'], $this->t('Core or collection must not start with "/".'));
+      $form_state->setError($form['core'], $this->t('The core must not start with "/".'));
     }
 
     if (!$form_state->hasAnyErrors()) {
       // Try to orchestrate a server link from form values.
       $values_copied = $values;
+      // Solr 3 doesn't have the core name in the path. But solarium 6 needs it.
+      // The period is a workaround that gives us URLs like "solr/./select".
+      if (!$values_copied['core']) {
+        $values_copied['core'] = '.';
+      }
+
       $solr = $this->createClient($values_copied);
-      $solr->createEndpoint($values_copied + ['key' => 'search_api_solr'], TRUE);
+      $solr->createEndpoint($values + ['key' => 'core'], TRUE);
       try {
         $this->getServerLink();
       }
@@ -325,13 +273,9 @@ abstract class SolrConnectorPluginBase extends ConfigurablePluginBase implements
     foreach ($values['workarounds'] as $key => $value) {
       $form_state->setValue($key, $value);
     }
-    foreach ($values['advanced'] as $key => $value) {
-      $form_state->setValue($key, $value);
-    }
 
     // Clean-up the form to avoid redundant entries in the stored configuration.
     $form_state->unsetValue('workarounds');
-    $form_state->unsetValue('advanced');
 
     $this->traitSubmitConfigurationForm($form, $form_state);
   }
@@ -342,9 +286,33 @@ abstract class SolrConnectorPluginBase extends ConfigurablePluginBase implements
   protected function connect() {
     if (!$this->solr) {
       $configuration = $this->configuration;
+      // Solr 3 doesn't have the core name in the path. But solarium 6 needs it.
+      // The period is a workaround that gives us URLs like "solr/./select".
+      if (!$configuration['core']) {
+        $configuration['core'] = '.';
+      }
+
       $this->solr = $this->createClient($configuration);
-      $this->solr->createEndpoint($configuration + ['key' => 'search_api_solr'], TRUE);
+      $this->solr->createEndpoint($this->configuration + ['key' => 'core'], TRUE);
+      $this->attachServerEndpoint();
     }
+  }
+
+  /**
+   * Attaches an endpoint to the Solr connection to communicate with the server.
+   *
+   * This endpoint is different from the core endpoint which is the default one.
+   * The default endpoint for the core is used to communicate with the index.
+   * But for some administrative tasks the server itself needs to be contacted.
+   * This function is meant to be overwritten as soon as we deal with Solr
+   * service provider specific implementations of SolrHelper.
+   */
+  protected function attachServerEndpoint() {
+    $this->connect();
+    $configuration = $this->configuration;
+    $configuration['core'] = '.';
+    $configuration['key'] = 'server';
+    $this->solr->createEndpoint($configuration);
   }
 
   /**
@@ -362,13 +330,6 @@ abstract class SolrConnectorPluginBase extends ConfigurablePluginBase implements
     }
     unset($configuration['timeout']);
     return new Client($adapter, $this->eventDispatcher);
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function isCloud() {
-    return FALSE;
   }
 
   /**
@@ -398,7 +359,7 @@ abstract class SolrConnectorPluginBase extends ConfigurablePluginBase implements
    * {@inheritdoc}
    */
   public function getCoreLink() {
-    $url_path = $this->getServerUri() . 'solr/#/' . $this->configuration['core'];
+    $url_path = $this->getServerUri() . '#/' . $this->configuration['core'];
     $url = Url::fromUri($url_path);
 
     return Link::fromTextAndUrl($url_path, $url);
@@ -415,32 +376,14 @@ abstract class SolrConnectorPluginBase extends ConfigurablePluginBase implements
       // corresponding full version string.
       $min_version = ['0', '0', '0'];
       $version = implode('.', explode('.', $this->configuration['solr_version']) + $min_version);
-      switch ($version) {
-        case '3.0.0':
-          // 3.6.0 is the minimum supported Solr 3 version by the
-          // search_api_solr_legacy module.
-          $version = '3.6.0';
-          break;
-        case '4.0.0':
-          // 4.5.0 is the minimum supported Solr 4 version by the
-          // search_api_solr_legacy module.
-          $version = '4.5.0';
-          break;
-        case '6.0.0':
-          // 6.4.0 is the minimum supported Solr version. Earlier Solr 6
-          // versions should run in Solr 5 compatibility mode using the
-          // search_api_solr_legacy module.
-          $version = '6.4.0';
-          break;
-      }
-      return $version;
+      return '4.0.0' === $version ? '4.5.0' : $version;
     }
 
     $info = [];
     try {
       $info = $this->getCoreInfo();
     }
-    catch (\Exception $e) {
+    catch (SearchApiSolrException $e) {
       try {
         $info = $this->getServerInfo();
       }
@@ -450,11 +393,7 @@ abstract class SolrConnectorPluginBase extends ConfigurablePluginBase implements
 
     // Get our solr version number.
     if (isset($info['lucene']['solr-spec-version'])) {
-      // Some Solr distributions or docker images append additional info to the
-      // version number, for example the build date: 3.6.2.2012.12.18.19.52.27.
-      if (preg_match('/^(\d+\.\d+\.\d+)/', $info['lucene']['solr-spec-version'], $matches)) {
-        return $matches[1];
-      }
+      return $info['lucene']['solr-spec-version'];
     }
 
     return '0.0.0';
@@ -463,9 +402,9 @@ abstract class SolrConnectorPluginBase extends ConfigurablePluginBase implements
   /**
    * {@inheritdoc}
    */
-  public function getSolrMajorVersion($version = ''): int {
-    [$major] = explode('.', $version ?: $this->getSolrVersion());
-    return (int) $major;
+  public function getSolrMajorVersion($version = '') {
+    [$major, ,] = explode('.', $version ?: $this->getSolrVersion());
+    return $major;
   }
 
   /**
@@ -479,7 +418,7 @@ abstract class SolrConnectorPluginBase extends ConfigurablePluginBase implements
    * {@inheritdoc}
    */
   public function getLuceneMatchVersion($version = '') {
-    [$major, $minor] = explode('.', $version ?: $this->getSolrVersion());
+    [$major, $minor,] = explode('.', $version ?: $this->getSolrVersion());
     return $major . '.' . $minor;
   }
 
@@ -488,7 +427,7 @@ abstract class SolrConnectorPluginBase extends ConfigurablePluginBase implements
    */
   public function getServerInfo($reset = FALSE) {
     $this->useTimeout();
-    return $this->getDataFromHandler('admin/info/system', $reset);
+    return $this->getDataFromHandler('server', 'admin/info/system', $reset);
   }
 
   /**
@@ -496,7 +435,7 @@ abstract class SolrConnectorPluginBase extends ConfigurablePluginBase implements
    */
   public function getCoreInfo($reset = FALSE) {
     $this->useTimeout();
-    return $this->getDataFromHandler($this->configuration['core'] . '/admin/system', $reset);
+    return $this->getDataFromHandler('core', 'admin/system', $reset);
   }
 
   /**
@@ -504,7 +443,7 @@ abstract class SolrConnectorPluginBase extends ConfigurablePluginBase implements
    */
   public function getLuke() {
     $this->useTimeout();
-    return $this->getDataFromHandler($this->configuration['core'] . '/admin/luke', TRUE);
+    return $this->getDataFromHandler('core', 'admin/luke', TRUE);
   }
 
   /**
@@ -523,90 +462,75 @@ abstract class SolrConnectorPluginBase extends ConfigurablePluginBase implements
   }
 
   /**
-   * {@inheritdoc}
-   */
-  public function getSchemaTargetedSolrBranch($reset = FALSE) {
-    $parts = explode('-', $this->getSchemaVersionString($reset));
-    return $parts[3];
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function isJumpStartConfigSet(bool $reset = FALSE): bool {
-    $parts = explode('-', $this->getSchemaVersionString($reset));
-    return (bool) ($parts[4] ?? 0);
-  }
-
-  /**
    * Gets data from a Solr endpoint using a given handler.
    *
-   * @param string $handler
-   *   The handler used for the API query.
+   * @param $endpoint_name
+   * @param $handler
    * @param bool $reset
    *   If TRUE the server will be asked regardless if a previous call is cached.
    *
-   * @return array
-   *   Response data with system information.
-   *
-   * @throws \Drupal\search_api_solr\SearchApiSolrException
+   * @return object
+   *   A response object with system information.
    */
-  protected function getDataFromHandler($handler, $reset = FALSE) {
+  protected function getDataFromHandler($endpoint_name, $handler, $reset = FALSE) {
     static $previous_calls = [];
 
     $this->connect();
 
-    // We keep the results in a state instead of a cache because we want to
-    // access parts of this data even if Solr is temporarily not reachable and
-    // caches have been cleared.
+    $endpoint = $this->solr->getEndpoint($endpoint_name);
+    $endpoint_uri = $endpoint->getBaseUri();
     $state_key = 'search_api_solr.endpoint.data';
     $state = \Drupal::state();
     $endpoint_data = $state->get($state_key);
-    $server_uri = $this->getServerUri();
 
-    if (!isset($previous_calls[$server_uri][$handler]) || !isset($endpoint_data[$server_uri][$handler]) || $reset) {
+    if (!isset($previous_calls[$endpoint_uri][$handler]) || $reset) {
       // Don't retry multiple times in case of an exception.
-      $previous_calls[$server_uri][$handler] = TRUE;
+      $previous_calls[$endpoint_name] = TRUE;
 
-      if (!is_array($endpoint_data) || !isset($endpoint_data[$server_uri][$handler]) || $reset) {
-        $query = $this->solr->createApi([
-          'handler' => $handler,
-          'version' => Request::API_V1,
-        ]);
-        $endpoint_data[$server_uri][$handler] = $this->execute($query)->getData();
+      if (!is_array($endpoint_data) || !isset($endpoint_data[$endpoint_uri][$handler]) || $reset) {
+        // @todo Finish https://github.com/solariumphp/solarium/pull/155 and stop
+        // abusing the ping query for this.
+        $query = $this->solr->createPing(array('handler' => $handler));
+        $endpoint_data[$endpoint_uri][$handler] = $this->execute($query, $endpoint)->getData();
         $state->set($state_key, $endpoint_data);
       }
     }
 
-    return $endpoint_data[$server_uri][$handler];
+    return $endpoint_data[$endpoint_uri][$handler];
   }
 
   /**
    * {@inheritdoc}
    */
-  public function pingCore(array $options = []) {
-    return $this->pingEndpoint(NULL, $options);
+  public function pingCore() {
+    return $this->doPing();
   }
 
   /**
    * {@inheritdoc}
    */
   public function pingServer() {
-    return $this->getServerInfo(TRUE);
+    return $this->doPing(['handler' => 'admin/info/system'], 'server');
   }
 
   /**
-   * {@inheritdoc}
+   * Pings the Solr server to tell whether it can be accessed.
+   *
+   * @param string $endpoint_name
+   *   The endpoint to be pinged on the Solr server.
+   *
+   * @return mixed
+   *   The latency in milliseconds if the core can be accessed,
+   *   otherwise FALSE.
    */
-  public function pingEndpoint(?Endpoint $endpoint = NULL, array $options = []) {
+  protected function doPing($options = [], $endpoint_name = 'core') {
     $this->connect();
-    $this->useTimeout(self::QUERY_TIMEOUT, $endpoint);
-
+    // Default is ['handler' => 'admin/ping'].
     $query = $this->solr->createPing($options);
 
     try {
       $start = microtime(TRUE);
-      $result = $this->solr->execute($query, $endpoint);
+      $result = $this->solr->execute($query, $endpoint_name);
       if ($result->getResponse()->getStatusCode() == 200) {
         // Add 1 µs to the ping time so we never return 0.
         return (microtime(TRUE) - $start) + 1E-6;
@@ -626,7 +550,7 @@ abstract class SolrConnectorPluginBase extends ConfigurablePluginBase implements
     $this->connect();
     $this->useTimeout();
 
-    $summary = [
+    $summary = array(
       '@pending_docs' => '',
       '@autocommit_time_seconds' => '',
       '@autocommit_time' => '',
@@ -636,46 +560,31 @@ abstract class SolrConnectorPluginBase extends ConfigurablePluginBase implements
       '@schema_version' => '',
       '@core_name' => '',
       '@index_size' => '',
-    ];
+    );
 
     $query = $this->solr->createPing();
     $query->setResponseWriter(Query::WT_PHPS);
     $query->setHandler('admin/mbeans?stats=true');
     $stats = $this->execute($query)->getData();
     if (!empty($stats)) {
-      $solr_version = $this->getSolrVersion(TRUE);
-      $max_time = -1;
-      if (version_compare($solr_version, '7.0', '>=')) {
-        $update_handler_stats = $stats['solr-mbeans']['UPDATE']['updateHandler']['stats'];
-        $summary['@pending_docs'] = (int) $update_handler_stats['UPDATE.updateHandler.docsPending'];
-        if (isset($update_handler_stats['UPDATE.updateHandler.softAutoCommitMaxTime'])) {
-          $max_time = (int) $update_handler_stats['UPDATE.updateHandler.softAutoCommitMaxTime'];
-        }
-        $summary['@deletes_by_id'] = (int) $update_handler_stats['UPDATE.updateHandler.deletesById'];
-        $summary['@deletes_by_query'] = (int) $update_handler_stats['UPDATE.updateHandler.deletesByQuery'];
-        $summary['@core_name'] = $stats['solr-mbeans']['CORE']['core']['stats']['CORE.coreName'] ?? $this->t('No information available.');
-        $summary['@index_size'] = $stats['solr-mbeans']['CORE']['core']['stats']['INDEX.size'] ?? $this->t('No information available.');
-      }
-      else {
-        $update_handler_stats = $stats['solr-mbeans']['UPDATEHANDLER']['updateHandler']['stats'];
-        $summary['@pending_docs'] = (int) $update_handler_stats['docsPending'];
-        $max_time = (int) $update_handler_stats['autocommit maxTime'];
-        $summary['@deletes_by_id'] = (int) $update_handler_stats['deletesById'];
-        $summary['@deletes_by_query'] = (int) $update_handler_stats['deletesByQuery'];
-        $summary['@core_name'] = $stats['solr-mbeans']['CORE']['core']['stats']['coreName'] ?? $this->t('No information available.');;
-        if (version_compare($solr_version, '6.4', '>=')) {
-          // @see https://issues.apache.org/jira/browse/SOLR-3990
-          $summary['@index_size'] = $stats['solr-mbeans']['CORE']['core']['stats']['size'] ?? $this->t('No information available.');;
-        }
-        else {
-          $summary['@index_size'] = $stats['solr-mbeans']['QUERYHANDLER']['/replication']['stats']['indexSize'] ?? $this->t('No information available.');;
-        }
-      }
-
+      $update_handler_stats = $stats['solr-mbeans']['UPDATEHANDLER']['updateHandler']['stats'];
+      $summary['@pending_docs'] = (int) $update_handler_stats['docsPending'];
+      $max_time = (int) $update_handler_stats['autocommit maxTime'];
+      // Convert to seconds.
       $summary['@autocommit_time_seconds'] = $max_time / 1000;
       $summary['@autocommit_time'] = \Drupal::service('date.formatter')->formatInterval($max_time / 1000);
+      $summary['@deletes_by_id'] = (int) $update_handler_stats['deletesById'];
+      $summary['@deletes_by_query'] = (int) $update_handler_stats['deletesByQuery'];
       $summary['@deletes_total'] = $summary['@deletes_by_id'] + $summary['@deletes_by_query'];
       $summary['@schema_version'] = $this->getSchemaVersionString(TRUE);
+      $summary['@core_name'] = $stats['solr-mbeans']['CORE']['core']['stats']['coreName'];
+      if (version_compare($this->getSolrVersion(TRUE), '6.4', '>=')) {
+        // @see https://issues.apache.org/jira/browse/SOLR-3990
+        $summary['@index_size'] = $stats['solr-mbeans']['CORE']['core']['stats']['size'];
+      }
+      else {
+        $summary['@index_size'] = $stats['solr-mbeans']['QUERYHANDLER']['/replication']['stats']['indexSize'];
+      }
     }
     return $summary;
   }
@@ -683,17 +592,17 @@ abstract class SolrConnectorPluginBase extends ConfigurablePluginBase implements
   /**
    * {@inheritdoc}
    */
-  public function coreRestGet($path, ?Endpoint $endpoint = NULL) {
+  public function coreRestGet($path) {
     $this->useTimeout();
-    return $this->restRequest($this->configuration['core'] . '/' . ltrim($path, '/'), Request::METHOD_GET, '', $endpoint);
+    return $this->restRequest('core', $path);
   }
 
   /**
    * {@inheritdoc}
    */
-  public function coreRestPost($path, $command_json = '', ?Endpoint $endpoint = NULL) {
+  public function coreRestPost($path, $command_json = '') {
     $this->useTimeout(self::INDEX_TIMEOUT);
-    return $this->restRequest($this->configuration['core'] . '/' . ltrim($path, '/'), Request::METHOD_POST, $command_json, $endpoint);
+    return $this->restRequest('core', $path, Request::METHOD_POST, $command_json);
   }
 
   /**
@@ -701,7 +610,7 @@ abstract class SolrConnectorPluginBase extends ConfigurablePluginBase implements
    */
   public function serverRestGet($path) {
     $this->useTimeout();
-    return $this->restRequest($path);
+    return $this->restRequest('server', $path);
   }
 
   /**
@@ -709,37 +618,39 @@ abstract class SolrConnectorPluginBase extends ConfigurablePluginBase implements
    */
   public function serverRestPost($path, $command_json = '') {
     $this->useTimeout(self::INDEX_TIMEOUT);
-    return $this->restRequest($path, Request::METHOD_POST, $command_json);
+    return $this->restRequest('server', $path, Request::METHOD_POST, $command_json);
   }
 
   /**
    * Sends a REST request to the Solr server endpoint and returns the result.
    *
-   * @param string $handler
-   *   The handler used for the API query.
+   * @param string $endpoint_key
+   *   The endpoint that refelcts the base URI.
+   * @param string $path
+   *   The path to append to the base URI.
    * @param string $method
    *   The HTTP request method.
    * @param string $command_json
    *   The command to send encoded as JSON.
-   * @param \Solarium\Core\Client\Endpoint|null $endpoint
    *
-   * @return array
+   * @return string
    *   The decoded response.
-   *
-   * @throws \Drupal\search_api_solr\SearchApiSolrException
    */
-  protected function restRequest($handler, $method = Request::METHOD_GET, $command_json = '', ?Endpoint $endpoint = NULL) {
+  protected function restRequest($endpoint_key, $path, $method = Request::METHOD_GET, $command_json = '') {
     $this->connect();
-    $query = $this->solr->createApi([
-      'handler' => $handler,
-      'accept' => 'application/json',
-      'contenttype' => 'application/json',
-      'method' => $method,
-      'rawdata' => (Request::METHOD_POST == $method ? $command_json : NULL),
-    ]);
 
-    $response = $this->execute($query, $endpoint);
-    $output = $response->getData();
+    $request = new Request();
+    $request->setMethod($method);
+    $request->addHeader('Accept: application/json');
+    if (Request::METHOD_POST == $method) {
+      $request->addHeader('Content-type: application/json');
+      $request->setRawData($command_json);
+    }
+    $request->setHandler($path);
+    $endpoint = $this->solr->getEndpoint($endpoint_key);
+    $response = $this->executeRequest($request, $endpoint);
+
+     $output = Json::decode($response->getBody());
     // \Drupal::logger('search_api_solr')->info(print_r($output, true));.
     if (!empty($output['errors'])) {
       throw new SearchApiSolrException('Error trying to send a REST request.' .
@@ -783,22 +694,6 @@ abstract class SolrConnectorPluginBase extends ConfigurablePluginBase implements
   /**
    * {@inheritdoc}
    */
-  public function getSpellcheckQuery() {
-    $this->connect();
-    return $this->solr->createSpellcheck();
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function getSuggesterQuery() {
-    $this->connect();
-    return $this->solr->createSuggester();
-  }
-
-  /**
-   * {@inheritdoc}
-   */
   public function getAutocompleteQuery() {
     $this->connect();
     $this->solr->registerQueryType('autocomplete', AutocompleteQuery::class);
@@ -813,7 +708,7 @@ abstract class SolrConnectorPluginBase extends ConfigurablePluginBase implements
       return $query->getHelper();
     }
 
-    return \Drupal::service('solarium.query_helper');
+    return new Helper();
   }
 
   /**
@@ -825,10 +720,7 @@ abstract class SolrConnectorPluginBase extends ConfigurablePluginBase implements
   }
 
   /**
-   * Creates a CustomizeRequest object.
-   *
-   * @return \Solarium\Plugin\CustomizeRequest\CustomizeRequest|\Solarium\Core\Plugin\PluginInterface
-   *   The Solarium CustomizeRequest object.
+   * @return \Solarium\Plugin\CustomizeRequest\CustomizeRequest
    */
   protected function customizeRequest() {
     $this->connect();
@@ -838,11 +730,11 @@ abstract class SolrConnectorPluginBase extends ConfigurablePluginBase implements
   /**
    * {@inheritdoc}
    */
-  public function search(Query $query, ?Endpoint $endpoint = NULL) {
+  public function search(Query $query, Endpoint $endpoint = NULL) {
     $this->connect();
 
     if (!$endpoint) {
-      $endpoint = $this->solr->getEndpoint();
+      $endpoint = $this->solr->getEndpoint('core');
     }
 
     $this->useTimeout(self::QUERY_TIMEOUT, $endpoint);
@@ -850,7 +742,7 @@ abstract class SolrConnectorPluginBase extends ConfigurablePluginBase implements
     // Use the 'postbigrequest' plugin if no specific http method is
     // configured. The plugin needs to be loaded before the request is
     // created.
-    if ($this->configuration['http_method'] === 'AUTO') {
+    if ($this->configuration['http_method'] == 'AUTO') {
       $this->solr->getPlugin('postbigrequest');
     }
 
@@ -859,10 +751,10 @@ abstract class SolrConnectorPluginBase extends ConfigurablePluginBase implements
     $request = $this->solr->createRequest($query);
 
     // Set the configured HTTP method.
-    if ($this->configuration['http_method'] === 'POST') {
+    if ($this->configuration['http_method'] == 'POST') {
       $request->setMethod(Request::METHOD_POST);
     }
-    elseif ($this->configuration['http_method'] === 'GET') {
+    elseif ($this->configuration['http_method'] == 'GET') {
       $request->setMethod(Request::METHOD_GET);
     }
 
@@ -872,18 +764,18 @@ abstract class SolrConnectorPluginBase extends ConfigurablePluginBase implements
   /**
    * {@inheritdoc}
    */
-  public function createSearchResult(QueryInterface $query, Response $response) {
+  public function createSearchResult(Query $query, Response $response) {
     return $this->solr->createResult($query, $response);
   }
 
   /**
    * {@inheritdoc}
    */
-  public function update(UpdateQuery $query, ?Endpoint $endpoint = NULL) {
+  public function update(UpdateQuery $query, Endpoint $endpoint = NULL) {
     $this->connect();
 
     if (!$endpoint) {
-      $endpoint = $this->solr->getEndpoint();
+      $endpoint = $this->solr->getEndpoint('core');
     }
     // The default timeout is set for search queries. The configured timeout
     // might differ and needs to be set now because solarium doesn't
@@ -899,17 +791,16 @@ abstract class SolrConnectorPluginBase extends ConfigurablePluginBase implements
       // @see http://wiki.apache.org/solr/NearRealtimeSearch
       /** @var \Solarium\Plugin\CustomizeRequest\CustomizeRequest $request */
       $request = $this->customizeRequest();
-      if (!$request->getCustomization('commitWithin')) {
-        $request->createCustomization('commitWithin')
-          ->setType('param')
-          ->setName('commitWithin')
-          ->setValue($this->configuration['commit_within']);
-      }
+      $request->createCustomization('id')
+        ->setType('param')
+        ->setName('commitWithin')
+        ->setValue($this->configuration['commit_within']);
     }
 
-    return $this->execute($query, $endpoint);
-  }
+    $result = $this->execute($query, $endpoint);
 
+    return $result;
+  }
 
   /**
    * {@inheritdoc}
@@ -936,11 +827,11 @@ abstract class SolrConnectorPluginBase extends ConfigurablePluginBase implements
   /**
    * {@inheritdoc}
    */
-  public function execute(QueryInterface $query, ?Endpoint $endpoint = NULL) {
+  public function execute(QueryInterface $query, Endpoint $endpoint = NULL) {
     $this->connect();
 
     if (!$endpoint) {
-      $endpoint = $this->solr->getEndpoint();
+      $endpoint = $this->solr->getEndpoint('core');
     }
 
     try {
@@ -954,11 +845,11 @@ abstract class SolrConnectorPluginBase extends ConfigurablePluginBase implements
   /**
    * {@inheritdoc}
    */
-  public function executeRequest(Request $request, ?Endpoint $endpoint = NULL) {
+  public function executeRequest(Request $request, Endpoint $endpoint = NULL) {
     $this->connect();
 
     if (!$endpoint) {
-      $endpoint = $this->solr->getEndpoint();
+      $endpoint = $this->solr->getEndpoint('core');
     }
 
     try {
@@ -972,71 +863,37 @@ abstract class SolrConnectorPluginBase extends ConfigurablePluginBase implements
   /**
    * Converts a HttpException in an easier to read SearchApiSolrException.
    *
-   * Connectors must not overwrite this function. Otherwise support requests are
-   * hard to handle in the issue queue. If you want to extend this function and
-   * add more sophisticated error handling, please contribute a patch to
-   * the search_api_solr project on drupal.org.
-   *
    * @param \Solarium\Exception\HttpException $e
-   *   The HttpException object.
    * @param \Solarium\Core\Client\Endpoint $endpoint
-   *   The Solarium endpoint.
    *
    * @throws \Drupal\search_api_solr\SearchApiSolrException
    */
-  final protected function handleHttpException(HttpException $e, Endpoint $endpoint) {
-    $body = $e->getBody();
-    $response_code = (int) $e->getCode();
-    switch ((string) $response_code) {
-      case '400': // Bad Request.
-        $description = 'bad request';
-        $response_decoded = Json::decode($body);
-        if ($response_decoded && isset($response_decoded['error'])) {
-          $body = $response_decoded['error']['msg'] ?? $body;
-        }
+  protected function handleHttpException(HttpException $e, Endpoint $endpoint) {
+    $response_code = $e->getCode();
+    switch ($response_code) {
+      case 404:
+        $description = $this->t('not found');
         break;
 
-      case '404': // Not Found.
-        $description = 'not found';
-        break;
-
-      case '401': // Unauthorized.
-      case '403': // Forbidden.
-        $description = 'access denied';
-        break;
-
-      case '500': // Internal Server Error.
-      case '0':
-        $description = 'internal Solr server error';
+      case 401:
+      case 403:
+        $description = $this->t('access denied');
         break;
 
       default:
-        $description = 'unreachable or returned unexpected response code';
+        $description = $this->t('unreachable');
     }
-    throw new SearchApiSolrException(sprintf('Solr endpoint %s %s (%d). %s', $this->getEndpointUri($endpoint), $description, $response_code, $body), $response_code, $e);
-  }
-
-  /**
-   * Gets a string representation of the endpoint URI.
-   *
-   * Could be overwritten by other connectors according to their needs.
-   *
-   * @param \Solarium\Core\Client\Endpoint $endpoint
-   *
-   * @return string
-   */
-  protected function getEndpointUri(Endpoint $endpoint): string {
-    return $endpoint->getServerUri();
+    throw new SearchApiSolrException($this->t('Solr endpoint @endpoint @description.', ['@endpoint' => $endpoint->getBaseUri(), '@description' => $description]), $response_code, $e);
   }
 
   /**
    * {@inheritdoc}
    */
-  public function optimize(?Endpoint $endpoint = NULL) {
+  public function optimize(Endpoint $endpoint = NULL) {
     $this->connect();
 
     if (!$endpoint) {
-      $endpoint = $this->solr->getEndpoint();
+      $endpoint = $this->solr->getEndpoint('core');
     }
     // The default timeout is set for search queries. The configured timeout
     // might differ and needs to be set now because solarium doesn't
@@ -1047,23 +904,6 @@ abstract class SolrConnectorPluginBase extends ConfigurablePluginBase implements
     $update_query->addOptimize(TRUE, FALSE);
 
     $this->execute($update_query, $endpoint);
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function adjustTimeout(int $timeout, ?Endpoint &$endpoint = NULL) {
-    $this->connect();
-
-    if (!$endpoint) {
-      $endpoint = $this->solr->getEndpoint();
-    }
-
-    $previous_timeout = $endpoint->getOption(self::QUERY_TIMEOUT);
-    $options = $endpoint->getOptions();
-    $options[self::QUERY_TIMEOUT] = $timeout;
-    $endpoint = new Endpoint($options);
-    return $previous_timeout;
   }
 
   /**
@@ -1080,90 +920,33 @@ abstract class SolrConnectorPluginBase extends ConfigurablePluginBase implements
       $adpater->setTimeout($seconds);
     }
     else {
-      $this->getLogger()->warning('The function SolrConnectorPluginBase::useTimeout() has no affect because you use a HTTP adapter that is not implementing TimeoutAwareInterface. You need to adjust your SolrConnector accordingly.');
+      \Drupal::logger('search_api')->warning('The function SolrConnectorPluginBase::useTimeout() has no affect because you use a HTTP adapter that is not implementing TimeoutAwareInterface. You need to adjust your SolrConnector accordingly.');
     }
   }
 
+
   /**
    * {@inheritdoc}
    */
-  public function getTimeout(?Endpoint $endpoint = NULL) {
-    $this->connect();
-
-    if (!$endpoint) {
-      $endpoint = $this->solr->getEndpoint();
-    }
-
-    return $endpoint->getOption(self::QUERY_TIMEOUT);
+  public function extract(QueryInterface $query) {
+    $this->useTimeout(self::INDEX_TIMEOUT);
+    return $this->execute($query);
   }
 
   /**
    * {@inheritdoc}
    */
-  public function getIndexTimeout(?Endpoint $endpoint = NULL) {
-    $this->connect();
-
-    if (!$endpoint) {
-      $endpoint = $this->solr->getEndpoint();
-    }
-
-    return $endpoint->getOption(self::INDEX_TIMEOUT);
+  public function getContentFromExtractResult(ExtractResult $result, $filepath){
+    $response = $result->getResponse();
+    $json_data = $response->getBody();
+    $array_data = Json::decode($json_data);
+    return $array_data[$filepath];
   }
 
   /**
    * {@inheritdoc}
    */
-  public function getOptimizeTimeout(?Endpoint $endpoint = NULL) {
-    $this->connect();
-
-    if (!$endpoint) {
-      $endpoint = $this->solr->getEndpoint();
-    }
-
-    return $endpoint->getOption(self::OPTIMIZE_TIMEOUT);
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function getFinalizeTimeout(?Endpoint $endpoint = NULL) {
-    $this->connect();
-
-    if (!$endpoint) {
-      $endpoint = $this->solr->getEndpoint();
-    }
-
-    return $endpoint->getOption(self::FINALIZE_TIMEOUT);
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function extract(QueryInterface $query, ?Endpoint $endpoint = NULL) {
-    $this->useTimeout(self::INDEX_TIMEOUT, $endpoint);
-    return $this->execute($query, $endpoint);
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function getContentFromExtractResult(ExtractResult $result, $filepath) {
-    $array_data = $result->getData();
-
-    if (isset($array_data[basename($filepath)])) {
-      return $array_data[basename($filepath)];
-    }
-
-    // In most (or every) cases when an error happens we won't reach that point,
-    // because a Solr exception is already pased through. Anyway, this exception
-    // will be thrown if the solarium library surprises us again. ;-)
-    throw new SearchApiSolrException('Unable to find extracted files within the Solr response body.');
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function getEndpoint($key = 'search_api_solr') {
+  public function getEndpoint($key = 'core') {
     $this->connect();
     return $this->solr->getEndpoint($key);
   }
@@ -1171,23 +954,12 @@ abstract class SolrConnectorPluginBase extends ConfigurablePluginBase implements
   /**
    * {@inheritdoc}
    */
-  public function createEndpoint(string $key, array $additional_configuration = []) {
-    $this->connect();
-    $configuration = ['key' => $key, self::QUERY_TIMEOUT => $this->configuration['timeout']] + $additional_configuration + $this->configuration;
-    if (Client::checkMinimal('5.2.0')) {
-      unset($configuration['timeout']);
-    }
-    return $this->solr->createEndpoint($configuration, TRUE);
-  }
-
-  /**
-   * {@inheritdoc}
-   */
   public function getFile($file = NULL) {
     $this->connect();
-    $query = $this->solr->createApi([
-      'handler' => $this->configuration['core'] . '/admin/file',
-    ]);
+
+    $query = $this->solr->createPing();
+    $query->setHandler('admin/file');
+    $query->addParam('contentType', 'text/xml;charset=utf-8');
     if ($file) {
       $query->addParam('file', $file);
     }
@@ -1212,18 +984,4 @@ abstract class SolrConnectorPluginBase extends ConfigurablePluginBase implements
     return parent::__sleep();
   }
 
-  /**
-   * {@inheritdoc}
-   */
-  public function alterConfigFiles(array &$files, string $lucene_match_version, string $server_id = '') {
-    if (!empty($this->configuration['jmx'])) {
-      $files['solrconfig_extra.xml'] .= "<jmx />\n";
-    }
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function alterConfigZip(ZipStream $zip, string $lucene_match_version, string $server_id = '') {
-  }
 }

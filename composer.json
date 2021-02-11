@@ -12,8 +12,6 @@
         "drupal/drupal-library-installer-plugin": "^0.3",
         "drupal/entity_browser": "2.x-dev",
         "drupal/foundation_layouts": "6.x-dev",
-        "drupal/search_api": "^1.17",
-        "drupal/search_api_solr": "^4.0",
         "drupal/sendgrid_integration": "^1.2",
         "oomphinc/composer-installers-extender": "^1.1",
         "vardot/varbase": "~8.8.0",
@@ -21,7 +19,9 @@
         "webflo/drupal-finder": "~1.0",
         "webmozart/path-util": "~2.0",
         "drupal/image_effects": "^3.0",
-        "drupal/advagg": "^4.1"
+        "drupal/advagg": "^4.1",
+        "drupal/search_api": "^1.19",
+        "drupal/search_api_solr": "^4.1"
     },
     "conflict": {
         "drupal/drupal": "*"
