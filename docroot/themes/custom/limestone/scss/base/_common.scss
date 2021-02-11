@@ -172,6 +172,12 @@ p {
       background-color: rgba($orange, 0.79);
     }
   }
+  .paragraph--type--bp-image.cover {
+    img {
+      width: 100%;
+      margin-bottom: 0;
+    }
+  }
   // If used in Paragraph Equal Columns
   .bg-edge2edge, .field-items, .field-item, .field-item > div, .field-wrapper, .contextual-region, > div {
     height: 100%;
