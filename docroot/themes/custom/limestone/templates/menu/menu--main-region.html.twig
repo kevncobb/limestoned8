@@ -98,8 +98,9 @@
   {% endif %}
   <div {{ top_bar_attributes }}>
     <div class="title-bar" data-responsive-toggle="main-menu" data-hide-for="medium">
-      <button class="menu-icon" type="button" data-toggle></button>
-      <div class="title-bar-title">{{ top_bar_menu_text }}</div>
+      <button class="menu-icon" type="button" data-toggle>
+        <div class="title-bar-title">{{ top_bar_menu_text }}</div>
+      </button>
     </div>
     <nav class="top-bar" id="main-menu" role="navigation">
       <div class="top-bar-left">

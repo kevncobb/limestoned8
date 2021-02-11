@@ -460,6 +460,10 @@
   }
   .title-bar.show-for-mobile-menu {
     display: block !important;
+    button .title-bar-title {
+      padding-left: 26px;
+      color: $limestone-blue;
+    }
   }
   @include breakpoint(medium) {
     nav.show-for-desktop-menu {
