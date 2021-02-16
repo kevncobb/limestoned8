@@ -193,6 +193,9 @@ header.site-header {
 .paragraph--type--sub-header-title {
   background-image: none !important;
 }
+.sub-header-title {
+  padding-top: 1rem;
+}
 @include breakpoint(phone) {
   .sub-page-header, .paragraph--type--sub-header-title {
     clear: both;
