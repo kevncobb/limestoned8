@@ -32,8 +32,9 @@
             var label = $(this); // cache this
             var text = label.text().toLowerCase();
             if (text.indexOf(valThis) > -1) {
-              label.parents('li').show() // show all li parents up the ancestor tree
+              label.parents('li').show(); // show all li parents up the ancestor tree
               label.addClass('button');
+              label.parent().removeClass('button');
             } else {
               label.parent().hide(); // hide current li as it doesn't match
             }
