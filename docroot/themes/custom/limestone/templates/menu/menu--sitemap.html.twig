@@ -33,6 +33,7 @@
             var text = label.text().toLowerCase();
             if (text.indexOf(valThis) > -1) {
               label.parents('li').show() // show all li parents up the ancestor tree
+              label.addClass('button');
             } else {
               label.parent().hide(); // hide current li as it doesn't match
             }
