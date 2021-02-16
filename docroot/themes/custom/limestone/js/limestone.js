@@ -11,13 +11,11 @@
    */
   Drupal.behaviors.front_page_bg_video = {
     attach: function (context) {
-      $(context).find('.youtube-section').once(function(){
-          $(window).bind("load resize", function() {
-            var ww = window.innerWidth;
-            if (ww > 1023.98) {
-              $(this).find('#yt-player').append('<video playsinline autoplay style="width: 100%;" class="ratio-content" loop muted poster="/sites/default/files/styles/d06/public/images/2020-07/curtis_university_2.jpg"> <source class="show-for-medium-up" src="/sites/default/files/2020-10/limestone-homepage-video-background.mp4" type="video/mp4"> </video>');
-            }
-          });
+      $(window).bind("load resize", function() {
+        var ww = window.innerWidth;
+        if (ww > 1023.98) {
+          $(context).find('#yt-player').append('<video playsinline autoplay style="width: 100%;" class="ratio-content" loop muted poster="/sites/default/files/styles/d06/public/images/2020-07/curtis_university_2.jpg"> <source class="show-for-medium-up" src="/sites/default/files/2020-10/limestone-homepage-video-background.mp4" type="video/mp4"> </video>');
+        }
       });
     }
   };
