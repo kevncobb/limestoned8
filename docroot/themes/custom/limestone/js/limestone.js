@@ -19,6 +19,16 @@
       });
     }
   };
+  Drupal.behaviors.expand_active_menu = {
+    attach: function (context) {
+      $(window).bind("load", function () {
+        $(context).find('#side-submenu > ul.root-level > li.menu-item--active-trail').each(function () {
+          $(this).find("button").attr("aria-expanded", "true");
+          $(this).find("ul.is-accordion-submenu").delay(200).attr("aria-hidden", "false").css("display", "block");
+        });
+      });
+    }
+  };
   Drupal.behaviors.callout = {
     attach: function (context, settings) {
       // Using once() to apply the myCustomBehaviour effect when you want to do just run one function.
@@ -152,16 +162,7 @@
       }
     }
   };
-  Drupal.behaviors.expand_active_menu = {
-    attach: function (context, settings) {
-      $(context).find('#side-submenu > ul.root-level > li.menu-item--active-trail').each(function() {
-        $(window).bind("load", function() {
-          $( this ).find("button").attr("aria-expanded","true");
-          $( this ).find("ul.is-accordion-submenu").delay(200).attr("aria-hidden","false").css("display", "block");
-        });
-      });
-    }
-  };
+
   Drupal.behaviors.lc_footer = {
     attach: function (context, settings) {
       if ($(window).width() > 530) {
