@@ -192,6 +192,7 @@ footer.site-footer {
   }
   #mobileLayer {
     display: block;
+    margin-bottom: 0;
   }
   @include breakpoint(phone) {
     height: 530px;
