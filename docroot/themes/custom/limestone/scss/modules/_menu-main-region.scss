@@ -487,9 +487,14 @@ $expander-toggle-margin: 1em;
     background: $white;
     color: $limestone-blue;
     border-bottom: 1px solid $limestone-blue;
+    .menu-icon {
+      padding-left: 30px;
+      color: $limestone-blue;
+    }
     .menu-icon::after {
       background: $limestone-blue;
       box-shadow: 0 7px 0 $limestone-blue, 0 14px 0 $limestone-blue;
+      width: 23px;
     }
   }
 
