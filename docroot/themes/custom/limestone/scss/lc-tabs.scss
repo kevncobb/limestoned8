@@ -1,3 +1,4 @@
+@import 'settings';
 .lc-tabs {
   ul.tabs {
     list-style-type: none;
@@ -31,7 +32,6 @@
         }
       }
 
-
       &:focus, &:hover {
         background: $dark-gray;
       }
@@ -62,25 +62,4 @@
     background-color: #fbfbfb;
     border: 1px solid #f5f5f5;
   }
-}
-
-/* Juicer Feed styling */
-.juicer-feed h1.referral {
-  display: none !important;
-}
-.juicer-feed.modern li.feed-item.juicer-ad {
-  display:none !important;
-}
-
-.j-stack.galcolumn {
-  padding-left: 13.5px !important;
-  padding-right: 13.5px !important;
-}
-.juicer-feed li.feed-item {
-  border: 2px solid #fff;
-}
-
-.juicer-feed.image-grid .j-text .j-message a, .juicer-feed.image-grid .j-text .j-edit a, .juicer-feed.slider .j-text .j-message a, .juicer-feed.slider .j-text .j-edit a, .juicer-feed.hip .j-text .j-message a, .juicer-feed.hip .j-text .j-edit a {
-  color: #fff !important;
-  font-weight: bold;
 }

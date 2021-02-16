@@ -227,9 +227,6 @@ header.site-header {
       position: static;
     }
     &.taller {
-      .sub-header-title {
-        top: -1rem;
-      }
       @include breakpoint(medium) {
         padding-top: 1rem;
         padding-bottom: 0;
@@ -239,6 +236,7 @@ header.site-header {
         padding-bottom: 0;
         .sub-header-title {
           padding-top: 3rem;
+          top: -1rem;
         }
       }
     }
