@@ -15,10 +15,6 @@
   h2, h3, h4, h5, h6 {
 
   }
-  background-image: none !important;
-  @include breakpoint(phone) {
-    background-image: inherit !important;
-  }
 }
 
 .paragraph-border-sm {

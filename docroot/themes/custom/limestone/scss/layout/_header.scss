@@ -190,11 +190,14 @@ header.site-header {
   margin: 0;
   padding: 5px;
 }
+.paragraph--type--sub-header-title {
+  background-image: none !important;
+}
 @include breakpoint(phone) {
   .sub-page-header, .paragraph--type--sub-header-title {
     clear: both;
     position: relative;
-    background-image: url("/themes/custom/limestone/images/pano-front-quad.jpg");
+    background-image: url("/themes/custom/limestone/images/pano-front-quad.jpg") !important;
     background-size: cover;
     background-position: center;
     -webkit-box-shadow: inset 0px 0px 300px 200px rgba(0,0,0,0.15);
