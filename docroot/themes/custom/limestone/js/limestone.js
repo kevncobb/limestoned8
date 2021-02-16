@@ -12,19 +12,8 @@
   Drupal.behaviors.front_page_bg_video = {
     attach: function (context) {
       var matchMedia = window.matchMedia || window.msMatchMedia;
-      if (matchMedia) {
-        media = matchMedia('(min-width: 1023.98px)');
-        media.addListener(function (mediaQueryList) {
-          if (mediaQueryList.matches) {
-            Drupal.behaviors.verticalTabs.renderVideo(context);
-          }
-        });
-        if (media.matches) {
-          Drupal.behaviors.verticalTabs.renderVideo(context);
-        }
-      }
-      else {
-        Drupal.behaviors.verticalTabs.renderVideo(context);
+      if (matchMedia && !matchMedia('(min-width: 1023.98px)').matches) {
+        Drupal.behaviors.front_page_bg_video.renderVideo(context);
       }
     },
     renderVideo: function (context) {
