@@ -436,8 +436,7 @@
     // Dropdowns
     > ul.menu > li.is-dropdown-submenu-parent {
       > a {
-        padding-right: 1.5em;
-
+        padding: 0.7rem 1.5rem 0.7rem 0.15rem; //
         &::before {
           // Icon-chevron-down
           top: 0.9rem;
