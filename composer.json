@@ -21,7 +21,8 @@
         "drupal/image_effects": "^3.0",
         "drupal/advagg": "^4.1",
         "drupal/search_api": "^1.19",
-        "drupal/search_api_solr": "^4.1"
+        "drupal/search_api_solr": "^4.1",
+        "drupal/context": "^4.0@beta"
     },
     "conflict": {
         "drupal/drupal": "*"
