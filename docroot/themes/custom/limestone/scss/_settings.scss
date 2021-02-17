@@ -236,6 +236,12 @@ $abbr-underline: 1px dotted $black;
 // ---------------------
 
 $lead-font-size: $global-font-size * 1.15;
+@include breakpoint(large) {
+  $lead-font-size: rem-calc(22);
+}
+@include breakpoint(xxlarge) {
+  $lead-font-size: rem-calc(25);
+}
 $lead-lineheight: 1.8;
 $subheader-lineheight: 1.4;
 $subheader-color: $dark-gray;
