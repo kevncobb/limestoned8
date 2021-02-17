@@ -11,7 +11,7 @@ dependencies:
 core_version_requirement: ^8.9 || ^9
 hidden: true
 
-# Information added by Drupal.org packaging script on 2021-02-05
-version: '8.x-1.8'
+# Information added by Drupal.org packaging script on 2021-02-15
+version: '8.x-1.9'
 project: 'search_api_solr'
-datestamp: 1612520024
+datestamp: 1613390299
