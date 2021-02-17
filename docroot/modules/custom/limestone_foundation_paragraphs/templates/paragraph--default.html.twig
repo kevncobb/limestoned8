@@ -113,7 +113,6 @@
   {% if VBP.field_overlay.value %} data-overlay="{{ VBP.field_overlay.value }}" {% endif %}>
     {% if add_container %}
     <div class="grid-container">{% endif %}
-        <div>
         <div class="grid-x" data-equalizer data-equalize-on="smedium" >
             <div class="{{- VBP.bp_width.value -}}  grid-x">
                 {% if paragraph_title and paragraph_title_status %}
@@ -123,7 +122,6 @@
                 {{ title_suffix }}
                 {{ content|without('bp_title', 'bp_title_status', 'bp_width', 'bp_background', 'bp_image_field', 'bp_classes', 'bp_gutter', 'field_overlay') }}
             </div>
-        </div>
         </div>
         {% if add_container %}
     </div>
