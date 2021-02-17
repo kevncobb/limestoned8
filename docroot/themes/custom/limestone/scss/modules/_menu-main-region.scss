@@ -383,6 +383,17 @@
     }
   }
   // Dropdowns
+  nav.sub-menu-block, nav.menu--desktop-megamenu {
+    // Dropdowns
+    > ul.menu > li.is-dropdown-submenu-parent {
+      > a {
+        padding: 0.7rem 1.5rem 0.7rem 0.1rem;
+      }
+      &:first-child {
+        padding-left: 0.4rem;
+      }
+    }
+  }
   > ul.menu > li.is-dropdown-submenu-parent {
     // &:last-child
     //  > a
@@ -436,7 +447,7 @@
     // Dropdowns
     > ul.menu > li.is-dropdown-submenu-parent {
       > a {
-        padding: 0.7rem 1.5rem 0.7rem 0.15rem; //
+        padding: 0.7rem 1.5rem 0.7rem 0.5rem;
         &::before {
           // Icon-chevron-down
           top: 0.9rem;

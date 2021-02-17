@@ -161,12 +161,17 @@ header.site-header {
   ul.menu.dropdown {
     margin-top: 1rem;
     float: right;
+    margin-right: -10px;
     a {
       padding: 0.7rem;
       font-size: 1rem;
       @include breakpoint(medium) {
-        padding: 0.7rem 1rem;
-        font-size: inherit;
+        padding: 0.7rem 0.5rem;
+        font-size: 1.2rem;
+      }
+      @include breakpoint(large) {
+        padding: 0.7rem 0.7rem;
+        font-size: 1.3rem;
       }
     }
     li.is-dropdown-submenu-parent a {
