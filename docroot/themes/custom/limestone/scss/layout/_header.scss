@@ -255,6 +255,18 @@ header.site-header {
       display: none;
     }
   }
+  .field-header-background-image {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    img {
+      object-fit: cover;
+      font-family: 'object-fit: cover';
+      margin-bottom: 0;
+      width: 100%;
+      height: 100%;
+    }
+  }
   .sub-header-title {
     font-size: 2em;
     line-height: 2em;
@@ -298,20 +310,10 @@ header.site-header {
       padding-bottom: 3rem;
     }
   }
+
 }
 
-.field-header-background-image {
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  img {
-    object-fit: cover;
-    font-family: 'object-fit: cover';
-    margin-bottom: 0;
-    width: 100%;
-    height: 100%;
-  }
-}
+
 .vertical-center {
   position: relative;
   height: 100%;
