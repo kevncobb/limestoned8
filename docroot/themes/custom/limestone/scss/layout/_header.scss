@@ -168,6 +168,9 @@ header.site-header {
       @include breakpoint(medium) {
         padding: 0.7rem 0.5rem;
         font-size: 1.2rem;
+        ul.is-dropdown-submenu {
+          font-size: 1rem;
+        }
       }
       @include breakpoint(large) {
         padding: 0.7rem 0.7rem;
