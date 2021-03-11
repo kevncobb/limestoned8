@@ -176,6 +176,9 @@ header.site-header {
         padding: 0.7rem 0.7rem;
         font-size: 1.3rem;
       }
+      @include breakpoint(xlarge) {
+        font-size: 1.5rem;
+      }
     }
     li.is-dropdown-submenu-parent a {
       padding-right: 1.2rem;
@@ -183,6 +186,11 @@ header.site-header {
     .is-dropdown-submenu {
       z-index: 999;
       font-size: 0.9rem;
+      width: 13rem;
+      left: -10px;
+      a {
+        font-size: 1.3rem;
+      }
     }
   }
   button {

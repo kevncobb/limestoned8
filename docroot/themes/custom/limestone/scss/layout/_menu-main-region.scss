@@ -599,9 +599,32 @@ $expander-toggle-margin: 1em;
 nav.menu--desktop-megamenu {
   ul.submenu.is-dropdown-submenu {
     //min-width: 960px;
-    border-left: thin solid #d2d2d2;
-    border-right: thin solid #d2d2d2;
-    border-bottom: thin solid #d2d2d2;
+    border-left: none;
+    border-right: none;
+    border-top: 3px solid $limestone-blue;
+    -webkit-box-shadow: 1px 8px 9px rgba(0, 0, 0, 0.15);
+    -moz-box-shadow: 1px 8px 9px rgba(0, 0, 0, 0.15);
+    box-shadow: 1px 8px 9px rgba(0, 0, 0, 0.15);
+    a.single-column-dropdown {
+      padding: 0.7rem 0.5rem;
+      font-weight: bold;
+      font-size: 1.3rem;
+      margin: 0 10px;
+      border-bottom: thin solid #eee;
+      &.last {
+        border-bottom: none;
+      }
+    }
+    li.is-submenu-item {
+      a {
+        border-bottom: thin solid #eee;
+      }
+      &:last-child {
+        a {
+          border-bottom: none;
+        }
+      }
+    }
     ul.is-dropdown-submenu.vertical {
       border-left: none;
       border-right: thin solid #d2d2d2;
