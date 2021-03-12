@@ -235,7 +235,7 @@ $abbr-underline: 1px dotted $black;
 // 5. Typography Helpers
 // ---------------------
 
-$lead-font-size: $global-font-size * 1.15;
+$lead-font-size: $global-font-size * 1.4;
 @include breakpoint(large) {
   $lead-font-size: rem-calc(22);
 }
