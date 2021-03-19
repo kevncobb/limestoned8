@@ -201,7 +201,10 @@ class ContentModerationNotificationsFormBase extends EntityForm {
     if ($this->moduleHandler->moduleExists('token')) {
       $form['body']['token_tree_link'] =  [
         '#theme' => 'token_tree_link',
-        '#token_types' => array_unique(['user', $selected_workflow]),
+        '#token_types' => array_unique(array_merge(
+           ['user', 'content_moderation_notifications'],
+           $workflows[$selected_workflow]->getTypePlugin()->getEntityTypes())
+        ),
         '#weight' => 10
       ];
     }
