@@ -117,12 +117,12 @@
             "version": "v0.7.20",
             "source": {
                 "type": "git",
-                "url": "git@github.com:masayuki0812/c3.git",
+                "url": "https://github.com/c3js/c3.git",
                 "reference": "2f3cddb818065f1d0c45f562745d4249e12980ff"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/masayuki0812/c3/zipball/2f3cddb818065f1d0c45f562745d4249e12980ff",
+                "url": "https://api.github.com/repos/c3js/c3/zipball/2f3cddb818065f1d0c45f562745d4249e12980ff",
                 "reference": "2f3cddb818065f1d0c45f562745d4249e12980ff"
             },
             "require": {
@@ -232,7 +232,7 @@
             "version": "2.3.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/constancecchen/object-fit-polyfill.git",
+                "url": "git@github.com:constancecchen/object-fit-polyfill.git",
                 "reference": "0a59e20c327c8b7984df3eaf852537656e3ada1c"
             },
             "dist": {
