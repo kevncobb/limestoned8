@@ -17,16 +17,14 @@ class ConfigInspectorUITest extends BrowserTestBase {
   protected $defaultTheme = 'stark';
 
   /**
-   * Modules to install.
-   *
-   * @var array
+   * {@inheritdoc}
    */
-  public static $modules = ['block', 'config_inspector'];
+  protected static $modules = ['block', 'config_inspector'];
 
   /**
    * {@inheritdoc}
    */
-  public function setUp() {
+  protected function setUp() : void {
     parent::setUp();
     $this->drupalPlaceBlock('local_tasks_block');
 
@@ -55,10 +53,10 @@ class ConfigInspectorUITest extends BrowserTestBase {
       $this->assertSession()->responseContains('Anonymous user');
 
       // Make sure the tabs are present.
-      $this->assertSession()->linkExists(t('List'));
-      $this->assertSession()->linkExists(t('Tree'));
-      $this->assertSession()->linkExists(t('Form'));
-      $this->assertSession()->linkExists(t('Raw data'));
+      $this->assertSession()->linkExists('List');
+      $this->assertSession()->linkExists('Tree');
+      $this->assertSession()->linkExists('Form');
+      $this->assertSession()->linkExists('Raw data');
     }
   }
 

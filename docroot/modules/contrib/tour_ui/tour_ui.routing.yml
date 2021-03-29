@@ -59,3 +59,10 @@ tour_ui.get_modules:
     _controller: 'Drupal\tour_ui\Controller\TourUIController::getModules'
   requirements:
     _permission: 'administer tour'
+
+tour_ui.get_routes:
+  path: '/admin/config/user-interface/tour/get-routes'
+  defaults:
+    _controller: 'Drupal\tour_ui\Controller\TourUIController::getRoutes'
+  requirements:
+    _permission: 'administer tour'

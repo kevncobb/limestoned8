@@ -88,7 +88,7 @@ install:
   - betterlogin
   - varbase_update_helper
 
-# Information added by Drupal.org packaging script on 2021-01-28
-version: '8.x-8.28'
+# Information added by Drupal.org packaging script on 2021-03-21
+version: '8.x-8.29'
 project: 'varbase_core'
-datestamp: 1611849473
+datestamp: 1616300241

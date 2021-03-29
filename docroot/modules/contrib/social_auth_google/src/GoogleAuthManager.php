@@ -50,10 +50,14 @@ class GoogleAuthManager extends OAuth2Manager {
    * {@inheritdoc}
    */
   public function getUserInfo() {
-    if (!$this->user) {
+    $access_token = $this->getAccessToken();
+    if (!$this->user && $access_token != NULL) {
       $this->user = $this->client->getResourceOwner($this->getAccessToken());
     }
-
+    else {
+      $this->loggerFactory->get('social_auth_google')
+        ->error('There was an error fetching the access token for user.');
+    }
     return $this->user;
   }
 

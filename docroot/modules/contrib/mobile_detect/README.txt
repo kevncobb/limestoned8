@@ -71,11 +71,11 @@ CONFIGURATION
 
  * It adds common Twig extensions to work with html.twig templates:
 
-   {% if isMobile() %}
-   {% if isTablet() %}
-   {% if isDevice('iPhone') %}
-   {% if isIOS() %}
-   {% if isAndroidOS() %}
+   {% if is_mobile() %}
+   {% if is_tablet() %}
+   {% if is_device('iPhone') %}
+   {% if is_ios() %}
+   {% if is_android_ios() %}
 
    See the documentation for the Mobile_Detect library for more information.
 
@@ -94,6 +94,15 @@ TROUBLESHOOTING
  * Problems with this module and sub-modules should be directed to the Drupal
    issue queue for this project.
 
+  * The "Internal Page Cache" core module assumes that all pages served 
+    to anonymous users will be identical, regardless of the implementation 
+    of cache contexts.
+ 
+    If you want to use the mobile_detect cache contexts to vary the content 
+    served to anonymous users, "Internal Page Cache" must be disabled, 
+    and the performance impact that entails incurred.
+
+  * https://www.drupal.org/docs/drupal-apis/cache-api/cache-contexts
 
 MAINTAINERS
 -----------

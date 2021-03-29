@@ -40,7 +40,19 @@ class TourListBuilder extends EntityListBuilder {
     $routes_name = [];
     if ($routes = $entity->getRoutes()) {
       foreach ($routes as $route) {
-        $routes_name[] = $route['route_name'];
+        $params_out = '';
+        if (isset($route['route_params'])) {
+          $params = $route['route_params'];
+          $formatted_params = array_reduce(
+            array_keys($params),
+            function ($carry, $key) use ($params) {
+              return $carry . ' ' . $key . ':' . htmlspecialchars( $params[$key] );
+            },
+            ''
+          );
+          $params_out = ' with params: ' . trim($formatted_params);
+        }
+        $routes_name[] = $route['route_name'] . $params_out;
       }
     }
     $data['routes'] = [

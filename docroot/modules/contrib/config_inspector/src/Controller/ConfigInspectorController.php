@@ -2,7 +2,6 @@
 
 namespace Drupal\config_inspector\Controller;
 
-use Drupal\Component\Utility\Html;
 use Drupal\config_inspector\ConfigInspectorManager;
 use Drupal\Core\Config\Schema\ArrayElement;
 use Drupal\Core\Config\StorageInterface;
@@ -403,7 +402,7 @@ class ConfigInspectorController extends ControllerBase {
       return $value ? 'true' : 'false';
     }
     if (is_scalar($value)) {
-      return Html::escape($value);
+      return $value;
     }
     if (empty($value)) {
       return '<' . $this->t('empty') . '>';

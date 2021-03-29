@@ -38,7 +38,8 @@ class LinkedInAuthSettingsForm extends SocialAuthSettingsForm {
       '#type' => 'details',
       '#title' => $this->t('LinkedIn Client settings'),
       '#open' => TRUE,
-      '#description' => $this->t('You need to first create a LinkedIn App at <a href="@linkedin-dev">@linkedin-dev</a>', ['@linkedin-dev' => 'https://www.linkedin.com/secure/developer']),
+      '#description' => $this->t('You need to first create a LinkedIn App at <a href=":linkedin-dev">:linkedin-dev</a>',
+        ['@linkedin-dev' => 'https://www.linkedin.com/secure/developer']),
     ];
 
     $form['linkedin_settings']['client_id'] = [
@@ -75,9 +76,10 @@ class LinkedInAuthSettingsForm extends SocialAuthSettingsForm {
       '#type' => 'textarea',
       '#title' => $this->t('Scopes for API call'),
       '#default_value' => $config->get('scopes'),
-      '#description' => $this->t('Define any additional scopes to be requested, separated by a comma (e.g.: rw_company_admin,w_share).<br>
-                                  The scopes \'r_basicprofile\' and \'r_emailaddress\' are added by default and always requested.<br>
-                                  You can see the full list of valid fields and required scopes <a href="@fields">here</a>.', ['@fields' => 'https://developer.linkedin.com/docs/fields']),
+      '#description' => $this->t('Define any additional scopes to be requested, separated by a comma (e.g.: r_1st_connections,w_member_social).<br>
+                                  The scopes \'r_liteprofile\' and \'r_emailaddress\' are added by default and always requested.<br>
+                                  You can see the full list of valid fields and required scopes <a href="@fields">here</a>.',
+                                  ['@fields' => 'https://docs.microsoft.com/en-us/linkedin/consumer/']),
     ];
 
     $form['linkedin_settings']['advanced']['endpoints'] = [
@@ -87,7 +89,7 @@ class LinkedInAuthSettingsForm extends SocialAuthSettingsForm {
       '#description' => $this->t('Define the endpoints to be requested when user authenticates with LinkedIn for the first time<br>
                                   Enter each endpoint in different lines in the format <em>endpoint</em>|<em>name_of_endpoint</em>.<br>
                                   <b>For instance:</b><br>
-                                  /v1/people/~:(num-connections)|connections_num'),
+                                  /v2/me|profile'),
     ];
 
     return parent::buildForm($form, $form_state);

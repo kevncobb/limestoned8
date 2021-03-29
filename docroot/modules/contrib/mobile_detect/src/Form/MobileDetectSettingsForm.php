@@ -14,7 +14,7 @@ class MobileDetectSettingsForm extends ConfigFormBase {
    * {@inheritdoc}
    */
   public function getFormId() {
-    return 'mobile_detect_mobile_detect_settings';
+    return 'mobile_detect_settings';
   }
 
   /**
@@ -28,11 +28,15 @@ class MobileDetectSettingsForm extends ConfigFormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
-    $form['add_cache_context'] = [
+    $form['mobile_detect_settings'] = [
+      '#type' => 'fieldset',
+      '#title' => $this->t('Experimental')
+    ];
+    $form['mobile_detect_settings']['mobile_detect_is_mobile'] = [
       '#type' => 'checkbox',
-      '#title' => $this->t('Add cache context to every page'),
-      '#default_value' => $this->config('mobile_detect.settings')->get('add_cache_context'),
-      '#description' => $this->t('If you need <i>is_mobile</i> cache context on every page, check this option.')
+      '#title' => $this->t('Add "mobile_detect_is_mobile" page cache context on every page (experimental).'),
+      '#default_value' => $this->config('mobile_detect.settings')->get('mobile_detect_is_mobile'),
+      '#description' => $this->t('If you need <i>mobile_detect_is_mobile</i> cache context on every page, check this option.')
     ];
     return parent::buildForm($form, $form_state);
   }
@@ -41,10 +45,10 @@ class MobileDetectSettingsForm extends ConfigFormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    $this->config('mobile_detect.settings')
-      ->set('add_cache_context', $form_state->getValue('add_cache_context'))
-      ->save();
     parent::submitForm($form, $form_state);
+    $this->config('mobile_detect.settings')
+      ->set('mobile_detect_is_mobile', $form_state->getValue('mobile_detect_is_mobile'))
+      ->save();
   }
 
 }

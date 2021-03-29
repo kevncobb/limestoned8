@@ -9,7 +9,7 @@ use Detection\MobileDetect;
 /**
  * Defines the 'Is mobile' cache context.
  *
- * Cache context ID: 'is_mobile'.
+ * Cache context ID: 'mobile_detect_is_mobile'.
  */
 class IsMobileCacheContext implements CacheContextInterface {
 
@@ -21,7 +21,7 @@ class IsMobileCacheContext implements CacheContextInterface {
   /**
    * Constructs an IsFrontPathCacheContext object.
    *
-   * @param \Detection\MobileDetect $path_matcher
+   * @param \Detection\MobileDetect $mobile_detect
    */
   public function __construct(MobileDetect $mobile_detect) {
     $this->mobileDetect = $mobile_detect;
@@ -31,7 +31,7 @@ class IsMobileCacheContext implements CacheContextInterface {
    * {@inheritdoc}
    */
   public static function getLabel() {
-    return t('Is mobile');
+    return 'Is mobile';
   }
 
   /**

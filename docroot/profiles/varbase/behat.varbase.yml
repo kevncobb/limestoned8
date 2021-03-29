@@ -1,10 +1,11 @@
 default:
   autoload:
-    '': %paths.base%/tests/features/bootstrap
+    '': "%paths.base%/tests/features/bootstrap"
   suites:
     default:
       paths:
-        - %paths.base%/tests/features
+        features: "%paths.base%/tests/features"
+        bootstrap: "%paths.base%/tests/features/bootstrap"
       contexts:
         - VarbaseContext:
             parameters:
@@ -43,9 +44,6 @@ default:
         - Drupal\DrupalExtension\Context\MessageContext
         - Drupal\DrupalExtension\Context\MinkContext
         - Drupal\DrupalExtension\Context\MarkupContext
-      paths:
-        features: %paths.base%/tests/features
-        bootstrap: %paths.base%/tests/features/bootstrap
   formatters:
     pretty:
     html:
@@ -88,7 +86,7 @@ default:
               - "disable-infobars"
               - "js-flags=--expose-gc"
               - "no-sandbox"
-      base_url: 'http://127.0.0.1:8080'
+      base_url: 'http://varbase.test'
       # browser_name: 'firefox'
       browser_name: 'chrome'
       # browser_name: 'phantomjs'

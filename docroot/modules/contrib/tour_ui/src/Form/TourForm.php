@@ -120,6 +120,11 @@ class TourForm extends EntityForm {
     if ($routes = $tour->getRoutes()) {
       foreach ($routes as $route) {
         $default_routes[] = $route['route_name'];
+        if (isset($route['route_params'])) {
+          foreach ($route['route_params'] as $key => $value) {
+            $default_routes[] = '- ' . $key . ':' . $value;
+          }
+        }
       }
     }
     $form['routes'] = [
@@ -127,7 +132,15 @@ class TourForm extends EntityForm {
       '#title' => $this->t('Routes'),
       '#default_value' => implode("\n", $default_routes),
       '#rows' => 5,
-      '#description' => $this->t('Provide a list of routes that this tour will be displayed on. Add one route by line.'),
+      '#description' => $this->t('Provide a list of routes that this tour will be displayed on. Add route_name first then optionally route parameters. For example <pre>entity.node.canonical<br/>- node:2</pre> will only show on the <em>node/2</em> page.<br/>NOTE: route parameters are <strong>not validated yet</strong>.'),
+    ];
+
+    $form['find-routes'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Find route or path fragment'),
+      '#description' => $this->t('You can type a route name or path fragment.'),
+      '#required' => FALSE,
+      '#autocomplete_route_name' => 'tour_ui.get_routes',
     ];
 
     // Don't show the tips on the inital add.
@@ -285,6 +298,9 @@ class TourForm extends EntityForm {
    * {@inheritdoc}
    */
   public function validateForm(array &$form, FormStateInterface $form_state, $redirect = TRUE) {
+    // TODO: validate the routes
+    $routes = $this->routesFromArray($form_state->getValue('routes'));
+
     // Form cannot be validated if a tip has no #data, so no way to export
     // configuration.
     if (!$form_state->isValueEmpty('tips')) {
@@ -297,19 +313,53 @@ class TourForm extends EntityForm {
   }
 
   /**
+   * Rebuild the lines into route structures.
+   *
+   * - route_name
+   * - route_params
+   *   - key:value
+   *
+   * @param string $routes_in
+   *
+   * @return array
+   */
+  protected function routesFromArray($routes_in) {
+    // Normalize the new lines
+    $routes_in = preg_replace("/(\r\n?|\n)/", "\n", $routes_in);
+    $routes_in = explode("\n", $routes_in);
+    // trim each line
+    $routes_in = array_map('trim', $routes_in);
+
+    $routes = [];
+    $route = null;
+    foreach($routes_in as $line) {
+      if (empty($line)) {
+        continue;
+      }
+      if (strpos($line, '-')!== 0) {
+        $routes[] = [];
+        $route = &$routes[count($routes)-1];
+        $route['route_name'] = $line;
+      } else {
+        if (count($routes) === 0) {
+          // abort when having a route_params without a route_name
+          break;
+        }
+        list($key, $value) = explode(':', $line, 2);
+        $key = trim(substr($key, 1));
+        $value = trim($value);
+        $route['route_params'][$key] = $value;
+      }
+    }
+    return $routes;
+  }
+
+  /**
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state, $redirect = TRUE) {
     // Filter out invalid characters and convert to an array.
-    $routes = [];
-    $values_routes = preg_replace("/(\r\n?|\n)/", "\n", $form_state->getValue('routes'));
-    $values_routes = explode("\n", $values_routes);
-    $values_routes = array_map('trim', $values_routes);
-    if (!empty($values_routes)) {
-      foreach (array_filter($values_routes) as $route) {
-        $routes[]['route_name'] = $route;
-      }
-    }
+    $routes = $this->routesFromArray($form_state->getValue('routes'));
 
     $form_state->setValue('routes', array_filter($routes));
 

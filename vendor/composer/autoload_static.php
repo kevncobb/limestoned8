@@ -123,7 +123,6 @@ class ComposerStaticInit6872d14edd3f825f03f324a54b50bb39
             'Psr\\Http\\Client\\' => 16,
             'Psr\\EventDispatcher\\' => 20,
             'Psr\\Container\\' => 14,
-            'Patchwork\\' => 10,
             'PHPMailer\\PHPMailer\\' => 20,
         ),
         'O' => 
@@ -197,6 +196,7 @@ class ComposerStaticInit6872d14edd3f825f03f324a54b50bb39
             'Consolidation\\AnnotatedCommand\\' => 31,
             'Composer\\Semver\\' => 16,
             'Composer\\Installers\\' => 20,
+            'Composer\\CaBundle\\' => 18,
         ),
         'A' => 
         array (
@@ -395,10 +395,6 @@ class ComposerStaticInit6872d14edd3f825f03f324a54b50bb39
         array (
             0 => __DIR__ . '/..' . '/psr/container/src',
         ),
-        'Patchwork\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/patchwork/jsqueeze/src',
-        ),
         'PHPMailer\\PHPMailer\\' => 
         array (
             0 => __DIR__ . '/..' . '/phpmailer/phpmailer/src',
@@ -578,6 +574,10 @@ class ComposerStaticInit6872d14edd3f825f03f324a54b50bb39
         array (
             0 => __DIR__ . '/..' . '/composer/installers/src/Composer/Installers',
         ),
+        'Composer\\CaBundle\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/composer/ca-bundle/src',
+        ),
         'Asm89\\Stack\\' => 
         array (
             0 => __DIR__ . '/..' . '/asm89/stack-cors/src/Asm89/Stack',
@@ -605,13 +605,6 @@ class ComposerStaticInit6872d14edd3f825f03f324a54b50bb39
             'Smtpapi' => 
             array (
                 0 => __DIR__ . '/..' . '/sendgrid/smtpapi/lib',
-            ),
-        ),
-        'K' => 
-        array (
-            'KubAT\\PhpSimple\\HtmlDomParser' => 
-            array (
-                0 => __DIR__ . '/..' . '/kub-at/php-simple-html-dom-parser/src',
             ),
         ),
         'H' => 

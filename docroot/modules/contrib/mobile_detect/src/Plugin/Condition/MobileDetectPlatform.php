@@ -66,7 +66,7 @@ class MobileDetectPlatform extends ConditionPluginBase implements ContainerFacto
         'android' => $this->t('Android'),
         'ios' => $this->t('iOS'),
       ],
-      '#description' => $this->t('If you select no platforms, the condition will evaluate to TRUE for all platforms.'),
+      '#description' => $this->t('No platforms will evaluate TRUE for all.'),
 		];
     return parent::buildConfigurationForm($form, $form_state);
   }
@@ -75,8 +75,8 @@ class MobileDetectPlatform extends ConditionPluginBase implements ContainerFacto
 	 * {@inheritdoc}
 	 */
 	public function submitConfigurationForm(array &$form, FormStateInterface $form_state) {
+    parent::submitConfigurationForm($form, $form_state);
     $this->configuration['platform'] = array_filter($form_state->getValue('platform'));
-		parent::submitConfigurationForm($form, $form_state);
 	}
 
   /**
@@ -94,28 +94,19 @@ class MobileDetectPlatform extends ConditionPluginBase implements ContainerFacto
    */
 	public function evaluate() {
     $platform = $this->configuration['platform'];
-    if (empty($platform) && !$this->isNegated()) {
-      return TRUE;
-    }
 
+    if (empty($platform) && !$this->isNegated()) {
+      return true;
+    }
+    
     $detect = $this->mobileDetect;
-    foreach ($platform as $key => $value) {
-      switch ($key) {
-        case 'android':
-          if ($detect->isAndroidOS()) {
-            return TRUE;
-          }
-          break;
-        case 'ios':
-          if ($detect->isIOS()) {
-            return TRUE;
-          }
-          break;
-        default:
-          throw new \InvalidArgumentException(sprintf('Undefined platform "%s".', $key));
+    foreach ($platform as $value) {
+      if (($value === 'android' && $detect->isAndroidOS()) 
+        || ($value === 'ios' && $detect->isIOS())) {
+        return true;
       }
     }
-    return FALSE;
+    return false;
 	}
 
   /**

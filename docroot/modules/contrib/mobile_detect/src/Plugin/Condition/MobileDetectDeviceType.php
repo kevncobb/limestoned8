@@ -78,8 +78,8 @@ class MobileDetectDeviceType extends ConditionPluginBase implements ContainerFac
    * {@inheritdoc}
    */
   public function submitConfigurationForm(array &$form, FormStateInterface $form_state) {
-    $this->configuration['devices'] = array_filter($form_state->getValue('devices'));
     parent::submitConfigurationForm($form, $form_state);
+    $this->configuration['devices'] = array_filter($form_state->getValue('devices'));
   }
 
   /**
@@ -97,33 +97,24 @@ class MobileDetectDeviceType extends ConditionPluginBase implements ContainerFac
    */
   public function evaluate() {
     $devices = $this->configuration['devices'];
+    
     if (empty($devices) && !$this->isNegated()) {
-      return TRUE;
+      return true;
     }
 
     $detect = $this->mobileDetect;
-    foreach ($devices as $key => $value) {
-      switch ($key) {
-        case 'phone':
-          if ($detect->isMobile() && !$detect->isTablet()) {
-            return TRUE;
-          }
-          break;
-        case 'tablet':
-          if ($detect->isTablet()) {
-            return TRUE;
-          }
-          break;
-        case 'desktop':
-          if (!$detect->isMobile()) {
-            return TRUE;
-          }
-          break;
-        default:
-          throw new \InvalidArgumentException(sprintf('Undefined device "%s".', $key));
+    foreach ($devices as $value) {
+      if ($value == 'phone' && ($detect->isMobile() && !$detect->isTablet())) {
+        return true;
+      }
+      if ($value == 'tablet' && ($detect->isTablet())) {
+        return true;
+      }
+      if ($value == 'desktop' && (!$detect->isMobile())) {
+        return true;
       }
     }
-    return FALSE;
+    return false;
   }
 
   /**

@@ -2,6 +2,7 @@
 
 namespace Drupal\mobile_detect\Twig;
 
+use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 use Detection\MobileDetect;
 
@@ -9,12 +10,14 @@ use Detection\MobileDetect;
  * MobileDetectTwig class.
  *
  */
-class MobileDetectTwig extends \Twig_Extension
+class MobileDetectTwig extends AbstractExtension 
 {
 
-	/**
-	 * @var MobileDetect
-	 */
+  /**
+   * Mobile detect service.
+   *
+   * @var \Detection\MobileDetect
+   */
 	protected $mobileDetector;
 
 	/**
@@ -30,13 +33,13 @@ class MobileDetectTwig extends \Twig_Extension
 	 * @return array
 	 */
 	public function getFunctions() {
-		return array(
-			'is_mobile' => new TwigFunction('isMobile', [$this, 'isMobile']),
-			'is_tablet' => new TwigFunction('isTablet', [$this, 'isTablet']),
-			'is_device' => new TwigFunction('isDevice', [$this, 'isDevice']),
-			'is_ios' => new TwigFunction('isIOS', [$this, 'isIOS']),
-			'is_android_os' => new TwigFunction('isAndroidOS', [$this, 'isAndroidOS'])
-		);
+		return [
+			new TwigFunction('is_mobile', [$this, 'isMobile']),
+			new TwigFunction('is_tablet', [$this, 'isTablet']),
+			new TwigFunction('is_device', [$this, 'isDevice']),
+			new TwigFunction('is_ios', [$this, 'isIOS']),
+			new TwigFunction('is_android_os', [$this, 'isAndroidOS'])
+		];
 	}
 
 	/**

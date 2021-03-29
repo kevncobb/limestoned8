@@ -50,17 +50,18 @@ function _mobile_detect_get_readme() {
  * Implements hook_theme().
  */
 function mobile_detect_theme() {
-  $theme = [];
-
-  return $theme;
+  return [
+    'mobile_detect_status_block' => [
+      'variables' => ['internal_cache' => NULL],
+    ]
+  ];
 }
 
 /**
- * {@inheritdoc}
+ * Implements hook_page_attachments_alter().
  */
-function mobile_detect_preprocess_html(&$variables) {
-  if (\Drupal::config('mobile_detect.settings')->get('add_cache_context')) {
-    $variables['html']['#cache']['contexts'][] = 'is_mobile';
-    $variables['#cache']['contexts'][] = 'is_mobile';
+function mobile_detect_page_attachments_alter(array &$attachments) {
+  if (\Drupal::config('mobile_detect.settings')->get('mobile_detect_is_mobile')) {
+    $attachments['#cache']['contexts'][] = 'mobile_detect_is_mobile';
   }
 }

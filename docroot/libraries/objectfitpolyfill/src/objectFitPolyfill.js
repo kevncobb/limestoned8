@@ -1,8 +1,8 @@
 /*----------------------------------------
- * objectFitPolyfill 2.3.0
+ * objectFitPolyfill 2.3.5
  *
  * Made by Constance Chen
- * Released under the MIT license
+ * Released under the ISC license
  *
  * https://github.com/constancecchen/object-fit-polyfill
  *--------------------------------------*/
@@ -13,11 +13,11 @@
   // if the page is being rendered on the server, don't continue
   if (typeof window === 'undefined') return;
 
-  // Workaround for Edge 16+, which only implemented object-fit for <img> tags
-  // TODO: Keep an eye on Edge to determine which version has full final support
-  var edgeVersion = window.navigator.userAgent.match(/Edge\/(\d{2})\./);
+  // Workaround for Edge 16-18, which only implemented object-fit for <img> tags
+  var edgeMatch = window.navigator.userAgent.match(/Edge\/(\d{2})\./);
+  var edgeVersion = edgeMatch ? parseInt(edgeMatch[1], 10) : null;
   var edgePartialSupport = edgeVersion
-    ? parseInt(edgeVersion[1], 10) >= 16
+    ? edgeVersion >= 16 && edgeVersion <= 18
     : false;
 
   // If the browser does support object-fit, we don't need to continue
@@ -99,7 +99,7 @@
    *
    * @param {string} axis - either "x" or "y"
    * @param {node} $media - img or video element
-   * @param {string} objectPosition - e.g. "50% 50%", "top bottom"
+   * @param {string} objectPosition - e.g. "50% 50%", "top left"
    */
   var setPosition = function(axis, $media, objectPosition) {
     var position, other, start, end, side;
@@ -109,6 +109,7 @@
       objectPosition[1] = objectPosition[0];
     }
 
+    /* istanbul ignore else */
     if (axis === 'x') {
       position = objectPosition[0];
       other = objectPosition[1];
@@ -143,7 +144,7 @@
 
     // Percentage values (e.g., 30% 10%)
     if (position.indexOf('%') >= 0) {
-      position = parseInt(position);
+      position = parseInt(position, 10);
 
       if (position < 50) {
         $media.style[start] = position + '%';

@@ -1,7 +1,7 @@
 mobile_detect.settings:
   type: config_object
-  label: 'Mobile Detect Settings'
+  label: 'Mobile Detect'
   mapping:
-    add_cache_context:
-       type: boolean
-       label: 'Add cache context'
+    mobile_detect_is_mobile:
+      type: boolean
+      label: 'Add mobile_detect_is_mobile page cache context (experimental)'

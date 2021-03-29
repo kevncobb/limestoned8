@@ -4,13 +4,20 @@ A polyfill for browsers that don't support the `object-fit` CSS property. Unsure
 
 ## Features
 
-- Lightweight - 3KB (2KB with the basic version)
-- Vanilla Javascript - works with or without jQuery
-- Supports IE 9+, iOS 7-, and Android 4.4-
-- Supports `object-position`
 - Works with `img`, `picture`, `srcset`, `video`, and `canvas`
-- Plug and play - just include the .js file and set data attributes on your elements.
-- Please note: This plugin makes the assumption that the parent container is acting as a picture frame, and already has a height & width set.
+- Supports `object-position`
+- Supports IE 9+, Edge 18-, iOS 7-, and Android 4.4-
+- Lightweight
+  - 3KB (2KB with the basic version)
+  - No dependencies: vanilla Javascript (works with or without jQuery)
+- Flexible usage
+  - [Drop in an HTML script tag](#usage) on a static page
+  - Or [import it into your modern JS SPA](#usage-within-a-modern-es6webpack-js-project) (Typescript supported)
+
+### Requirements
+
+- This plugin requires setting data attributes on elements that you want polyfilled (`data-object-fit`).
+- This plugin makes the assumption that the parent container is acting as a picture frame - it must have a height & width set.
 
 ## Demo
 
@@ -18,7 +25,7 @@ You can check out the [bare-bones demo here](http://constancecchen.github.io/obj
 
 ## How does it work?
 
-Unlike [object-fit-images](https://github.com/bfred-it/object-fit-images) or [Primož Cigler's method](https://medium.com/@primozcigler/neat-trick-for-css-object-fit-fallback-on-edge-and-other-browsers-afbc53bbb2c3#.17fpxgk0w) (both excellent alternatives if you'd rather not use this one), this polyfill does not set a background image on the parent container, but instead resizes and repositions the image (using inline CSS for height, width, absolute positioning, and negative margins).
+Unlike [object-fit-images](https://github.com/fregante/object-fit-images) or [Primož Cigler's method](https://medium.com/@primozcigler/neat-trick-for-css-object-fit-fallback-on-edge-and-other-browsers-afbc53bbb2c3#.17fpxgk0w) (both excellent alternatives if you'd rather not use this one), this polyfill does not set a background image on the parent container, but instead resizes and repositions the image (using inline CSS for height, width, absolute positioning, and negative margins).
 
 The polyfilled item will receive the class `object-fit-polyfill` if styling issues occur that require overrides.
 
@@ -112,18 +119,6 @@ If you're only interested in using the basic polyfill (which assumes `object-fit
 <script src="dist/objectFitPolyfill.basic.min.js"></script>
 ```
 
-## Installation via package managers
-
-Alternatively, if you prefer not to manually add Javascript files to your sites, you can use bower and npm like so:
-
-```
-bower install objectFitPolyfill
-```
-
-```
-npm install objectFitPolyfill
-```
-
 ## Advanced usage
 
 If you need to dynamically call the polyfill on the fly for any reason (for example, carousels or lazy-loaded images), you can do so quite easily:
@@ -143,6 +138,29 @@ objectFitPolyfill(elements);
 // Rerun the polyfill with a jQuery selector
 objectFitPolyfill($('.baz'));
 ```
+
+## Installation via package managers
+
+If you prefer not to manually add Javascript files to your sites, you can use bower and npm like so:
+
+```sh
+npm install objectFitPolyfill
+yarn add objectFitPolyfill
+# Or:
+bower install objectFitPolyfill
+```
+
+### Usage within a modern ES6/webpack JS project
+
+```js
+import 'objectFitPolyfill';
+// Or:
+require('objectFitPolyfill');
+
+window.objectFitPolyfill();
+```
+
+Note that in SPA's, you must manually call `window.objectFitPolyfill()` after component mount / once you're sure your media is loaded in & available. [See this example React usage](https://github.com/constancecchen/object-fit-polyfill/issues/54#issuecomment-525904688).
 
 ## Requests?
 

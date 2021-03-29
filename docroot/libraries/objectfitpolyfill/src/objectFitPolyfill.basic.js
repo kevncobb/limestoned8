@@ -1,11 +1,11 @@
 /*----------------------------------------
- * objectFitPolyfill 2.3.0
+ * objectFitPolyfill 2.3.5
  *
  * Basic, no-frills version -
  * Defaults to object-fit: cover and object-position: 50% 50%
  *
  * Made by Constance Chen
- * Released under the MIT license
+ * Released under the ISC license
  *
  * https://github.com/constancecchen/object-fit-polyfill
  *--------------------------------------*/
@@ -16,11 +16,11 @@
   // if the page is being rendered on the server, don't continue
   if (typeof window === 'undefined') return;
 
-  // Workaround for Edge 16+, which only implemented object-fit for <img> tags
-  // TODO: Keep an eye on Edge to determine which version has full final support
-  var edgeVersion = window.navigator.userAgent.match(/Edge\/(\d{2})\./);
+  // Workaround for Edge 16-18, which only implemented object-fit for <img> tags
+  var edgeMatch = window.navigator.userAgent.match(/Edge\/(\d{2})\./);
+  var edgeVersion = edgeMatch ? parseInt(edgeMatch[1], 10) : null;
   var edgePartialSupport = edgeVersion
-    ? parseInt(edgeVersion[1], 10) >= 16
+    ? edgeVersion >= 16 && edgeVersion <= 18
     : false;
 
   // If the browser does support object-fit, we don't need to continue
