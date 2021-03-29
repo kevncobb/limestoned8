@@ -173,6 +173,7 @@ class ComposerStaticInit6872d14edd3f825f03f324a54b50bb39
         'D' => 
         array (
             'Drupal\\sophron\\' => 15,
+            'Drupal\\redis\\' => 13,
             'Drupal\\Driver\\' => 14,
             'Drupal\\Core\\' => 12,
             'Drupal\\Composer\\Plugin\\Scaffold\\' => 32,
@@ -490,6 +491,10 @@ class ComposerStaticInit6872d14edd3f825f03f324a54b50bb39
         'Drupal\\sophron\\' => 
         array (
             0 => __DIR__ . '/../..' . '/docroot/modules/contrib/sophron/src',
+        ),
+        'Drupal\\redis\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/docroot/modules/contrib/redis/src',
         ),
         'Drupal\\Driver\\' => 
         array (

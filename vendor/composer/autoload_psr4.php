@@ -76,6 +76,7 @@ return array(
     'FileEye\\MimeMap\\' => array($vendorDir . '/fileeye/mimemap/src'),
     'Egulias\\EmailValidator\\' => array($vendorDir . '/egulias/email-validator/src'),
     'Drupal\\sophron\\' => array($baseDir . '/docroot/modules/contrib/sophron/src'),
+    'Drupal\\redis\\' => array($baseDir . '/docroot/modules/contrib/redis/src'),
     'Drupal\\Driver\\' => array($baseDir . '/docroot/drivers/lib/Drupal/Driver'),
     'Drupal\\Core\\' => array($baseDir . '/docroot/core/lib/Drupal/Core'),
     'Drupal\\Composer\\Plugin\\Scaffold\\' => array($vendorDir . '/drupal/core-composer-scaffold'),

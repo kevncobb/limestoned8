@@ -24,7 +24,8 @@
         "drupal/search_api_solr": "^4.1",
         "drupal/context": "^4.0@beta",
         "drupal/mobile_detect": "^2.5",
-        "drupal/webform": "^6.0"
+        "drupal/webform": "^6.0",
+        "drupal/redis": "^1.5"
     },
     "conflict": {
         "drupal/drupal": "*"
