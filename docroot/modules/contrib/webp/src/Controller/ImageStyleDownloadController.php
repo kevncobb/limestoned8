@@ -106,6 +106,8 @@ class ImageStyleDownloadController extends FileDownloadController {
     $target = $request->query->get('file');
     $image_uri = $scheme . '://' . $target;
 
+    $is_uppercase = FALSE;
+    $found_extension = NULL;
     if ($webp_wanted = preg_match('/\.webp$/', $image_uri)) {
       $path_info = pathinfo($image_uri);
 
@@ -124,14 +126,20 @@ class ImageStyleDownloadController extends FileDownloadController {
         '.png',
       ];
       foreach ($extensions as $extension) {
-        $possible_image_uris[] = str_replace('.webp', mb_strtoupper($extension), $image_uri);
-        $possible_image_uris[] = str_replace('.webp', $extension, $image_uri);
-      }
-
-      foreach ($possible_image_uris as $possible_image_uri) {
+        $possible_image_uri = str_replace('.webp', $extension, $image_uri);
         if (file_exists($possible_image_uri)) {
           $image_uri = $possible_image_uri;
+          $found_extension = $extension;
           break;
+        }
+        else {
+          $possible_image_uri = str_replace('.webp', mb_strtoupper($extension), $image_uri);
+          if (file_exists($possible_image_uri)) {
+            $image_uri = $possible_image_uri;
+            $is_uppercase = TRUE;
+            $found_extension = $extension;
+            break;
+          }
         }
       }
     }
@@ -155,8 +163,22 @@ class ImageStyleDownloadController extends FileDownloadController {
     // starts with styles/.
     $valid = !empty($image_style) && $this->streamWrapperManager->isValidScheme($scheme);
     if (!$this->config('image.settings')->get('allow_insecure_derivatives') || strpos(ltrim($target, '\/'), 'styles/') === 0) {
-      $valid &= $request->query->get(IMAGE_DERIVATIVE_TOKEN) === $image_style->getPathToken($image_uri);
+      $token_valid = $request->query->get(IMAGE_DERIVATIVE_TOKEN) === $image_style->getPathToken($image_uri);
     }
+    if (!$token_valid && $found_extension) {
+      // Try comparing to an $image_uri with the opposite case extension.
+      if ($is_uppercase) {
+        $test_ext = mb_strtoupper($found_extension);
+        $replace_ext = $found_extension;
+      }
+      else {
+        $test_ext = $found_extension;
+        $replace_ext = mb_strtoupper($found_extension);
+      }
+      $image_uri = str_replace($test_ext, $replace_ext, $image_uri);
+      $token_valid = $request->query->get(IMAGE_DERIVATIVE_TOKEN) === $image_style->getPathToken($image_uri);
+    }
+    $valid &= $token_valid;
     if (!$valid) {
       throw new AccessDeniedHttpException();
     }

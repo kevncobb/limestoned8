@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2ce344f18840125dee67358dd04a624b",
+    "content-hash": "34bcc5cb4e3b060897072096f6a3432c",
     "packages": [
         {
             "name": "abraham/twitteroauth",
@@ -4959,8 +4959,7 @@
             "homepage": "https://www.drupal.org/project/default_content",
             "support": {
                 "source": "https://git.drupalcode.org/project/default_content"
-            },
-            "time": "2021-02-05T01:01:50+00:00"
+            }
         },
         {
             "name": "drupal/devel",
@@ -5745,8 +5744,7 @@
                 "source": "https://git.drupalcode.org/project/entity_browser",
                 "issues": "https://www.drupal.org/project/issues/entity_browser",
                 "irc": "irc://irc.freenode.org/drupal-contribute"
-            },
-            "time": "2021-03-01T20:09:03+00:00"
+            }
         },
         {
             "name": "drupal/entity_browser_enhanced",
@@ -12936,8 +12934,7 @@
             "support": {
                 "source": "https://git.drupalcode.org/project/social_auth_twitter",
                 "issues": "https://www.drupal.org/project/issues/social_auth_twitter"
-            },
-            "time": "2021-02-27T15:16:59+00:00"
+            }
         },
         {
             "name": "drupal/sophron",
@@ -16305,6 +16302,9 @@
                         "status": "not-covered",
                         "message": "Beta releases are not covered by Drupal security advisories."
                     }
+                },
+                "patches_applied": {
+                    "Issue #3186383: Access Denied on WebP images with Image Optimize API": "https://www.drupal.org/files/issues/2021-01-19/webp_access_denied-3186383-10.patch"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
