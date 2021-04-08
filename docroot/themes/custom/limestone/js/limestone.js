@@ -61,6 +61,22 @@
       $(context).find('.large-4 nav h2 span:has(a)').addClass( "has-link" );
     }
   };
+  Drupal.behaviors.remove_duplicate_courses = {
+    attach: function (context, settings) {
+      $(document).ready(function() {
+        var seen = {};
+        $('.block-views-blockcourses-block-1 table.cols-0 tr').each(function() {
+          var txt = $(this).children("td").text();
+          //console.log(txt)
+          // $(this).isEmpty(td) == true )
+          if ( (seen[txt]) || $(this).find('td').is(':empty') )  //
+            $(this).remove();
+          else
+            seen[txt] = true;
+        });
+      });
+    }
+  };
   Drupal.behaviors.customCKEditorConfig = {
     attach: function (context, settings) {
       if (typeof CKEDITOR !== "undefined") {

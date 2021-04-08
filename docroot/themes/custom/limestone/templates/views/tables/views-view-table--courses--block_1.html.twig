@@ -37,7 +37,6 @@
     sticky ? 'sticky-enabled',
   ]
 %}
-{{ attach_library('limestone/jquery') }}
 
 <table{{ attributes.addClass(classes) }}>
   {% if caption_needed %}
@@ -124,19 +123,3 @@
     {% endfor %}
   </tbody>
 </table>
-<script>
-  (function($, Drupal, window, document, undefined) {
-    $(document).ready(function() {
-      var seen = {};
-      $('table tr').each(function() {
-        var txt = $(this).children("td").text();
-        console.log(txt)
-        // $(this).isEmpty(td) == true )
-        if ( (seen[txt]) || $(this).find('td').is(':empty') )  //
-          $(this).remove();
-        else
-          seen[txt] = true;
-      });
-    });
-  })(jQuery, Drupal, this, this.document);
-</script>
