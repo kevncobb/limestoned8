@@ -239,6 +239,10 @@ p {
   background-color: $limestone-blue;
   width: 100%;
   color: white;
+  &.bg-gradient {
+    background: rgb(30,48,96);
+    background: linear-gradient(90deg, rgba(30,48,96,1) 0%, rgba(45,119,188,1) 100%);
+  }
   &.bg-faded {
     background-color: rgba($limestone-blue, 0.7);
   }
