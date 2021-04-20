@@ -21,26 +21,37 @@
 .top-bar {
   [class^="menu-icon-"]::before, [class*=" menu-icon-"]::before {
     position: absolute;
-    font-size: 19px;
+    font-size: 17px;
     top: 9px;
     left: -23px;
   }
   a.menu-button {
-    padding: 8px 10px 8px 25px;
+    padding: 11px 10px 11px 28px;
     &::before {
-      left: 4px;
-      top: 5px;
+      left: 6px;
+      top: 8px;
     }
     &.red {
       background-color: $alert-color;
       color: black;
+      &:hover, &:focus {
+        background: smart-scale($alert-color, 10%, 10%) !important;
+        color: black;
+      }
     }
     &.green {
       background-color: $success-color;
+      &:hover, &:focus {
+        background: smart-scale($success-color, 10%, 10%) !important;
+      }
     }
     &.yellow {
       background-color: $warning-color;
       color: black;
+      &:hover, &:focus {
+        background: smart-scale($warning-color, 10%, 10%) !important;
+        color: black;
+      }
     }
   }
 }
