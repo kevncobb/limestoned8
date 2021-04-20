@@ -18,7 +18,7 @@
     }
   }
 }
-.top-bar-menu {
+.top-bar {
   [class^="menu-icon-"]::before, [class*=" menu-icon-"]::before {
     position: absolute;
     font-size: 19px;
@@ -76,6 +76,8 @@
   line-height: 1;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  width: auto;
+  height: auto;
   font-size: 22px;
   top: 6px;
   left: -4px;
@@ -95,6 +97,8 @@
   font-weight: normal;
   font-variant: normal;
   text-transform: none;
+  width: auto;
+  height: auto;
   line-height: 1;
 
   // Better Font Rendering ===========
@@ -117,6 +121,8 @@
   line-height: 1;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  width: auto;
+  height: auto;
   font-size: 18px;
   top: 8px;
   left: -22px;
@@ -131,7 +137,8 @@
   font-variant: normal;
   text-transform: none;
   line-height: 1;
-
+  width: auto;
+  height: auto;
   // Better Font Rendering ===========
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -152,7 +159,8 @@
   font-variant: normal;
   text-transform: none;
   line-height: 1;
-
+  width: auto;
+  height: auto;
   // Better Font Rendering ===========
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
