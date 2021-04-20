@@ -33,14 +33,7 @@
   }
 }
 
-.top-bar-menu {
-  [class^="menu-icon-"]::before, [class*=" menu-icon-"]::before {
-      position: absolute;
-      font-size: 19px;
-      top: 9px;
-      left: -23px;
-    }
-}
+
 
 @include breakpoint(smedium down) {
   .top-bar, .bottom-bar {

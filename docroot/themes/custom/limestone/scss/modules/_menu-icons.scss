@@ -18,6 +18,32 @@
     }
   }
 }
+.top-bar-menu {
+  [class^="menu-icon-"]::before, [class*=" menu-icon-"]::before {
+    position: absolute;
+    font-size: 19px;
+    top: 9px;
+    left: -23px;
+  }
+  a.menu-button {
+    padding: 8px 10px 8px 25px;
+    &::before {
+      left: 4px;
+      top: 5px;
+    }
+    &.red {
+      background-color: $alert-color;
+      color: black;
+    }
+    &.green {
+      background-color: $success-color;
+    }
+    &.yellow {
+      background-color: $warning-color;
+      color: black;
+    }
+  }
+}
 .menu-icon-saints {
   padding: 20px 40px !important;
   bottom: -1px !important;
@@ -51,9 +77,8 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-size: 22px;
-  font-size: 25px;
-  top: 10px;
-  left: -6px;
+  top: 6px;
+  left: -4px;
 }
 .menu-icon-lc-portal::before {
   background-position: -126px -235px;
@@ -92,9 +117,9 @@
   line-height: 1;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  font-size: 22px;
-  top: 11px;
-  left: -11px;
+  font-size: 18px;
+  top: 8px;
+  left: -22px;
 }
 .menu-icon-mail::before {
   content: "\e945";
