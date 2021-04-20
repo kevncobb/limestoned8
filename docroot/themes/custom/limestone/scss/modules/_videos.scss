@@ -42,3 +42,9 @@
 .video-player-icon.js-video-player-icon {
   padding-right: 4%;
 }
+
+.hide-video-title {
+  .video-title {
+    @extend .show-for-sr;
+  }
+}
