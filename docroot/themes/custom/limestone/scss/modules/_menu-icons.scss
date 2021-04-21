@@ -18,6 +18,11 @@
     }
   }
 }
+.block-newstudentmenu {
+  ul {
+    float: right;
+  }
+}
 .top-bar {
   [class^="menu-icon-"]::before, [class*=" menu-icon-"]::before {
     position: absolute;
@@ -27,6 +32,7 @@
   }
   a.menu-button {
     padding: 11px 10px 11px 28px;
+    margin: 0 0 0 10px;
     &::before {
       left: 6px;
       top: 8px;
