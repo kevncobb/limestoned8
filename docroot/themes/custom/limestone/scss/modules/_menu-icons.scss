@@ -42,16 +42,21 @@
       color: black;
       &:hover, &:focus {
         background: smart-scale($alert-color, 10%, 10%) !important;
-        color: black;
+        color: white;
         &::before {
-          color: black;
+          color: white;
         }
       }
     }
     &.green {
       background-color: $success-color;
+      color: black;
       &:hover, &:focus {
         background: smart-scale($success-color, 10%, 10%) !important;
+        color: white;
+        &::before {
+          color: white;
+        }
       }
     }
     &.yellow {
