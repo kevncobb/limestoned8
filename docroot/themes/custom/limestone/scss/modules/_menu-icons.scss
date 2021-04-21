@@ -37,6 +37,9 @@
       &:hover, &:focus {
         background: smart-scale($alert-color, 10%, 10%) !important;
         color: black;
+        &::before {
+          color: black;
+        }
       }
     }
     &.green {
@@ -51,6 +54,9 @@
       &:hover, &:focus {
         background: smart-scale($warning-color, 10%, 10%) !important;
         color: black;
+        &::before {
+          color: black;
+        }
       }
     }
   }
@@ -89,7 +95,22 @@
   -moz-osx-font-smoothing: grayscale;
   width: auto;
   height: auto;
-  font-size: 22px;
+  top: 6px;
+  left: -4px;
+}
+.menu-icon-visit::before {
+  content: "\e915";
+  font-family: 'icomoon' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  width: auto;
+  height: auto;
   top: 6px;
   left: -4px;
 }
