@@ -31,7 +31,9 @@ function limestone_foundation_paragraphs_theme($existing, $type, $theme, $path) 
     'field__paragraph__bp_image__image' => ['base hook' => 'paragraph'],
   ];
 }
-
+function isMobile() {
+  return preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo|fone|hiptop|mini|mobi|palm|phone|pie|tablet|up\.browser|up\.link|webos|wos)/i", $_SERVER["HTTP_USER_AGENT"]);
+}
 /**
  * Implements hook_preprocess_paragraph().
  */
@@ -48,11 +50,22 @@ function limestone_foundation_paragraphs_preprocess_paragraph(&$variables) {
 
       $target_id = $paragraph->get('bp_image_field')->entity->field_media_image->target_id;
       $file = File::load($target_id);
-      if (isset($file)) {
-        $file_uri = $file->getFileUri();
-        $style = ImageStyle::load('de2e');
-        $file_path = $style->buildUrl($file_uri);
+      // Use the function
+      if(isMobile()){
+        if (isset($file)) {
+          $file_uri = $file->getFileUri();
+          $style = ImageStyle::load('d10');
+          $file_path = $style->buildUrl($file_uri);
+        }
       }
+      else {
+        if (isset($file)) {
+          $file_uri = $file->getFileUri();
+          $style = ImageStyle::load('de2e');
+          $file_path = $style->buildUrl($file_uri);
+        }
+      }
+
     }
   }
 
