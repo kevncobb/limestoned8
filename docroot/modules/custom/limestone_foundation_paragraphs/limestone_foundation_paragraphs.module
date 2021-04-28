@@ -50,7 +50,7 @@ function limestone_foundation_paragraphs_preprocess_paragraph(&$variables) {
       $file = File::load($target_id);
       if (isset($file)) {
         $file_uri = $file->getFileUri();
-        $style = ImageStyle::load('s12');
+        $style = ImageStyle::load('de2e');
         $file_path = $style->buildUrl($file_uri);
       }
     }
