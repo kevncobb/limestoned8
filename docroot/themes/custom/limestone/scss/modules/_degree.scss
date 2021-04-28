@@ -33,6 +33,10 @@
 .degree-header.youtube-section {
   height: 64vw;
   max-height: 64vh;
+  &.taller {
+    height: 80vw;
+    max-height: 80vh;
+  }
 }
 .degree-related-news {
   padding: 1.5rem;
