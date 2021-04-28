@@ -53,14 +53,21 @@
     text-decoration: none;
     text-transform: uppercase;
     font-weight: 700;
-    font-size: 1rem;
+    font-size: 0.8rem;
   }
   th {
     font-family: $header-font-family;
     text-transform: uppercase;
-    font-size: 1.4rem;
+    font-size: 1rem;
+    line-height: 1.2rem;
     background-color: $limestone-blue;
     color: white;
+    &:first-child {
+      width: 40%;
+    }
+  }
+  td {
+    font-size: 0.8rem;
   }
   form.views-exposed-form {
     background-color: #f1f1f1;
@@ -84,12 +91,26 @@
       padding: 9px 17px;
     }
     select {
-      height: 45px
+      height: 45px;
     }
     label {
       color: $limestone-blue;
       text-transform: uppercase;
       font-weight: bold;
+    }
+  }
+  @include breakpoint(smedium) {
+    a.learn-more-link {
+      font-size: 1rem;
+    }
+    th {
+      font-size: 1.4rem;
+      &:first-child {
+        width: auto;
+      }
+    }
+    td {
+      font-size: 1.1rem;
     }
   }
 }
