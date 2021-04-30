@@ -39,7 +39,6 @@
     }
     &.red {
       background-color: $alert-color;
-      color: black;
       &:hover, &:focus {
         background: smart-scale($alert-color, 10%, 10%) !important;
         color: white;
@@ -50,7 +49,6 @@
     }
     &.green {
       background-color: $success-color;
-      color: black;
       &:hover, &:focus {
         background: smart-scale($success-color, 10%, 10%) !important;
         color: white;
