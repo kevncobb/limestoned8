@@ -8,13 +8,18 @@
 
   &__background {
     position: absolute;
-    top: 50%;
+    top: 41%;
     left: 50%;
-    width : 100%;
+    width: 143%;
     height: 0;
     padding-bottom: 66.25%;
     transform: translate(-50%, -50%);
     pointer-events: none;
+    @include breakpoint(xxxlarge) {
+      top: 50%;
+      left: 50%;
+      width: 111%;
+    }
   }
 
   &__video-overlay {
