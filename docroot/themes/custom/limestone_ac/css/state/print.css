@@ -377,7 +377,11 @@ ol.breadcrumb {
 #pf-body h3.bar-header,
 #pf-body h4.bar-header {
   color: white;
-  margin: 0 0 10px;
+  background: #0038a5;
+  text-transform: uppercase;
+  padding: 15px;
+  font-weight: 100;
+  margin: 3rem 0;
 }
 #pf-body h2 {
   font-size: 2rem;
