@@ -175,6 +175,11 @@ class ContextListBuilder extends ConfigEntityListBuilder implements FormInterfac
             'title' => $this->t('Edit'),
             'url' => $context->toUrl('edit-form'),
           ],
+          'duplicate' => [
+            'title' => $this->t('Duplicate'),
+            'url' => $context->toUrl('duplicate-form'),
+            'attributes' => $this->getAjaxAttributes(),
+          ],
           'delete' => [
             'title' => $this->t('Delete'),
             'url' => $context->toUrl('delete-form'),

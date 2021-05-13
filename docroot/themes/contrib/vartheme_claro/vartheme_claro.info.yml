@@ -182,7 +182,7 @@ ckeditor_stylesheets:
   - ../../../core/themes/claro/css/theme/ckeditor-frame.css
   - ../../../core/themes/claro/css/classy/components/media-embed-error.css
 
-# Information added by Drupal.org packaging script on 2020-12-08
-version: '2.1.7'
+# Information added by Drupal.org packaging script on 2021-03-30
+version: '2.1.8'
 project: 'vartheme_claro'
-datestamp: 1607422046
+datestamp: 1617108054

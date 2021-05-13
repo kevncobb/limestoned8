@@ -82,8 +82,13 @@ class Theme extends ContextReactionPluginBase implements ContainerFactoryPluginI
 
     $themes = $this->themeHandler->listInfo();
     $default_theme = $this->themeHandler->getDefault();
+    $admin_theme = \Drupal::config('system.theme')->get('admin');
 
-    $theme_options = [];
+    $theme_options = [
+      '_default' => t('Default theme (@name)', ['@name' => $this->themeHandler->getName($default_theme)]),
+      '_admin' => t('Admin theme (@name)', ['@name' => $this->themeHandler->getName($admin_theme)]),
+    ];
+
     foreach ($themes as $theme_id => $theme) {
       $theme_options[$theme_id] = $theme->info['name'];
     }

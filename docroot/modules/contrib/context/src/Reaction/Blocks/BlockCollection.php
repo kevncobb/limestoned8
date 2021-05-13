@@ -36,7 +36,7 @@ class BlockCollection extends DefaultLazyPluginCollection {
     foreach ($this as $block_id => $block) {
       $configuration = $block->getConfiguration();
 
-      if ($configuration['theme'] !== $theme) {
+      if (isset($configuration['theme']) && $configuration['theme'] !== $theme) {
         continue;
       }
 

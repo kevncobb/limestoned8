@@ -54,6 +54,24 @@ condition.plugin.view_inclusion:
       type: sequence
       label: 'View Inclusion'
 
+condition.plugin.http_status_code:
+  type: condition.plugin
+  label: 'HTTP Status Code Condition'
+  mapping:
+    status_codes:
+      type: mapping
+      label: 'Status Codes'
+      mapping:
+        200:
+          type: integer
+          label: '200'
+        403:
+          type: integer
+          label: '403'
+        404:
+          type: integer
+          label: '404'
+
 reaction.plugin.menu:
   type: reaction.plugin
   mapping:

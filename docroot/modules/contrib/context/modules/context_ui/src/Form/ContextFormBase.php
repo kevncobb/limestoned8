@@ -103,6 +103,15 @@ abstract class ContextFormBase extends EntityForm {
       '#description' => $this->t('Enter a description for this context definition.'),
     ];
 
+    if ($this->entity->id()) {
+      $form['general']['enable'] = [
+        '#type' => 'checkbox',
+        '#title' => $this->t('Context enabled'),
+        '#default_value' => !$this->entity->disabled(),
+        '#description' => $this->t('Check it if want to let this context enabled.'),
+      ];
+    }
+
     return $form;
   }
 
@@ -123,6 +132,11 @@ abstract class ContextFormBase extends EntityForm {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
+    // Enable or disable context.
+    if ($this->entity->disabled() == $form_state->getValue('enable') && $this->entity->id()) {
+      $this->entity->disable();
+    }
+
     // Save entity values that the built in submit handler cant take care of.
     if ($form_state->hasValue('require_all_conditions')) {
       $this->entity->setRequireAllConditions($form_state->getValue('require_all_conditions'));

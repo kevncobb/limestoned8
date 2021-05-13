@@ -23,12 +23,14 @@ use Drupal\context\Plugin\ContextReactionPluginCollection;
  *       "edit" = "Drupal\context_ui\Form\ContextEditForm",
  *       "delete" = "Drupal\context_ui\Form\ContextDeleteForm",
  *       "disable" = "Drupal\context_ui\Form\ContextDisableForm",
+ *       "duplicate" = "Drupal\context_ui\Form\ContextDuplicateForm",
  *     }
  *   },
  *   links = {
  *     "edit-form" = "/admin/structure/context/{context}",
  *     "delete-form" = "/admin/structure/context/{context}/delete",
  *     "disable-form" = "/admin/structure/context/{context}/disable",
+ *     "duplicate-form" = "/admin/structure/context/{context}/duplicate",
  *     "collection" = "/admin/structure/context",
  *   },
  *   admin_permission = "administer contexts",
@@ -373,6 +375,19 @@ class Context extends ConfigEntityBase implements ContextInterface {
    */
   public function disabled() {
     return $this->disabled;
+  }
+
+  /**
+   * Duplicates the context.
+   */
+  public function duplicate($label, $name, $description) {
+    $context = $this->entityTypeManager()->getStorage('context')->load($this->id());
+    $clone = $context->createDuplicate();
+    $clone->setName($name);
+    $clone->setLabel($label);
+    $clone->setDescription($description);
+
+    $clone->save();
   }
 
 }

@@ -71,8 +71,19 @@ class ThemeSwitcherNegotiator implements ThemeNegotiatorInterface {
         $configuration = $theme_reaction->getConfiguration();
         // Be sure the theme key really exists.
         if (isset($configuration['theme'])) {
-          $this->theme = $configuration['theme'];
-          return TRUE;
+          switch ($configuration['theme']) {
+            case '_admin':
+              $this->theme = \Drupal::config('system.theme')->get('admin');
+              return TRUE;
+
+            case '_default':
+              $this->theme = \Drupal::config('system.theme')->get('default');
+              return TRUE;
+
+            default:
+              $this->theme = $configuration['theme'];
+              return TRUE;
+          }
         }
       }
     }

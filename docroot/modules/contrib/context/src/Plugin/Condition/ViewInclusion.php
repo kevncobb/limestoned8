@@ -73,7 +73,6 @@ class ViewInclusion extends ConditionPluginBase implements ContainerFactoryPlugi
    * {@inheritdoc}
    */
   public function buildConfigurationForm(array $form, FormStateInterface $form_state) {
-
     $views = $this->entityTypeManager->getStorage('view')->loadMultiple();
     $options = [];
     foreach ($views as $key => $view) {
@@ -95,37 +94,72 @@ class ViewInclusion extends ConditionPluginBase implements ContainerFactoryPlugi
       '#default_value' => isset($configuration['view_inclusion']) && !empty($configuration['view_inclusion']) ? array_keys($configuration['view_inclusion']) : [],
     ];
 
+    $form = parent::buildConfigurationForm($form, $form_state);
+    // Hide the negate checkbox.
+    $form['negate']['#access'] = FALSE;
+
     return $form;
   }
 
   /**
    * {@inheritdoc}
    */
+  public function defaultConfiguration() {
+    return ['view_inclusion' => []] + parent::defaultConfiguration();
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function submitConfigurationForm(array &$form, FormStateInterface $form_state) {
-    $this->configuration['view_inclusion'] = array_filter($form_state->getValue('views_pages'));
     parent::submitConfigurationForm($form, $form_state);
+    $this->configuration['view_inclusion'] = array_filter($form_state->getValue('views_pages'));
+    // Defaults negation to FALSE to match the defaultConfiguration.
+    $this->configuration['negate'] = FALSE;
   }
 
   /**
    * {@inheritdoc}
    */
   public function summary() {
-    return t('Select views pages');
+    if (empty($this->configuration['view_inclusion'])) {
+      return $this->t('No views page is selected.');
+    }
+
+    return $this->t(
+      'Return true on the following views pages: @pages',
+      [
+        '@pages' => str_replace(
+          '-',
+          '.',
+          implode(', ', $this->configuration['view_inclusion'])
+        ),
+      ]
+    );
   }
 
   /**
    * {@inheritdoc}
    */
   public function evaluate() {
-    $route = str_replace('.', '-', $this->currentRouteMatch->getRouteName());
-    $configuration = $this->getConfiguration();
-
-    if (array_key_exists('view_inclusion', $configuration) && !empty($configuration['view_inclusion'])) {
-      return in_array($route, $configuration['view_inclusion']);
-    }
-    else {
+    if (empty($this->configuration['view_inclusion'])) {
+      // Return TRUE if empty.
       return TRUE;
     }
+
+    $route = str_replace('.', '-', $this->currentRouteMatch->getRouteName());
+
+    return in_array($route, $this->configuration['view_inclusion'], TRUE);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getCacheContexts() {
+    $contexts = parent::getCacheContexts();
+    $contexts[] = 'url.path';
+    // $contexts[] = 'config:view_list';
+    return $contexts;
   }
 
 }

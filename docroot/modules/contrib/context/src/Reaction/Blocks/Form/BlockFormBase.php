@@ -13,9 +13,10 @@ use Drupal\Core\Ajax\ReplaceCommand;
 use Drupal\Core\Extension\ThemeHandlerInterface;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormBuilderInterface;
-use Drupal\Core\Form\FormState;
 use Drupal\context\ContextInterface;
+use Drupal\Core\Form\FormState;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Form\SubformState;
 use Drupal\Component\Plugin\PluginManagerInterface;
 use Drupal\Core\Plugin\Context\ContextRepositoryInterface;
 use Drupal\Core\Plugin\ContextAwarePluginInterface;
@@ -303,7 +304,7 @@ abstract class BlockFormBase extends FormBase {
    *   The current state of the form.
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    $settings = (new FormState())->setValues($form_state->getValue('settings'));
+    $settings = SubformState::createForSubform($form['settings'], $form, $form_state);
 
     // Call the plugin submit handler.
     $this->block->submitConfigurationForm($form, $settings);

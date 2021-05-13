@@ -86,7 +86,9 @@ Current maintainers:
  * Alexander Hass (hass) - https://www.drupal.org/u/hass
  * Chris Johnson (tekante) - https://www.drupal.org/u/tekante
  * Colan Schwartz (colan) - https://www.drupal.org/u/colan
+ * Paulo Henrique Starling (paulocs) - https://www.drupal.org/u/paulocs
 
 Supporting organizations:
  * AGILEDROP - https://www.drupal.org/agiledrop
  * Colan Schwartz Consulting - https://www.drupal.org/agiledrop
+ * CI&T - https://www.drupal.org/cit

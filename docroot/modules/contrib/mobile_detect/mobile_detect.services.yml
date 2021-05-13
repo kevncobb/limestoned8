@@ -12,4 +12,4 @@ services:
     class: Drupal\mobile_detect\Cache\Context\IsMobileCacheContext
     arguments: ["@mobile_detect"]
     tags:
-      - { name: mobile_detect_is_mobile }
+      - { name: cache.context }

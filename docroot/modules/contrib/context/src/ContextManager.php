@@ -228,7 +228,7 @@ class ContextManager {
             $blocks = $reaction->getBlocks();
             $current_theme = $this->getCurrentTheme();
             foreach ($blocks as $block) {
-              if ($block->getConfiguration()['theme'] == $current_theme) {
+              if (isset($block->getConfiguration()['theme']) && $block->getConfiguration()['theme'] == $current_theme) {
                 $reactions[] = $reaction;
                 break;
               }
@@ -309,19 +309,25 @@ class ContextManager {
    */
   protected function applyContexts(ConditionPluginCollection &$conditions) {
 
+    // If no contexts to check, the return should be TRUE.
+    // For example, empty is the same as sitewide condition.
+    if (count($conditions) === 0) {
+      return TRUE;
+    }
+    $passed = FALSE;
     foreach ($conditions as $condition) {
       if ($condition instanceof ContextAwarePluginInterface) {
         try {
           $contexts = $this->contextRepository->getRuntimeContexts(array_values($condition->getContextMapping()));
           $this->contextHandler->applyContextMapping($condition, $contexts);
+          $passed = TRUE;
         }
         catch (ContextException $e) {
-          return FALSE;
+          continue;
         }
       }
     }
-
-    return TRUE;
+    return $passed;
   }
 
   /**

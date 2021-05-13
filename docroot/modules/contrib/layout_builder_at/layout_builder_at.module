@@ -6,6 +6,7 @@
  */
 
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Site\Settings;
 use Drupal\field\Entity\FieldConfig;
 use Drupal\field\FieldStorageConfigInterface;
 use Drupal\field_ui\Form\EntityDisplayFormBase;
@@ -106,5 +107,28 @@ function layout_builder_at_field_storage_config_presave(FieldStorageConfigInterf
   // layout builder section fields.
   if ($field_storage->getType() === 'layout_section' && $field_storage->getName() === OverridesSectionStorage::FIELD_NAME) {
     $field_storage->setTranslatable(TRUE);
+  }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function layout_builder_at_form_layout_builder_add_block_alter(&$form, FormStateInterface $form_state) {
+  // Set the default language of the block based on the entity language.
+  if (isset($form['settings']['block_form']['#block']) && Settings::get('layout_builder_at_set_content_block_language_to_entity', TRUE)) {
+    /** @var \Drupal\block_content\Entity\BlockContent $block */
+    $block = $form['settings']['block_form']['#block'];
+    if ($block) {
+      $contexts = $form_state->getTemporaryValue('gathered_contexts');
+      if ($contexts && $contexts['layout_builder.entity']) {
+        $entity = $contexts['layout_builder.entity']->getContextValue('entity');
+        if ($entity) {
+          try {
+            $block->set('langcode', $entity->language()->getId());
+          }
+          catch (\Exception $ignored) {}
+        }
+      }
+    }
   }
 }

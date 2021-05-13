@@ -45,7 +45,3 @@ Issue #3165435: Fix tour <front> route as route name when a selected node had be
 Source: https://www.drupal.org/files/issues/2020-08-16/3165435-2.patch
 
 
-Issue #2958588: Off-canvas style resets are overriding styles (especially SVGs) in Safari, Firefox and Chromium Edge resulting in display issues
-Source: https://www.drupal.org/files/issues/2021-01-06/off-canvas-style-resets-2958588-13.patch
-
-

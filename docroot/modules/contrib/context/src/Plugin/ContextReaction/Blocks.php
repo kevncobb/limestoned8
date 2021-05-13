@@ -3,6 +3,7 @@
 namespace Drupal\context\Plugin\ContextReaction;
 
 use Drupal\block\BlockRepositoryInterface;
+use Drupal\Core\Access\AccessResult;
 use Drupal\Core\Plugin\PluginDependencyTrait;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\Core\Url;
@@ -14,6 +15,8 @@ use Drupal\context\ContextInterface;
 use Drupal\context\Form\AjaxFormTrait;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Cache\CacheableMetadata;
+use Drupal\Component\Plugin\Exception\ContextException;
+use Drupal\Component\Plugin\Exception\MissingValueContextException;
 use Drupal\Component\Uuid\UuidInterface;
 use Drupal\Core\Block\BlockPluginInterface;
 use Drupal\Core\Theme\ThemeManagerInterface;
@@ -205,8 +208,29 @@ class Blocks extends ContextReactionPluginBase implements ContainerFactoryPlugin
           $block->setMainContent($main_content);
         }
 
-        // Make sure the user is allowed to view the block.
-        $access = $block->access($this->account, TRUE);
+        // Same as Drupal\block\BlockAccessControlHandler::checkAccess().
+        try {
+          // Inject runtime contexts.
+          // Must be before $block->access() to prevent ContextException.
+          if ($block instanceof ContextAwarePluginInterface) {
+            $contexts = $this->contextRepository->getRuntimeContexts($block->getContextMapping());
+            $this->contextHandler->applyContextMapping($block, $contexts);
+          }
+          // Make sure the user is allowed to view the block.
+          $access = $block->access($this->account, TRUE);
+        }
+        catch (MissingValueContextException $e) {
+          // The contexts exist but have no value. Deny access without
+          // disabling caching.
+          $access = AccessResult::forbidden();
+        }
+        catch (ContextException $e) {
+          // If any context is missing then we might be missing cacheable
+          // metadata, and don't know based on what conditions the block is
+          // accessible or not. Make sure the result cannot be cached.
+          $access = AccessResult::forbidden()->setCacheMaxAge(0);
+        }
+
         $cacheability->addCacheableDependency($access);
 
         // If the user is not allowed then do not render the block.
@@ -221,12 +245,6 @@ class Blocks extends ContextReactionPluginBase implements ContainerFactoryPlugin
           $block->setTitle($title);
         }
 
-        // Inject runtime contexts.
-        if ($block instanceof ContextAwarePluginInterface) {
-          $contexts = $this->contextRepository->getRuntimeContexts($block->getContextMapping());
-          $this->contextHandler->applyContextMapping($block, $contexts);
-        }
-
         $context_entity = $this->entityTypeManager
           ->getStorage('context')
           ->load($configuration['context_id']);
@@ -235,6 +253,8 @@ class Blocks extends ContextReactionPluginBase implements ContainerFactoryPlugin
         // @see template_preprocess_block().
         $block_build = [
           '#theme' => 'block',
+          // Must be defined to avoid array merge error in preRender().
+          '#attributes' => [],
           '#configuration' => $configuration,
           '#plugin_id' => $block->getPluginId(),
           '#base_plugin_id' => $block->getBaseId(),
@@ -249,22 +269,11 @@ class Blocks extends ContextReactionPluginBase implements ContainerFactoryPlugin
               'block',
               $block_placement_key,
             ],
-            'tags' => Cache::mergeTags($block->getCacheTags(), $context_entity->getCacheTags()),
+            'tags' => Cache::mergeTags($block->getCacheTags(), !empty($context_entity) ? $context_entity->getCacheTags() : []),
             'contexts' => $block->getCacheContexts(),
             'max-age' => $block->getCacheMaxAge(),
           ],
         ];
-
-        $block_content = $block->build();
-        $existing_attributes = isset($block_content['#attributes']) ? $block_content['#attributes'] : [];
-        // Merge existing attributes from block with class(es) configured in Context.
-        if (isset($configuration['css_class']) && '' !== $configuration['css_class']) {
-          $new_attributes = [
-            'class' => [$configuration['css_class']],
-          ];
-          $existing_attributes = array_merge_recursive($existing_attributes, $new_attributes);
-        }
-        $block_build['#attributes'] = $existing_attributes;
 
         // Add additional contextual link, for editing block configuration.
         $block_build['#contextual_links']['context_block'] = [
@@ -346,6 +355,26 @@ class Blocks extends ContextReactionPluginBase implements ContainerFactoryPlugin
       }
     }
     else {
+      foreach (['#attributes', '#contextual_links'] as $property) {
+        if (isset($content[$property])) {
+          $build[$property] += $content[$property];
+          unset($content[$property]);
+        }
+      }
+      $block_configuration = $build['#configuration'];
+      // Merge attributes from context.
+      // @see #3150394 and #2979536.
+      $existing_attributes = isset($build['#attributes']) ? $build['#attributes'] : [];
+
+      // Merge existing attributes from block with class(es) configured
+      // in Context.
+      if (isset($block_configuration['css_class']) && '' !== $block_configuration['css_class']) {
+        $new_attributes = [
+          'class' => [$block_configuration['css_class']],
+        ];
+        $existing_attributes = array_merge_recursive($existing_attributes, $new_attributes);
+      }
+      $build['#attributes'] = $existing_attributes;
       $build['content'] = $content;
     }
 

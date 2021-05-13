@@ -1,4 +1,11 @@
 
+Slick Views 8.x-2.0-dev, 2021-04-17
+-----------------------------------
+- Issue #3135699 by amritendu1980, bscwebmaster, kaipipek, kb_klash,
+  stevenfrankdavis, d2d, david.chevillet, chamilsanjeewa, ivnish, ARUN AK,
+  Ahmad Abbad: Lots of whitespace created
+- Updated to D9.
+
 Slick Views 8.x-2.0-dev, 2020-03-01
 -----------------------------------
 - Issue #3114885 by theterencechan: SlickViewsBase throws unexpected error when

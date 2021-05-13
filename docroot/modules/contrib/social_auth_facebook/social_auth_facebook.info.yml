@@ -9,7 +9,7 @@ configure: social_auth_facebook.settings_form
 dependencies:
   - social_auth:social_auth
 
-# Information added by Drupal.org packaging script on 2021-03-19
-version: '3.0.0-rc3'
+# Information added by Drupal.org packaging script on 2021-04-27
+version: '3.0.0'
 project: 'social_auth_facebook'
-datestamp: 1616158179
+datestamp: 1619546977
