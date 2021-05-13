@@ -25,7 +25,8 @@
         "drupal/context": "^4.0@beta",
         "drupal/mobile_detect": "^2.5",
         "drupal/webform": "^6.0",
-        "drupal/redis": "^1.5"
+        "drupal/redis": "^1.5",
+        "drupal/ng_lightbox": "^2.0@beta"
     },
     "conflict": {
         "drupal/drupal": "*"

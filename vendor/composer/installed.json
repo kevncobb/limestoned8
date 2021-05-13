@@ -10090,6 +10090,64 @@
         }
     },
     {
+        "name": "drupal/ng_lightbox",
+        "version": "2.0.0-beta1",
+        "version_normalized": "2.0.0.0-beta1",
+        "source": {
+            "type": "git",
+            "url": "https://git.drupalcode.org/project/ng_lightbox.git",
+            "reference": "2.0.0-beta1"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://ftp.drupal.org/files/projects/ng_lightbox-2.0.0-beta1.zip",
+            "reference": "2.0.0-beta1",
+            "shasum": "5e1c8ed4622bc9afb5686018a564b79f9ce92022"
+        },
+        "require": {
+            "drupal/core": "^8 || ^9"
+        },
+        "type": "drupal-module",
+        "extra": {
+            "drupal": {
+                "version": "2.0.0-beta1",
+                "datestamp": "1617667771",
+                "security-coverage": {
+                    "status": "not-covered",
+                    "message": "Beta releases are not covered by Drupal security advisories."
+                }
+            }
+        },
+        "installation-source": "dist",
+        "notification-url": "https://packages.drupal.org/8/downloads",
+        "license": [
+            "GPL-2.0-or-later"
+        ],
+        "authors": [
+            {
+                "name": "Fool2",
+                "homepage": "https://www.drupal.org/user/19111"
+            },
+            {
+                "name": "Sam152",
+                "homepage": "https://www.drupal.org/user/1485048"
+            },
+            {
+                "name": "acbramley",
+                "homepage": "https://www.drupal.org/user/1036766"
+            },
+            {
+                "name": "benjy",
+                "homepage": "https://www.drupal.org/user/1852732"
+            }
+        ],
+        "description": "A path based lightbox solution using CSS 3 properties.",
+        "homepage": "https://www.drupal.org/project/ng_lightbox",
+        "support": {
+            "source": "https://git.drupalcode.org/project/ng_lightbox"
+        }
+    },
+    {
         "name": "drupal/node_edit_protection",
         "version": "1.0.0",
         "version_normalized": "1.0.0.0",
