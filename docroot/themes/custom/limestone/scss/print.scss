@@ -1,4 +1,4 @@
-aside.off-canvas, .top-bar, .site-header, .main-menu-region, .site-footer, .bottom-bar, .alert-section .block-views-blockcampus-alert-block-1, #block-limestone-local-tasks, .lc-footer, .block-limestone-breadcrumbs {
+aside.off-canvas, .top-bar, .site-header, .main-menu-region, .site-footer, .bottom-bar, .alert-section .block-views-blockcampus-alert-block-1, #block-limestone-local-tasks, .lc-footer, .block-limestone-breadcrumbs, .sidebar {
   display: none;
 }
 h1.sub-header-title {
@@ -15,3 +15,7 @@ h1.sub-header-title {
     display: none;
   }
 }
+.lead {
+  font-size: 1rem;
+}
+a[href*="/"]:after, a[href*="/"]:visited:after {content: normal;}
