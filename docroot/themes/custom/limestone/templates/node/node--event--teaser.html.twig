@@ -82,14 +82,12 @@
     {% if node.field_show_date_as_tba.value %}
       <div class="category large field-wrapper text-content field field-node--field-date field-name-field-date field-type-datetime field-label-hidden">
         {{ node.field_date.value|date('l, F j, Y') }}
-        <div>Time TBA</div>
+        <small style="text-transform: none;display: block;">Time TBA</small>
       </div>
       {{ content|without('comment', 'links', 'field_date','field_tags') }}
     {% else %}
       {{ content|without('comment', 'links','field_tags') }}
     {% endif %}
-
-
   </div>
 
   {% if content.field_tags|length and not is_front %}
