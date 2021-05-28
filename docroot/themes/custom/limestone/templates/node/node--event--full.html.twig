@@ -68,17 +68,11 @@
  */
 #}
 <article id="node-{{ node.id }}" {{ attributes }}>
-
-  {{ title_prefix }}
-  {% if not page %}
-    <h3{{ title_attributes }}>
-      <a href="{{ url }}" rel="bookmark">{{ label }}</a>
-    </h3>
-  {% endif %}
-  {{ title_suffix }}
-
   {# We hide the comments and links now so that we can render them later. #}
   <div{{ content_attributes }}>
+    <h1{{ title_attributes }}>
+      {{ label }}
+    </h1>
     {% if node.field_show_date_as_tba.value %}
       <div class="category large field-wrapper text-content field field-node--field-date field-name-field-date field-type-datetime field-label-hidden">
         {{ node.field_date.value|date('l, F j, Y') }}
