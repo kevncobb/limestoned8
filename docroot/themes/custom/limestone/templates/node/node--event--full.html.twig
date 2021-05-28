@@ -67,6 +67,11 @@
  * @ingroup themeable
  */
 #}
+{% set cell_classes = [
+  'padding-1'
+]
+%}
+
 <article id="node-{{ node.id }}" {{ attributes }}>
   {# We hide the comments and links now so that we can render them later. #}
   <div{{ content_attributes }}>
