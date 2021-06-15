@@ -372,16 +372,18 @@ ol.breadcrumb {
   width: 16.66666667%;
   float: left;
 }
-#pf-body h1.bar-header,
-#pf-body h2.bar-header,
-#pf-body h3.bar-header,
-#pf-body h4.bar-header {
-  color: white;
-  background: #0038a5;
-  text-transform: uppercase;
-  padding: 15px;
-  font-weight: 100;
-  margin: 3rem 0;
+/*
+
+
+#pf-body h1, #pf-body h2, #pf-body h3, #pf-body h4 {
+  &.bar-header {
+    color: white;
+    background: #0038a5;
+    text-transform: uppercase;
+    padding: 15px;
+    font-weight: 100;
+    margin: 3rem 0;
+  }
 }
 #pf-body h2 {
   font-size: 2rem;
@@ -394,8 +396,7 @@ ol.breadcrumb {
   font-weight: 100;
   margin: 3rem 0;
 }
-ul.styled-list-xs li,
-ul.styled-list-xs div.field--item {
+ul.styled-list-xs li, ul.styled-list-xs div.field--item {
   font-size: 1rem;
   padding: 0;
 }
@@ -404,23 +405,26 @@ ul.styled-list-xs div.field--item {
   width: 100%;
   margin-top: 5px;
   padding: 0;
+  .field--label {
+    display: inline-block;
+    float: left;
+    margin-right: 10px;
+    &:after {
+      content: ": "
+    }
+  }
 }
-.field--name-field-total-credit-hours .field--label {
-  display: inline-block;
-  float: left;
-  margin-right: 10px;
-}
-.field--name-field-total-credit-hours .field--label:after {
-  content: ": ";
-}
-table > tbody > tr:nth-of-type(odd) {
-  background-color: #f9f9f9;
-}
-table > tbody > tr > td {
-  padding: 8px;
-  line-height: 1.42857143;
-  vertical-align: top;
-  border-top: 1px solid #dddddd;
+
+table {
+  > tbody > tr:nth-of-type(odd) {
+    background-color: #f9f9f9;
+  }
+  > tbody > tr > td {
+    padding: 8px;
+    line-height: 1.42857143;
+    vertical-align: top;
+    border-top: 1px solid #dddddd;
+  }
 }
 .inline {
   display: inline;
@@ -428,3 +432,8 @@ table > tbody > tr > td {
 #pf-content .node--type-profile .pull-right {
   margin: 0;
 }
+
+.view-faculty-staff-administration.view-display-id-block_3 {
+
+}
+ */
