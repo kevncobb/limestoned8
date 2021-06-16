@@ -373,7 +373,7 @@ ol.breadcrumb {
   float: left;
 }
 body {
-  font-size: 105%;
+  font-size: 1.1rem;
 }
 h1 {
   border-bottom: thin solid gray;
@@ -386,6 +386,7 @@ h1 {
   -webkit-print-color-adjust: exact !important;
   box-shadow: inset #0138a5 190px 190px 250px !important;
   color: #efefef !important;
+  font-size: 1.3rem;
 }
 h1,
 h2,
@@ -395,31 +396,11 @@ h5,
 h6 {
   -webkit-print-color-adjust: exact !important;
 }
-/*
-
-
-#pf-body h1, #pf-body h2, #pf-body h3, #pf-body h4 {
-  &.bar-header {
-    color: white;
-    background: #0038a5;
-    text-transform: uppercase;
-    padding: 15px;
-    font-weight: 100;
-    margin: 3rem 0;
-  }
-}
 #pf-body h2 {
   font-size: 2rem;
 }
-.bar-header {
-  color: white;
-  background: #0038a5;
-  text-transform: uppercase;
-  padding: 15px;
-  font-weight: 100;
-  margin: 3rem 0;
-}
-ul.styled-list-xs li, ul.styled-list-xs div.field--item {
+ul.styled-list-xs li,
+ul.styled-list-xs div.field--item {
   font-size: 1rem;
   padding: 0;
 }
@@ -428,26 +409,23 @@ ul.styled-list-xs li, ul.styled-list-xs div.field--item {
   width: 100%;
   margin-top: 5px;
   padding: 0;
-  .field--label {
-    display: inline-block;
-    float: left;
-    margin-right: 10px;
-    &:after {
-      content: ": "
-    }
-  }
 }
-
-table {
-  > tbody > tr:nth-of-type(odd) {
-    background-color: #f9f9f9;
-  }
-  > tbody > tr > td {
-    padding: 8px;
-    line-height: 1.42857143;
-    vertical-align: top;
-    border-top: 1px solid #dddddd;
-  }
+.field--name-field-total-credit-hours .field--label {
+  display: inline-block;
+  float: left;
+  margin-right: 10px;
+}
+.field--name-field-total-credit-hours .field--label:after {
+  content: ": ";
+}
+table > tbody > tr:nth-of-type(odd) {
+  background-color: #f9f9f9;
+}
+table > tbody > tr > td {
+  padding: 8px;
+  line-height: 1.42857143;
+  vertical-align: top;
+  border-top: 1px solid #dddddd;
 }
 .inline {
   display: inline;
@@ -455,8 +433,3 @@ table {
 #pf-content .node--type-profile .pull-right {
   margin: 0;
 }
-
-.view-faculty-staff-administration.view-display-id-block_3 {
-
-}
- */
