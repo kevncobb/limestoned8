@@ -373,7 +373,18 @@ ol.breadcrumb {
   float: left;
 }
 body {
-  font-size: 90%;
+  font-size: 100%;
+}
+h1 {
+  border-bottom: thin solid gray;
+}
+.bar-header {
+  color: white;
+  background: #0038a5;
+  text-transform: uppercase;
+  padding: 15px;
+  font-weight: 100;
+  margin: 3rem 0;
 }
 /*
 
