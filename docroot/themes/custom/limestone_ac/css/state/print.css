@@ -373,7 +373,7 @@ ol.breadcrumb {
   float: left;
 }
 body {
-  font-size: 100%;
+  font-size: 105%;
 }
 h1 {
   border-bottom: thin solid gray;
@@ -385,6 +385,7 @@ h1 {
   padding: 15px;
   font-weight: 100;
   margin: 3rem 0;
+  -webkit-print-color-adjust: exact !important;
 }
 h1,
 h2,
