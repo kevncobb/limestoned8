@@ -132,6 +132,8 @@ ul.styled-list-small .field--name-field-degrees-and-schools {
   padding: 15px;
   font-weight: 100;
   margin: 3rem 0;
+  display: inline-block;
+  width: 100%;
 }
 .bar-header.no-margin-bottom {
   margin-bottom: 0;
@@ -387,6 +389,11 @@ h1 {
   box-shadow: inset #0138a5 190px 190px 250px !important;
   color: #efefef !important;
   font-size: 1.3rem;
+}
+.bar-header strong {
+  -webkit-print-color-adjust: exact !important;
+  box-shadow: inset #0138a5 190px 190px 250px !important;
+  color: #efefef !important;
 }
 h1,
 h2,
