@@ -379,13 +379,13 @@ h1 {
   border-bottom: thin solid gray;
 }
 .bar-header {
-  color: white;
-  background: #0038a5;
   text-transform: uppercase;
   padding: 15px;
   font-weight: 100;
   margin: 3rem 0;
   -webkit-print-color-adjust: exact !important;
+  box-shadow: inset #0138a5 190px 190px 250px;
+  color: #efefef;
 }
 h1,
 h2,
