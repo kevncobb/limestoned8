@@ -236,6 +236,12 @@ $abbr-underline: 1px dotted $black;
 // ---------------------
 
 $lead-font-size: $global-font-size * 1.4;
+@include breakpoint(small) {
+  $lead-font-size: rem-calc(18);
+}
+@include breakpoint(medium) {
+  $lead-font-size: rem-calc(20);
+}
 @include breakpoint(large) {
   $lead-font-size: rem-calc(22);
 }
