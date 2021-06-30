@@ -121,7 +121,10 @@ $circle-size: 2em;
     }
   }
   a .circle .icon-graduate {
-    margin: 0.8em 0 0 0.6em;
+    margin: 0.5em 0 0 0.35em;
+    @include breakpoint(smedium) {
+      margin: 0.8em 0 0 0.6em;
+    }
   }
   button .circle .icon-graduate {
     margin: 51px 0 0 4px !important;

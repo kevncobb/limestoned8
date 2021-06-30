@@ -235,20 +235,8 @@ $abbr-underline: 1px dotted $black;
 // 5. Typography Helpers
 // ---------------------
 
-$lead-font-size: $global-font-size * 1.4;
-@include breakpoint(small) {
-  $lead-font-size: rem-calc(18);
-}
-@include breakpoint(medium) {
-  $lead-font-size: rem-calc(20);
-}
-@include breakpoint(large) {
-  $lead-font-size: rem-calc(22);
-}
-@include breakpoint(xxlarge) {
-  $lead-font-size: rem-calc(25);
-}
-$lead-lineheight: 1.8;
+$lead-font-size: $global-font-size * 1.2;
+$lead-lineheight: 1.6;
 $subheader-lineheight: 1.4;
 $subheader-color: $dark-gray;
 $subheader-font-weight: $global-weight-normal;

@@ -172,6 +172,16 @@ article.node--type-news {
   }
 }
 
+.md-order-1 {
+  @include breakpoint(smedium) {
+    order: 1;
+  }
+}
+.md-order-2 {
+  @include breakpoint(smedium) {
+    order: 2;
+  }
+}
 
 .bumpup-md-9 {
   position: relative;
